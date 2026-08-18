@@ -22,7 +22,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
           body: |
-            We're unable to replicate your issue. Could you please try it with the latest PrimeNG version? If the problem continues, could you create a reproducer using [PrimeNG Issue Template](https://stackblitz.com/github/primefaces/primeng-issue-template) or provide additional details by editing this issue? This issue will be closed if no activities in 20 days.
+            We're unable to replicate this issue. Please provide a minimal reproducible example or additional details by editing this issue. This issue will be closed if there is no activity in 20 days.
 
       - name: Needs Upvote
         if: contains(github.event.label.name, 'Needs Upvote')
@@ -32,7 +32,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Thanks a lot for this issue! PrimeTek's own vision for PrimeNG is demanding, but community feedback is crucial in prioritization. The more upvotes help ensure this fix can be addressed quickly or the related PR can be merged soon.
+            Thanks for this issue. Community feedback and reactions help maintainers prioritize fixes and related pull requests.
 
       - name: Needs More Information
         if: contains(github.event.label.name, 'Needs More Information')
@@ -52,7 +52,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Unfortunately, this issue cannot be fixed due to technical limitations. PrimeNg team has decided not to pursue a fix, as addressing it would introduce other complications. Thanks a lot for your understanding!
+            Unfortunately, this issue cannot be fixed due to technical limitations. Thanks for your understanding.
 
       - name: Help Wanted
         if: contains(github.event.label.name, 'Help Wanted')
@@ -62,7 +62,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
           body: |
-            Due to PrimeTek's demanding roadmap for PrimeNG, this issue is available for anyone to work on. [**Make sure to reference this issue in your pull request.**](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) :sparkles: Thank you for your contribution! :sparkles:
+            This issue is available for anyone to work on. [**Make sure to reference this issue in your pull request.**](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) :sparkles: Thank you for your contribution! :sparkles:
 
       - name: Duplicate
         if: contains(github.event.label.name, 'Duplicate')

@@ -1,17 +1,17 @@
 {
     "name": "@primeng/themes",
-    "version": "21.1.9",
-    "author": "PrimeTek Informatics",
+    "version": "22.0.0",
+    "author": "Web Art Work",
     "description": "",
-    "homepage": "https://primeng.org/",
+    "homepage": "https://github.com/WebArtWork/ngx-prime",
     "license": "SEE LICENSE IN LICENSE.md",
     "repository": {
         "type": "git",
-        "url": "https://github.com/primefaces/primeng.git",
+        "url": "https://github.com/WebArtWork/ngx-prime.git",
         "directory": "packages/themes"
     },
     "bugs": {
-        "url": "https://github.com/primefaces/primeng/issues"
+        "url": "https://github.com/WebArtWork/ngx-prime/issues"
     },
     "private": true,
     "main": "./src/index.ts",

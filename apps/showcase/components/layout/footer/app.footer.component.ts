@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
     template: `
         <div class="layout-footer">
             <div>
-                <span>PrimeNG {{ version }} by </span>
-                <a href="https://www.primetek.com.tr">PrimeTek</a>
+                <span>ngx-prime {{ version }} maintained by </span>
+                <a href="https://github.com/WebArtWork/ngx-prime" target="_blank" rel="noopener noreferrer">Web Art Work</a>
             </div>
         </div>
     `

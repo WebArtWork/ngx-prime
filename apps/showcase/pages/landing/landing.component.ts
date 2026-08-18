@@ -5,12 +5,8 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import { BlockSectionComponent } from './blocksection.component';
-import { FeaturesSectionComponent } from './featuressection.component';
 import { FooterSectionComponent } from './footersection.component';
 import { HeroSectionComponent } from './herosection.component';
-import { TemplateSectionComponent } from './templatesection.component';
-import { ThemeSectionComponent } from './themesection.component';
 import { UsersSectionComponent } from './userssection.component';
 import { ButtonModule } from 'primeng/button';
 
@@ -18,7 +14,7 @@ import { ButtonModule } from 'primeng/button';
     selector: 'landing',
     standalone: true,
     templateUrl: './landing.component.html',
-    imports: [CommonModule, AppNewsComponent, AppTopBarComponent, ButtonModule, HeroSectionComponent, FeaturesSectionComponent, UsersSectionComponent, ThemeSectionComponent, BlockSectionComponent, TemplateSectionComponent, FooterSectionComponent]
+    imports: [CommonModule, AppNewsComponent, AppTopBarComponent, ButtonModule, HeroSectionComponent, UsersSectionComponent, FooterSectionComponent]
 })
 export class LandingComponent implements OnInit {
     subscription!: Subscription;
@@ -42,10 +38,10 @@ export class LandingComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.titleService.setTitle('PrimeNG - Angular UI Component Library');
+        this.titleService.setTitle('ngx-prime - Angular UI Component Library');
         this.metaService.updateTag({
             name: 'description',
-            content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.'
+            content: 'An independent MIT-licensed Angular UI component library maintained by Web Art Work.'
         });
     }
 }

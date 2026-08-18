@@ -63,8 +63,8 @@ function formatMigrationContent(guide: (typeof migrationGuides)[keyof typeof mig
 runPrimeMcpServer({
     name: '@primeng/mcp',
     version: pkg.version,
-    baseUrl: 'https://primeng.org',
-    frameworkName: 'PrimeNG',
+    baseUrl: 'https://github.com/WebArtWork/ngx-prime',
+    frameworkName: 'ngx-prime',
     slotKey: 'templates',
     codeLanguage: 'typescript',
     compatibility: 'Angular 17+',
