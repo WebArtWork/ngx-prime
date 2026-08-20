@@ -1,6 +1,6 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 @Component({
@@ -56,7 +56,7 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TemplateFeatures {
+export class TemplateFeatures implements OnInit {
     @Input() displayType;
 
     @Input() featuresData;

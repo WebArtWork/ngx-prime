@@ -60,7 +60,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
      * Defines the size of the component.
      * @group Props
      */
-    @Input('pSize') pSize: 'large' | 'small' | undefined;
+    @Input() pSize: 'large' | 'small' | undefined;
     /**
      * Specifies the input variant of the component.
      * @defaultValue undefined
@@ -88,6 +88,7 @@ export class InputText extends BaseModelHolder<InputTextPassThrough> {
         super();
         effect(() => {
             const pt = this.ptInputText() || this.pInputTextPT();
+
             pt && this.directivePT.set(pt);
         });
 

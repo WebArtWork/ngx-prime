@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation, contentChild } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -17,8 +17,8 @@ const IMAGECOMPARE_INSTANCE = new InjectionToken<ImageCompare>('IMAGECOMPARE_INS
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <ng-template *ngTemplateOutlet="leftTemplate || _leftTemplate"></ng-template>
-        <ng-template *ngTemplateOutlet="rightTemplate || _rightTemplate"></ng-template>
+        <ng-template *ngTemplateOutlet="leftTemplate() || _leftTemplate"></ng-template>
+        <ng-template *ngTemplateOutlet="rightTemplate() || _rightTemplate"></ng-template>
 
         <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" [pBind]="ptm('slider')" />
     `,
@@ -60,13 +60,13 @@ export class ImageCompare extends BaseComponent<ImageComparePassThrough> {
      * Custom left side template.
      * @group Templates
      */
-    @ContentChild('left', { descendants: false }) leftTemplate: TemplateRef<void> | undefined;
+    readonly leftTemplate = contentChild<TemplateRef<void>>('left', { descendants: false });
 
     /**
      * Custom right side template.
      * @group Templates
      */
-    @ContentChild('right', { descendants: false }) rightTemplate: TemplateRef<void> | undefined;
+    readonly rightTemplate = contentChild<TemplateRef<void>>('right', { descendants: false });
 
     _leftTemplate: TemplateRef<void> | undefined;
 

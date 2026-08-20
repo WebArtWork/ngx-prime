@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { ApplicationRef, ComponentRef, EmbeddedViewRef, Inject, Injectable, Injector, Type, createComponent } from '@angular/core';
+import { ApplicationRef, ComponentRef, EmbeddedViewRef, Injectable, Injector, Type, createComponent, inject } from '@angular/core';
 import { appendChild } from '@primeuix/utils';
 import { DynamicDialog } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -12,13 +12,11 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
  */
 @Injectable()
 export class DialogService {
-    dialogComponentRefMap: Map<DynamicDialogRef<any>, ComponentRef<DynamicDialog>> = new Map();
+    private appRef = inject(ApplicationRef);
+    private injector = inject(Injector);
+    private document = inject<Document>(DOCUMENT);
 
-    constructor(
-        private appRef: ApplicationRef,
-        private injector: Injector,
-        @Inject(DOCUMENT) private document: Document
-    ) {}
+    dialogComponentRefMap: Map<DynamicDialogRef<any>, ComponentRef<DynamicDialog>> = new Map();
     /**
      * Displays the dialog using the dynamic dialog object options.
      * @param {*} componentType - Dynamic component for content template.
@@ -34,6 +32,7 @@ export class DialogService {
         const dialogRef = this.appendDialogComponentToBody<T>(config, componentType);
 
         const componentRefInstance = this.dialogComponentRefMap.get(dialogRef);
+
         if (componentRefInstance) {
             componentRefInstance.instance.childComponentType = componentType;
             componentRefInstance.instance.inputValues = config.inputValues || {};
@@ -52,9 +51,11 @@ export class DialogService {
 
     private appendDialogComponentToBody<T>(config: DynamicDialogConfig, componentType: Type<T>): DynamicDialogRef<T> {
         const map = new WeakMap();
+
         map.set(DynamicDialogConfig, config);
 
         const dialogRef = new DynamicDialogRef<T>();
+
         map.set(DynamicDialogRef, dialogRef);
 
         const sub = dialogRef.onClose.subscribe(() => {
@@ -75,6 +76,7 @@ export class DialogService {
         this.appRef.attachView(componentRef.hostView);
 
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+
         if (!config.appendTo || config.appendTo === 'body') {
             this.document.body.appendChild(domElem);
         } else {
@@ -92,11 +94,13 @@ export class DialogService {
         }
 
         const dialogComponentRef = this.dialogComponentRefMap.get(dialogRef);
+
         if (dialogComponentRef) {
             this.appRef.detachView(dialogComponentRef.hostView);
             dialogComponentRef.destroy();
             dialogComponentRef.changeDetectorRef.detectChanges();
         }
+
         this.dialogComponentRefMap.delete(dialogRef);
     }
 
@@ -104,13 +108,16 @@ export class DialogService {
         if (config.duplicate) {
             return true;
         }
+
         let permission = true;
+
         for (const [key, value] of this.dialogComponentRefMap) {
             if (value.instance.childComponentType === componentType) {
                 permission = false;
                 break;
             }
         }
+
         return permission;
     }
 }

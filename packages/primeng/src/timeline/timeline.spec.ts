@@ -17,8 +17,8 @@ interface EventItem {
 
 // Basic test component
 @Component({
-    standalone: false,
-    template: ` <p-timeline [value]="events" [align]="align" [layout]="layout" [styleClass]="styleClass"> </p-timeline> `
+    template: ` <p-timeline [value]="events" [align]="align" [layout]="layout" [styleClass]="styleClass"> </p-timeline> `,
+    imports: [CommonModule, Timeline]
 })
 class TestBasicTimelineComponent {
     events: EventItem[] = [
@@ -35,7 +35,6 @@ class TestBasicTimelineComponent {
 
 // Template test component with ContentChild approach
 @Component({
-    standalone: false,
     template: `
         <p-timeline [value]="events" [align]="align">
             <ng-template #content let-event>
@@ -52,7 +51,8 @@ class TestBasicTimelineComponent {
                 </div>
             </ng-template>
         </p-timeline>
-    `
+    `,
+    imports: [CommonModule, Timeline]
 })
 class TestTemplatesTimelineComponent {
     events: EventItem[] = [
@@ -64,7 +64,6 @@ class TestTemplatesTimelineComponent {
 
 // PrimeTemplate test component
 @Component({
-    standalone: false,
     template: `
         <p-timeline [value]="events">
             <ng-template pTemplate="content" let-event>
@@ -81,7 +80,8 @@ class TestTemplatesTimelineComponent {
                 </div>
             </ng-template>
         </p-timeline>
-    `
+    `,
+    imports: [CommonModule, Timeline]
 })
 class TestPrimeTemplateTimelineComponent {
     events: EventItem[] = [{ status: 'Ordered', date: '15/10/2020 10:30', icon: 'pi pi-shopping-cart', color: '#9C27B0' }];
@@ -89,14 +89,14 @@ class TestPrimeTemplateTimelineComponent {
 
 // Empty state test component
 @Component({
-    standalone: false,
     template: `
         <p-timeline [value]="events">
             <ng-template #content let-event>
                 <div>{{ event.status }}</div>
             </ng-template>
         </p-timeline>
-    `
+    `,
+    imports: [CommonModule, Timeline]
 })
 class TestEmptyTimelineComponent {
     events: EventItem[] = [];
@@ -104,7 +104,6 @@ class TestEmptyTimelineComponent {
 
 // Complex event data test component
 @Component({
-    standalone: false,
     template: `
         <p-timeline [value]="events" [layout]="layout" [align]="align">
             <ng-template #content let-event>
@@ -114,7 +113,8 @@ class TestEmptyTimelineComponent {
                 </div>
             </ng-template>
         </p-timeline>
-    `
+    `,
+    imports: [CommonModule, Timeline]
 })
 class TestComplexTimelineComponent {
     events: EventItem[] = [
@@ -145,8 +145,7 @@ describe('Timeline', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Timeline],
-            declarations: [TestBasicTimelineComponent, TestTemplatesTimelineComponent, TestPrimeTemplateTimelineComponent, TestEmptyTimelineComponent, TestComplexTimelineComponent],
+            imports: [CommonModule, Timeline, TestBasicTimelineComponent, TestTemplatesTimelineComponent, TestPrimeTemplateTimelineComponent, TestEmptyTimelineComponent, TestComplexTimelineComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -211,16 +210,19 @@ describe('Timeline', () => {
     describe('Template and Content Projection', () => {
         it('should render events without custom templates', () => {
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(4);
 
             // Should have default marker when no custom marker template
             const markers = fixture.debugElement.queryAll(By.css('[data-pc-section="eventmarker"]'));
+
             expect(markers.length).toBe(4);
         });
 
         it('should handle ContentChild templates', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesTimelineComponent);
             const templateComponent = templateFixture.componentInstance;
+
             templateFixture.detectChanges();
 
             const templateTimeline = templateFixture.debugElement.query(By.directive(Timeline)).componentInstance;
@@ -243,6 +245,7 @@ describe('Timeline', () => {
         it('should process PrimeTemplate directives correctly', () => {
             const templateFixture = TestBed.createComponent(TestPrimeTemplateTimelineComponent);
             const templateComponent = templateFixture.componentInstance;
+
             templateFixture.detectChanges();
 
             const templateTimeline = templateFixture.debugElement.query(By.directive(Timeline)).componentInstance;
@@ -253,14 +256,17 @@ describe('Timeline', () => {
 
             // Timeline should render events even if templates are not properly processed in test environment
             const events = templateFixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(templateComponent.events.length);
         });
 
         it('should provide correct template context variables', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesTimelineComponent);
+
             templateFixture.detectChanges();
 
             const customContent = templateFixture.debugElement.query(By.css('.custom-content'));
+
             expect(customContent).toBeTruthy();
             expect(customContent.nativeElement.textContent).toContain('Ordered - 15/10/2020 10:30');
         });
@@ -284,6 +290,7 @@ describe('Timeline', () => {
     describe('Data Rendering and Event Handling', () => {
         it('should render all events from value array', () => {
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(component.events.length);
         });
 
@@ -306,15 +313,18 @@ describe('Timeline', () => {
             fixture.detectChanges();
 
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(1);
             expect(timeline.value).toEqual(newEvents);
         });
 
         it('should handle complex event data', () => {
             const complexFixture = TestBed.createComponent(TestComplexTimelineComponent);
+
             complexFixture.detectChanges();
 
             const eventContents = complexFixture.debugElement.queryAll(By.css('.event-content h4'));
+
             expect(eventContents.length).toBe(2);
             expect(eventContents[0].nativeElement.textContent).toContain('Order Placed');
         });
@@ -332,6 +342,7 @@ describe('Timeline', () => {
             fixture.detectChanges();
 
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(3);
         });
 
@@ -344,6 +355,7 @@ describe('Timeline', () => {
             fixture.detectChanges();
 
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(2); // Only valid events should be rendered
         });
     });
@@ -425,6 +437,7 @@ describe('Timeline', () => {
             fixture.detectChanges();
 
             let events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(4);
 
             // Test horizontal layout
@@ -441,6 +454,7 @@ describe('Timeline', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply correct CSS classes based on layout', () => {
             const timelineEl = fixture.debugElement.query(By.directive(Timeline));
+
             expect(timelineEl).toBeTruthy();
 
             // Test default classes
@@ -490,9 +504,11 @@ describe('Timeline', () => {
     describe('Edge Cases and Performance', () => {
         it('should handle empty events array', () => {
             const emptyFixture = TestBed.createComponent(TestEmptyTimelineComponent);
+
             emptyFixture.detectChanges();
 
             const events = emptyFixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(0);
         });
 
@@ -518,6 +534,7 @@ describe('Timeline', () => {
 
         it('should handle large datasets efficiently', async () => {
             const largeEventSet: EventItem[] = [];
+
             for (let i = 0; i < 100; i++) {
                 largeEventSet.push({
                     status: `Event ${i}`,
@@ -528,6 +545,7 @@ describe('Timeline', () => {
             }
 
             const startTime = performance.now();
+
             component.events = largeEventSet;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -537,6 +555,7 @@ describe('Timeline', () => {
             expect(endTime - startTime).toBeLessThan(1000); // Should render in less than 1 second
 
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(100);
         });
 
@@ -550,6 +569,7 @@ describe('Timeline', () => {
                 fixture.detectChanges();
 
                 const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
                 expect(events.length).toBe(dataset.length);
             }
         });
@@ -566,6 +586,7 @@ describe('Timeline', () => {
             }).not.toThrow();
 
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(4);
         });
     });
@@ -575,6 +596,7 @@ describe('Timeline', () => {
             expect(timeline.getBlockableElement).toBeDefined();
 
             const blockableElement = timeline.getBlockableElement();
+
             expect(blockableElement).toBeTruthy();
             expect(blockableElement.tagName).toBeDefined();
         });
@@ -614,6 +636,7 @@ describe('Timeline', () => {
         it('should handle ngAfterContentInit correctly', () => {
             const templateFixture = TestBed.createComponent(TestPrimeTemplateTimelineComponent);
             const templateTimeline = templateFixture.debugElement.query(By.directive(Timeline)).componentInstance;
+
             templateFixture.detectChanges();
 
             // Component should be initialized successfully
@@ -650,6 +673,7 @@ describe('Timeline', () => {
 
             // Change to different template component and back
             const templateFixture = TestBed.createComponent(TestTemplatesTimelineComponent);
+
             templateFixture.detectChanges();
             templateFixture.destroy();
 
@@ -660,6 +684,7 @@ describe('Timeline', () => {
 
         it('should handle multiple timeline instances', () => {
             const secondFixture = TestBed.createComponent(TestBasicTimelineComponent);
+
             secondFixture.componentInstance.events = [{ status: 'Second Timeline Event' }];
             secondFixture.detectChanges();
 
@@ -675,6 +700,7 @@ describe('Timeline', () => {
         it('should properly cleanup templates on destroy', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesTimelineComponent);
             const templateTimeline = templateFixture.debugElement.query(By.directive(Timeline)).componentInstance;
+
             templateFixture.detectChanges();
 
             expect(templateTimeline.contentTemplate).toBeTruthy();
@@ -688,6 +714,7 @@ describe('Timeline', () => {
     describe('Template Context and Parameters', () => {
         it('should pass correct event context to templates', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesTimelineComponent);
+
             templateFixture.detectChanges();
 
             const customContent = templateFixture.debugElement.query(By.css('.custom-content'));
@@ -699,6 +726,7 @@ describe('Timeline', () => {
 
         it('should handle template context with missing event properties', async () => {
             const templateFixture = TestBed.createComponent(TestTemplatesTimelineComponent);
+
             templateFixture.componentInstance.events = [
                 { status: 'Event without date' }, // Missing date property
                 { date: '20/10/2020' } // Missing status property
@@ -708,6 +736,7 @@ describe('Timeline', () => {
             templateFixture.detectChanges();
 
             const customContents = templateFixture.debugElement.queryAll(By.css('.custom-content'));
+
             expect(customContents.length).toBe(2);
 
             // Should handle missing properties gracefully
@@ -716,6 +745,7 @@ describe('Timeline', () => {
 
         it('should provide template context for all template types', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesTimelineComponent);
+
             templateFixture.detectChanges();
 
             const customContent = templateFixture.debugElement.query(By.css('.custom-content'));
@@ -784,6 +814,7 @@ describe('Timeline', () => {
             expect(timeline.value?.length).toBe(2);
 
             const events = fixture.debugElement.queryAll(By.css('[data-pc-section="event"]'));
+
             expect(events.length).toBe(2);
         });
     });

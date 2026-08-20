@@ -315,9 +315,11 @@ describe('Slider', () => {
 
         it('should handle keyboard navigation', () => {
             const sliderElement = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderElement).toBeTruthy();
 
             const handleElement = testFixture.debugElement.query(By.css('[role="slider"]'));
+
             if (handleElement) {
                 expect(handleElement.nativeElement.getAttribute('role')).toBe('slider');
             } else {
@@ -332,6 +334,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const handleElement = testFixture.debugElement.query(By.css('[role="slider"]'));
+
             if (handleElement) {
                 expect(handleElement.nativeElement.hasAttribute('tabindex')).toBe(false);
             } else {
@@ -341,6 +344,7 @@ describe('Slider', () => {
 
         it('should handle focus events', () => {
             const sliderElement = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderElement).toBeTruthy();
         });
     });
@@ -400,6 +404,7 @@ describe('Slider', () => {
 
         it('should work with range slider in forms', async () => {
             const rangeFormComponent = TestBed.createComponent(TestRangeFormSliderComponent);
+
             rangeFormComponent.detectChanges();
 
             rangeFormComponent.componentInstance.form.patchValue({ rangeValue: [30, 70] });
@@ -441,6 +446,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
+
             if (handle) {
                 expect(handle.nativeElement.getAttribute('aria-valuenow')).toBe('50');
             } else {
@@ -455,6 +461,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
+
             if (handle) {
                 expect(handle.nativeElement.getAttribute('aria-labelledby')).toBe('slider-label');
             } else {
@@ -469,6 +476,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
+
             if (handle) {
                 expect(handle.nativeElement.getAttribute('aria-label')).toBe('Volume control');
             } else {
@@ -483,6 +491,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[pautofocus]'));
+
             if (handle) {
                 expect(handle.nativeElement.hasAttribute('pautofocus')).toBe(true);
             } else {
@@ -497,6 +506,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
+
             if (handle) {
                 expect(handle.nativeElement.getAttribute('tabindex')).toBe('5');
             } else {
@@ -511,6 +521,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const handle = testFixture.debugElement.query(By.css('[role="slider"]'));
+
             if (handle) {
                 expect(handle.nativeElement.getAttribute('aria-orientation')).toBe('vertical');
             } else {
@@ -531,6 +542,7 @@ describe('Slider', () => {
 
         it('should create slider element', () => {
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
         });
 
@@ -541,8 +553,10 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             if (sliderEl) {
                 const handleEl = testFixture.debugElement.query(By.css('[role="slider"]'));
+
                 if (handleEl) {
                     expect(handleEl.nativeElement.hasAttribute('tabindex')).toBe(false);
                 } else {
@@ -560,6 +574,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
             expect(testComponent.animate).toBe(true);
         });
@@ -571,6 +586,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
             expect(testComponent.orientation).toBe('vertical');
         });
@@ -582,6 +598,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
             expect(testComponent.range).toBe(true);
         });
@@ -593,6 +610,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
             expect(testComponent.orientation).toBe('horizontal');
         });
@@ -604,6 +622,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
             expect(testComponent.orientation).toBe('vertical');
 
@@ -615,10 +634,12 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
 
             // Test that the slider element can handle mouse interactions
             const mouseEvent = new MouseEvent('mousedown');
+
             expect(mouseEvent).toBeTruthy();
         });
 
@@ -630,6 +651,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
             expect(testComponent.step).toBe(2);
             expect(testComponent.value).toBe(50);
@@ -644,6 +666,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
             expect(testComponent.step).toBe(0.01);
             expect(testComponent.max).toBe(2.5);
@@ -672,6 +695,7 @@ describe('Slider', () => {
             testFixture.detectChanges();
 
             const sliderEl = testFixture.debugElement.query(By.css('p-slider'));
+
             expect(sliderEl).toBeTruthy();
             expect(testComponent.range).toBe(true);
         });
@@ -710,6 +734,7 @@ describe('Slider', () => {
             component.max = 10;
 
             const normalized = component.getNormalizedValue(5.75);
+
             expect(normalized).toBe(5.8);
         });
 
@@ -718,6 +743,7 @@ describe('Slider', () => {
             spyOn(component, 'updateValue');
 
             const mockEvent = new Event('keydown');
+
             component.incrementValue(mockEvent, undefined);
 
             expect(component.updateValue).toHaveBeenCalled();
@@ -871,6 +897,7 @@ describe('Slider', () => {
 
         it('should handle onSlideEnd event emission', async () => {
             let slideEndEvent: any;
+
             component.onSlideEnd.subscribe((event) => (slideEndEvent = event));
 
             component.onBarClick(new Event('click'));
@@ -885,6 +912,7 @@ describe('Slider', () => {
             component.range = true;
             component.values = [30, 70];
             let slideEndEvent: any;
+
             component.onSlideEnd.subscribe((event) => (slideEndEvent = event));
 
             component.onBarClick(new Event('click'));
@@ -903,6 +931,7 @@ describe('Slider', () => {
             component.barWidth = 200;
 
             const mockEvent = { pageX: 150 } as MouseEvent;
+
             expect(() => component.calculateHandleValue(mockEvent)).not.toThrow();
         });
     });
@@ -1026,6 +1055,7 @@ describe('Slider', () => {
             spyOn(component, 'handleChange');
 
             const mockEvent = new Event('click');
+
             component.onBarClick(mockEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1040,6 +1070,7 @@ describe('Slider', () => {
             spyOn(component, 'handleChange');
 
             const mockEvent = new Event('click');
+
             component.onBarClick(mockEvent);
 
             expect(component.updateDomData).not.toHaveBeenCalled();
@@ -1152,6 +1183,7 @@ describe('Slider', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase1Component);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1198,6 +1230,7 @@ describe('Slider', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase2Component);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1249,6 +1282,7 @@ describe('Slider', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase3Component);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1287,18 +1321,14 @@ describe('Slider', () => {
                 max: number = 100;
                 orientation: 'horizontal' | 'vertical' = 'horizontal';
                 pt = {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.orientation === 'vertical' ? 'VERTICAL_CLASS' : 'HORIZONTAL_CLASS'
-                        };
-                    },
-                    range: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'background-color': instance?.value > 50 ? 'blue' : 'red'
-                            } as any
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.orientation === 'vertical' ? 'VERTICAL_CLASS' : 'HORIZONTAL_CLASS'
+                    }),
+                    range: ({ instance }: any) => ({
+                        style: {
+                            'background-color': instance?.value > 50 ? 'blue' : 'red'
+                        } as any
+                    })
                 };
             }
 
@@ -1309,6 +1339,7 @@ describe('Slider', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase4Component);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1345,13 +1376,11 @@ describe('Slider', () => {
                 value: number = 50;
                 clickCount: number = 0;
                 pt = {
-                    handle: ({ instance }: any) => {
-                        return {
-                            onclick: (event: Event) => {
-                                this.clickCount++;
-                            }
-                        };
-                    }
+                    handle: ({ instance }: any) => ({
+                        onclick: (event: Event) => {
+                            this.clickCount++;
+                        }
+                    })
                 };
             }
 
@@ -1363,6 +1392,7 @@ describe('Slider', () => {
 
                 const fixture = TestBed.createComponent(TestPTCase5Component);
                 const component = fixture.componentInstance;
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1394,11 +1424,13 @@ describe('Slider', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestInlineComponent);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
                 const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+
                 expect(sliderRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
             });
 
@@ -1418,11 +1450,13 @@ describe('Slider', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestInlineObjectComponent);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
                 const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+
                 expect(sliderRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 expect(sliderRoot.style.border).toBe('2px solid red');
             });
@@ -1460,11 +1494,13 @@ describe('Slider', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
                 const sliders = fixture.debugElement.queryAll(By.css('p-slider'));
+
                 expect(sliders.length).toBe(2);
 
                 sliders.forEach((slider) => {
@@ -1516,6 +1552,7 @@ describe('Slider', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestHooksComponent);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1523,6 +1560,7 @@ describe('Slider', () => {
                 expect(hookCalls).toContain('onAfterViewInit');
 
                 const sliderRoot = fixture.debugElement.query(By.css('p-slider')).nativeElement;
+
                 expect(sliderRoot.classList.contains('MY-SLIDER')).toBe(true);
 
                 fixture.destroy();

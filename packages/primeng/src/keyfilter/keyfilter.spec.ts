@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common';
 
 // Test Components
 @Component({
-    standalone: false,
-    template: ` <input type="text" [(ngModel)]="value" [pKeyFilter]="pattern" [pValidateOnly]="validateOnly" (ngModelChange)="onModelChange($event)" #inputEl /> `
+    template: ` <input type="text" [(ngModel)]="value" [pKeyFilter]="pattern" [pValidateOnly]="validateOnly" (ngModelChange)="onModelChange($event)" #inputEl /> `,
+    imports: [KeyFilterModule, FormsModule, ReactiveFormsModule, CommonModule]
 })
 class TestBasicKeyFilterComponent {
     value: string = '';
@@ -22,12 +22,12 @@ class TestBasicKeyFilterComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <form [formGroup]="form">
             <input type="text" formControlName="testField" [pKeyFilter]="pattern" [pValidateOnly]="validateOnly" />
         </form>
-    `
+    `,
+    imports: [KeyFilterModule, FormsModule, ReactiveFormsModule, CommonModule]
 })
 class TestFormKeyFilterComponent {
     form = new FormGroup({
@@ -45,8 +45,7 @@ describe('KeyFilter', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [KeyFilterModule, FormsModule, ReactiveFormsModule, CommonModule],
-            declarations: [TestBasicKeyFilterComponent, TestFormKeyFilterComponent],
+            imports: [KeyFilterModule, FormsModule, ReactiveFormsModule, CommonModule, TestBasicKeyFilterComponent, TestFormKeyFilterComponent],
             providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
         }).compileComponents();
 
@@ -81,6 +80,7 @@ describe('KeyFilter', () => {
     describe('Pattern Setting and Recognition', () => {
         it('should set regex pattern directly', () => {
             const customRegex = /[a-z]/;
+
             testComponent.pattern = customRegex;
             fixture.detectChanges();
 
@@ -179,44 +179,55 @@ describe('KeyFilter', () => {
     describe('Key Detection Methods', () => {
         it('should identify navigation keys', () => {
             const navKeyEvent = new KeyboardEvent('keydown', { keyCode: 37 }); // left arrow
+
             expect(directive.isNavKeyPress(navKeyEvent)).toBe(true);
 
             const returnKeyEvent = new KeyboardEvent('keydown', { keyCode: 13 }); // return
+
             expect(directive.isNavKeyPress(returnKeyEvent)).toBe(true);
 
             const tabKeyEvent = new KeyboardEvent('keydown', { keyCode: 9 }); // tab
+
             expect(directive.isNavKeyPress(tabKeyEvent)).toBe(true);
 
             const regularKeyEvent = new KeyboardEvent('keydown', { keyCode: 65 }); // 'a'
+
             expect(directive.isNavKeyPress(regularKeyEvent)).toBe(false);
         });
 
         it('should identify special keys', () => {
             const tabKeyEvent = new KeyboardEvent('keydown', { keyCode: 9 });
+
             expect(directive.isSpecialKey(tabKeyEvent)).toBe(true);
 
             const enterKeyEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             expect(directive.isSpecialKey(enterKeyEvent)).toBe(true);
 
             const escKeyEvent = new KeyboardEvent('keydown', { keyCode: 27 });
+
             expect(directive.isSpecialKey(escKeyEvent)).toBe(true);
 
             const shiftKeyEvent = new KeyboardEvent('keydown', { keyCode: 16 });
+
             expect(directive.isSpecialKey(shiftKeyEvent)).toBe(true);
 
             const regularKeyEvent = new KeyboardEvent('keydown', { keyCode: 65 });
             const result = directive.isSpecialKey(regularKeyEvent);
+
             // Should return falsy value (false, undefined, or 0)
             expect(result).toBeFalsy();
         });
 
         it('should get correct key code', () => {
             const keyEvent = new KeyboardEvent('keydown', { keyCode: 65 });
+
             expect(directive.getKey(keyEvent)).toBe(65);
         });
 
         it('should get correct char code', () => {
             const keyEvent = new KeyboardEvent('keypress', { charCode: 97 });
+
             expect(directive.getCharCode(keyEvent)).toBe(97);
         });
     });
@@ -242,12 +253,15 @@ describe('KeyFilter', () => {
 
         it('should find delta between strings', () => {
             const delta = directive.findDelta('hello', 'hllo');
+
             expect(delta).toBe('e');
 
             const delta2 = directive.findDelta('abc123', 'abc');
+
             expect(delta2).toBe('123');
 
             const delta3 = directive.findDelta('same', 'same');
+
             expect(delta3).toBe('' as any);
         });
     });
@@ -268,6 +282,7 @@ describe('KeyFilter', () => {
             inputElement.value = '1234';
 
             const inputEvent = new Event('input');
+
             inputElement.dispatchEvent(inputEvent);
             await fixture.whenStable();
 
@@ -282,6 +297,7 @@ describe('KeyFilter', () => {
             spyOn(directive.ngModelChange, 'emit');
 
             const inputEvent = new Event('input');
+
             inputElement.dispatchEvent(inputEvent);
             await fixture.whenStable();
 
@@ -297,6 +313,7 @@ describe('KeyFilter', () => {
             spyOn(directive.ngModelChange, 'emit');
 
             const inputEvent = new Event('input');
+
             inputElement.dispatchEvent(inputEvent);
             await fixture.whenStable();
 
@@ -309,6 +326,7 @@ describe('KeyFilter', () => {
             inputElement.value = 'test';
 
             const inputEvent = new Event('input');
+
             inputElement.dispatchEvent(inputEvent);
             await fixture.whenStable();
 
@@ -331,6 +349,7 @@ describe('KeyFilter', () => {
         it('should allow valid characters', () => {
             inputElement.value = '123';
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 52, charCode: 52 }); // '4'
+
             spyOn(keyEvent, 'preventDefault');
 
             inputElement.dispatchEvent(keyEvent);
@@ -341,6 +360,7 @@ describe('KeyFilter', () => {
         it('should prevent invalid characters', () => {
             inputElement.value = '123';
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 97, charCode: 97 }); // 'a'
+
             spyOn(keyEvent, 'preventDefault');
 
             inputElement.dispatchEvent(keyEvent);
@@ -350,6 +370,7 @@ describe('KeyFilter', () => {
 
         it('should allow navigation keys', () => {
             const enterEvent = new KeyboardEvent('keypress', { keyCode: 13 });
+
             spyOn(enterEvent, 'preventDefault');
 
             inputElement.dispatchEvent(enterEvent);
@@ -359,6 +380,7 @@ describe('KeyFilter', () => {
 
         it('should allow ctrl+key combinations', () => {
             const ctrlAEvent = new KeyboardEvent('keypress', { keyCode: 97, ctrlKey: true });
+
             spyOn(ctrlAEvent, 'preventDefault');
 
             inputElement.dispatchEvent(ctrlAEvent);
@@ -369,6 +391,7 @@ describe('KeyFilter', () => {
         it('should skip processing on Android', () => {
             directive.isAndroid = true;
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 97, charCode: 97 }); // 'a'
+
             spyOn(keyEvent, 'preventDefault');
 
             inputElement.dispatchEvent(keyEvent);
@@ -382,6 +405,7 @@ describe('KeyFilter', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 97, charCode: 97 }); // 'a'
+
             spyOn(keyEvent, 'preventDefault');
 
             inputElement.dispatchEvent(keyEvent);
@@ -406,6 +430,7 @@ describe('KeyFilter', () => {
             };
 
             const pasteEvent = new Event('paste') as any;
+
             pasteEvent.clipboardData = mockClipboardData;
             spyOn(pasteEvent, 'preventDefault');
 
@@ -421,6 +446,7 @@ describe('KeyFilter', () => {
             };
 
             const pasteEvent = new Event('paste') as any;
+
             pasteEvent.clipboardData = mockClipboardData;
             spyOn(pasteEvent, 'preventDefault');
 
@@ -439,6 +465,7 @@ describe('KeyFilter', () => {
             };
 
             const pasteEvent = new Event('paste') as any;
+
             pasteEvent.clipboardData = mockClipboardData;
             spyOn(pasteEvent, 'preventDefault');
 
@@ -457,6 +484,7 @@ describe('KeyFilter', () => {
             };
 
             const pasteEvent = new Event('paste') as any;
+
             pasteEvent.clipboardData = mockClipboardData;
             spyOn(pasteEvent, 'preventDefault');
 
@@ -605,6 +633,7 @@ describe('KeyFilter', () => {
     describe('Edge Cases and Error Handling', () => {
         it('should handle empty clipboard data', () => {
             const pasteEvent = new Event('paste') as any;
+
             pasteEvent.clipboardData = null as any;
             spyOn(pasteEvent, 'preventDefault');
 
@@ -623,6 +652,7 @@ describe('KeyFilter', () => {
 
         it('should handle very long strings', () => {
             const longString = 'a'.repeat(10000);
+
             testComponent.pattern = 'alpha';
             fixture.detectChanges();
 
@@ -663,8 +693,7 @@ describe('KeyFilter', () => {
             // Create directive with server platform
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [KeyFilterModule, FormsModule, ReactiveFormsModule, CommonModule],
-                declarations: [TestBasicKeyFilterComponent],
+                imports: [KeyFilterModule, FormsModule, ReactiveFormsModule, CommonModule, TestBasicKeyFilterComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }]
             });
 
@@ -692,6 +721,7 @@ describe('KeyFilter', () => {
 
             // Test valid keypress
             const validKeyEvent = new KeyboardEvent('keypress', { keyCode: 53, charCode: 53 }); // '5'
+
             spyOn(validKeyEvent, 'preventDefault');
             inputElement.dispatchEvent(validKeyEvent);
 
@@ -699,6 +729,7 @@ describe('KeyFilter', () => {
 
             // Test invalid keypress
             const invalidKeyEvent = new KeyboardEvent('keypress', { keyCode: 97, charCode: 97 }); // 'a'
+
             spyOn(invalidKeyEvent, 'preventDefault');
             inputElement.dispatchEvent(invalidKeyEvent);
 
@@ -706,6 +737,7 @@ describe('KeyFilter', () => {
 
             // Test valid paste
             const validPasteEvent = new Event('paste') as any;
+
             validPasteEvent.clipboardData = { getData: () => '123' };
             spyOn(validPasteEvent, 'preventDefault');
             inputElement.dispatchEvent(validPasteEvent);
@@ -730,6 +762,7 @@ describe('KeyFilter', () => {
             inputEl.nativeElement.value = '123a'; // invalid character
 
             const inputEvent = new Event('input');
+
             inputEl.nativeElement.dispatchEvent(inputEvent);
             await fixture.whenStable();
 

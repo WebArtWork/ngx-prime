@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, provideZonelessChangeDetection, ViewChild } from '@angular/core';
+import { Component, ElementRef, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -19,9 +19,8 @@ import { Popover } from './popover';
 // }
 
 @Component({
-    standalone: false,
     template: `
-        <button #targetButton (click)="popover.toggle($event)">Toggle</button>
+        <button #targetButton (click)="popover().toggle($event)">Toggle</button>
         <p-popover
             #popover
             [dismissable]="dismissable"
@@ -41,11 +40,12 @@ import { Popover } from './popover';
         >
             <div class="test-content">Basic content</div>
         </p-popover>
-    `
+    `,
+    imports: [CommonModule, Popover, PrimeTemplate]
 })
 class TestBasicPopoverComponent {
-    @ViewChild('popover') popover!: Popover;
-    @ViewChild('targetButton', { read: ElementRef }) targetButton!: ElementRef;
+    readonly popover = viewChild.required<Popover>('popover');
+    readonly targetButton = viewChild.required('targetButton', { read: ElementRef });
 
     dismissable = true;
     style: { [klass: string]: any } | null = null as any;
@@ -73,9 +73,8 @@ class TestBasicPopoverComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
-        <button #targetButton (click)="popover.toggle($event)">Toggle</button>
+        <button #targetButton (click)="popover().toggle($event)">Toggle</button>
         <p-popover #popover>
             <ng-template #content let-closeCallback="closeCallback">
                 <div class="template-content">
@@ -84,17 +83,17 @@ class TestBasicPopoverComponent {
                 </div>
             </ng-template>
         </p-popover>
-    `
+    `,
+    imports: [CommonModule, Popover, PrimeTemplate]
 })
 class TestTemplatePopoverComponent {
-    @ViewChild('popover') popover!: Popover;
-    @ViewChild('targetButton', { read: ElementRef }) targetButton!: ElementRef;
+    readonly popover = viewChild.required<Popover>('popover');
+    readonly targetButton = viewChild.required('targetButton', { read: ElementRef });
 }
 
 @Component({
-    standalone: false,
     template: `
-        <button #targetButton (click)="popover.toggle($event)">Toggle</button>
+        <button #targetButton (click)="popover().toggle($event)">Toggle</button>
         <p-popover #popover>
             <ng-template pTemplate="content" let-closeCallback="closeCallback">
                 <div class="ptemplate-content">
@@ -103,27 +102,28 @@ class TestTemplatePopoverComponent {
                 </div>
             </ng-template>
         </p-popover>
-    `
+    `,
+    imports: [CommonModule, Popover, PrimeTemplate]
 })
 class TestPTemplatePopoverComponent {
-    @ViewChild('popover') popover!: Popover;
-    @ViewChild('targetButton', { read: ElementRef }) targetButton!: ElementRef;
+    readonly popover = viewChild.required<Popover>('popover');
+    readonly targetButton = viewChild.required('targetButton', { read: ElementRef });
 }
 
 @Component({
-    standalone: false,
     template: `
-        <button #targetButton (click)="popover.toggle($event)">Toggle</button>
+        <button #targetButton (click)="popover().toggle($event)">Toggle</button>
         <p-popover #popover [focusOnShow]="true">
             <input autofocus type="text" class="focus-input" />
             <button tabindex="0">Button</button>
             <div tabindex="0">Focusable div</div>
         </p-popover>
-    `
+    `,
+    imports: [CommonModule, Popover, PrimeTemplate]
 })
 class TestKeyboardNavigationComponent {
-    @ViewChild('popover') popover!: Popover;
-    @ViewChild('targetButton', { read: ElementRef }) targetButton!: ElementRef;
+    readonly popover = viewChild.required<Popover>('popover');
+    readonly targetButton = viewChild.required('targetButton', { read: ElementRef });
 }
 
 describe('Popover', () => {
@@ -135,8 +135,7 @@ describe('Popover', () => {
         });
 
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Popover, PrimeTemplate],
-            declarations: [TestBasicPopoverComponent, TestTemplatePopoverComponent, TestPTemplatePopoverComponent, TestKeyboardNavigationComponent],
+            imports: [CommonModule, Popover, PrimeTemplate, TestBasicPopoverComponent, TestTemplatePopoverComponent, TestPTemplatePopoverComponent, TestKeyboardNavigationComponent],
             providers: [provideZonelessChangeDetection(), { provide: OverlayService, useValue: overlayServiceSpy }]
         }).compileComponents();
 
@@ -152,7 +151,7 @@ describe('Popover', () => {
             fixture = TestBed.createComponent(TestBasicPopoverComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            popoverInstance = component.popover;
+            popoverInstance = component.popover();
         });
 
         it('should create the component', () => {
@@ -200,12 +199,12 @@ describe('Popover', () => {
             fixture = TestBed.createComponent(TestBasicPopoverComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            popoverInstance = component.popover;
+            popoverInstance = component.popover();
         });
 
         it('should show popover programmatically', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -218,7 +217,7 @@ describe('Popover', () => {
 
         it('should hide popover programmatically', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -231,7 +230,7 @@ describe('Popover', () => {
 
         it('should toggle popover visibility', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             expect(popoverInstance.overlayVisible).toBe(false);
 
@@ -248,7 +247,7 @@ describe('Popover', () => {
 
         it('should prevent toggle when animation is in progress', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             // First toggle to start animation
             popoverInstance.toggle(mockEvent, target);
@@ -263,7 +262,7 @@ describe('Popover', () => {
 
         it('should handle target change in toggle', async () => {
             const mockEvent = new MouseEvent('click');
-            const target1 = component.targetButton.nativeElement;
+            const target1 = component.targetButton().nativeElement;
             const target2 = document.createElement('button');
 
             popoverInstance.show(mockEvent, target1);
@@ -286,13 +285,13 @@ describe('Popover', () => {
             fixture = TestBed.createComponent(TestBasicPopoverComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            popoverInstance = component.popover;
+            popoverInstance = component.popover();
         });
 
         it('should emit onShow event', async () => {
             spyOn(component, 'onShow');
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -308,7 +307,7 @@ describe('Popover', () => {
         it('should emit onHide event', async () => {
             spyOn(component, 'onHide');
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -334,23 +333,23 @@ describe('Popover', () => {
                 fixture = TestBed.createComponent(TestTemplatePopoverComponent);
                 component = fixture.componentInstance;
                 fixture.detectChanges();
-                popoverInstance = component.popover;
+                popoverInstance = component.popover();
             });
 
             it('should project content template correctly', async () => {
                 const mockEvent = new MouseEvent('click');
-                const target = component.targetButton.nativeElement;
+                const target = component.targetButton().nativeElement;
 
                 popoverInstance.show(mockEvent, target);
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
-                expect(popoverInstance.contentTemplate).toBeTruthy();
+                expect(popoverInstance.contentTemplate()).toBeTruthy();
             });
 
             it('should provide closeCallback context to template', async () => {
                 const mockEvent = new MouseEvent('click');
-                const target = component.targetButton.nativeElement;
+                const target = component.targetButton().nativeElement;
 
                 popoverInstance.show(mockEvent, target);
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -362,13 +361,16 @@ describe('Popover', () => {
                 fixture.detectChanges();
 
                 const templateContent = fixture.debugElement.query(By.css('.template-content'));
+
                 expect(templateContent).toBeTruthy();
 
                 const closeButton = fixture.debugElement.query(By.css('.close-button'));
+
                 expect(closeButton).toBeTruthy();
 
                 // Test close callback - simulate with proper event
                 const mockCloseEvent = new MouseEvent('click');
+
                 spyOn(mockCloseEvent, 'preventDefault');
                 popoverInstance.onCloseClick(mockCloseEvent);
                 expect(popoverInstance.overlayVisible).toBe(false);
@@ -385,7 +387,7 @@ describe('Popover', () => {
                 fixture = TestBed.createComponent(TestPTemplatePopoverComponent);
                 component = fixture.componentInstance;
                 fixture.detectChanges();
-                popoverInstance = component.popover;
+                popoverInstance = component.popover();
             });
 
             it('should process pTemplate content in ngAfterContentInit', () => {
@@ -395,7 +397,7 @@ describe('Popover', () => {
 
             it('should render pTemplate content correctly', async () => {
                 const mockEvent = new MouseEvent('click');
-                const target = component.targetButton.nativeElement;
+                const target = component.targetButton().nativeElement;
 
                 popoverInstance.show(mockEvent, target);
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -407,6 +409,7 @@ describe('Popover', () => {
                 fixture.detectChanges();
 
                 const templateContent = fixture.debugElement.query(By.css('.ptemplate-content'));
+
                 expect(templateContent).toBeTruthy();
             });
         });
@@ -421,12 +424,12 @@ describe('Popover', () => {
             fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            popoverInstance = component.popover;
+            popoverInstance = component.popover();
         });
 
         it('should have correct ARIA attributes', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.ariaLabel = 'Test popover';
             popoverInstance.ariaLabelledBy = 'test-label';
@@ -443,6 +446,7 @@ describe('Popover', () => {
             fixture.detectChanges();
 
             const popoverElement = fixture.debugElement.query(By.css('[role="dialog"]'));
+
             if (popoverElement) {
                 expect(popoverElement.nativeElement.getAttribute('role')).toBe('dialog');
                 expect(popoverElement.nativeElement.getAttribute('aria-label')).toBe('Test popover');
@@ -453,7 +457,7 @@ describe('Popover', () => {
 
         it('should focus autofocus element when focusOnShow is true', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -462,6 +466,7 @@ describe('Popover', () => {
             // Create container and set up focus test
             const container = document.createElement('div');
             const focusableInput = document.createElement('input');
+
             focusableInput.setAttribute('autofocus', '');
             container.appendChild(focusableInput);
             popoverInstance.container = container;
@@ -476,13 +481,14 @@ describe('Popover', () => {
 
         it('should hide popover on Escape key', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
+
             popoverInstance.onEscapeKeydown(escapeEvent);
 
             expect(popoverInstance.overlayVisible).toBe(false);
@@ -498,7 +504,7 @@ describe('Popover', () => {
             fixture = TestBed.createComponent(TestBasicPopoverComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            popoverInstance = component.popover;
+            popoverInstance = component.popover();
         });
 
         it('should apply styleClass correctly', async () => {
@@ -507,7 +513,7 @@ describe('Popover', () => {
             await fixture.whenStable();
 
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -519,6 +525,7 @@ describe('Popover', () => {
             fixture.detectChanges();
 
             const popoverElement = fixture.debugElement.query(By.css('.custom-popover-class'));
+
             expect(popoverElement).toBeTruthy();
         });
 
@@ -530,7 +537,7 @@ describe('Popover', () => {
             expect(popoverInstance.style).toEqual({ border: '2px solid red', padding: '10px' });
 
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -542,6 +549,7 @@ describe('Popover', () => {
             fixture.detectChanges();
 
             const popoverElement = fixture.debugElement.query(By.css('[role="dialog"]'));
+
             if (popoverElement && popoverInstance.style) {
                 // Simulate ngStyle behavior
                 Object.keys(popoverInstance.style).forEach((key) => {
@@ -567,12 +575,12 @@ describe('Popover', () => {
             fixture = TestBed.createComponent(TestBasicPopoverComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            popoverInstance = component.popover;
+            popoverInstance = component.popover();
         });
 
         it('should handle rapid toggle clicks during animation', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             // First click
             popoverInstance.toggle(mockEvent, target);
@@ -580,6 +588,7 @@ describe('Popover', () => {
 
             // Second click during animation should be ignored
             const result = popoverInstance.toggle(mockEvent, target);
+
             expect(result).toBeUndefined();
         });
 
@@ -601,7 +610,7 @@ describe('Popover', () => {
 
         it('should handle animation states correctly', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -620,6 +629,7 @@ describe('Popover', () => {
 
         it('should handle destroy callback on void animation state', async () => {
             const mockCallback = jasmine.createSpy('destroyCallback');
+
             popoverInstance.destroyCallback = mockCallback;
 
             // Test without animation event since it's commented out
@@ -643,12 +653,12 @@ describe('Popover', () => {
             fixture = TestBed.createComponent(TestBasicPopoverComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            popoverInstance = component.popover;
+            popoverInstance = component.popover();
         });
 
         it('should bind document click listener when shown', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             // Since animation event is commented out, bindDocumentClickListener won't be called
             // Test that show method at least sets the overlay visible
@@ -674,7 +684,7 @@ describe('Popover', () => {
 
         it('should hide on window resize for non-touch devices', async () => {
             const mockEvent = new MouseEvent('click');
-            const target = component.targetButton.nativeElement;
+            const target = component.targetButton().nativeElement;
 
             popoverInstance.show(mockEvent, target);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -738,7 +748,7 @@ describe('Popover', () => {
             fixture = TestBed.createComponent(TestBasicPopoverComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            popoverInstance = component.popover;
+            popoverInstance = component.popover();
         });
 
         it('should cleanup resources on destroy', () => {
@@ -749,11 +759,13 @@ describe('Popover', () => {
                 destroy: jasmine.createSpy('destroy'),
                 unbindScrollListener: jasmine.createSpy('unbindScrollListener')
             };
+
             popoverInstance.scrollHandler = mockScrollHandler as any;
 
             const mockSubscription = {
                 unsubscribe: jasmine.createSpy('unsubscribe')
             };
+
             popoverInstance.overlaySubscription = mockSubscription as any;
 
             popoverInstance.container = document.createElement('div');

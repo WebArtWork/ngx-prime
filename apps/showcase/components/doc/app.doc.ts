@@ -1,6 +1,6 @@
 import { Doc } from '@/domain/doc';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnChanges, OnInit, Renderer2, signal, SimpleChanges, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AppDocService } from './app.doc.service';
@@ -69,7 +69,7 @@ import { AppDocThemingSection } from './app.docthemingsection';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class AppDoc implements OnInit, OnChanges {
+export class AppDoc implements OnInit, OnChanges, OnDestroy {
     docTitle = input<string>('');
 
     docs = input<Doc[]>();
@@ -86,9 +86,7 @@ export class AppDoc implements OnInit, OnChanges {
 
     docType = input<'component' | 'page'>('component');
 
-    _componentName = computed(() => {
-        return this.componentName() || this.themeDocs() || this.header();
-    });
+    _componentName = computed(() => this.componentName() || this.themeDocs() || this.header());
 
     isComponentDoc = computed(() => !!(this.docs() && (this.apiDocs() || this.themeDocs() || this.ptDocs())));
 
@@ -132,9 +130,11 @@ export class AppDoc implements OnInit, OnChanges {
         if (this.router.url.includes('#api')) {
             this.activateTab(1);
         }
+
         if (this.router.url.toLowerCase().includes('classes') || this.router.url.toLowerCase().includes('designtokens')) {
             this.activateTab(2);
         }
+
         if (this.router.url.includes('#pt')) {
             this.activateTab(3);
         }

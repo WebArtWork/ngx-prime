@@ -82,6 +82,7 @@ describe('IconField', () => {
 
         it('should have correct CSS class', () => {
             const iconFieldElement = fixture.debugElement.query(By.directive(IconField));
+
             expect(iconFieldElement.nativeElement.classList.contains('p-iconfield')).toBe(true);
         });
     });
@@ -153,6 +154,7 @@ describe('IconField', () => {
             expect(iconFieldInstance.styleClass).toBe('custom-icon-field');
 
             const iconFieldElement = fixture.debugElement.query(By.directive(IconField));
+
             expect(iconFieldElement.nativeElement.classList.contains('custom-icon-field')).toBe(true);
         });
 
@@ -164,6 +166,7 @@ describe('IconField', () => {
             expect(iconFieldInstance.styleClass).toBe('new-custom-class');
 
             const iconFieldElement = fixture.debugElement.query(By.directive(IconField));
+
             expect(iconFieldElement.nativeElement.classList.contains('new-custom-class')).toBe(true);
         });
     });
@@ -185,6 +188,7 @@ describe('IconField', () => {
 
         it('should work without input value', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
@@ -194,15 +198,18 @@ describe('IconField', () => {
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.value).toBe('search term');
         });
 
         it('should handle multiple input types', () => {
             // This is tested in the styled component which uses email type
             const styledFixture = TestBed.createComponent(TestStyledIconFieldComponent);
+
             styledFixture.detectChanges();
 
             const inputElement = styledFixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.type).toBe('email');
         });
     });
@@ -275,6 +282,7 @@ describe('IconField PassThrough Tests', () => {
     describe('PT Case 4: Event binding', () => {
         it('should handle onclick event through PT', (done) => {
             let clicked = false;
+
             fixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
@@ -309,9 +317,11 @@ describe('IconField PassThrough Tests', () => {
             }).compileComponents();
 
             const globalFixture = TestBed.createComponent(IconField);
+
             globalFixture.detectChanges();
 
             const globalHostElement = globalFixture.nativeElement;
+
             expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
             expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_LABEL');
         });
@@ -320,6 +330,7 @@ describe('IconField PassThrough Tests', () => {
     describe('PT Case 6: Lifecycle hooks', () => {
         it('should support lifecycle hooks', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [IconField, FormsModule],
@@ -348,6 +359,7 @@ describe('IconField PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(IconField);
+
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');

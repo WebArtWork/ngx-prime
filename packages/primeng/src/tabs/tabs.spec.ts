@@ -6,7 +6,6 @@ import { Tabs } from './tabs';
 import { TabsModule } from './tabs.module';
 
 @Component({
-    standalone: false,
     template: `
         <p-tabs [(value)]="value" [scrollable]="scrollable" [lazy]="lazy" [selectOnFocus]="selectOnFocus" [showNavigators]="showNavigators" [tabindex]="tabindex">
             <p-tablist>
@@ -26,7 +25,8 @@ import { TabsModule } from './tabs.module';
                 </p-tabpanel>
             </p-tabpanels>
         </p-tabs>
-    `
+    `,
+    imports: [TabsModule]
 })
 class TestTabsComponent {
     value: number | undefined = 1;
@@ -39,7 +39,6 @@ class TestTabsComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-tabs [(value)]="value" [scrollable]="true">
             <p-tablist>
@@ -77,14 +76,14 @@ class TestTabsComponent {
                 </p-tabpanel>
             </p-tabpanels>
         </p-tabs>
-    `
+    `,
+    imports: [TabsModule]
 })
 class TestScrollableTabsComponent {
     value = 1;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-tabs [(value)]="value" [lazy]="true">
             <p-tablist>
@@ -104,14 +103,14 @@ class TestScrollableTabsComponent {
                 </p-tabpanel>
             </p-tabpanels>
         </p-tabs>
-    `
+    `,
+    imports: [TabsModule]
 })
 class TestLazyTabsComponent {
     value = 1;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-tabs [(value)]="value" [scrollable]="true">
             <p-tablist>
@@ -149,14 +148,14 @@ class TestLazyTabsComponent {
                 </p-tabpanel>
             </p-tabpanels>
         </p-tabs>
-    `
+    `,
+    imports: [TabsModule]
 })
 class TestContentChildIconsTabsComponent {
     value = 1;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-tabs [value]="1" [pt]="pt">
             <p-tablist>
@@ -172,7 +171,8 @@ class TestContentChildIconsTabsComponent {
                 </p-tabpanel>
             </p-tabpanels>
         </p-tabs>
-    `
+    `,
+    imports: [TabsModule]
 })
 class TestPTTabsComponent {
     @Input() pt: any;
@@ -186,8 +186,7 @@ describe('Tabs', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [TabsModule],
-            declarations: [TestTabsComponent, TestScrollableTabsComponent, TestLazyTabsComponent, TestContentChildIconsTabsComponent, TestPTTabsComponent],
+            imports: [TabsModule, TestTabsComponent, TestScrollableTabsComponent, TestLazyTabsComponent, TestContentChildIconsTabsComponent, TestPTTabsComponent],
             providers: [provideZonelessChangeDetection()]
         });
 
@@ -244,16 +243,19 @@ describe('Tabs', () => {
     describe('Tab List Rendering', () => {
         it('should render tab list', () => {
             const tabList = fixture.debugElement.query(By.css('p-tablist'));
+
             expect(tabList).toBeTruthy();
         });
 
         it('should render all tabs', () => {
             const tabElements = fixture.debugElement.queryAll(By.css('p-tab'));
+
             expect(tabElements.length).toBe(3);
         });
 
         it('should render tab content', () => {
             const tabElements = fixture.debugElement.queryAll(By.css('p-tab'));
+
             expect(tabElements[0].nativeElement.textContent).toContain('Tab 1');
             expect(tabElements[1].nativeElement.textContent).toContain('Tab 2');
             expect(tabElements[2].nativeElement.textContent).toContain('Tab 3');
@@ -280,11 +282,13 @@ describe('Tabs', () => {
     describe('Tab Panel Rendering', () => {
         it('should render tab panels container', () => {
             const tabPanels = fixture.debugElement.query(By.css('p-tabpanels'));
+
             expect(tabPanels).toBeTruthy();
         });
 
         it('should render all tab panels', () => {
             const panels = fixture.debugElement.queryAll(By.css('p-tabpanel'));
+
             expect(panels.length).toBe(3);
         });
 
@@ -295,6 +299,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const activePanel = fixture.debugElement.query(By.css('.panel-content-1'));
+
             expect(activePanel).toBeTruthy();
             expect(activePanel.nativeElement.textContent).toContain('Content for Tab 1');
         });
@@ -306,6 +311,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const panel2Content = fixture.debugElement.query(By.css('.panel-content-2'));
+
             expect(panel2Content).toBeTruthy();
             expect(panel2Content.nativeElement.textContent).toContain('Content for Tab 2');
         });
@@ -337,6 +343,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+
             expect(tabs[1].nativeElement.getAttribute('data-p-active')).toBe('true');
             expect(tabs[0].nativeElement.getAttribute('data-p-active')).toBe('false');
         });
@@ -364,6 +371,7 @@ describe('Tabs', () => {
             } else {
                 // Alternative: check active state through data attributes
                 const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+
                 expect(tabs[1].nativeElement.getAttribute('data-p-active')).toBe('true');
                 expect(tabs[0].nativeElement.getAttribute('data-p-active')).toBe('false');
             }
@@ -378,6 +386,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const tab3 = fixture.debugElement.queryAll(By.css('p-tab'))[2];
+
             expect(tab3.nativeElement.getAttribute('data-p-disabled')).toBe('true');
         });
 
@@ -389,6 +398,7 @@ describe('Tabs', () => {
 
             const initialValue = component.value;
             const tab3 = fixture.debugElement.queryAll(By.css('p-tab'))[2];
+
             tab3.nativeElement.click();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -404,6 +414,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const tab3 = fixture.debugElement.queryAll(By.css('p-tab'))[2];
+
             expect(tab3.nativeElement.getAttribute('data-p-disabled')).toBe('true');
         });
 
@@ -436,6 +447,7 @@ describe('Tabs', () => {
 
         it('should handle right arrow key navigation', () => {
             const rightArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+
             spyOn(rightArrowEvent, 'preventDefault');
 
             tabs[0].nativeElement.dispatchEvent(rightArrowEvent);
@@ -446,6 +458,7 @@ describe('Tabs', () => {
 
         it('should handle left arrow key navigation', () => {
             const leftArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
+
             spyOn(leftArrowEvent, 'preventDefault');
 
             tabs[1].nativeElement.focus();
@@ -457,6 +470,7 @@ describe('Tabs', () => {
 
         it('should handle Home key navigation', () => {
             const homeEvent = new KeyboardEvent('keydown', { code: 'Home' });
+
             spyOn(homeEvent, 'preventDefault');
 
             tabs[2].nativeElement.focus();
@@ -468,6 +482,7 @@ describe('Tabs', () => {
 
         it('should handle End key navigation', () => {
             const endEvent = new KeyboardEvent('keydown', { code: 'End' });
+
             spyOn(endEvent, 'preventDefault');
 
             tabs[0].nativeElement.dispatchEvent(endEvent);
@@ -478,6 +493,7 @@ describe('Tabs', () => {
 
         it('should handle Enter key activation', () => {
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
             spyOn(enterEvent, 'preventDefault');
 
             tabs[1].nativeElement.focus();
@@ -490,6 +506,7 @@ describe('Tabs', () => {
 
         it('should handle Space key activation', () => {
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
+
             spyOn(spaceEvent, 'preventDefault');
 
             tabs[1].nativeElement.focus();
@@ -508,6 +525,7 @@ describe('Tabs', () => {
 
             // Navigate from tab 2 with right arrow - should not go to disabled tab 3
             const rightArrowEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+
             tabs = fixture.debugElement.queryAll(By.css('p-tab'));
 
             tabs[1].nativeElement.focus();
@@ -570,11 +588,13 @@ describe('Tabs', () => {
 
         it('should render scrollable tabs', () => {
             const tabList = scrollableFixture.debugElement.query(By.directive(TabList));
+
             expect(tabList.componentInstance.scrollable()).toBe(true);
         });
 
         it('should have scrollable configuration', () => {
             const tabList = scrollableFixture.debugElement.query(By.directive(TabList));
+
             expect(tabList.componentInstance.scrollable()).toBe(true);
 
             // Navigation buttons may or may not be rendered in test environment
@@ -585,6 +605,7 @@ describe('Tabs', () => {
             if (prevButton) {
                 expect(prevButton.nativeElement).toBeTruthy();
             }
+
             if (nextButton) {
                 expect(nextButton.nativeElement).toBeTruthy();
             }
@@ -592,9 +613,11 @@ describe('Tabs', () => {
 
         it('should handle previous button click', () => {
             const tabListComponent = scrollableFixture.debugElement.query(By.directive(TabList)).componentInstance;
+
             spyOn(tabListComponent, 'onPrevButtonClick');
 
             const prevButton = scrollableFixture.debugElement.query(By.css('.p-tablist-prev-button'));
+
             if (prevButton) {
                 prevButton.nativeElement.click();
                 expect(tabListComponent.onPrevButtonClick).toHaveBeenCalled();
@@ -606,9 +629,11 @@ describe('Tabs', () => {
 
         it('should handle next button click', () => {
             const tabListComponent = scrollableFixture.debugElement.query(By.directive(TabList)).componentInstance;
+
             spyOn(tabListComponent, 'onNextButtonClick');
 
             const nextButton = scrollableFixture.debugElement.query(By.css('.p-tablist-next-button'));
+
             if (nextButton) {
                 nextButton.nativeElement.click();
                 expect(tabListComponent.onNextButtonClick).toHaveBeenCalled();
@@ -633,6 +658,7 @@ describe('Tabs', () => {
             } else {
                 // Templates exist in component but may not be rendered due to viewport conditions
                 const tabListComponent = scrollableFixture.debugElement.query(By.directive(TabList)).componentInstance;
+
                 expect(tabListComponent).toBeTruthy();
             }
         });
@@ -745,12 +771,14 @@ describe('Tabs', () => {
                 // Both test components should work without errors
                 expect(() => {
                     const pTemplateFixture = TestBed.createComponent(TestScrollableTabsComponent);
+
                     pTemplateFixture.detectChanges();
                     pTemplateFixture.destroy();
                 }).not.toThrow();
 
                 expect(() => {
                     const contentChildFixture = TestBed.createComponent(TestContentChildIconsTabsComponent);
+
                     contentChildFixture.detectChanges();
                     contentChildFixture.destroy();
                 }).not.toThrow();
@@ -775,6 +803,7 @@ describe('Tabs', () => {
                 if (prevButton) {
                     // Check if custom icon is inside the button
                     const customIcon = prevButton.query(By.css('.contentchild-prev-icon'));
+
                     if (customIcon) {
                         expect(customIcon.nativeElement.textContent).toBe('⬅');
                     }
@@ -783,6 +812,7 @@ describe('Tabs', () => {
                 if (nextButton) {
                     // Check if custom icon is inside the button
                     const customIcon = nextButton.query(By.css('.contentchild-next-icon'));
+
                     if (customIcon) {
                         expect(customIcon.nativeElement.textContent).toBe('➡');
                     }
@@ -793,10 +823,12 @@ describe('Tabs', () => {
         describe('Navigation Icon Edge Cases', () => {
             it('should handle missing navigation icons gracefully', () => {
                 const scrollableFixture = TestBed.createComponent(TestScrollableTabsComponent);
+
                 scrollableFixture.detectChanges();
 
                 // Should work without custom icons and use default scroll behavior
                 const tabList = scrollableFixture.debugElement.query(By.directive(TabList));
+
                 expect(tabList.componentInstance.scrollable()).toBe(true);
 
                 // Should not throw errors when no custom icons are provided
@@ -806,6 +838,7 @@ describe('Tabs', () => {
             it('should handle dynamic icon template changes', () => {
                 const iconFixture = TestBed.createComponent(TestContentChildIconsTabsComponent);
                 const iconComponent = iconFixture.componentInstance;
+
                 iconFixture.detectChanges();
 
                 // Component should handle template presence/absence gracefully
@@ -845,6 +878,7 @@ describe('Tabs', () => {
             lazyFixture.detectChanges();
 
             const content2 = lazyFixture.debugElement.query(By.css('.lazy-content-2'));
+
             expect(content2).toBeTruthy();
             expect(content2.nativeElement.textContent).toContain('Lazy Content 2');
         });
@@ -868,6 +902,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+
             expect(tabs[1].nativeElement.getAttribute('aria-selected')).toBe('true');
             expect(tabs[0].nativeElement.getAttribute('aria-selected')).toBe('false');
         });
@@ -888,6 +923,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const tabs = fixture.debugElement.queryAll(By.css('p-tab'));
+
             expect(tabs[1].nativeElement.tabIndex).toBe(0);
             expect(tabs[0].nativeElement.tabIndex).toBe(-1);
         });
@@ -924,6 +960,7 @@ describe('Tabs', () => {
             fixture.detectChanges();
 
             const tab3 = fixture.debugElement.queryAll(By.css('p-tab'))[2];
+
             expect(tab3.nativeElement.getAttribute('data-p-disabled')).toBe('true');
         });
     });
@@ -986,6 +1023,7 @@ describe('Tabs', () => {
 
         it('should handle empty tab list', () => {
             const emptyFixture = TestBed.createComponent(Tabs);
+
             expect(() => {
                 emptyFixture.detectChanges();
             }).not.toThrow();
@@ -1026,6 +1064,7 @@ describe('Tabs', () => {
     describe('Templates', () => {
         it('should handle template processing without errors', async () => {
             const scrollableFixture = TestBed.createComponent(TestScrollableTabsComponent);
+
             scrollableFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await scrollableFixture.whenStable();
@@ -1045,6 +1084,7 @@ describe('Tabs', () => {
             }).not.toThrow();
 
             const tabListComponent = scrollableFixture.debugElement.query(By.directive(TabList)).componentInstance;
+
             expect(tabListComponent).toBeTruthy();
         });
     });
@@ -1119,12 +1159,10 @@ describe('Tabs', () => {
 
         it('should use instance variables in PT functions', async () => {
             ptComponent.pt = {
-                root: ({ instance }) => {
-                    return {
-                        class: instance?.scrollable() ? 'SCROLLABLE' : 'NON_SCROLLABLE',
-                        'data-lazy': instance?.lazy()
-                    };
-                }
+                root: ({ instance }) => ({
+                    class: instance?.scrollable() ? 'SCROLLABLE' : 'NON_SCROLLABLE',
+                    'data-lazy': instance?.lazy()
+                })
             };
             ptFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1132,6 +1170,7 @@ describe('Tabs', () => {
             ptFixture.detectChanges();
 
             const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+
             ptTabs = ptFixture.debugElement.query(By.directive(Tabs)).componentInstance;
 
             expect(tabsEl.nativeElement.className).toContain('NON_SCROLLABLE');
@@ -1140,6 +1179,7 @@ describe('Tabs', () => {
 
         it('should handle event binding in PT options', async () => {
             let clicked = false;
+
             ptComponent.pt = {
                 root: {
                     onclick: () => {
@@ -1153,6 +1193,7 @@ describe('Tabs', () => {
             ptFixture.detectChanges();
 
             const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
+
             tabsEl.nativeElement.click();
 
             expect(clicked).toBe(true);

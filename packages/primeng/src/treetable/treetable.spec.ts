@@ -1,4 +1,4 @@
-import { Component, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -26,8 +26,7 @@ describe('TreeTable', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicTreeTableComponent, TestTemplatesTreeTableComponent, TestDynamicTreeTableComponent],
-            imports: [FormsModule, TreeTableModule],
+            imports: [FormsModule, TreeTableModule, TestBasicTreeTableComponent, TestTemplatesTreeTableComponent, TestDynamicTreeTableComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -127,6 +126,7 @@ describe('TreeTable', () => {
 
             // TreeTable might render data differently, let's check for any table content
             const tableElement = fixture.debugElement.query(By.css('table'));
+
             expect(tableElement).toBeTruthy();
 
             // Check if data is set properly
@@ -160,6 +160,7 @@ describe('TreeTable', () => {
 
         it('should get total records', async () => {
             const totalRecords = treetable.totalRecords;
+
             expect(totalRecords).toBeGreaterThanOrEqual(0);
         });
 
@@ -215,6 +216,7 @@ describe('TreeTable', () => {
 
         it('should display paginator when enabled', async () => {
             const paginator = fixture.debugElement.query(By.css('p-paginator'));
+
             expect(paginator).toBeTruthy();
         });
 
@@ -473,6 +475,7 @@ describe('TreeTable', () => {
 
         it('should handle node expansion state', async () => {
             const nodeData = [...basicTreeData];
+
             nodeData[0].expanded = true;
             component.value = nodeData;
             fixture.changeDetectorRef.markForCheck();
@@ -560,6 +563,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const loadingDiv = fixture.debugElement.query(By.css('[class*="loading"]'));
+
             expect(loadingDiv).toBeTruthy();
         });
 
@@ -570,6 +574,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const loadingDiv = fixture.debugElement.query(By.css('[class*="loading"]'));
+
             expect(loadingDiv).toBeFalsy();
         });
 
@@ -582,6 +587,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const loadingIcon = fixture.debugElement.query(By.css('.pi-spin'));
+
             expect(loadingIcon).toBeTruthy();
         });
     });
@@ -634,11 +640,13 @@ describe('TreeTable', () => {
         it('should not emit lazy load on initialization when lazyLoadOnInit is false', async () => {
             const newFixture = TestBed.createComponent(TestBasicTreeTableComponent);
             const newComponent = newFixture.componentInstance;
+
             newComponent.lazy = true;
             newComponent.lazyLoadOnInit = false;
             newFixture.detectChanges();
 
             const newTreetable = newFixture.debugElement.query(By.directive(TreeTable)).componentInstance;
+
             spyOn(newTreetable.onLazyLoad, 'emit');
 
             newTreetable.ngOnInit();
@@ -667,6 +675,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const rows = fixture.debugElement.queryAll(By.css('tbody tr'));
+
             expect(rows.length).toBeGreaterThanOrEqual(0);
         });
 
@@ -744,8 +753,10 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const rows = fixture.debugElement.queryAll(By.css('tr[role="row"]'));
+
             if (rows.length > 0) {
                 const firstRow = rows[0];
+
                 expect(firstRow.attributes['aria-selected']).toBeDefined();
             } else {
                 // If no rows are found, at least verify the selection mode is set
@@ -762,6 +773,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const treetableEl = fixture.debugElement.query(By.directive(TreeTable));
+
             expect(treetableEl.classes['custom-treetable']).toBeTruthy();
         });
 
@@ -773,6 +785,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const table = fixture.debugElement.query(By.css('table'));
+
             if (table) {
                 expect(table.styles['width']).toBe('100%');
                 expect(table.classes['custom-table']).toBeTruthy();
@@ -786,6 +799,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const treetableEl = fixture.debugElement.query(By.directive(TreeTable));
+
             // Check if gridlines class is applied (implementation dependent)
             expect(treetableEl).toBeTruthy();
         });
@@ -797,6 +811,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             const treetableEl = fixture.debugElement.query(By.directive(TreeTable));
+
             expect(treetableEl).toBeTruthy();
         });
     });
@@ -816,6 +831,7 @@ describe('TreeTable', () => {
                     { field: 'size', header: 'Size' },
                     { field: 'type', header: 'Type' }
                 ];
+
                 component.columns = columns;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -826,6 +842,7 @@ describe('TreeTable', () => {
 
             it('should accept value array', async () => {
                 const testData = [...basicTreeData];
+
                 component.value = testData;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -854,6 +871,7 @@ describe('TreeTable', () => {
 
             it('should handle rowTrackBy function', async () => {
                 const trackByFn = (index: number, item: any) => item.id;
+
                 component.rowTrackBy = trackByFn;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -891,6 +909,7 @@ describe('TreeTable', () => {
 
             it('should accept tableStyle property', async () => {
                 const style = { width: '500px', height: '400px' };
+
                 component.tableStyle = style;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -980,6 +999,7 @@ describe('TreeTable', () => {
 
             it('should handle rowsPerPageOptions property', async () => {
                 const options = [10, 20, 50];
+
                 component.rowsPerPageOptions = options;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1024,6 +1044,7 @@ describe('TreeTable', () => {
 
             it('should handle currentPageReportTemplate property', async () => {
                 const template = '{currentPage} / {totalPages}';
+
                 component.currentPageReportTemplate = template;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1129,6 +1150,7 @@ describe('TreeTable', () => {
                     { field: 'name', order: 1 },
                     { field: 'size', order: -1 }
                 ];
+
                 component.multiSortMeta = multiSortMeta;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1157,6 +1179,7 @@ describe('TreeTable', () => {
 
             it('should handle selection property', async () => {
                 const selection = basicTreeData[0];
+
                 component.selection = selection;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1167,6 +1190,7 @@ describe('TreeTable', () => {
 
             it('should handle contextMenuSelection property', async () => {
                 const selection = basicTreeData[0];
+
                 component.contextMenuSelection = selection;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1204,6 +1228,7 @@ describe('TreeTable', () => {
 
             it('should handle selectionKeys property', async () => {
                 const keys = { '0': true, '1': false };
+
                 component.selectionKeys = keys;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1317,6 +1342,7 @@ describe('TreeTable', () => {
 
             it('should handle virtualScrollOptions property', async () => {
                 const options = { itemSize: 50, numToleratedItems: 10 };
+
                 component.virtualScrollOptions = options;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1329,6 +1355,7 @@ describe('TreeTable', () => {
         describe('Column Properties', () => {
             it('should handle frozenColumns property', async () => {
                 const frozenCols = [{ field: 'name', header: 'Name' }];
+
                 component.frozenColumns = frozenCols;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1380,6 +1407,7 @@ describe('TreeTable', () => {
                     name: { value: 'test', matchMode: 'contains' },
                     type: { value: 'File', matchMode: 'equals' }
                 };
+
                 component.filters = filters;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1390,6 +1418,7 @@ describe('TreeTable', () => {
 
             it('should handle globalFilterFields property', async () => {
                 const fields = ['name', 'type', 'size'];
+
                 component.globalFilterFields = fields;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1431,6 +1460,7 @@ describe('TreeTable', () => {
                 const contextMenu = {
                     /* mock context menu */
                 };
+
                 component.contextMenu = contextMenu;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1566,6 +1596,7 @@ describe('TreeTable', () => {
 
             it('should handle object and array properties', async () => {
                 const testStyle = { width: '100%', height: '400px' };
+
                 component.tableStyle = testStyle;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1573,6 +1604,7 @@ describe('TreeTable', () => {
                 expect(treetable.tableStyle).toEqual(testStyle);
 
                 const testFrozenColumns = [{ field: 'name', header: 'Name' }];
+
                 component.frozenColumns = testFrozenColumns;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1580,6 +1612,7 @@ describe('TreeTable', () => {
                 expect(treetable.frozenColumns).toEqual(testFrozenColumns);
 
                 const testRowsPerPageOptions = [5, 10, 25, 50];
+
                 component.rowsPerPageOptions = testRowsPerPageOptions;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1587,6 +1620,7 @@ describe('TreeTable', () => {
                 expect(treetable.rowsPerPageOptions).toEqual(testRowsPerPageOptions);
 
                 const testGlobalFilterFields = ['name', 'type', 'size'];
+
                 component.globalFilterFields = testGlobalFilterFields;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1594,6 +1628,7 @@ describe('TreeTable', () => {
                 expect(treetable.globalFilterFields).toEqual(testGlobalFilterFields);
 
                 const testVirtualScrollOptions = { itemSize: 50, numToleratedItems: 10 };
+
                 component.virtualScrollOptions = testVirtualScrollOptions;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1604,6 +1639,7 @@ describe('TreeTable', () => {
             it('should handle selection related properties', async () => {
                 // Test selection modes
                 const selectionModes = ['single', 'multiple', 'checkbox'];
+
                 for (const mode of selectionModes) {
                     component.selectionMode = mode;
                     fixture.changeDetectorRef.markForCheck();
@@ -1614,6 +1650,7 @@ describe('TreeTable', () => {
 
                 // Test selection
                 const testSelection = basicTreeData[0];
+
                 component.selection = testSelection;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1622,6 +1659,7 @@ describe('TreeTable', () => {
 
                 // Test selection keys
                 const testSelectionKeys = { '1': true, '2': false };
+
                 component.selectionKeys = testSelectionKeys;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1630,6 +1668,7 @@ describe('TreeTable', () => {
 
                 // Test context menu selection
                 const contextSelection = basicTreeData[1];
+
                 component.contextMenuSelection = contextSelection;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1664,6 +1703,7 @@ describe('TreeTable', () => {
                     { field: 'name', order: 1 },
                     { field: 'size', order: -1 }
                 ];
+
                 component.multiSortMeta = multiSort;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1676,6 +1716,7 @@ describe('TreeTable', () => {
                     name: { value: 'test', matchMode: 'contains' },
                     type: { value: 'File', matchMode: 'equals' }
                 };
+
                 component.filters = testFilters;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1721,6 +1762,7 @@ describe('TreeTable', () => {
 
             it('should handle paginatorPosition variations', async () => {
                 const positions: ('top' | 'bottom' | 'both')[] = ['top', 'bottom', 'both'];
+
                 for (const position of positions) {
                     component.paginatorPosition = position;
                     fixture.changeDetectorRef.markForCheck();
@@ -1732,6 +1774,7 @@ describe('TreeTable', () => {
 
             it('should handle function properties', async () => {
                 const customTrackBy = (index: number, item: any) => `custom-${item.id}`;
+
                 component.rowTrackBy = customTrackBy;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1782,7 +1825,7 @@ describe('TreeTable', () => {
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
-            dynamicTreetable = dynamicComponent.treetable;
+            dynamicTreetable = dynamicComponent.treetable();
         });
 
         describe('Observable Data Updates', () => {
@@ -1955,6 +1998,7 @@ describe('TreeTable', () => {
                     expect(dynamicTreetable.loading).toBe(true);
 
                     const loadingDiv = dynamicFixture.debugElement.query(By.css('[class*="loading"]'));
+
                     expect(loadingDiv).toBeTruthy();
 
                     dynamicComponent.updateLoading(false);
@@ -2091,6 +2135,7 @@ describe('TreeTable', () => {
                 const dataStream$ = of([{ data: { name: 'Stream Item 1', size: '100KB', type: 'File' } }], [{ data: { name: 'Stream Item 2', size: '200KB', type: 'File' } }], [{ data: { name: 'Stream Item 3', size: '300KB', type: 'File' } }]);
 
                 let updateCount = 0;
+
                 dataStream$.subscribe((data) => {
                     dynamicComponent.updateValue(data);
                     dynamicFixture.changeDetectorRef.markForCheck();
@@ -2158,6 +2203,7 @@ describe('TreeTable', () => {
 
                 expect(dynamicTreetable.loading).toBe(true);
                 const loadingIndicator = dynamicFixture.debugElement.query(By.css('[class*="loading"]'));
+
                 expect(loadingIndicator).toBeTruthy();
 
                 // Stop loading after delay
@@ -2274,6 +2320,7 @@ describe('TreeTable', () => {
                     ];
 
                     let testedCount = 0;
+
                     // Test each boolean property dynamically
                     for (const prop of booleanProperties) {
                         if (dynamicTreetable.hasOwnProperty(prop)) {
@@ -2305,6 +2352,7 @@ describe('TreeTable', () => {
                 if (dynamicTreetable) {
                     // Test rows
                     const testRows = [5, 10, 25, 50];
+
                     for (const rows of testRows) {
                         dynamicComponent.updateRows(rows);
                         dynamicFixture.changeDetectorRef.markForCheck();
@@ -2316,6 +2364,7 @@ describe('TreeTable', () => {
 
                     // Test first
                     const testFirst = [0, 5, 10, 15];
+
                     for (const first of testFirst) {
                         dynamicComponent.updateFirst(first);
                         dynamicFixture.changeDetectorRef.markForCheck();
@@ -2361,6 +2410,7 @@ describe('TreeTable', () => {
                 if (dynamicTreetable) {
                     // Test styleClass
                     const styleClasses = ['class1', 'class2 class3', 'dynamic-class', ''];
+
                     for (const styleClass of styleClasses) {
                         if (dynamicTreetable.hasOwnProperty('styleClass')) {
                             dynamicTreetable.styleClass = styleClass;
@@ -2612,6 +2662,7 @@ describe('TreeTable', () => {
                 if (dynamicTreetable) {
                     // Test sortField
                     const sortFields = ['name', 'size', 'type', null];
+
                     for (const field of sortFields) {
                         if (dynamicTreetable.hasOwnProperty('sortField')) {
                             dynamicTreetable.sortField = field;
@@ -2625,6 +2676,7 @@ describe('TreeTable', () => {
 
                     // Test sortOrder
                     const sortOrders = [1, -1, 0];
+
                     for (const order of sortOrders) {
                         if (dynamicTreetable.hasOwnProperty('sortOrder')) {
                             dynamicTreetable.sortOrder = order;
@@ -2678,6 +2730,7 @@ describe('TreeTable', () => {
                 if (dynamicTreetable) {
                     // Test virtualScrollItemSize
                     const itemSizes = [30, 40, 50, 60, 100];
+
                     for (const size of itemSizes) {
                         if (dynamicTreetable.hasOwnProperty('virtualScrollItemSize')) {
                             dynamicTreetable.virtualScrollItemSize = size;
@@ -2705,6 +2758,7 @@ describe('TreeTable', () => {
 
                     // Test scrollHeight
                     const heights = ['200px', '400px', '100vh', 'auto'];
+
                     for (const height of heights) {
                         if (dynamicTreetable.hasOwnProperty('scrollHeight')) {
                             dynamicTreetable.scrollHeight = height;
@@ -2755,6 +2809,7 @@ describe('TreeTable', () => {
                     );
 
                     let updateCount = 0;
+
                     dataStream$.subscribe((data) => {
                         dynamicComponent.updateValue(data);
                         dynamicFixture.changeDetectorRef.markForCheck();
@@ -2942,7 +2997,6 @@ describe('TreeTable', () => {
 // Test Components
 
 @Component({
-    standalone: false,
     template: `
         <p-treetable
             [columns]="columns"
@@ -3028,10 +3082,11 @@ describe('TreeTable', () => {
             (selectionKeysChange)="onSelectionKeysChange($event)"
         >
         </p-treetable>
-    `
+    `,
+    imports: [FormsModule, TreeTableModule]
 })
 class TestBasicTreeTableComponent {
-    @ViewChild('treetable') treetable!: TreeTable;
+    readonly treetable = viewChild.required<TreeTable>('treetable');
 
     // Input Properties
     columns: any[] = [
@@ -3128,32 +3183,40 @@ class TestBasicTreeTableComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-treetable [value]="value" [columns]="columns">
             <ng-template #caption>Custom TreeTable Caption</ng-template>
             <ng-template #header let-columns>
                 <tr>
-                    <th *ngFor="let col of columns">{{ col.header }}</th>
+                    @for (col of columns; track col) {
+                        <th>{{ col.header }}</th>
+                    }
                 </tr>
             </ng-template>
             <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
                 <tr [ttRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index" [ttEditableColumn]="rowData" [ttEditableColumnField]="col.field">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
-                        {{ rowData[col.field] }}
-                    </td>
+                    @for (col of columns; track col; let i = $index) {
+                        <td [ttEditableColumn]="rowData" [ttEditableColumnField]="col.field">
+                            @if (i == 0) {
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                            }
+                            {{ rowData[col.field] }}
+                        </td>
+                    }
                 </tr>
             </ng-template>
             <ng-template #footer let-columns>
                 <tr>
-                    <td *ngFor="let col of columns">Footer for {{ col.header }}</td>
+                    @for (col of columns; track col) {
+                        <td>Footer for {{ col.header }}</td>
+                    }
                 </tr>
             </ng-template>
             <ng-template #summary>Custom TreeTable Summary</ng-template>
             <ng-template #emptymessage>No records found</ng-template>
         </p-treetable>
-    `
+    `,
+    imports: [FormsModule, TreeTableModule]
 })
 class TestTemplatesTreeTableComponent {
     value: TreeNode[] = [];
@@ -3165,11 +3228,11 @@ class TestTemplatesTreeTableComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-treetable #treetable [value]="value" [columns]="columns"> </p-treetable> `
+    template: ` <p-treetable #treetable [value]="value" [columns]="columns"> </p-treetable> `,
+    imports: [FormsModule, TreeTableModule]
 })
 class TestDynamicTreeTableComponent {
-    @ViewChild('treetable') treetable!: TreeTable;
+    readonly treetable = viewChild.required<TreeTable>('treetable');
 
     value: TreeNode[] = [
         {
@@ -3193,51 +3256,51 @@ class TestDynamicTreeTableComponent {
     }
 
     updateAutoLayout(enabled: boolean) {
-        this.treetable.autoLayout = enabled;
+        this.treetable().autoLayout = enabled;
     }
 
     updatePaginator(enabled: boolean) {
-        this.treetable.paginator = enabled;
+        this.treetable().paginator = enabled;
     }
 
     updateRows(rows: number) {
-        this.treetable.rows = rows;
+        this.treetable().rows = rows;
     }
 
     updateFirst(first: number) {
-        this.treetable.first = first;
+        this.treetable().first = first;
     }
 
     updateLazy(enabled: boolean) {
-        this.treetable.lazy = enabled;
+        this.treetable().lazy = enabled;
     }
 
     updateLoading(loading: boolean) {
-        this.treetable.loading = loading;
+        this.treetable().loading = loading;
     }
 
     updateScrollable(enabled: boolean) {
-        this.treetable.scrollable = enabled;
+        this.treetable().scrollable = enabled;
     }
 
     updateVirtualScroll(enabled: boolean) {
-        this.treetable.virtualScroll = enabled;
+        this.treetable().virtualScroll = enabled;
     }
 
     updateSelectionMode(mode: string) {
-        this.treetable.selectionMode = mode;
+        this.treetable().selectionMode = mode;
     }
 
     updateSortMode(mode: 'single' | 'multiple') {
-        this.treetable.sortMode = mode;
+        this.treetable().sortMode = mode;
     }
 
     updateFilterMode(mode: string) {
-        this.treetable.filterMode = mode;
+        this.treetable().filterMode = mode;
     }
 
     updateShowGridlines(show: boolean) {
-        this.treetable.showGridlines = show;
+        this.treetable().showGridlines = show;
     }
 }
 describe('TreeTable PT', () => {
@@ -3280,6 +3343,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const host = fixture.nativeElement;
+
             expect(host.classList.contains('HOST_CLASS')).toBe(true);
         });
 
@@ -3292,6 +3356,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const wrapper = fixture.nativeElement.querySelector('.p-treetable-scrollable-wrapper');
+
             expect(wrapper?.classList.contains('WRAPPER_CLASS')).toBe(true);
         });
 
@@ -3302,6 +3367,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const table = fixture.nativeElement.querySelector('table');
+
             expect(table?.classList.contains('TABLE_CLASS')).toBe(true);
         });
 
@@ -3312,6 +3378,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const thead = fixture.nativeElement.querySelector('thead');
+
             expect(thead?.classList.contains('THEAD_CLASS')).toBe(true);
         });
 
@@ -3322,6 +3389,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const tbody = fixture.nativeElement.querySelector('tbody');
+
             expect(tbody?.classList.contains('TBODY_CLASS')).toBe(true);
         });
 
@@ -3332,6 +3400,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const tfoot = fixture.nativeElement.querySelector('tfoot');
+
             expect(tfoot?.classList.contains('TFOOT_CLASS')).toBe(true);
         });
 
@@ -3350,6 +3419,7 @@ describe('TreeTable PT', () => {
                 checkNoChanges: () => {},
                 reattach: () => {}
             };
+
             treetable.captionTemplate = {
                 createEmbeddedView: () => mockViewRef as any,
                 elementRef: null
@@ -3359,6 +3429,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const header = fixture.nativeElement.querySelector('.p-treetable-header');
+
             expect(header?.classList.contains('HEADER_CLASS')).toBe(true);
         });
 
@@ -3377,6 +3448,7 @@ describe('TreeTable PT', () => {
                 checkNoChanges: () => {},
                 reattach: () => {}
             };
+
             treetable.summaryTemplate = {
                 createEmbeddedView: () => mockViewRef as any,
                 elementRef: null
@@ -3386,6 +3458,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const footer = fixture.nativeElement.querySelector('.p-treetable-footer');
+
             expect(footer?.classList.contains('FOOTER_CLASS')).toBe(true);
         });
     });
@@ -3406,6 +3479,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const host = fixture.nativeElement;
+
             expect(host.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
             expect(host.style.backgroundColor).toBe('red');
             expect(host.getAttribute('data-p-test')).toBe('true');
@@ -3427,6 +3501,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const wrapper = fixture.nativeElement.querySelector('.p-treetable-scrollable-wrapper');
+
             expect(wrapper?.classList.contains('WRAPPER_OBJECT_CLASS')).toBe(true);
             expect(wrapper?.style.border).toBe('1px solid blue');
             expect(wrapper?.getAttribute('data-testid')).toBe('wrapper-test');
@@ -3444,6 +3519,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const table = fixture.nativeElement.querySelector('table');
+
             expect(table?.classList.contains('TABLE_OBJECT_CLASS')).toBe(true);
             expect(table?.getAttribute('data-table')).toBe('true');
         });
@@ -3552,6 +3628,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const wrapper = fixture.nativeElement.querySelector('.p-treetable-scrollable-wrapper');
+
             wrapper?.click();
 
             expect(clicked).toBe(true);
@@ -3572,6 +3649,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const host = fixture.nativeElement;
+
             host.dispatchEvent(new MouseEvent('mouseenter'));
 
             expect(hovered).toBe(true);
@@ -3610,12 +3688,15 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const scrollableWrapper = fixture.nativeElement.querySelector('.p-treetable-scrollable-wrapper');
+
             expect(scrollableWrapper?.classList.contains('SCROLLABLE_WRAPPER_CLASS')).toBe(true);
 
             const scrollableHeader = fixture.nativeElement.querySelector('.p-treetable-scrollable-header');
+
             expect(scrollableHeader?.classList.contains('SCROLLABLE_HEADER_CLASS')).toBe(true);
 
             const scrollableBody = fixture.nativeElement.querySelector('.p-treetable-scrollable-body');
+
             expect(scrollableBody?.classList.contains('SCROLLABLE_BODY_CLASS')).toBe(true);
         });
 
@@ -3630,9 +3711,11 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const headerTable = fixture.nativeElement.querySelector('.p-treetable-scrollable-header-table');
+
             expect(headerTable?.classList.contains('SCROLLABLE_HEADER_TABLE_CLASS')).toBe(true);
 
             const headerBox = fixture.nativeElement.querySelector('.p-treetable-scrollable-header-box');
+
             expect(headerBox?.classList.contains('SCROLLABLE_HEADER_BOX_CLASS')).toBe(true);
         });
 
@@ -3651,6 +3734,7 @@ describe('TreeTable PT', () => {
                 checkNoChanges: () => {},
                 reattach: () => {}
             };
+
             treetable.footerTemplate = {
                 createEmbeddedView: () => mockViewRef as any,
                 elementRef: null
@@ -3665,12 +3749,15 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const footer = fixture.nativeElement.querySelector('.p-treetable-scrollable-footer');
+
             expect(footer?.classList.contains('SCROLLABLE_FOOTER_CLASS')).toBe(true);
 
             const footerBox = fixture.nativeElement.querySelector('.p-treetable-scrollable-footer-box');
+
             expect(footerBox?.classList.contains('SCROLLABLE_FOOTER_BOX_CLASS')).toBe(true);
 
             const footerTable = fixture.nativeElement.querySelector('.p-treetable-scrollable-footer-table');
+
             expect(footerTable?.classList.contains('SCROLLABLE_FOOTER_TABLE_CLASS')).toBe(true);
         });
     });
@@ -3687,6 +3774,7 @@ describe('TreeTable PT', () => {
             fixture.detectChanges();
 
             const resizerHelper = fixture.nativeElement.querySelector('.p-column-resizer-helper');
+
             expect(resizerHelper?.classList.contains('RESIZER_HELPER_CLASS')).toBe(true);
         });
     });
@@ -3845,6 +3933,7 @@ describe('TreeTable Inline PT', () => {
         fixture.detectChanges();
 
         const host = fixture.nativeElement.querySelector('p-treetable');
+
         expect(host?.classList.contains('INLINE_HOST_CLASS')).toBe(true);
     });
 });

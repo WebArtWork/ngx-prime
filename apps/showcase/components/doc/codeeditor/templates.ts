@@ -52,18 +52,19 @@ const devDependencies = {
     postcss: '^8.4.41'
 };
 
-const getComponentName = (selector: string) => {
-    return selector
+const getComponentName = (selector: string) =>
+    selector
         .split('-')
         .map((el) => el.charAt(0).toUpperCase() + el.slice(1))
         .join('');
-};
 
 const getExternalFiles = (files: ExtFile[]) => {
     const extFiles = {};
+
     if (files && files.length > 0) {
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
+
             extFiles[file.path] = { content: file.content };
         }
     }

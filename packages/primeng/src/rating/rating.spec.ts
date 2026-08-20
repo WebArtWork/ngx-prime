@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -118,7 +117,7 @@ class TestAdvancedRatingComponent {
 // Rating pTemplate component
 @Component({
     standalone: true,
-    imports: [Rating, FormsModule, CommonModule, SharedModule],
+    imports: [Rating, FormsModule, SharedModule],
     template: `
         <p-rating [(ngModel)]="value" [stars]="stars">
             <!-- On icon template with pTemplate directive -->
@@ -141,7 +140,7 @@ class TestRatingPTemplateComponent {
 // Rating #template reference component
 @Component({
     standalone: true,
-    imports: [Rating, FormsModule, CommonModule, SharedModule],
+    imports: [Rating, FormsModule, SharedModule],
     template: `
         <p-rating [(ngModel)]="value" [stars]="stars">
             <!-- On icon template with #template reference -->
@@ -201,14 +200,14 @@ describe('Rating', () => {
 
         it('should render correct number of star options', () => {
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
+
             expect(starOptions.length).toBe(5 as any);
         });
 
         it('should render hidden input elements', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
+
             expect(inputs.length).toBe(5 as any);
             inputs.forEach((input) => {
                 expect(input.nativeElement.parentElement.classList.contains('p-hidden-accessible')).toBe(true);
@@ -240,9 +239,7 @@ describe('Rating', () => {
 
         it('should select rating on click', async () => {
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
 
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
@@ -255,9 +252,7 @@ describe('Rating', () => {
 
         it('should emit onRate event', async () => {
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
 
             starOptions[3].nativeElement.click();
             fixture.detectChanges();
@@ -271,9 +266,7 @@ describe('Rating', () => {
 
         it('should toggle rating when clicking same star', async () => {
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
 
             // First click - set to 3
             starOptions[2].nativeElement.click();
@@ -313,6 +306,7 @@ describe('Rating', () => {
 
             // Check that we have the correct number of total icons (on + off = 5)
             const allSvgs = fixture.debugElement.queryAll(By.css('svg'));
+
             expect(allSvgs.length).toBe(5 as any);
         });
 
@@ -320,6 +314,7 @@ describe('Rating', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
 
             const changeEvent = new Event('change');
+
             inputs[1].nativeElement.checked = true;
             inputs[1].nativeElement.dispatchEvent(changeEvent);
             fixture.detectChanges();
@@ -352,9 +347,8 @@ describe('Rating', () => {
             expect(ratingInstance.starsArray?.length).toBe(10);
 
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
+
             expect(starOptions.length).toBe(10);
         });
 
@@ -365,9 +359,7 @@ describe('Rating', () => {
             await fixture.whenStable();
 
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
             const initialValue = component.value;
 
             starOptions[4].nativeElement.click();
@@ -386,9 +378,7 @@ describe('Rating', () => {
             await fixture.whenStable();
 
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
             const initialValue = component.value;
 
             starOptions[4].nativeElement.click();
@@ -400,6 +390,7 @@ describe('Rating', () => {
             expect(component.rateEvents.length).toBe(0 as any);
 
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
+
             inputs.forEach((input) => {
                 expect(input.nativeElement.hasAttribute('disabled')).toBe(true);
             });
@@ -407,6 +398,7 @@ describe('Rating', () => {
 
         it('should apply name attribute', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
+
             inputs.forEach((input) => {
                 expect(input.nativeElement.name).toBe('test-rating');
             });
@@ -417,6 +409,7 @@ describe('Rating', () => {
             fixture.detectChanges();
 
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
+
             inputs.forEach((input) => {
                 expect(input.nativeElement.hasAttribute('required')).toBe(true);
             });
@@ -442,9 +435,7 @@ describe('Rating', () => {
 
         it('should integrate with reactive forms', async () => {
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
 
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
@@ -470,9 +461,7 @@ describe('Rating', () => {
 
         it('should update form when rating changes', async () => {
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
 
             starOptions[3].nativeElement.click();
             fixture.detectChanges();
@@ -493,9 +482,7 @@ describe('Rating', () => {
 
         it('should reset form correctly', async () => {
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
 
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
@@ -592,6 +579,7 @@ describe('Rating', () => {
             // When iconOnClass is set, spans are created with that class
             const spans = fixture.debugElement.queryAll(By.css('span'));
             const iconSpans = spans.filter((el) => el.nativeElement.classList.contains('pi-heart-fill') || el.nativeElement.classList.contains('pi-heart'));
+
             // Should have custom icon spans
             expect(iconSpans.length).toBeGreaterThan(0);
         });
@@ -605,12 +593,14 @@ describe('Rating', () => {
             await fixture.whenStable();
 
             const onIcons = fixture.debugElement.queryAll(By.css('[data-pc-section="onIcon"]'));
+
             onIcons.forEach((icon) => {
                 expect(icon.nativeElement.style.color).toBe('gold');
                 expect(icon.nativeElement.style.fontSize).toBe('20px');
             });
 
             const offIcons = fixture.debugElement.queryAll(By.css('[data-pc-section="offIcon"]'));
+
             offIcons.forEach((icon) => {
                 expect(icon.nativeElement.style.color).toBe('gray');
                 expect(icon.nativeElement.style.fontSize).toBe('20px');
@@ -623,6 +613,7 @@ describe('Rating', () => {
 
             // SVG icons are rendered when no custom class is provided
             const allSvgs = fixture.debugElement.queryAll(By.css('svg'));
+
             expect(allSvgs.length).toBe(5 as any); // Total should be 5 stars
         });
     });
@@ -668,6 +659,7 @@ describe('Rating', () => {
 
             // Navigate with keyboard
             const changeEvent = new Event('change');
+
             inputs[2].nativeElement.checked = true;
             inputs[2].nativeElement.dispatchEvent(changeEvent);
             fixture.detectChanges();
@@ -679,6 +671,7 @@ describe('Rating', () => {
 
         it('should support screen readers', () => {
             const hiddenAccessibleElements = fixture.debugElement.queryAll(By.css('.p-hidden-accessible'));
+
             expect(hiddenAccessibleElements.length).toBe(5 as any);
 
             hiddenAccessibleElements.forEach((element) => {
@@ -691,6 +684,7 @@ describe('Rating', () => {
             fixture.detectChanges();
 
             const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
+
             // Check that the pAutoFocus directive is applied - look for the attribute it adds
             expect(ratingInstance.autofocus).toBe(true);
         });
@@ -722,6 +716,7 @@ describe('Rating', () => {
             expect(ratingInstance.value).toBeNull();
 
             const onIcons = fixture.debugElement.queryAll(By.css('[data-pc-section="onIcon"]'));
+
             expect(onIcons.length).toBe(0 as any);
         });
 
@@ -735,6 +730,7 @@ describe('Rating', () => {
 
             // Should show all icons
             const allIcons = fixture.debugElement.queryAll(By.css('svg'));
+
             expect(allIcons.length).toBe(5 as any);
         });
 
@@ -747,6 +743,7 @@ describe('Rating', () => {
             expect(ratingInstance.value).toBe(-1);
 
             const onIcons = fixture.debugElement.queryAll(By.css('[data-pc-section="onIcon"]'));
+
             expect(onIcons.length).toBe(0 as any);
         });
 
@@ -754,23 +751,24 @@ describe('Rating', () => {
             // Create a new component with 0 stars
             const newFixture = TestBed.createComponent(TestBasicRatingComponent);
             const newComponent = newFixture.componentInstance;
+
             newComponent.stars = 0;
             newFixture.detectChanges();
             const newRatingInstance = newFixture.debugElement.query(By.directive(Rating)).componentInstance;
+
             newRatingInstance.ngOnInit();
             newFixture.detectChanges();
 
             expect(newRatingInstance.starsArray?.length).toBe(0 as any);
 
             const starOptions = newFixture.debugElement.queryAll(By.css('input[type="radio"]'));
+
             expect(starOptions.length).toBe(0 as any);
         });
 
         it('should handle rapid clicks', async () => {
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
 
             starOptions[0].nativeElement.click();
             starOptions[1].nativeElement.click();
@@ -794,9 +792,7 @@ describe('Rating', () => {
             await fixture.whenStable();
 
             // Find divs that are direct children of ng-template and contain input elements
-            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => {
-                return el.query(By.css('input[type="radio"]'));
-            });
+            const starOptions = fixture.debugElement.queryAll(By.css('div')).filter((el) => el.query(By.css('input[type="radio"]')));
 
             starOptions[2].nativeElement.click();
             fixture.detectChanges();
@@ -827,15 +823,18 @@ describe('Rating', () => {
             // Create a new component with 100 stars
             const newFixture = TestBed.createComponent(TestAdvancedRatingComponent);
             const newComponent = newFixture.componentInstance;
+
             newComponent.numberOfStars = 100;
             newFixture.detectChanges();
             const newRatingInstance = newFixture.debugElement.query(By.directive(Rating)).componentInstance;
+
             newRatingInstance.ngOnInit();
             newFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await newFixture.whenStable();
 
             const starOptions = newFixture.debugElement.queryAll(By.css('input[type="radio"]'));
+
             expect(starOptions.length).toBe(100);
         });
 
@@ -932,6 +931,7 @@ describe('Rating', () => {
             if (ratingInstance.ngAfterContentInit) {
                 ratingInstance.ngAfterContentInit();
             }
+
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
@@ -943,6 +943,7 @@ describe('Rating', () => {
             if (ratingInstance.ngAfterViewInit) {
                 ratingInstance.ngAfterViewInit();
             }
+
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1037,6 +1038,7 @@ describe('Rating', () => {
             if (ratingInstance.ngAfterContentInit) {
                 ratingInstance.ngAfterContentInit();
             }
+
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1048,6 +1050,7 @@ describe('Rating', () => {
             if (ratingInstance.ngAfterViewInit) {
                 ratingInstance.ngAfterViewInit();
             }
+
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1070,8 +1073,8 @@ describe('Rating', () => {
     describe('PassThrough (PT) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCase1Component {
                 value: number = 3;
@@ -1089,23 +1092,25 @@ describe('Rating', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase1Component],
+                    imports: [Rating, FormsModule, TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
                     expect(hostEl.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
                 }
 
                 const optionEls = testFixture.debugElement.queryAll(By.css('[data-pc-section="option"]'));
+
                 if (optionEls.length > 0) {
                     expect(optionEls[0].nativeElement.classList.contains('OPTION_CLASS')).toBe(true);
                 }
@@ -1114,8 +1119,8 @@ describe('Rating', () => {
 
         describe('Case 2: Object with class, style, data attributes', () => {
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCase2Component {
                 value: number = 3;
@@ -1135,17 +1140,18 @@ describe('Rating', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase2Component],
+                    imports: [Rating, FormsModule, TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('OBJECT_HOST_CLASS')).toBe(true);
                     expect(hostEl.nativeElement.style.backgroundColor).toBe('red');
@@ -1156,8 +1162,8 @@ describe('Rating', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCase3Component {
                 value: number = 3;
@@ -1173,17 +1179,18 @@ describe('Rating', () => {
             it('should apply mixed object and string values', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase3Component],
+                    imports: [Rating, FormsModule, TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('MIXED_HOST_CLASS')).toBe(true);
                 }
@@ -1192,44 +1199,42 @@ describe('Rating', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value" [stars]="5" [pt]="pt"></p-rating>`
+                template: `<p-rating [(ngModel)]="value" [stars]="5" [pt]="pt"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCase4Component {
                 value: number = 4;
                 pt = {
-                    host: ({ instance }: any) => {
-                        return {
-                            class: instance?.value > 2 ? 'HIGH_RATING_CLASS' : 'LOW_RATING_CLASS'
-                        };
-                    },
-                    option: ({ instance }: any) => {
-                        return {
-                            style: {
-                                opacity: instance?.value > 2 ? '1' : '0.5'
-                            }
-                        };
-                    }
+                    host: ({ instance }: any) => ({
+                        class: instance?.value > 2 ? 'HIGH_RATING_CLASS' : 'LOW_RATING_CLASS'
+                    }),
+                    option: ({ instance }: any) => ({
+                        style: {
+                            opacity: instance?.value > 2 ? '1' : '0.5'
+                        }
+                    })
                 };
             }
 
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase4Component],
+                    imports: [Rating, FormsModule, TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+
                 if (hostEl) {
                     const hasHighRating = hostEl.nativeElement.classList.contains('HIGH_RATING_CLASS');
                     const hasLowRating = hostEl.nativeElement.classList.contains('LOW_RATING_CLASS');
+
                     expect(hasHighRating || hasLowRating).toBe(true);
                 }
             });
@@ -1237,8 +1242,8 @@ describe('Rating', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCase5Component {
                 value: number = 3;
@@ -1260,20 +1265,22 @@ describe('Rating', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase5Component],
+                    imports: [Rating, FormsModule, TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const optionEls = testFixture.debugElement.queryAll(By.css('[data-pc-section="option"]'));
+
                 if (optionEls.length > 0) {
                     const clickEvent = new MouseEvent('click');
+
                     optionEls[0].nativeElement.dispatchEvent(clickEvent);
                     testFixture.detectChanges();
                     expect(component.clickedSection).toBeTruthy();
@@ -1283,8 +1290,8 @@ describe('Rating', () => {
 
         describe('Case 6: Inline PT', () => {
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', option: 'INLINE_OPTION_CLASS' }"></p-rating>`
+                template: `<p-rating [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', option: 'INLINE_OPTION_CLASS' }"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCase6InlineComponent {
                 value: number = 3;
@@ -1293,25 +1300,26 @@ describe('Rating', () => {
             it('should apply inline PT as string', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase6InlineComponent],
+                    imports: [Rating, FormsModule, TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
                 }
             });
 
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, option: { class: 'OPTION_INLINE_CLASS' } }"></p-rating>`
+                template: `<p-rating [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, option: { class: 'OPTION_INLINE_CLASS' } }"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCase6InlineObjectComponent {
                 value: number = 3;
@@ -1320,17 +1328,18 @@ describe('Rating', () => {
             it('should apply inline PT as object', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [Rating, FormsModule, TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 }
@@ -1339,8 +1348,8 @@ describe('Rating', () => {
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value"></p-rating>`
+                template: `<p-rating [(ngModel)]="value"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCase7GlobalComponent {
                 value: number = 3;
@@ -1349,8 +1358,7 @@ describe('Rating', () => {
             it('should apply global PT from config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [Rating, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1365,11 +1373,13 @@ describe('Rating', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
                 }
@@ -1378,8 +1388,8 @@ describe('Rating', () => {
 
         describe('Case 8: PT Hooks', () => {
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCase8HooksComponent {
                 value: number = 3;
@@ -1402,13 +1412,13 @@ describe('Rating', () => {
             it('should call PT hooks', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCase8HooksComponent],
+                    imports: [Rating, FormsModule, TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
                 const component = testFixture.componentInstance;
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
@@ -1423,8 +1433,8 @@ describe('Rating', () => {
 
         describe('PT Section Coverage', () => {
             @Component({
-                standalone: false,
-                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`
+                template: `<p-rating [(ngModel)]="value" [pt]="pt"></p-rating>`,
+                imports: [Rating, FormsModule]
             })
             class TestPTCoverageComponent {
                 value: number = 3;
@@ -1442,30 +1452,35 @@ describe('Rating', () => {
             it('should apply PT to all sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Rating, FormsModule],
-                    declarations: [TestPTCoverageComponent],
+                    imports: [Rating, FormsModule, TestPTCoverageComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCoverageComponent);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="rating"]'));
+
                 expect(hostEl).toBeTruthy();
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.getAttribute('data-pc-name')).toBe('rating');
                 }
 
                 const optionEls = testFixture.debugElement.queryAll(By.css('[data-pc-section="option"]'));
+
                 expect(optionEls.length).toBeGreaterThan(0);
 
                 // Check for hidden containers and inputs - they should exist within the options
                 const hiddenAccessibleEls = testFixture.debugElement.queryAll(By.css('.p-hidden-accessible'));
+
                 expect(hiddenAccessibleEls.length).toBeGreaterThan(0);
 
                 const inputEls = testFixture.debugElement.queryAll(By.css('input[type="radio"]'));
+
                 expect(inputEls.length).toBeGreaterThan(0);
             });
         });

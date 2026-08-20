@@ -126,6 +126,7 @@ export class DesignCreateTheme {
             this.messageService.add({ key: 'designer', severity: 'error', summary: 'Error', detail: 'Name is required', life: 3000 });
         } else {
             const newPreset = structuredClone(presets[this.basePreset]);
+
             this.designerService.themeName.set(this.themeName);
             this.designerService.basePreset.set(this.basePreset);
             this.designerService.newPreset.set(newPreset);

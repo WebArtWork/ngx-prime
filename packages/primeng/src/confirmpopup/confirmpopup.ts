@@ -6,25 +6,24 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     effect,
     ElementRef,
     EventEmitter,
     HostListener,
-    Inject,
     inject,
     InjectionToken,
     input,
     Input,
     NgModule,
     numberAttribute,
-    QueryList,
     Renderer2,
     signal,
     TemplateRef,
     untracked,
     viewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@primeuix/utils';
@@ -100,7 +99,7 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                         >
                             <ng-template #icon>
                                 <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
-                                <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                                <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate() || _rejectIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                         <p-button
@@ -119,7 +118,7 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
                         >
                             <ng-template #icon>
                                 <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticontemplate"></i>
-                                <ng-template #accepticontemplate *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                                <ng-template #accepticontemplate *ngTemplateOutlet="acceptIconTemplate() || _acceptIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                     </div>
@@ -132,6 +131,13 @@ const CONFIRMPOPUP_INSTANCE = new InjectionToken<ConfirmPopup>('CONFIRMPOPUP_INS
     encapsulation: ViewEncapsulation.None
 })
 export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
+    el = inject(ElementRef);
+    private confirmationService = inject(ConfirmationService);
+    renderer = inject(Renderer2);
+    cd = inject(ChangeDetectorRef);
+    overlayService = inject(OverlayService);
+    document = inject<Document>(DOCUMENT);
+
     componentName = 'ConfirmPopup';
 
     $pcConfirmPopup: ConfirmPopup | undefined = inject(CONFIRMPOPUP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -202,12 +208,10 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'body'
@@ -237,13 +241,13 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      * Custom accept icon template.
      * @group Templates
      */
-    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<void>>;
+    readonly acceptIconTemplate = contentChild<Nullable<TemplateRef<void>>>('accepticon', { descendants: false });
 
     /**
      * Custom reject icon template.
      * @group Templates
      */
-    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<void>>;
+    readonly rejectIconTemplate = contentChild<Nullable<TemplateRef<void>>>('rejecticon', { descendants: false });
 
     /**
      * Custom headless template.
@@ -273,19 +277,13 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     _componentStyle = inject(ConfirmPopupStyle);
 
-    constructor(
-        public el: ElementRef,
-        private confirmationService: ConfirmationService,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public overlayService: OverlayService,
-        @Inject(DOCUMENT) public document: Document
-    ) {
+    constructor() {
         super();
         this.window = this.document.defaultView as Window;
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
+
                 return;
             }
 
@@ -329,10 +327,10 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         });
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this._contentTemplate = item.template;
@@ -355,10 +353,12 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     option(name: string, k?: string) {
         const source: { [key: string]: any } = this;
+
         if (source.hasOwnProperty(name)) {
             if (k) {
                 return source[k];
             }
+
             return source[name];
         }
 
@@ -375,6 +375,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     onBeforeEnter(event: MotionEvent) {
         if (this.confirmation) {
             const focus = this.confirmation.defaultFocus ?? this.defaultFocus;
+
             this.autoFocusAccept = focus === 'accept';
             this.autoFocusReject = focus === 'reject';
         }
@@ -393,6 +394,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
             const focusEl = <HTMLButtonElement>(
                 (this.defaultFocus === 'accept' ? findSingle(this.acceptButtonViewChild()?.nativeElement, '[data-pc-section="root"]') : findSingle(this.rejectButtonViewChild()?.nativeElement, '[data-pc-section="root"]'))
             );
+
             focusEl.focus();
         }
     }
@@ -434,6 +436,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
         if (containerOffset && targetOffset && containerOffset.left < targetOffset.left) {
             arrowLeft = targetOffset.left - containerOffset.left;
         }
+
         if (this.container) {
             (this.container as HTMLDivElement).style.setProperty('--p-confirmpopup-arrow-left', `${arrowLeft}px`);
         }
@@ -518,6 +521,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                 if (this.confirmation && this.confirmation.dismissableMask !== false) {
                     let targetElement = <HTMLElement>this.confirmation.target;
+
                     if (this.container !== event.target && !this.container?.contains(event.target) && targetElement !== event.target && !targetElement.contains(event.target)) {
                         this.hide();
                     }

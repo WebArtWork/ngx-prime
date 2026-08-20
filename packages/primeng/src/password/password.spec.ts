@@ -10,7 +10,6 @@ import { MapperPipe, Password, PasswordDirective, PasswordModule } from './passw
 
 // Test Components
 @Component({
-    standalone: false,
     template: `
         <p-password
             [(ngModel)]="value"
@@ -42,7 +41,8 @@ import { MapperPipe, Password, PasswordDirective, PasswordModule } from './passw
             (onClear)="onClearEvent($event)"
         >
         </p-password>
-    `
+    `,
+    imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule]
 })
 class TestBasicPasswordComponent {
     value: string | null = null as any;
@@ -78,12 +78,12 @@ class TestBasicPasswordComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <form [formGroup]="form">
             <p-password formControlName="password" [feedback]="feedback" [toggleMask]="toggleMask"> </p-password>
         </form>
-    `
+    `,
+    imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule]
 })
 class TestFormPasswordComponent {
     form = new FormGroup({
@@ -96,7 +96,6 @@ class TestFormPasswordComponent {
 // Comprehensive template test component with all ContentChild projections
 // Password pTemplate component
 @Component({
-    standalone: false,
     template: `
         <p-password [(ngModel)]="value" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear" [placeholder]="placeholder">
             <!-- Header template with pTemplate directive -->
@@ -143,7 +142,8 @@ class TestFormPasswordComponent {
                 <i class="pi pi-eye custom-show-icon" data-testid="ptemplate-showicon"></i>
             </ng-template>
         </p-password>
-    `
+    `,
+    imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule]
 })
 class TestPasswordPTemplateComponent {
     value: string | null = null as any;
@@ -155,7 +155,6 @@ class TestPasswordPTemplateComponent {
 
 // Password #template reference component
 @Component({
-    standalone: false,
     template: `
         <p-password [(ngModel)]="value" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear" [placeholder]="placeholder">
             <!-- Header template with #template reference -->
@@ -202,7 +201,8 @@ class TestPasswordPTemplateComponent {
                 <i class="pi pi-eye custom-show-icon" data-testid="ref-showicon"></i>
             </ng-template>
         </p-password>
-    `
+    `,
+    imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule]
 })
 class TestPasswordRefTemplateComponent {
     value: string | null = null as any;
@@ -213,8 +213,8 @@ class TestPasswordRefTemplateComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <input type="password" pPassword [(ngModel)]="value" [feedback]="feedback" [promptLabel]="promptLabel" [weakLabel]="weakLabel" [mediumLabel]="mediumLabel" [strongLabel]="strongLabel" /> `
+    template: ` <input type="password" pPassword [(ngModel)]="value" [feedback]="feedback" [promptLabel]="promptLabel" [weakLabel]="weakLabel" [mediumLabel]="mediumLabel" [strongLabel]="strongLabel" /> `,
+    imports: [PasswordDirective, FormsModule, CommonModule]
 })
 class TestPasswordDirectiveComponent {
     value: string | null = null as any;
@@ -226,8 +226,8 @@ class TestPasswordDirectiveComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <input type="password" pPassword [(ngModel)]="value" [pt]="pt" [feedback]="feedback" /> `
+    template: ` <input type="password" pPassword [(ngModel)]="value" [pt]="pt" [feedback]="feedback" /> `,
+    imports: [PasswordDirective, FormsModule, CommonModule]
 })
 class TestPTPasswordDirectiveComponent {
     value: string | null = null as any;
@@ -236,8 +236,8 @@ class TestPTPasswordDirectiveComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-password [(ngModel)]="value" [pt]="pt" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear"> </p-password> `
+    template: ` <p-password [(ngModel)]="value" [pt]="pt" [feedback]="feedback" [toggleMask]="toggleMask" [showClear]="showClear"> </p-password> `,
+    imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule]
 })
 class TestPTPasswordComponent {
     value: string | null = null as any;
@@ -254,8 +254,7 @@ describe('Password', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule],
-            declarations: [TestBasicPasswordComponent, TestFormPasswordComponent, TestPasswordPTemplateComponent, TestPasswordRefTemplateComponent, TestPTPasswordComponent],
+            imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestBasicPasswordComponent, TestFormPasswordComponent, TestPasswordPTemplateComponent, TestPasswordRefTemplateComponent, TestPTPasswordComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -312,21 +311,25 @@ describe('Password', () => {
 
         it('should return 0 for empty password', () => {
             const strength = component.testStrength('');
+
             expect(strength).toBe(0);
         });
 
         it('should return 1 for weak password', () => {
             const strength = component.testStrength('abc');
+
             expect(strength).toBe(1);
         });
 
         it('should return 2 for medium password', () => {
             const strength = component.testStrength('abcDEF');
+
             expect(strength).toBe(2);
         });
 
         it('should return 3 for strong password', () => {
             const strength = component.testStrength('abcDEF123');
+
             expect(strength).toBe(3);
         });
 
@@ -490,6 +493,7 @@ describe('Password', () => {
             if (inputEl?.nativeElement) {
                 inputEl.nativeElement.value = 'weakpwd';
                 const keyupEvent = new KeyboardEvent('keyup', { key: 'a' });
+
                 Object.defineProperty(keyupEvent, 'target', { value: inputEl.nativeElement });
 
                 inputEl.nativeElement.dispatchEvent(keyupEvent);
@@ -507,14 +511,17 @@ describe('Password', () => {
             testFixture.detectChanges();
 
             const passwordComponent = testFixture.debugElement.query(By.css('p-password')).componentInstance;
+
             passwordComponent.overlayVisible = true;
 
             const inputEl = testFixture.debugElement.query(By.css('input'));
+
             if (inputEl?.nativeElement) {
                 const escapeEvent = new KeyboardEvent('keyup', { code: 'Escape' });
 
                 inputEl.nativeElement.dispatchEvent(escapeEvent);
             }
+
             testFixture.detectChanges();
             await testFixture.whenStable();
 
@@ -530,6 +537,7 @@ describe('Password', () => {
             testFixture.detectChanges();
 
             const clearIcon = testFixture.debugElement.query(By.css('[data-pc-section="clearIcon"]'));
+
             if (clearIcon) {
                 clearIcon.nativeElement.click();
                 testFixture.detectChanges();
@@ -672,6 +680,7 @@ describe('Password', () => {
 
             // Set a valid password
             const validPassword = 'ValidPassword123!';
+
             formTestComponent.form.patchValue({ password: validPassword });
             formTestFixture.detectChanges();
             await formTestFixture.whenStable();
@@ -700,6 +709,7 @@ describe('Password', () => {
             formTestFixture.detectChanges();
 
             const inputEl = formTestFixture.debugElement.query(By.css('input'));
+
             if (inputEl) {
                 inputEl.nativeElement.focus();
                 inputEl.nativeElement.blur();
@@ -755,6 +765,7 @@ describe('Password', () => {
             // Simulate rapid fire password changes
             for (let i = 0; i < 5; i++) {
                 const pwd = `password${i}`;
+
                 formTestComponent.form.patchValue({ password: pwd });
                 formTestFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 10));
@@ -802,6 +813,7 @@ describe('Password', () => {
 
         it('should support header template property access', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
+
             // Verify component can access template properties without errors
             expect(() => passwordComponent.headerTemplate).not.toThrow();
             expect(passwordComponent).toBeTruthy();
@@ -809,6 +821,7 @@ describe('Password', () => {
 
         it('should support content template property access', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
+
             // Verify component can access template properties without errors
             expect(() => passwordComponent.contentTemplate).not.toThrow();
             expect(passwordComponent).toBeTruthy();
@@ -816,6 +829,7 @@ describe('Password', () => {
 
         it('should support footer template property access', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
+
             // Verify component can access template properties without errors
             expect(() => passwordComponent.footerTemplate).not.toThrow();
             expect(passwordComponent).toBeTruthy();
@@ -823,6 +837,7 @@ describe('Password', () => {
 
         it('should support clear icon template property access', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
+
             // Verify component can access template properties without errors
             expect(() => passwordComponent.clearIconTemplate).not.toThrow();
             expect(passwordComponent).toBeTruthy();
@@ -830,6 +845,7 @@ describe('Password', () => {
 
         it('should support hide icon template property access', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
+
             // Verify component can access template properties without errors
             expect(() => passwordComponent.hideIconTemplate).not.toThrow();
             expect(passwordComponent).toBeTruthy();
@@ -837,6 +853,7 @@ describe('Password', () => {
 
         it('should support show icon template property access', () => {
             const passwordComponent = templatesPasswordElement.componentInstance;
+
             // Verify component can access template properties without errors
             expect(() => passwordComponent.showIconTemplate).not.toThrow();
             expect(passwordComponent).toBeTruthy();
@@ -900,6 +917,7 @@ describe('Password', () => {
             // Verify component can work with templates without errors
             expect(() => {
                 templatesFixture.detectChanges();
+
                 if (passwordComponent.ngAfterContentInit) {
                     passwordComponent.ngAfterContentInit();
                 }
@@ -916,6 +934,7 @@ describe('Password', () => {
             // After content init, templates should be available
             expect(() => {
                 templatesFixture.detectChanges();
+
                 if (passwordComponent.ngAfterContentInit) {
                     passwordComponent.ngAfterContentInit();
                 }
@@ -948,6 +967,7 @@ describe('Password', () => {
 
             templateElements.forEach((template) => {
                 const pTemplateValue = template.nativeElement.getAttribute('pTemplate');
+
                 if (pTemplateValue) {
                     // Should have both pTemplate attribute and local reference
                     expect(template.nativeElement.hasAttribute('pTemplate')).toBe(true);
@@ -1069,12 +1089,14 @@ describe('Password', () => {
 
         it('should handle very long passwords', () => {
             const longPassword = 'a'.repeat(1000);
+
             expect(() => component.testStrength(longPassword)).not.toThrow();
             expect(() => component.updateUI(longPassword)).not.toThrow();
         });
 
         it('should handle special characters in password', () => {
             const specialPassword = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
             expect(() => component.testStrength(specialPassword)).not.toThrow();
             expect(() => component.updateUI(specialPassword)).not.toThrow();
         });
@@ -1130,11 +1152,13 @@ describe('Password', () => {
         it('should handle large datasets efficiently', async () => {
             // Test rapid password strength calculations
             const passwords: string[] = [];
+
             for (let i = 0; i < 1000; i++) {
                 passwords.push(`password${i}Test123!`);
             }
 
             const startTime = performance.now();
+
             passwords.forEach((pwd) => {
                 component.testStrength(pwd);
                 component.updateUI(pwd);
@@ -1165,11 +1189,13 @@ describe('Password', () => {
             const passwords = ['a', 'aB', 'aB1', 'aB1!', 'aB1!cD2@'];
 
             const startTime = performance.now();
+
             for (const pwd of passwords) {
                 component.updateUI(pwd);
                 await new Promise((resolve) => setTimeout(resolve, 1));
                 await fixture.whenStable();
             }
+
             const endTime = performance.now();
 
             expect(endTime - startTime).toBeLessThan(100); // Should be very fast
@@ -1222,10 +1248,12 @@ describe('Password', () => {
         it('should handle extreme password lengths', () => {
             // Test very short password
             const shortPassword = '';
+
             expect(component.testStrength(shortPassword)).toBe(0);
 
             // Test extremely long password
             const longPassword = 'A1!'.repeat(1000);
+
             expect(() => component.testStrength(longPassword)).not.toThrow();
             expect(() => component.updateUI(longPassword)).not.toThrow();
         });
@@ -1267,8 +1295,7 @@ describe('PasswordDirective', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [PasswordDirective, FormsModule, CommonModule],
-            declarations: [TestPasswordDirectiveComponent, TestPTPasswordDirectiveComponent],
+            imports: [PasswordDirective, FormsModule, CommonModule, TestPasswordDirectiveComponent, TestPTPasswordDirectiveComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1276,6 +1303,7 @@ describe('PasswordDirective', () => {
         component = fixture.componentInstance;
 
         const directiveEl = fixture.debugElement.query(By.directive(PasswordDirective));
+
         directive = directiveEl.injector.get(PasswordDirective);
     });
 
@@ -1353,6 +1381,7 @@ describe('PasswordDirective', () => {
 
             inputEl.nativeElement.value = 'test123';
             const inputEvent = new Event('input');
+
             Object.defineProperty(inputEvent, 'target', { value: inputEl.nativeElement });
 
             directive.onInput(inputEvent);
@@ -1365,9 +1394,11 @@ describe('PasswordDirective', () => {
             fixture.detectChanges();
 
             const inputEl = fixture.debugElement.query(By.css('input'));
+
             inputEl.nativeElement.value = 'abc';
 
             const keyupEvent = new KeyboardEvent('keyup');
+
             Object.defineProperty(keyupEvent, 'target', { value: inputEl.nativeElement });
 
             directive.onKeyup(keyupEvent);
@@ -1452,6 +1483,7 @@ describe('PasswordDirective', () => {
                 await ptFixture.whenStable();
 
                 const rootEl = ptFixture.debugElement.query(By.css('.p-password'));
+
                 if (rootEl) {
                     expect(rootEl.nativeElement.classList.contains('ROOT_DIRECTIVE_CLASS')).toBe(true);
                 }
@@ -1497,6 +1529,7 @@ describe('PasswordDirective', () => {
                 await ptFixture.whenStable();
 
                 const rootEl = ptFixture.debugElement.query(By.css('.p-password'));
+
                 if (rootEl) {
                     expect(rootEl.nativeElement.classList.contains('ROOT_DIRECTIVE_OBJECT_CLASS')).toBe(true);
                     expect(rootEl.nativeElement.getAttribute('data-p-root')).toBe('root-directive-value');
@@ -1524,12 +1557,15 @@ describe('PasswordDirective', () => {
             it('should support PT callback with instance parameter', async () => {
                 ptComponent.value = 'directivePassword';
                 let callbackExecuted = false;
+
                 ptComponent.pt = {
                     host: ({ instance }) => {
                         callbackExecuted = true;
+
                         if ((instance as any)?.value === 'directivePassword') {
                             return { class: 'DIRECTIVE_INSTANCE_CLASS' };
                         }
+
                         return { class: 'DIRECTIVE_DEFAULT_CLASS' };
                     }
                 };
@@ -1548,6 +1584,7 @@ describe('PasswordDirective', () => {
                         if ((instance as any)?.feedback === true) {
                             return { class: 'DIRECTIVE_FEEDBACK_CLASS' };
                         }
+
                         return { class: 'DIRECTIVE_NO_FEEDBACK_CLASS' };
                     }
                 };
@@ -1564,6 +1601,7 @@ describe('PasswordDirective', () => {
                 ptComponent.pt = {
                     host: ({ instance }) => {
                         const hasValue = !!(instance as any)?.value;
+
                         return {
                             class: {
                                 DIRECTIVE_HAS_VALUE: hasValue,
@@ -1584,6 +1622,7 @@ describe('PasswordDirective', () => {
         describe('Case 5: Event binding', () => {
             it('should handle onclick event in PT', async () => {
                 let clicked = false;
+
                 ptComponent.pt = {
                     host: {
                         onclick: () => {
@@ -1601,6 +1640,7 @@ describe('PasswordDirective', () => {
 
             it('should handle onfocus event in PT', async () => {
                 let focused = false;
+
                 ptComponent.pt = {
                     host: {
                         onfocus: () => {
@@ -1621,15 +1661,18 @@ describe('PasswordDirective', () => {
         describe('Case 6: Inline PT', () => {
             it('should handle inline pt with string', () => {
                 const inlineFixture = TestBed.createComponent(TestPTPasswordDirectiveComponent);
+
                 inlineFixture.componentInstance.pt = { host: 'DIRECTIVE_INLINE_CLASS' };
                 inlineFixture.detectChanges();
 
                 const el = inlineFixture.debugElement.query(By.css('input')).nativeElement;
+
                 expect(el.classList.contains('DIRECTIVE_INLINE_CLASS')).toBe(true);
             });
 
             it('should handle inline pt with object', () => {
                 const inlineFixture = TestBed.createComponent(TestPTPasswordDirectiveComponent);
+
                 inlineFixture.componentInstance.pt = {
                     host: {
                         class: 'DIRECTIVE_INLINE_OBJECT_CLASS',
@@ -1639,6 +1682,7 @@ describe('PasswordDirective', () => {
                 inlineFixture.detectChanges();
 
                 const el = inlineFixture.debugElement.query(By.css('input')).nativeElement;
+
                 expect(el.classList.contains('DIRECTIVE_INLINE_OBJECT_CLASS')).toBe(true);
                 expect(el.getAttribute('data-inline-directive')).toBe('true');
             });
@@ -1648,8 +1692,7 @@ describe('PasswordDirective', () => {
             it('should have global pt configuration available', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [PasswordDirective, FormsModule, CommonModule],
-                    declarations: [TestPTPasswordDirectiveComponent],
+                    imports: [PasswordDirective, FormsModule, CommonModule, TestPTPasswordDirectiveComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1664,10 +1707,12 @@ describe('PasswordDirective', () => {
                 }).compileComponents();
 
                 const globalFixture = TestBed.createComponent(TestPTPasswordDirectiveComponent);
+
                 globalFixture.detectChanges();
                 await globalFixture.whenStable();
 
                 const globalInputEl = globalFixture.debugElement.query(By.css('input')).nativeElement;
+
                 // Verify component is created and directive is applied
                 expect(globalInputEl).toBeTruthy();
                 expect(globalInputEl.hasAttribute('ppassword')).toBe(true);
@@ -1676,8 +1721,7 @@ describe('PasswordDirective', () => {
             it('should instantiate multiple directive instances with global config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [PasswordDirective, FormsModule, CommonModule],
-                    declarations: [TestPTPasswordDirectiveComponent],
+                    imports: [PasswordDirective, FormsModule, CommonModule, TestPTPasswordDirectiveComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1712,6 +1756,7 @@ describe('PasswordDirective', () => {
             it('should call onAfterViewInit hook', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTPasswordDirectiveComponent);
+
                 hookFixture.componentInstance.pt = {
                     host: 'DIRECTIVE_HOOK_CLASS',
                     hooks: {
@@ -1729,6 +1774,7 @@ describe('PasswordDirective', () => {
             it('should call onInit hook', async () => {
                 let initHookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTPasswordDirectiveComponent);
+
                 hookFixture.componentInstance.pt = {
                     hooks: {
                         onInit: () => {
@@ -1745,6 +1791,7 @@ describe('PasswordDirective', () => {
             it('should call onAfterViewChecked hook', async () => {
                 let checkedCount = 0;
                 const hookFixture = TestBed.createComponent(TestPTPasswordDirectiveComponent);
+
                 hookFixture.componentInstance.pt = {
                     hooks: {
                         onAfterViewChecked: () => {
@@ -1803,8 +1850,7 @@ describe('Password Integration Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule],
-            declarations: [TestBasicPasswordComponent],
+            imports: [PasswordModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestBasicPasswordComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1840,6 +1886,7 @@ describe('Password Integration Tests', () => {
 
         // Test keyup (should update strength)
         const keyupEvent = new KeyboardEvent('keyup');
+
         Object.defineProperty(keyupEvent, 'target', { value: inputEl.nativeElement });
         inputEl.nativeElement.dispatchEvent(keyupEvent);
         testFixture.detectChanges();
@@ -1850,6 +1897,7 @@ describe('Password Integration Tests', () => {
 
         // Test toggle mask
         const showIcon = testFixture.debugElement.query(By.css('[data-pc-section="showIcon"]'));
+
         if (showIcon?.nativeElement) {
             showIcon.nativeElement.dispatchEvent(new Event('click'));
             testFixture.detectChanges();
@@ -1872,8 +1920,7 @@ describe('Password PassThrough Tests', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [PasswordModule, FormsModule, CommonModule],
-            declarations: [TestPTPasswordComponent],
+            imports: [PasswordModule, FormsModule, CommonModule, TestPTPasswordComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1908,6 +1955,7 @@ describe('Password PassThrough Tests', () => {
             await fixture.whenStable();
 
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearIcon"]'));
+
             if (clearIcon) {
                 expect(clearIcon.nativeElement.classList.contains('CLEAR_ICON_CLASS')).toBe(true);
             } else {
@@ -1923,6 +1971,7 @@ describe('Password PassThrough Tests', () => {
             await fixture.whenStable();
 
             const unmaskIcon = fixture.debugElement.query(By.css('[data-pc-section="showIcon"]'));
+
             if (unmaskIcon) {
                 expect(unmaskIcon.nativeElement.classList.contains('UNMASK_ICON_CLASS')).toBe(true);
             } else {
@@ -1944,30 +1993,36 @@ describe('Password PassThrough Tests', () => {
             fixture.detectChanges();
 
             const inputEl = fixture.debugElement.query(By.css('input'));
+
             inputEl.nativeElement.dispatchEvent(new Event('focus'));
             fixture.detectChanges();
             await fixture.whenStable();
 
             const overlay = fixture.debugElement.query(By.css('.p-password-overlay'));
+
             if (overlay) {
                 expect(overlay.nativeElement.classList.contains('OVERLAY_CLASS')).toBe(true);
 
                 const content = overlay.nativeElement.querySelector('.p-password-content');
+
                 if (content) {
                     expect(content.classList.contains('CONTENT_CLASS')).toBe(true);
                 }
 
                 const meter = overlay.nativeElement.querySelector('.p-password-meter');
+
                 if (meter) {
                     expect(meter.classList.contains('METER_CLASS')).toBe(true);
 
                     const meterLabel = meter.querySelector('.p-password-meter-label');
+
                     if (meterLabel) {
                         expect(meterLabel.classList.contains('METER_LABEL_CLASS')).toBe(true);
                     }
                 }
 
                 const meterText = overlay.nativeElement.querySelector('.p-password-meter-text');
+
                 if (meterText) {
                     expect(meterText.classList.contains('METER_TEXT_CLASS')).toBe(true);
                 }
@@ -2021,11 +2076,13 @@ describe('Password PassThrough Tests', () => {
             fixture.detectChanges();
 
             const inputEl = fixture.debugElement.query(By.css('input'));
+
             inputEl.nativeElement.dispatchEvent(new Event('focus'));
             fixture.detectChanges();
             await fixture.whenStable();
 
             const overlay = fixture.debugElement.query(By.css('.p-password-overlay'));
+
             if (overlay) {
                 expect(overlay.nativeElement.classList.contains('OVERLAY_OBJECT_CLASS')).toBe(true);
                 expect(overlay.nativeElement.style.backgroundColor).toBe('blue');
@@ -2050,6 +2107,7 @@ describe('Password PassThrough Tests', () => {
             expect(passwordEl.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
 
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearIcon"]'));
+
             if (clearIcon) {
                 expect(clearIcon.nativeElement.classList.contains('CLEAR_ICON_STRING_CLASS')).toBe(true);
             }
@@ -2060,11 +2118,13 @@ describe('Password PassThrough Tests', () => {
         it('should access instance.value property in PT callback', async () => {
             component.value = 'testPassword';
             let instanceAccessed = false;
+
             component.pt = {
                 root: ({ instance }) => {
                     if ((instance as any)?.value === 'testPassword') {
                         instanceAccessed = true;
                     }
+
                     return { class: 'INSTANCE_ROOT_CLASS' };
                 }
             };
@@ -2078,11 +2138,13 @@ describe('Password PassThrough Tests', () => {
         it('should access instance.feedback property in PT callback', async () => {
             component.feedback = true;
             let feedbackAccessed = false;
+
             component.pt = {
                 root: ({ instance }) => {
                     if ((instance as any)?.feedback === true) {
                         feedbackAccessed = true;
                     }
+
                     return { class: 'FEEDBACK_CLASS' };
                 }
             };
@@ -2097,10 +2159,12 @@ describe('Password PassThrough Tests', () => {
             component.value = 'strongPassword123!';
             component.feedback = true;
             let overlayCallbackExecuted = false;
+
             component.pt = {
                 overlay: ({ instance }) => {
                     overlayCallbackExecuted = true;
                     const hasValue = !!(instance as any)?.value;
+
                     return {
                         class: {
                             HAS_VALUE: hasValue,
@@ -2113,13 +2177,16 @@ describe('Password PassThrough Tests', () => {
             await fixture.whenStable();
 
             const inputEl = fixture.debugElement.query(By.css('input'));
+
             inputEl.nativeElement.dispatchEvent(new Event('focus'));
             fixture.detectChanges();
             await fixture.whenStable();
 
             // Verify callback was executed by checking if the class was applied
             const overlay = fixture.debugElement.query(By.css('.p-password-overlay'));
+
             expect(overlay).toBeTruthy();
+
             if (overlay) {
                 // The callback should have been executed when overlay was created
                 expect(overlayCallbackExecuted).toBe(true);
@@ -2130,6 +2197,7 @@ describe('Password PassThrough Tests', () => {
     describe('Case 5: Event binding', () => {
         it('should handle onclick event in PT', async () => {
             let clicked = false;
+
             component.showClear = true;
             component.value = 'test';
             component.pt = {
@@ -2143,6 +2211,7 @@ describe('Password PassThrough Tests', () => {
             await fixture.whenStable();
 
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearIcon"]'));
+
             if (clearIcon) {
                 clearIcon.nativeElement.click();
                 expect(clicked).toBe(true);
@@ -2154,6 +2223,7 @@ describe('Password PassThrough Tests', () => {
 
         it('should handle onclick on overlay', async () => {
             let overlayClicked = false;
+
             component.feedback = true;
             component.value = 'test';
             component.pt = {
@@ -2166,11 +2236,13 @@ describe('Password PassThrough Tests', () => {
             fixture.detectChanges();
 
             const inputEl = fixture.debugElement.query(By.css('input'));
+
             inputEl.nativeElement.dispatchEvent(new Event('focus'));
             fixture.detectChanges();
             await fixture.whenStable();
 
             const overlay = fixture.debugElement.query(By.css('.p-password-overlay'));
+
             if (overlay) {
                 overlay.nativeElement.click();
                 await fixture.whenStable();
@@ -2182,15 +2254,18 @@ describe('Password PassThrough Tests', () => {
     describe('Case 6: Inline PT', () => {
         it('should handle inline pt with string', () => {
             const inlineFixture = TestBed.createComponent(Password);
+
             inlineFixture.componentRef.setInput('pt', { root: 'INLINE_CLASS' });
             inlineFixture.detectChanges();
 
             const el = inlineFixture.debugElement.nativeElement;
+
             expect(el.classList.contains('INLINE_CLASS')).toBe(true);
         });
 
         it('should handle inline pt with object', () => {
             const inlineFixture = TestBed.createComponent(Password);
+
             inlineFixture.componentRef.setInput('pt', {
                 root: {
                     class: 'INLINE_OBJECT_CLASS',
@@ -2200,6 +2275,7 @@ describe('Password PassThrough Tests', () => {
             inlineFixture.detectChanges();
 
             const el = inlineFixture.debugElement.nativeElement;
+
             expect(el.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(el.getAttribute('data-inline')).toBe('true');
         });
@@ -2209,8 +2285,7 @@ describe('Password PassThrough Tests', () => {
         it('should apply global pt configuration', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [PasswordModule, FormsModule, CommonModule],
-                declarations: [TestPTPasswordComponent],
+                imports: [PasswordModule, FormsModule, CommonModule, TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -2225,10 +2300,12 @@ describe('Password PassThrough Tests', () => {
             }).compileComponents();
 
             const globalFixture = TestBed.createComponent(TestPTPasswordComponent);
+
             globalFixture.detectChanges();
             await globalFixture.whenStable();
 
             const globalPasswordEl = globalFixture.debugElement.query(By.css('p-password')).nativeElement;
+
             expect(globalPasswordEl.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
             expect(globalPasswordEl.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
         });
@@ -2236,8 +2313,7 @@ describe('Password PassThrough Tests', () => {
         it('should apply global CSS from pt configuration', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [PasswordModule, FormsModule, CommonModule],
-                declarations: [TestPTPasswordComponent],
+                imports: [PasswordModule, FormsModule, CommonModule, TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -2254,18 +2330,19 @@ describe('Password PassThrough Tests', () => {
             }).compileComponents();
 
             const globalFixture = TestBed.createComponent(TestPTPasswordComponent);
+
             globalFixture.detectChanges();
             await globalFixture.whenStable();
 
             const globalPasswordEl = globalFixture.debugElement.query(By.css('p-password')).nativeElement;
+
             expect(globalPasswordEl.classList.contains('GLOBAL_CSS_CLASS')).toBe(true);
         });
 
         it('should apply global pt to multiple instances', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [PasswordModule, FormsModule, CommonModule],
-                declarations: [TestPTPasswordComponent],
+                imports: [PasswordModule, FormsModule, CommonModule, TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -2296,6 +2373,7 @@ describe('Password PassThrough Tests', () => {
     describe('Case 8: Hooks', () => {
         it('should call onAfterViewInit hook', async () => {
             let hookCalled = false;
+
             component.pt = {
                 root: 'HOOK_CLASS',
                 hooks: {
@@ -2306,6 +2384,7 @@ describe('Password PassThrough Tests', () => {
             };
 
             const newFixture = TestBed.createComponent(TestPTPasswordComponent);
+
             newFixture.componentInstance.pt = component.pt;
             newFixture.detectChanges();
             await newFixture.whenStable();
@@ -2315,6 +2394,7 @@ describe('Password PassThrough Tests', () => {
 
         it('should call onInit hook', async () => {
             let initHookCalled = false;
+
             component.pt = {
                 hooks: {
                     onInit: () => {
@@ -2324,6 +2404,7 @@ describe('Password PassThrough Tests', () => {
             };
 
             const newFixture = TestBed.createComponent(TestPTPasswordComponent);
+
             newFixture.componentInstance.pt = component.pt;
             newFixture.detectChanges();
             await newFixture.whenStable();
@@ -2333,6 +2414,7 @@ describe('Password PassThrough Tests', () => {
 
         it('should call onAfterViewChecked hook', async () => {
             let checkedCount = 0;
+
             component.pt = {
                 hooks: {
                     onAfterViewChecked: () => {
@@ -2342,6 +2424,7 @@ describe('Password PassThrough Tests', () => {
             };
 
             const newFixture = TestBed.createComponent(TestPTPasswordComponent);
+
             newFixture.componentInstance.pt = component.pt;
             newFixture.detectChanges();
             await newFixture.whenStable();
@@ -2364,6 +2447,7 @@ describe('Password PassThrough Tests', () => {
             await fixture.whenStable();
 
             const inputEl = fixture.debugElement.query(By.css('input'));
+
             expect(inputEl.nativeElement.classList.contains('PC_INPUT_TEXT_CLASS')).toBe(true);
         });
 
@@ -2380,6 +2464,7 @@ describe('Password PassThrough Tests', () => {
             await fixture.whenStable();
 
             const inputEl = fixture.debugElement.query(By.css('input'));
+
             expect(inputEl.nativeElement.classList.contains('PC_INPUT_CLASS')).toBe(true);
             expect(inputEl.nativeElement.getAttribute('data-input')).toBe('test-value');
         });

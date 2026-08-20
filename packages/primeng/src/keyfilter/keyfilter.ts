@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Directive, ElementRef, EventEmitter, forwardRef, HostListener, Inject, Input, NgModule, Output, PLATFORM_ID, Provider } from '@angular/core';
+import { booleanAttribute, Directive, ElementRef, EventEmitter, forwardRef, HostListener, Input, NgModule, Output, PLATFORM_ID, Provider, inject } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
 import { getBrowser, isAndroid } from '@primeuix/utils';
 
@@ -62,6 +62,7 @@ const SAFARI_KEYS: SafariKeys = {
     63273: 36, // home
     63275: 35 // end
 };
+
 /**
  * KeyFilter Directive is a built-in feature of InputText to restrict user input based on a regular expression.
  * @group Components
@@ -72,6 +73,10 @@ const SAFARI_KEYS: SafariKeys = {
     providers: [KEYFILTER_VALIDATOR]
 })
 export class KeyFilter implements Validator {
+    private document = inject<Document>(DOCUMENT);
+    private platformId = inject(PLATFORM_ID);
+    el = inject(ElementRef);
+
     /**
      * When enabled, instead of blocking keys, input is validated internally to test against the regular expression.
      * @group Props
@@ -112,11 +117,7 @@ export class KeyFilter implements Validator {
 
     lastValue: any;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef
-    ) {
+    constructor() {
         if (isPlatformBrowser(this.platformId)) {
             this.isAndroid = isAndroid();
         } else {
@@ -126,6 +127,7 @@ export class KeyFilter implements Validator {
 
     isNavKeyPress(e: KeyboardEvent) {
         let k = e.keyCode;
+
         k = getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
 
         return (k >= 33 && k <= 40) || k == KEYS.RETURN || k == KEYS.TAB || k == KEYS.ESC;
@@ -139,6 +141,7 @@ export class KeyFilter implements Validator {
 
     getKey(e: KeyboardEvent) {
         let k = e.keyCode || e.charCode;
+
         return getBrowser().safari ? (SAFARI_KEYS as any)[k] || k : k;
     }
 
@@ -195,6 +198,7 @@ export class KeyFilter implements Validator {
             }
 
             val = this.el.nativeElement.value;
+
             if (this.isValidString(val)) {
                 this.lastValue = val;
             }
@@ -246,6 +250,7 @@ export class KeyFilter implements Validator {
         // Fallback for older browsers
         if (!clipboardData && this.document.defaultView) {
             const windowClipboard = (<any>this.document.defaultView).clipboardData;
+
             if (windowClipboard) {
                 clipboardData = {
                     getData: (_format: string) => windowClipboard.getData('text')
@@ -256,15 +261,18 @@ export class KeyFilter implements Validator {
         if (clipboardData) {
             let pattern = /\{[0-9]+\}/;
             const pastedText = clipboardData.getData('text');
+
             if (pattern.test(this.regex.toString())) {
                 if (!this.regex.test(pastedText)) {
                     e.preventDefault();
+
                     return;
                 }
             } else {
                 for (let char of pastedText.toString()) {
                     if (!this.regex.test(char)) {
                         e.preventDefault();
+
                         return;
                     }
                 }
@@ -275,6 +283,7 @@ export class KeyFilter implements Validator {
     validate(_c: AbstractControl): { [key: string]: any } | any {
         if (this.pValidateOnly) {
             let value = this.el.nativeElement.value;
+
             if (value && !this.regex.test(value)) {
                 return {
                     validatePattern: false

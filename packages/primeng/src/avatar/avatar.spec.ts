@@ -5,34 +5,34 @@ import { SharedModule } from 'primeng/api';
 import { Avatar, AvatarModule } from './avatar';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-avatar',
-    template: `<p-avatar></p-avatar>`
+    template: `<p-avatar></p-avatar>`,
+    imports: [AvatarModule, SharedModule]
 })
 class TestBasicAvatarComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-label-avatar',
-    template: `<p-avatar [label]="label"></p-avatar>`
+    template: `<p-avatar [label]="label"></p-avatar>`,
+    imports: [AvatarModule, SharedModule]
 })
 class TestLabelAvatarComponent {
     label = 'JD';
 }
 
 @Component({
-    standalone: false,
     selector: 'test-icon-avatar',
-    template: `<p-avatar [icon]="icon"></p-avatar>`
+    template: `<p-avatar [icon]="icon"></p-avatar>`,
+    imports: [AvatarModule, SharedModule]
 })
 class TestIconAvatarComponent {
     icon = 'pi pi-user';
 }
 
 @Component({
-    standalone: false,
     selector: 'test-image-avatar',
-    template: `<p-avatar [image]="image" [ariaLabel]="ariaLabel" (onImageError)="onImageError($event)"></p-avatar>`
+    template: `<p-avatar [image]="image" [ariaLabel]="ariaLabel" (onImageError)="onImageError($event)"></p-avatar>`,
+    imports: [AvatarModule, SharedModule]
 })
 class TestImageAvatarComponent {
     image = '/path/to/avatar.jpg';
@@ -45,9 +45,9 @@ class TestImageAvatarComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-size-avatar',
-    template: `<p-avatar [label]="label" [size]="size"></p-avatar>`
+    template: `<p-avatar [label]="label" [size]="size"></p-avatar>`,
+    imports: [AvatarModule, SharedModule]
 })
 class TestSizeAvatarComponent {
     label = 'AB';
@@ -55,9 +55,9 @@ class TestSizeAvatarComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-shape-avatar',
-    template: `<p-avatar [label]="label" [shape]="shape"></p-avatar>`
+    template: `<p-avatar [label]="label" [shape]="shape"></p-avatar>`,
+    imports: [AvatarModule, SharedModule]
 })
 class TestShapeAvatarComponent {
     label = 'CD';
@@ -65,9 +65,9 @@ class TestShapeAvatarComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-style-class-avatar',
-    template: `<p-avatar [label]="label" [styleClass]="styleClass"></p-avatar>`
+    template: `<p-avatar [label]="label" [styleClass]="styleClass"></p-avatar>`,
+    imports: [AvatarModule, SharedModule]
 })
 class TestStyleClassAvatarComponent {
     label = 'EF';
@@ -75,9 +75,9 @@ class TestStyleClassAvatarComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-aria-avatar',
-    template: `<p-avatar [label]="label" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy"></p-avatar>`
+    template: `<p-avatar [label]="label" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy"></p-avatar>`,
+    imports: [AvatarModule, SharedModule]
 })
 class TestAriaAvatarComponent {
     label = 'GH';
@@ -86,20 +86,20 @@ class TestAriaAvatarComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-content-avatar',
     template: `
         <p-avatar>
             <span class="custom-content">Custom</span>
         </p-avatar>
-    `
+    `,
+    imports: [AvatarModule, SharedModule]
 })
 class TestContentAvatarComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-dynamic-avatar',
-    template: ` <p-avatar [label]="label" [icon]="icon" [image]="image" [size]="size" [shape]="shape" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onImageError)="onImageError($event)"> </p-avatar> `
+    template: ` <p-avatar [label]="label" [icon]="icon" [image]="image" [size]="size" [shape]="shape" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onImageError)="onImageError($event)"> </p-avatar> `,
+    imports: [AvatarModule, SharedModule]
 })
 class TestDynamicAvatarComponent {
     label: string | undefined;
@@ -135,8 +135,9 @@ class TestPTAvatarComponent {
 describe('Avatar', () => {
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [AvatarModule, SharedModule],
-            declarations: [
+            imports: [
+                AvatarModule,
+                SharedModule,
                 TestBasicAvatarComponent,
                 TestLabelAvatarComponent,
                 TestIconAvatarComponent,
@@ -162,6 +163,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const avatarDebugElement = fixture.debugElement.query(By.directive(Avatar));
+
             component = avatarDebugElement.componentInstance;
             element = avatarDebugElement.nativeElement;
         });
@@ -215,6 +217,7 @@ describe('Avatar', () => {
 
         it('should display label text', () => {
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe('JD');
         });
@@ -225,6 +228,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement.nativeElement.textContent.trim()).toBe('AB');
         });
 
@@ -234,6 +238,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement).toBeFalsy();
         });
 
@@ -243,6 +248,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement).toBeFalsy();
         });
 
@@ -256,6 +262,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement.nativeElement.textContent.trim()).toBe('ABCDEFGH');
         });
     });
@@ -274,6 +281,7 @@ describe('Avatar', () => {
 
         it('should display icon', () => {
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+
             expect(iconElement).toBeTruthy();
             expect(iconElement.nativeElement.classList.contains('pi')).toBe(true);
             expect(iconElement.nativeElement.classList.contains('pi-user')).toBe(true);
@@ -285,6 +293,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+
             expect(iconElement.nativeElement.classList.contains('pi-star')).toBe(true);
             expect(iconElement.nativeElement.classList.contains('pi-user')).toBe(false);
         });
@@ -295,6 +304,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+
             expect(iconElement).toBeFalsy();
         });
 
@@ -304,6 +314,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+
             expect(iconElement.nativeElement.classList.contains('pi')).toBe(true);
             expect(iconElement.nativeElement.classList.contains('pi-user')).toBe(true);
             expect(iconElement.nativeElement.classList.contains('custom-icon')).toBe(true);
@@ -328,6 +339,7 @@ describe('Avatar', () => {
 
         it('should display image', () => {
             const imageElement = fixture.debugElement.query(By.css('img'));
+
             expect(imageElement).toBeTruthy();
             expect(imageElement.nativeElement.src).toContain('/path/to/avatar.jpg');
         });
@@ -338,11 +350,13 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
+
             expect(imageElement.nativeElement.src).toContain('/new/path/avatar.png');
         });
 
         it('should set aria-label on image', () => {
             const imageElement = fixture.debugElement.query(By.css('img'));
+
             expect(imageElement.nativeElement.getAttribute('aria-label')).toBe('User Avatar');
         });
 
@@ -373,6 +387,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
+
             expect(imageElement).toBeFalsy();
         });
 
@@ -589,6 +604,7 @@ describe('Avatar', () => {
 
         it('should project custom content', () => {
             const customContent = fixture.debugElement.query(By.css('.custom-content'));
+
             expect(customContent).toBeTruthy();
             expect(customContent.nativeElement.textContent.trim()).toBe('Custom');
         });
@@ -596,6 +612,7 @@ describe('Avatar', () => {
         it('should display projected content inside avatar', () => {
             const avatarElement = fixture.debugElement.query(By.directive(Avatar));
             const customContent = avatarElement.query(By.css('.custom-content'));
+
             expect(customContent).toBeTruthy();
         });
     });
@@ -680,6 +697,7 @@ describe('Avatar', () => {
             expect(element.classList.contains('custom-class')).toBe(true);
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement.nativeElement.textContent.trim()).toBe('XY');
         });
     });
@@ -739,6 +757,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement.nativeElement.textContent.trim()).toBe('C');
         });
 
@@ -793,6 +812,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe('' as any);
         });
@@ -835,6 +855,7 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement.nativeElement.textContent).toBe('<>&"\'');
         });
 
@@ -844,14 +865,17 @@ describe('Avatar', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
             expect(labelElement.nativeElement.textContent).toBe('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
         });
 
         it('should handle image error correctly', () => {
             const avatarComponent = fixture.debugElement.query(By.directive(Avatar)).componentInstance;
+
             spyOn(avatarComponent.onImageError, 'emit');
 
             const mockEvent = new Event('error');
+
             avatarComponent.imageError(mockEvent);
 
             expect(avatarComponent.onImageError.emit).toHaveBeenCalledWith(mockEvent);
@@ -956,6 +980,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
                 expect(labelElement.nativeElement.classList.contains('LABEL_CLASS')).toBe(true);
             });
 
@@ -967,6 +992,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+
                 expect(iconElement.nativeElement.classList.contains('ICON_CLASS')).toBe(true);
             });
 
@@ -978,6 +1004,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 const imageElement = fixture.debugElement.query(By.css('img'));
+
                 expect(imageElement.nativeElement.classList.contains('IMAGE_CLASS')).toBe(true);
             });
         });
@@ -1023,6 +1050,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
                 expect(labelElement.nativeElement.classList.contains('LABEL_OBJECT_CLASS')).toBe(true);
                 expect(labelElement.nativeElement.style.color).toBe('blue');
                 expect(labelElement.nativeElement.getAttribute('data-p-label')).toBe('test');
@@ -1046,6 +1074,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+
                 expect(iconElement.nativeElement.classList.contains('ICON_OBJECT_CLASS')).toBe(true);
                 expect(iconElement.nativeElement.style.fontSize).toBe('2rem');
                 expect(iconElement.nativeElement.getAttribute('data-p-icon')).toBe('custom');
@@ -1069,6 +1098,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 const imageElement = fixture.debugElement.query(By.css('img'));
+
                 expect(imageElement.nativeElement.classList.contains('IMAGE_OBJECT_CLASS')).toBe(true);
                 expect(imageElement.nativeElement.style.border).toBe('2px solid black');
                 expect(imageElement.nativeElement.getAttribute('data-p-image')).toBe('avatar');
@@ -1099,6 +1129,7 @@ describe('Avatar', () => {
                 expect(element.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
 
                 const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
                 expect(labelElement.nativeElement.classList.contains('LABEL_MIXED_CLASS')).toBe(true);
             });
 
@@ -1119,6 +1150,7 @@ describe('Avatar', () => {
                 expect(element.classList.contains('ROOT_OBJECT')).toBe(true);
 
                 const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+
                 expect(iconElement.nativeElement.classList.contains('ICON_STRING')).toBe(true);
             });
         });
@@ -1139,11 +1171,9 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.size === 'large' ? 'LARGE_SIZE' : 'NORMAL_SIZE'
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.size === 'large' ? 'LARGE_SIZE' : 'NORMAL_SIZE'
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1156,18 +1186,17 @@ describe('Avatar', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
-                    label: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'background-color': instance?.shape === 'circle' ? 'yellow' : 'red'
-                            }
-                        };
-                    }
+                    label: ({ instance }: any) => ({
+                        style: {
+                            'background-color': instance?.shape === 'circle' ? 'yellow' : 'red'
+                        }
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
                 expect(labelElement.nativeElement.style.backgroundColor).toBe('yellow');
             });
 
@@ -1176,13 +1205,11 @@ describe('Avatar', () => {
                 fixture.componentRef.setInput('icon', 'pi pi-user');
                 fixture.componentRef.setInput('label', 'TEST');
                 fixture.componentRef.setInput('pt', {
-                    icon: ({ instance }: any) => {
-                        return {
-                            class: {
-                                HAS_LABEL: !!instance?.label
-                            }
-                        };
-                    }
+                    icon: ({ instance }: any) => ({
+                        class: {
+                            HAS_LABEL: !!instance?.label
+                        }
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1193,6 +1220,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+
                 expect(iconElement.nativeElement.classList.contains('HAS_LABEL')).toBe(false);
             });
 
@@ -1203,16 +1231,15 @@ describe('Avatar', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
-                    image: ({ instance }: any) => {
-                        return {
-                            'data-has-aria': instance?.ariaLabel ? 'true' : 'false'
-                        };
-                    }
+                    image: ({ instance }: any) => ({
+                        'data-has-aria': instance?.ariaLabel ? 'true' : 'false'
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
                 const imageElement = fixture.debugElement.query(By.css('img'));
+
                 expect(imageElement.nativeElement.getAttribute('data-has-aria')).toBe('true');
             });
         });
@@ -1229,6 +1256,7 @@ describe('Avatar', () => {
 
             it('should bind onclick event to label through pt', async () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     label: {
                         onclick: () => {
@@ -1240,6 +1268,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
+
                 labelElement.nativeElement.click();
 
                 expect(clicked).toBe(true);
@@ -1247,6 +1276,7 @@ describe('Avatar', () => {
 
             it('should bind onclick event to root through pt', async () => {
                 let clickCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
@@ -1266,6 +1296,7 @@ describe('Avatar', () => {
             it('should bind onclick event to icon through pt', async () => {
                 fixture.componentRef.setInput('label', undefined);
                 let iconClicked = false;
+
                 fixture.componentRef.setInput('icon', 'pi pi-user');
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1280,6 +1311,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
+
                 iconElement.nativeElement.click();
 
                 expect(iconClicked).toBe(true);
@@ -1298,6 +1330,7 @@ describe('Avatar', () => {
 
             it('should access onImageError emitter through instance in pt', async () => {
                 let emitterCalled = false;
+
                 fixture.componentRef.setInput('label', undefined);
                 fixture.componentRef.setInput('image', '/path/to/image.jpg');
                 fixture.changeDetectorRef.markForCheck();
@@ -1307,6 +1340,7 @@ describe('Avatar', () => {
                         if (instance.onImageError) {
                             emitterCalled = true;
                         }
+
                         return {};
                     }
                 });
@@ -1320,21 +1354,25 @@ describe('Avatar', () => {
         describe('Case 7: Inline test', () => {
             it('should apply inline pt with string class', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTAvatarComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const element = inlineFixture.debugElement.query(By.directive(Avatar)).nativeElement;
+
                 expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
             });
 
             it('should apply inline pt with object class', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTAvatarComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const element = inlineFixture.debugElement.query(By.directive(Avatar)).nativeElement;
+
                 expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -1348,6 +1386,7 @@ describe('Avatar', () => {
 
             it('should call onAfterViewInit hook', async () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewInit: () => {
@@ -1363,6 +1402,7 @@ describe('Avatar', () => {
 
             it('should call onAfterContentInit hook', async () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterContentInit: () => {
@@ -1378,6 +1418,7 @@ describe('Avatar', () => {
 
             it('should call onAfterViewChecked hook', async () => {
                 let checkCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewChecked: () => {
@@ -1393,6 +1434,7 @@ describe('Avatar', () => {
 
             it('should call onDestroy hook', async () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onDestroy: () => {

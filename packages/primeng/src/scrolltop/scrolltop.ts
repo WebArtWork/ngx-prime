@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, inject, InjectionToken, input, Input, NgModule, numberAttribute, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, InjectionToken, input, Input, NgModule, numberAttribute, QueryList, signal, TemplateRef, ViewEncapsulation, contentChild, contentChildren } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { getWindowScrollTop } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -42,11 +42,17 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
                 [unstyled]="unstyled()"
             >
                 <ng-template #icon>
-                    <ng-container *ngIf="!iconTemplate && !_iconTemplate">
-                        <span *ngIf="_icon" [class]="cn(cx('icon'), _icon)"></span>
-                        <svg data-p-icon="chevron-up" *ngIf="!_icon" [class]="cx('icon')" />
-                    </ng-container>
-                    <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate || _iconTemplate; context: { styleClass: cx('icon') }"></ng-template>
+                    @if (!iconTemplate() && !_iconTemplate) {
+                        @if (_icon) {
+                            <span [class]="cn(cx('icon'), _icon)"></span>
+                        }
+                        @if (!_icon) {
+                            <svg data-p-icon="chevron-up" [class]="cx('icon')" />
+                        }
+                    }
+                    @if (!icon) {
+                        <ng-template *ngTemplateOutlet="iconTemplate() || _iconTemplate; context: { styleClass: cx('icon') }"></ng-template>
+                    }
                 </ng-template>
             </p-button>
         }
@@ -117,12 +123,10 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
     /**
      * Establishes a string value that labels the scroll-top button.
      * @group Props
@@ -139,9 +143,9 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
      * @see {@link ScrollTopIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<ScrollTopIconTemplateContext> | undefined;
+    readonly iconTemplate = contentChild<TemplateRef<ScrollTopIconTemplateContext>>('icon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _iconTemplate: TemplateRef<ScrollTopIconTemplateContext> | undefined;
 
@@ -169,7 +173,7 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
     }
 
     onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this._iconTemplate = item.template;
@@ -180,6 +184,7 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
 
     onClick() {
         let scrollElement = this.target === 'window' ? this.document.defaultView : this.el.nativeElement.parentElement;
+
         scrollElement.scroll({
             top: 0,
             behavior: this.behavior
@@ -204,6 +209,7 @@ export class ScrollTop extends BaseComponent<ScrollTopPassThrough> {
     checkVisibility(scrollY: number) {
         if (scrollY > this.threshold) {
             this.visible.set(true);
+
             if (!this.render()) {
                 this.render.set(true);
             }

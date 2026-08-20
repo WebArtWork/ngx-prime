@@ -9,8 +9,8 @@ import { BreadcrumbItemClickEvent } from 'primeng/types/breadcrumb';
 import { Breadcrumb } from './breadcrumb';
 
 @Component({
-    standalone: false,
-    template: ` <p-breadcrumb [model]="model" [home]="home" [style]="style" [styleClass]="styleClass" [homeAriaLabel]="homeAriaLabel" (onItemClick)="onItemClick($event)"> </p-breadcrumb> `
+    template: ` <p-breadcrumb [model]="model" [home]="home" [style]="style" [styleClass]="styleClass" [homeAriaLabel]="homeAriaLabel" (onItemClick)="onItemClick($event)"> </p-breadcrumb> `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestBasicBreadcrumbComponent {
     model: MenuItem[] | undefined = [
@@ -30,9 +30,9 @@ class TestBasicBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-static-breadcrumb',
-    template: ` <p-breadcrumb [model]="model" [home]="home"> </p-breadcrumb> `
+    template: ` <p-breadcrumb [model]="model" [home]="home"> </p-breadcrumb> `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestStaticBreadcrumbComponent {
     model: MenuItem[] = [
@@ -43,17 +43,19 @@ class TestStaticBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-breadcrumb [model]="model" [home]="home">
             <ng-template #item let-item>
                 <div class="custom-item">
-                    <i [class]="item.icon" *ngIf="item.icon"></i>
+                    @if (item.icon) {
+                        <i [class]="item.icon"></i>
+                    }
                     <span class="custom-label">{{ item.label }}</span>
                 </div>
             </ng-template>
         </p-breadcrumb>
-    `
+    `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestItemTemplateBreadcrumbComponent {
     model: MenuItem[] = [
@@ -64,14 +66,14 @@ class TestItemTemplateBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-breadcrumb [model]="model" [home]="home">
             <ng-template pTemplate="item" let-item>
                 <span class="p-template-item">{{ item.label }}</span>
             </ng-template>
         </p-breadcrumb>
-    `
+    `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestPTemplateItemBreadcrumbComponent {
     model: MenuItem[] = [{ label: 'PTemplate Category' }, { label: 'PTemplate Item' }];
@@ -79,14 +81,14 @@ class TestPTemplateItemBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-breadcrumb [model]="model" [home]="home">
             <ng-template #separator>
                 <span class="custom-separator"> > </span>
             </ng-template>
         </p-breadcrumb>
-    `
+    `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestSeparatorTemplateBreadcrumbComponent {
     model: MenuItem[] = [{ label: 'First' }, { label: 'Second' }];
@@ -94,14 +96,14 @@ class TestSeparatorTemplateBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-breadcrumb [model]="model" [home]="home">
             <ng-template pTemplate="separator">
                 <i class="p-template-separator pi pi-angle-right"></i>
             </ng-template>
         </p-breadcrumb>
-    `
+    `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestPTemplateSeparatorBreadcrumbComponent {
     model: MenuItem[] = [{ label: 'First' }, { label: 'Second' }];
@@ -109,9 +111,9 @@ class TestPTemplateSeparatorBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-router-breadcrumb',
-    template: ` <p-breadcrumb [model]="routerModel" [home]="routerHome"> </p-breadcrumb> `
+    template: ` <p-breadcrumb [model]="routerModel" [home]="routerHome"> </p-breadcrumb> `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestRouterBreadcrumbComponent {
     routerModel: MenuItem[] = [
@@ -122,9 +124,9 @@ class TestRouterBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-styled-breadcrumb',
-    template: ` <p-breadcrumb [style]="customStyle" styleClass="custom-breadcrumb"> </p-breadcrumb> `
+    template: ` <p-breadcrumb [style]="customStyle" styleClass="custom-breadcrumb"> </p-breadcrumb> `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestStyledBreadcrumbComponent {
     customStyle = {
@@ -135,16 +137,16 @@ class TestStyledBreadcrumbComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-minimal-breadcrumb',
-    template: ` <p-breadcrumb></p-breadcrumb> `
+    template: ` <p-breadcrumb></p-breadcrumb> `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestMinimalBreadcrumbComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-dynamic-breadcrumb',
-    template: ` <p-breadcrumb [model]="dynamicModel" [home]="dynamicHome"> </p-breadcrumb> `
+    template: ` <p-breadcrumb [model]="dynamicModel" [home]="dynamicHome"> </p-breadcrumb> `,
+    imports: [Breadcrumb, TestTargetComponent]
 })
 class TestDynamicBreadcrumbComponent {
     dynamicModel: MenuItem[] = [];
@@ -175,7 +177,14 @@ describe('Breadcrumb', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                Breadcrumb,
+                TestTargetComponent,
+                RouterTestingModule.withRoutes([
+                    { path: '', component: TestTargetComponent },
+                    { path: 'products', component: TestTargetComponent },
+                    { path: 'products/category', component: TestTargetComponent }
+                ]),
                 TestBasicBreadcrumbComponent,
                 TestStaticBreadcrumbComponent,
                 TestItemTemplateBreadcrumbComponent,
@@ -186,16 +195,6 @@ describe('Breadcrumb', () => {
                 TestStyledBreadcrumbComponent,
                 TestMinimalBreadcrumbComponent,
                 TestDynamicBreadcrumbComponent
-            ],
-            imports: [
-                Breadcrumb,
-                TestTargetComponent,
-
-                RouterTestingModule.withRoutes([
-                    { path: '', component: TestTargetComponent },
-                    { path: 'products', component: TestTargetComponent },
-                    { path: 'products/category', component: TestTargetComponent }
-                ])
             ],
             providers: [provideZonelessChangeDetection()],
             schemas: [NO_ERRORS_SCHEMA]
@@ -222,6 +221,7 @@ describe('Breadcrumb', () => {
 
         it('should have default values', () => {
             const freshFixture = TestBed.createComponent(TestMinimalBreadcrumbComponent);
+
             freshFixture.detectChanges();
 
             const freshBreadcrumb = freshFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
@@ -252,11 +252,11 @@ describe('Breadcrumb', () => {
         });
 
         it('should initialize templates properties', () => {
-            expect(breadcrumbInstance.templates).toBeDefined();
+            expect(breadcrumbInstance.templates()).toBeDefined();
             expect(breadcrumbInstance._itemTemplate).toBeUndefined();
             expect(breadcrumbInstance._separatorTemplate).toBeUndefined();
             expect(breadcrumbInstance.itemTemplate).toBeUndefined();
-            expect(breadcrumbInstance.separatorTemplate).toBeUndefined();
+            expect(breadcrumbInstance.separatorTemplate()).toBeUndefined();
         });
 
         it('should have onItemClick output emitter', () => {
@@ -268,6 +268,7 @@ describe('Breadcrumb', () => {
     describe('Input Properties', () => {
         it('should update model input', async () => {
             const newModel: MenuItem[] = [{ label: 'New Item', url: '/new' }];
+
             component.model = newModel;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -277,6 +278,7 @@ describe('Breadcrumb', () => {
 
         it('should update home input', async () => {
             const newHome: MenuItem = { label: 'Custom Home', icon: 'pi pi-star' };
+
             component.home = newHome;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -286,6 +288,7 @@ describe('Breadcrumb', () => {
 
         it('should update style input', async () => {
             const newStyle = { color: 'red', fontSize: '14px' };
+
             component.style = newStyle;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -337,6 +340,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const homeElement = fixture.debugElement.query(By.css('[data-pc-section="homeitem"]'));
+
             expect(homeElement).toBeTruthy();
         });
 
@@ -349,6 +353,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const homeElement = fixture.debugElement.query(By.css('[data-pc-section="homeitem"]'));
+
             expect(homeElement).toBeFalsy();
         });
 
@@ -361,6 +366,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const homeIcon = fixture.debugElement.query(By.css('[data-pc-section="home"] .pi-home'));
+
             if (homeIcon) {
                 expect(homeIcon).toBeTruthy();
             } else {
@@ -378,6 +384,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const defaultHomeIcon = fixture.debugElement.query(By.css('[data-p-icon="home"]'));
+
             if (defaultHomeIcon) {
                 expect(defaultHomeIcon).toBeTruthy();
             } else {
@@ -395,6 +402,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const homeLink = fixture.debugElement.query(By.css('[data-pc-section="home"] a[routerLink]'));
+
             if (homeLink) {
                 expect(homeLink.nativeElement.getAttribute('ng-reflect-router-link')).toBe('/');
             } else {
@@ -412,6 +420,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const homeLink = fixture.debugElement.query(By.css('[data-pc-section="home"] a[href]'));
+
             if (homeLink) {
                 expect(homeLink.nativeElement.getAttribute('href')).toBe('/home');
             } else {
@@ -429,6 +438,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const homeLink = fixture.debugElement.query(By.css('[data-pc-section="home"] a'));
+
             if (homeLink) {
                 expect(homeLink.nativeElement.getAttribute('aria-label')).toBe('Navigate to home');
             } else {
@@ -445,6 +455,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const homeLink = fixture.debugElement.query(By.css('[data-pc-section="home"] a'));
+
             if (homeLink) {
                 expect(homeLink.nativeElement.hasAttribute('tabindex')).toBe(false);
             } else {
@@ -464,6 +475,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const menuItems = fixture.debugElement.queryAll(By.css('[data-pc-section="item"]'));
+
             expect(menuItems.length).toBe(2);
         });
 
@@ -484,6 +496,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const itemIcon = fixture.debugElement.query(By.css('.pi-file'));
+
             if (itemIcon) {
                 expect(itemIcon).toBeTruthy();
             } else {
@@ -510,6 +523,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const visibleItems = fixture.debugElement.queryAll(By.css('[data-pc-section="menuitem"]'));
+
             // Only visible items should be rendered
             expect(visibleItems.length).toBeLessThanOrEqual(2);
         });
@@ -522,6 +536,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const separators = fixture.debugElement.queryAll(By.css('[data-pc-section="separator"]'));
+
             // Should have separators between home-first and first-second
             expect(separators.length).toBeGreaterThan(0);
         });
@@ -547,6 +562,7 @@ describe('Breadcrumb', () => {
 
             const testItem = component.model[0];
             const clickEvent = new MouseEvent('click');
+
             breadcrumbInstance.onClick(clickEvent, testItem);
 
             expect(breadcrumbInstance.onClick).toHaveBeenCalledWith(clickEvent, testItem);
@@ -580,6 +596,7 @@ describe('Breadcrumb', () => {
 
         it('should prevent default for disabled items', () => {
             const clickEvent = new MouseEvent('click');
+
             spyOn(clickEvent, 'preventDefault');
             const disabledItem: MenuItem = { label: 'Disabled', disabled: true };
 
@@ -590,6 +607,7 @@ describe('Breadcrumb', () => {
 
         it('should prevent default for items without url or routerLink', () => {
             const clickEvent = new MouseEvent('click');
+
             spyOn(clickEvent, 'preventDefault');
             const noLinkItem: MenuItem = { label: 'No Link' };
 
@@ -600,6 +618,7 @@ describe('Breadcrumb', () => {
 
         it('should not prevent default for items with url', () => {
             const clickEvent = new MouseEvent('click');
+
             spyOn(clickEvent, 'preventDefault');
             const urlItem: MenuItem = { label: 'URL Item', url: '/url' };
 
@@ -626,6 +645,7 @@ describe('Breadcrumb', () => {
     describe('Template Tests', () => {
         it('should handle #item template processing', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateBreadcrumbComponent);
+
             itemTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -637,6 +657,7 @@ describe('Breadcrumb', () => {
 
         it('should handle pTemplate item processing', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateItemBreadcrumbComponent);
+
             pTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -648,23 +669,28 @@ describe('Breadcrumb', () => {
 
         it('should render custom item template', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateBreadcrumbComponent);
+
             itemTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const customItem = itemTemplateFixture.debugElement.query(By.css('.custom-item'));
+
             if (customItem) {
                 expect(customItem).toBeTruthy();
                 const customLabel = customItem.query(By.css('.custom-label'));
+
                 expect(customLabel).toBeTruthy();
             } else {
                 // Template processing might work differently in test environment
                 const breadcrumbComp = itemTemplateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
+
                 expect(breadcrumbComp.itemTemplate).toBeDefined();
             }
         });
 
         it('should handle #separator template processing', async () => {
             const separatorTemplateFixture = TestBed.createComponent(TestSeparatorTemplateBreadcrumbComponent);
+
             separatorTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -676,22 +702,26 @@ describe('Breadcrumb', () => {
 
         it('should render custom separator template', async () => {
             const separatorTemplateFixture = TestBed.createComponent(TestSeparatorTemplateBreadcrumbComponent);
+
             separatorTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const customSeparator = separatorTemplateFixture.debugElement.query(By.css('.custom-separator'));
+
             if (customSeparator) {
                 expect(customSeparator).toBeTruthy();
                 expect(customSeparator.nativeElement.textContent.trim()).toBe('>');
             } else {
                 // Template might not render in test environment
                 const breadcrumbComp = separatorTemplateFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
+
                 expect(breadcrumbComp.separatorTemplate).toBeDefined();
             }
         });
 
         it('should process PrimeTemplate types correctly', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateItemBreadcrumbComponent);
+
             pTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -704,6 +734,7 @@ describe('Breadcrumb', () => {
 
         it('should prioritize itemTemplate over _itemTemplate', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateBreadcrumbComponent);
+
             itemTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -731,12 +762,14 @@ describe('Breadcrumb', () => {
 
             // StyleClass is applied to the nav element inside the breadcrumb
             const navElement = fixture.debugElement.query(By.css('nav'));
+
             expect(navElement.nativeElement.classList.contains('custom-breadcrumb-class')).toBe(true);
         });
 
         it('should apply custom styles', () => {
             const styleFixture = TestBed.createComponent(TestStyledBreadcrumbComponent);
             const styleComponent = styleFixture.componentInstance;
+
             styleFixture.detectChanges();
 
             const element = styleFixture.debugElement.query(By.directive(Breadcrumb)).nativeElement;
@@ -769,6 +802,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const navElement = fixture.debugElement.query(By.css('nav'));
+
             expect(navElement.nativeElement.classList.contains('class1')).toBe(true);
             expect(navElement.nativeElement.classList.contains('class2')).toBe(true);
         });
@@ -818,6 +852,7 @@ describe('Breadcrumb', () => {
             fixture.detectChanges();
 
             const homeLink = fixture.debugElement.query(By.css('[data-pc-section="home"] a'));
+
             if (homeLink) {
                 expect(homeLink.nativeElement.getAttribute('aria-label')).toBe('Go to homepage');
             } else {
@@ -935,6 +970,7 @@ describe('Breadcrumb', () => {
 
         it('should handle very long breadcrumb chains', async () => {
             const longModel: MenuItem[] = [];
+
             for (let i = 0; i < 50; i++) {
                 longModel.push({ label: `Item ${i}`, url: `/item${i}` });
             }
@@ -955,6 +991,7 @@ describe('Breadcrumb', () => {
 
             for (let index = 0; index < models.length; index++) {
                 const model = models[index];
+
                 component.model = model;
                 component.styleClass = `class-${index}`;
                 fixture.changeDetectorRef.markForCheck();
@@ -969,8 +1006,10 @@ describe('Breadcrumb', () => {
         it('should handle component creation and destruction gracefully', () => {
             expect(() => {
                 const tempFixture = TestBed.createComponent(TestBasicBreadcrumbComponent);
+
                 tempFixture.detectChanges();
                 const tempInstance = tempFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
+
                 expect(tempInstance).toBeTruthy();
                 tempFixture.destroy();
             }).not.toThrow();
@@ -1006,6 +1045,7 @@ describe('Breadcrumb', () => {
     describe('Integration Tests', () => {
         it('should work with static properties', () => {
             const staticFixture = TestBed.createComponent(TestStaticBreadcrumbComponent);
+
             staticFixture.detectChanges();
 
             const staticBreadcrumb = staticFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
@@ -1017,14 +1057,17 @@ describe('Breadcrumb', () => {
 
         it('should work with styled component', () => {
             const styleFixture = TestBed.createComponent(TestStyledBreadcrumbComponent);
+
             styleFixture.detectChanges();
 
             const navElement = styleFixture.debugElement.query(By.css('nav'));
+
             expect(navElement.nativeElement.classList.contains('custom-breadcrumb')).toBe(true);
         });
 
         it('should work with router navigation', () => {
             const routerFixture = TestBed.createComponent(TestRouterBreadcrumbComponent);
+
             routerFixture.detectChanges();
 
             const routerBreadcrumb = routerFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
@@ -1060,6 +1103,7 @@ describe('Breadcrumb', () => {
         it('should work with dynamic content changes', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicBreadcrumbComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
+
             dynamicFixture.detectChanges();
 
             const dynamicBreadcrumb = dynamicFixture.debugElement.query(By.directive(Breadcrumb)).componentInstance;
@@ -1087,6 +1131,7 @@ describe('Breadcrumb', () => {
 
         it('should handle complete workflow with templates', async () => {
             const templateFixture = TestBed.createComponent(TestItemTemplateBreadcrumbComponent);
+
             templateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -1112,6 +1157,7 @@ describe('Breadcrumb', () => {
 
             const testItem: MenuItem = { label: 'Test', url: '/test' };
             const mockEvent = new MouseEvent('click');
+
             breadcrumbInstance.onClick(mockEvent, testItem);
 
             expect(breadcrumbInstance.onItemClick.emit).toHaveBeenCalledWith({
@@ -1139,6 +1185,7 @@ describe('Breadcrumb', () => {
 
         it('should process templates in ngAfterContentInit', async () => {
             const templateFixture = TestBed.createComponent(TestPTemplateItemBreadcrumbComponent);
+
             templateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -1150,6 +1197,7 @@ describe('Breadcrumb', () => {
 
         it('should handle preventDefault in onClick for disabled items', () => {
             const mockEvent = new MouseEvent('click');
+
             spyOn(mockEvent, 'preventDefault');
             const disabledItem: MenuItem = { label: 'Disabled', disabled: true };
 
@@ -1193,6 +1241,7 @@ describe('Breadcrumb', () => {
             ptFixture.detectChanges();
 
             const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+
             expect(listEl).toBeTruthy();
             expect(listEl.classList.contains('LIST_CLASS')).toBe(true);
         });
@@ -1209,6 +1258,7 @@ describe('Breadcrumb', () => {
             ptFixture.detectChanges();
 
             const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+
             expect(listEl).toBeTruthy();
             expect(listEl.classList.contains('LIST_OBJECT_CLASS')).toBe(true);
             expect(listEl.getAttribute('data-p-test')).toBe('true');
@@ -1225,36 +1275,35 @@ describe('Breadcrumb', () => {
             ptFixture.detectChanges();
 
             const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+
             expect(listEl).toBeTruthy();
             expect(listEl.classList.contains('LIST_MIXED_CLASS')).toBe(true);
         });
 
         it('Case 4: should use instance variables in PT functions', () => {
             ptFixture.componentRef.setInput('pt', {
-                list: ({ instance }: any) => {
-                    return {
-                        class: {
-                            HAS_MODEL: instance?.model?.length > 0
-                        }
-                    };
-                },
-                homeItem: ({ instance }: any) => {
-                    return {
-                        style: {
-                            'background-color': instance?.home ? 'yellow' : 'red'
-                        }
-                    };
-                }
+                list: ({ instance }: any) => ({
+                    class: {
+                        HAS_MODEL: instance?.model?.length > 0
+                    }
+                }),
+                homeItem: ({ instance }: any) => ({
+                    style: {
+                        'background-color': instance?.home ? 'yellow' : 'red'
+                    }
+                })
             });
             ptFixture.detectChanges();
 
             const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+
             expect(listEl).toBeTruthy();
             expect(listEl.classList.contains('HAS_MODEL')).toBe(true);
         });
 
         it('Case 5: should handle event binding in PT', () => {
             let clicked = false;
+
             ptFixture.componentRef.setInput('pt', {
                 list: {
                     onclick: () => {
@@ -1265,6 +1314,7 @@ describe('Breadcrumb', () => {
             ptFixture.detectChanges();
 
             const listEl = ptFixture.nativeElement.querySelector('[data-pc-section="list"]');
+
             expect(listEl).toBeTruthy();
             listEl.click();
             expect(clicked).toBe(true);
@@ -1272,6 +1322,7 @@ describe('Breadcrumb', () => {
 
         it('Case 6: should apply inline PT object', () => {
             const inlineFixture = TestBed.createComponent(Breadcrumb);
+
             inlineFixture.componentRef.setInput('pt', {
                 list: 'INLINE_CLASS'
             });
@@ -1279,12 +1330,14 @@ describe('Breadcrumb', () => {
             inlineFixture.detectChanges();
 
             const listEl = inlineFixture.nativeElement.querySelector('[data-pc-section="list"]');
+
             expect(listEl).toBeTruthy();
             expect(listEl.classList.contains('INLINE_CLASS')).toBe(true);
         });
 
         it('Case 8: should execute PT hooks', () => {
             let hookCalled = false;
+
             ptFixture.componentRef.setInput('pt', {
                 list: 'HOOK_CLASS',
                 hooks: {
@@ -1310,6 +1363,7 @@ describe('Breadcrumb', () => {
             // Verify getPTOptions is called with correct parameters
             if (ptBreadcrumb.getPTOptions) {
                 const result = ptBreadcrumb.getPTOptions(testModel[0], 0, 'item');
+
                 expect(result).toBeDefined();
             }
         });
@@ -1318,23 +1372,23 @@ describe('Breadcrumb', () => {
             const testModel: MenuItem[] = [{ label: 'Test', url: '/test' }];
 
             const result = ptBreadcrumb.getPTOptions(testModel[0], 0, 'item');
+
             expect(result).toBeDefined();
         });
 
         it('should apply PT with context for breadcrumb items', () => {
             ptFixture.componentRef.setInput('pt', {
-                item: ({ context }: any) => {
-                    return {
-                        class: {
-                            HAS_ITEM: !!context?.item,
-                            INDEX_ZERO: context?.index === 0
-                        }
-                    };
-                }
+                item: ({ context }: any) => ({
+                    class: {
+                        HAS_ITEM: !!context?.item,
+                        INDEX_ZERO: context?.index === 0
+                    }
+                })
             });
             ptFixture.detectChanges();
 
             const itemEl = ptFixture.nativeElement.querySelector('[data-pc-section="item"]');
+
             if (itemEl) {
                 expect(itemEl.classList.contains('HAS_ITEM')).toBe(true);
                 expect(itemEl.classList.contains('INDEX_ZERO')).toBe(true);

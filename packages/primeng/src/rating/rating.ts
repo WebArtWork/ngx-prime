@@ -1,23 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    forwardRef,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    numberAttribute,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, signal, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -48,7 +30,7 @@ export const RATING_VALUE_ACCESSOR: any = {
     imports: [CommonModule, AutoFocus, StarFillIcon, StarIcon, SharedModule, BindModule],
     standalone: true,
     template: `
-        <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
+        @for (star of starsArray; track star; let i = $index) {
             <div [class]="cx('option', { star, value })" (click)="onOptionClick($event, star + 1)" [pBind]="ptm('option')">
                 <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true" [pBind]="ptm('hiddenOptionInputContainer')">
                     <input
@@ -72,19 +54,27 @@ export const RATING_VALUE_ACCESSOR: any = {
                     @if (onIconTemplate || _onIconTemplate) {
                         <ng-container *ngTemplateOutlet="onIconTemplate || _onIconTemplate; context: { $implicit: star + 1, class: cx('onIcon') }"></ng-container>
                     } @else {
-                        <span [class]="cx('onIcon')" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [pBind]="ptm('onIcon')"></span>
-                        <svg data-p-icon="star-fill" *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [class]="cx('onIcon')" [pBind]="ptm('onIcon')" />
+                        @if (iconOnClass) {
+                            <span [class]="cx('onIcon')" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [pBind]="ptm('onIcon')"></span>
+                        }
+                        @if (!iconOnClass) {
+                            <svg data-p-icon="star-fill" [ngStyle]="iconOnStyle" [class]="cx('onIcon')" [pBind]="ptm('onIcon')" />
+                        }
                     }
                 } @else {
                     @if (offIconTemplate || _offIconTemplate) {
                         <ng-container *ngTemplateOutlet="offIconTemplate || _offIconTemplate; context: { $implicit: star + 1, class: cx('offIcon') }"></ng-container>
                     } @else {
-                        <span [class]="cx('offIcon')" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [pBind]="ptm('offIcon')"></span>
-                        <svg data-p-icon="star" *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [class]="cx('offIcon')" [pBind]="ptm('offIcon')" />
+                        @if (iconOffClass) {
+                            <span [class]="cx('offIcon')" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [pBind]="ptm('offIcon')"></span>
+                        }
+                        @if (!iconOffClass) {
+                            <svg data-p-icon="star" [ngStyle]="iconOffStyle" [class]="cx('offIcon')" [pBind]="ptm('offIcon')" />
+                        }
                     }
                 }
             </div>
-        </ng-template>
+        }
     `,
     providers: [RATING_VALUE_ACCESSOR, RatingStyle, { provide: RATING_INSTANCE, useExisting: Rating }, { provide: PARENT_INSTANCE, useExisting: Rating }],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -174,7 +164,7 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
      */
     @ContentChild('officon', { descendants: false }) offIconTemplate: Nullable<TemplateRef<RatingIconTemplateContext>>;
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    readonly templates = contentChildren(PrimeTemplate);
 
     value: Nullable<number>;
 
@@ -195,13 +185,14 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
     onInit() {
         this.nameattr = this.nameattr || uuid('pn_id_');
         this.starsArray = [];
+
         for (let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
         }
     }
 
     onAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'onicon':
                     this._onIconTemplate = item.template;

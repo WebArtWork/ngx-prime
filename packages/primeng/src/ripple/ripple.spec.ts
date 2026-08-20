@@ -4,43 +4,43 @@ import { By } from '@angular/platform-browser';
 import { Ripple } from './ripple';
 
 @Component({
-    standalone: false,
-    template: `<button pRipple class="test-button">Click me</button>`
+    template: `<button pRipple class="test-button">Click me</button>`,
+    imports: [Ripple]
 })
 class TestBasicRippleComponent {}
 
 @Component({
-    standalone: false,
-    template: `<div pRipple class="test-div" [style]="style">Ripple Div</div>`
+    template: `<div pRipple class="test-div" [style]="style">Ripple Div</div>`,
+    imports: [Ripple]
 })
 class TestStyledRippleComponent {
     style = { width: '200px', height: '100px', position: 'relative' };
 }
 
 @Component({
-    standalone: false,
     template: `
         <div pRipple class="multiple-ripple-1">First</div>
         <div pRipple class="multiple-ripple-2">Second</div>
         <span pRipple class="multiple-ripple-3">Third</span>
-    `
+    `,
+    imports: [Ripple]
 })
 class TestMultipleRippleComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <div pRipple class="nested-container">
             <span>Nested content</span>
             <button>Nested button</button>
         </div>
-    `
+    `,
+    imports: [Ripple]
 })
 class TestNestedRippleComponent {}
 
 @Component({
-    standalone: false,
-    template: `<div pRipple [style]="style" [class]="styleClass">Custom Styled Ripple</div>`
+    template: `<div pRipple [style]="style" [class]="styleClass">Custom Styled Ripple</div>`,
+    imports: [Ripple]
 })
 class TestCustomStyledComponent {
     style = { background: 'lightblue', border: '1px solid blue' };
@@ -55,8 +55,7 @@ describe('Ripple', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicRippleComponent, TestStyledRippleComponent, TestMultipleRippleComponent, TestNestedRippleComponent, TestCustomStyledComponent],
-            imports: [Ripple],
+            imports: [Ripple, TestBasicRippleComponent, TestStyledRippleComponent, TestMultipleRippleComponent, TestNestedRippleComponent, TestCustomStyledComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -102,18 +101,22 @@ describe('Ripple', () => {
 
         it('should work with styled components', () => {
             const styledFixture = TestBed.createComponent(TestStyledRippleComponent);
+
             styledFixture.detectChanges();
 
             const styledRippleElement = styledFixture.debugElement.query(By.directive(Ripple));
+
             expect(styledRippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);
             expect(styledRippleElement.nativeElement.classList.contains('test-div')).toBe(true);
         });
 
         it('should work with custom styled components', () => {
             const customFixture = TestBed.createComponent(TestCustomStyledComponent);
+
             customFixture.detectChanges();
 
             const customRippleElement = customFixture.debugElement.query(By.directive(Ripple));
+
             expect(customRippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);
             expect(customRippleElement.nativeElement.classList.contains('custom-ripple-class')).toBe(true);
         });
@@ -125,9 +128,11 @@ describe('Ripple', () => {
 
         it('should work with multiple ripple elements', () => {
             const multipleFixture = TestBed.createComponent(TestMultipleRippleComponent);
+
             multipleFixture.detectChanges();
 
             const rippleElements = multipleFixture.debugElement.queryAll(By.directive(Ripple));
+
             expect(rippleElements.length).toBe(3);
 
             rippleElements.forEach((element, index) => {
@@ -160,6 +165,7 @@ describe('Ripple', () => {
     describe('Integration Tests', () => {
         it('should work with nested content', () => {
             const nestedFixture = TestBed.createComponent(TestNestedRippleComponent);
+
             nestedFixture.detectChanges();
 
             const nestedRippleElement = nestedFixture.debugElement.query(By.directive(Ripple));
@@ -172,6 +178,7 @@ describe('Ripple', () => {
             // Check that nested content is preserved
             const nestedSpan = nestedRippleElement.nativeElement.querySelector('span');
             const nestedButton = nestedRippleElement.nativeElement.querySelector('button');
+
             expect(nestedSpan).toBeTruthy();
             expect(nestedButton).toBeTruthy();
             expect(nestedSpan.textContent).toContain('Nested content');
@@ -188,6 +195,7 @@ describe('Ripple', () => {
             fixtures.forEach(({ fixture: testFixture, expectedTag }) => {
                 testFixture.detectChanges();
                 const rippleEl = testFixture.debugElement.query(By.directive(Ripple));
+
                 expect(rippleEl.nativeElement.classList.contains('p-ripple')).toBe(true);
                 expect(rippleEl.nativeElement.tagName.toLowerCase()).toBe(expectedTag);
             });
@@ -195,6 +203,7 @@ describe('Ripple', () => {
 
         it('should handle multiple instances independently', () => {
             const multipleFixture = TestBed.createComponent(TestMultipleRippleComponent);
+
             multipleFixture.detectChanges();
 
             const rippleElements = multipleFixture.debugElement.queryAll(By.directive(Ripple));
@@ -242,6 +251,7 @@ describe('Ripple', () => {
         it('should not affect tab order', () => {
             // Ripple should not change tabindex of host element
             const originalTabIndex = rippleElement.nativeElement.tabIndex;
+
             fixture.detectChanges();
             expect(rippleElement.nativeElement.tabIndex).toBe(originalTabIndex);
         });
@@ -278,8 +288,10 @@ describe('Ripple', () => {
         it('should handle component creation and destruction gracefully', () => {
             expect(() => {
                 const tempFixture = TestBed.createComponent(TestBasicRippleComponent);
+
                 tempFixture.detectChanges();
                 const tempInstance = tempFixture.debugElement.query(By.directive(Ripple)).injector.get(Ripple);
+
                 expect(tempInstance).toBeTruthy();
                 tempFixture.destroy();
             }).not.toThrow();
@@ -287,9 +299,11 @@ describe('Ripple', () => {
 
         it('should work with elements that have no text content', () => {
             const emptyFixture = TestBed.createComponent(TestBasicRippleComponent);
+
             emptyFixture.detectChanges();
 
             const emptyRippleElement = emptyFixture.debugElement.query(By.directive(Ripple));
+
             emptyRippleElement.nativeElement.textContent = '';
 
             expect(emptyRippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);
@@ -299,8 +313,10 @@ describe('Ripple', () => {
             expect(() => {
                 for (let i = 0; i < 5; i++) {
                     const tempFixture = TestBed.createComponent(TestBasicRippleComponent);
+
                     tempFixture.detectChanges();
                     const tempRipple = tempFixture.debugElement.query(By.directive(Ripple));
+
                     expect(tempRipple.injector.get(Ripple)).toBeTruthy();
                     tempFixture.destroy();
                 }
@@ -317,6 +333,7 @@ describe('Ripple', () => {
 
         it('should work with modified DOM structure', () => {
             const newChild = document.createElement('div');
+
             newChild.textContent = 'New child';
             rippleElement!.nativeElement.appendChild(newChild);
 
@@ -351,27 +368,33 @@ describe('Ripple', () => {
             const startTime = performance.now();
 
             const fixtures: ComponentFixture<TestBasicRippleComponent>[] = [];
+
             for (let i = 0; i < 10; i++) {
                 const testFixture = TestBed.createComponent(TestBasicRippleComponent);
+
                 testFixture.detectChanges();
                 fixtures.push(testFixture);
             }
 
             fixtures.forEach((testFixture) => {
                 const rippleEl = testFixture.debugElement.query(By.directive(Ripple));
+
                 expect(rippleEl.nativeElement.classList.contains('p-ripple')).toBe(true);
                 testFixture.destroy();
             });
 
             const endTime = performance.now();
+
             expect(endTime - startTime).toBeLessThan(1000); // Should complete within 1 second
         });
 
         it('should not cause memory leaks during creation and destruction', () => {
             for (let i = 0; i < 20; i++) {
                 const testFixture = TestBed.createComponent(TestBasicRippleComponent);
+
                 testFixture.detectChanges();
                 const instance = testFixture.debugElement.query(By.directive(Ripple)).injector.get(Ripple);
+
                 expect(instance).toBeTruthy();
                 testFixture.destroy();
             }
@@ -384,6 +407,7 @@ describe('Ripple', () => {
     describe('Template Integration Tests', () => {
         it('should work with complex template structures', () => {
             const complexTemplate = TestBed.createComponent(TestNestedRippleComponent);
+
             complexTemplate.detectChanges();
 
             const rippleEl = complexTemplate.debugElement.query(By.directive(Ripple));
@@ -418,6 +442,7 @@ describe('Ripple', () => {
             boundFixture.detectChanges();
 
             const boundRippleElement = boundFixture.debugElement.query(By.directive(Ripple));
+
             expect(boundRippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);
         });
 

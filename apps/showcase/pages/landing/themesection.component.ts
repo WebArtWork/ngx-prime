@@ -3,7 +3,7 @@ import { Customer } from '@/domain/customer';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, ViewChild, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
@@ -139,7 +139,7 @@ import { Tag } from 'primeng/tag';
         </section>
     `
 })
-export class ThemeSectionComponent {
+export class ThemeSectionComponent implements OnInit {
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         private customerService: CustomerService,

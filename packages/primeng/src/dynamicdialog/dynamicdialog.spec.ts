@@ -1,4 +1,4 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DomHandler } from 'primeng/dom';
@@ -10,22 +10,22 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
 
 // Test components to be used in dynamic dialogs
 @Component({
-    standalone: false,
     template: `
         <div class="test-component">
             <h3>Test Component Content</h3>
             <p>Data: {{ data }}</p>
             <button class="test-button" (click)="closeDialog()">Close</button>
         </div>
-    `
+    `,
+    imports: [DynamicDialog]
 })
 class TestDialogContentComponent {
+    private dialogRef = inject(DynamicDialogRef);
+    private config = inject(DynamicDialogConfig);
+
     data: any;
 
-    constructor(
-        private dialogRef: DynamicDialogRef,
-        private config: DynamicDialogConfig
-    ) {
+    constructor() {
         this.data = this.config.data;
     }
 
@@ -35,22 +35,22 @@ class TestDialogContentComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <div class="nested-dialog-content">
             <h3>Nested Dialog</h3>
             <p>Level: {{ level }}</p>
             <button class="close-nested" (click)="closeDialog()">Close</button>
         </div>
-    `
+    `,
+    imports: [DynamicDialog]
 })
 class NestedDialogContentComponent {
+    private dialogRef = inject(DynamicDialogRef);
+    private config = inject(DynamicDialogConfig);
+
     level: number;
 
-    constructor(
-        private dialogRef: DynamicDialogRef,
-        private config: DynamicDialogConfig
-    ) {
+    constructor() {
         this.level = this.config.data?.level || 1;
     }
 
@@ -60,16 +60,16 @@ class NestedDialogContentComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <div class="dialog-within-dialog-content">
             <h3>Dialog Within Dialog</h3>
             <button class="inner-dialog-trigger" (click)="closeDialog()">Close</button>
         </div>
-    `
+    `,
+    imports: [DynamicDialog]
 })
 class DialogWithinDialogComponent {
-    constructor(private dialogRef: DynamicDialogRef) {}
+    private dialogRef = inject(DynamicDialogRef);
 
     closeDialog() {
         this.dialogRef.close('inner dialog closed');
@@ -77,41 +77,43 @@ class DialogWithinDialogComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <div class="maximizable-content">
             <h3>Maximizable Dialog</h3>
             <p>This dialog can be maximized</p>
             <div style="height: 200px; overflow-y: auto;">
-                <p *ngFor="let item of items">{{ item }}</p>
+                @for (item of items; track item) {
+                    <p>{{ item }}</p>
+                }
             </div>
         </div>
-    `
+    `,
+    imports: [DynamicDialog]
 })
 class MaximizableDialogComponent {
     items = Array.from({ length: 50 }, (_, i) => `Item ${i + 1}`);
 }
 
 @Component({
-    standalone: false,
     template: `
         <div class="resizable-content">
             <h3>Resizable Dialog</h3>
             <p>This dialog can be resized</p>
             <textarea style="width: 100%; height: 150px;" placeholder="Resize me"></textarea>
         </div>
-    `
+    `,
+    imports: [DynamicDialog]
 })
 class ResizableDialogComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <div class="draggable-content">
             <h3>Draggable Dialog</h3>
             <p>Drag me around using the header</p>
         </div>
-    `
+    `,
+    imports: [DynamicDialog]
 })
 class DraggableDialogComponent {}
 
@@ -135,8 +137,7 @@ describe('DynamicDialog', () => {
         mockConfig = new DynamicDialogConfig();
 
         await TestBed.configureTestingModule({
-            imports: [DynamicDialog],
-            declarations: [TestDialogContentComponent, NestedDialogContentComponent, DialogWithinDialogComponent, MaximizableDialogComponent, ResizableDialogComponent, DraggableDialogComponent],
+            imports: [DynamicDialog, TestDialogContentComponent, NestedDialogContentComponent, DialogWithinDialogComponent, MaximizableDialogComponent, ResizableDialogComponent, DraggableDialogComponent],
             providers: [{ provide: DynamicDialogRef, useValue: mockDialogRef }, { provide: DynamicDialogConfig, useValue: mockConfig }, provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -260,6 +261,7 @@ describe('DynamicDialog', () => {
         it('should call close on dialogRef on close icon click', async () => {
             component.visible = true;
             const closeButton = fixture.debugElement.query(By.css('.p-dialog-close-button'));
+
             closeButton.nativeElement.click();
             expect(mockDialogRef.close).toHaveBeenCalled();
             expect(component.visible).toBe(false);
@@ -271,6 +273,7 @@ describe('DynamicDialog', () => {
             component.visible = true;
 
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', keyCode: 27 });
+
             component.bindDocumentEscapeListener();
 
             // Simulate escape key press on document
@@ -295,6 +298,7 @@ describe('DynamicDialog', () => {
             // Setup container with parent element for drag functionality
             const parentElement = document.createElement('div');
             const containerElement = document.createElement('div');
+
             parentElement.appendChild(containerElement);
             document.body.appendChild(parentElement); // Add to DOM so parentElement is accessible
             component.container = containerElement;
@@ -307,9 +311,11 @@ describe('DynamicDialog', () => {
         it('should initialize drag on header mousedown', () => {
             const targetElement = document.createElement('div');
             const parentElement = document.createElement('div');
+
             parentElement.appendChild(targetElement);
 
             const mouseEvent = new MouseEvent('mousedown');
+
             Object.defineProperty(mouseEvent, 'target', { value: targetElement });
             Object.defineProperty(mouseEvent, 'pageX', { value: 100 });
             Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
@@ -329,8 +335,10 @@ describe('DynamicDialog', () => {
 
         it('should not initialize drag when clicking on header icons', () => {
             const iconElement = document.createElement('i');
+
             iconElement.className = 'p-dialog-header-icon';
             const mouseEvent = new MouseEvent('mousedown');
+
             Object.defineProperty(mouseEvent, 'pageX', { value: 100 });
             Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
             Object.defineProperty(mouseEvent, 'target', { value: iconElement });
@@ -358,6 +366,7 @@ describe('DynamicDialog', () => {
             } as any);
 
             const mouseEvent = new MouseEvent('mousemove');
+
             Object.defineProperty(mouseEvent, 'pageX', { value: 150 });
             Object.defineProperty(mouseEvent, 'pageY', { value: 120 });
             component.onDrag(mouseEvent);
@@ -383,6 +392,7 @@ describe('DynamicDialog', () => {
             } as any);
 
             const mouseEvent = new MouseEvent('mousemove');
+
             Object.defineProperty(mouseEvent, 'pageX', { value: 150 });
             Object.defineProperty(mouseEvent, 'pageY', { value: 120 });
             component.onDrag(mouseEvent);
@@ -421,6 +431,7 @@ describe('DynamicDialog', () => {
         afterEach(() => {
             // Cleanup DOM elements
             const containers = document.body.querySelectorAll('div');
+
             containers.forEach((container) => {
                 if (container.parentElement === document.body) {
                     document.body.removeChild(container);
@@ -446,6 +457,7 @@ describe('DynamicDialog', () => {
 
         it('should initialize resize on handle mousedown', () => {
             const mouseEvent = new MouseEvent('mousedown');
+
             Object.defineProperty(mouseEvent, 'pageX', { value: 100 });
             Object.defineProperty(mouseEvent, 'pageY', { value: 100 });
 
@@ -477,6 +489,7 @@ describe('DynamicDialog', () => {
             } as any);
 
             const mouseEvent = new MouseEvent('mousemove');
+
             Object.defineProperty(mouseEvent, 'pageX', { value: 150 });
             Object.defineProperty(mouseEvent, 'pageY', { value: 130 });
             component.onResize(mouseEvent);
@@ -504,6 +517,7 @@ describe('DynamicDialog', () => {
             } as any);
 
             const mouseEvent = new MouseEvent('mousemove');
+
             Object.defineProperty(mouseEvent, 'pageX', { value: 90 });
             Object.defineProperty(mouseEvent, 'pageY', { value: 90 });
             component.onResize(mouseEvent);
@@ -556,6 +570,7 @@ describe('DynamicDialog', () => {
 
         it('should handle maximize button click', async () => {
             const maximizeButton = fixture.debugElement.query(By.css('.p-dialog-maximize-button'));
+
             expect(maximizeButton).toBeTruthy();
 
             maximizeButton.nativeElement.click();
@@ -567,10 +582,12 @@ describe('DynamicDialog', () => {
         it('should apply maximized class when maximized', async () => {
             // Get the dialog element from Dialog component
             const dialogElement = fixture.debugElement.query(By.css('p-dialog'));
+
             expect(dialogElement).toBeTruthy();
 
             // Click the maximize button which is in the Dialog component
             const maximizeButton = fixture.debugElement.query(By.css('.p-dialog-maximize-button'));
+
             expect(maximizeButton).toBeTruthy();
 
             maximizeButton.nativeElement.click();
@@ -606,6 +623,7 @@ describe('DynamicDialog', () => {
             await fixture.whenStable();
 
             const dialogElement = fixture.debugElement.query(By.css('[role="dialog"]'));
+
             expect(dialogElement).toBeTruthy();
             expect(dialogElement.nativeElement.getAttribute('role')).toBe('dialog');
             expect(dialogElement.nativeElement.getAttribute('aria-modal')).toBe('true');
@@ -622,6 +640,7 @@ describe('DynamicDialog', () => {
             spyOn(ZIndexUtils, 'getCurrent').and.returnValue(1000);
 
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', keyCode: 27 });
+
             component.bindDocumentEscapeListener();
 
             // Simulate escape key press on document
@@ -650,6 +669,7 @@ describe('DynamicDialog', () => {
         it('should enable modality when modal is true', () => {
             mockConfig.modal = true;
             const wrapperElement = document.createElement('div');
+
             document.body.appendChild(wrapperElement);
             component.wrapper = wrapperElement;
             spyOn(component, 'enableModality').and.callThrough();
@@ -680,6 +700,7 @@ describe('DynamicDialog', () => {
 
             // Simulate mask click
             const mouseEvent = new MouseEvent('mousedown');
+
             Object.defineProperty(mouseEvent, 'target', { value: component.wrapper });
             spyOn(component.wrapper, 'isSameNode').and.returnValue(true);
 
@@ -696,6 +717,7 @@ describe('DynamicDialog', () => {
             component.enableModality();
 
             const mouseEvent = new MouseEvent('mousedown');
+
             component.wrapper.dispatchEvent(mouseEvent);
 
             expect(component.hide).not.toHaveBeenCalled();
@@ -754,6 +776,7 @@ describe('DynamicDialog', () => {
             await fixture.whenStable();
 
             const headerElement = fixture.debugElement.query(By.css('.p-dialog-title'));
+
             expect(headerElement).toBeTruthy();
             expect(headerElement.nativeElement.textContent.trim()).toBe('Template Dialog');
         });
@@ -764,6 +787,7 @@ describe('DynamicDialog', () => {
 
             // Footer is rendered as a plain div, not with .p-dialog-footer class in dynamic dialog
             const dialogContent = fixture.nativeElement;
+
             expect(dialogContent.textContent).toContain('Footer Content');
         });
 
@@ -773,6 +797,7 @@ describe('DynamicDialog', () => {
             await fixture.whenStable();
 
             const headerElement = fixture.debugElement.query(By.css('.p-dialog-header'));
+
             expect(headerElement).toBeFalsy();
         });
     });
@@ -815,6 +840,7 @@ describe('DynamicDialog', () => {
             // Inner dialogs should have their own contexts
             const innerDialogRef = new DynamicDialogRef();
             const innerConfig = new DynamicDialogConfig();
+
             innerConfig.header = 'Inner Dialog';
 
             expect(innerDialogRef).not.toBe(mockDialogRef);
@@ -831,6 +857,7 @@ describe('DynamicDialog', () => {
 
             // Simulate mask click on outer dialog
             const mouseEvent = new MouseEvent('mousedown');
+
             Object.defineProperty(mouseEvent, 'target', { value: component.wrapper });
             spyOn(component.wrapper, 'isSameNode').and.returnValue(true);
 
@@ -914,6 +941,7 @@ describe('DynamicDialog', () => {
 
         it('should unbind mask click listener', () => {
             const mockListener = jasmine.createSpy('mockListener');
+
             component.maskClickListener = mockListener;
 
             component.unbindMaskClickListener();

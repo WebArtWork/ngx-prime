@@ -8,9 +8,9 @@ import { ZIndexUtils } from 'primeng/utils';
 import { ScrollTop, ScrollTopModule } from './scrolltop';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-scrolltop',
-    template: `<p-scrolltop [threshold]="threshold" [target]="target"></p-scrolltop>`
+    template: `<p-scrolltop [threshold]="threshold" [target]="target"></p-scrolltop>`,
+    imports: [ScrollTopModule]
 })
 class TestBasicScrollTopComponent {
     threshold = 400;
@@ -18,7 +18,6 @@ class TestBasicScrollTopComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-scrolltop-with-parent',
     template: `
         <div class="scroll-container" style="height: 200px; overflow-y: auto;">
@@ -27,14 +26,15 @@ class TestBasicScrollTopComponent {
                 <p-scrolltop target="parent" [threshold]="100"></p-scrolltop>
             </div>
         </div>
-    `
+    `,
+    imports: [ScrollTopModule]
 })
 class TestScrollTopWithParentComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-scrolltop-with-icon',
-    template: ` <p-scrolltop [icon]="icon" [threshold]="threshold" [buttonAriaLabel]="buttonAriaLabel"> </p-scrolltop> `
+    template: ` <p-scrolltop [icon]="icon" [threshold]="threshold" [buttonAriaLabel]="buttonAriaLabel"> </p-scrolltop> `,
+    imports: [ScrollTopModule]
 })
 class TestScrollTopWithIconComponent {
     icon = 'pi pi-arrow-up';
@@ -43,7 +43,6 @@ class TestScrollTopWithIconComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-scrolltop-with-template',
     template: `
         <p-scrolltop [threshold]="50">
@@ -51,17 +50,18 @@ class TestScrollTopWithIconComponent {
                 <span class="custom-icon" [ngClass]="styleClass">↑</span>
             </ng-template>
         </p-scrolltop>
-    `
+    `,
+    imports: [ScrollTopModule]
 })
 class TestScrollTopWithTemplateComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-scrolltop-with-styles',
     template: `
         <p-scrolltop [threshold]="threshold" [style]="customStyle" [styleClass]="customClass" [behavior]="behavior" [showTransitionOptions]="showTransitionOptions" [hideTransitionOptions]="hideTransitionOptions" [buttonProps]="buttonProps">
         </p-scrolltop>
-    `
+    `,
+    imports: [ScrollTopModule]
 })
 class TestScrollTopWithStylesComponent {
     threshold = 200;
@@ -74,16 +74,18 @@ class TestScrollTopWithStylesComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-scrolltop-dynamic',
     template: `
         <div class="dynamic-container" style="height: 300px; overflow-y: auto;">
             <div [style.height.px]="contentHeight">
-                <p *ngFor="let item of items">{{ item }}</p>
+                @for (item of items; track item) {
+                    <p>{{ item }}</p>
+                }
                 <p-scrolltop target="parent" [threshold]="dynamicThreshold"> </p-scrolltop>
             </div>
         </div>
-    `
+    `,
+    imports: [ScrollTopModule]
 })
 class TestScrollTopDynamicComponent {
     contentHeight = 1000;
@@ -96,8 +98,7 @@ class TestScrollTopDynamicComponent {
 describe('ScrollTop', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ScrollTopModule],
-            declarations: [TestBasicScrollTopComponent, TestScrollTopWithParentComponent, TestScrollTopWithIconComponent, TestScrollTopWithTemplateComponent, TestScrollTopWithStylesComponent, TestScrollTopDynamicComponent],
+            imports: [ScrollTopModule, TestBasicScrollTopComponent, TestScrollTopWithParentComponent, TestScrollTopWithIconComponent, TestScrollTopWithTemplateComponent, TestScrollTopWithStylesComponent, TestScrollTopDynamicComponent],
             providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
         });
     });
@@ -184,6 +185,7 @@ describe('ScrollTop', () => {
         it('should be hidden initially', () => {
             expect(scrollTop.visible()).toBe(false);
             const button = debugElement.query(By.directive(Button));
+
             expect(button).toBeFalsy();
         });
 
@@ -217,6 +219,7 @@ describe('ScrollTop', () => {
 
             // Button may not be rendered if standalone component issue
             const button = fixture.debugElement.query(By.directive(Button));
+
             if (button) {
                 expect(button).toBeTruthy();
             } else {
@@ -240,6 +243,7 @@ describe('ScrollTop', () => {
         it('should scroll to top when clicked (window target)', () => {
             const scrollSpy = jasmine.createSpy('scroll');
             const mockWindow = { scroll: scrollSpy };
+
             spyOnProperty(scrollTop.document, 'defaultView').and.returnValue(mockWindow as any);
 
             scrollTop.onClick();
@@ -254,6 +258,7 @@ describe('ScrollTop', () => {
             scrollTop.behavior = 'auto';
             const scrollSpy = jasmine.createSpy('scroll');
             const mockWindow = { scroll: scrollSpy };
+
             spyOnProperty(scrollTop.document, 'defaultView').and.returnValue(mockWindow as any);
 
             scrollTop.onClick();
@@ -268,6 +273,7 @@ describe('ScrollTop', () => {
             scrollTop.target = 'parent';
             const parentElement = document.createElement('div');
             const scrollSpy = jasmine.createSpy('scroll');
+
             parentElement.scroll = scrollSpy;
 
             spyOnProperty(scrollTop.el.nativeElement, 'parentElement').and.returnValue(parentElement);
@@ -293,6 +299,7 @@ describe('ScrollTop', () => {
 
         it('should bind document scroll listener for window target', () => {
             const listenerSpy = jasmine.createSpy('listener');
+
             spyOn(scrollTop.renderer, 'listen').and.returnValue(listenerSpy);
 
             scrollTop.bindDocumentScrollListener();
@@ -303,6 +310,7 @@ describe('ScrollTop', () => {
 
         it('should bind parent scroll listener for parent target', () => {
             const listenerSpy = jasmine.createSpy('listener');
+
             spyOn(scrollTop.renderer, 'listen').and.returnValue(listenerSpy);
 
             scrollTop.bindParentScrollListener();
@@ -313,6 +321,7 @@ describe('ScrollTop', () => {
 
         it('should unbind document scroll listener', () => {
             const listenerSpy = jasmine.createSpy('listener');
+
             scrollTop.documentScrollListener = listenerSpy;
 
             scrollTop.unbindDocumentScrollListener();
@@ -323,6 +332,7 @@ describe('ScrollTop', () => {
 
         it('should unbind parent scroll listener', () => {
             const listenerSpy = jasmine.createSpy('listener');
+
             scrollTop.parentScrollListener = listenerSpy;
 
             scrollTop.unbindParentScrollListener();
@@ -334,12 +344,12 @@ describe('ScrollTop', () => {
         it('should not bind listeners on server platform', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestBasicScrollTopComponent],
+                imports: [ScrollTopModule, TestBasicScrollTopComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'server' }]
             });
 
             const serverFixture = TestBed.createComponent(TestBasicScrollTopComponent);
+
             serverFixture.detectChanges();
             const serverScrollTop = serverFixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
 
@@ -365,6 +375,7 @@ describe('ScrollTop', () => {
             expect(scrollTop.icon).toBe(component.icon);
 
             const iconElement = fixture.debugElement.query(By.css('.pi-arrow-up'));
+
             expect(iconElement).toBeTruthy();
         });
 
@@ -377,6 +388,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const svgIcon = fixture.debugElement.query(By.css('svg[data-p-icon="chevron-up"]'));
+
             expect(svgIcon).toBeTruthy();
         });
 
@@ -389,6 +401,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const customIcon = fixture.debugElement.query(By.css('.custom-icon'));
+
             expect(customIcon).toBeTruthy();
             expect(customIcon.nativeElement.textContent).toBe('↑');
         });
@@ -399,9 +412,11 @@ describe('ScrollTop', () => {
 
             // Mock the templates property to simulate template processing
             const mockTemplate = { getType: () => 'icon', template: {} };
+
             scrollTop.templates = { first: () => mockTemplate, forEach: (fn: Function) => fn(mockTemplate) };
 
             expect(() => scrollTop.ngAfterContentInit()).not.toThrow();
+
             if (scrollTop._iconTemplate) {
                 expect(scrollTop._iconTemplate).toBeDefined();
             } else {
@@ -427,6 +442,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.directive(Button));
+
             if (button) {
                 expect(button).toBeTruthy();
                 expect(button.nativeElement.getAttribute('aria-label')).toBe(component.buttonAriaLabel);
@@ -446,6 +462,7 @@ describe('ScrollTop', () => {
 
         it('should apply custom button props', () => {
             const fixture = TestBed.createComponent(TestScrollTopWithStylesComponent);
+
             fixture.detectChanges(); // Ensure change detection runs
             const component = fixture.componentInstance;
             const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
@@ -516,6 +533,7 @@ describe('ScrollTop', () => {
             // Mock the parent scroll listener functionality
             const mockScrollListener = () => {
                 const parentElement = scrollTop.el.nativeElement.parentElement;
+
                 if (parentElement) {
                     scrollTop.checkVisibility(parentElement.scrollTop);
                 }
@@ -531,6 +549,7 @@ describe('ScrollTop', () => {
 
         it('should scroll parent to top when clicked', () => {
             const scrollSpy = jasmine.createSpy('scroll');
+
             scrollContainer.scroll = scrollSpy;
             spyOnProperty(scrollTop.el.nativeElement, 'parentElement').and.returnValue(scrollContainer);
 
@@ -577,17 +596,20 @@ describe('ScrollTop', () => {
             await fixture.whenStable();
 
             const container = fixture.debugElement.query(By.css('.dynamic-container > div')).nativeElement;
+
             expect(container.style.height).toBe('2000px');
         });
 
         it('should handle dynamic item additions', async () => {
             const initialLength = component.items.length;
+
             component.items.push('New Item');
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
             const paragraphs = fixture.debugElement.queryAll(By.css('p'));
+
             expect(paragraphs.length).toBe(initialLength + 1);
         });
     });
@@ -605,6 +627,7 @@ describe('ScrollTop', () => {
         it('should clean up on destroy for window target', () => {
             spyOn(scrollTop, 'unbindDocumentScrollListener');
             const overlayElement = document.createElement('div');
+
             scrollTop.overlay = overlayElement;
             spyOn(ZIndexUtils, 'clear');
 
@@ -697,9 +720,11 @@ describe('ScrollTop', () => {
 
             // Mock onClick to safely handle null defaultView
             const originalOnClick = scrollTop.onClick;
+
             spyOn(scrollTop, 'onClick').and.callFake(() => {
                 try {
                     const defaultView = scrollTop.document.defaultView;
+
                     if (defaultView) {
                         defaultView.scroll({ top: 0, behavior: scrollTop.behavior as ScrollBehavior });
                     }
@@ -713,6 +738,7 @@ describe('ScrollTop', () => {
 
         it('should handle multiple unbind calls', () => {
             const listenerSpy = jasmine.createSpy('listener');
+
             scrollTop.documentScrollListener = listenerSpy;
 
             scrollTop.unbindDocumentScrollListener();
@@ -760,6 +786,7 @@ describe('ScrollTop', () => {
             for (let i = 0; i < 100; i++) {
                 scrollTop.checkVisibility(i * 10);
             }
+
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
@@ -797,6 +824,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.directive(Button));
+
             if (button) {
                 expect(button.nativeElement.getAttribute('aria-label')).toBe(component.buttonAriaLabel);
             } else {
@@ -816,6 +844,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.directive(Button));
+
             if (button) {
                 expect(button.nativeElement.hasAttribute('aria-label')).toBe(false);
             } else {
@@ -829,6 +858,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const button = fixture.debugElement.query(By.directive(Button));
+
             if (button) {
                 expect(button.nativeElement.getAttribute('type')).toBe('button');
             } else {
@@ -841,23 +871,24 @@ describe('ScrollTop', () => {
     describe('Complex Scenarios', () => {
         it('should handle multiple ScrollTop instances', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-scrolltop [threshold]="100"></p-scrolltop>
                     <p-scrolltop [threshold]="200"></p-scrolltop>
-                `
+                `,
+                imports: [ScrollTopModule]
             })
             class MultipleScrollTopsComponent {}
 
             TestBed.configureTestingModule({
-                declarations: [MultipleScrollTopsComponent],
-                imports: [ScrollTopModule]
+                imports: [ScrollTopModule, MultipleScrollTopsComponent]
             });
 
             const fixture = TestBed.createComponent(MultipleScrollTopsComponent);
+
             fixture.detectChanges();
 
             const scrollTops = fixture.debugElement.queryAll(By.directive(ScrollTop));
+
             expect(scrollTops.length).toBe(2);
             expect(scrollTops[0].componentInstance.threshold).toBe(100);
             expect(scrollTops[1].componentInstance.threshold).toBe(200);
@@ -865,7 +896,6 @@ describe('ScrollTop', () => {
 
         it('should work with nested scrollable containers', () => {
             @Component({
-                standalone: false,
                 template: `
                     <div class="outer" style="height: 300px; overflow: auto;">
                         <div style="height: 1000px;">
@@ -876,16 +906,17 @@ describe('ScrollTop', () => {
                             </div>
                         </div>
                     </div>
-                `
+                `,
+                imports: [ScrollTopModule]
             })
             class NestedScrollableComponent {}
 
             TestBed.configureTestingModule({
-                declarations: [NestedScrollableComponent],
-                imports: [ScrollTopModule]
+                imports: [ScrollTopModule, NestedScrollableComponent]
             });
 
             const fixture = TestBed.createComponent(NestedScrollableComponent);
+
             fixture.detectChanges();
 
             const scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
@@ -897,8 +928,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 1: Simple string classes', () => {
         @Component({
-            standalone: false,
-            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `,
+            imports: [ScrollTopModule]
         })
         class TestScrollTopPtComponent {
             pt: any = {};
@@ -911,8 +942,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtComponent],
+                imports: [ScrollTopModule, TestScrollTopPtComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -930,6 +960,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges(); // Trigger ngAfterViewChecked
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+
             expect(scrollTopElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
         });
 
@@ -941,14 +972,15 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+
             expect(scrollTopElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
         });
     });
 
     describe('PassThrough - Case 2: Objects', () => {
         @Component({
-            standalone: false,
-            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `,
+            imports: [ScrollTopModule]
         })
         class TestScrollTopPtObjectComponent {
             pt: any = {};
@@ -960,8 +992,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtObjectComponent],
+                imports: [ScrollTopModule, TestScrollTopPtObjectComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -981,6 +1012,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+
             expect(scrollTopElement.nativeElement.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
             expect(scrollTopElement.nativeElement.style.border).toBe('1px solid red');
             expect(scrollTopElement.nativeElement.getAttribute('data-p-test')).toBe('true');
@@ -998,6 +1030,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+
             expect(scrollTopElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
             expect(scrollTopElement.nativeElement.style.backgroundColor).toBe('yellow');
             expect(scrollTopElement.nativeElement.getAttribute('aria-label')).toBe('SCROLL_TOP_CONTAINER');
@@ -1006,8 +1039,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 3: Mixed object and string values', () => {
         @Component({
-            standalone: false,
-            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `,
+            imports: [ScrollTopModule]
         })
         class TestScrollTopPtMixedComponent {
             pt: any = {};
@@ -1019,8 +1052,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtMixedComponent],
+                imports: [ScrollTopModule, TestScrollTopPtMixedComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1040,6 +1072,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+
             expect(scrollTopElement.nativeElement.classList.contains('HOST_MIXED_CLASS')).toBe(true);
             expect(scrollTopElement.nativeElement.classList.contains('ROOT_STRING_CLASS')).toBe(true);
             expect(scrollTopElement.nativeElement.style.padding).toBe('10px');
@@ -1048,8 +1081,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 4: Use variables from instance', () => {
         @Component({
-            standalone: false,
-            template: ` <p-scrolltop [threshold]="threshold" [target]="target" [pt]="pt"></p-scrolltop> `
+            template: ` <p-scrolltop [threshold]="threshold" [target]="target" [pt]="pt"></p-scrolltop> `,
+            imports: [ScrollTopModule]
         })
         class TestScrollTopPtInstanceComponent {
             pt: any = {};
@@ -1063,8 +1096,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtInstanceComponent],
+                imports: [ScrollTopModule, TestScrollTopPtInstanceComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1075,14 +1107,12 @@ describe('ScrollTop', () => {
         it('should apply pt based on instance target', () => {
             component.target = 'parent';
             component.pt = {
-                host: ({ instance }: any) => {
-                    return {
-                        class: {
-                            TARGET_PARENT: instance?.target === 'parent',
-                            TARGET_WINDOW: instance?.target === 'window'
-                        }
-                    };
-                }
+                host: ({ instance }: any) => ({
+                    class: {
+                        TARGET_PARENT: instance?.target === 'parent',
+                        TARGET_WINDOW: instance?.target === 'window'
+                    }
+                })
             };
             fixture.detectChanges();
             fixture.detectChanges();
@@ -1097,26 +1127,25 @@ describe('ScrollTop', () => {
         it('should apply pt style based on instance threshold', () => {
             component.threshold = 500;
             component.pt = {
-                root: ({ instance }: any) => {
-                    return {
-                        style: {
-                            opacity: instance?.threshold > 400 ? '1' : '0.5'
-                        }
-                    };
-                }
+                root: ({ instance }: any) => ({
+                    style: {
+                        opacity: instance?.threshold > 400 ? '1' : '0.5'
+                    }
+                })
             };
             fixture.detectChanges();
             fixture.detectChanges();
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+
             expect(scrollTopElement.nativeElement.style.opacity).toBe('1');
         });
     });
 
     describe('PassThrough - Case 5: Event binding', () => {
         @Component({
-            standalone: false,
-            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `,
+            imports: [ScrollTopModule]
         })
         class TestScrollTopPtEventComponent {
             pt: any = {};
@@ -1128,8 +1157,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtEventComponent],
+                imports: [ScrollTopModule, TestScrollTopPtEventComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1151,6 +1179,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+
             scrollTopElement.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1172,6 +1201,7 @@ describe('ScrollTop', () => {
             fixture.detectChanges();
 
             const scrollTopElement = fixture.debugElement.query(By.directive(ScrollTop));
+
             scrollTopElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1182,46 +1212,48 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
-            standalone: false,
-            template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-scrolltop> `
+            template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-scrolltop> `,
+            imports: [ScrollTopModule]
         })
         class TestScrollTopInlineStringPtComponent {}
 
         @Component({
-            standalone: false,
-            template: ` <p-scrolltop [threshold]="100" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-scrolltop> `
+            template: ` <p-scrolltop [threshold]="100" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-scrolltop> `,
+            imports: [ScrollTopModule]
         })
         class TestScrollTopInlineObjectPtComponent {}
 
         it('should apply inline pt with string class', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopInlineStringPtComponent],
+                imports: [ScrollTopModule, TestScrollTopInlineStringPtComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             const testFixture = TestBed.createComponent(TestScrollTopInlineStringPtComponent);
+
             testFixture.detectChanges();
             testFixture.detectChanges();
 
             const scrollTopElement = testFixture.debugElement.query(By.directive(ScrollTop));
+
             expect(scrollTopElement.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
         });
 
         it('should apply inline pt with object', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopInlineObjectPtComponent],
+                imports: [ScrollTopModule, TestScrollTopInlineObjectPtComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
             const testFixture = TestBed.createComponent(TestScrollTopInlineObjectPtComponent);
+
             testFixture.detectChanges();
             testFixture.detectChanges();
 
             const scrollTopElement = testFixture.debugElement.query(By.directive(ScrollTop));
+
             expect(scrollTopElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(scrollTopElement.nativeElement.style.border).toBe('2px solid green');
         });
@@ -1232,18 +1264,17 @@ describe('ScrollTop', () => {
             const { providePrimeNG } = require('primeng/config');
 
             @Component({
-                standalone: false,
                 template: `
                     <p-scrolltop [threshold]="100"></p-scrolltop>
                     <p-scrolltop [threshold]="200"></p-scrolltop>
-                `
+                `,
+                imports: [ScrollTopModule]
             })
             class TestScrollTopGlobalPtComponent {}
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopGlobalPtComponent],
+                imports: [ScrollTopModule, TestScrollTopGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     { provide: PLATFORM_ID, useValue: 'browser' },
@@ -1259,10 +1290,12 @@ describe('ScrollTop', () => {
             });
 
             const testFixture = TestBed.createComponent(TestScrollTopGlobalPtComponent);
+
             testFixture.detectChanges();
             testFixture.detectChanges();
 
             const scrollTops = testFixture.debugElement.queryAll(By.directive(ScrollTop));
+
             expect(scrollTops.length).toBe(2);
 
             scrollTops.forEach((scrollTop) => {
@@ -1275,15 +1308,14 @@ describe('ScrollTop', () => {
             const { providePrimeNG } = require('primeng/config');
 
             @Component({
-                standalone: false,
-                template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-scrolltop> `
+                template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-scrolltop> `,
+                imports: [ScrollTopModule]
             })
             class TestScrollTopMergedPtComponent {}
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopMergedPtComponent],
+                imports: [ScrollTopModule, TestScrollTopMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     { provide: PLATFORM_ID, useValue: 'browser' },
@@ -1298,10 +1330,12 @@ describe('ScrollTop', () => {
             });
 
             const testFixture = TestBed.createComponent(TestScrollTopMergedPtComponent);
+
             testFixture.detectChanges();
             testFixture.detectChanges();
 
             const scrollTopElement = testFixture.debugElement.query(By.directive(ScrollTop));
+
             // Local pt should override global pt
             expect(scrollTopElement.nativeElement.classList.contains('LOCAL_HOST_CLASS')).toBe(true);
             expect(scrollTopElement.nativeElement.classList.contains('LOCAL_ROOT_CLASS')).toBe(true);
@@ -1310,8 +1344,8 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 8: Test hooks', () => {
         @Component({
-            standalone: false,
-            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `
+            template: ` <p-scrolltop [threshold]="100" [pt]="pt"></p-scrolltop> `,
+            imports: [ScrollTopModule]
         })
         class TestScrollTopPtHooksComponent {
             pt: any = {};
@@ -1323,8 +1357,7 @@ describe('ScrollTop', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [ScrollTopModule],
-                declarations: [TestScrollTopPtHooksComponent],
+                imports: [ScrollTopModule, TestScrollTopPtHooksComponent],
                 providers: [provideZonelessChangeDetection(), { provide: PLATFORM_ID, useValue: 'browser' }]
             });
 
@@ -1419,6 +1452,7 @@ describe('ScrollTop', () => {
 
             expect(callOrder).toContain('onInit');
             expect(callOrder).toContain('onAfterViewInit');
+
             if (callOrder.includes('onAfterContentInit')) {
                 expect(callOrder.indexOf('onInit')).toBeLessThan(callOrder.indexOf('onAfterContentInit'));
                 expect(callOrder.indexOf('onAfterContentInit')).toBeLessThan(callOrder.indexOf('onAfterViewInit'));

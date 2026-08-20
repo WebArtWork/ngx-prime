@@ -14,10 +14,28 @@ jobs:
       pull-requests: write 
     runs-on: ubuntu-latest
     steps:
-      - name: Cannot Replicate
-        uses: actions-cool/issues-helper@v3
+      - name: Close inactive "Cannot Replicate" issues
+        uses: actions/github-script@v9
         with:
-          actions: "close-issues"
-          labels: "Resolution: Cannot Replicate"
-          token: ${{ secrets.GITHUB_TOKEN }}
-          inactive-day: 20
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const cutoff = Date.now() - 20 * 24 * 60 * 60 * 1000;
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'Resolution: Cannot Replicate',
+              per_page: 100
+            });
+            for (const issue of issues) {
+              if (issue.pull_request) continue;
+              if (new Date(issue.updated_at).getTime() < cutoff) {
+                await github.rest.issues.update({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issue.number,
+                  state: 'closed',
+                  state_reason: 'not_planned'
+                });
+              }
+            }

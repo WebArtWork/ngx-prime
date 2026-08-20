@@ -40,11 +40,9 @@ export class AppMainComponent {
 
     isMenuActive = computed(() => this.configService.appState().menuActive);
 
-    containerClass = computed(() => {
-        return {
-            'layout-news-active': this.isNewsActive()
-        };
-    });
+    containerClass = computed(() => ({
+        'layout-news-active': this.isNewsActive()
+    }));
 
     hideMenu() {
         this.configService.hideMenu();

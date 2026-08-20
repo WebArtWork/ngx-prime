@@ -20,6 +20,7 @@ export class DesignEditorFooter {
 
     async download() {
         const { theme } = this.designerService.designer();
+
         await this.designerService.downloadTheme({ t_key: theme.key, t_name: theme.name });
     }
 

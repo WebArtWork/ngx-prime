@@ -88,6 +88,7 @@ export class TabPanel extends BaseComponent<TabPanelPassThrough> {
 
         if (this.active()) {
             this.hasBeenRendered = true;
+
             return true;
         }
 

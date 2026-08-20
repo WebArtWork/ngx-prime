@@ -1,4 +1,4 @@
-import { Component, ElementRef, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { Component, ElementRef, TemplateRef, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -6,7 +6,6 @@ import { TooltipOptions } from 'primeng/api';
 import { Tooltip } from './tooltip';
 
 @Component({
-    standalone: false,
     template: `
         <input
             #inputElement
@@ -30,10 +29,11 @@ import { Tooltip } from './tooltip';
             type="text"
             placeholder="Hover me"
         />
-    `
+    `,
+    imports: [Tooltip]
 })
 class TestBasicTooltipComponent {
-    @ViewChild('inputElement', { read: ElementRef }) inputElement!: ElementRef;
+    readonly inputElement = viewChild.required('inputElement', { read: ElementRef });
 
     tooltipPosition: 'right' | 'left' | 'top' | 'bottom' = 'right';
     tooltipEvent: 'hover' | 'focus' | 'both' = 'hover';
@@ -54,7 +54,6 @@ class TestBasicTooltipComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <input #templateElement [pTooltip]="tooltipTemplate" type="text" placeholder="Template tooltip" />
         <ng-template #tooltipTemplate>
@@ -63,19 +62,20 @@ class TestBasicTooltipComponent {
                 <p>This is a custom tooltip template</p>
             </div>
         </ng-template>
-    `
+    `,
+    imports: [Tooltip]
 })
 class TestTemplateTooltipComponent {
-    @ViewChild('templateElement', { read: ElementRef }) templateElement!: ElementRef;
-    @ViewChild('tooltipTemplate') tooltipTemplate!: TemplateRef<any>;
+    readonly templateElement = viewChild.required('templateElement', { read: ElementRef });
+    readonly tooltipTemplate = viewChild.required<TemplateRef<any>>('tooltipTemplate');
 }
 
 @Component({
-    standalone: false,
-    template: ` <button #buttonElement pTooltip="Button tooltip" [tooltipOptions]="options" type="button">Click me</button> `
+    template: ` <button #buttonElement pTooltip="Button tooltip" [tooltipOptions]="options" type="button">Click me</button> `,
+    imports: [Tooltip]
 })
 class TestTooltipOptionsComponent {
-    @ViewChild('buttonElement', { read: ElementRef }) buttonElement!: ElementRef;
+    readonly buttonElement = viewChild.required('buttonElement', { read: ElementRef });
 
     options: TooltipOptions = {
         tooltipLabel: 'Options tooltip',
@@ -91,8 +91,7 @@ class TestTooltipOptionsComponent {
 describe('Tooltip', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Tooltip],
-            declarations: [TestBasicTooltipComponent, TestTemplateTooltipComponent, TestTooltipOptionsComponent],
+            imports: [Tooltip, TestBasicTooltipComponent, TestTemplateTooltipComponent, TestTooltipOptionsComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -109,8 +108,9 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
-            inputElement = component.inputElement.nativeElement;
+            inputElement = component.inputElement().nativeElement;
         });
 
         it('should create the directive', () => {
@@ -172,6 +172,7 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
@@ -233,8 +234,9 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
-            inputElement = component.inputElement.nativeElement;
+            inputElement = component.inputElement().nativeElement;
         });
 
         it('should activate on mouse enter for hover event', () => {
@@ -289,6 +291,7 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
@@ -312,6 +315,7 @@ describe('Tooltip', () => {
         it('should handle out of bounds check', () => {
             // Create a mock container for bounds testing
             const mockContainer = document.createElement('div');
+
             mockContainer.getBoundingClientRect = () =>
                 ({
                     top: -100,
@@ -339,6 +343,7 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
@@ -402,6 +407,7 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
@@ -420,11 +426,14 @@ describe('Tooltip', () => {
 
         it('should find correct target element', () => {
             const mockElement = document.createElement('div');
+
             mockElement.classList.add('p-inputwrapper');
             const input = document.createElement('input');
+
             mockElement.appendChild(input);
 
             const target = tooltipDirective.getTarget(mockElement);
+
             expect(target!.tagName.toLowerCase()).toBe('input');
         });
 
@@ -432,6 +441,7 @@ describe('Tooltip', () => {
             const mockElement = document.createElement('button');
 
             const target = tooltipDirective.getTarget(mockElement);
+
             expect(target).toBe(mockElement);
         });
     });
@@ -447,6 +457,7 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
@@ -508,11 +519,12 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
         it('should handle template content', () => {
-            expect(tooltipDirective.content).toEqual(component.tooltipTemplate);
+            expect(tooltipDirective.content).toEqual(component.tooltipTemplate());
         });
     });
 
@@ -527,6 +539,7 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
@@ -565,6 +578,7 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
         });
 
@@ -646,11 +660,11 @@ describe('Tooltip', () => {
 
     describe('PassThrough', () => {
         @Component({
-            standalone: false,
-            template: ` <input #inputElement pTooltip="PT Test Tooltip" [pt]="pt" type="text" /> `
+            template: ` <input #inputElement pTooltip="PT Test Tooltip" [pt]="pt" type="text" /> `,
+            imports: [Tooltip]
         })
         class TestPTTooltipComponent {
-            @ViewChild('inputElement', { read: ElementRef }) inputElement!: ElementRef;
+            readonly inputElement = viewChild.required('inputElement', { read: ElementRef });
             testValue = false;
             pt: any = {};
         }
@@ -662,8 +676,7 @@ describe('Tooltip', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [Tooltip],
-                declarations: [TestPTTooltipComponent],
+                imports: [Tooltip, TestPTTooltipComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -672,8 +685,9 @@ describe('Tooltip', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
+
             tooltipDirective = debugElement.injector.get(Tooltip);
-            inputEl = component.inputElement.nativeElement;
+            inputEl = component.inputElement().nativeElement;
         });
 
         // Case 1: Simple string classes
@@ -690,6 +704,7 @@ describe('Tooltip', () => {
             await fixture.whenStable();
 
             const tooltipContainer = document.querySelector('.p-tooltip');
+
             expect(tooltipContainer?.classList.contains('ROOT_CLASS')).toBeTruthy();
 
             tooltipDirective.deactivate();
@@ -808,6 +823,7 @@ describe('Tooltip', () => {
         // Case 5: Event binding
         it('should handle PT event bindings', async () => {
             let clicked = false;
+
             component.pt = {
                 root: {
                     onclick: () => {
@@ -824,6 +840,7 @@ describe('Tooltip', () => {
             await fixture.whenStable();
 
             const tooltipContainer = document.querySelector('.p-tooltip') as HTMLElement;
+
             tooltipContainer.click();
             expect(clicked).toBeTruthy();
 
@@ -861,6 +878,7 @@ describe('Tooltip', () => {
         // Test PT attribute removal
         it('should remove attributes when PT value is null', async () => {
             const container = document.querySelector('.p-tooltip');
+
             component.pt = {
                 root: {
                     'data-test': null

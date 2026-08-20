@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,7 +9,6 @@ import { ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
 import { ToggleButton } from './togglebutton';
 
 @Component({
-    standalone: false,
     template: `
         <p-togglebutton
             [(ngModel)]="checked"
@@ -31,7 +29,8 @@ import { ToggleButton } from './togglebutton';
             (onChange)="onToggleChange($event)"
         >
         </p-togglebutton>
-    `
+    `,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
 })
 class TestBasicToggleButtonComponent {
     checked = false;
@@ -57,12 +56,12 @@ class TestBasicToggleButtonComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <form [formGroup]="toggleForm">
             <p-togglebutton formControlName="toggle" [onLabel]="onLabel" [offLabel]="offLabel" (onChange)="onFormToggleChange($event)"> </p-togglebutton>
         </form>
-    `
+    `,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
 })
 class TestReactiveToggleButtonComponent {
     toggleForm = new FormGroup({
@@ -78,36 +77,36 @@ class TestReactiveToggleButtonComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-togglebutton [(ngModel)]="checked">
             <ng-template pTemplate="content" let-checked>
                 <span class="custom-content">{{ checked ? 'Custom ON' : 'Custom OFF' }}</span>
             </ng-template>
         </p-togglebutton>
-    `
+    `,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
 })
 class TestTemplateToggleButtonComponent {
     checked = false;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-togglebutton [(ngModel)]="checked">
             <ng-template pTemplate="icon" let-checked>
                 <i [class]="checked ? 'pi pi-check custom-on-icon' : 'pi pi-times custom-off-icon'"></i>
             </ng-template>
         </p-togglebutton>
-    `
+    `,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
 })
 class TestIconTemplateToggleButtonComponent {
     checked = false;
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-togglebutton [(ngModel)]="checked" [onIcon]="onIcon" [offIcon]="offIcon" [iconPos]="iconPos"> </p-togglebutton> `
+    template: ` <p-togglebutton [(ngModel)]="checked" [onIcon]="onIcon" [offIcon]="offIcon" [iconPos]="iconPos"> </p-togglebutton> `,
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
 })
 class TestIconToggleButtonComponent {
     checked = false;
@@ -119,7 +118,7 @@ class TestIconToggleButtonComponent {
 // ToggleButton pTemplate component
 @Component({
     standalone: true,
-    imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleButton, FormsModule, SharedModule],
     template: `
         <p-togglebutton [(ngModel)]="checked">
             <!-- Icon template with pTemplate -->
@@ -143,7 +142,7 @@ class TestToggleButtonPTemplateComponent {
 // ToggleButton #template reference component
 @Component({
     standalone: true,
-    imports: [ToggleButton, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleButton, FormsModule, SharedModule],
     template: `
         <p-togglebutton [(ngModel)]="checked">
             <!-- Icon template with #template reference -->
@@ -172,8 +171,18 @@ describe('ToggleButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent],
-            declarations: [TestBasicToggleButtonComponent, TestReactiveToggleButtonComponent, TestTemplateToggleButtonComponent, TestIconTemplateToggleButtonComponent, TestIconToggleButtonComponent],
+            imports: [
+                ToggleButton,
+                FormsModule,
+                ReactiveFormsModule,
+                TestToggleButtonPTemplateComponent,
+                TestToggleButtonRefTemplateComponent,
+                TestBasicToggleButtonComponent,
+                TestReactiveToggleButtonComponent,
+                TestTemplateToggleButtonComponent,
+                TestIconTemplateToggleButtonComponent,
+                TestIconToggleButtonComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -225,11 +234,13 @@ describe('ToggleButton', () => {
 
         it('should initialize with default labels', () => {
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"]'));
+
             expect(labelElement.nativeElement.textContent.trim()).toBe('No');
         });
 
         it('should render correct host attributes', () => {
             const hostElement = toggleButtonElement.nativeElement;
+
             expect(hostElement.getAttribute('role')).toBe('button');
             expect(hostElement.getAttribute('tabindex')).toBe('0');
             expect(hostElement.getAttribute('aria-pressed')).toBe('false');
@@ -321,6 +332,7 @@ describe('ToggleButton', () => {
             fixture.detectChanges();
 
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"]'));
+
             expect(labelElement.nativeElement.textContent.trim()).toBe('Disabled');
 
             toggleButtonElement.nativeElement.click();
@@ -422,6 +434,7 @@ describe('ToggleButton', () => {
             testFixture.detectChanges();
 
             const toggleButtonInstance = formToggleButton.componentInstance;
+
             expect(toggleButtonInstance.checked).toBe(true);
         });
 
@@ -435,11 +448,13 @@ describe('ToggleButton', () => {
             testFixture.detectChanges();
 
             const toggleButtonInstance = formToggleButton.componentInstance;
+
             expect(toggleButtonInstance.checked).toBeFalsy();
         });
 
         it('should emit onChange event in reactive forms', () => {
             const formToggleButtonInstance = formToggleButton.componentInstance;
+
             spyOn(formToggleButtonInstance.onChange, 'emit');
 
             formToggleButton.nativeElement.click();
@@ -458,6 +473,7 @@ describe('ToggleButton', () => {
             }).not.toThrow();
 
             const toggleButton = testFixture.debugElement.query(By.directive(ToggleButton));
+
             expect(toggleButton).toBeTruthy();
             expect(toggleButton.componentInstance.checked).toBeFalsy();
         });
@@ -470,6 +486,7 @@ describe('ToggleButton', () => {
             }).not.toThrow();
 
             const toggleButton = testFixture.debugElement.query(By.directive(ToggleButton));
+
             expect(toggleButton).toBeTruthy();
             expect(toggleButton.componentInstance.checked).toBeFalsy();
         });
@@ -489,6 +506,7 @@ describe('ToggleButton', () => {
 
         it('should display off icon when unchecked', () => {
             const iconElement = iconFixture.debugElement.query(By.css('[data-pc-section="icon"]'));
+
             expect(iconElement).toBeTruthy();
             expect(iconElement.nativeElement.className).toContain('pi-times');
         });
@@ -498,11 +516,13 @@ describe('ToggleButton', () => {
             iconFixture.detectChanges();
 
             const iconElement = iconFixture.debugElement.query(By.css('[data-pc-section="icon"]'));
+
             expect(iconElement.nativeElement.className).toContain('pi-check');
         });
 
         it('should position icon on the left by default', () => {
             const iconElement = iconFixture.debugElement.query(By.css('[data-pc-section="icon"]'));
+
             expect(iconElement.nativeElement.className).toContain('p-togglebutton-icon-left');
         });
 
@@ -513,6 +533,7 @@ describe('ToggleButton', () => {
             iconFixture.detectChanges();
 
             const iconElement = iconFixture.debugElement.query(By.css('[data-pc-section="icon"]'));
+
             expect(iconElement.nativeElement.className).toContain('p-togglebutton-icon-right');
         });
     });
@@ -528,6 +549,7 @@ describe('ToggleButton', () => {
 
         it('should toggle on Enter key', () => {
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
             spyOn(enterEvent, 'preventDefault');
 
             toggleButtonElement.nativeElement.dispatchEvent(enterEvent);
@@ -539,6 +561,7 @@ describe('ToggleButton', () => {
 
         it('should toggle on Space key', () => {
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
+
             spyOn(spaceEvent, 'preventDefault');
 
             toggleButtonElement.nativeElement.dispatchEvent(spaceEvent);
@@ -564,6 +587,7 @@ describe('ToggleButton', () => {
             fixture.detectChanges();
 
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
             toggleButtonElement.nativeElement.dispatchEvent(enterEvent);
             fixture.detectChanges();
 
@@ -623,6 +647,7 @@ describe('ToggleButton', () => {
             fixture.detectChanges();
 
             const initialChecked = toggleButtonInstance.checked;
+
             toggleButtonElement.nativeElement.click();
             fixture.detectChanges();
 
@@ -641,6 +666,7 @@ describe('ToggleButton', () => {
 
         it('should handle rapid clicks', async () => {
             let clickCount = 0;
+
             toggleButtonInstance.onChange.subscribe(() => clickCount++);
 
             toggleButtonElement.nativeElement.click();
@@ -674,6 +700,7 @@ describe('ToggleButton', () => {
             fixture.detectChanges();
 
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"]'));
+
             expect(labelElement.nativeElement.textContent.trim()).toBe('' as any);
         });
 
@@ -729,8 +756,10 @@ describe('ToggleButton', () => {
     describe('Performance Tests', () => {
         it('should handle multiple toggle button instances', () => {
             const multipleFixtures: any[] = [];
+
             for (let i = 0; i < 10; i++) {
                 const testFixture = TestBed.createComponent(TestBasicToggleButtonComponent);
+
                 testFixture.detectChanges();
                 multipleFixtures.push(testFixture);
             }
@@ -738,6 +767,7 @@ describe('ToggleButton', () => {
             expect(multipleFixtures.length).toBe(10);
             multipleFixtures.forEach((f) => {
                 const toggleButton = f.debugElement.query(By.directive(ToggleButton));
+
                 expect(toggleButton.componentInstance.checked).toBeFalsy();
             });
 
@@ -774,8 +804,8 @@ describe('ToggleButton', () => {
         it('should create component with pTemplate templates', async () => {
             expect(component).toBeTruthy();
             expect(toggleButtonInstance).toBeTruthy();
-            expect(() => toggleButtonInstance.iconTemplate).not.toThrow();
-            expect(() => toggleButtonInstance.contentTemplate).not.toThrow();
+            expect(() => toggleButtonInstance.iconTemplate()).not.toThrow();
+            expect(() => toggleButtonInstance.contentTemplate()).not.toThrow();
         });
 
         it('should pass context parameters to icon template', async () => {
@@ -883,8 +913,8 @@ describe('ToggleButton', () => {
         it('should create component with #template references', async () => {
             expect(component).toBeTruthy();
             expect(toggleButtonInstance).toBeTruthy();
-            expect(() => toggleButtonInstance.iconTemplate).not.toThrow();
-            expect(() => toggleButtonInstance.contentTemplate).not.toThrow();
+            expect(() => toggleButtonInstance.iconTemplate()).not.toThrow();
+            expect(() => toggleButtonInstance.contentTemplate()).not.toThrow();
         });
 
         it('should pass context parameters to icon template', async () => {
@@ -1000,6 +1030,7 @@ describe('ToggleButton', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase1Component);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1050,6 +1081,7 @@ describe('ToggleButton', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase2Component);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1107,6 +1139,7 @@ describe('ToggleButton', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase3Component);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1137,18 +1170,14 @@ describe('ToggleButton', () => {
                 checked: boolean = false;
                 disabled: boolean = false;
                 pt = {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.checked ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
-                        };
-                    },
-                    content: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'background-color': instance?.$disabled() ? 'gray' : 'green'
-                            } as any
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.checked ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
+                    }),
+                    content: ({ instance }: any) => ({
+                        style: {
+                            'background-color': instance?.$disabled() ? 'gray' : 'green'
+                        } as any
+                    })
                 };
             }
 
@@ -1159,6 +1188,7 @@ describe('ToggleButton', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase4Component);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1195,13 +1225,11 @@ describe('ToggleButton', () => {
                 checked: boolean = false;
                 clickCount: number = 0;
                 pt = {
-                    content: ({ instance }: any) => {
-                        return {
-                            onclick: (event: Event) => {
-                                this.clickCount++;
-                            }
-                        };
-                    }
+                    content: ({ instance }: any) => ({
+                        onclick: (event: Event) => {
+                            this.clickCount++;
+                        }
+                    })
                 };
             }
 
@@ -1213,6 +1241,7 @@ describe('ToggleButton', () => {
 
                 const fixture = TestBed.createComponent(TestPTCase5Component);
                 const component = fixture.componentInstance;
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1244,11 +1273,13 @@ describe('ToggleButton', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestInlineComponent);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
                 const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+
                 expect(toggleButtonRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
             });
 
@@ -1268,11 +1299,13 @@ describe('ToggleButton', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestInlineObjectComponent);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
                 const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+
                 expect(toggleButtonRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 expect(toggleButtonRoot.style.border).toBe('2px solid red');
             });
@@ -1310,11 +1343,13 @@ describe('ToggleButton', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
                 const toggleButtons = fixture.debugElement.queryAll(By.css('p-togglebutton'));
+
                 expect(toggleButtons.length).toBe(2);
 
                 toggleButtons.forEach((toggleButton) => {
@@ -1366,6 +1401,7 @@ describe('ToggleButton', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestHooksComponent);
+
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1373,6 +1409,7 @@ describe('ToggleButton', () => {
                 expect(hookCalls).toContain('onAfterViewInit');
 
                 const toggleButtonRoot = fixture.debugElement.query(By.css('p-togglebutton')).nativeElement;
+
                 expect(toggleButtonRoot.classList.contains('MY-TOGGLEBUTTON')).toBe(true);
 
                 fixture.destroy();

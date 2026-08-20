@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, signal, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { $dt } from '@primeuix/styled';
@@ -25,7 +24,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-knob',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: `
         <svg
             viewBox="0 0 100 100"
@@ -49,9 +48,11 @@ export const KNOB_VALUE_ACCESSOR: any = {
         >
             <path [attr.d]="rangePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="rangeColor" [class]="cx('range')" [pBind]="ptm('range')"></path>
             <path [attr.d]="valuePath()" [attr.stroke-width]="strokeWidth" [attr.stroke]="valueColor" [class]="cx('value')" [pBind]="ptm('value')"></path>
-            <text *ngIf="showValue" [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" [class]="cx('text')" [attr.name]="name()" [pBind]="ptm('text')">
-                {{ valueToDisplay() }}
-            </text>
+            @if (showValue) {
+                <text [attr.x]="50" [attr.y]="57" text-anchor="middle" [attr.fill]="textColor" [class]="cx('text')" [attr.name]="name()" [pBind]="ptm('text')">
+                    {{ valueToDisplay() }}
+                </text>
+            }
         </svg>
     `,
     providers: [KNOB_VALUE_ACCESSOR, KnobStyle, { provide: KNOB_INSTANCE, useExisting: Knob }, { provide: PARENT_INSTANCE, useExisting: Knob }],
@@ -193,11 +194,13 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
         let dy = this.size / 2 - offsetY;
         let angle = Math.atan2(dy, dx);
         let start = -Math.PI / 2 - Math.PI / 6;
+
         this.updateModel(angle, start);
     }
 
     updateModel(angle: number, start: number) {
         let mappedValue;
+
         if (angle > this.maxRadians) mappedValue = this.mapRange(angle, this.minRadians, this.maxRadians, this.min, this.max);
         else if (angle < start) mappedValue = this.mapRange(angle + 2 * Math.PI, this.minRadians, this.maxRadians, this.min, this.max);
         else return;
@@ -213,6 +216,7 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
     onMouseDown(event: MouseEvent) {
         if (!this.$disabled() && !this.readonly) {
             const window = this.document.defaultView || 'window';
+
             this.windowMouseMoveListener = this.renderer.listen(window, 'mousemove', this.onMouseMove.bind(this));
             this.windowMouseUpListener = this.renderer.listen(window, 'mouseup', this.onMouseUp.bind(this));
             event.preventDefault();
@@ -230,6 +234,7 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
                 this.windowMouseUpListener();
                 this.windowMouseMoveListener = null;
             }
+
             event.preventDefault();
         }
     }
@@ -237,6 +242,7 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
     onTouchStart(event: TouchEvent) {
         if (!this.$disabled() && !this.readonly) {
             const window = this.document.defaultView || 'window';
+
             this.windowTouchMoveListener = this.renderer.listen(window, 'touchmove', this.onTouchMove.bind(this));
             this.windowTouchEndListener = this.renderer.listen(window, 'touchend', this.onTouchEnd.bind(this));
             event.preventDefault();
@@ -248,9 +254,11 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
             if (this.windowTouchMoveListener) {
                 this.windowTouchMoveListener();
             }
+
             if (this.windowTouchEndListener) {
                 this.windowTouchEndListener();
             }
+
             this.windowTouchMoveListener = null;
             this.windowTouchEndListener = null;
             event.preventDefault();
@@ -268,9 +276,11 @@ export class Knob extends BaseEditableHolder<KnobPassThrough> {
         if (!this.$disabled() && !this.readonly && event instanceof TouchEvent && event.touches.length === 1) {
             const rect = this.el.nativeElement.children[0].getBoundingClientRect();
             const touch = event.targetTouches.item(0);
+
             if (touch) {
                 const offsetX = touch.clientX - rect.left;
                 const offsetY = touch.clientY - rect.top;
+
                 this.updateValue(offsetX, offsetY);
             }
         }

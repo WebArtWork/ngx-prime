@@ -49,6 +49,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
+
                 expect(rootElement?.classList.contains('ROOT_CLASS')).toBe(true);
             });
 
@@ -58,6 +59,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
+
                 expect(contentElement?.classList.contains('CONTENT_CLASS')).toBe(true);
             });
         });
@@ -77,6 +79,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
+
                 expect(rootElement?.classList.contains('ROOT_OBJ_CLASS')).toBe(true);
             });
 
@@ -86,6 +89,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
+
                 expect(rootElement?.style.color).toBe('red');
                 expect(rootElement?.style.fontSize).toBe('20px');
             });
@@ -96,6 +100,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
+
                 expect(rootElement?.getAttribute('data-test-id')).toBe('root-test');
             });
 
@@ -105,6 +110,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
+
                 expect(rootElement?.getAttribute('aria-label')).toBe('Overlay Test');
             });
 
@@ -120,6 +126,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
+
                 expect(contentElement?.classList.contains('CONTENT_OBJ_CLASS')).toBe(true);
                 expect(contentElement?.style.backgroundColor).toBe('blue');
                 expect(contentElement?.getAttribute('data-section')).toBe('content');
@@ -138,6 +145,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
+
                 expect(rootElement?.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
                 expect(rootElement?.style.margin).toBe('5px');
             });
@@ -153,6 +161,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
+
                 expect(contentElement?.classList.contains('CONTENT_MIXED_CLASS')).toBe(true);
                 expect(contentElement?.style.padding).toBe('10px');
             });
@@ -173,6 +182,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
+
                 expect(rootElement?.classList.contains('VISIBLE_CLASS')).toBe(true);
             });
 
@@ -191,6 +201,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
+
                 expect(contentElement?.classList.contains('MODAL_CLASS')).toBe(true);
             });
         });
@@ -198,6 +209,7 @@ describe('Overlay', () => {
         describe('Case 5: Event binding', () => {
             it('should bind onclick event to root section', async () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
@@ -209,12 +221,14 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
+
                 rootElement?.click();
                 expect(clicked).toBe(true);
             });
 
             it('should bind onclick event to content section', async () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     content: {
                         onclick: () => {
@@ -226,6 +240,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
+
                 contentElement?.click();
                 expect(clicked).toBe(true);
             });
@@ -234,11 +249,13 @@ describe('Overlay', () => {
         describe('Case 6: Test emitters', () => {
             it('should access onShow emitter through instance in pt', async () => {
                 let emitterAccessed = false;
+
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
                         if (instance.onShow) {
                             emitterAccessed = true;
                         }
+
                         return {};
                     }
                 });
@@ -250,11 +267,13 @@ describe('Overlay', () => {
 
             it('should access onHide emitter through instance in pt', async () => {
                 let emitterAccessed = false;
+
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
                         if (instance.onHide) {
                             emitterAccessed = true;
                         }
+
                         return {};
                     }
                 });
@@ -266,11 +285,13 @@ describe('Overlay', () => {
 
             it('should access visibleChange emitter through instance in pt', async () => {
                 let emitterAccessed = false;
+
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
                         if (instance.visibleChange) {
                             emitterAccessed = true;
                         }
+
                         return {};
                     }
                 });
@@ -293,6 +314,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
+
                 expect(rootElement?.classList.contains('inline-test-root')).toBe(true);
                 expect(rootElement?.style.display).toBe('block');
                 expect(rootElement?.style.padding).toBe('15px');
@@ -309,6 +331,7 @@ describe('Overlay', () => {
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
+
                 expect(contentElement?.classList.contains('inline-test-content')).toBe(true);
                 expect(contentElement?.style.width).toBe('100%');
             });
@@ -318,6 +341,7 @@ describe('Overlay', () => {
             it('should call onAfterViewInit hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTOverlayComponent);
+
                 hookFixture.componentRef.setInput('visible', true);
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
@@ -336,6 +360,7 @@ describe('Overlay', () => {
             it('should call onAfterContentInit hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTOverlayComponent);
+
                 hookFixture.componentRef.setInput('visible', true);
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
@@ -354,6 +379,7 @@ describe('Overlay', () => {
             it('should call onAfterViewChecked hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTOverlayComponent);
+
                 hookFixture.componentRef.setInput('visible', true);
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
@@ -372,6 +398,7 @@ describe('Overlay', () => {
             it('should call onDestroy hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTOverlayComponent);
+
                 hookFixture.componentRef.setInput('visible', true);
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {

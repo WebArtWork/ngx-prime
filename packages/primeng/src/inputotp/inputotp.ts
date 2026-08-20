@@ -7,7 +7,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     EventEmitter,
     forwardRef,
     inject,
@@ -16,9 +15,9 @@ import {
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    contentChildren
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -51,8 +50,8 @@ export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEven
     standalone: true,
     imports: [CommonModule, InputText, AutoFocus, SharedModule, BindModule],
     template: `
-        <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
-            <ng-container *ngIf="!inputTemplate && !_inputTemplate">
+        @for (i of getRange(length); track trackByFn($index)) {
+            @if (!inputTemplate && !_inputTemplate) {
                 <input
                     type="text"
                     pInputText
@@ -78,11 +77,11 @@ export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEven
                     [pt]="ptm('pcInputText')"
                     [unstyled]="unstyled()"
                 />
-            </ng-container>
-            <ng-container *ngIf="inputTemplate || _inputTemplate">
+            }
+            @if (inputTemplate || _inputTemplate) {
                 <ng-container *ngTemplateOutlet="inputTemplate || _inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
-            </ng-container>
-        </ng-container>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -177,7 +176,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
      */
     @ContentChild('input', { descendants: false }) inputTemplate: TemplateRef<InputOtpInputTemplateContext> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _inputTemplate: TemplateRef<InputOtpInputTemplateContext> | undefined;
 
@@ -196,7 +195,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
     }
 
     onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'input':
                     this._inputTemplate = item.template;
@@ -224,11 +223,14 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
 
     onInput(event, index) {
         const value = event.target.value;
+
         if (index === 0 && value.length > 1) {
             this.handleOnPaste(value, event);
             event.stopPropagation();
+
             return;
         }
+
         this.tokens[index] = value;
         this.updateModel(event);
 
@@ -241,6 +243,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
 
     updateModel(event: any) {
         const newValue = this.tokens.join('');
+
         this.writeModelValue(newValue);
         this.onModelChange(newValue);
 
@@ -270,6 +273,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
         if (i === 1) {
             return this.autofocus || false;
         }
+
         return false;
     }
 
@@ -407,6 +411,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
         } else {
             this.value = value;
         }
+
         setModelValue(this.value);
         this.updateTokens();
         this.cd.markForCheck();

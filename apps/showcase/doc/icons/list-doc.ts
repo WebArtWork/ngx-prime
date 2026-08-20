@@ -1,6 +1,6 @@
 import { default as IconData } from '@/assets/data/icons.json';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { InputTextModule } from 'primeng/inputtext';
 
@@ -28,7 +28,7 @@ import { InputTextModule } from 'primeng/inputtext';
         </div>
     `
 })
-export class ListDoc {
+export class ListDoc implements OnInit {
     icons: any;
 
     filteredIcons: any[];
@@ -51,8 +51,8 @@ export class ListDoc {
         if (!searchText) {
             this.filteredIcons = this.icons;
         } else {
-            this.filteredIcons = this.icons.filter((icon) => {
-                return (
+            this.filteredIcons = this.icons.filter(
+                (icon) =>
                     icon.icon.tags.some((tag) =>
                         tag
                             .replace(/[^\w\s]/gi, '')
@@ -64,8 +64,7 @@ export class ListDoc {
                         .replace(/\s/g, '')
                         .toLowerCase()
                         .includes(sanitizedInput.toLowerCase())
-                );
-            });
+            );
         }
     }
 }

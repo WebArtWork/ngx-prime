@@ -1,5 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component, provideZonelessChangeDetection, ViewChild } from '@angular/core';
+import { Component, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,6 @@ import { PaginatorState } from 'primeng/types/paginator';
 
 // Test component for basic paginator functionality
 @Component({
-    standalone: false,
     template: `
         <p-paginator
             [rows]="rows"
@@ -44,7 +43,8 @@ import { PaginatorState } from 'primeng/types/paginator';
         <ng-template #rightTemplate let-state>
             <span class="custom-right-template">Right: Total {{ state.totalRecords }}</span>
         </ng-template>
-    `
+    `,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule]
 })
 class TestBasicPaginatorComponent {
     rows = 10;
@@ -74,7 +74,6 @@ class TestBasicPaginatorComponent {
 
 // Test component for template testing with pTemplate
 @Component({
-    standalone: false,
     template: `
         <p-paginator [rows]="10" [totalRecords]="100" [first]="0">
             <ng-template pTemplate="dropdownicon">
@@ -97,7 +96,8 @@ class TestBasicPaginatorComponent {
                 <span class="custom-last-icon">⏭</span>
             </ng-template>
         </p-paginator>
-    `
+    `,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule]
 })
 class TestPTemplatePaginatorComponent {
     // Component with pTemplate templates
@@ -105,7 +105,6 @@ class TestPTemplatePaginatorComponent {
 
 // Test component for ContentChild template references
 @Component({
-    standalone: false,
     template: `
         <p-paginator [rows]="10" [totalRecords]="100" [first]="0" [rowsPerPageOptions]="[5, 10, 20]">
             <ng-template #dropdownicon>
@@ -128,7 +127,8 @@ class TestPTemplatePaginatorComponent {
                 <span class="contentchild-last-icon">⏭️</span>
             </ng-template>
         </p-paginator>
-    `
+    `,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule]
 })
 class TestContentChildPaginatorComponent {
     // Component with ContentChild template references
@@ -136,7 +136,6 @@ class TestContentChildPaginatorComponent {
 
 // Test component for jump to page and dropdown templates
 @Component({
-    standalone: false,
     template: `
         <p-paginator [rows]="10" [totalRecords]="100" [first]="0" [showJumpToPageDropdown]="true" [jumpToPageItemTemplate]="jumpTemplate" [dropdownItemTemplate]="dropdownTemplate" [rowsPerPageOptions]="rowsPerPageOptions">
             <ng-template #jumpTemplate let-item>
@@ -147,7 +146,8 @@ class TestContentChildPaginatorComponent {
                 <span class="custom-dropdown-item">{{ item.label }} items</span>
             </ng-template>
         </p-paginator>
-    `
+    `,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule]
 })
 class TestDropdownPaginatorComponent {
     rowsPerPageOptions: any[] = [5, 10, 20, { showAll: 'All' }];
@@ -160,8 +160,20 @@ describe('Paginator', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule],
-            declarations: [TestBasicPaginatorComponent, TestPTemplatePaginatorComponent, TestContentChildPaginatorComponent, TestDropdownPaginatorComponent, TestDynamicPaginatorComponent],
+            imports: [
+                CommonModule,
+                FormsModule,
+                PaginatorModule,
+                Select,
+                InputNumber,
+                Ripple,
+                SharedModule,
+                TestBasicPaginatorComponent,
+                TestPTemplatePaginatorComponent,
+                TestContentChildPaginatorComponent,
+                TestDropdownPaginatorComponent,
+                TestDynamicPaginatorComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -209,6 +221,7 @@ describe('Paginator', () => {
 
         it('should render page links', () => {
             const pageLinks = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
+
             expect(pageLinks.length).toBe(5);
         });
 
@@ -221,12 +234,15 @@ describe('Paginator', () => {
 
         it('should show/hide elements based on configuration', () => {
             const currentPageReport = fixture.debugElement.query(By.css('.p-paginator-current'));
+
             expect(currentPageReport).toBeTruthy();
 
             const firstButton = fixture.debugElement.query(By.css('.p-paginator-first'));
+
             expect(firstButton).toBeTruthy();
 
             const lastButton = fixture.debugElement.query(By.css('.p-paginator-last'));
+
             expect(lastButton).toBeTruthy();
         });
     });
@@ -268,10 +284,12 @@ describe('Paginator', () => {
 
         it('should calculate page link boundaries', () => {
             const boundaries = paginator.calculatePageLinkBoundaries();
+
             expect(boundaries).toEqual([0, 4]);
 
             paginator.first = 50; // page 5
             const boundaries2 = paginator.calculatePageLinkBoundaries();
+
             expect(boundaries2).toEqual([3, 7]);
         });
 
@@ -309,10 +327,12 @@ describe('Paginator', () => {
         it('should handle locale-specific number formatting', () => {
             paginator.locale = 'ar';
             const arabicNumber = paginator.getLocalization(5);
+
             expect(arabicNumber).toBeDefined();
 
             paginator.locale = 'en-US';
             const englishNumber = paginator.getLocalization(5);
+
             expect(englishNumber).toBe('5');
         });
     });
@@ -338,6 +358,7 @@ describe('Paginator', () => {
             fixture.detectChanges();
 
             const firstButton = fixture.debugElement.query(By.css('.p-paginator-first'));
+
             firstButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -350,6 +371,7 @@ describe('Paginator', () => {
             fixture.detectChanges();
 
             const prevButton = fixture.debugElement.query(By.css('.p-paginator-prev'));
+
             prevButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -359,6 +381,7 @@ describe('Paginator', () => {
 
         it('should change to next page', async () => {
             const nextButton = fixture.debugElement.query(By.css('.p-paginator-next'));
+
             nextButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -368,6 +391,7 @@ describe('Paginator', () => {
 
         it('should change to last page', async () => {
             const lastButton = fixture.debugElement.query(By.css('.p-paginator-last'));
+
             lastButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -377,6 +401,7 @@ describe('Paginator', () => {
 
         it('should handle page link click', async () => {
             const pageLinks = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
+
             pageLinks[2].nativeElement.click(); // Click page 3
             await fixture.whenStable();
 
@@ -393,6 +418,7 @@ describe('Paginator', () => {
 
             // First page - prev should be disabled
             const prevButton = fixture.debugElement.query(By.css('.p-paginator-prev'));
+
             expect(prevButton.nativeElement.disabled).toBe(true);
 
             prevButton.nativeElement.click();
@@ -407,6 +433,7 @@ describe('Paginator', () => {
             await fixture.whenStable();
 
             const nextButton = fixture.debugElement.query(By.css('.p-paginator-next'));
+
             expect(nextButton.nativeElement.disabled).toBe(true);
 
             nextButton.nativeElement.click();
@@ -488,11 +515,13 @@ describe('Paginator', () => {
 
             expect(paginator.rowsPerPageItems?.length).toBe(3);
             const showAllItem = paginator.rowsPerPageItems?.find((item) => item.label === 'All');
+
             expect(showAllItem?.value).toBe(100);
         });
 
         it('should handle rapid page changes', async () => {
             let emitCount = 0;
+
             paginator.onPageChange.subscribe(() => emitCount++);
 
             paginator.changePage(1);
@@ -515,6 +544,7 @@ describe('Paginator', () => {
 
             testPaginator.locale = undefined as any;
             const result = testPaginator.getLocalization(5);
+
             expect(result).toBeDefined();
         });
 
@@ -568,21 +598,25 @@ describe('Paginator', () => {
                 await pTemplateFixture.whenStable();
 
                 const firstIcon = pTemplateFixture.debugElement.query(By.css('.custom-first-icon'));
+
                 if (firstIcon) {
                     expect(firstIcon.nativeElement.textContent).toBe('⏮');
                 }
 
                 const prevIcon = pTemplateFixture.debugElement.query(By.css('.custom-prev-icon'));
+
                 if (prevIcon) {
                     expect(prevIcon.nativeElement.textContent).toBe('⏪');
                 }
 
                 const nextIcon = pTemplateFixture.debugElement.query(By.css('.custom-next-icon'));
+
                 if (nextIcon) {
                     expect(nextIcon.nativeElement.textContent).toBe('⏩');
                 }
 
                 const lastIcon = pTemplateFixture.debugElement.query(By.css('.custom-last-icon'));
+
                 if (lastIcon) {
                     expect(lastIcon.nativeElement.textContent).toBe('⏭');
                 }
@@ -621,11 +655,13 @@ describe('Paginator', () => {
                 await contentChildFixture.whenStable();
 
                 const firstIcon = contentChildFixture.debugElement.query(By.css('.contentchild-first-icon'));
+
                 if (firstIcon) {
                     expect(firstIcon.nativeElement.textContent).toBe('⏮️');
                 }
 
                 const prevIcon = contentChildFixture.debugElement.query(By.css('.contentchild-prev-icon'));
+
                 if (prevIcon) {
                     expect(prevIcon.nativeElement.textContent).toBe('◀️');
                 }
@@ -663,6 +699,7 @@ describe('Paginator', () => {
                 dropdownPaginator.updateRowsPerPageOptions();
 
                 const showAllItem = dropdownPaginator.rowsPerPageItems?.find((item) => item.label === 'All');
+
                 expect(showAllItem).toBeDefined();
                 expect(showAllItem?.value).toBe(100);
             });
@@ -673,6 +710,7 @@ describe('Paginator', () => {
                 await fixture.whenStable();
 
                 const leftTemplate = fixture.debugElement.query(By.css('.custom-left-template'));
+
                 expect(leftTemplate).toBeTruthy();
                 expect(leftTemplate.nativeElement.textContent).toContain('Left: Page 1');
             });
@@ -681,6 +719,7 @@ describe('Paginator', () => {
                 await fixture.whenStable();
 
                 const rightTemplate = fixture.debugElement.query(By.css('.custom-right-template'));
+
                 expect(rightTemplate).toBeTruthy();
                 expect(rightTemplate.nativeElement.textContent).toContain('Right: Total 100');
             });
@@ -691,6 +730,7 @@ describe('Paginator', () => {
                 await fixture.whenStable();
 
                 const leftTemplate = fixture.debugElement.query(By.css('.custom-left-template'));
+
                 expect(leftTemplate.nativeElement.textContent).toContain('Left: Page 3');
             });
         });
@@ -699,23 +739,28 @@ describe('Paginator', () => {
     describe('CSS and Styling', () => {
         it('should apply correct CSS classes', () => {
             const paginatorElement = fixture.debugElement.query(By.css('p-paginator'));
+
             expect(paginatorElement).toBeTruthy();
 
             const firstButton = fixture.debugElement.query(By.css('.p-paginator-first'));
+
             expect(firstButton).toBeTruthy();
 
             const pageLinks = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
+
             expect(pageLinks.length).toBeGreaterThan(0);
         });
 
         it('should apply active state to current page', () => {
             const pageLinks = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
+
             expect(pageLinks[0].nativeElement.getAttribute('aria-current')).toBe('page');
 
             paginator.changePage(2);
             fixture.detectChanges();
 
             const updatedPageLinks = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
+
             expect(updatedPageLinks[2].nativeElement.getAttribute('aria-current')).toBe('page');
         });
 
@@ -745,20 +790,25 @@ describe('Paginator', () => {
     describe('Accessibility', () => {
         it('should have proper ARIA labels', () => {
             const firstButton = fixture.debugElement.query(By.css('.p-paginator-first'));
+
             expect(firstButton.nativeElement.hasAttribute('aria-label')).toBe(true);
 
             const prevButton = fixture.debugElement.query(By.css('.p-paginator-prev'));
+
             expect(prevButton.nativeElement.hasAttribute('aria-label')).toBe(true);
 
             const nextButton = fixture.debugElement.query(By.css('.p-paginator-next'));
+
             expect(nextButton.nativeElement.hasAttribute('aria-label')).toBe(true);
 
             const lastButton = fixture.debugElement.query(By.css('.p-paginator-last'));
+
             expect(lastButton.nativeElement.hasAttribute('aria-label')).toBe(true);
         });
 
         it('should have proper ARIA labels for page links', () => {
             const pageLinks = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
+
             pageLinks.forEach((link, index) => {
                 expect(link.nativeElement.hasAttribute('aria-label')).toBe(true);
                 expect(link.nativeElement.getAttribute('aria-label')).toContain((index + 1).toString());
@@ -767,6 +817,7 @@ describe('Paginator', () => {
 
         it('should mark current page with aria-current', () => {
             const pageLinks = fixture.debugElement.queryAll(By.css('.p-paginator-page'));
+
             expect(pageLinks[0].nativeElement.getAttribute('aria-current')).toBe('page');
 
             pageLinks.forEach((link, index) => {
@@ -779,9 +830,11 @@ describe('Paginator', () => {
         it('should disable navigation buttons appropriately', () => {
             // First page
             const prevButton = fixture.debugElement.query(By.css('.p-paginator-prev'));
+
             expect(prevButton.nativeElement.disabled).toBe(true);
 
             const firstButton = fixture.debugElement.query(By.css('.p-paginator-first'));
+
             expect(firstButton.nativeElement.disabled).toBe(false);
 
             // Last page
@@ -789,9 +842,11 @@ describe('Paginator', () => {
             fixture.detectChanges();
 
             const nextButton = fixture.debugElement.query(By.css('.p-paginator-next'));
+
             expect(nextButton.nativeElement.disabled).toBe(true);
 
             const lastButton = fixture.debugElement.query(By.css('.p-paginator-last'));
+
             expect(lastButton.nativeElement.disabled).toBe(true);
         });
 
@@ -873,6 +928,7 @@ describe('Paginator', () => {
             fixture.detectChanges();
 
             const dropdown = fixture.debugElement.query(By.css('.p-select'));
+
             expect(dropdown).toBeTruthy();
         });
 
@@ -881,6 +937,7 @@ describe('Paginator', () => {
             fixture.detectChanges();
 
             const input = fixture.debugElement.query(By.directive(InputNumber));
+
             expect(input).toBeTruthy();
         });
 
@@ -915,6 +972,7 @@ describe('Paginator', () => {
     describe('Current Page Report', () => {
         it('should display default current page report', () => {
             const report = fixture.debugElement.query(By.css('.p-paginator-current'));
+
             expect(report.nativeElement.textContent).toBe('1 of 10');
         });
 
@@ -924,6 +982,7 @@ describe('Paginator', () => {
             await fixture.whenStable();
 
             const report = fixture.debugElement.query(By.css('.p-paginator-current'));
+
             expect(report.nativeElement.textContent).toBe('5 of 10');
         });
 
@@ -982,6 +1041,7 @@ describe('Paginator', () => {
 
         it('should handle dropdownAppendTo property', async () => {
             const element = document.createElement('div');
+
             component.dropdownAppendTo = element;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1001,6 +1061,7 @@ describe('Paginator', () => {
 
         it('should handle currentPageReportTemplate property', async () => {
             const template = 'Page {currentPage} of {totalPages}';
+
             component.currentPageReportTemplate = template;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1048,6 +1109,7 @@ describe('Paginator', () => {
 
         it('should handle rowsPerPageOptions property', async () => {
             const options = [5, 10, 20, { showAll: 'All' }];
+
             component.rowsPerPageOptions = options;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1165,7 +1227,7 @@ describe('Paginator', () => {
             dynamicFixture = TestBed.createComponent(TestDynamicPaginatorComponent);
             dynamicComponent = dynamicFixture.componentInstance;
             dynamicFixture.detectChanges();
-            dynamicPaginator = dynamicComponent.paginator;
+            dynamicPaginator = dynamicComponent.paginator();
         });
 
         it('should handle dynamic totalRecords changes', async () => {
@@ -1328,7 +1390,6 @@ describe('Paginator', () => {
 
 // Test component for dynamic values
 @Component({
-    standalone: false,
     template: `
         <p-paginator
             #paginator
@@ -1341,10 +1402,11 @@ describe('Paginator', () => {
             [showCurrentPageReport]="true"
         >
         </p-paginator>
-    `
+    `,
+    imports: [CommonModule, FormsModule, PaginatorModule, Select, InputNumber, Ripple, SharedModule]
 })
 class TestDynamicPaginatorComponent {
-    @ViewChild('paginator') paginator!: Paginator;
+    readonly paginator = viewChild.required<Paginator>('paginator');
 
     totalRecords = 100;
     rows = 10;

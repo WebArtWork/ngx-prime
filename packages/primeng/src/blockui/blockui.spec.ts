@@ -1,4 +1,4 @@
-import { Component, ElementRef, input, provideZonelessChangeDetection, ViewChild } from '@angular/core';
+import { Component, ElementRef, input, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -6,25 +6,25 @@ import { SharedModule } from 'primeng/api';
 import { BlockUI, BlockUIModule } from './blockui';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-blockui',
-    template: `<p-blockui></p-blockui>`
+    template: `<p-blockui></p-blockui>`,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestBasicBlockUIComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-blocked-blockui',
-    template: `<p-blockui [blocked]="blocked"></p-blockui>`
+    template: `<p-blockui [blocked]="blocked"></p-blockui>`,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestBlockedBlockUIComponent {
     blocked = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-auto-zindex-blockui',
-    template: `<p-blockui [blocked]="blocked" [autoZIndex]="autoZIndex" [baseZIndex]="baseZIndex"></p-blockui>`
+    template: `<p-blockui [blocked]="blocked" [autoZIndex]="autoZIndex" [baseZIndex]="baseZIndex"></p-blockui>`,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestAutoZIndexBlockUIComponent {
     blocked = false;
@@ -33,9 +33,9 @@ class TestAutoZIndexBlockUIComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-style-class-blockui',
-    template: `<p-blockui [blocked]="blocked" [styleClass]="styleClass"></p-blockui>`
+    template: `<p-blockui [blocked]="blocked" [styleClass]="styleClass"></p-blockui>`,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestStyleClassBlockUIComponent {
     blocked = false;
@@ -43,20 +43,19 @@ class TestStyleClassBlockUIComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-content-blockui',
     template: `
         <p-blockui [blocked]="blocked">
             <div class="custom-content">Loading...</div>
         </p-blockui>
-    `
+    `,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestContentBlockUIComponent {
     blocked = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-template-blockui',
     template: `
         <p-blockui [blocked]="blocked">
@@ -64,77 +63,78 @@ class TestContentBlockUIComponent {
                 <div class="template-content">Please wait...</div>
             </ng-template>
         </p-blockui>
-    `
+    `,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestTemplateBlockUIComponent {
     blocked = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-target-blockui',
     template: `
         <div #targetElement class="target-container">
             <p>Target content</p>
         </div>
-        <p-blockui [blocked]="blocked" [target]="targetElement"></p-blockui>
-    `
+        <p-blockui [blocked]="blocked" [target]="targetElement()"></p-blockui>
+    `,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestTargetBlockUIComponent {
-    @ViewChild('targetElement', { static: true }) targetElement!: ElementRef;
+    readonly targetElement = viewChild.required<ElementRef>('targetElement');
     blocked = false;
 }
 
 // Mock component that implements BlockableUI interface
 @Component({
-    standalone: false,
     selector: 'mock-blockable',
-    template: `<div #blockableElement class="blockable-content"><ng-content></ng-content></div>`
+    template: `<div #blockableElement class="blockable-content"><ng-content></ng-content></div>`,
+    imports: [BlockUIModule, SharedModule]
 })
 class MockBlockableComponent {
-    @ViewChild('blockableElement', { static: true }) blockableElement!: ElementRef;
+    readonly blockableElement = viewChild.required<ElementRef>('blockableElement');
 
     getBlockableElement() {
-        return this.blockableElement.nativeElement;
+        return this.blockableElement().nativeElement;
     }
 }
 
 @Component({
-    standalone: false,
     selector: 'test-blockable-target-blockui',
     template: `
         <mock-blockable #blockableTarget>
             <p>Blockable content</p>
         </mock-blockable>
-        <p-blockui [blocked]="blocked" [target]="blockableTarget"></p-blockui>
-    `
+        <p-blockui [blocked]="blocked" [target]="blockableTarget()"></p-blockui>
+    `,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestBlockableTargetBlockUIComponent {
-    @ViewChild('blockableTarget', { static: true }) blockableTarget!: MockBlockableComponent;
+    readonly blockableTarget = viewChild.required<MockBlockableComponent>('blockableTarget');
     blocked = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-invalid-target-blockui',
     template: `
         <div #invalidTarget class="invalid-target">Invalid Target</div>
-        <p-blockui [blocked]="blocked" [target]="invalidTarget"></p-blockui>
-    `
+        <p-blockui [blocked]="blocked" [target]="invalidTarget()"></p-blockui>
+    `,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestInvalidTargetBlockUIComponent {
-    @ViewChild('invalidTarget', { static: true }) invalidTarget!: ElementRef;
+    readonly invalidTarget = viewChild.required<ElementRef>('invalidTarget');
     blocked = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-dynamic-blockui',
     template: `
         <p-blockui [blocked]="blocked" [autoZIndex]="autoZIndex" [baseZIndex]="baseZIndex" [styleClass]="styleClass">
             <div class="dynamic-content">{{ content }}</div>
         </p-blockui>
-    `
+    `,
+    imports: [BlockUIModule, SharedModule]
 })
 class TestDynamicBlockUIComponent {
     blocked = false;
@@ -147,8 +147,9 @@ class TestDynamicBlockUIComponent {
 describe('BlockUI', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [BlockUIModule, SharedModule],
-            declarations: [
+            imports: [
+                BlockUIModule,
+                SharedModule,
                 TestBasicBlockUIComponent,
                 TestBlockedBlockUIComponent,
                 TestAutoZIndexBlockUIComponent,
@@ -175,6 +176,7 @@ describe('BlockUI', () => {
             await fixture.whenStable();
 
             const blockUIDebugElement = fixture.debugElement.query(By.directive(BlockUI));
+
             component = blockUIDebugElement.componentInstance;
             element = blockUIDebugElement.nativeElement;
         });
@@ -231,6 +233,7 @@ describe('BlockUI', () => {
             await fixture.whenStable();
 
             const blockUIDebugElement = fixture.debugElement.query(By.directive(BlockUI));
+
             blockUIComponent = blockUIDebugElement.componentInstance;
             element = blockUIDebugElement.nativeElement;
         });
@@ -296,6 +299,7 @@ describe('BlockUI', () => {
             await fixture.whenStable();
 
             const blockUIDebugElement = fixture.debugElement.query(By.directive(BlockUI));
+
             blockUIComponent = blockUIDebugElement.componentInstance;
             element = blockUIDebugElement.nativeElement;
         });
@@ -391,6 +395,7 @@ describe('BlockUI', () => {
 
         it('should project content', () => {
             const customContent = fixture.debugElement.query(By.css('.custom-content'));
+
             expect(customContent).toBeTruthy();
             expect(customContent.nativeElement.textContent.trim()).toBe('Loading...');
         });
@@ -401,6 +406,7 @@ describe('BlockUI', () => {
             await fixture.whenStable();
 
             const customContent = fixture.debugElement.query(By.css('.custom-content'));
+
             expect(customContent).toBeTruthy();
         });
 
@@ -410,6 +416,7 @@ describe('BlockUI', () => {
             await fixture.whenStable();
 
             const blockUIElement = fixture.debugElement.query(By.directive(BlockUI)).nativeElement;
+
             expect(blockUIElement.style.display).not.toBe('flex');
         });
     });
@@ -430,12 +437,14 @@ describe('BlockUI', () => {
             await fixture.whenStable();
 
             const templateContent = fixture.debugElement.query(By.css('.template-content'));
+
             expect(templateContent).toBeTruthy();
             expect(templateContent.nativeElement.textContent.trim()).toBe('Please wait...');
         });
 
         it('should handle template content when not blocked', () => {
             const blockUIElement = fixture.debugElement.query(By.directive(BlockUI)).nativeElement;
+
             expect(blockUIElement.style.display).not.toBe('flex');
         });
     });
@@ -454,8 +463,8 @@ describe('BlockUI', () => {
         });
 
         it('should have blockable target reference', () => {
-            expect(component.blockableTarget).toBeTruthy();
-            expect(blockUIComponent.target).toBe(component.blockableTarget);
+            expect(component.blockableTarget()).toBeTruthy();
+            expect(blockUIComponent.target).toBe(component.blockableTarget());
         });
 
         it('should block target component', async () => {
@@ -483,6 +492,7 @@ describe('BlockUI', () => {
         it('should throw error for invalid target', () => {
             expect(() => {
                 const fixture = TestBed.createComponent(TestInvalidTargetBlockUIComponent);
+
                 fixture.detectChanges(); // This triggers ngAfterViewInit which throws
             }).toThrow('Target of BlockUI must implement BlockableUI interface');
         });
@@ -500,6 +510,7 @@ describe('BlockUI', () => {
             await fixture.whenStable();
 
             const blockUIDebugElement = fixture.debugElement.query(By.directive(BlockUI));
+
             blockUIComponent = blockUIDebugElement.componentInstance;
             element = blockUIDebugElement.nativeElement;
         });
@@ -524,6 +535,7 @@ describe('BlockUI', () => {
             await fixture.whenStable();
 
             const dynamicContent = fixture.debugElement.query(By.css('.dynamic-content'));
+
             expect(dynamicContent.nativeElement.textContent).toBe('Updated content');
         });
 
@@ -870,11 +882,9 @@ describe('BlockUI', () => {
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.blocked ? 'BLOCKED_STATE' : 'UNBLOCKED_STATE'
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.blocked ? 'BLOCKED_STATE' : 'UNBLOCKED_STATE'
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -888,11 +898,9 @@ describe('BlockUI', () => {
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
-                    host: ({ instance }: any) => {
-                        return {
-                            'data-auto-zindex': instance?.autoZIndex ? 'true' : 'false'
-                        };
-                    }
+                    host: ({ instance }: any) => ({
+                        'data-auto-zindex': instance?.autoZIndex ? 'true' : 'false'
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -906,11 +914,9 @@ describe('BlockUI', () => {
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
-                    root: ({ instance }: any) => {
-                        return {
-                            'data-base-zindex': String(instance?.baseZIndex)
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        'data-base-zindex': String(instance?.baseZIndex)
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -931,6 +937,7 @@ describe('BlockUI', () => {
 
             it('should bind onclick event to root through pt', async () => {
                 let clickCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
@@ -949,6 +956,7 @@ describe('BlockUI', () => {
 
             it('should bind onclick event to host through pt', async () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     host: {
                         onclick: () => {
@@ -968,21 +976,25 @@ describe('BlockUI', () => {
         describe('Case 7: Inline test', () => {
             it('should apply inline pt with string class', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTBlockUIComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const element = inlineFixture.debugElement.query(By.directive(BlockUI)).nativeElement;
+
                 expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
             });
 
             it('should apply inline pt with object class', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTBlockUIComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const element = inlineFixture.debugElement.query(By.directive(BlockUI)).nativeElement;
+
                 expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -996,6 +1008,7 @@ describe('BlockUI', () => {
 
             it('should call onAfterViewInit hook', async () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewInit: () => {
@@ -1010,6 +1023,7 @@ describe('BlockUI', () => {
 
             it('should call onAfterContentInit hook', async () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterContentInit: () => {
@@ -1024,6 +1038,7 @@ describe('BlockUI', () => {
 
             it('should call onAfterViewChecked hook', async () => {
                 let checkCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewChecked: () => {
@@ -1038,6 +1053,7 @@ describe('BlockUI', () => {
 
             it('should call onDestroy hook', async () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onDestroy: () => {

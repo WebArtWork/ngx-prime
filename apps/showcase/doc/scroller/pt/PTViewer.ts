@@ -1,6 +1,6 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClassNamesModule } from 'primeng/classnames';
 import { ScrollerModule } from 'primeng/scroller';
 
@@ -20,7 +20,7 @@ import { ScrollerModule } from 'primeng/scroller';
         </app-docptviewer>
     `
 })
-export class PTViewer {
+export class PTViewer implements OnInit {
     items!: string[];
 
     ngOnInit() {

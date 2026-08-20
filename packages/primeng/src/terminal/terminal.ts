@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, InjectionToken, Input, NgModule, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, inject, InjectionToken, Input, NgModule, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -19,15 +18,19 @@ const TERMINAL_INSTANCE = new InjectionToken<Terminal>('TERMINAL_INSTANCE');
 @Component({
     selector: 'p-terminal',
     standalone: true,
-    imports: [CommonModule, FormsModule, SharedModule, Bind],
+    imports: [FormsModule, SharedModule, Bind],
     template: `
-        <div [class]="cx('welcomeMessage')" [pBind]="ptm('welcomeMessage')" *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
+        @if (welcomeMessage) {
+            <div [class]="cx('welcomeMessage')" [pBind]="ptm('welcomeMessage')">{{ welcomeMessage }}</div>
+        }
         <div [class]="cx('commandList')" [pBind]="ptm('commandList')">
-            <div [class]="cx('command')" [pBind]="ptm('command')" *ngFor="let command of commands">
-                <span [class]="cx('promptLabel')" [pBind]="ptm('promptLabel')">{{ prompt }}</span>
-                <span [class]="cx('commandValue')" [pBind]="ptm('commandValue')">{{ command.text }}</span>
-                <div [class]="cx('commandResponse')" [pBind]="ptm('commandResponse')" [attr.aria-live]="'polite'">{{ command.response }}</div>
-            </div>
+            @for (command of commands; track command) {
+                <div [class]="cx('command')" [pBind]="ptm('command')">
+                    <span [class]="cx('promptLabel')" [pBind]="ptm('promptLabel')">{{ prompt }}</span>
+                    <span [class]="cx('commandValue')" [pBind]="ptm('commandValue')">{{ command.text }}</span>
+                    <div [class]="cx('commandResponse')" [pBind]="ptm('commandResponse')" [attr.aria-live]="'polite'">{{ command.response }}</div>
+                </div>
+            }
         </div>
         <div [class]="cx('prompt')" [pBind]="ptm('prompt')">
             <span [class]="cx('promptLabel')" [pBind]="ptm('promptLabel')">{{ prompt }}</span>
@@ -43,6 +46,8 @@ const TERMINAL_INSTANCE = new InjectionToken<Terminal>('TERMINAL_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Terminal extends BaseComponent<TerminalPassThrough> implements AfterViewInit, AfterViewChecked, OnDestroy {
+    terminalService = inject(TerminalService);
+
     componentName = 'Terminal';
     $pcTerminal: Terminal | undefined = inject(TERMINAL_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -77,15 +82,17 @@ export class Terminal extends BaseComponent<TerminalPassThrough> implements Afte
 
     _componentStyle = inject(TerminalStyle);
 
-    @ViewChild('in') inputRef!: ElementRef<HTMLInputElement>;
+    readonly inputRef = viewChild.required<ElementRef<HTMLInputElement>>('in');
 
     @HostListener('click')
     onHostClick() {
-        this.focus(this.inputRef?.nativeElement);
+        this.focus(this.inputRef()?.nativeElement);
     }
 
-    constructor(public terminalService: TerminalService) {
+    constructor() {
         super();
+        const terminalService = this.terminalService;
+
         this.subscription = terminalService.responseHandler.subscribe((response) => {
             this.commands[this.commands.length - 1].response = response;
             this.commandProcessed = true;

@@ -6,7 +6,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -19,12 +18,13 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
     signal,
     TemplateRef,
-    ViewChild,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
+    viewChild,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@primeuix/utils';
@@ -96,8 +96,8 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         <ng-template #notHeadless>
                             <div *ngIf="resizable" [class]="cx('resizeHandle')" [pBind]="ptm('resizeHandle')" [style.z-index]="90" (mousedown)="initResize($event)"></div>
                             <div #titlebar [class]="cx('header')" [pBind]="ptm('header')" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                                <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')" *ngIf="!_headerTemplate && !headerTemplate && !headerT">{{ header }}</span>
-                                <ng-container *ngTemplateOutlet="_headerTemplate || headerTemplate || headerT; context: { ariaLabelledBy: ariaLabelledBy }"></ng-container>
+                                <span [id]="ariaLabelledBy" [class]="cx('title')" [pBind]="ptm('title')" *ngIf="!_headerTemplate() && !headerTemplate && !headerT">{{ header }}</span>
+                                <ng-container *ngTemplateOutlet="_headerTemplate() || headerTemplate || headerT; context: { ariaLabelledBy: ariaLabelledBy }"></ng-container>
                                 <div [class]="cx('headerActions')" [pBind]="ptm('headerActions')">
                                     <p-button
                                         [pt]="ptm('pcMaximizeButton')"
@@ -112,16 +112,16 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                                         [attr.data-pc-group-section]="'headericon'"
                                     >
                                         <ng-template #icon>
-                                            <span *ngIf="maximizeIcon && !_maximizeiconTemplate && !_minimizeiconTemplate" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                                            <span *ngIf="maximizeIcon && !_maximizeiconTemplate() && !_minimizeiconTemplate()" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                             <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
-                                                <svg data-p-icon="window-maximize" *ngIf="!maximized && !_maximizeiconTemplate && !maximizeIconTemplate && !maximizeIconT" />
-                                                <svg data-p-icon="window-minimize" *ngIf="maximized && !_minimizeiconTemplate && !minimizeIconTemplate && !minimizeIconT" />
+                                                <svg data-p-icon="window-maximize" *ngIf="!maximized && !_maximizeiconTemplate() && !maximizeIconTemplate && !maximizeIconT" />
+                                                <svg data-p-icon="window-minimize" *ngIf="maximized && !_minimizeiconTemplate() && !minimizeIconTemplate && !minimizeIconT" />
                                             </ng-container>
                                             <ng-container *ngIf="!maximized">
-                                                <ng-template *ngTemplateOutlet="_maximizeiconTemplate || maximizeIconTemplate || maximizeIconT"></ng-template>
+                                                <ng-template *ngTemplateOutlet="_maximizeiconTemplate() || maximizeIconTemplate || maximizeIconT"></ng-template>
                                             </ng-container>
                                             <ng-container *ngIf="maximized">
-                                                <ng-template *ngTemplateOutlet="_minimizeiconTemplate || minimizeIconTemplate || minimizeIconT"></ng-template>
+                                                <ng-template *ngTemplateOutlet="_minimizeiconTemplate() || minimizeIconTemplate || minimizeIconT"></ng-template>
                                             </ng-container>
                                         </ng-template>
                                     </p-button>
@@ -151,7 +151,7 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                             </div>
                             <div #content [class]="cn(cx('content'), contentStyleClass)" [ngStyle]="contentStyle" [pBind]="ptm('content')">
                                 <ng-content></ng-content>
-                                <ng-container *ngTemplateOutlet="_contentTemplate || contentTemplate || contentT"></ng-container>
+                                <ng-container *ngTemplateOutlet="_contentTemplate() || contentTemplate || contentT"></ng-container>
                             </div>
                             <div #footer [class]="cx('footer')" [pBind]="ptm('footer')" *ngIf="_footerTemplate || footerTemplate || footerT">
                                 <ng-content select="p-footer"></ng-content>
@@ -313,24 +313,20 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      */
     maskMotionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMaskMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('maskMotion'),
-            ...this.maskMotionOptions()
-        };
-    });
+    computedMaskMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('maskMotion'),
+        ...this.maskMotionOptions()
+    }));
     /**
      * The motion options.
      * @group Props
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
     /**
      * Name of the close icon.
      * @group Props
@@ -459,11 +455,11 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      */
     @Output() onMaximize: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild('titlebar') headerViewChild: Nullable<ElementRef>;
+    readonly headerViewChild = viewChild<Nullable<ElementRef>>('titlebar');
 
-    @ViewChild('content') contentViewChild: Nullable<ElementRef>;
+    readonly contentViewChild = viewChild<Nullable<ElementRef>>('content');
 
-    @ViewChild('footer') footerViewChild: Nullable<ElementRef>;
+    readonly footerViewChild = viewChild<Nullable<ElementRef>>('footer');
     /**
      * Header template.
      * @group Templates
@@ -504,13 +500,13 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) _headerTemplate: TemplateRef<void> | undefined;
+    readonly _headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
 
     /**
      * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) _contentTemplate: TemplateRef<void> | undefined;
+    readonly _contentTemplate = contentChild<TemplateRef<void>>('content', { descendants: false });
 
     /**
      * Custom footer template.
@@ -528,13 +524,13 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * Custom maximize icon template.
      * @group Templates
      */
-    @ContentChild('maximizeicon', { descendants: false }) _maximizeiconTemplate: TemplateRef<void> | undefined;
+    readonly _maximizeiconTemplate = contentChild<TemplateRef<void>>('maximizeicon', { descendants: false });
 
     /**
      * Custom minimize icon template.
      * @group Templates
      */
-    @ContentChild('minimizeicon', { descendants: false }) _minimizeiconTemplate: TemplateRef<void> | undefined;
+    readonly _minimizeiconTemplate = contentChild<TemplateRef<void>>('minimizeicon', { descendants: false });
 
     /**
      * Custom headless template.
@@ -650,10 +646,10 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         }
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this.headerT = item.template;
@@ -698,18 +694,22 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         const transitionTimeRegex = /([\d\.]+)(ms|s)\b/g;
         let totalMilliseconds = 0;
         let match;
+
         while ((match = transitionTimeRegex.exec(durationString)) !== null) {
             const value = parseFloat(match[1]);
             const unit = match[2];
+
             if (unit === 'ms') {
                 totalMilliseconds += value;
             } else if (unit === 's') {
                 totalMilliseconds += value * 1000;
             }
         }
+
         if (totalMilliseconds === 0) {
             return undefined;
         }
+
         return totalMilliseconds;
     }
 
@@ -717,10 +717,12 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         if (focusParentElement) {
             const timeoutDuration = this.parseDurationToMilliseconds(this.transitionOptions);
             let _focusableElements = DomHandler.getFocusableElements(focusParentElement);
+
             if (_focusableElements && _focusableElements.length > 0) {
                 this.zone.runOutsideAngular(() => {
                     setTimeout(() => _focusableElements[0].focus(), timeoutDuration || 5);
                 });
+
                 return true;
             }
         }
@@ -728,15 +730,17 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         return false;
     }
 
-    focus(focusParentElement: HTMLElement = this.contentViewChild?.nativeElement) {
+    focus(focusParentElement: HTMLElement = this.contentViewChild()?.nativeElement) {
         let focused = this._focus(focusParentElement);
 
         if (!focused) {
-            focused = this._focus(this.footerViewChild?.nativeElement);
+            focused = this._focus(this.footerViewChild()?.nativeElement);
+
             if (!focused) {
-                focused = this._focus(this.headerViewChild?.nativeElement);
+                focused = this._focus(this.headerViewChild()?.nativeElement);
+
                 if (!focused) {
-                    this._focus(this.contentViewChild?.nativeElement);
+                    this._focus(this.contentViewChild()?.nativeElement);
                 }
             }
         }
@@ -819,6 +823,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
                 setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
                 let innerHTML = '';
+
                 for (let breakpoint in this.breakpoints) {
                     innerHTML += `
                         @media screen and (max-width: ${breakpoint}) {
@@ -936,7 +941,8 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             let deltaY = event.pageY - (this.lastPageY as number);
             let containerWidth = getOuterWidth(this.container() as HTMLDivElement);
             let containerHeight = getOuterHeight(this.container() as HTMLDivElement);
-            let contentHeight = getOuterHeight(this.contentViewChild?.nativeElement);
+            const contentViewChild = this.contentViewChild();
+            let contentHeight = getOuterHeight(contentViewChild?.nativeElement);
             let newWidth = containerWidth + deltaX;
             let newHeight = containerHeight + deltaY;
             let minWidth = (this.container() as HTMLDivElement).style.minWidth;
@@ -956,7 +962,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
             }
 
             if ((!minHeight || newHeight > parseInt(minHeight)) && offset.top + newHeight < viewport.height) {
-                (<ElementRef>this.contentViewChild).nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
+                (<ElementRef>contentViewChild).nativeElement.style.height = contentHeight + newHeight - containerHeight + 'px';
 
                 if (this._style.height) {
                     this._style.height = newHeight + 'px';
@@ -1054,10 +1060,13 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
             if (event.key == 'Escape') {
                 const container = this.container();
+
                 if (!container) {
                     return;
                 }
+
                 const currentZIndex = ZIndexUtils.getCurrent();
+
                 if (parseInt(container.style.zIndex) == currentZIndex || this.zIndexForLayering == currentZIndex) {
                     this.close(event);
                 }
@@ -1153,6 +1162,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         if (this.container() && this.autoZIndex) {
             ZIndexUtils.clear(this.container());
         }
+
         if (this.zIndexForLayering) {
             ZIndexUtils.revertZIndex(this.zIndexForLayering);
         }

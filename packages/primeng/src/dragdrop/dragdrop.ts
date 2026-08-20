@@ -1,4 +1,4 @@
-import { AfterViewInit, booleanAttribute, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { AfterViewInit, booleanAttribute, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, inject } from '@angular/core';
 import { addClass, removeClass } from '@primeuix/utils';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -12,6 +12,10 @@ import { VoidListener } from 'primeng/ts-helpers';
     standalone: true
 })
 export class Draggable implements AfterViewInit, OnDestroy {
+    el = inject(ElementRef);
+    zone = inject(NgZone);
+    private renderer = inject(Renderer2);
+
     @Input('pDraggable') scope: string | undefined;
     /**
      * Defines the cursor style.
@@ -51,12 +55,6 @@ export class Draggable implements AfterViewInit, OnDestroy {
     mouseUpListener: VoidListener;
 
     _pDraggableDisabled: boolean = false;
-
-    constructor(
-        public el: ElementRef,
-        public zone: NgZone,
-        private renderer: Renderer2
-    ) {}
 
     @Input() get pDraggableDisabled(): boolean {
         return this._pDraggableDisabled;
@@ -126,6 +124,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
             if (this.dragEffect) {
                 (event.dataTransfer as DataTransfer).effectAllowed = this.dragEffect;
             }
+
             (event.dataTransfer as DataTransfer).setData('text', this.scope!);
 
             this.onDragStart.emit(event);
@@ -169,6 +168,10 @@ export class Draggable implements AfterViewInit, OnDestroy {
     standalone: true
 })
 export class Droppable implements AfterViewInit, OnDestroy {
+    el = inject(ElementRef);
+    zone = inject(NgZone);
+    private renderer = inject(Renderer2);
+
     @Input('pDroppable') scope: string | string[] | undefined;
     /**
      * Whether the element is droppable, useful for conditional cases.
@@ -208,12 +211,6 @@ export class Droppable implements AfterViewInit, OnDestroy {
      * @group Emits
      */
     @Output() onDrop: EventEmitter<DragEvent> = new EventEmitter();
-
-    constructor(
-        public el: ElementRef,
-        public zone: NgZone,
-        private renderer: Renderer2
-    ) {}
 
     dragOverListener: VoidListener;
 
@@ -277,6 +274,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
 
     allowDrop(event: DragEvent): boolean {
         let dragScope = (event.dataTransfer as DataTransfer).getData('text');
+
         if (typeof this.scope == 'string' && dragScope == this.scope) {
             return true;
         } else if (Array.isArray(this.scope)) {
@@ -286,6 +284,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
                 }
             }
         }
+
         return false;
     }
 

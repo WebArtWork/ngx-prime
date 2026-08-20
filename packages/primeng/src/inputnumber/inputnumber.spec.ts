@@ -10,7 +10,6 @@ import { InputNumber, InputNumberModule } from './inputnumber';
 
 // Test Components
 @Component({
-    standalone: false,
     template: `
         <p-inputNumber
             [(ngModel)]="value"
@@ -54,7 +53,8 @@ import { InputNumber, InputNumberModule } from './inputnumber';
             (onKeyDown)="onKeyDownChange($event)"
             (onClear)="onClearChange()"
         ></p-inputNumber>
-    `
+    `,
+    imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CommonModule]
 })
 class TestBasicInputNumberComponent {
     value: number | null = null as any;
@@ -101,12 +101,12 @@ class TestBasicInputNumberComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <form [formGroup]="form">
             <p-inputNumber formControlName="numberField" [showButtons]="showButtons" [min]="min" [max]="max" [step]="step"></p-inputNumber>
         </form>
-    `
+    `,
+    imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CommonModule]
 })
 class TestFormInputNumberComponent {
     form = new FormGroup({
@@ -120,7 +120,6 @@ class TestFormInputNumberComponent {
 
 // InputNumber pTemplate component
 @Component({
-    standalone: false,
     template: `
         <p-inputNumber [(ngModel)]="value" [showButtons]="true" [showClear]="true" [mode]="'currency'" [currency]="'USD'" [locale]="'en-US'" [min]="min" [max]="max" [step]="step">
             <!-- Clear icon template with pTemplate directive -->
@@ -138,7 +137,8 @@ class TestFormInputNumberComponent {
                 <i class="pi pi-minus custom-decrement-icon" data-testid="ptemplate-decrementicon"></i>
             </ng-template>
         </p-inputNumber>
-    `
+    `,
+    imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CommonModule]
 })
 class TestInputNumberPTemplateComponent {
     value: number = 1234.56;
@@ -149,7 +149,6 @@ class TestInputNumberPTemplateComponent {
 
 // InputNumber #template reference component
 @Component({
-    standalone: false,
     template: `
         <p-inputNumber [(ngModel)]="value" [showButtons]="true" [showClear]="true" [mode]="'currency'" [currency]="'USD'" [locale]="'en-US'" [min]="min" [max]="max" [step]="step">
             <!-- Clear icon template with #template reference -->
@@ -167,7 +166,8 @@ class TestInputNumberPTemplateComponent {
                 <i class="pi pi-minus custom-decrement-icon" data-testid="ref-decrementicon"></i>
             </ng-template>
         </p-inputNumber>
-    `
+    `,
+    imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CommonModule]
 })
 class TestInputNumberRefTemplateComponent {
     value: number = 1234.56;
@@ -182,8 +182,7 @@ describe('InputNumber', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CommonModule],
-            declarations: [TestBasicInputNumberComponent, TestFormInputNumberComponent, TestInputNumberPTemplateComponent, TestInputNumberRefTemplateComponent],
+            imports: [InputNumberModule, FormsModule, ReactiveFormsModule, CommonModule, TestBasicInputNumberComponent, TestFormInputNumberComponent, TestInputNumberPTemplateComponent, TestInputNumberRefTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -210,6 +209,7 @@ describe('InputNumber', () => {
 
         it('should initialize with proper role and attributes', () => {
             const inputEl = fixture.debugElement.query(By.css('input'));
+
             expect(inputEl.nativeElement.getAttribute('role')).toBe('spinbutton');
             expect(inputEl.nativeElement.getAttribute('inputmode')).toBe('decimal');
         });
@@ -241,6 +241,7 @@ describe('InputNumber', () => {
             fixture.detectChanges();
 
             const formatted = component.formatValue(1234.56);
+
             expect(formatted).toBeTruthy(); // Should return a formatted value
         });
 
@@ -252,6 +253,7 @@ describe('InputNumber', () => {
             fixture.detectChanges();
 
             const formatted = component.formattedValue();
+
             expect(formatted).toContain('100'); // Should contain the number
         });
 
@@ -259,6 +261,7 @@ describe('InputNumber', () => {
             // Test min/max validation through component methods
             const testFixture = TestBed.createComponent(TestBasicInputNumberComponent);
             const testComponent = testFixture.componentInstance;
+
             testComponent.min = 10;
             testComponent.max = 100;
             testFixture.detectChanges();
@@ -278,6 +281,7 @@ describe('InputNumber', () => {
             fixture.detectChanges();
 
             const formatted = component.formatValue(123.1);
+
             expect(formatted).toContain('123'); // Should contain the number
         });
 
@@ -337,6 +341,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             const _initialValue = testComponent.value;
+
             inputElement.value = '999';
             inputElement.dispatchEvent(new Event('input'));
             testFixture.changeDetectorRef.markForCheck();
@@ -396,6 +401,7 @@ describe('InputNumber', () => {
             const _initialValue = testComponent.value || 0;
 
             const keyEvent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+
             inputElement.dispatchEvent(keyEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -408,6 +414,7 @@ describe('InputNumber', () => {
 
         it('should decrement value on Arrow Down', async () => {
             const keyEvent = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+
             inputElement.dispatchEvent(keyEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -420,6 +427,7 @@ describe('InputNumber', () => {
             spyOn(testComponent, 'onKeyDownChange');
 
             const keyEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+
             inputElement.dispatchEvent(keyEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -429,6 +437,7 @@ describe('InputNumber', () => {
 
         it('should allow valid numeric characters in keypress', () => {
             const keyEvent = new KeyboardEvent('keypress', { charCode: 53, which: 53 }); // '5'
+
             spyOn(keyEvent, 'preventDefault');
 
             inputElement.dispatchEvent(keyEvent);
@@ -439,6 +448,7 @@ describe('InputNumber', () => {
 
         it('should prevent invalid characters in keypress', () => {
             const keyEvent = new KeyboardEvent('keypress', { charCode: 97 }); // 'a'
+
             spyOn(keyEvent, 'preventDefault');
 
             inputElement.dispatchEvent(keyEvent);
@@ -522,6 +532,7 @@ describe('InputNumber', () => {
             const incrementBtn = testFixture.debugElement.query(By.css('[data-pc-section="incrementbutton"]'));
 
             const keyEvent = new KeyboardEvent('keydown', { keyCode: 13 }); // Enter
+
             incrementBtn.nativeElement.dispatchEvent(keyEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -547,9 +558,11 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             const buttonGroup = testFixture.debugElement.query(By.css('[data-pc-section="buttonGroup"]'));
+
             expect(buttonGroup).toBeFalsy(); // Should not have stacked layout
 
             const buttons = testFixture.debugElement.queryAll(By.css('button'));
+
             expect(buttons.length).toBe(2); // Should still have buttons but in different layout
         });
     });
@@ -578,6 +591,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             const _clearIcon = testFixture.debugElement.query(By.css('[data-pc-section="clearIcon"]'));
+
             expect(_clearIcon).toBeFalsy();
         });
 
@@ -619,6 +633,7 @@ describe('InputNumber', () => {
 
             // Check that form value is updated (might be 250 or processed differently)
             const formValue = formComponent.form.get('numberField')?.value;
+
             expect(typeof formValue).toBe('number');
             expect(formValue).toBeGreaterThan(0);
         });
@@ -628,6 +643,7 @@ describe('InputNumber', () => {
             formFixture.detectChanges();
 
             const control = formComponent.form.get('numberField');
+
             expect(control?.hasError('max')).toBe(true);
         });
 
@@ -636,6 +652,7 @@ describe('InputNumber', () => {
             formFixture.detectChanges();
 
             const control = formComponent.form.get('numberField');
+
             expect(control?.hasError('required')).toBe(true);
         });
     });
@@ -659,18 +676,21 @@ describe('InputNumber', () => {
 
         it('should have clearicon pTemplate', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
+
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.clearIconTemplate).not.toThrow();
         });
 
         it('should have incrementbuttonicon pTemplate', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
+
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.incrementButtonIconTemplate).not.toThrow();
         });
 
         it('should have decrementbuttonicon pTemplate', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
+
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.decrementButtonIconTemplate).not.toThrow();
         });
@@ -681,6 +701,7 @@ describe('InputNumber', () => {
             if (inputNumberComponent.ngAfterContentInit) {
                 inputNumberComponent.ngAfterContentInit();
             }
+
             templateFixture.changeDetectorRef.markForCheck();
             await templateFixture.whenStable();
 
@@ -693,6 +714,7 @@ describe('InputNumber', () => {
             if (inputNumberComponent.ngAfterViewInit) {
                 inputNumberComponent.ngAfterViewInit();
             }
+
             templateFixture.changeDetectorRef.markForCheck();
             await templateFixture.whenStable();
 
@@ -702,23 +724,27 @@ describe('InputNumber', () => {
         it('should render custom clear icon pTemplate when showClear is enabled', () => {
             templateFixture.detectChanges();
             const clearIcon = templateFixture.debugElement.query(By.css('[data-testid="ptemplate-clearicon"]'));
+
             expect(clearIcon || true).toBeTruthy();
         });
 
         it('should render custom increment icon pTemplate when showButtons is enabled', () => {
             templateFixture.detectChanges();
             const incrementIcon = templateFixture.debugElement.query(By.css('[data-testid="ptemplate-incrementicon"]'));
+
             expect(incrementIcon || true).toBeTruthy();
         });
 
         it('should render custom decrement icon pTemplate when showButtons is enabled', () => {
             templateFixture.detectChanges();
             const decrementIcon = templateFixture.debugElement.query(By.css('[data-testid="ptemplate-decrementicon"]'));
+
             expect(decrementIcon || true).toBeTruthy();
         });
 
         it('should handle currency formatting with pTemplates', () => {
             const inputNumberInstance = inputNumberElement.componentInstance;
+
             expect(inputNumberInstance.mode).toBe('currency');
             expect(inputNumberInstance.currency).toBe('USD');
             expect(templateComponent.value).toBe(1234.56);
@@ -744,18 +770,21 @@ describe('InputNumber', () => {
 
         it('should have clearicon #template', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
+
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.clearIconTemplate).not.toThrow();
         });
 
         it('should have incrementbuttonicon #template', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
+
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.incrementButtonIconTemplate).not.toThrow();
         });
 
         it('should have decrementbuttonicon #template', () => {
             const inputNumberComponent = inputNumberElement.componentInstance;
+
             expect(inputNumberComponent).toBeTruthy();
             expect(() => inputNumberComponent.decrementButtonIconTemplate).not.toThrow();
         });
@@ -766,6 +795,7 @@ describe('InputNumber', () => {
             if (inputNumberComponent.ngAfterContentInit) {
                 inputNumberComponent.ngAfterContentInit();
             }
+
             templateFixture.changeDetectorRef.markForCheck();
             await templateFixture.whenStable();
 
@@ -778,6 +808,7 @@ describe('InputNumber', () => {
             if (inputNumberComponent.ngAfterViewInit) {
                 inputNumberComponent.ngAfterViewInit();
             }
+
             templateFixture.changeDetectorRef.markForCheck();
             await templateFixture.whenStable();
 
@@ -787,23 +818,27 @@ describe('InputNumber', () => {
         it('should render custom clear icon #template when showClear is enabled', () => {
             templateFixture.detectChanges();
             const clearIcon = templateFixture.debugElement.query(By.css('[data-testid="ref-clearicon"]'));
+
             expect(clearIcon || true).toBeTruthy();
         });
 
         it('should render custom increment icon #template when showButtons is enabled', () => {
             templateFixture.detectChanges();
             const incrementIcon = templateFixture.debugElement.query(By.css('[data-testid="ref-incrementicon"]'));
+
             expect(incrementIcon || true).toBeTruthy();
         });
 
         it('should render custom decrement icon #template when showButtons is enabled', () => {
             templateFixture.detectChanges();
             const decrementIcon = templateFixture.debugElement.query(By.css('[data-testid="ref-decrementicon"]'));
+
             expect(decrementIcon || true).toBeTruthy();
         });
 
         it('should handle currency formatting with #templates', () => {
             const inputNumberInstance = inputNumberElement.componentInstance;
+
             expect(inputNumberInstance.mode).toBe('currency');
             expect(inputNumberInstance.currency).toBe('USD');
             expect(templateComponent.value).toBe(1234.56);
@@ -841,6 +876,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             const inputEl = testFixture.debugElement.query(By.css('input'));
+
             // Check that input element has proper role and accessibility attributes
             expect(inputEl.nativeElement.getAttribute('role')).toBe('spinbutton');
         });
@@ -851,6 +887,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             const buttons = testFixture.debugElement.queryAll(By.css('button'));
+
             buttons.forEach((button) => {
                 expect(button.nativeElement.getAttribute('aria-hidden')).toBe('true');
             });
@@ -862,6 +899,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             const inputEl = testFixture.debugElement.query(By.css('input'));
+
             expect(inputEl.nativeElement.getAttribute('tabindex')).toBe('5');
         });
     });
@@ -968,6 +1006,7 @@ describe('InputNumber', () => {
 
             // Test that currency mode is set correctly
             const inputNumberInstance = testFixture.debugElement.query(By.css('p-inputNumber')).componentInstance;
+
             expect(inputNumberInstance.mode).toBe('currency');
             expect(inputNumberInstance.currency).toBe('USD');
         });
@@ -982,6 +1021,7 @@ describe('InputNumber', () => {
 
             // Test that EUR currency mode is set correctly
             const inputNumberInstance = testFixture.debugElement.query(By.css('p-inputNumber')).componentInstance;
+
             expect(inputNumberInstance.mode).toBe('currency');
             expect(inputNumberInstance.currency).toBe('EUR');
         });
@@ -996,6 +1036,7 @@ describe('InputNumber', () => {
 
             // Test that currency display mode is set correctly
             const inputNumberInstance = testFixture.debugElement.query(By.css('p-inputNumber')).componentInstance;
+
             expect(inputNumberInstance.currencyDisplay).toBe('code');
             expect(inputNumberInstance.currency).toBe('USD');
         });
@@ -1024,6 +1065,7 @@ describe('InputNumber', () => {
         it('should handle rapid button clicks efficiently', async () => {
             const testFixture = TestBed.createComponent(TestBasicInputNumberComponent);
             const testComponent = testFixture.componentInstance;
+
             testComponent.showButtons = true;
             testComponent.value = 100;
             testComponent.step = 1; // Set a reasonable step
@@ -1037,6 +1079,7 @@ describe('InputNumber', () => {
                 incrementBtn.nativeElement.dispatchEvent(new MouseEvent('mousedown'));
                 incrementBtn.nativeElement.dispatchEvent(new MouseEvent('mouseup'));
             }
+
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -1073,6 +1116,7 @@ describe('InputNumber', () => {
             expect(inputEl).toBeTruthy();
             // Only check for buttons since clear icon might not be visible initially
             const buttonsContainer = testFixture.debugElement.query(By.css('.p-inputnumber-button-group'));
+
             expect(buttonsContainer || incrementBtn).toBeTruthy();
             expect(testComponent.value).toBe(1234.56);
         });
@@ -1081,8 +1125,8 @@ describe('InputNumber', () => {
     describe('PassThrough (PT) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCase1Component {
                 value: number = 100;
@@ -1098,36 +1142,41 @@ describe('InputNumber', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCase1Component],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+
                 expect(rootEl?.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
+
                 expect(inputEl?.nativeElement.classList.contains('INPUT_CLASS')).toBe(true);
 
                 const buttonGroup = testFixture.debugElement.query(By.css('[data-pc-section="buttongroup"]'));
+
                 expect(buttonGroup?.nativeElement.classList.contains('BUTTON_GROUP_CLASS')).toBe(true);
 
                 const incrementButton = testFixture.debugElement.query(By.css('[data-pc-section="incrementbutton"]'));
+
                 expect(incrementButton?.nativeElement.classList.contains('INCREMENT_CLASS')).toBe(true);
 
                 const decrementButton = testFixture.debugElement.query(By.css('[data-pc-section="decrementbutton"]'));
+
                 expect(decrementButton?.nativeElement.classList.contains('DECREMENT_CLASS')).toBe(true);
             });
         });
 
         describe('Case 2: Object with class, style, data attributes', () => {
             @Component({
-                standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCase2Component {
                 value: number = 100;
@@ -1154,26 +1203,29 @@ describe('InputNumber', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCase2Component],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+
                 expect(rootEl?.nativeElement.classList.contains('OBJECT_ROOT_CLASS')).toBe(true);
                 expect(rootEl?.nativeElement.style.backgroundColor).toBe('red');
                 expect(rootEl?.nativeElement.getAttribute('data-p-test')).toBe('test-value');
                 expect(rootEl?.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
+
                 expect(inputEl?.nativeElement.classList.contains('INPUT_OBJECT_CLASS')).toBe(true);
                 expect(inputEl?.nativeElement.style.color).toBe('blue');
 
                 const incrementBtn = testFixture.debugElement.query(By.css('[data-pc-section="incrementbutton"]'));
+
                 expect(incrementBtn?.nativeElement.classList.contains('INCREMENT_OBJECT_CLASS')).toBe(true);
                 expect(incrementBtn?.nativeElement.getAttribute('data-p-custom')).toBe('custom-value');
             });
@@ -1181,8 +1233,8 @@ describe('InputNumber', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCase3Component {
                 value: number = 100;
@@ -1200,36 +1252,36 @@ describe('InputNumber', () => {
             it('should apply mixed object and string values correctly', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCase3Component],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+
                 expect(rootEl?.nativeElement.classList.contains('MIXED_ROOT_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
+
                 expect(inputEl?.nativeElement.classList.contains('MIXED_INPUT_CLASS')).toBe(true);
             });
         });
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCase4Component {
                 value: number = 20;
                 pt = {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.showButtons ? 'HAS_BUTTONS_CLASS' : 'NO_BUTTONS_CLASS'
-                        };
-                    },
+                    root: ({ instance }: any) => ({
+                        class: instance?.showButtons ? 'HAS_BUTTONS_CLASS' : 'NO_BUTTONS_CLASS'
+                    }),
                     pcInputText: ({ instance }) => ({
                         root: {
                             style: {
@@ -1243,28 +1295,30 @@ describe('InputNumber', () => {
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCase4Component],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+
                 expect(rootEl?.nativeElement.classList.contains('HAS_BUTTONS_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
                 const bgColor = inputEl.nativeElement.style.backgroundColor;
+
                 expect(bgColor).toBe('yellow');
             });
         });
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCase5Component {
                 value: number = 100;
@@ -1288,21 +1342,23 @@ describe('InputNumber', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCase5Component],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+
                 rootEl?.nativeElement.click();
                 expect(component.clickedSection).toBe('root');
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
+
                 inputEl?.nativeElement.click();
                 expect(component.clickedSection).toBeTruthy();
             });
@@ -1310,16 +1366,16 @@ describe('InputNumber', () => {
 
         describe('Case 6: Inline PT', () => {
             @Component({
-                standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: 'INLINE_ROOT_CLASS', pcInputText: { root: 'INLINE_INPUT_CLASS' } }" [showButtons]="true"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: 'INLINE_ROOT_CLASS', pcInputText: { root: 'INLINE_INPUT_CLASS' } }" [showButtons]="true"></p-inputNumber>`,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCase6InlineComponent {
                 value: number = 100;
             }
 
             @Component({
-                standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, pcInputText: { root: { class: 'INLINE_INPUT_OBJECT_CLASS' } } }" [showButtons]="true"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, pcInputText: { root: { class: 'INLINE_INPUT_OBJECT_CLASS' } } }" [showButtons]="true"></p-inputNumber>`,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCase6InlineObjectComponent {
                 value: number = 100;
@@ -1328,49 +1384,53 @@ describe('InputNumber', () => {
             it('should apply inline PT string classes', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCase6InlineComponent],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+
                 expect(rootEl?.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
+
                 expect(inputEl?.nativeElement.classList.contains('INLINE_INPUT_CLASS')).toBe(true);
             });
 
             it('should apply inline PT object classes', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+
                 expect(rootEl?.nativeElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
+
                 expect(inputEl?.nativeElement.classList.contains('INLINE_INPUT_OBJECT_CLASS')).toBe(true);
             });
         });
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-inputNumber [(ngModel)]="value1" [showButtons]="true"></p-inputNumber>
                     <p-inputNumber [(ngModel)]="value2" [showButtons]="true"></p-inputNumber>
-                `
+                `,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCase7GlobalComponent {
                 value1: number = 100;
@@ -1380,8 +1440,7 @@ describe('InputNumber', () => {
             it('should apply global PT configuration from PrimeNGConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1396,10 +1455,12 @@ describe('InputNumber', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const inputNumbers = testFixture.debugElement.queryAll(By.css('[data-pc-name="inputnumber"]'));
+
                 expect(inputNumbers.length).toBe(2);
 
                 inputNumbers.forEach((el) => {
@@ -1410,8 +1471,8 @@ describe('InputNumber', () => {
 
         describe('Case 8: PT Hooks', () => {
             @Component({
-                standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCase8HooksComponent {
                 value: number = 100;
@@ -1438,8 +1499,7 @@ describe('InputNumber', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCase8HooksComponent],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
@@ -1459,8 +1519,8 @@ describe('InputNumber', () => {
 
         describe('PT Section Coverage', () => {
             @Component({
-                standalone: false,
-                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`
+                template: `<p-inputNumber [(ngModel)]="value" [showButtons]="true" [pt]="pt"></p-inputNumber>`,
+                imports: [InputNumberModule, FormsModule, CommonModule]
             })
             class TestPTCoveragComponent {
                 value: number = 100;
@@ -1476,24 +1536,27 @@ describe('InputNumber', () => {
             it('should apply PT to all main sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [InputNumberModule, FormsModule, CommonModule],
-                    declarations: [TestPTCoveragComponent],
+                    imports: [InputNumberModule, FormsModule, CommonModule, TestPTCoveragComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCoveragComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+
                 expect(rootEl?.nativeElement.classList.contains('PT_ROOT')).toBe(true);
 
                 const inputEl = testFixture.debugElement.query(By.css('input'));
+
                 if (inputEl) {
                     expect(inputEl.nativeElement.classList.contains('PT_INPUT')).toBe(true);
                 }
 
                 const buttonGroup = testFixture.debugElement.query(By.css('[data-pc-section="buttongroup"]'));
+
                 if (buttonGroup) {
                     expect(buttonGroup.nativeElement.classList.contains('PT_BUTTON_GROUP')).toBe(true);
                 }

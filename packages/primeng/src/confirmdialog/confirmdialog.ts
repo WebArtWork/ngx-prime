@@ -6,7 +6,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -19,9 +18,10 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    QueryList,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { findSingle, setAttribute, uuid } from '@primeuix/utils';
 import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -118,10 +118,10 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                         [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
-                            @if (rejectIcon && !rejectIconTemplate && !_rejectIconTemplate) {
+                            @if (rejectIcon && !rejectIconTemplate() && !_rejectIconTemplate) {
                                 <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')" [pBind]="ptm('pcRejectButton')['icon']"></i>
                             }
-                            <ng-template *ngTemplateOutlet="rejectIconTemplate || _rejectIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="rejectIconTemplate() || _rejectIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                     <p-button
@@ -135,10 +135,10 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                         [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
-                            @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate) {
+                            @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate()) {
                                 <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')" [pBind]="ptm('pcAcceptButton')['icon']"></i>
                             }
-                            <ng-template *ngTemplateOutlet="acceptIconTemplate || _acceptIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="acceptIconTemplate() || _acceptIconTemplate"></ng-template>
                         </ng-template>
                     </p-button>
                 }
@@ -151,6 +151,9 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
     hostDirectives: [Bind]
 })
 export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> implements OnInit, AfterContentInit, OnDestroy {
+    private confirmationService = inject(ConfirmationService);
+    zone = inject(NgZone);
+
     componentName = 'ConfirmDialog';
 
     $pcConfirmDialog: ConfirmDialog | undefined = inject(CONFIRMDIALOG_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -357,7 +360,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
      */
     @Output() onHide: EventEmitter<ConfirmEventType> = new EventEmitter<ConfirmEventType>();
 
-    @ContentChild(Footer) footer: Nullable<TemplateRef<any>>;
+    readonly footer = contentChild(Footer);
 
     _componentStyle = inject(ConfirmDialogStyle);
 
@@ -377,13 +380,13 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
      * Custom reject icon template.
      * @group Templates
      */
-    @ContentChild('rejecticon', { descendants: false }) rejectIconTemplate: Nullable<TemplateRef<void>>;
+    readonly rejectIconTemplate = contentChild<Nullable<TemplateRef<void>>>('rejecticon', { descendants: false });
 
     /**
      * Custom accept icon template.
      * @group Templates
      */
-    @ContentChild('accepticon', { descendants: false }) acceptIconTemplate: Nullable<TemplateRef<void>>;
+    readonly acceptIconTemplate = contentChild<Nullable<TemplateRef<void>>>('accepticon', { descendants: false });
 
     /**
      * Custom message template.
@@ -403,7 +406,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
      */
     @ContentChild('headless', { descendants: false }) headlessTemplate: Nullable<TemplateRef<ConfirmDialogHeadlessTemplateContext>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
@@ -447,16 +450,15 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
 
     translationSubscription: Subscription | undefined;
 
-    constructor(
-        private confirmationService: ConfirmationService,
-        public zone: NgZone
-    ) {
+    constructor() {
         super();
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
+
                 return;
             }
+
             if (confirmation.key === this.key) {
                 this.confirmation = confirmation;
 
@@ -494,7 +496,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     }
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this._headerTemplate = item.template;
@@ -533,8 +535,10 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
 
     option(name: string, k?: string) {
         const source: { [key: string]: any } = this;
+
         if (source.hasOwnProperty(name)) {
             const value = k ? source[k] : source[name];
+
             return typeof value === 'function' ? value() : value;
         }
 
@@ -577,6 +581,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
             setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             this.document.head.appendChild(this.styleElement);
             let innerHTML = '';
+
             for (let breakpoint in this.breakpoints) {
                 innerHTML += `
                     @media screen and (max-width: ${breakpoint}) {
@@ -642,6 +647,7 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
         if (this.confirmation && this.confirmation.acceptEvent) {
             this.confirmation.acceptEvent.emit();
         }
+
         this.hide(ConfirmEventType.ACCEPT);
     }
 

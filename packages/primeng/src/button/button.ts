@@ -90,6 +90,7 @@ export class ButtonLabel extends BaseComponent {
         super();
         effect(() => {
             const pt = this.ptButtonLabel() || this.pButtonLabelPT();
+
             pt && this.directivePT.set(pt);
         });
 
@@ -143,6 +144,7 @@ export class ButtonIcon extends BaseComponent {
         super();
         effect(() => {
             const pt = this.ptButtonIcon() || this.pButtonIconPT();
+
             pt && this.directivePT.set(pt);
         });
 
@@ -208,6 +210,7 @@ export class ButtonDirective extends BaseComponent {
         super();
         effect(() => {
             const pt = this.ptButtonDirective() || this.pButtonPT();
+
             pt && this.directivePT.set(pt);
         });
 
@@ -480,6 +483,7 @@ export class ButtonDirective extends BaseComponent {
         }
 
         const size = this.size();
+
         if (size) {
             styleClass.push(`p-button-${size}`);
         }
@@ -513,6 +517,7 @@ export class ButtonDirective extends BaseComponent {
 
     setStyleClass() {
         const styleClass = this.getStyleClass();
+
         this.removeExistingSeverityClass();
 
         this.htmlElement.classList.remove(...this._internalClasses);
@@ -530,8 +535,10 @@ export class ButtonDirective extends BaseComponent {
 
     createLabel() {
         const created = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
+
         if (!created && this.label) {
             let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('buttonlabel'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
+
             labelElement.appendChild(this.document.createTextNode(this.label));
             this.htmlElement.appendChild(labelElement);
         }
@@ -539,6 +546,7 @@ export class ButtonDirective extends BaseComponent {
 
     createIcon() {
         const created = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]');
+
         if (!created && (this.icon || this.loading)) {
             let iconPosClass = this.label && !this.$unstyled() ? 'p-button-icon-' + this.iconPos() : null;
             let iconClass = !this.$unstyled() && this.getIconClass();
@@ -557,6 +565,7 @@ export class ButtonDirective extends BaseComponent {
 
         if (!this.label) {
             labelElement && this.htmlElement.removeChild(labelElement);
+
             return;
         }
 
@@ -575,6 +584,7 @@ export class ButtonDirective extends BaseComponent {
 
         if (iconElement && !this.$unstyled()) {
             const iconPos = this.iconPos();
+
             if (iconPos) {
                 iconElement.className = 'p-button-icon ' + (labelElement ? 'p-button-icon-' + iconPos : '') + ' ' + this.getIconClass();
             } else {
@@ -587,6 +597,7 @@ export class ButtonDirective extends BaseComponent {
 
     getIconClass() {
         const loadingIcon = this.loadingIcon();
+
         return this.loading ? 'p-button-loading-icon ' + (loadingIcon ? loadingIcon : 'p-icon') : this.icon || 'p-hidden';
     }
 
@@ -630,12 +641,16 @@ export class ButtonDirective extends BaseComponent {
                         <svg data-p-icon="spinner" [class]="cn(cx('loadingIcon'), cx('spinnerIcon'))" [pBind]="ptm('loadingIcon')" [spin]="true" [attr.aria-hidden]="true" />
                     }
                 }
-                <ng-template [ngIf]="loadingIconTemplate() || _loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate() || _loadingIconTemplate; context: { class: cx('loadingIcon'), pt: ptm('loadingIcon') }"></ng-template>
+                @if (loadingIconTemplate() || _loadingIconTemplate) {
+                    <ng-template *ngTemplateOutlet="loadingIconTemplate() || _loadingIconTemplate; context: { class: cx('loadingIcon'), pt: ptm('loadingIcon') }"></ng-template>
+                }
             } @else {
                 @if ((icon() || buttonProps()?.icon) && !iconTemplate() && !_iconTemplate) {
                     <span [class]="cn(cx('icon'), icon() || buttonProps()?.icon)" [pBind]="ptm('icon')" [attr.data-p]="dataIconP"></span>
                 }
-                <ng-template [ngIf]="!icon() && (iconTemplate() || _iconTemplate)" *ngTemplateOutlet="iconTemplate() || _iconTemplate; context: { class: cx('icon'), pt: ptm('icon') }"></ng-template>
+                @if (!icon() && (iconTemplate() || _iconTemplate)) {
+                    <ng-template *ngTemplateOutlet="iconTemplate() || _iconTemplate; context: { class: cx('icon'), pt: ptm('icon') }"></ng-template>
+                }
             }
             @if (!contentTemplate() && !_contentTemplate && (label() || buttonProps()?.label)) {
                 <span [class]="cx('label')" [attr.aria-hidden]="(icon() || buttonProps()?.icon) && !(label() || buttonProps()?.label)" [pBind]="ptm('label')" [attr.data-p]="dataLabelP">{{ label() || buttonProps()?.label }}</span>
@@ -940,6 +955,7 @@ export class Button extends BaseComponent<ButtonPassThrough> {
 
     get dataP() {
         const iconPos = this.iconPos();
+
         return this.cn({
             [this.size() as string]: this.size(),
             'icon-only': this.hasIcon && !this.label() && !this.badge(),

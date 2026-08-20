@@ -160,11 +160,13 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
+
             expect(legendLabel.nativeElement.textContent.trim()).toBe('My Fieldset');
         });
 
         it('should render content', () => {
             const content = fixture.debugElement.query(By.css('.test-content'));
+
             expect(content).toBeTruthy();
             expect(content.nativeElement.textContent).toBe('Test Content Here');
         });
@@ -174,6 +176,7 @@ describe('Fieldset', () => {
             fixture.changeDetectorRef.markForCheck();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             expect(toggleButton).toBeNull();
         });
 
@@ -214,6 +217,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const fieldsetElement = fixture.debugElement.query(By.css('fieldset'));
+
             expect(fieldsetElement.nativeElement.className).toContain('my-custom-fieldset');
             expect(fieldsetElement.nativeElement.className).toContain('another-class');
         });
@@ -228,6 +232,7 @@ describe('Fieldset', () => {
 
         it('should show toggle button when toggleable', () => {
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             expect(toggleButton).toBeTruthy();
             expect(toggleButton.nativeElement.getAttribute('role')).toBe('button');
         });
@@ -238,6 +243,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             toggleButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -250,6 +256,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             toggleButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -357,6 +364,7 @@ describe('Fieldset', () => {
 
         it('should implement getBlockableElement', () => {
             const blockableElement = fieldset.getBlockableElement();
+
             expect(blockableElement).toBe(fieldset.el.nativeElement.children[0]);
         });
     });
@@ -374,6 +382,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             toggleButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -386,6 +395,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             toggleButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -394,6 +404,7 @@ describe('Fieldset', () => {
 
         it('should emit onBeforeToggle event', async () => {
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             toggleButton.nativeElement.click();
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -461,50 +472,60 @@ describe('Fieldset', () => {
     describe('Templates', () => {
         it('should render custom header template', () => {
             const templateFixture = TestBed.createComponent(TestTemplateFieldsetComponent);
+
             templateFixture.detectChanges();
 
             const customHeader = templateFixture.debugElement.query(By.css('.custom-header'));
+
             expect(customHeader).toBeTruthy();
             expect(customHeader.nativeElement.textContent.trim()).toBe('Custom Header Template');
         });
 
         it('should render custom content template', () => {
             const templateFixture = TestBed.createComponent(TestTemplateFieldsetComponent);
+
             templateFixture.detectChanges();
 
             const customContent = templateFixture.debugElement.query(By.css('.custom-content'));
+
             expect(customContent).toBeTruthy();
             expect(customContent.nativeElement.textContent.trim()).toBe('Custom Content Template');
         });
 
         it('should render custom expand icon template', () => {
             const templateFixture = TestBed.createComponent(TestTemplateFieldsetComponent);
+
             templateFixture.detectChanges();
 
             // Set to collapsed to show expand icon
             const fieldsetInstance = templateFixture.debugElement.query(By.directive(Fieldset)).componentInstance;
+
             fieldsetInstance.collapsed = true;
             templateFixture.detectChanges();
 
             // Custom templates may not be immediately rendered due to ContentChild processing
             // Check if toggle button exists and fieldset is toggleable
             const toggleButton = templateFixture.debugElement.query(By.css('button[role="button"]'));
+
             expect(toggleButton).toBeTruthy();
             expect(fieldsetInstance.toggleable).toBe(true);
         });
 
         it('should render custom collapse icon template', () => {
             const templateFixture = TestBed.createComponent(TestTemplateFieldsetComponent);
+
             templateFixture.detectChanges();
 
             // Default is expanded, so collapse icon should show
             const customCollapseIcon = templateFixture.debugElement.query(By.css('.custom-collapse-icon'));
+
             expect(customCollapseIcon).toBeTruthy();
             expect(customCollapseIcon.nativeElement.textContent.trim()).toBe('⬆');
         });
 
         it('should handle ngAfterContentInit template processing', () => {
             const templateFixture = TestBed.createComponent(TestTemplateFieldsetComponent);
+
             templateFixture.detectChanges();
 
             // Check that templates are rendered (ContentChild templates are processed differently)
@@ -519,15 +540,18 @@ describe('Fieldset', () => {
     describe('Header Facet', () => {
         it('should render basic fieldset with legend', () => {
             const facetFixture = TestBed.createComponent(TestFacetFieldsetComponent);
+
             facetFixture.detectChanges();
 
             // Check if fieldset displays the legend text
             const legendTitle = facetFixture.debugElement.query(By.css('.p-fieldset-legend-label'));
+
             expect(legendTitle).toBeTruthy();
             expect(legendTitle.nativeElement.textContent.trim()).toBe('Header Facet Test');
 
             // Check content is rendered
             const content = facetFixture.debugElement.query(By.css('.facet-content'));
+
             expect(content).toBeTruthy();
             expect(content.nativeElement.textContent.trim()).toBe('Facet Test Content');
         });
@@ -581,6 +605,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             expect(toggleButton.nativeElement.getAttribute('aria-label')).toBe('Accessibility Test');
         });
     });
@@ -592,6 +617,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
+
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
@@ -601,6 +627,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
+
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
@@ -610,6 +637,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const legendLabel = fixture.debugElement.query(By.css('.p-fieldset-legend-label'));
+
             expect(legendLabel.nativeElement.textContent.trim()).toBe('' as any);
         });
 
@@ -668,6 +696,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             toggleButton.nativeElement.click();
 
             expect(fieldset.collapsed).toBe(true);
@@ -679,6 +708,7 @@ describe('Fieldset', () => {
             await fixture.whenStable();
 
             const event = new MouseEvent('click');
+
             spyOn(event, 'preventDefault');
 
             fieldset.toggle(event);
@@ -704,6 +734,7 @@ describe('Fieldset', () => {
             expect(fieldset.transitionOptions).toBe('500ms ease-in-out');
 
             const toggleButton = fixture.debugElement.query(By.css('button[role="button"]'));
+
             toggleButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -720,6 +751,7 @@ describe('Fieldset', () => {
 
             // Should render default icons
             const defaultIcon = fixture.debugElement.query(By.css('svg[data-p-icon]'));
+
             expect(defaultIcon).toBeTruthy();
 
             // Should not throw errors
@@ -730,6 +762,7 @@ describe('Fieldset', () => {
 
         it('should handle mixed template types', () => {
             const templateFixture = TestBed.createComponent(TestTemplateFieldsetComponent);
+
             templateFixture.detectChanges();
 
             // Should render both custom template content and regular content
@@ -745,33 +778,40 @@ describe('Fieldset', () => {
         describe('Case 1: Simple string classes', () => {
             it('should apply simple string class to root', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 expect(rootElement.nativeElement.className).toContain('ROOT_CLASS');
             });
 
             it('should apply simple string class to legend', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', { legend: 'LEGEND_CLASS' });
                 ptFixture.detectChanges();
 
                 const legendElement = ptFixture.debugElement.query(By.css('legend'));
+
                 expect(legendElement.nativeElement.className).toContain('LEGEND_CLASS');
             });
 
             it('should apply simple string class to content', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
                 ptFixture.detectChanges();
 
                 const contentElement = ptFixture.debugElement.query(By.css('.p-fieldset-content'));
+
                 expect(contentElement?.nativeElement.className).toContain('CONTENT_CLASS');
             });
 
             it('should apply multiple simple string classes to different sections', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: 'ROOT_CLASS',
                     legend: 'LEGEND_CLASS',
@@ -792,6 +832,7 @@ describe('Fieldset', () => {
         describe('Case 2: Objects', () => {
             it('should apply object with class to root', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         class: 'OBJECT_CLASS'
@@ -800,11 +841,13 @@ describe('Fieldset', () => {
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 expect(rootElement.nativeElement.className).toContain('OBJECT_CLASS');
             });
 
             it('should apply object with style to root', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         style: { 'background-color': 'red' }
@@ -813,11 +856,13 @@ describe('Fieldset', () => {
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 expect(rootElement.nativeElement.style.backgroundColor).toBe('red');
             });
 
             it('should apply object with data attribute to legend', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     legend: {
                         'data-p-test': true
@@ -826,11 +871,13 @@ describe('Fieldset', () => {
                 ptFixture.detectChanges();
 
                 const legendElement = ptFixture.debugElement.query(By.css('legend'));
+
                 expect(legendElement.nativeElement.getAttribute('data-p-test')).toBe('true');
             });
 
             it('should apply object with aria-label to toggleButton', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('toggleable', true);
                 ptFixture.componentRef.setInput('pt', {
                     toggleButton: {
@@ -840,11 +887,13 @@ describe('Fieldset', () => {
                 ptFixture.detectChanges();
 
                 const toggleButton = ptFixture.debugElement.query(By.css('button[role="button"]'));
+
                 expect(toggleButton.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
             });
 
             it('should apply multiple object properties to content', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     content: {
                         class: 'CONTENT_OBJECT_CLASS',
@@ -856,6 +905,7 @@ describe('Fieldset', () => {
                 ptFixture.detectChanges();
 
                 const contentElement = ptFixture.debugElement.query(By.css('.p-fieldset-content'));
+
                 expect(contentElement?.nativeElement.className).toContain('CONTENT_OBJECT_CLASS');
                 expect(contentElement?.nativeElement.style.color).toBe('blue');
                 expect(contentElement?.nativeElement.getAttribute('data-test')).toBe('value');
@@ -866,6 +916,7 @@ describe('Fieldset', () => {
         describe('Case 3: Mixed object and string values', () => {
             it('should apply mixed object and string values to different sections', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         class: 'ROOT_OBJECT_CLASS'
@@ -883,6 +934,7 @@ describe('Fieldset', () => {
 
             it('should handle string for legend and object for content', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     legend: 'LEGEND_STRING_CLASS',
                     content: {
@@ -904,68 +956,68 @@ describe('Fieldset', () => {
         describe('Case 4: Use variables from instance', () => {
             it('should use instance toggleable property in PT function', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('toggleable', true);
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
-                        return {
-                            class: instance.toggleable ? 'TOGGLEABLE_CLASS' : ''
-                        };
-                    }
+                    root: ({ instance }) => ({
+                        class: instance.toggleable ? 'TOGGLEABLE_CLASS' : ''
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 expect(rootElement.nativeElement.className).toContain('TOGGLEABLE_CLASS');
             });
 
             it('should use instance collapsed property in PT function', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('collapsed', true);
                 ptFixture.componentRef.setInput('pt', {
-                    content: ({ instance }) => {
-                        return {
-                            style: {
-                                'border-color': instance.collapsed ? 'yellow' : 'red'
-                            }
-                        };
-                    }
+                    content: ({ instance }) => ({
+                        style: {
+                            'border-color': instance.collapsed ? 'yellow' : 'red'
+                        }
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const contentElement = ptFixture.debugElement.query(By.css('.p-fieldset-content'));
+
                 expect(contentElement?.nativeElement.style.borderColor).toBe('yellow');
             });
 
             it('should use instance legend property in PT function', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('legend', 'Test Legend');
                 ptFixture.componentRef.setInput('pt', {
-                    legendLabel: ({ instance }) => {
-                        return {
-                            class: instance.legend ? 'HAS_LEGEND' : ''
-                        };
-                    }
+                    legendLabel: ({ instance }) => ({
+                        class: instance.legend ? 'HAS_LEGEND' : ''
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const legendLabel = ptFixture.debugElement.query(By.css('.p-fieldset-legend-label'));
+
                 expect(legendLabel?.nativeElement.className).toContain('HAS_LEGEND');
             });
 
             it('should use multiple instance properties in PT function', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('toggleable', true);
                 ptFixture.componentRef.setInput('collapsed', false);
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
-                        return {
-                            class: instance.toggleable && !instance.collapsed ? 'EXPANDED_TOGGLEABLE' : ''
-                        };
-                    }
+                    root: ({ instance }) => ({
+                        class: instance.toggleable && !instance.collapsed ? 'EXPANDED_TOGGLEABLE' : ''
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 expect(rootElement.nativeElement.className).toContain('EXPANDED_TOGGLEABLE');
             });
         });
@@ -974,6 +1026,7 @@ describe('Fieldset', () => {
             it('should bind onclick event via PT', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
                 let clicked = false;
+
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
@@ -984,6 +1037,7 @@ describe('Fieldset', () => {
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 rootElement.nativeElement.click();
                 expect(clicked).toBe(true);
             });
@@ -991,6 +1045,7 @@ describe('Fieldset', () => {
             it('should bind onclick event to legend via PT', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
                 let legendClicked = false;
+
                 ptFixture.componentRef.setInput('pt', {
                     legend: {
                         onclick: () => {
@@ -1001,6 +1056,7 @@ describe('Fieldset', () => {
                 ptFixture.detectChanges();
 
                 const legendElement = ptFixture.debugElement.query(By.css('legend'));
+
                 legendElement.nativeElement.click();
                 expect(legendClicked).toBe(true);
             });
@@ -1008,19 +1064,19 @@ describe('Fieldset', () => {
             it('should bind onclick event with instance reference', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
                 let instanceLegend = '';
+
                 ptFixture.componentRef.setInput('legend', 'My Fieldset');
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
-                        return {
-                            onclick: () => {
-                                instanceLegend = instance.legend || '';
-                            }
-                        };
-                    }
+                    root: ({ instance }) => ({
+                        onclick: () => {
+                            instanceLegend = instance.legend || '';
+                        }
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 rootElement.nativeElement.click();
                 expect(instanceLegend).toBe('My Fieldset');
             });
@@ -1042,10 +1098,12 @@ describe('Fieldset', () => {
                 });
 
                 const inlineFixture = TestBed.createComponent(TestInlinePTStringComponent);
+
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const fieldsetElement = inlineFixture.debugElement.query(By.css('fieldset'));
+
                 expect(fieldsetElement.nativeElement.className).toContain('INLINE_ROOT_CLASS');
             });
 
@@ -1064,10 +1122,12 @@ describe('Fieldset', () => {
                 });
 
                 const inlineFixture = TestBed.createComponent(TestInlinePTObjectComponent);
+
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const fieldsetElement = inlineFixture.debugElement.query(By.css('fieldset'));
+
                 expect(fieldsetElement.nativeElement.className).toContain('INLINE_OBJECT_CLASS');
             });
         });
@@ -1103,9 +1163,11 @@ describe('Fieldset', () => {
 
             it('should apply global PT configuration from PrimeNG config', () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 globalFixture.detectChanges();
 
                 const fieldsets = globalFixture.debugElement.queryAll(By.css('fieldset'));
+
                 expect(fieldsets.length).toBe(2);
 
                 fieldsets.forEach((fieldset) => {
@@ -1115,9 +1177,11 @@ describe('Fieldset', () => {
 
             it('should apply global PT to multiple instances of the component', () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 globalFixture.detectChanges();
 
                 const legends = globalFixture.debugElement.queryAll(By.css('legend'));
+
                 legends.forEach((legend) => {
                     expect(legend.nativeElement.className).toContain('GLOBAL_LEGEND_CLASS');
                 });
@@ -1137,10 +1201,12 @@ describe('Fieldset', () => {
                 });
 
                 const mergedFixture = TestBed.createComponent(TestMergedPTComponent);
+
                 mergedFixture.changeDetectorRef.markForCheck();
                 await mergedFixture.whenStable();
 
                 const fieldsetElement = mergedFixture.debugElement.query(By.css('fieldset'));
+
                 expect(fieldsetElement.nativeElement.className).toContain('LOCAL_CLASS');
                 expect(fieldsetElement.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
             });
@@ -1149,34 +1215,40 @@ describe('Fieldset', () => {
         describe('Case 8: PT configuration', () => {
             it('should apply PT with root class configuration', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: 'MY_FIELDSET'
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 expect(rootElement.nativeElement.className).toContain('MY_FIELDSET');
             });
 
             it('should apply PT with legend class configuration', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     legend: 'LEGEND_CLASS'
                 });
                 ptFixture.detectChanges();
 
                 const legendElement = ptFixture.debugElement.query(By.css('legend'));
+
                 expect(legendElement.nativeElement.className).toContain('LEGEND_CLASS');
             });
 
             it('should handle PT configuration changes', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: 'INITIAL_PT_CLASS'
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 expect(rootElement.nativeElement.className).toContain('INITIAL_PT_CLASS');
 
                 ptFixture.componentRef.setInput('pt', {
@@ -1190,10 +1262,12 @@ describe('Fieldset', () => {
         describe('PT Complex Scenarios', () => {
             it('should handle PT updates dynamically', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', { root: 'INITIAL_CLASS' });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 expect(rootElement.nativeElement.className).toContain('INITIAL_CLASS');
 
                 ptFixture.componentRef.setInput('pt', { root: 'UPDATED_CLASS' });
@@ -1204,18 +1278,21 @@ describe('Fieldset', () => {
 
             it('should combine PT with component inputs', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('toggleable', true);
                 ptFixture.componentRef.setInput('collapsed', false);
                 ptFixture.componentRef.setInput('pt', { root: 'CUSTOM_PT_CLASS' });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('fieldset'));
+
                 expect(rootElement.nativeElement.className).toContain('CUSTOM_PT_CLASS');
                 expect(rootElement.nativeElement.className).toContain('p-fieldset');
             });
 
             it('should apply PT to all sections simultaneously', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: 'PT_ROOT',
                     legend: 'PT_LEGEND',
@@ -1234,6 +1311,7 @@ describe('Fieldset', () => {
 
             it('should apply PT to toggleButton when toggleable', () => {
                 const ptFixture = TestBed.createComponent(Fieldset);
+
                 ptFixture.componentRef.setInput('toggleable', true);
                 ptFixture.componentRef.setInput('pt', {
                     toggleButton: 'TOGGLE_BUTTON_CLASS'
@@ -1241,6 +1319,7 @@ describe('Fieldset', () => {
                 ptFixture.detectChanges();
 
                 const toggleButton = ptFixture.debugElement.query(By.css('button[role="button"]'));
+
                 expect(toggleButton.nativeElement.className).toContain('TOGGLE_BUTTON_CLASS');
             });
         });

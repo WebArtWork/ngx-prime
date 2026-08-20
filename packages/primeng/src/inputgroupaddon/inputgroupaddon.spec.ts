@@ -226,6 +226,7 @@ describe('InputGroupAddon PassThrough Tests', () => {
     describe('PT Case 5: Event binding', () => {
         it('should handle onclick event through PT', (done) => {
             let clicked = false;
+
             fixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
@@ -260,9 +261,11 @@ describe('InputGroupAddon PassThrough Tests', () => {
             }).compileComponents();
 
             const globalFixture = TestBed.createComponent(InputGroupAddon);
+
             globalFixture.detectChanges();
 
             const globalHostElement = globalFixture.nativeElement;
+
             expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
             expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_LABEL');
         });
@@ -271,6 +274,7 @@ describe('InputGroupAddon PassThrough Tests', () => {
     describe('PT Case 7: Lifecycle hooks', () => {
         it('should support lifecycle hooks', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [InputGroupAddon, FormsModule],
@@ -299,6 +303,7 @@ describe('InputGroupAddon PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(InputGroupAddon);
+
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');

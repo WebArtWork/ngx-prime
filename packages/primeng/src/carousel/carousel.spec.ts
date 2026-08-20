@@ -20,7 +20,6 @@ const mockProducts = [
 
 // Test Components for different scenarios
 @Component({
-    standalone: false,
     template: `
         <p-carousel
             [value]="products"
@@ -52,7 +51,8 @@ const mockProducts = [
                 </div>
             </ng-template>
         </p-carousel>
-    `
+    `,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule]
 })
 class TestBasicCarouselComponent {
     products: any[] = mockProducts;
@@ -84,42 +84,42 @@ class TestBasicCarouselComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [circular]="true">
             <ng-template let-product #item>
                 <div class="circular-item">{{ product.name }}</div>
             </ng-template>
         </p-carousel>
-    `
+    `,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule]
 })
 class TestCircularCarouselComponent {
     products: any[] = mockProducts;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-carousel [value]="products" [orientation]="'vertical'" [verticalViewPortHeight]="'400px'">
             <ng-template let-product #item>
                 <div class="vertical-item">{{ product.name }}</div>
             </ng-template>
         </p-carousel>
-    `
+    `,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule]
 })
 class TestVerticalCarouselComponent {
     products: any[] = mockProducts;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-carousel [value]="products" [responsiveOptions]="responsiveOptions">
             <ng-template let-product #item>
                 <div class="responsive-item">{{ product.name }}</div>
             </ng-template>
         </p-carousel>
-    `
+    `,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule]
 })
 class TestResponsiveCarouselComponent {
     products: any[] = mockProducts;
@@ -131,21 +131,20 @@ class TestResponsiveCarouselComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-carousel [value]="products" [autoplayInterval]="1000">
             <ng-template let-product #item>
                 <div class="autoplay-item">{{ product.name }}</div>
             </ng-template>
         </p-carousel>
-    `
+    `,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule]
 })
 class TestAutoplayCarouselComponent {
     products: any[] = mockProducts;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-carousel [value]="products" [numVisible]="3">
             <ng-template #header>
@@ -158,14 +157,14 @@ class TestAutoplayCarouselComponent {
                 <div class="custom-footer">Footer Content</div>
             </ng-template>
         </p-carousel>
-    `
+    `,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule]
 })
 class TestTemplateCarouselComponent {
     products: any[] = mockProducts;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-carousel [value]="products">
             <ng-template pTemplate="header">
@@ -178,7 +177,8 @@ class TestTemplateCarouselComponent {
                 <div class="ptemplate-footer">PTemplate Footer</div>
             </ng-template>
         </p-carousel>
-    `
+    `,
+    imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule]
 })
 class TestPTemplateCarouselComponent {
     products: any[] = mockProducts;
@@ -194,8 +194,20 @@ describe('Carousel', () => {
         });
 
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
-            declarations: [TestBasicCarouselComponent, TestCircularCarouselComponent, TestVerticalCarouselComponent, TestResponsiveCarouselComponent, TestAutoplayCarouselComponent, TestTemplateCarouselComponent, TestPTemplateCarouselComponent],
+            imports: [
+                CommonModule,
+                Carousel,
+                SharedModule,
+                PrimeTemplate,
+                ButtonModule,
+                TestBasicCarouselComponent,
+                TestCircularCarouselComponent,
+                TestVerticalCarouselComponent,
+                TestResponsiveCarouselComponent,
+                TestAutoplayCarouselComponent,
+                TestTemplateCarouselComponent,
+                TestPTemplateCarouselComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -211,6 +223,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -271,6 +284,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -338,11 +352,13 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
         it('should navigate forward', () => {
             const mockEvent = new MouseEvent('click');
+
             spyOn(component, 'onPage');
 
             carouselInstance.navForward(mockEvent);
@@ -352,6 +368,7 @@ describe('Carousel', () => {
 
         it('should navigate backward', () => {
             const mockEvent = new MouseEvent('click');
+
             spyOn(component, 'onPage');
 
             // Move to page 1 first
@@ -363,6 +380,7 @@ describe('Carousel', () => {
 
         it('should handle dot click navigation', () => {
             const mockEvent = new MouseEvent('click');
+
             spyOn(carouselInstance, 'navForward');
 
             carouselInstance.onDotClick(mockEvent, 1);
@@ -393,6 +411,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -426,6 +445,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -458,6 +478,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -496,6 +517,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -543,6 +565,7 @@ describe('Carousel', () => {
 
         it('should render custom header template', () => {
             const headerContent = fixture.debugElement.query(By.css('.custom-header'));
+
             if (headerContent) {
                 expect(headerContent.nativeElement.textContent).toContain('Header Content');
             }
@@ -550,6 +573,7 @@ describe('Carousel', () => {
 
         it('should render custom footer template', () => {
             const footerContent = fixture.debugElement.query(By.css('.custom-footer'));
+
             if (footerContent) {
                 expect(footerContent.nativeElement.textContent).toContain('Footer Content');
             }
@@ -557,6 +581,7 @@ describe('Carousel', () => {
 
         it('should render item template for each product', () => {
             const productItems = fixture.debugElement.queryAll(By.css('.template-item'));
+
             // Items might not be rendered in test environment, so check if they exist
             if (productItems.length > 0) {
                 expect(productItems.length).toBeGreaterThan(0);
@@ -575,6 +600,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -593,6 +619,7 @@ describe('Carousel', () => {
             if (ptemplateHeader) {
                 expect(ptemplateHeader.nativeElement.textContent).toContain('PTemplate Header');
             }
+
             if (ptemplateFooter) {
                 expect(ptemplateFooter.nativeElement.textContent).toContain('PTemplate Footer');
             }
@@ -610,6 +637,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -662,6 +690,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -701,6 +730,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -728,6 +758,7 @@ describe('Carousel', () => {
 
         it('should have proper CSS structure', () => {
             const carouselRoot = fixture.debugElement.query(By.css('p-carousel'));
+
             expect(carouselRoot).toBeTruthy();
 
             // Check for main structural elements
@@ -754,6 +785,7 @@ describe('Carousel', () => {
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -794,6 +826,7 @@ describe('Carousel', () => {
 
         it('should have ARIA labels on navigation buttons', () => {
             const prevButton = fixture.debugElement.query(By.css('p-button[aria-label]'));
+
             if (prevButton) {
                 expect(prevButton.nativeElement.getAttribute('aria-label')).toBeTruthy();
             }
@@ -801,6 +834,7 @@ describe('Carousel', () => {
 
         it('should have proper ARIA attributes on indicators', () => {
             const indicators = fixture.debugElement.queryAll(By.css('button[aria-label]'));
+
             if (indicators.length > 0) {
                 indicators.forEach((indicator) => {
                     expect(indicator.nativeElement.getAttribute('aria-label')).toBeTruthy();
@@ -810,6 +844,7 @@ describe('Carousel', () => {
 
         it('should handle aria-live attribute correctly', () => {
             const content = fixture.debugElement.query(By.css('[aria-live]'));
+
             if (content) {
                 expect(['polite', 'off']).toContain(content.nativeElement.getAttribute('aria-live'));
             }
@@ -836,6 +871,7 @@ describe('Carousel', () => {
             fixture.detectChanges();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -878,6 +914,7 @@ describe('Carousel', () => {
             fixture.detectChanges();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
+
             carouselInstance = carouselEl.componentInstance as Carousel;
         });
 
@@ -966,6 +1003,7 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const headerElement = fixture.debugElement.query(By.css('[class*="header"]'));
+
                 if (headerElement) {
                     expect(headerElement.nativeElement.className).toContain('HEADER_CLASS');
                 }
@@ -977,6 +1015,7 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const footerElement = fixture.debugElement.query(By.css('[class*="footer"]'));
+
                 if (footerElement) {
                     expect(footerElement.nativeElement.className).toContain('FOOTER_CLASS');
                 }
@@ -987,6 +1026,7 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const contentContainerElement = fixture.debugElement.query(By.css('[class*="contentContainer"]'));
+
                 if (contentContainerElement) {
                     expect(contentContainerElement.nativeElement.className).toContain('CONTENT_CONTAINER_CLASS');
                 }
@@ -997,6 +1037,7 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const contentElement = fixture.debugElement.query(By.css('[aria-live]'));
+
                 if (contentElement) {
                     expect(contentElement.nativeElement.className).toContain('CONTENT_CLASS');
                 }
@@ -1008,6 +1049,7 @@ describe('Carousel', () => {
 
                 const viewportElements = fixture.debugElement.queryAll(By.css('div'));
                 const viewportElement = viewportElements.find((el) => el.nativeElement.className.includes('viewport'));
+
                 if (viewportElement) {
                     expect(viewportElement.nativeElement.className).toContain('VIEWPORT_CLASS');
                 }
@@ -1019,6 +1061,7 @@ describe('Carousel', () => {
 
                 const itemListElements = fixture.debugElement.queryAll(By.css('div'));
                 const itemListElement = itemListElements.find((el) => el.nativeElement.className.includes('itemList'));
+
                 if (itemListElement) {
                     expect(itemListElement.nativeElement.className).toContain('ITEM_LIST_CLASS');
                 }
@@ -1029,6 +1072,7 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const indicatorListElement = fixture.debugElement.query(By.css('ul'));
+
                 if (indicatorListElement) {
                     expect(indicatorListElement.nativeElement.className).toContain('INDICATOR_LIST_CLASS');
                 }
@@ -1059,6 +1103,7 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const rootElement = fixture.nativeElement;
+
                 expect(rootElement.className).toContain('ROOT_OBJECT_CLASS');
                 expect(rootElement.style.backgroundColor).toBe('red');
                 expect(rootElement.getAttribute('data-p-test')).toBe('true');
@@ -1074,6 +1119,7 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const contentElement = fixture.debugElement.query(By.css('[aria-live]'));
+
                 if (contentElement) {
                     expect(contentElement.nativeElement.style.padding).toBe('20px');
                 }
@@ -1089,6 +1135,7 @@ describe('Carousel', () => {
 
                 const viewportElements = fixture.debugElement.queryAll(By.css('div'));
                 const viewportElement = viewportElements.find((el) => el.nativeElement.className.includes('viewport'));
+
                 if (viewportElement) {
                     expect(viewportElement.nativeElement.getAttribute('data-testid')).toBe('carousel-viewport');
                 }
@@ -1122,15 +1169,18 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const rootElement = fixture.nativeElement;
+
                 // PT object format may have different class application
                 expect(rootElement).toBeTruthy();
 
                 const headerElement = fixture.debugElement.query(By.css('[class*="header"]'));
+
                 if (headerElement) {
                     expect(headerElement.nativeElement.className).toContain('HEADER_STRING_CLASS');
                 }
 
                 const contentElement = fixture.debugElement.query(By.css('[aria-live]'));
+
                 if (contentElement) {
                     expect(contentElement.nativeElement.className).toContain('CONTENT_MIXED_CLASS');
                     expect(contentElement.nativeElement.style.margin).toBe('10px');
@@ -1202,6 +1252,7 @@ describe('Carousel', () => {
 
             it('should bind click event through PT', () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     content: {
                         onclick: () => {
@@ -1212,6 +1263,7 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const contentElement = fixture.debugElement.query(By.css('[aria-live]'));
+
                 if (contentElement) {
                     contentElement.nativeElement.click();
                     expect(clicked).toBe(true);
@@ -1220,6 +1272,7 @@ describe('Carousel', () => {
 
             it('should accept PT configuration with event handlers', () => {
                 let capturedPage: number | undefined;
+
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => ({
                         onclick: () => {
@@ -1267,12 +1320,14 @@ describe('Carousel', () => {
 
             it('should apply global PT from PrimeNGConfig', () => {
                 const rootElement = fixture.nativeElement;
+
                 expect(rootElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
                 expect(rootElement.className).toContain('GLOBAL_CAROUSEL_CLASS');
             });
 
             it('should apply global PT to nested elements', () => {
                 const contentElement = fixture.debugElement.query(By.css('[aria-live]'));
+
                 if (contentElement) {
                     expect(contentElement.nativeElement.className).toContain('GLOBAL_CONTENT_CLASS');
                 }
@@ -1336,9 +1391,11 @@ describe('Carousel', () => {
 
                 // Items with context should have appropriate classes
                 const items = fixture.debugElement.queryAll(By.css('[role="group"]'));
+
                 if (items.length > 0) {
                     // At least one item should have ACTIVE_ITEM class
                     const hasActiveItem = items.some((item) => item.nativeElement.className.includes('ACTIVE_ITEM'));
+
                     expect(hasActiveItem).toBe(true);
                 }
             });
@@ -1354,9 +1411,11 @@ describe('Carousel', () => {
                 fixture.detectChanges();
 
                 const indicators = fixture.debugElement.queryAll(By.css('[data-pc-section="indicator"]'));
+
                 if (indicators.length > 0) {
                     // The first indicator should be highlighted by default
                     const firstIndicator = indicators[0];
+
                     expect(firstIndicator.nativeElement.className).toContain('HIGHLIGHTED_INDICATOR');
                 }
             });

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, Input, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -104,6 +103,7 @@ export class BadgeDirective extends BaseComponent {
         super();
         effect(() => {
             const pt = this.ptBadgeDirective() || this.pBadgePT();
+
             pt && this.directivePT.set(pt);
         });
 
@@ -172,6 +172,7 @@ export class BadgeDirective extends BaseComponent {
 
         badge.textContent = '';
         const badgeValue = this.value != null ? String(this.value) : '';
+
         this.renderer.appendChild(badge, this.document.createTextNode(badgeValue));
     }
 
@@ -215,6 +216,7 @@ export class BadgeDirective extends BaseComponent {
 
         const el = this.activeElement;
         const badge = <HTMLElement>createElement('span', { class: this.cx('root'), id: this.id, 'p-bind': this.ptm('root') });
+
         this.setSeverity(null, badge);
         this.setSizeClasses(badge);
         this.setValue(badge);
@@ -230,6 +232,7 @@ export class BadgeDirective extends BaseComponent {
                 this.renderer.setStyle(this.badgeEl, key, value);
             }
         }
+
         if (this.badgeEl && this.badgeStyleClass) {
             this.badgeEl.classList.add(...this.badgeStyleClass.split(' '));
         }
@@ -275,7 +278,7 @@ export class BadgeDirective extends BaseComponent {
     selector: 'p-badge',
     template: `{{ value() }}`,
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [BadgeStyle, { provide: BADGE_INSTANCE, useExisting: Badge }, { provide: PARENT_INSTANCE, useExisting: Badge }],

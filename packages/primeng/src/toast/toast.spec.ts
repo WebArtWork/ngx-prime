@@ -9,7 +9,6 @@ import { Toast, ToastItem } from './toast';
 
 // Test Components for different scenarios
 @Component({
-    standalone: false,
     template: `
         <p-toast
             [key]="key"
@@ -28,7 +27,8 @@ import { Toast, ToastItem } from './toast';
             (onClose)="onClose($event)"
         >
         </p-toast>
-    `
+    `,
+    imports: [CommonModule, Toast, SharedModule, PrimeTemplate]
 })
 class TestBasicToastComponent {
     key: string | undefined = 'test';
@@ -52,7 +52,6 @@ class TestBasicToastComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-toast [key]="'template-test'">
             <ng-template #message let-message>
@@ -62,12 +61,12 @@ class TestBasicToastComponent {
                 </div>
             </ng-template>
         </p-toast>
-    `
+    `,
+    imports: [CommonModule, Toast, SharedModule, PrimeTemplate]
 })
 class TestMessageTemplateComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-toast [key]="'headless-test'">
             <ng-template #headless let-message let-closeFn="closeFn">
@@ -77,12 +76,12 @@ class TestMessageTemplateComponent {}
                 </div>
             </ng-template>
         </p-toast>
-    `
+    `,
+    imports: [CommonModule, Toast, SharedModule, PrimeTemplate]
 })
 class TestHeadlessTemplateComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-toast [key]="'ptemplate-test'">
             <ng-template pTemplate="message" let-message>
@@ -98,13 +97,14 @@ class TestHeadlessTemplateComponent {}
                 </div>
             </ng-template>
         </p-toast>
-    `
+    `,
+    imports: [CommonModule, Toast, SharedModule, PrimeTemplate]
 })
 class TestPTemplateComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <p-toast [key]="'position-test'" [position]="position"> </p-toast> `
+    template: ` <p-toast [key]="'position-test'" [position]="position"> </p-toast> `,
+    imports: [CommonModule, Toast, SharedModule, PrimeTemplate]
 })
 class TestPositionComponent {
     position: any = 'top-left';
@@ -115,8 +115,7 @@ describe('Toast', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Toast, SharedModule, PrimeTemplate],
-            declarations: [TestBasicToastComponent, TestMessageTemplateComponent, TestHeadlessTemplateComponent, TestPTemplateComponent, TestPositionComponent],
+            imports: [CommonModule, Toast, SharedModule, PrimeTemplate, TestBasicToastComponent, TestMessageTemplateComponent, TestHeadlessTemplateComponent, TestPTemplateComponent, TestPositionComponent],
             providers: [MessageService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -136,6 +135,7 @@ describe('Toast', () => {
         it('should create the component', () => {
             expect(component).toBeTruthy();
             const toast = fixture.debugElement.query(By.css('p-toast'));
+
             expect(toast).toBeTruthy();
         });
 
@@ -191,6 +191,7 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
+
             toastInstance = toastEl.componentInstance as Toast;
         });
 
@@ -215,6 +216,7 @@ describe('Toast', () => {
             };
 
             const result = toastInstance.canAdd(message);
+
             expect(result).toBe(true);
         });
 
@@ -227,6 +229,7 @@ describe('Toast', () => {
             };
 
             const result = toastInstance.canAdd(message);
+
             expect(result).toBe(false);
         });
 
@@ -266,6 +269,7 @@ describe('Toast', () => {
             toastInstance.onMessageClose({ index: 0, message });
 
             const canAddDuplicate = toastInstance.canAdd(message);
+
             expect(canAddDuplicate).toBe(false);
         });
 
@@ -307,6 +311,7 @@ describe('Toast', () => {
             spyOn(messageService.clearObserver, 'subscribe').and.callThrough();
 
             const newFixture = TestBed.createComponent(TestBasicToastComponent);
+
             newFixture.detectChanges();
 
             expect(messageService.messageObserver.subscribe).toHaveBeenCalled();
@@ -365,6 +370,7 @@ describe('Toast', () => {
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
+
             expect(toastInstance.messages?.length).toBe(1);
 
             spyOn(toastInstance, 'clearAll').and.callThrough();
@@ -391,6 +397,7 @@ describe('Toast', () => {
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
+
             expect(toastInstance.messages?.length).toBe(1);
 
             spyOn(toastInstance, 'clearAll').and.callThrough();
@@ -497,12 +504,15 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const customMessage = fixture.debugElement.query(By.css('.custom-message'));
+
             expect(customMessage).toBeTruthy();
 
             const customSummary = fixture.debugElement.query(By.css('.custom-summary'));
+
             expect(customSummary.nativeElement.textContent).toContain('Template Test');
 
             const customDetail = fixture.debugElement.query(By.css('.custom-detail'));
+
             expect(customDetail.nativeElement.textContent).toContain('Custom template message');
         });
     });
@@ -531,9 +541,11 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const customHeadless = fixture.debugElement.query(By.css('.custom-headless'));
+
             expect(customHeadless).toBeTruthy();
 
             const headlessContent = fixture.debugElement.query(By.css('.headless-content'));
+
             expect(headlessContent.nativeElement.textContent).toContain('Headless Test');
         });
 
@@ -552,9 +564,11 @@ describe('Toast', () => {
 
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
+
             spyOn(toastInstance, 'onMessageClose');
 
             const closeButton = fixture.debugElement.query(By.css('.headless-close'));
+
             expect(closeButton).toBeTruthy();
 
             closeButton.nativeElement.click();
@@ -567,6 +581,7 @@ describe('Toast', () => {
             // Get ToastItem and trigger animation end via onAfterLeave
             const toastItemEl = fixture.debugElement.query(By.css('p-toastitem'));
             const toastItemInstance = toastItemEl.componentInstance;
+
             // Simulate motion animation ending by calling onAfterLeave
             toastItemInstance.onAfterLeave({ element: toastItemEl.nativeElement });
 
@@ -611,13 +626,16 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const ptemplateMessage = fixture.debugElement.query(By.css('.ptemplate-message'));
+
             if (ptemplateMessage) {
                 const ptemplateIcon = fixture.debugElement.query(By.css('.ptemplate-icon'));
+
                 if (ptemplateIcon) {
                     expect(ptemplateIcon.nativeElement.textContent).toBe('📢');
                 }
 
                 const ptemplateText = fixture.debugElement.query(By.css('.ptemplate-text'));
+
                 if (ptemplateText) {
                     expect(ptemplateText.nativeElement.textContent).toContain('PTemplate Test');
                 }
@@ -674,8 +692,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [CommonModule, Toast, SharedModule, PrimeTemplate],
-                declarations: [TestBasicToastComponent],
+                imports: [CommonModule, Toast, SharedModule, PrimeTemplate, TestBasicToastComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -688,6 +705,7 @@ describe('Toast', () => {
         it('should handle animation start events', () => {
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
+
             spyOn(toastInstance, 'onAnimationStart');
 
             const mockAnimationEvent = {
@@ -702,6 +720,7 @@ describe('Toast', () => {
         it('should handle animation end events', () => {
             const toastEl = fixture.debugElement.query(By.css('p-toast'));
             const toastInstance = toastEl.componentInstance as Toast;
+
             spyOn(toastInstance, 'onAnimationEnd');
 
             toastInstance.onAnimationEnd();
@@ -751,6 +770,7 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
 
             const canAdd = toastInstance.canAdd(message);
+
             expect(canAdd).toBe(true);
         });
 
@@ -816,6 +836,7 @@ describe('Toast', () => {
 
         it('should handle multiple component instances', async () => {
             const fixture2 = TestBed.createComponent(TestBasicToastComponent);
+
             fixture2.componentInstance.key = 'test2';
             fixture2.changeDetectorRef.markForCheck();
             await fixture2.whenStable();
@@ -835,8 +856,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 1: Simple string classes', () => {
         @Component({
-            standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `,
+            imports: [Toast]
         })
         class TestToastPtComponent {
             pt: any = {};
@@ -848,8 +869,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtComponent],
+                imports: [Toast, TestToastPtComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -865,6 +885,7 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
+
             expect(toastElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
         });
 
@@ -875,14 +896,15 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
+
             expect(toastElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
         });
     });
 
     describe('Toast PassThrough - Case 2: Objects', () => {
         @Component({
-            standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `,
+            imports: [Toast]
         })
         class TestToastPtObjectComponent {
             pt: any = {};
@@ -894,8 +916,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtObjectComponent],
+                imports: [Toast, TestToastPtObjectComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -917,6 +938,7 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
+
             expect(toastElement.nativeElement.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
             expect(toastElement.nativeElement.style.border).toBe('1px solid red');
             expect(toastElement.nativeElement.getAttribute('data-p-test')).toBe('true');
@@ -935,6 +957,7 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
+
             expect(toastElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
             expect(toastElement.nativeElement.style.backgroundColor).toBe('yellow');
             expect(toastElement.nativeElement.getAttribute('aria-label')).toBe('TOAST_CONTAINER');
@@ -943,8 +966,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 3: Mixed object and string values', () => {
         @Component({
-            standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `,
+            imports: [Toast]
         })
         class TestToastPtMixedComponent {
             pt: any = {};
@@ -956,8 +979,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtMixedComponent],
+                imports: [Toast, TestToastPtMixedComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -979,6 +1001,7 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
+
             expect(toastElement.nativeElement.classList.contains('HOST_MIXED_CLASS')).toBe(true);
             expect(toastElement.nativeElement.classList.contains('ROOT_STRING_CLASS')).toBe(true);
             expect(toastElement.nativeElement.style.padding).toBe('10px');
@@ -987,8 +1010,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 4: Use variables from instance', () => {
         @Component({
-            standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [position]="position" [pt]="pt"></p-toast> `
+            template: ` <p-toast [key]="'pt-test'" [position]="position" [pt]="pt"></p-toast> `,
+            imports: [Toast]
         })
         class TestToastPtInstanceComponent {
             pt: any = {};
@@ -1001,8 +1024,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtInstanceComponent],
+                imports: [Toast, TestToastPtInstanceComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1014,14 +1036,12 @@ describe('Toast', () => {
         it('should apply pt based on instance position', async () => {
             component.position = 'bottom-left';
             component.pt = {
-                host: ({ instance }: any) => {
-                    return {
-                        class: {
-                            POSITION_BOTTOM_LEFT: instance?.position === 'bottom-left',
-                            POSITION_TOP_RIGHT: instance?.position === 'top-right'
-                        }
-                    };
-                }
+                host: ({ instance }: any) => ({
+                    class: {
+                        POSITION_BOTTOM_LEFT: instance?.position === 'bottom-left',
+                        POSITION_TOP_RIGHT: instance?.position === 'top-right'
+                    }
+                })
             };
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1041,27 +1061,26 @@ describe('Toast', () => {
 
         it('should apply pt style based on instance life', async () => {
             component.pt = {
-                root: ({ instance }: any) => {
-                    return {
-                        style: {
-                            opacity: instance?.life > 2000 ? '1' : '0.5'
-                        }
-                    };
-                }
+                root: ({ instance }: any) => ({
+                    style: {
+                        opacity: instance?.life > 2000 ? '1' : '0.5'
+                    }
+                })
             };
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
+
             expect(toastElement.nativeElement.style.opacity).toBe('1');
         });
     });
 
     describe('Toast PassThrough - Case 5: Event binding', () => {
         @Component({
-            standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `,
+            imports: [Toast]
         })
         class TestToastPtEventComponent {
             pt: any = {};
@@ -1073,8 +1092,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtEventComponent],
+                imports: [Toast, TestToastPtEventComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1098,6 +1116,7 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
+
             toastElement.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1120,6 +1139,7 @@ describe('Toast', () => {
             fixture.detectChanges();
 
             const toastElement = fixture.debugElement.query(By.css('p-toast'));
+
             toastElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1130,44 +1150,46 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 6: Inline test', () => {
         @Component({
-            standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-toast> `
+            template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-toast> `,
+            imports: [Toast]
         })
         class TestToastInlineStringPtComponent {}
 
         @Component({
-            standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-toast> `
+            template: ` <p-toast [key]="'pt-test'" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-toast> `,
+            imports: [Toast]
         })
         class TestToastInlineObjectPtComponent {}
 
         it('should apply inline pt with string class', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastInlineStringPtComponent],
+                imports: [Toast, TestToastInlineStringPtComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestToastInlineStringPtComponent);
+
             testFixture.detectChanges();
 
             const toastElement = testFixture.debugElement.query(By.css('p-toast'));
+
             expect(toastElement.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
         });
 
         it('should apply inline pt with object', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastInlineObjectPtComponent],
+                imports: [Toast, TestToastInlineObjectPtComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestToastInlineObjectPtComponent);
+
             testFixture.detectChanges();
 
             const toastElement = testFixture.debugElement.query(By.css('p-toast'));
+
             expect(toastElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(toastElement.nativeElement.style.border).toBe('2px solid green');
         });
@@ -1175,19 +1197,18 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 7: Test from PrimeNGConfig', () => {
         @Component({
-            standalone: false,
             template: `
                 <p-toast [key]="'toast1'"></p-toast>
                 <p-toast [key]="'toast2'"></p-toast>
-            `
+            `,
+            imports: [Toast]
         })
         class TestToastGlobalPtComponent {}
 
         it('should apply global pt configuration from PrimeNGConfig', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastGlobalPtComponent],
+                imports: [Toast, TestToastGlobalPtComponent],
                 providers: [
                     MessageService,
                     provideZonelessChangeDetection(),
@@ -1203,9 +1224,11 @@ describe('Toast', () => {
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestToastGlobalPtComponent);
+
             testFixture.detectChanges();
 
             const toasts = testFixture.debugElement.queryAll(By.css('p-toast'));
+
             expect(toasts.length).toBe(2);
 
             toasts.forEach((toast) => {
@@ -1216,15 +1239,14 @@ describe('Toast', () => {
 
         it('should merge local pt with global pt configuration', async () => {
             @Component({
-                standalone: false,
-                template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-toast> `
+                template: ` <p-toast [key]="'pt-test'" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-toast> `,
+                imports: [Toast]
             })
             class TestToastMergedPtComponent {}
 
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastMergedPtComponent],
+                imports: [Toast, TestToastMergedPtComponent],
                 providers: [
                     MessageService,
                     provideZonelessChangeDetection(),
@@ -1239,9 +1261,11 @@ describe('Toast', () => {
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestToastMergedPtComponent);
+
             testFixture.detectChanges();
 
             const toastElement = testFixture.debugElement.query(By.css('p-toast'));
+
             // Local pt should override global pt
             expect(toastElement.nativeElement.classList.contains('LOCAL_HOST_CLASS')).toBe(true);
             expect(toastElement.nativeElement.classList.contains('LOCAL_ROOT_CLASS')).toBe(true);
@@ -1250,8 +1274,8 @@ describe('Toast', () => {
 
     describe('Toast PassThrough - Case 8: Test hooks', () => {
         @Component({
-            standalone: false,
-            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `
+            template: ` <p-toast [key]="'pt-test'" [pt]="pt"></p-toast> `,
+            imports: [Toast]
         })
         class TestToastPtHooksComponent {
             pt: any = {};
@@ -1263,8 +1287,7 @@ describe('Toast', () => {
         beforeEach(async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [Toast],
-                declarations: [TestToastPtHooksComponent],
+                imports: [Toast, TestToastPtHooksComponent],
                 providers: [MessageService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1370,6 +1393,7 @@ describe('Toast', () => {
 
             expect(callOrder).toContain('onInit');
             expect(callOrder).toContain('onAfterViewInit');
+
             if (callOrder.includes('onAfterContentInit')) {
                 expect(callOrder.indexOf('onInit')).toBeLessThan(callOrder.indexOf('onAfterContentInit'));
                 expect(callOrder.indexOf('onAfterContentInit')).toBeLessThan(callOrder.indexOf('onAfterViewInit'));
@@ -1509,6 +1533,7 @@ describe('ToastItem', () => {
             spyOn(Event.prototype, 'preventDefault');
 
             const mockEvent = new Event('click');
+
             component.onCloseIconClick(mockEvent);
 
             expect(component.clearTimeout).toHaveBeenCalled();
@@ -1540,6 +1565,7 @@ describe('ToastItem', () => {
 
         it('should set visible to false when close button is clicked', () => {
             const closeButton = fixture.debugElement.query(By.css('button'));
+
             expect(closeButton).toBeTruthy();
 
             closeButton.nativeElement.click();
@@ -1601,6 +1627,7 @@ describe('ToastItem', () => {
 
                 // Icon is rendered as SVG element
                 const icon = fixture.debugElement.query(By.css('svg'));
+
                 expect(icon).toBeTruthy();
             }
         });
@@ -1617,6 +1644,7 @@ describe('ToastItem', () => {
             fixture.detectChanges();
 
             const iconElement = fixture.debugElement.query(By.css('.pi-custom'));
+
             expect(iconElement).toBeTruthy();
         });
 
@@ -1632,6 +1660,7 @@ describe('ToastItem', () => {
             fixture.detectChanges();
 
             const closeButton = fixture.debugElement.query(By.css('button'));
+
             expect(closeButton).toBeFalsy();
         });
     });
@@ -1654,6 +1683,7 @@ describe('ToastItem', () => {
 
         it('should have correct ARIA attributes', () => {
             const container = fixture.debugElement.query(By.css('[role="alert"]'));
+
             expect(container).toBeTruthy();
             expect(container.nativeElement.getAttribute('aria-live')).toBe('assertive');
             expect(container.nativeElement.getAttribute('aria-atomic')).toBe('true');
@@ -1739,6 +1769,7 @@ describe('ToastItem', () => {
             fixture.detectChanges();
 
             const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+
             expect(messageElement.nativeElement.classList.contains('MESSAGE_CLASS')).toBe(true);
         });
 
@@ -1748,6 +1779,7 @@ describe('ToastItem', () => {
 
             const contentElements = fixture.debugElement.queryAll(By.css('div'));
             const contentElement = contentElements.find((el) => el.nativeElement.classList.contains('CONTENT_CLASS'));
+
             expect(contentElement).toBeTruthy();
         });
 
@@ -1756,6 +1788,7 @@ describe('ToastItem', () => {
             fixture.detectChanges();
 
             const iconElement = fixture.debugElement.query(By.css('svg[data-p-icon="info-circle"]'));
+
             expect(iconElement.nativeElement.classList.contains('ICON_CLASS')).toBe(true);
         });
 
@@ -1765,6 +1798,7 @@ describe('ToastItem', () => {
 
             const textElements = fixture.debugElement.queryAll(By.css('div'));
             const textElement = textElements.find((el) => el.nativeElement.classList.contains('TEXT_CLASS'));
+
             expect(textElement).toBeTruthy();
         });
 
@@ -1774,6 +1808,7 @@ describe('ToastItem', () => {
 
             const summaryElements = fixture.debugElement.queryAll(By.css('div'));
             const summaryElement = summaryElements.find((el) => el.nativeElement.classList.contains('SUMMARY_CLASS'));
+
             expect(summaryElement).toBeTruthy();
         });
 
@@ -1783,6 +1818,7 @@ describe('ToastItem', () => {
 
             const detailElements = fixture.debugElement.queryAll(By.css('div'));
             const detailElement = detailElements.find((el) => el.nativeElement.classList.contains('DETAIL_CLASS'));
+
             expect(detailElement).toBeTruthy();
         });
 
@@ -1792,6 +1828,7 @@ describe('ToastItem', () => {
             fixture.detectChanges();
 
             const closeButton = fixture.debugElement.query(By.css('button'));
+
             expect(closeButton.nativeElement.classList.contains('CLOSE_BUTTON_CLASS')).toBe(true);
         });
 
@@ -1801,6 +1838,7 @@ describe('ToastItem', () => {
             fixture.detectChanges();
 
             const closeIcon = fixture.debugElement.query(By.css('button svg'));
+
             expect(closeIcon.nativeElement.classList.contains('CLOSE_ICON_CLASS')).toBe(true);
         });
 
@@ -1851,6 +1889,7 @@ describe('ToastItem', () => {
             fixture.detectChanges();
 
             const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+
             expect(messageElement.nativeElement.classList.contains('MESSAGE_OBJECT_CLASS')).toBe(true);
             expect(messageElement.nativeElement.style.border).toBe('2px solid blue');
             expect(messageElement.nativeElement.getAttribute('data-p-test')).toBe('true');
@@ -1867,6 +1906,7 @@ describe('ToastItem', () => {
 
             const contentElements = fixture.debugElement.queryAll(By.css('div'));
             const contentElement = contentElements.find((el) => el.nativeElement.classList.contains('CONTENT_OBJECT_CLASS'));
+
             expect(contentElement).toBeTruthy();
             expect(contentElement?.nativeElement.style.padding).toBe('20px');
         });
@@ -1883,6 +1923,7 @@ describe('ToastItem', () => {
 
             const summaryElements = fixture.debugElement.queryAll(By.css('div'));
             const summaryElement = summaryElements.find((el) => el.nativeElement.classList.contains('SUMMARY_OBJECT_CLASS'));
+
             expect(summaryElement).toBeTruthy();
             expect(summaryElement?.nativeElement.style.fontWeight).toBe('bold');
             expect(summaryElement?.nativeElement.getAttribute('data-summary')).toBe('test');
@@ -1900,6 +1941,7 @@ describe('ToastItem', () => {
             fixture.detectChanges();
 
             const closeButton = fixture.debugElement.query(By.css('button'));
+
             expect(closeButton.nativeElement.classList.contains('CLOSE_BTN_OBJECT_CLASS')).toBe(true);
             expect(closeButton.nativeElement.style.background).toBe('red');
             expect(closeButton.nativeElement.getAttribute('aria-label')).toBe('CUSTOM_CLOSE');
@@ -1965,18 +2007,17 @@ describe('ToastItem', () => {
                 detail: 'Error message'
             };
             fixture.componentRef.setInput('pt', {
-                message: ({ instance }: any) => {
-                    return {
-                        class: {
-                            SEVERITY_ERROR: instance?.message?.severity === 'error',
-                            SEVERITY_SUCCESS: instance?.message?.severity === 'success'
-                        }
-                    };
-                }
+                message: ({ instance }: any) => ({
+                    class: {
+                        SEVERITY_ERROR: instance?.message?.severity === 'error',
+                        SEVERITY_SUCCESS: instance?.message?.severity === 'success'
+                    }
+                })
             } as any);
             fixture.detectChanges();
 
             const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+
             expect(messageElement.nativeElement.classList.contains('SEVERITY_ERROR')).toBe(true);
             expect(messageElement.nativeElement.classList.contains('SEVERITY_SUCCESS')).toBe(false);
         });
@@ -1988,18 +2029,17 @@ describe('ToastItem', () => {
                 detail: 'Test'
             };
             fixture.componentRef.setInput('pt', {
-                summary: ({ instance }: any) => {
-                    return {
-                        style: {
-                            'font-weight': instance?.message?.summary?.includes('Important') ? 'bold' : 'normal'
-                        }
-                    };
-                }
+                summary: ({ instance }: any) => ({
+                    style: {
+                        'font-weight': instance?.message?.summary?.includes('Important') ? 'bold' : 'normal'
+                    }
+                })
             } as any);
             fixture.detectChanges();
 
             const summaryElements = fixture.debugElement.queryAll(By.css('div'));
             const summaryElement = summaryElements.find((el) => el.nativeElement.textContent.trim() === 'Important');
+
             expect(summaryElement?.nativeElement.style.fontWeight).toBe('bold');
         });
     });
@@ -2023,17 +2063,16 @@ describe('ToastItem', () => {
             let clicked = false;
 
             fixture.componentRef.setInput('pt', {
-                message: () => {
-                    return {
-                        onclick: () => {
-                            clicked = true;
-                        }
-                    };
-                }
+                message: () => ({
+                    onclick: () => {
+                        clicked = true;
+                    }
+                })
             } as any);
             fixture.detectChanges();
 
             const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+
             messageElement.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -2045,17 +2084,16 @@ describe('ToastItem', () => {
             let mouseEntered = false;
 
             fixture.componentRef.setInput('pt', {
-                message: () => {
-                    return {
-                        onmouseenter: () => {
-                            mouseEntered = true;
-                        }
-                    };
-                }
+                message: () => ({
+                    onmouseenter: () => {
+                        mouseEntered = true;
+                    }
+                })
             } as any);
             fixture.detectChanges();
 
             const messageElement = fixture.debugElement.query(By.css('[role="alert"]'));
+
             messageElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -2066,7 +2104,6 @@ describe('ToastItem', () => {
 
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
-            standalone: false,
             template: `
                 <p-toastItem
                     [message]="message"
@@ -2076,14 +2113,14 @@ describe('ToastItem', () => {
                     [showTransitionOptions]="'300ms'"
                     [hideTransitionOptions]="'250ms'"
                 ></p-toastItem>
-            `
+            `,
+            imports: [ToastItem]
         })
         class TestInlineStringPtComponent {
             message = { severity: 'info', summary: 'Test', detail: 'Inline test' };
         }
 
         @Component({
-            standalone: false,
             template: `
                 <p-toastItem
                     [message]="message"
@@ -2093,7 +2130,8 @@ describe('ToastItem', () => {
                     [showTransitionOptions]="'300ms'"
                     [hideTransitionOptions]="'250ms'"
                 ></p-toastItem>
-            `
+            `,
+            imports: [ToastItem]
         })
         class TestInlineObjectPtComponent {
             message = { severity: 'success', summary: 'Test', detail: 'Inline object test' };
@@ -2102,30 +2140,32 @@ describe('ToastItem', () => {
         it('should apply inline pt with string class', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [ToastItem],
-                declarations: [TestInlineStringPtComponent],
+                imports: [ToastItem, TestInlineStringPtComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestInlineStringPtComponent);
+
             testFixture.detectChanges();
 
             const messageElement = testFixture.debugElement.query(By.css('[role="alert"]'));
+
             expect(messageElement.nativeElement.classList.contains('INLINE_MESSAGE_CLASS')).toBe(true);
         });
 
         it('should apply inline pt with object', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                imports: [ToastItem],
-                declarations: [TestInlineObjectPtComponent],
+                imports: [ToastItem, TestInlineObjectPtComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const testFixture = TestBed.createComponent(TestInlineObjectPtComponent);
+
             testFixture.detectChanges();
 
             const messageElement = testFixture.debugElement.query(By.css('[role="alert"]'));
+
             expect(messageElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(messageElement.nativeElement.style.border).toBe('1px solid green');
         });
@@ -2233,6 +2273,7 @@ describe('ToastItem', () => {
 
             expect(callOrder).toContain('onInit');
             expect(callOrder).toContain('onAfterViewInit');
+
             if (callOrder.includes('onAfterContentInit')) {
                 expect(callOrder.indexOf('onInit')).toBeLessThan(callOrder.indexOf('onAfterContentInit'));
                 expect(callOrder.indexOf('onAfterContentInit')).toBeLessThan(callOrder.indexOf('onAfterViewInit'));

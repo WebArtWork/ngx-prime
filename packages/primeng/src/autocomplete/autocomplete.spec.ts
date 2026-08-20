@@ -18,7 +18,6 @@ const mockCountries = [
 const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
 
 @Component({
-    standalone: false,
     template: `
         <p-autocomplete
             [(ngModel)]="selectedValue"
@@ -94,7 +93,8 @@ const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
         <form [formGroup]="reactiveForm" *ngIf="showReactiveForm">
             <p-autocomplete formControlName="selectedItems" [suggestions]="formSuggestions" [optionLabel]="'name'" [multiple]="true" (completeMethod)="onFormSearch($event)"> </p-autocomplete>
         </form>
-    `
+    `,
+    imports: [AutoCompleteModule, SharedModule, FormsModule, ReactiveFormsModule]
 })
 class TestAutocompleteComponent {
     selectedValue: any;
@@ -280,7 +280,6 @@ class TestAutocompleteComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-autocomplete [(ngModel)]="selectedValue" [suggestions]="suggestions" [optionLabel]="'name'" [multiple]="multiple" (completeMethod)="onSearch($event)">
             <!-- Item Template with pTemplate -->
@@ -366,7 +365,8 @@ class TestAutocompleteComponent {
                 </div>
             </ng-template>
         </p-autocomplete>
-    `
+    `,
+    imports: [AutoCompleteModule, SharedModule, FormsModule, ReactiveFormsModule]
 })
 class TestPTemplateAutocompleteComponent {
     selectedValue: any;
@@ -413,8 +413,7 @@ describe('AutoComplete', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [AutoCompleteModule, SharedModule, FormsModule, ReactiveFormsModule],
-            declarations: [TestAutocompleteComponent, TestPTemplateAutocompleteComponent],
+            imports: [AutoCompleteModule, SharedModule, FormsModule, ReactiveFormsModule, TestAutocompleteComponent, TestPTemplateAutocompleteComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -455,6 +454,7 @@ describe('AutoComplete', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement).toBeTruthy();
         });
     });
@@ -480,6 +480,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.suggestions.every((item) => typeof item === 'string')).toBe(true);
         });
 
@@ -489,6 +490,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.suggestions.every((item) => typeof item === 'number')).toBe(true);
         });
 
@@ -499,6 +501,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.suggestions.every((item) => typeof item === 'object')).toBe(true);
             expect(autocompleteInstance.optionLabel).toBe('name');
         });
@@ -563,9 +566,11 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
+
             expect(formControl).toBeTruthy();
 
             const autocompleteElement = testFixture.debugElement.query(By.css('form p-autocomplete'));
+
             expect(autocompleteElement).toBeTruthy();
         });
 
@@ -614,6 +619,7 @@ describe('AutoComplete', () => {
             expect(formControl?.value).toEqual(testValue);
 
             const retrievedValue = formControl?.value;
+
             expect(retrievedValue).toEqual(testValue);
         });
 
@@ -623,6 +629,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const formControl = testComponent.reactiveForm.get('selectedItems');
+
             expect(formControl?.updateOn).toBeDefined();
         });
     });
@@ -640,9 +647,11 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.optionLabel).toBe('name');
 
             const labelResult = autocompleteInstance.getOptionLabel(mockCountries[0]);
+
             expect(labelResult).toBe('Afghanistan');
         });
 
@@ -654,6 +663,7 @@ describe('AutoComplete', () => {
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             const labelResult = autocompleteInstance.getOptionLabel(testComponent.suggestions[0]);
+
             expect(labelResult).toBe('Custom Afghanistan');
         });
 
@@ -664,6 +674,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.optionValue).toBe('code');
         });
 
@@ -675,6 +686,7 @@ describe('AutoComplete', () => {
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
             const valueResult = autocompleteInstance.getOptionValue(testComponent.suggestions[0]);
+
             expect(valueResult).toBe('CUSTOM_AF');
         });
 
@@ -688,6 +700,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.isOptionDisabled(testComponent.suggestions[1])).toBe(true);
             expect(autocompleteInstance.isOptionDisabled(testComponent.suggestions[0])).toBe(false);
         });
@@ -702,6 +715,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.isOptionDisabled(testComponent.suggestions[1])).toBe(true);
         });
 
@@ -726,6 +740,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.lazy).toBe(true);
         });
 
@@ -736,6 +751,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.virtualScroll).toBe(true);
             expect(autocompleteInstance.virtualScrollItemSize).toBe(50);
         });
@@ -746,6 +762,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.placeholder).toBe('Custom placeholder');
         });
 
@@ -756,6 +773,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteElement = testFixture.debugElement.query(By.directive(AutoComplete));
+
             expect(autocompleteElement.nativeElement.classList.contains('custom-autocomplete')).toBe(true);
         });
 
@@ -766,6 +784,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.panelStyle).toEqual({ background: 'lightgray' });
             expect(autocompleteInstance.panelStyleClass).toBe('custom-panel');
         });
@@ -781,6 +800,7 @@ describe('AutoComplete', () => {
             spyOn(testComponent, 'onSearch').and.callThrough();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.value = 'test';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
 
@@ -790,6 +810,7 @@ describe('AutoComplete', () => {
 
             expect(testComponent.onSearch).toHaveBeenCalled();
             const callArgs = (testComponent.onSearch as jasmine.Spy).calls.mostRecent().args[0];
+
             expect(callArgs.query).toBe('test');
         });
 
@@ -802,6 +823,7 @@ describe('AutoComplete', () => {
 
             // Trigger search to get suggestions
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.value = 'Item';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
             await testFixture.whenStable();
@@ -815,6 +837,7 @@ describe('AutoComplete', () => {
                     value: testComponent.suggestions[0],
                     originalEvent: new Event('click')
                 };
+
                 testComponent.onSelectionChange(selectEvent as any);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -829,6 +852,7 @@ describe('AutoComplete', () => {
 
         it('should emit onFocus event', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.dispatchEvent(new Event('focus'));
             await testFixture.whenStable();
 
@@ -837,6 +861,7 @@ describe('AutoComplete', () => {
 
         it('should emit onBlur event', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.dispatchEvent(new Event('blur'));
             await testFixture.whenStable();
 
@@ -850,6 +875,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             autocompleteInstance.clear();
             testFixture.detectChanges();
             await testFixture.whenStable();
@@ -863,6 +889,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const dropdownButton = testFixture.debugElement.query(By.css('button[type="button"]'));
+
             expect(dropdownButton).toBeTruthy('Dropdown button should exist');
 
             dropdownButton.nativeElement.click();
@@ -875,6 +902,7 @@ describe('AutoComplete', () => {
         it('should emit onKeyUp event', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
             const keyUpEvent = new KeyboardEvent('keyup', { key: 'a' });
+
             inputElement.nativeElement.dispatchEvent(keyUpEvent);
             await testFixture.whenStable();
 
@@ -890,6 +918,7 @@ describe('AutoComplete', () => {
 
         it('should handle ContentChild templates', () => {
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.ngAfterContentInit).toBeDefined();
         });
 
@@ -899,16 +928,19 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.value = 'Al';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
             await testFixture.whenStable();
 
             const customItems = testFixture.debugElement.queryAll(By.css('.custom-item'));
+
             if (customItems.length > 0) {
                 expect(customItems[0].nativeElement.textContent.trim()).toContain('Albania');
             } else {
                 // Verify template is processed even if not rendered
                 const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance.itemTemplate).toBeDefined();
             }
         });
@@ -956,19 +988,23 @@ describe('AutoComplete', () => {
                 await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+
                 inputElement.nativeElement.value = 'Al';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
                 await pTemplateFixture.whenStable();
 
                 const itemTemplates = pTemplateFixture.debugElement.queryAll(By.css('.ptemplate-item'));
+
                 if (itemTemplates.length > 0) {
                     const firstItem = itemTemplates[0];
+
                     expect(firstItem.nativeElement.getAttribute('data-index')).toBe('0');
                     expect(firstItem.query(By.css('.item-name')).nativeElement.textContent.trim()).toBe('Albania');
                     expect(firstItem.query(By.css('.item-code')).nativeElement.textContent.trim()).toBe('AL');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._itemTemplate).toBeTruthy();
                 }
             });
@@ -988,17 +1024,20 @@ describe('AutoComplete', () => {
                 await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+
                 inputElement.nativeElement.value = 'A';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
                 await pTemplateFixture.whenStable();
 
                 const headerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-header'));
+
                 if (headerTemplate) {
                     expect(headerTemplate.query(By.css('h4')).nativeElement.textContent.trim()).toBe('Countries List');
                     expect(headerTemplate.query(By.css('.header-count')).nativeElement.textContent.trim()).toContain('items');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._headerTemplate).toBeTruthy();
                 }
             });
@@ -1008,6 +1047,7 @@ describe('AutoComplete', () => {
                 await pTemplateFixture.whenStable();
 
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._headerTemplate).toBeTruthy();
             });
         });
@@ -1019,22 +1059,26 @@ describe('AutoComplete', () => {
                 await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+
                 inputElement.nativeElement.value = 'A';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
                 await pTemplateFixture.whenStable();
 
                 const footerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-footer'));
+
                 if (footerTemplate) {
                     expect(footerTemplate.query(By.css('.footer-button')).nativeElement.textContent.trim()).toBe('Load More');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._footerTemplate).toBeTruthy();
                 }
             });
 
             it('should set _footerTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._footerTemplate).toBeTruthy();
             });
         });
@@ -1046,23 +1090,27 @@ describe('AutoComplete', () => {
                 await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+
                 inputElement.nativeElement.value = 'xyz';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
                 await pTemplateFixture.whenStable();
 
                 const emptyTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-empty'));
+
                 if (emptyTemplate) {
                     expect(emptyTemplate.query(By.css('.empty-icon')).nativeElement.textContent.trim()).toBe('🔍');
                     expect(emptyTemplate.query(By.css('.empty-message')).nativeElement.textContent.trim()).toBe('No countries found');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._emptyTemplate).toBeTruthy();
                 }
             });
 
             it('should set _emptyTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._emptyTemplate).toBeTruthy();
             });
         });
@@ -1075,18 +1123,21 @@ describe('AutoComplete', () => {
                 await pTemplateFixture.whenStable();
 
                 const selectedItemTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-selecteditem'));
+
                 if (selectedItemTemplate) {
                     expect(selectedItemTemplate.query(By.css('.selected-flag')).nativeElement.textContent.trim()).toBe('🏳️');
                     expect(selectedItemTemplate.query(By.css('.selected-name')).nativeElement.textContent.trim()).toBe('Afghanistan');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._selectedItemTemplate).toBeTruthy();
                 }
             });
 
             it('should set _selectedItemTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._selectedItemTemplate).toBeTruthy();
             });
         });
@@ -1107,6 +1158,7 @@ describe('AutoComplete', () => {
 
             it('should set _groupTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._groupTemplate).toBeTruthy();
             });
         });
@@ -1119,11 +1171,13 @@ describe('AutoComplete', () => {
 
                 // Test loader template setup
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._loaderTemplate).toBeTruthy();
             });
 
             it('should set _loaderTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._loaderTemplate).toBeTruthy();
             });
         });
@@ -1137,6 +1191,7 @@ describe('AutoComplete', () => {
 
                 // Test remove icon template setup
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._removeIconTemplate).toBeTruthy();
             });
 
@@ -1147,17 +1202,20 @@ describe('AutoComplete', () => {
                 await pTemplateFixture.whenStable();
 
                 const removeIcon = pTemplateFixture.debugElement.query(By.css('.ptemplate-removeicon'));
+
                 if (removeIcon) {
                     expect(removeIcon.query(By.css('.remove-icon')).nativeElement.textContent.trim()).toBe('❌');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._removeIconTemplate).toBeTruthy();
                 }
             });
 
             it('should set _removeIconTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._removeIconTemplate).toBeTruthy();
             });
         });
@@ -1169,17 +1227,20 @@ describe('AutoComplete', () => {
                 await pTemplateFixture.whenStable();
 
                 const loadingIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-loadingicon'));
+
                 if (loadingIconTemplate) {
                     expect(loadingIconTemplate.query(By.css('.loading-spinner')).nativeElement.textContent.trim()).toBe('🔄');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._loadingIconTemplate).toBeTruthy();
                 }
             });
 
             it('should set _loadingIconTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._loadingIconTemplate).toBeTruthy();
             });
         });
@@ -1187,23 +1248,27 @@ describe('AutoComplete', () => {
         describe('Clear Icon Template (_clearIconTemplate)', () => {
             it('should render pTemplate="clearicon" when showClear is enabled', async () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 autocompleteInstance.showClear = true;
                 pTemplateComponent.selectedValue = 'test';
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
 
                 const clearIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-clearicon'));
+
                 if (clearIconTemplate) {
                     expect(clearIconTemplate.query(By.css('.clear-button')).nativeElement.textContent.trim()).toBe('🗑️');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._clearIconTemplate).toBeTruthy();
                 }
             });
 
             it('should set _clearIconTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._clearIconTemplate).toBeTruthy();
             });
         });
@@ -1211,22 +1276,26 @@ describe('AutoComplete', () => {
         describe('Dropdown Icon Template (_dropdownIconTemplate)', () => {
             it('should render pTemplate="dropdownicon" when dropdown is enabled', async () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 autocompleteInstance.dropdown = true;
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
 
                 const dropdownIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-dropdownicon'));
+
                 if (dropdownIconTemplate) {
                     expect(dropdownIconTemplate.query(By.css('.dropdown-arrow')).nativeElement.textContent.trim()).toBe('⬇️');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._dropdownIconTemplate).toBeTruthy();
                 }
             });
 
             it('should set _dropdownIconTemplate in ngAfterContentInit', () => {
                 const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                 expect(autocompleteInstance._dropdownIconTemplate).toBeTruthy();
             });
         });
@@ -1257,21 +1326,25 @@ describe('AutoComplete', () => {
                 await pTemplateFixture.whenStable();
 
                 const inputElement = pTemplateFixture.debugElement.query(By.css('input'));
+
                 inputElement.nativeElement.value = 'Al';
                 inputElement.nativeElement.dispatchEvent(new Event('input'));
                 await pTemplateFixture.whenStable();
 
                 // Verify context parameters are passed correctly
                 const itemTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-item'));
+
                 if (itemTemplate) {
                     expect(itemTemplate.nativeElement.getAttribute('data-index')).toBe('0');
                 } else {
                     // If templates not rendered, at least verify they are loaded
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
                     expect(autocompleteInstance._itemTemplate).toBeTruthy();
                 }
 
                 const headerTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-header .header-count'));
+
                 if (headerTemplate) {
                     expect(headerTemplate.nativeElement.textContent).toContain('items');
                 } else {
@@ -1300,6 +1373,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.multiContainerEL).toBeDefined();
         });
 
@@ -1309,6 +1383,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.dropdownButton).toBeDefined();
         });
     });
@@ -1340,6 +1415,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             autocompleteInstance.show();
             testFixture.detectChanges();
             await testFixture.whenStable();
@@ -1358,6 +1434,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const listElement = testFixture.debugElement.query(By.css('ul[role="listbox"]'));
+
             if (listElement) {
                 expect(listElement.nativeElement.getAttribute('role')).toBe('listbox');
             } else {
@@ -1370,15 +1447,19 @@ describe('AutoComplete', () => {
             const inputElement = testFixture.debugElement.query(By.css('input'));
 
             const arrowDownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             inputElement.nativeElement.dispatchEvent(arrowDownEvent);
 
             const arrowUpEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+
             inputElement.nativeElement.dispatchEvent(arrowUpEvent);
 
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
             inputElement.nativeElement.dispatchEvent(enterEvent);
 
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
+
             inputElement.nativeElement.dispatchEvent(escapeEvent);
 
             expect(inputElement).toBeTruthy();
@@ -1389,6 +1470,7 @@ describe('AutoComplete', () => {
 
             // aria-required may be null for non-required fields
             const ariaRequired = inputElement.nativeElement.getAttribute('aria-required');
+
             expect(ariaRequired === null || ariaRequired === 'false').toBe(true);
             expect(inputElement.nativeElement.getAttribute('aria-label')).toBeTruthy();
         });
@@ -1406,6 +1488,7 @@ describe('AutoComplete', () => {
             };
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.value = 'nonexistent';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
             await testFixture.whenStable();
@@ -1448,6 +1531,7 @@ describe('AutoComplete', () => {
 
         it('should handle minimum length constraint', async () => {
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             autocompleteInstance.minQueryLength = 3; // Use the correct property name
 
             testComponent.minLength = 3;
@@ -1481,6 +1565,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.multiple).toBe(true);
         });
 
@@ -1501,6 +1586,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.virtualScroll).toBe(true);
             expect(autocompleteInstance.suggestions.length).toBe(1000);
         });
@@ -1511,6 +1597,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.disabled).toBe(true);
 
             testComponent.disabled = false;
@@ -1532,6 +1619,7 @@ describe('AutoComplete', () => {
 
             // First, show the suggestions
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.value = 'Item';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
             await testFixture.whenStable();
@@ -1539,6 +1627,7 @@ describe('AutoComplete', () => {
             // Now test invalid input
             inputElement.nativeElement.value = 'nonexistent';
             const changeEvent = new Event('change');
+
             inputElement.nativeElement.dispatchEvent(changeEvent);
             await testFixture.whenStable();
 
@@ -1552,11 +1641,13 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.value = 'Item';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.autoHighlight).toBe(true);
         });
 
@@ -1566,9 +1657,11 @@ describe('AutoComplete', () => {
             spyOn(testComponent, 'onSearch').and.callThrough();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             autocompleteInstance.completeOnFocus = true;
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.value = ''; // completeOnFocus works with empty value
             inputElement.nativeElement.dispatchEvent(new Event('focus'));
             await testFixture.whenStable();
@@ -1587,6 +1680,7 @@ describe('AutoComplete', () => {
 
         it('should handle missing templates gracefully', async () => {
             const basicFixture = TestBed.createComponent(AutoComplete);
+
             basicFixture.changeDetectorRef.markForCheck();
             await basicFixture.whenStable();
 
@@ -1614,6 +1708,7 @@ describe('AutoComplete', () => {
             };
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.value = 'test';
 
             inputElement.nativeElement.dispatchEvent(new Event('input'));
@@ -1639,6 +1734,7 @@ describe('AutoComplete', () => {
 
         it('should handle delay configuration for performance', async () => {
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             autocompleteInstance.delay = 500;
 
             testComponent.delay = 500;
@@ -1647,6 +1743,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.value = 'test';
             inputElement.nativeElement.dispatchEvent(new Event('input'));
 
@@ -1669,6 +1766,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+
             expect(autocompleteInstance.unique).toBe(true);
         });
     });
@@ -1836,6 +1934,7 @@ describe('AutoComplete', () => {
 
                 inputElement.nativeElement.value = 'Item1';
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
                 await testFixture.whenStable();
@@ -1880,6 +1979,7 @@ describe('AutoComplete', () => {
 
                 inputElement.nativeElement.value = 'Item1';
                 const keydownEvent = new KeyboardEvent('keydown', { key: ';' });
+
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
                 await testFixture.whenStable();
@@ -1897,6 +1997,7 @@ describe('AutoComplete', () => {
 
                 inputElement.nativeElement.value = '';
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
                 await testFixture.whenStable();
@@ -1914,6 +2015,7 @@ describe('AutoComplete', () => {
 
                 inputElement.nativeElement.value = 'Item1';
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
                 await testFixture.whenStable();
@@ -1932,6 +2034,7 @@ describe('AutoComplete', () => {
 
                 inputElement.nativeElement.value = 'Item1';
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
                 await testFixture.whenStable();
@@ -1950,6 +2053,7 @@ describe('AutoComplete', () => {
 
                 inputElement.nativeElement.value = 'Item1';
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
                 await testFixture.whenStable();
@@ -1978,6 +2082,7 @@ describe('AutoComplete', () => {
                 // Test separator functionality first
                 inputElement.nativeElement.value = 'Item1';
                 const keydownEvent = new KeyboardEvent('keydown', { key: ',' });
+
                 Object.defineProperty(keydownEvent, 'target', { value: inputElement.nativeElement, writable: false });
                 autocompleteComponent.onKeyDown(keydownEvent);
                 await testFixture.whenStable();
@@ -2052,6 +2157,7 @@ describe('AutoComplete', () => {
                     bubbles: true,
                     cancelable: true
                 });
+
                 autocompleteComponent.onKeyDown(tabEvent);
                 await testFixture.whenStable();
 
@@ -2089,6 +2195,7 @@ describe('AutoComplete', () => {
                     bubbles: true,
                     cancelable: true
                 });
+
                 autocompleteComponent.onKeyDown(tabEvent);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -2112,6 +2219,7 @@ describe('AutoComplete', () => {
                     bubbles: true,
                     cancelable: true
                 });
+
                 autocompleteComponent.onKeyDown(tabEvent2);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -2140,6 +2248,7 @@ describe('AutoComplete', () => {
                     bubbles: true,
                     cancelable: true
                 });
+
                 autocompleteComponent.onKeyDown(tabEvent);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -2171,6 +2280,7 @@ describe('AutoComplete', () => {
                     bubbles: true,
                     cancelable: true
                 });
+
                 autocompleteComponent.onKeyDown(tabEvent);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -2208,6 +2318,7 @@ describe('AutoComplete', () => {
                     bubbles: true,
                     cancelable: true
                 });
+
                 autocompleteComponent.onKeyDown(tabEvent);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -2249,6 +2360,7 @@ describe('AutoComplete', () => {
                     bubbles: true,
                     cancelable: true
                 });
+
                 autocompleteComponent.onKeyDown(tabEvent);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -2270,11 +2382,15 @@ describe('AutoComplete', () => {
                 await testFixture.whenStable();
 
                 // Set the multiInputEl value directly since we're in multiple mode
-                if (autocompleteComponent.multiInputEl) {
-                    autocompleteComponent.multiInputEl.nativeElement.value = 'Test Item';
+                const multiInputEl = autocompleteComponent.multiInputEl();
+                const multiInputEl = autocompleteComponent.multiInputEl();
+
+                if (multiInputEl) {
+                    multiInputEl.nativeElement.value = 'Test Item';
                 } else {
                     inputElement.value = 'Test Item';
                 }
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -2285,6 +2401,7 @@ describe('AutoComplete', () => {
                     bubbles: true,
                     cancelable: true
                 });
+
                 autocompleteComponent.onKeyDown(tabEvent);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -2316,6 +2433,7 @@ describe('AutoComplete', () => {
                     bubbles: true,
                     cancelable: true
                 });
+
                 autocompleteComponent.onKeyDown(tabEvent);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -2347,6 +2465,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
+
                 expect(dropdownButton?.classList.contains('DROPDOWN_CLASS')).toBe(true);
             });
 
@@ -2357,6 +2476,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
+
                 expect(inputMultiple?.classList.contains('INPUT_MULTIPLE_CLASS')).toBe(true);
             });
 
@@ -2369,6 +2489,7 @@ describe('AutoComplete', () => {
 
                 const chipItems = autocompleteElement.querySelectorAll('li');
                 const chipItem = Array.from(chipItems).find((li) => li.getAttribute('role') === 'option');
+
                 expect(chipItem?.classList.contains('CHIP_ITEM_CLASS')).toBe(true);
             });
         });
@@ -2386,6 +2507,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
+
                 expect(dropdownButton?.classList.contains('DROPDOWN_OBJECT_CLASS')).toBe(true);
                 expect(dropdownButton?.style.borderRadius).toBe('5px');
             });
@@ -2402,6 +2524,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
+
                 expect(inputMultiple?.classList.contains('MULTI_OBJECT_CLASS')).toBe(true);
                 expect(inputMultiple?.getAttribute('data-test-id')).toBe('multiple-container');
             });
@@ -2414,6 +2537,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const input = autocompleteElement.querySelector('input') as HTMLInputElement;
+
                 expect(input?.classList.contains('PC_INPUT_CLASS')).toBe(true);
             });
             // TODO: Feature works, test will be debugged.
@@ -2439,6 +2563,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const chip = autocompleteElement.querySelector('p-chip') as HTMLElement;
+
                 expect(chip).toBeTruthy();
             });
         });
@@ -2510,6 +2635,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const listContainer = document.body.querySelector('.p-autocomplete-list-container') as HTMLElement;
+
                 expect(listContainer?.classList.contains('LIST_CONTAINER_CLASS')).toBe(true);
             });
 
@@ -2525,6 +2651,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const emptyMessage = document.body.querySelector('.p-autocomplete-empty-message') as HTMLElement;
+
                 expect(emptyMessage?.classList.contains('EMPTY_MESSAGE_CLASS')).toBe(true);
             });
         });
@@ -2542,6 +2669,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
+
                 expect(dropdownButton?.classList.contains('DROPDOWN_ENABLED')).toBe(true);
                 expect(dropdownButton?.getAttribute('data-dropdown')).toBe('true');
             });
@@ -2613,9 +2741,11 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
+
                 expect(dropdownButton?.classList.contains('DROPDOWN_MULTI')).toBe(true);
 
                 const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
+
                 expect(inputMultiple?.classList.contains('MULTIPLE_MULTI')).toBe(true);
             });
 
@@ -2632,6 +2762,7 @@ describe('AutoComplete', () => {
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('[data-pc-section="dropdown"]') as HTMLButtonElement;
+
                 expect(dropdownButton?.classList.contains('FUNC_DROPDOWN')).toBe(true);
                 expect(dropdownButton?.getAttribute('data-has-suggestions')).toBe('true');
             });

@@ -13,7 +13,9 @@ export function providePrimeNG(...features: PrimeNGConfigType[]): EnvironmentPro
 
     const initializer = provideAppInitializer(() => {
         const PrimeNGConfig = inject(PrimeNG);
+
         features?.forEach((feature) => PrimeNGConfig.setConfig(feature));
+
         return;
     });
 

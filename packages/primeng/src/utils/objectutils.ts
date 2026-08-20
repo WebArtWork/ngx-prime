@@ -16,7 +16,7 @@ export class ObjectUtils {
         if (obj1 === obj2) return true;
 
         if (obj1 && obj2 && typeof obj1 == 'object' && typeof obj2 == 'object') {
-            var arrA = Array.isArray(obj1),
+            let arrA = Array.isArray(obj1),
                 arrB = Array.isArray(obj2),
                 i,
                 length,
@@ -26,22 +26,26 @@ export class ObjectUtils {
                 length = obj1.length;
                 if (length != obj2.length) return false;
                 for (i = length; i-- !== 0; ) if (!this.equalsByValue(obj1[i], obj2[i])) return false;
+
                 return true;
             }
 
             if (arrA != arrB) return false;
 
-            var dateA = this.isDate(obj1),
+            let dateA = this.isDate(obj1),
                 dateB = this.isDate(obj2);
+
             if (dateA != dateB) return false;
             if (dateA && dateB) return obj1.getTime() == obj2.getTime();
 
-            var regexpA = obj1 instanceof RegExp,
+            let regexpA = obj1 instanceof RegExp,
                 regexpB = obj2 instanceof RegExp;
+
             if (regexpA != regexpB) return false;
             if (regexpA && regexpB) return obj1.toString() == obj2.toString();
 
-            var keys = Object.keys(obj1);
+            let keys = Object.keys(obj1);
+
             length = keys.length;
 
             if (length !== Object.keys(obj2).length) return false;
@@ -68,12 +72,15 @@ export class ObjectUtils {
             } else {
                 let fields: string[] = field.split('.');
                 let value = data;
+
                 for (let i = 0, len = fields.length; i < len; ++i) {
                     if (value == null) {
                         return null;
                     }
+
                     value = value[fields[i]];
                 }
+
                 return value;
             }
         } else {
@@ -87,11 +94,13 @@ export class ObjectUtils {
 
     public static reorderArray(value: any[], from: number, to: number) {
         let target: number;
+
         if (value && from !== to) {
             if (to >= value.length) {
                 to %= value.length;
                 from %= value.length;
             }
+
             value.splice(to, 0, value.splice(from, 1)[0]);
         }
     }
@@ -99,8 +108,10 @@ export class ObjectUtils {
     public static insertIntoOrderedArray(item: any, index: number, arr: any[], sourceArr: any[]): void {
         if (arr.length > 0) {
             let injected = false;
+
             for (let i = 0; i < arr.length; i++) {
                 let currentItemIndex = this.findIndexInList(arr[i], sourceArr);
+
                 if (currentItemIndex > index) {
                     arr.splice(i, 0, item);
                     injected = true;
@@ -239,7 +250,7 @@ export class ObjectUtils {
         if (a === b) return true;
 
         if (a && b && typeof a == 'object' && typeof b == 'object') {
-            var arrA = Array.isArray(a),
+            let arrA = Array.isArray(a),
                 arrB = Array.isArray(b),
                 i,
                 length,
@@ -255,19 +266,19 @@ export class ObjectUtils {
 
             if (arrA != arrB) return false;
 
-            var dateA = a instanceof Date,
+            let dateA = a instanceof Date,
                 dateB = b instanceof Date;
 
             if (dateA != dateB) return false;
             if (dateA && dateB) return a.getTime() == b.getTime();
 
-            var regexpA = a instanceof RegExp,
+            let regexpA = a instanceof RegExp,
                 regexpB = b instanceof RegExp;
 
             if (regexpA != regexpB) return false;
             if (regexpA && regexpB) return a.toString() == b.toString();
 
-            var keys = Object.keys(a);
+            let keys = Object.keys(a);
 
             length = keys.length;
 

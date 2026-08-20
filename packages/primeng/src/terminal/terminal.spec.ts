@@ -8,8 +8,8 @@ import { Terminal } from './terminal';
 import { TerminalService } from './terminalservice';
 
 @Component({
-    standalone: false,
-    template: ` <p-terminal [welcomeMessage]="welcomeMessage" [prompt]="prompt" [styleClass]="styleClass" [style]="style"> </p-terminal> `
+    template: ` <p-terminal [welcomeMessage]="welcomeMessage" [prompt]="prompt" [styleClass]="styleClass" [style]="style"> </p-terminal> `,
+    imports: [Terminal, FormsModule]
 })
 class TestBasicTerminalComponent {
     welcomeMessage: string | undefined = 'Welcome to PrimeNG Terminal';
@@ -19,14 +19,14 @@ class TestBasicTerminalComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-terminal welcomeMessage="System Ready" prompt="system> "> </p-terminal> `
+    template: ` <p-terminal welcomeMessage="System Ready" prompt="system> "> </p-terminal> `,
+    imports: [Terminal, FormsModule]
 })
 class TestStaticPropsTerminalComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <p-terminal [style]="customStyle" styleClass="custom-terminal"> </p-terminal> `
+    template: ` <p-terminal [style]="customStyle" styleClass="custom-terminal"> </p-terminal> `,
+    imports: [Terminal, FormsModule]
 })
 class TestStyledTerminalComponent {
     customStyle = {
@@ -37,20 +37,20 @@ class TestStyledTerminalComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-terminal></p-terminal> `
+    template: ` <p-terminal></p-terminal> `,
+    imports: [Terminal, FormsModule]
 })
 class TestMinimalTerminalComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <p-terminal welcomeMessage="Interactive Terminal" prompt="cmd> "> </p-terminal> `
+    template: ` <p-terminal welcomeMessage="Interactive Terminal" prompt="cmd> "> </p-terminal> `,
+    imports: [Terminal, FormsModule]
 })
 class TestInteractiveTerminalComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <p-terminal [welcomeMessage]="message" [prompt]="commandPrompt"> </p-terminal> `
+    template: ` <p-terminal [welcomeMessage]="message" [prompt]="commandPrompt"> </p-terminal> `,
+    imports: [Terminal, FormsModule]
 })
 class TestDynamicTerminalComponent {
     message = 'Dynamic Welcome';
@@ -66,8 +66,7 @@ describe('Terminal', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicTerminalComponent, TestStaticPropsTerminalComponent, TestStyledTerminalComponent, TestMinimalTerminalComponent, TestInteractiveTerminalComponent, TestDynamicTerminalComponent],
-            imports: [Terminal, FormsModule],
+            imports: [Terminal, FormsModule, TestBasicTerminalComponent, TestStaticPropsTerminalComponent, TestStyledTerminalComponent, TestMinimalTerminalComponent, TestInteractiveTerminalComponent, TestDynamicTerminalComponent],
             providers: [TerminalService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -92,6 +91,7 @@ describe('Terminal', () => {
 
         it('should have default values', () => {
             const freshFixture = TestBed.createComponent(TestMinimalTerminalComponent);
+
             freshFixture.detectChanges();
 
             const freshTerminal = freshFixture.debugElement.query(By.directive(Terminal)).componentInstance;
@@ -130,8 +130,8 @@ describe('Terminal', () => {
         });
 
         it('should have input reference after view init', () => {
-            expect(terminalInstance.inputRef).toBeTruthy();
-            expect(terminalInstance.inputRef.nativeElement.tagName.toLowerCase()).toBe('input');
+            expect(terminalInstance.inputRef()).toBeTruthy();
+            expect(terminalInstance.inputRef().nativeElement.tagName.toLowerCase()).toBe('input');
         });
     });
 
@@ -195,6 +195,7 @@ describe('Terminal', () => {
             fixture.detectChanges();
 
             const welcomeElement = fixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"], div:first-child'));
+
             if (welcomeElement && welcomeElement.nativeElement.textContent.includes('Test Welcome Message')) {
                 expect(welcomeElement.nativeElement.textContent.trim()).toBe('Test Welcome Message');
             } else {
@@ -211,6 +212,7 @@ describe('Terminal', () => {
 
             const welcomeElements = fixture.debugElement.queryAll(By.css('div'));
             const hasWelcomeMessage = welcomeElements.some((el) => el.nativeElement.textContent && el.nativeElement.textContent.includes('Welcome'));
+
             expect(hasWelcomeMessage).toBe(false);
         });
 
@@ -230,6 +232,7 @@ describe('Terminal', () => {
 
         it('should handle special characters in welcome message', async () => {
             const specialMessage = 'Welcome! @#$%^&*()_+{}:"<>?[]\\;\',./ 🚀';
+
             component.welcomeMessage = specialMessage;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -252,6 +255,7 @@ describe('Terminal', () => {
             if (promptElement) {
                 // Handle whitespace differences in test environment
                 const text = promptElement.nativeElement.textContent.trim();
+
                 expect(text).toBe('test>');
             } else {
                 // Fallback: verify component property
@@ -296,9 +300,11 @@ describe('Terminal', () => {
             spyOn(terminalService, 'sendCommand');
 
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             terminalInstance.command = 'test command';
 
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             inputElement.nativeElement.dispatchEvent(enterEvent);
 
             expect(terminalInstance.handleCommand).toHaveBeenCalled();
@@ -309,6 +315,7 @@ describe('Terminal', () => {
 
             terminalInstance.command = 'ls -la';
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             terminalInstance.handleCommand(enterEvent);
 
             expect(terminalInstance.commands.length).toBe(1);
@@ -320,6 +327,7 @@ describe('Terminal', () => {
 
             terminalInstance.command = 'pwd';
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             terminalInstance.handleCommand(enterEvent);
 
             expect(terminalService.sendCommand).toHaveBeenCalledWith('pwd');
@@ -330,6 +338,7 @@ describe('Terminal', () => {
 
             terminalInstance.command = 'clear';
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             terminalInstance.handleCommand(enterEvent);
 
             expect(terminalInstance.command).toBe('' as any);
@@ -341,6 +350,7 @@ describe('Terminal', () => {
 
             terminalInstance.command = 'test';
             const escapeEvent = new KeyboardEvent('keydown', { keyCode: 27 }); // Escape key
+
             terminalInstance.handleCommand(escapeEvent);
 
             expect(terminalService.sendCommand).not.toHaveBeenCalled();
@@ -353,6 +363,7 @@ describe('Terminal', () => {
 
             terminalInstance.command = '';
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             terminalInstance.handleCommand(enterEvent);
 
             expect(terminalInstance.commands.length).toBe(1);
@@ -366,6 +377,7 @@ describe('Terminal', () => {
             // First command
             terminalInstance.command = 'command1';
             let enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             terminalInstance.handleCommand(enterEvent);
 
             // Second command
@@ -445,7 +457,8 @@ describe('Terminal', () => {
         });
 
         it('should focus input element', () => {
-            const inputElement = terminalInstance.inputRef.nativeElement;
+            const inputElement = terminalInstance.inputRef().nativeElement;
+
             spyOn(inputElement, 'focus');
 
             terminalInstance.focus(inputElement);
@@ -458,11 +471,12 @@ describe('Terminal', () => {
 
             terminalElement.nativeElement.click();
 
-            expect(terminalInstance.focus).toHaveBeenCalledWith(terminalInstance.inputRef.nativeElement);
+            expect(terminalInstance.focus).toHaveBeenCalledWith(terminalInstance.inputRef().nativeElement);
         });
 
         it('should handle focus when input ref is null', () => {
             const mockElement = document.createElement('input');
+
             spyOn(mockElement, 'focus');
 
             terminalInstance.focus(mockElement);
@@ -488,6 +502,7 @@ describe('Terminal', () => {
                 scrollTop: 0,
                 scrollHeight: 1000
             };
+
             terminalInstance.container = mockContainer as any;
             terminalInstance.commandProcessed = true;
 
@@ -502,6 +517,7 @@ describe('Terminal', () => {
                 scrollTop: 0,
                 scrollHeight: 1000
             };
+
             terminalInstance.container = mockContainer as any;
             terminalInstance.commandProcessed = false;
 
@@ -533,12 +549,14 @@ describe('Terminal', () => {
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.query(By.directive(Terminal));
+
             expect(rootElement.nativeElement.classList.contains('custom-terminal-class')).toBe(true);
         });
 
         it('should apply custom styles', () => {
             const styleFixture = TestBed.createComponent(TestStyledTerminalComponent);
             const styleComponent = styleFixture.componentInstance;
+
             styleFixture.detectChanges();
 
             const element = styleFixture.debugElement.query(By.directive(Terminal)).nativeElement;
@@ -569,6 +587,7 @@ describe('Terminal', () => {
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.query(By.directive(Terminal));
+
             expect(rootElement.nativeElement.classList.contains('class1')).toBe(true);
             expect(rootElement.nativeElement.classList.contains('class2')).toBe(true);
         });
@@ -591,6 +610,7 @@ describe('Terminal', () => {
             fixture.detectChanges();
 
             const commandListElements = fixture.debugElement.queryAll(By.css('div'));
+
             expect(commandListElements.length).toBeGreaterThan(0);
         });
     });
@@ -650,6 +670,7 @@ describe('Terminal', () => {
 
         it('should handle very long commands', () => {
             const longCommand = 'a'.repeat(10000);
+
             terminalInstance.command = longCommand;
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
 
@@ -662,6 +683,7 @@ describe('Terminal', () => {
 
         it('should handle special characters in commands', () => {
             const specialCommand = 'echo "Hello @#$%^&*()[]{}|\\:";\'<>?,./`~';
+
             terminalInstance.command = specialCommand;
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
 
@@ -678,6 +700,7 @@ describe('Terminal', () => {
             for (let i = 0; i < 10; i++) {
                 terminalInstance.command = `command${i}`;
                 const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
                 terminalInstance.handleCommand(enterEvent);
             }
 
@@ -688,8 +711,10 @@ describe('Terminal', () => {
         it('should handle component creation and destruction gracefully', () => {
             expect(() => {
                 const tempFixture = TestBed.createComponent(TestBasicTerminalComponent);
+
                 tempFixture.detectChanges();
                 const tempInstance = tempFixture.debugElement.query(By.directive(Terminal)).componentInstance;
+
                 expect(tempInstance).toBeTruthy();
                 tempInstance.ngOnDestroy();
                 tempFixture.destroy();
@@ -733,6 +758,7 @@ describe('Terminal', () => {
     describe('Integration Tests', () => {
         it('should work with static properties', () => {
             const staticFixture = TestBed.createComponent(TestStaticPropsTerminalComponent);
+
             staticFixture.detectChanges();
 
             const staticTerminal = staticFixture.debugElement.query(By.directive(Terminal)).componentInstance;
@@ -743,6 +769,7 @@ describe('Terminal', () => {
 
         it('should work with styled component', () => {
             const styleFixture = TestBed.createComponent(TestStyledTerminalComponent);
+
             styleFixture.detectChanges();
 
             const styleTerminal = styleFixture.debugElement.query(By.directive(Terminal)).componentInstance;
@@ -774,6 +801,7 @@ describe('Terminal', () => {
         it('should work with dynamic properties', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicTerminalComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
+
             dynamicFixture.detectChanges();
 
             const dynamicTerminal = dynamicFixture.debugElement.query(By.directive(Terminal)).componentInstance;
@@ -805,6 +833,7 @@ describe('Terminal', () => {
             // Execute command
             terminalInstance.command = 'ls -la';
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             terminalInstance.handleCommand(enterEvent);
 
             expect(terminalInstance.commands.length).toBe(1);
@@ -834,6 +863,7 @@ describe('Terminal', () => {
 
             terminalInstance.command = 'programmatic command';
             const mockEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             terminalInstance.handleCommand(mockEvent);
 
             expect(terminalService.sendCommand).toHaveBeenCalledWith('programmatic command');
@@ -842,6 +872,7 @@ describe('Terminal', () => {
 
         it('should call focus method programmatically', () => {
             const mockElement = document.createElement('input');
+
             spyOn(mockElement, 'focus');
 
             terminalInstance.focus(mockElement);
@@ -860,6 +891,7 @@ describe('Terminal', () => {
                 scrollTop: 0,
                 scrollHeight: 500
             };
+
             terminalInstance.container = mockContainer as any;
             terminalInstance.commandProcessed = true;
 
@@ -881,8 +913,8 @@ describe('Terminal', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
-                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`,
+                imports: [Terminal, FormsModule]
             })
             class TestPTCase1Component {
                 pt = {
@@ -902,34 +934,39 @@ describe('Terminal', () => {
             it('should apply simple string classes to all PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase1Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
+
                 testFixture.detectChanges();
 
                 const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+
                 expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
                 expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
 
                 const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+
                 if (welcomeMessage) {
                     expect(welcomeMessage.nativeElement.classList.contains('WELCOME_CLASS')).toBe(true);
                 }
 
                 const commandList = testFixture.debugElement.query(By.css('[data-pc-section="commandList"]'));
+
                 if (commandList) {
                     expect(commandList.nativeElement.classList.contains('COMMANDLIST_CLASS')).toBe(true);
                 }
 
                 const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+
                 if (prompt) {
                     expect(prompt.nativeElement.classList.contains('PROMPT_CLASS')).toBe(true);
                 }
 
                 const promptValue = testFixture.debugElement.query(By.css('[data-pc-section="promptValue"]'));
+
                 if (promptValue) {
                     expect(promptValue.nativeElement.classList.contains('PROMPTVALUE_CLASS')).toBe(true);
                 }
@@ -938,8 +975,8 @@ describe('Terminal', () => {
 
         describe('Case 2: Objects with class, style, data attributes and aria-label', () => {
             @Component({
-                standalone: false,
-                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`,
+                imports: [Terminal, FormsModule]
             })
             class TestPTCase2Component {
                 pt = {
@@ -964,21 +1001,23 @@ describe('Terminal', () => {
             it('should apply object properties (class, style, data attributes) to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase2Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
+
                 testFixture.detectChanges();
 
                 const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+
                 expect(hostElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
                 expect(hostElement.style.backgroundColor).toBe('red');
                 expect(hostElement.getAttribute('data-p-test')).toBe('true');
                 expect(hostElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
 
                 const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+
                 if (welcomeMessage) {
                     expect(welcomeMessage.nativeElement.classList.contains('WELCOME_OBJECT_CLASS')).toBe(true);
                     expect(welcomeMessage.nativeElement.style.color).toBe('blue');
@@ -986,6 +1025,7 @@ describe('Terminal', () => {
                 }
 
                 const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+
                 if (prompt) {
                     expect(prompt.nativeElement.classList.contains('PROMPT_OBJECT_CLASS')).toBe(true);
                     expect(prompt.nativeElement.style.padding).toBe('10px');
@@ -995,8 +1035,8 @@ describe('Terminal', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
-                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`,
+                imports: [Terminal, FormsModule]
             })
             class TestPTCase3Component {
                 pt = {
@@ -1014,28 +1054,32 @@ describe('Terminal', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase3Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
+
                 testFixture.detectChanges();
 
                 const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+
                 expect(hostElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
 
                 const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+
                 if (welcomeMessage) {
                     expect(welcomeMessage.nativeElement.classList.contains('WELCOME_STRING_CLASS')).toBe(true);
                 }
 
                 const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+
                 if (prompt) {
                     expect(prompt.nativeElement.classList.contains('PROMPT_MIXED_CLASS')).toBe(true);
                 }
 
                 const promptValue = testFixture.debugElement.query(By.css('[data-pc-section="promptValue"]'));
+
                 if (promptValue) {
                     expect(promptValue.nativeElement.classList.contains('PROMPTVALUE_STRING_CLASS')).toBe(true);
                 }
@@ -1044,53 +1088,50 @@ describe('Terminal', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
-                template: `<p-terminal [pt]="pt" [welcomeMessage]="welcomeMsg" [prompt]="promptText"></p-terminal>`
+                template: `<p-terminal [pt]="pt" [welcomeMessage]="welcomeMsg" [prompt]="promptText"></p-terminal>`,
+                imports: [Terminal, FormsModule]
             })
             class TestPTCase4Component {
                 welcomeMsg = 'Instance Welcome';
                 promptText = 'cmd> ';
                 pt = {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.welcomeMessage ? 'HAS-WELCOME' : 'NO-WELCOME'
-                        };
-                    },
-                    welcomeMessage: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'background-color': instance?.welcomeMessage ? 'yellow' : 'transparent'
-                            }
-                        };
-                    },
-                    prompt: ({ instance }: any) => {
-                        return {
-                            class: instance?.prompt ? 'HAS_PROMPT_CLASS' : 'NO_PROMPT_CLASS'
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.welcomeMessage ? 'HAS-WELCOME' : 'NO-WELCOME'
+                    }),
+                    welcomeMessage: ({ instance }: any) => ({
+                        style: {
+                            'background-color': instance?.welcomeMessage ? 'yellow' : 'transparent'
+                        }
+                    }),
+                    prompt: ({ instance }: any) => ({
+                        class: instance?.prompt ? 'HAS_PROMPT_CLASS' : 'NO_PROMPT_CLASS'
+                    })
                 };
             }
 
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase4Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
+
                 testFixture.detectChanges();
 
                 const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+
                 expect(hostElement.classList.contains('HAS-WELCOME')).toBe(true);
 
                 const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+
                 if (welcomeMessage) {
                     expect(welcomeMessage.nativeElement.style.backgroundColor).toBe('yellow');
                 }
 
                 const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+
                 if (prompt) {
                     expect(prompt.nativeElement.classList.contains('HAS_PROMPT_CLASS')).toBe(true);
                 }
@@ -1099,8 +1140,8 @@ describe('Terminal', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
-                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`,
+                imports: [Terminal, FormsModule]
             })
             class TestPTCase5Component {
                 clickedSection: string = '';
@@ -1121,22 +1162,24 @@ describe('Terminal', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase5Component],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.detectChanges();
 
                 const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+
                 if (welcomeMessage) {
                     welcomeMessage.nativeElement.click();
                     expect(component.clickedSection).toBe('welcomeMessage');
                 }
 
                 const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+
                 if (prompt) {
                     prompt.nativeElement.click();
                     expect(component.clickedSection).toBe('prompt');
@@ -1146,32 +1189,34 @@ describe('Terminal', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
-                template: `<p-terminal [pt]="{ root: 'INLINE_ROOT_CLASS', welcomeMessage: 'INLINE_WELCOME_CLASS' }" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+                template: `<p-terminal [pt]="{ root: 'INLINE_ROOT_CLASS', welcomeMessage: 'INLINE_WELCOME_CLASS' }" welcomeMessage="Welcome" prompt="$ "></p-terminal>`,
+                imports: [Terminal, FormsModule]
             })
             class TestPTCase6InlineComponent {}
 
             @Component({
-                standalone: false,
-                template: `<p-terminal [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, prompt: { class: 'INLINE_PROMPT_CLASS' } }" prompt="$ "></p-terminal>`
+                template: `<p-terminal [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, prompt: { class: 'INLINE_PROMPT_CLASS' } }" prompt="$ "></p-terminal>`,
+                imports: [Terminal, FormsModule]
             })
             class TestPTCase6InlineObjectComponent {}
 
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase6InlineComponent],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+
                 testFixture.detectChanges();
 
                 const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+
                 expect(hostElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
 
                 const welcomeMessage = testFixture.debugElement.query(By.css('[data-pc-section="welcomeMessage"]'));
+
                 if (welcomeMessage) {
                     expect(welcomeMessage.nativeElement.classList.contains('INLINE_WELCOME_CLASS')).toBe(true);
                 }
@@ -1180,18 +1225,20 @@ describe('Terminal', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase6InlineObjectComponent],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+
                 testFixture.detectChanges();
 
                 const hostElement = testFixture.debugElement.query(By.directive(Terminal)).nativeElement;
+
                 expect(hostElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
 
                 const prompt = testFixture.debugElement.query(By.css('[data-pc-section="prompt"]'));
+
                 if (prompt) {
                     expect(prompt.nativeElement.classList.contains('INLINE_PROMPT_CLASS')).toBe(true);
                 }
@@ -1200,19 +1247,18 @@ describe('Terminal', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-terminal welcomeMessage="Terminal 1" prompt="1$ "></p-terminal>
                     <p-terminal welcomeMessage="Terminal 2" prompt="2$ "></p-terminal>
-                `
+                `,
+                imports: [Terminal, FormsModule]
             })
             class TestPTCase7GlobalComponent {}
 
             it('should apply global PT configuration from PrimeNGConfig to multiple instances', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         TerminalService,
                         provideZonelessChangeDetection(),
@@ -1229,17 +1275,21 @@ describe('Terminal', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+
                 testFixture.detectChanges();
 
                 const terminals = testFixture.debugElement.queryAll(By.directive(Terminal));
+
                 expect(terminals.length).toBe(2);
 
                 terminals.forEach((terminalDebug) => {
                     const hostElement = terminalDebug.nativeElement;
+
                     expect(hostElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
                     expect(hostElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
 
                     const welcomeMessage = terminalDebug.query(By.css('[data-pc-section="welcomeMessage"]'));
+
                     if (welcomeMessage) {
                         expect(welcomeMessage.nativeElement.classList.contains('GLOBAL_WELCOME_CLASS')).toBe(true);
                     }
@@ -1249,8 +1299,8 @@ describe('Terminal', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
-                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`
+                template: `<p-terminal [pt]="pt" welcomeMessage="Welcome" prompt="$ "></p-terminal>`,
+                imports: [Terminal, FormsModule]
             })
             class TestPTCase8HooksComponent {
                 afterViewInitCalled = false;
@@ -1276,8 +1326,7 @@ describe('Terminal', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [Terminal, FormsModule],
+                    imports: [Terminal, FormsModule, TestPTCase8HooksComponent],
                     providers: [TerminalService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

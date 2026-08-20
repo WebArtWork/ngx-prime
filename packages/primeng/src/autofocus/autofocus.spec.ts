@@ -4,51 +4,50 @@ import { By } from '@angular/platform-browser';
 import { AutoFocus, AutoFocusModule } from './autofocus';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-autofocus',
-    template: `<input type="text" pAutoFocus />`
+    template: `<input type="text" pAutoFocus />`,
+    imports: [AutoFocusModule]
 })
 class TestBasicAutofocusComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-disabled',
-    template: `<input type="text" [pAutoFocus]="false" />`
+    template: `<input type="text" [pAutoFocus]="false" />`,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusDisabledComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-enabled',
-    template: `<input type="text" [pAutoFocus]="true" />`
+    template: `<input type="text" [pAutoFocus]="true" />`,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusEnabledComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-dynamic',
-    template: `<input type="text" [pAutoFocus]="autofocusEnabled" />`
+    template: `<input type="text" [pAutoFocus]="autofocusEnabled" />`,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusDynamicComponent {
     autofocusEnabled = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-button',
-    template: `<button [pAutoFocus]="true">Focus Button</button>`
+    template: `<button [pAutoFocus]="true">Focus Button</button>`,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusButtonComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-div',
-    template: `<div tabindex="0" [pAutoFocus]="true">Focusable Div</div>`
+    template: `<div tabindex="0" [pAutoFocus]="true">Focusable Div</div>`,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusDivComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-multiple-elements',
     template: `
         <div [pAutoFocus]="autofocusEnabled">
@@ -56,26 +55,26 @@ class TestAutofocusDivComponent {}
             <input type="text" id="second-input" />
             <button id="button">Button</button>
         </div>
-    `
+    `,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusMultipleElementsComponent {
     autofocusEnabled = true;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-no-focusable-elements',
     template: `
         <div [pAutoFocus]="true">
             <span>No focusable elements</span>
             <p>Just text content</p>
         </div>
-    `
+    `,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusNoFocusableElementsComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-nested-focusable',
     template: `
         <div [pAutoFocus]="true" class="container">
@@ -87,19 +86,20 @@ class TestAutofocusNoFocusableElementsComponent {}
                 <textarea class="nested-textarea"></textarea>
             </div>
         </div>
-    `
+    `,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusNestedFocusableComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-conditional',
     template: `
         <div>
             <input type="text" [pAutoFocus]="condition1" class="input-1" />
             <input type="text" [pAutoFocus]="condition2" class="input-2" />
         </div>
-    `
+    `,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusConditionalComponent {
     condition1 = false;
@@ -107,14 +107,18 @@ class TestAutofocusConditionalComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-after-content-change',
     template: `
         <div [pAutoFocus]="autofocus" class="dynamic-container">
-            <input type="text" *ngIf="showInput" class="dynamic-input" />
-            <button *ngIf="showButton" class="dynamic-button">Dynamic Button</button>
+            @if (showInput) {
+                <input type="text" class="dynamic-input" />
+            }
+            @if (showButton) {
+                <button class="dynamic-button">Dynamic Button</button>
+            }
         </div>
-    `
+    `,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusAfterContentChangeComponent {
     autofocus = true;
@@ -123,47 +127,51 @@ class TestAutofocusAfterContentChangeComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-autofocus-dialog-simulation',
     template: `
         <!-- Dialog/Drawer simülasyonu -->
-        <div class="overlay" *ngIf="isDialogVisible" [style.display]="isDialogVisible ? 'block' : 'none'">
-            <div class="dialog-container" role="dialog" [attr.aria-modal]="isDialogVisible">
-                <div class="dialog-header">
-                    <h3>Dialog Title</h3>
-                    <button type="button" class="close-button" (click)="closeDialog()">×</button>
-                </div>
-                <div class="dialog-content">
-                    <input type="text" [pAutoFocus]="shouldAutoFocus" class="dialog-input" placeholder="This input should be focused when dialog opens" />
-                    <textarea [pAutoFocus]="textareaAutoFocus" class="dialog-textarea" placeholder="Alternative focusable element"></textarea>
-                    <button type="button" class="dialog-button">Action Button</button>
-                </div>
-                <div class="dialog-footer">
-                    <button type="button" (click)="closeDialog()">Cancel</button>
-                    <button type="button" (click)="closeDialog()">Save</button>
+        @if (isDialogVisible) {
+            <div class="overlay" [style.display]="isDialogVisible ? 'block' : 'none'">
+                <div class="dialog-container" role="dialog" [attr.aria-modal]="isDialogVisible">
+                    <div class="dialog-header">
+                        <h3>Dialog Title</h3>
+                        <button type="button" class="close-button" (click)="closeDialog()">×</button>
+                    </div>
+                    <div class="dialog-content">
+                        <input type="text" [pAutoFocus]="shouldAutoFocus" class="dialog-input" placeholder="This input should be focused when dialog opens" />
+                        <textarea [pAutoFocus]="textareaAutoFocus" class="dialog-textarea" placeholder="Alternative focusable element"></textarea>
+                        <button type="button" class="dialog-button">Action Button</button>
+                    </div>
+                    <div class="dialog-footer">
+                        <button type="button" (click)="closeDialog()">Cancel</button>
+                        <button type="button" (click)="closeDialog()">Save</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
 
         <!-- Drawer simülasyonu -->
-        <div class="drawer" *ngIf="isDrawerVisible" [style.transform]="isDrawerVisible ? 'translateX(0)' : 'translateX(100%)'">
-            <div class="drawer-header">
-                <h4>Drawer Content</h4>
+        @if (isDrawerVisible) {
+            <div class="drawer" [style.transform]="isDrawerVisible ? 'translateX(0)' : 'translateX(100%)'">
+                <div class="drawer-header">
+                    <h4>Drawer Content</h4>
+                </div>
+                <div class="drawer-body">
+                    <select [pAutoFocus]="drawerAutoFocus" class="drawer-select">
+                        <option value="">Select an option</option>
+                        <option value="1">Option 1</option>
+                        <option value="2">Option 2</option>
+                    </select>
+                    <input type="email" class="drawer-email" placeholder="Email address" />
+                </div>
             </div>
-            <div class="drawer-body">
-                <select [pAutoFocus]="drawerAutoFocus" class="drawer-select">
-                    <option value="">Select an option</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                </select>
-                <input type="email" class="drawer-email" placeholder="Email address" />
-            </div>
-        </div>
+        }
 
         <!-- Trigger buttons -->
         <button type="button" (click)="openDialog()" class="open-dialog-btn">Open Dialog</button>
         <button type="button" (click)="openDrawer()" class="open-drawer-btn">Open Drawer</button>
-    `
+    `,
+    imports: [AutoFocusModule]
 })
 class TestAutofocusDialogSimulationComponent {
     isDialogVisible = false;
@@ -192,8 +200,8 @@ class TestAutofocusDialogSimulationComponent {
 describe('AutoFocus', () => {
     beforeEach(async () => {
         TestBed.configureTestingModule({
-            imports: [AutoFocusModule],
-            declarations: [
+            imports: [
+                AutoFocusModule,
                 TestBasicAutofocusComponent,
                 TestAutofocusDisabledComponent,
                 TestAutofocusEnabledComponent,
@@ -221,6 +229,7 @@ describe('AutoFocus', () => {
             await fixture.whenStable();
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(AutoFocus));
+
             directive = directiveDebugElement.injector.get(AutoFocus);
             element = directiveDebugElement.nativeElement;
         });
@@ -258,6 +267,7 @@ describe('AutoFocus', () => {
             await fixture.whenStable();
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(AutoFocus));
+
             directive = directiveDebugElement.injector.get(AutoFocus);
             element = directiveDebugElement.nativeElement;
         });
@@ -311,6 +321,7 @@ describe('AutoFocus', () => {
             await new Promise((resolve) => setTimeout(resolve, 10)); // Wait for setTimeout
 
             const directive = fixture.debugElement.query(By.directive(AutoFocus)).injector.get(AutoFocus);
+
             expect(directive.focused).toBe(true);
         });
 
@@ -336,6 +347,7 @@ describe('AutoFocus', () => {
             await new Promise((resolve) => setTimeout(resolve, 10));
 
             const directive = fixture.debugElement.query(By.directive(AutoFocus)).injector.get(AutoFocus);
+
             expect(directive.focused).toBe(true);
         });
 
@@ -349,6 +361,7 @@ describe('AutoFocus', () => {
             await new Promise((resolve) => setTimeout(resolve, 10));
 
             const directive = fixture.debugElement.query(By.directive(AutoFocus)).injector.get(AutoFocus);
+
             expect(directive.focused).toBe(true);
         });
     });
@@ -368,6 +381,7 @@ describe('AutoFocus', () => {
             expect(element.focus).not.toHaveBeenCalled();
 
             const directive = fixture.debugElement.query(By.directive(AutoFocus)).injector.get(AutoFocus);
+
             expect(directive.focused).toBe(false);
         });
     });
@@ -489,6 +503,7 @@ describe('AutoFocus', () => {
             directive.focused = false;
 
             const input = fixture.debugElement.query(By.css('.dynamic-input'));
+
             if (input) {
                 spyOn(input.nativeElement, 'focus');
 
@@ -516,6 +531,7 @@ describe('AutoFocus', () => {
             directive.focused = false;
 
             const button = fixture.debugElement.query(By.css('.dynamic-button'));
+
             if (button) {
                 spyOn(button.nativeElement, 'focus');
                 directive.ngAfterContentChecked();
@@ -530,6 +546,7 @@ describe('AutoFocus', () => {
             directive.focused = false;
 
             const input = fixture.debugElement.query(By.css('.dynamic-input'));
+
             if (input) {
                 spyOn(input.nativeElement, 'focus');
                 directive.ngAfterContentChecked();
@@ -623,6 +640,7 @@ describe('AutoFocus', () => {
             await new Promise((resolve) => setTimeout(resolve, 10));
 
             const directive = fixture.debugElement.query(By.directive(AutoFocus)).injector.get(AutoFocus);
+
             expect(directive.focused).toBe(true);
         });
 
@@ -727,6 +745,7 @@ describe('AutoFocus', () => {
             // Initially dialog is not visible
             expect(component.isDialogVisible).toBe(false);
             let dialogInput = fixture.debugElement.query(By.css('.dialog-input'));
+
             expect(dialogInput).toBeFalsy();
 
             // Open dialog
@@ -742,6 +761,7 @@ describe('AutoFocus', () => {
 
             // Get the autofocus directive instance
             const dialogInputDirective = dialogInput.injector.get(AutoFocus);
+
             spyOn(dialogInput.nativeElement, 'focus');
 
             // Simulate what happens when autofocus directive detects new content
@@ -757,6 +777,7 @@ describe('AutoFocus', () => {
             // Initially drawer is not visible
             expect(component.isDrawerVisible).toBe(false);
             let drawerSelect = fixture.debugElement.query(By.css('.drawer-select'));
+
             expect(drawerSelect).toBeFalsy();
 
             // Open drawer
@@ -772,6 +793,7 @@ describe('AutoFocus', () => {
 
             // Get the autofocus directive instance
             const drawerSelectDirective = drawerSelect.injector.get(AutoFocus);
+
             spyOn(drawerSelect.nativeElement, 'focus');
 
             // Simulate what happens when autofocus directive detects new content
@@ -792,6 +814,7 @@ describe('AutoFocus', () => {
 
             let dialogInput = fixture.debugElement.query(By.css('.dialog-input'));
             let directive = dialogInput.injector.get(AutoFocus);
+
             spyOn(dialogInput.nativeElement, 'focus');
 
             directive.focused = false; // Reset state
@@ -878,6 +901,7 @@ describe('AutoFocus', () => {
             await new Promise((resolve) => setTimeout(resolve, 10));
 
             const dialogContainer = fixture.debugElement.query(By.css('.dialog-container'));
+
             expect(dialogContainer).toBeTruthy();
 
             // No autofocus directives should be active
@@ -920,9 +944,11 @@ describe('AutoFocus', () => {
 
             // Should still work correctly
             const dialogInput = fixture.debugElement.query(By.css('.dialog-input'));
+
             expect(dialogInput).toBeTruthy();
 
             const directive = dialogInput.injector.get(AutoFocus);
+
             spyOn(dialogInput.nativeElement, 'focus');
 
             // Reset focused state to allow focusing

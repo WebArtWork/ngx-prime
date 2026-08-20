@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, inject, InjectionToken, Input, NgModule, numberAttribute, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, inject, InjectionToken, Input, NgModule, numberAttribute, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { blockBodyScroll, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -107,10 +107,10 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
 
     _contentTemplate: TemplateRef<any> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;
@@ -149,9 +149,11 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
     unblock() {
         if (isPlatformBrowser(this.platformId) && this.el && this._blocked) {
             this._blocked = false;
+
             if (!this.animationEndListener) {
                 this.animationEndListener = this.renderer.listen(this.el.nativeElement, 'animationend', this.destroyModal.bind(this));
             }
+
             this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask-enter-active');
             this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask-leave-active');
         }
@@ -159,6 +161,7 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
 
     destroyModal() {
         this._blocked = false;
+
         if (this.el && isPlatformBrowser(this.platformId)) {
             this.el.nativeElement.style.display = 'none';
             this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask');
@@ -171,6 +174,7 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
                 unblockBodyScroll();
             }
         }
+
         this.unbindAnimationEndListener();
         this.cd.markForCheck();
     }
@@ -186,13 +190,16 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
         if (this._blocked) {
             // Skip animation on destroy, just cleanup
             this._blocked = false;
+
             if (this.el && isPlatformBrowser(this.platformId)) {
                 ZIndexUtils.clear(this.el.nativeElement);
+
                 if (!this.target) {
                     //@ts-ignore
                     unblockBodyScroll();
                 }
             }
+
             this.unbindAnimationEndListener();
         }
     }

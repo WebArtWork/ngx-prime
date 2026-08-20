@@ -24,7 +24,6 @@ interface Product {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-orderlist
             [value]="products"
@@ -70,7 +69,8 @@ interface Product {
                 </div>
             </ng-template>
         </p-orderlist>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList]
 })
 class TestBasicOrderListComponent {
     products: Product[] = [
@@ -144,7 +144,6 @@ class TestBasicOrderListComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-orderlist [value]="products">
             <ng-template #header>
@@ -183,7 +182,8 @@ class TestBasicOrderListComponent {
                 <i class="pi pi-search custom-filter"></i>
             </ng-template>
         </p-orderlist>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList]
 })
 class TestTemplatesOrderListComponent {
     products: Product[] = [
@@ -193,7 +193,6 @@ class TestTemplatesOrderListComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-orderlist [value]="[]" [filterBy]="'name'">
             <ng-template pTemplate="empty">
@@ -203,19 +202,20 @@ class TestTemplatesOrderListComponent {
                 <div class="empty-filter-template">No filtered products</div>
             </ng-template>
         </p-orderlist>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList]
 })
 class TestEmptyTemplatesOrderListComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-orderlist [value]="products" [dragdrop]="true" [selection]="selection" [(ngModel)]="selection">
             <ng-template pTemplate="item" let-product>
                 <div class="drag-item">{{ product.name }}</div>
             </ng-template>
         </p-orderlist>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList]
 })
 class TestDragDropOrderListComponent {
     products: Product[] = [
@@ -227,14 +227,14 @@ class TestDragDropOrderListComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-orderlist [value]="products" [filterBy]="'name,category'" filterPlaceholder="Filter products">
             <ng-template pTemplate="item" let-product>
                 <div class="filter-item">{{ product.name }} - {{ product.category }}</div>
             </ng-template>
         </p-orderlist>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList]
 })
 class TestFilterOrderListComponent {
     products: Product[] = [
@@ -246,7 +246,6 @@ class TestFilterOrderListComponent {
 
 // Comprehensive template testing component for pTemplate approach
 @Component({
-    standalone: false,
     template: `
         <p-orderlist [value]="products" [selection]="selection" [filterBy]="filterBy">
             <!-- Item template with full context -->
@@ -298,7 +297,8 @@ class TestFilterOrderListComponent {
                 <span class="custom-filter-icon">SEARCH</span>
             </ng-template>
         </p-orderlist>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList]
 })
 class TestComprehensiveTemplatesOrderListComponent {
     products: Product[] = [
@@ -313,7 +313,6 @@ class TestComprehensiveTemplatesOrderListComponent {
 
 // ContentChild template testing component for #template approach
 @Component({
-    standalone: false,
     template: `
         <p-orderlist [value]="products" [selection]="selection" [filterBy]="filterBy">
             <!-- ContentChild templates using #template references -->
@@ -359,7 +358,8 @@ class TestComprehensiveTemplatesOrderListComponent {
                 <span class="contentchild-filter-icon">CC-SEARCH</span>
             </ng-template>
         </p-orderlist>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList]
 })
 class TestContentChildTemplatesOrderListComponent {
     products: Product[] = [
@@ -379,9 +379,16 @@ describe('OrderList', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, ButtonModule, ListboxModule, RippleModule, DragDropModule, SharedModule, OrderList],
-            providers: [provideNoopAnimations(), provideZonelessChangeDetection()],
-            declarations: [
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule,
+                ButtonModule,
+                ListboxModule,
+                RippleModule,
+                DragDropModule,
+                SharedModule,
+                OrderList,
                 TestBasicOrderListComponent,
                 TestTemplatesOrderListComponent,
                 TestEmptyTemplatesOrderListComponent,
@@ -389,7 +396,8 @@ describe('OrderList', () => {
                 TestFilterOrderListComponent,
                 TestComprehensiveTemplatesOrderListComponent,
                 TestContentChildTemplatesOrderListComponent
-            ]
+            ],
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicOrderListComponent);
@@ -460,6 +468,7 @@ describe('OrderList', () => {
 
         it('should move selected items up', async () => {
             const initialOrder = [...component.products];
+
             spyOn(component, 'onReorder');
 
             orderList.moveUp();
@@ -533,6 +542,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             const initialOrder = [...component.products];
+
             spyOn(component, 'onReorder');
 
             orderList.moveUp();
@@ -556,6 +566,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             const initialOrder = [...component.products];
+
             spyOn(component, 'onReorder');
 
             orderList.moveDown();
@@ -579,6 +590,7 @@ describe('OrderList', () => {
 
             // Test that buttons are disabled, not the methods themselves
             const upButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
+
             expect(upButton.nativeElement.disabled).toBe(true);
         });
 
@@ -604,6 +616,7 @@ describe('OrderList', () => {
 
         it('should get visible options', () => {
             const visibleOptions = orderList.getVisibleOptions();
+
             expect(visibleOptions).toEqual(component.products);
         });
 
@@ -627,18 +640,23 @@ describe('OrderList', () => {
 
         it('should get button props for different directions', () => {
             const upProps = orderList.getButtonProps('up');
+
             expect(upProps.severity).toBe('secondary');
 
             const topProps = orderList.getButtonProps('top');
+
             expect(topProps.severity).toBe('secondary');
 
             const downProps = orderList.getButtonProps('down');
+
             expect(downProps.severity).toBe('secondary');
 
             const bottomProps = orderList.getButtonProps('bottom');
+
             expect(bottomProps.severity).toBe('secondary');
 
             const defaultProps = orderList.getButtonProps('unknown');
+
             expect(defaultProps.severity).toBe('secondary');
         });
 
@@ -720,6 +738,7 @@ describe('OrderList', () => {
             spyOn(component, 'onFilterEvent');
 
             const event = new KeyboardEvent('keyup', { key: 'a' });
+
             Object.defineProperty(event, 'target', {
                 value: { value: 'Product A' },
                 writable: false
@@ -754,9 +773,11 @@ describe('OrderList', () => {
     describe('Template and Content Projection', () => {
         it('should render item template', () => {
             const items = fixture.debugElement.queryAll(By.css('.product-item'));
+
             expect(items.length).toBe(5);
 
             const firstItem = items[0];
+
             expect(firstItem.query(By.css('.product-name')).nativeElement.textContent).toBe('Product A');
             expect(firstItem.query(By.css('.product-category')).nativeElement.textContent).toBe('Category 1');
             expect(firstItem.query(By.css('.product-price')).nativeElement.textContent).toContain('100');
@@ -764,19 +785,23 @@ describe('OrderList', () => {
 
         it('should render custom templates', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesOrderListComponent);
+
             templateFixture.detectChanges();
 
             // Check item template
             const customItems = templateFixture.debugElement.queryAll(By.css('.custom-item'));
+
             expect(customItems.length).toBe(2);
             expect(customItems[0].nativeElement.textContent).toBe('Product A');
         });
 
         it('should render empty template when no data', () => {
             const emptyFixture = TestBed.createComponent(TestEmptyTemplatesOrderListComponent);
+
             emptyFixture.detectChanges();
 
             const emptyTemplate = emptyFixture.debugElement.query(By.css('.empty-template'));
+
             expect(emptyTemplate).toBeTruthy();
             expect(emptyTemplate.nativeElement.textContent).toBe('No products available');
         });
@@ -784,20 +809,24 @@ describe('OrderList', () => {
         it('should process PrimeTemplate directives correctly', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesOrderListComponent);
             const templateOrderList = templateFixture.debugElement.query(By.directive(OrderList)).componentInstance;
+
             templateFixture.detectChanges();
 
             // After ngAfterContentInit, some templates should be set
             const hasIconTemplates = templateOrderList._moveUpIconTemplate || templateOrderList._moveTopIconTemplate || templateOrderList._moveDownIconTemplate || templateOrderList._moveBottomIconTemplate || templateOrderList._filterIconTemplate;
+
             expect(hasIconTemplates).toBeTruthy();
         });
 
         it('should handle ContentChild templates', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesOrderListComponent);
             const templateOrderList = templateFixture.debugElement.query(By.directive(OrderList)).componentInstance;
+
             templateFixture.detectChanges();
 
             // ContentChild templates should be populated for template references
             const hasContentChildTemplates = templateOrderList.headerTemplate || templateOrderList.itemTemplate || templateOrderList.emptyMessageTemplate || templateOrderList.emptyFilterMessageTemplate;
+
             expect(hasContentChildTemplates).toBeTruthy();
         });
     });
@@ -816,6 +845,7 @@ describe('OrderList', () => {
 
         it('should render move buttons', () => {
             const buttons = fixture.debugElement.queryAll(By.css('button'));
+
             expect(buttons.length).toBe(4); // up, top, down, bottom
 
             const moveUpButton = buttons.find((btn) => btn.attributes['data-pc-name'] === 'pcmoveupbutton');
@@ -855,6 +885,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             const moveUpButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
+
             moveUpButton.nativeElement.click();
 
             expect(component.products[1].name).toBe('Item 3');
@@ -867,6 +898,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             const moveTopButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovetopbutton"]'));
+
             moveTopButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -880,6 +912,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             const moveDownButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovedownbutton"]'));
+
             moveDownButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -893,6 +926,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             const moveBottomButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovebottombutton"]'));
+
             moveBottomButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -906,6 +940,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             const moveUpButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
+
             moveUpButton.nativeElement.click();
             await fixture.whenStable();
 
@@ -1013,6 +1048,7 @@ describe('OrderList', () => {
                 };
 
                 const originalOrder = [...component.products];
+
                 orderList.onDrop(dragDropEvent);
 
                 // All selected items should move together
@@ -1048,6 +1084,7 @@ describe('OrderList', () => {
                 };
 
                 const originalItem = component.products[1];
+
                 orderList.onDrop(dragDropEvent);
 
                 // Only the dragged item should move
@@ -1074,6 +1111,7 @@ describe('OrderList', () => {
                 };
 
                 const originalItem = component.products[1];
+
                 orderList.onDrop(dragDropEvent);
 
                 // Only the dragged item should move
@@ -1101,6 +1139,7 @@ describe('OrderList', () => {
                 };
 
                 const originalOrder = [...component.products];
+
                 orderList.onDrop(dragDropEvent);
 
                 // Selected items should move together maintaining their relative order
@@ -1135,10 +1174,12 @@ describe('OrderList', () => {
 
         it('should filter items on keyup event', async () => {
             const filterFixture = TestBed.createComponent(TestFilterOrderListComponent);
+
             filterFixture.detectChanges();
             const filterOrderList = filterFixture.debugElement.query(By.directive(OrderList)).componentInstance;
 
             const event = new KeyboardEvent('keyup', { key: 'e' });
+
             Object.defineProperty(event, 'target', {
                 value: { value: 'Electronics' },
                 writable: false
@@ -1194,6 +1235,7 @@ describe('OrderList', () => {
     describe('Selection Handling', () => {
         it('should handle single selection', () => {
             const listbox = fixture.debugElement.query(By.css('p-listbox'));
+
             expect(listbox).toBeTruthy();
 
             // Test selection through component
@@ -1212,6 +1254,7 @@ describe('OrderList', () => {
 
         it('should update selection through setter', () => {
             const newSelection = [component.products[1], component.products[3]];
+
             orderList.selection = newSelection;
 
             expect(orderList.d_selection).toEqual(newSelection);
@@ -1318,6 +1361,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             let moveCount = 0;
+
             orderList.onReorder.subscribe(() => moveCount++);
 
             // Rapid moves
@@ -1331,6 +1375,7 @@ describe('OrderList', () => {
 
         it('should handle large datasets efficiently', () => {
             const largeData: any[] = [];
+
             for (let i = 0; i < 1000; i++) {
                 largeData.push({
                     id: `${i}`,
@@ -1345,6 +1390,7 @@ describe('OrderList', () => {
             }
 
             const startTime = performance.now();
+
             component.products = largeData;
             fixture.detectChanges();
             const endTime = performance.now();
@@ -1384,6 +1430,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             const orderListElement = fixture.debugElement.query(By.css('p-orderlist'));
+
             expect(orderListElement.nativeElement.className).toContain('custom-orderlist-class');
         });
 
@@ -1428,6 +1475,7 @@ describe('OrderList', () => {
             await fixture.whenStable();
 
             const upButtonProps = orderList.getButtonProps('up');
+
             expect(upButtonProps).toEqual({ severity: 'primary', size: 'small' });
         });
     });
@@ -1438,16 +1486,19 @@ describe('OrderList', () => {
 
             for (let i = 0; i < 10; i++) {
                 const testFixture = TestBed.createComponent(TestBasicOrderListComponent);
+
                 testFixture.detectChanges();
                 testFixture.destroy();
             }
 
             const endTime = performance.now();
+
             expect(endTime - startTime).toBeLessThan(1000); // Should complete in less than 1 second
         });
 
         it('should handle rapid selection changes', async () => {
             let changeCount = 0;
+
             orderList.selectionChange.subscribe(() => changeCount++);
 
             // Rapid selection changes
@@ -1457,6 +1508,7 @@ describe('OrderList', () => {
                     value: [component.products[i % component.products.length]]
                 });
             }
+
             await fixture.whenStable();
 
             expect(changeCount).toBe(5);
@@ -1484,6 +1536,7 @@ describe('OrderList', () => {
         it('should handle ngAfterContentInit correctly', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesOrderListComponent);
             const templateOrderList = templateFixture.debugElement.query(By.directive(OrderList)).componentInstance;
+
             templateFixture.detectChanges();
 
             // Component should be initialized successfully
@@ -1527,16 +1580,19 @@ describe('OrderList', () => {
         it('should use default trackBy function', () => {
             const item = { id: '1', name: 'Test' };
             const result = orderList.trackBy(0, item);
+
             expect(result).toBe(item.id);
         });
 
         it('should use custom trackBy function', () => {
             const customTrackBy = (_index: number, item: any) => item.code;
+
             component.trackBy = customTrackBy;
             fixture.detectChanges();
 
             const item = { id: '1', code: 'TEST', name: 'Test' };
             const result = orderList.trackBy(0, item);
+
             expect(result).toBe('TEST');
         });
     });
@@ -1578,9 +1634,11 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const itemElements = comprehensiveFixture.debugElement.queryAll(By.css('.custom-item-template'));
+
                 expect(itemElements.length).toBeGreaterThan(0);
 
                 const firstItem = itemElements[0];
+
                 expect(firstItem.nativeElement.textContent).toContain('Item: Product A');
                 expect(firstItem.nativeElement.textContent).toContain('Index: 0');
                 expect(firstItem.nativeElement.textContent).toContain('Selected: false');
@@ -1594,6 +1652,7 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const selectedItemElement = comprehensiveFixture.debugElement.query(By.css('.custom-item-template'));
+
                 if (selectedItemElement && selectedItemElement.nativeElement.textContent.includes('Selected: true')) {
                     expect(selectedItemElement.nativeElement.textContent).toContain('Selected: true');
                 } else {
@@ -1606,6 +1665,7 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const headerElement = comprehensiveFixture.debugElement.query(By.css('.custom-header-template'));
+
                 if (headerElement) {
                     expect(headerElement.nativeElement.textContent).toBe('Custom OrderList Header with pTemplate');
                 } else {
@@ -1621,6 +1681,7 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const emptyElement = comprehensiveFixture.debugElement.query(By.css('.custom-empty-template'));
+
                 if (emptyElement) {
                     expect(emptyElement.nativeElement.textContent).toBe('No items available - pTemplate');
                 } else {
@@ -1641,6 +1702,7 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const emptyFilterElement = comprehensiveFixture.debugElement.query(By.css('.custom-empty-filter-template'));
+
                 if (emptyFilterElement) {
                     expect(emptyFilterElement.nativeElement.textContent).toBe('No filtered items found - pTemplate');
                 } else {
@@ -1656,6 +1718,7 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const filterElement = comprehensiveFixture.debugElement.query(By.css('.custom-filter-template input'));
+
                 if (filterElement) {
                     expect(filterElement.nativeElement.placeholder).toBe('Search products...');
                 } else {
@@ -1671,8 +1734,10 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const moveUpButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
+
                 if (moveUpButton) {
                     const customIcon = moveUpButton.query(By.css('.custom-move-up-icon'));
+
                     if (customIcon) {
                         expect(customIcon.nativeElement.textContent).toBe('UP');
                     }
@@ -1689,8 +1754,10 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const moveTopButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmovetopbutton"]'));
+
                 if (moveTopButton) {
                     const customIcon = moveTopButton.query(By.css('.custom-move-top-icon'));
+
                     if (customIcon) {
                         expect(customIcon.nativeElement.textContent).toBe('TOP');
                     }
@@ -1707,8 +1774,10 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const moveDownButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmovedownbutton"]'));
+
                 if (moveDownButton) {
                     const customIcon = moveDownButton.query(By.css('.custom-move-down-icon'));
+
                     if (customIcon) {
                         expect(customIcon.nativeElement.textContent).toBe('DOWN');
                     }
@@ -1725,8 +1794,10 @@ describe('OrderList', () => {
                 await comprehensiveFixture.whenStable();
 
                 const moveBottomButton = comprehensiveFixture.debugElement.query(By.css('[data-pc-name="pcmovebottombutton"]'));
+
                 if (moveBottomButton) {
                     const customIcon = moveBottomButton.query(By.css('.custom-move-bottom-icon'));
+
                     if (customIcon) {
                         expect(customIcon.nativeElement.textContent).toBe('BOTTOM');
                     }
@@ -1763,10 +1834,10 @@ describe('OrderList', () => {
                     contentChildOrderList.emptyMessageTemplate ||
                     contentChildOrderList.emptyFilterMessageTemplate ||
                     contentChildOrderList.filterTemplate ||
-                    contentChildOrderList.moveUpIconTemplate ||
-                    contentChildOrderList.moveTopIconTemplate ||
-                    contentChildOrderList.moveDownIconTemplate ||
-                    contentChildOrderList.moveBottomIconTemplate ||
+                    contentChildOrderList.moveUpIconTemplate() ||
+                    contentChildOrderList.moveTopIconTemplate() ||
+                    contentChildOrderList.moveDownIconTemplate() ||
+                    contentChildOrderList.moveBottomIconTemplate() ||
                     contentChildOrderList.filterIconTemplate;
 
                 expect(hasTemplates).toBeTruthy();
@@ -1777,6 +1848,7 @@ describe('OrderList', () => {
 
                 const itemElements = contentChildFixture.debugElement.queryAll(By.css('.contentchild-item-template'));
                 const firstItem = itemElements.length > 0 ? itemElements[0] : undefined;
+
                 expect(firstItem?.nativeElement.textContent).toContain('ContentChild Item: Product A');
             });
 
@@ -1784,6 +1856,7 @@ describe('OrderList', () => {
                 await contentChildFixture.whenStable();
 
                 const headerElement = contentChildFixture.debugElement.query(By.css('.contentchild-header-template'));
+
                 expect(headerElement?.nativeElement.textContent).toBe('ContentChild Header Template');
             });
 
@@ -1794,6 +1867,7 @@ describe('OrderList', () => {
                 await contentChildFixture.whenStable();
 
                 const emptyElement = contentChildFixture.debugElement.query(By.css('.contentchild-empty-template'));
+
                 expect(emptyElement?.nativeElement.textContent).toBe('ContentChild Empty Template');
             });
 
@@ -1811,6 +1885,7 @@ describe('OrderList', () => {
                 await contentChildFixture.whenStable();
 
                 const emptyFilterElement = contentChildFixture.debugElement.query(By.css('.contentchild-empty-filter-template'));
+
                 if (emptyFilterElement) {
                     expect(emptyFilterElement.nativeElement.textContent).toBe('ContentChild Empty Filter Template');
                 } else {
@@ -1826,6 +1901,7 @@ describe('OrderList', () => {
                 await contentChildFixture.whenStable();
 
                 const filterElement = contentChildFixture.debugElement.query(By.css('.contentchild-filter-template'));
+
                 expect(filterElement).toBeTruthy();
             });
         });
@@ -1837,6 +1913,7 @@ describe('OrderList', () => {
                 // Verify item template receives context with $implicit (product), selected, and index
                 const itemElements = comprehensiveFixture.debugElement.queryAll(By.css('.custom-item-template'));
                 const secondItem = itemElements.length > 0 ? itemElements[1] : undefined;
+
                 expect(secondItem?.nativeElement.textContent).toContain('Index: 1');
                 expect(secondItem?.nativeElement.textContent).toContain('Item: Product B');
             });
@@ -1845,6 +1922,7 @@ describe('OrderList', () => {
                 // Initially no selection
                 await comprehensiveFixture.whenStable();
                 const initialItem = comprehensiveFixture.debugElement.query(By.css('.custom-item-template'));
+
                 expect(initialItem?.nativeElement.textContent).toContain('Selected: false');
 
                 // Add selection - set both component and orderList selection
@@ -1856,6 +1934,7 @@ describe('OrderList', () => {
                 comprehensiveFixture.detectChanges(); // Additional change detection for template context update
 
                 const selectedItem = comprehensiveFixture.debugElement.query(By.css('.custom-item-template'));
+
                 expect(selectedItem?.nativeElement.textContent).toContain('Selected: true');
             });
 
@@ -1873,6 +1952,7 @@ describe('OrderList', () => {
 
                 // Should only show filtered items
                 const visibleItems = comprehensiveFixture.debugElement.queryAll(By.css('.custom-item-template'));
+
                 expect(visibleItems?.[0].nativeElement.textContent).toContain('Item: Product A');
                 expect(visibleItems?.[0].nativeElement.textContent).toContain('Index: 0');
             });

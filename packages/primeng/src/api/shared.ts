@@ -1,17 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, Directive, Input, NgModule, TemplateRef } from '@angular/core';
+import { Component, Directive, Input, NgModule, TemplateRef, inject } from '@angular/core';
 
 @Component({
     selector: 'p-header',
-    template: '<ng-content></ng-content>',
-    standalone: false
+    template: '<ng-content></ng-content>'
 })
 export class Header {}
 
 @Component({
     selector: 'p-footer',
-    template: '<ng-content></ng-content>',
-    standalone: false
+    template: '<ng-content></ng-content>'
 })
 export class Footer {}
 
@@ -20,11 +18,11 @@ export class Footer {}
     standalone: true
 })
 export class PrimeTemplate {
+    template = inject<TemplateRef<any>>(TemplateRef);
+
     @Input() type: string | undefined;
 
     @Input('pTemplate') name: string | undefined;
-
-    constructor(public template: TemplateRef<any>) {}
 
     getType(): string {
         return this.name!;
@@ -32,8 +30,7 @@ export class PrimeTemplate {
 }
 
 @NgModule({
-    imports: [CommonModule, PrimeTemplate],
-    exports: [Header, Footer, PrimeTemplate],
-    declarations: [Header, Footer]
+    imports: [CommonModule, PrimeTemplate, Header, Footer],
+    exports: [Header, Footer, PrimeTemplate]
 })
 export class SharedModule {}

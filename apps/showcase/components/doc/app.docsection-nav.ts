@@ -164,12 +164,14 @@ export class AppDocSectionNav implements OnInit {
                 if (typeof document !== 'undefined') {
                     const labels = this.getLabels();
                     const windowScrollTop = DomHandler.getWindowScrollTop();
+
                     labels.forEach((label) => {
                         const { top } = DomHandler.getOffset(label);
                         const threshold = this.getThreshold(label);
 
                         if (top - threshold <= windowScrollTop) {
                             const link = DomHandler.findSingle(label, 'a');
+
                             this.activeId.set(link.id);
                         }
                     });
@@ -210,6 +212,7 @@ export class AppDocSectionNav implements OnInit {
     scrollToLabelById(id: string) {
         if (typeof document !== undefined) {
             const label = document.getElementById(id);
+
             this.location.go(this.location.path().split('#')[0] + '#' + id);
             setTimeout(() => {
                 label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });

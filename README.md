@@ -61,7 +61,6 @@ pnpm dev
 Useful commands include:
 
 * `pnpm build`
-* `pnpm lint`
 * `pnpm format:check`
 * `pnpm test:unit`
 

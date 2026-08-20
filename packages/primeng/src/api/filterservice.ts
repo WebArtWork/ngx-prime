@@ -190,21 +190,13 @@ export class FilterService {
             else return value >= filter;
         },
 
-        is: (value: any, filter: any, filterLocale?: any): boolean => {
-            return this.filters.equals(value, filter, filterLocale);
-        },
+        is: (value: any, filter: any, filterLocale?: any): boolean => this.filters.equals(value, filter, filterLocale),
 
-        isNot: (value: any, filter: any, filterLocale?: any): boolean => {
-            return this.filters.notEquals(value, filter, filterLocale);
-        },
+        isNot: (value: any, filter: any, filterLocale?: any): boolean => this.filters.notEquals(value, filter, filterLocale),
 
-        before: (value: any, filter: any, filterLocale?: any): boolean => {
-            return this.filters.lt(value, filter, filterLocale);
-        },
+        before: (value: any, filter: any, filterLocale?: any): boolean => this.filters.lt(value, filter, filterLocale),
 
-        after: (value: any, filter: any, filterLocale?: any): boolean => {
-            return this.filters.gt(value, filter, filterLocale);
-        },
+        after: (value: any, filter: any, filterLocale?: any): boolean => this.filters.gt(value, filter, filterLocale),
 
         dateIs: (value: any, filter: any): boolean => {
             if (filter === undefined || filter === null) {
@@ -250,6 +242,7 @@ export class FilterService {
             if (value === undefined || value === null) {
                 return false;
             }
+
             value.setHours(0, 0, 0, 0);
 
             return value.getTime() > filter.getTime();

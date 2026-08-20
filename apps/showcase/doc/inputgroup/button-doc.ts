@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -43,7 +43,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-code></app-code>
     `
 })
-export class ButtonDoc {
+export class ButtonDoc implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {

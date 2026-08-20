@@ -1,11 +1,8 @@
-import { CommonModule } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     Component,
     computed,
     contentChild,
-    ContentChild,
-    ContentChildren,
     contentChildren,
     effect,
     forwardRef,
@@ -17,7 +14,6 @@ import {
     model,
     ModelSignal,
     NgModule,
-    QueryList,
     signal,
     TemplateRef,
     ViewEncapsulation
@@ -75,7 +71,7 @@ export interface StepPanelContentTemplateContext {
 @Component({
     selector: 'p-step-list',
     standalone: true,
-    imports: [CommonModule, BindModule],
+    imports: [BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -107,7 +103,7 @@ export class StepList extends BaseComponent<StepListPassThrough> {
 @Component({
     selector: 'p-stepper-separator',
     standalone: true,
-    imports: [CommonModule, BindModule],
+    imports: [BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -138,7 +134,7 @@ export class StepperSeparator extends BaseComponent<StepperSeparatorPassThrough>
 @Component({
     selector: 'p-step-item',
     standalone: true,
-    imports: [CommonModule, BindModule],
+    imports: [BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -196,9 +192,9 @@ export class StepItem extends BaseComponent<StepItemPassThrough> {
 @Component({
     selector: 'p-step',
     standalone: true,
-    imports: [CommonModule, StepperSeparator, SharedModule, BindModule],
+    imports: [StepperSeparator, SharedModule, BindModule],
     template: `
-        @if (!content && !_contentTemplate) {
+        @if (!content() && !_contentTemplate) {
             <button
                 [attr.id]="id()"
                 [class]="cx('header')"
@@ -219,7 +215,7 @@ export class StepItem extends BaseComponent<StepItemPassThrough> {
                 <p-stepper-separator />
             }
         } @else {
-            <ng-container *ngTemplateOutlet="content || _contentTemplate; context: { activateCallback: onStepClick.bind(this), value: value(), active: active() }"></ng-container>
+            <ng-container *ngTemplateOutlet="content() || _contentTemplate; context: { activateCallback: onStepClick.bind(this), value: value(), active: active() }"></ng-container>
             @if (isSeparatorVisible()) {
                 <p-stepper-separator />
             }
@@ -280,6 +276,7 @@ export class Step extends BaseComponent<StepPassThrough> {
             const steps = this.pcStepper.stepList().steps();
             const index = steps.indexOf(this);
             const stepLen = steps.length;
+
             return index !== stepLen - 1;
         } else {
             return false;
@@ -290,16 +287,16 @@ export class Step extends BaseComponent<StepPassThrough> {
      * @type {TemplateRef<StepContentTemplateContext>}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) content: TemplateRef<StepContentTemplateContext>;
+    readonly content = contentChild.required<TemplateRef<StepContentTemplateContext>>('content', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _contentTemplate: TemplateRef<any> | undefined;
 
     _componentStyle = inject(StepStyle);
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this._contentTemplate = item.template;
@@ -320,7 +317,7 @@ export class Step extends BaseComponent<StepPassThrough> {
 @Component({
     selector: 'p-step-panel',
     standalone: true,
-    imports: [CommonModule, StepperSeparator, SharedModule, BindModule, MotionModule],
+    imports: [StepperSeparator, SharedModule, BindModule, MotionModule],
     template: `
         <p-motion [visible]="active()" name="p-collapsible" [disabled]="!isVertical()" [options]="computedMotionOptions()">
             <div [class]="cx('contentWrapper')" [pBind]="ptm('contentWrapper')">
@@ -328,7 +325,7 @@ export class Step extends BaseComponent<StepPassThrough> {
                     <p-stepper-separator />
                 }
                 <div [class]="cx('content')" [pBind]="ptm('content')">
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate() || _contentTemplate; context: { activateCallback: updateValue.bind(this), value: value(), active: active() }"></ng-container>
                 </div>
             </div>
         </p-motion>
@@ -385,12 +382,10 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
         }
     });
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.pcStepper.computedMotionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.pcStepper.computedMotionOptions()
+    }));
 
     /**
      * Content template.
@@ -398,16 +393,16 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
      * @see {@link StepPanelContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content') contentTemplate: TemplateRef<StepPanelContentTemplateContext>;
+    readonly contentTemplate = contentChild.required<TemplateRef<StepPanelContentTemplateContext>>('content');
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _contentTemplate: TemplateRef<any> | undefined;
 
     _componentStyle = inject(StepPanelStyle);
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this._contentTemplate = item.template;
@@ -424,7 +419,7 @@ export class StepPanel extends BaseComponent<StepPanelPassThrough> {
 @Component({
     selector: 'p-step-panels',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -455,7 +450,7 @@ export class StepPanels extends BaseComponent<StepPanelsPassThrough> {
 @Component({
     selector: 'p-stepper',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -510,12 +505,10 @@ export class Stepper extends BaseComponent<StepperPassThrough> {
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
 
     id = signal<string>(uuid('pn_id_'));
 

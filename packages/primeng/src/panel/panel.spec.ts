@@ -8,7 +8,6 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from 'primeng/types/pan
 import { Panel } from './panel';
 
 @Component({
-    standalone: false,
     template: `
         <p-panel
             [header]="header"
@@ -26,7 +25,8 @@ import { Panel } from './panel';
         >
             <div class="panel-content">Panel content goes here</div>
         </p-panel>
-    `
+    `,
+    imports: [Panel, ButtonModule, PlusIcon, MinusIcon]
 })
 class TestBasicPanelComponent {
     header = 'Test Panel';
@@ -57,7 +57,6 @@ class TestBasicPanelComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-panel header="Template Panel" [toggleable]="true">
             <ng-template #header>
@@ -76,12 +75,12 @@ class TestBasicPanelComponent {
                 <span class="custom-header-icon">{{ collapsed ? '➕' : '➖' }}</span>
             </ng-template>
         </p-panel>
-    `
+    `,
+    imports: [Panel, ButtonModule, PlusIcon, MinusIcon]
 })
 class TestTemplatesPanelComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-panel header="Facet Panel" [toggleable]="true">
             <p-header>
@@ -92,12 +91,12 @@ class TestTemplatesPanelComponent {}
                 <div class="footer-facet">Footer Facet Content</div>
             </p-footer>
         </p-panel>
-    `
+    `,
+    imports: [Panel, ButtonModule, PlusIcon, MinusIcon]
 })
 class TestFacetsPanelComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-panel header="Keyboard Panel" [toggleable]="true" [collapsed]="false">
             <div>
@@ -111,7 +110,8 @@ class TestFacetsPanelComponent {}
                 <div tabindex="0">Focusable div</div>
             </div>
         </p-panel>
-    `
+    `,
+    imports: [Panel, ButtonModule, PlusIcon, MinusIcon]
 })
 class TestKeyboardNavigationComponent {}
 
@@ -123,9 +123,8 @@ describe('Panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Panel, ButtonModule, PlusIcon, MinusIcon],
-            providers: [provideNoopAnimations(), provideZonelessChangeDetection()],
-            declarations: [TestBasicPanelComponent, TestTemplatesPanelComponent, TestFacetsPanelComponent, TestKeyboardNavigationComponent]
+            imports: [Panel, ButtonModule, PlusIcon, MinusIcon, TestBasicPanelComponent, TestTemplatesPanelComponent, TestFacetsPanelComponent, TestKeyboardNavigationComponent],
+            providers: [provideNoopAnimations(), provideZonelessChangeDetection()]
         });
 
         testFixture = TestBed.createComponent(TestBasicPanelComponent);
@@ -179,6 +178,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const headerEl = testFixture.debugElement.query(By.css('.p-panel-title'));
+
             expect(headerEl?.nativeElement.textContent.trim()).toBe('My Panel Header');
         });
 
@@ -188,6 +188,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const headerEl = testFixture.debugElement.query(By.css('.p-panel-header'));
+
             expect(headerEl).toBeNull();
         });
 
@@ -197,6 +198,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const headerEl = testFixture.debugElement.query(By.css('.p-panel-header'));
+
             expect(headerEl).toBeTruthy();
         });
     });
@@ -208,6 +210,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('.p-panel-toggler'));
+
             expect(toggleButton).toBeNull();
         });
 
@@ -217,6 +220,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
             expect(toggleButton).toBeTruthy();
         });
 
@@ -227,6 +231,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
             toggleButton.nativeElement.click();
             await testFixture.whenStable();
 
@@ -242,6 +247,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const headerEl = testFixture.debugElement.query(By.css('.p-panel-header'));
+
             headerEl.nativeElement.click();
             await testFixture.whenStable();
 
@@ -257,6 +263,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const headerEl = testFixture.debugElement.query(By.css('.p-panel-header'));
+
             headerEl.nativeElement.click();
 
             expect(testComponent.collapsedChangeEvent).toBeUndefined();
@@ -270,6 +277,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
             toggleButton.nativeElement.click();
             await testFixture.whenStable();
 
@@ -328,6 +336,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const contentEl = testFixture.debugElement.query(By.css('.panel-content'));
+
             expect(contentEl).toBeTruthy();
             expect(contentEl.nativeElement.textContent.trim()).toBe('Panel content goes here');
         });
@@ -338,6 +347,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
+
             expect(contentContainer.nativeElement.getAttribute('aria-hidden')).toBe((panelInstance.collapsed ?? false).toString());
         });
 
@@ -348,6 +358,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
             expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed).toString());
 
             testComponent.collapsed = true;
@@ -366,6 +377,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const minusIcon = testFixture.debugElement.query(By.css('[data-p-icon="minus"]'));
+
             expect(minusIcon).toBeTruthy();
         });
 
@@ -376,6 +388,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const plusIcon = testFixture.debugElement.query(By.css('[data-p-icon="plus"]'));
+
             expect(plusIcon).toBeTruthy();
         });
 
@@ -389,6 +402,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
             expect(toggleButton).toBeTruthy();
         });
     });
@@ -400,11 +414,13 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const panelElement = testFixture.debugElement.query(By.css('p-panel'));
+
             expect(panelElement.nativeElement.className).toContain('custom-panel-class');
         });
 
         it('should have correct CSS classes based on state', () => {
             const panelElement = testFixture.debugElement.query(By.css('p-panel'));
+
             expect(panelElement.nativeElement.className).toContain('p-panel');
         });
     });
@@ -412,6 +428,7 @@ describe('Panel', () => {
     describe('Template Support', () => {
         it('should render custom templates', () => {
             const fixture = TestBed.createComponent(TestTemplatesPanelComponent);
+
             fixture.detectChanges();
 
             const customHeader = fixture.debugElement.query(By.css('.custom-header'));
@@ -427,10 +444,12 @@ describe('Panel', () => {
 
         it('should render header icons template with context', () => {
             const fixture = TestBed.createComponent(TestTemplatesPanelComponent);
+
             fixture.detectChanges();
 
             const panelComponent = fixture.debugElement.query(By.directive(Panel)).componentInstance;
             const customHeaderIcon = fixture.debugElement.query(By.css('.custom-header-icon'));
+
             expect(customHeaderIcon?.nativeElement.textContent.trim()).toBe(panelComponent.collapsed ? '➕' : '➖');
         });
     });
@@ -438,6 +457,7 @@ describe('Panel', () => {
     describe('Facets Support', () => {
         it('should render header and footer facets', () => {
             const fixture = TestBed.createComponent(TestFacetsPanelComponent);
+
             fixture.detectChanges();
 
             const headerFacet = fixture.debugElement.query(By.css('.header-facet'));
@@ -453,6 +473,7 @@ describe('Panel', () => {
     describe('Tab Index Management', () => {
         it('should call updateTabIndex when collapsed state changes', () => {
             const fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
+
             fixture.detectChanges();
 
             const panelComp = fixture.debugElement.query(By.directive(Panel)).componentInstance;
@@ -494,6 +515,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
             expect(toggleButton.nativeElement.getAttribute('aria-expanded')).toBe((!panelInstance.collapsed).toString());
 
             testComponent.collapsed = true;
@@ -507,6 +529,7 @@ describe('Panel', () => {
     describe('BlockableUI Interface', () => {
         it('should implement getBlockableElement', () => {
             const blockableElement = panelInstance.getBlockableElement();
+
             expect(blockableElement).toBe(panelInstance.el.nativeElement);
         });
     });
@@ -520,6 +543,7 @@ describe('Panel', () => {
         it('should use provided ID', () => {
             const fixture = TestBed.createComponent(Panel);
             const panel = fixture.componentInstance;
+
             panel.id = 'my-custom-panel-id';
             fixture.detectChanges();
 
@@ -534,6 +558,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const headerEl = testFixture.debugElement.query(By.css('.p-panel-title'));
+
             expect(headerEl).toBeFalsy();
         });
 
@@ -543,6 +568,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const initialCollapsed = panelInstance.collapsed;
+
             panelInstance.toggle(new MouseEvent('click'));
 
             // Note: toggle() method works programmatically even when toggleable is false
@@ -555,6 +581,7 @@ describe('Panel', () => {
             testFixture.detectChanges();
 
             const event = new MouseEvent('click');
+
             spyOn(event, 'preventDefault');
 
             panelInstance.toggle(event);
@@ -568,6 +595,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
             expect(toggleButton).toBeTruthy();
         });
     });
@@ -604,6 +632,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const event = new MouseEvent('click');
+
             panelInstance.toggle(event);
 
             expect(panelInstance.collapsed).toBe(true);
@@ -658,6 +687,7 @@ describe('Panel', () => {
 
         it('should handle onKeyDown with Enter key', () => {
             const event = new KeyboardEvent('keydown', { code: 'Enter' });
+
             spyOn(event, 'preventDefault');
             spyOn(panelInstance, 'toggle');
 
@@ -669,6 +699,7 @@ describe('Panel', () => {
 
         it('should handle onKeyDown with Space key', () => {
             const event = new KeyboardEvent('keydown', { code: 'Space' });
+
             spyOn(event, 'preventDefault');
             spyOn(panelInstance, 'toggle');
 
@@ -680,6 +711,7 @@ describe('Panel', () => {
 
         it('should not handle onKeyDown with other keys', () => {
             const event = new KeyboardEvent('keydown', { code: 'Tab' });
+
             spyOn(panelInstance, 'toggle');
 
             panelInstance.onKeyDown(event);
@@ -691,6 +723,7 @@ describe('Panel', () => {
     describe('ContentChild and Templates', () => {
         it('should handle ngAfterContentInit with templates', () => {
             const fixture = TestBed.createComponent(TestTemplatesPanelComponent);
+
             fixture.detectChanges();
 
             // Templates are handled via ng-template, not ContentChild
@@ -711,6 +744,7 @@ describe('Panel', () => {
 
         it('should update tab indices for focusable elements when collapsed', () => {
             const fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
+
             fixture.detectChanges();
 
             const panel = fixture.debugElement.query(By.directive(Panel)).componentInstance;
@@ -747,6 +781,7 @@ describe('Panel', () => {
 
         it('should restore tab indices for focusable elements when expanded', () => {
             const fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
+
             fixture.detectChanges();
 
             const panel = fixture.debugElement.query(By.directive(Panel)).componentInstance;
@@ -784,6 +819,7 @@ describe('Panel', () => {
 
         it('should handle elements with existing tabindex', () => {
             const fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
+
             fixture.detectChanges();
 
             const panel = fixture.debugElement.query(By.directive(Panel)).componentInstance;
@@ -795,6 +831,7 @@ describe('Panel', () => {
             // Initially should have tabindex="0"
             expect(focusableDiv).toBeTruthy();
             const initialTabindex = focusableDiv.getAttribute('tabindex');
+
             expect(initialTabindex).toBe('0');
 
             // When collapsed, should set tabindex="-1"
@@ -811,6 +848,7 @@ describe('Panel', () => {
             // This is correct behavior - the component removes tabindex attributes
             // to restore the natural tab order when panel is expanded
             const finalTabindex = focusableDiv.getAttribute('tabindex');
+
             expect(finalTabindex).toBeNull();
         });
     });
@@ -823,6 +861,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const iconsEl = testFixture.debugElement.query(By.css('.p-panel-header-actions.p-panel-icons-start'));
+
             expect(iconsEl).toBeTruthy();
         });
 
@@ -833,6 +872,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const iconsEl = testFixture.debugElement.query(By.css('.p-panel-header-actions.p-panel-icons-end'));
+
             expect(iconsEl).toBeTruthy();
         });
 
@@ -843,6 +883,7 @@ describe('Panel', () => {
             await testFixture.whenStable();
 
             const iconsEl = testFixture.debugElement.query(By.css('.p-panel-header-actions.p-panel-icons-center'));
+
             expect(iconsEl).toBeTruthy();
         });
     });
@@ -873,6 +914,7 @@ describe('Panel', () => {
             expect(panelInstance.collapsed).toBe(false);
 
             let contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
+
             expect(contentContainer).toBeTruthy();
 
             // Disable animations to prevent ExpressionChangedAfterItHasBeenCheckedError
@@ -881,6 +923,7 @@ describe('Panel', () => {
 
             // Toggle to collapse
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
             toggleButton.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
             await testFixture.whenStable();
@@ -914,10 +957,12 @@ describe('Panel', () => {
 
             // Content container should still be in DOM when collapsed
             let contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
+
             expect(contentContainer).toBeTruthy();
 
             // Toggle to expand
             const toggleButton = testFixture.debugElement.query(By.css('p-button'));
+
             toggleButton.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
             await testFixture.whenStable();
@@ -948,6 +993,7 @@ describe('Panel', () => {
             expect(panelInstance.collapsed).toBe(false);
 
             let contentContainer = testFixture.debugElement.query(By.css('.p-panel-content-container'));
+
             expect(contentContainer).toBeTruthy();
 
             // Programmatically collapse
@@ -988,14 +1034,17 @@ describe('Panel', () => {
 
             // Should have overflow:hidden style applied via CSS
             const computedStyle = window.getComputedStyle(contentContainer.nativeElement);
+
             expect(computedStyle.overflow).toBe('hidden');
 
             // Panel should have p-panel-collapsed class
             const panelElement = testFixture.debugElement.query(By.css('p-panel'));
+
             expect(panelElement.nativeElement.className).toContain('p-panel-collapsed');
 
             // CSS selector .p-panel-collapsed .p-panel-content-container should match
             const matchingElements = panelElement.nativeElement.querySelectorAll('.p-panel-collapsed .p-panel-content-container');
+
             expect(matchingElements.length).toBe(1);
         });
 
@@ -1013,6 +1062,7 @@ describe('Panel', () => {
 
             // Panel should have p-panel-expanded class
             const panelElement = testFixture.debugElement.query(By.css('p-panel'));
+
             expect(panelElement.nativeElement.className).toContain('p-panel-expanded');
 
             // Note: In expanded state, overflow may still be 'hidden' due to default styles,
@@ -1056,71 +1106,85 @@ describe('Panel', () => {
         describe('Case 1: Simple String Classes', () => {
             it('should apply PT class to host section', () => {
                 const fixture = TestBed.createComponent(Panel);
+
                 fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
                 fixture.detectChanges();
 
                 const hostElement = fixture.nativeElement;
+
                 expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
             });
 
             it('should apply PT class to root section', () => {
                 const fixture = TestBed.createComponent(Panel);
+
                 fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
                 fixture.detectChanges();
 
                 const hostElement = fixture.nativeElement;
+
                 expect(hostElement.classList.contains('ROOT_CLASS')).toBe(true);
             });
 
             it('should apply PT class to header section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test Header';
                 fixture.componentRef.setInput('pt', { header: 'HEADER_CLASS' });
                 fixture.detectChanges();
 
                 const headerEl = fixture.debugElement.query(By.css('.p-panel-header'));
+
                 expect(headerEl.nativeElement.className).toContain('HEADER_CLASS');
             });
 
             it('should apply PT class to title section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test Title';
                 fixture.componentRef.setInput('pt', { title: 'TITLE_CLASS' });
                 fixture.detectChanges();
 
                 const titleEl = fixture.debugElement.query(By.css('.p-panel-title'));
+
                 expect(titleEl.nativeElement.className).toContain('TITLE_CLASS');
             });
 
             it('should apply PT class to icons section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test';
                 panel.toggleable = true;
                 fixture.componentRef.setInput('pt', { headerActions: 'ICONS_CLASS' });
                 fixture.detectChanges();
 
                 const iconsEl = fixture.debugElement.query(By.css('.p-panel-header-actions'));
+
                 expect(iconsEl.nativeElement.className).toContain('ICONS_CLASS');
             });
 
             it('should apply PT class to contentContainer section', () => {
                 const fixture = TestBed.createComponent(Panel);
+
                 fixture.componentRef.setInput('pt', { contentContainer: 'CONTENT_CONTAINER_CLASS' });
                 fixture.detectChanges();
 
                 const contentContainerEl = fixture.debugElement.query(By.css('.p-panel-content-container'));
+
                 expect(contentContainerEl.nativeElement.className).toContain('CONTENT_CONTAINER_CLASS');
             });
 
             it('should apply PT class to content section', () => {
                 const fixture = TestBed.createComponent(Panel);
+
                 fixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
                 fixture.detectChanges();
 
                 const contentEl = fixture.debugElement.query(By.css('.p-panel-content'));
+
                 expect(contentEl.nativeElement.className).toContain('CONTENT_CLASS');
             });
         });
@@ -1130,6 +1194,7 @@ describe('Panel', () => {
                 // Skipped: PT style and attribute binding to host causes infinite loop with current implementation
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 fixture.componentRef.setInput('pt', {
                     root: {
                         class: 'ROOT_OBJECT_CLASS',
@@ -1141,6 +1206,7 @@ describe('Panel', () => {
                 fixture.detectChanges();
 
                 const hostElement = fixture.nativeElement;
+
                 expect(hostElement.className).toContain('ROOT_OBJECT_CLASS');
                 expect(hostElement.style.backgroundColor).toBe('red');
                 expect(hostElement.getAttribute('data-p-test')).toBe('true');
@@ -1150,6 +1216,7 @@ describe('Panel', () => {
             it('should apply PT object with attributes to title', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test';
                 fixture.componentRef.setInput('pt', {
                     title: {
@@ -1161,6 +1228,7 @@ describe('Panel', () => {
                 fixture.detectChanges();
 
                 const titleEl = fixture.debugElement.query(By.css('.p-panel-title'));
+
                 expect(titleEl.nativeElement.className).toContain('TITLE_OBJECT_CLASS');
                 expect(titleEl.nativeElement.getAttribute('data-testid')).toBe('panel-title');
                 expect(titleEl.nativeElement.style.padding).toBe('20px');
@@ -1168,6 +1236,7 @@ describe('Panel', () => {
 
             it('should apply PT object to contentContainer', () => {
                 const fixture = TestBed.createComponent(Panel);
+
                 fixture.componentRef.setInput('pt', {
                     contentContainer: {
                         class: 'CONTAINER_OBJECT_CLASS',
@@ -1177,6 +1246,7 @@ describe('Panel', () => {
                 fixture.detectChanges();
 
                 const containerEl = fixture.debugElement.query(By.css('.p-panel-content-container'));
+
                 expect(containerEl.nativeElement.className).toContain('CONTAINER_OBJECT_CLASS');
             });
         });
@@ -1185,6 +1255,7 @@ describe('Panel', () => {
             it('should apply mixed PT values to multiple sections', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test';
                 fixture.componentRef.setInput('pt', {
                     root: {
@@ -1201,12 +1272,15 @@ describe('Panel', () => {
                 fixture.detectChanges();
 
                 const rootEl = fixture.nativeElement;
+
                 expect(rootEl.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
 
                 const titleEl = fixture.debugElement.query(By.css('.p-panel-title'));
+
                 expect(titleEl?.nativeElement.className).toContain('TITLE_STRING_CLASS');
 
                 const contentEl = fixture.debugElement.query(By.css('.p-panel-content'));
+
                 expect(contentEl?.nativeElement.className).toContain('CONTENT_MIXED_CLASS');
                 expect(contentEl?.nativeElement.style.margin).toBe('10px');
             });
@@ -1216,6 +1290,7 @@ describe('Panel', () => {
             it('should apply PT with custom class', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel.collapsed = true;
                 fixture.componentRef.setInput('pt', {
                     root: {
@@ -1225,12 +1300,14 @@ describe('Panel', () => {
                 fixture.detectChanges();
 
                 const rootEl = fixture.nativeElement;
+
                 expect(rootEl.classList.contains('CUSTOM_COLLAPSED')).toBe(true);
             });
 
             it('should apply PT with dynamic styles', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test';
                 fixture.componentRef.setInput('pt', {
                     title: {
@@ -1240,12 +1317,14 @@ describe('Panel', () => {
                 fixture.detectChanges();
 
                 const titleEl = fixture.debugElement.query(By.css('.p-panel-title'));
+
                 expect(titleEl?.nativeElement.style.backgroundColor).toBe('yellow');
             });
 
             it('should update classes when state changes', async () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test';
                 panel.toggleable = true;
                 panel.collapsed = false;
@@ -1257,6 +1336,7 @@ describe('Panel', () => {
                 fixture.detectChanges();
 
                 const rootEl = fixture.nativeElement;
+
                 expect(rootEl.classList.contains('DYNAMIC_CLASS')).toBe(true);
 
                 // Toggle to collapsed
@@ -1272,6 +1352,7 @@ describe('Panel', () => {
             it('should handle onclick event through PT on title section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test';
                 let clicked = false;
 
@@ -1285,6 +1366,7 @@ describe('Panel', () => {
                 fixture.detectChanges();
 
                 const titleEl = fixture.debugElement.query(By.css('.p-panel-title'));
+
                 if (titleEl) {
                     titleEl.nativeElement.click();
                     expect(clicked).toBe(true);
@@ -1297,6 +1379,7 @@ describe('Panel', () => {
             it('should handle onclick event through PT on header section', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test';
                 let headerClicked = false;
 
@@ -1310,6 +1393,7 @@ describe('Panel', () => {
                 fixture.detectChanges();
 
                 const headerEl = fixture.debugElement.query(By.css('.p-panel-header'));
+
                 if (headerEl) {
                     headerEl.nativeElement.click();
                     expect(headerClicked).toBe(true);
@@ -1322,19 +1406,23 @@ describe('Panel', () => {
         describe('Case 6: Inline PT Usage', () => {
             it('should apply inline PT with string value', () => {
                 const fixture = TestBed.createComponent(Panel);
+
                 fixture.componentRef.setInput('pt', { root: { class: 'INLINE_ROOT_CLASS' } });
                 fixture.detectChanges();
 
                 const rootEl = fixture.nativeElement;
+
                 expect(rootEl.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
             });
 
             it('should apply inline PT with object value', () => {
                 const fixture = TestBed.createComponent(Panel);
+
                 fixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
                 fixture.detectChanges();
 
                 const rootEl = fixture.nativeElement;
+
                 expect(rootEl.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -1343,6 +1431,7 @@ describe('Panel', () => {
             it('should apply PT to multiple sections simultaneously', () => {
                 const fixture = TestBed.createComponent(Panel);
                 const panel = fixture.componentInstance;
+
                 panel._header = 'Test';
                 panel.toggleable = true;
 
@@ -1369,11 +1458,13 @@ describe('Panel', () => {
         describe('PT with Footer Section', () => {
             it('should apply PT class to footer section', () => {
                 const fixture = TestBed.createComponent(Panel);
+
                 fixture.componentRef.setInput('pt', { footer: 'FOOTER_CLASS' });
                 fixture.detectChanges();
 
                 // Footer should not exist without content
                 let footerEl = fixture.debugElement.query(By.css('.p-panel-footer'));
+
                 expect(footerEl).toBeFalsy();
             });
         });

@@ -95,6 +95,7 @@ describe('InputText', () => {
 
         it('should update model value when input changes', async () => {
             const input = inputEl.nativeElement;
+
             input.value = 'test input';
             input.dispatchEvent(new Event('input'));
             fixture.changeDetectorRef.markForCheck();
@@ -217,6 +218,7 @@ describe('InputText', () => {
 
         it('should update form control when input changes', async () => {
             const input = inputEl.nativeElement;
+
             input.value = 'user@test.com';
             input.dispatchEvent(new Event('input'));
             fixture.changeDetectorRef.markForCheck();
@@ -267,6 +269,7 @@ describe('InputText', () => {
 
         it('should handle password value changes', async () => {
             const input = inputEl.nativeElement;
+
             input.value = 'secret123';
             input.dispatchEvent(new Event('input'));
             fixture.changeDetectorRef.markForCheck();
@@ -311,6 +314,7 @@ describe('InputText', () => {
 
         it('should handle special characters', async () => {
             const specialText = 'Hello! @#$%^&*()_+ 123';
+
             component.value = specialText;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -397,6 +401,7 @@ describe('InputText', () => {
             fixture = TestBed.createComponent(TestPTInputTextComponent);
             component = fixture.componentInstance;
             const debugEl = fixture.debugElement.query(By.directive(InputText));
+
             inputEl = debugEl.nativeElement;
             fixture.detectChanges();
         });
@@ -479,6 +484,7 @@ describe('InputText', () => {
         describe('Case 4: Event binding', () => {
             it('should handle onclick event from pt', async () => {
                 let clicked = false;
+
                 component.pt = {
                     root: {
                         onclick: () => {
@@ -495,6 +501,7 @@ describe('InputText', () => {
 
             it('should handle onfocus event from pt', async () => {
                 let focused = false;
+
                 component.pt = {
                     root: {
                         onfocus: () => {
@@ -511,6 +518,7 @@ describe('InputText', () => {
 
             it('should handle onblur event from pt', async () => {
                 let blurred = false;
+
                 component.pt = {
                     root: {
                         onblur: () => {

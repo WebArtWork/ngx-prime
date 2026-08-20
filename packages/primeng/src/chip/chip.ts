@@ -1,22 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    AfterContentInit,
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    ContentChild,
-    ContentChildren,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    SimpleChanges,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, InjectionToken, Input, NgModule, Output, SimpleChanges, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -36,47 +19,40 @@ const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');
     imports: [CommonModule, TimesCircleIcon, SharedModule, Bind],
     template: `
         <ng-content></ng-content>
-        <img [pBind]="ptm('image')" [class]="cx('image')" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
-        <ng-template #iconTemplate><span [pBind]="ptm('icon')" *ngIf="icon" [class]="icon" [ngClass]="cx('icon')"></span></ng-template>
-        <div [pBind]="ptm('label')" [class]="cx('label')" *ngIf="label">{{ label }}</div>
-        <ng-container *ngIf="removable">
-            <ng-container *ngIf="!removeIconTemplate && !_removeIconTemplate">
-                <span
-                    [pBind]="ptm('removeIcon')"
-                    *ngIf="removeIcon"
-                    [class]="removeIcon"
-                    [ngClass]="cx('removeIcon')"
-                    (click)="close($event)"
-                    (keydown)="onKeydown($event)"
-                    [attr.tabindex]="disabled ? -1 : 0"
-                    [attr.aria-label]="removeAriaLabel"
-                    role="button"
-                ></span>
-                <svg
-                    [pBind]="ptm('removeIcon')"
-                    data-p-icon="times-circle"
-                    *ngIf="!removeIcon"
-                    [class]="cx('removeIcon')"
-                    (click)="close($event)"
-                    (keydown)="onKeydown($event)"
-                    [attr.tabindex]="disabled ? -1 : 0"
-                    [attr.aria-label]="removeAriaLabel"
-                    role="button"
-                />
-            </ng-container>
-            <span
-                [pBind]="ptm('removeIcon')"
-                *ngIf="removeIconTemplate || _removeIconTemplate"
-                [attr.tabindex]="disabled ? -1 : 0"
-                [class]="cx('removeIcon')"
-                (click)="close($event)"
-                (keydown)="onKeydown($event)"
-                [attr.aria-label]="removeAriaLabel"
-                role="button"
-            >
-                <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate"></ng-template>
-            </span>
-        </ng-container>
+        @if (image) {
+            <img [pBind]="ptm('image')" [class]="cx('image')" [src]="image" (error)="imageError($event)" [alt]="alt" />
+        } @else {
+            @if (icon) {
+                <span [pBind]="ptm('icon')" [class]="icon" [ngClass]="cx('icon')"></span>
+            }
+        }
+        @if (label) {
+            <div [pBind]="ptm('label')" [class]="cx('label')">{{ label }}</div>
+        }
+        @if (removable) {
+            @if (!removeIconTemplate && !_removeIconTemplate) {
+                @if (removeIcon) {
+                    <span
+                        [pBind]="ptm('removeIcon')"
+                        [class]="removeIcon"
+                        [ngClass]="cx('removeIcon')"
+                        (click)="close($event)"
+                        (keydown)="onKeydown($event)"
+                        [attr.tabindex]="disabled ? -1 : 0"
+                        [attr.aria-label]="removeAriaLabel"
+                        role="button"
+                    ></span>
+                }
+                @if (!removeIcon) {
+                    <svg [pBind]="ptm('removeIcon')" data-p-icon="times-circle" [class]="cx('removeIcon')" (click)="close($event)" (keydown)="onKeydown($event)" [attr.tabindex]="disabled ? -1 : 0" [attr.aria-label]="removeAriaLabel" role="button" />
+                }
+            }
+            @if (removeIconTemplate || _removeIconTemplate) {
+                <span [pBind]="ptm('removeIcon')" [attr.tabindex]="disabled ? -1 : 0" [class]="cx('removeIcon')" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
+                    <ng-template *ngTemplateOutlet="removeIconTemplate || _removeIconTemplate"></ng-template>
+                </span>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -184,12 +160,12 @@ export class Chip extends BaseComponent<ChipPassThrough> {
      */
     @ContentChild('removeicon', { descendants: false }) removeIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _removeIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'removeicon':
                     this._removeIconTemplate = item.template;
@@ -209,21 +185,27 @@ export class Chip extends BaseComponent<ChipPassThrough> {
             if (currentValue.label !== undefined) {
                 this.label = currentValue.label;
             }
+
             if (currentValue.icon !== undefined) {
                 this.icon = currentValue.icon;
             }
+
             if (currentValue.image !== undefined) {
                 this.image = currentValue.image;
             }
+
             if (currentValue.alt !== undefined) {
                 this.alt = currentValue.alt;
             }
+
             if (currentValue.styleClass !== undefined) {
                 this.styleClass = currentValue.styleClass;
             }
+
             if (currentValue.removable !== undefined) {
                 this.removable = currentValue.removable;
             }
+
             if (currentValue.removeIcon !== undefined) {
                 this.removeIcon = currentValue.removeIcon;
             }

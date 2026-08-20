@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ViewChild, signal, provideZonelessChangeDetection } from '@angular/core';
+import { Component, signal, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { DataView } from './dataview';
 import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
-    standalone: false,
     template: `
         <p-dataview
             [value]="products"
@@ -46,16 +45,21 @@ import { PaginatorModule } from 'primeng/paginator';
         >
             <ng-template #list let-items>
                 <div class="list-container">
-                    <div *ngFor="let item of items" class="list-item">{{ item.name }} - {{ item.price }}</div>
+                    @for (item of items; track item) {
+                        <div class="list-item">{{ item.name }} - {{ item.price }}</div>
+                    }
                 </div>
             </ng-template>
             <ng-template #grid let-items>
                 <div class="grid-container">
-                    <div *ngFor="let item of items" class="grid-item">{{ item.name }} - {{ item.price }}</div>
+                    @for (item of items; track item) {
+                        <div class="grid-item">{{ item.name }} - {{ item.price }}</div>
+                    }
                 </div>
             </ng-template>
         </p-dataview>
-    `
+    `,
+    imports: [CommonModule, DataView, PaginatorModule]
 })
 class TestBasicDataViewComponent {
     products = [
@@ -118,7 +122,6 @@ class TestBasicDataViewComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-dataview [value]="products">
             <p-header>
@@ -126,16 +129,19 @@ class TestBasicDataViewComponent {
             </p-header>
             <ng-template #list let-items>
                 <div class="list-container">
-                    <div *ngFor="let item of items" class="list-item">
-                        {{ item.name }}
-                    </div>
+                    @for (item of items; track item) {
+                        <div class="list-item">
+                            {{ item.name }}
+                        </div>
+                    }
                 </div>
             </ng-template>
             <p-footer>
                 <div class="custom-footer">Custom Footer Content</div>
             </p-footer>
         </p-dataview>
-    `
+    `,
+    imports: [CommonModule, DataView, PaginatorModule]
 })
 class TestHeaderFooterDataViewComponent {
     products = [
@@ -145,14 +151,15 @@ class TestHeaderFooterDataViewComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-dataview [value]="products" [paginator]="true" [rows]="2">
             <ng-template #list let-items>
                 <div class="list-container">
-                    <div *ngFor="let item of items" class="list-item">
-                        {{ item.name }}
-                    </div>
+                    @for (item of items; track item) {
+                        <div class="list-item">
+                            {{ item.name }}
+                        </div>
+                    }
                 </div>
             </ng-template>
             <ng-template #header>
@@ -171,28 +178,33 @@ class TestHeaderFooterDataViewComponent {
                 <span class="paginator-right">Right Content</span>
             </ng-template>
         </p-dataview>
-    `
+    `,
+    imports: [CommonModule, DataView, PaginatorModule]
 })
 class TestTemplatesDataViewComponent {
     products: any[] = [];
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-dataview [value]="products()" [layout]="layout">
             <ng-template #list let-items>
                 <div class="list-container">
-                    <div *ngFor="let item of items" class="list-item">List: {{ item.name }}</div>
+                    @for (item of items; track item) {
+                        <div class="list-item">List: {{ item.name }}</div>
+                    }
                 </div>
             </ng-template>
             <ng-template #grid let-items>
                 <div class="grid-container">
-                    <div *ngFor="let item of items" class="grid-item">Grid: {{ item.name }}</div>
+                    @for (item of items; track item) {
+                        <div class="grid-item">Grid: {{ item.name }}</div>
+                    }
                 </div>
             </ng-template>
         </p-dataview>
-    `
+    `,
+    imports: [CommonModule, DataView, PaginatorModule]
 })
 class TestLayoutDataViewComponent {
     products = signal([
@@ -210,8 +222,7 @@ describe('DataView', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, DataView, PaginatorModule],
-            declarations: [TestBasicDataViewComponent, TestHeaderFooterDataViewComponent, TestTemplatesDataViewComponent, TestLayoutDataViewComponent, TestDynamicDataViewComponent],
+            imports: [CommonModule, DataView, PaginatorModule, TestBasicDataViewComponent, TestHeaderFooterDataViewComponent, TestTemplatesDataViewComponent, TestLayoutDataViewComponent, TestDynamicDataViewComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
         fixture = TestBed.createComponent(TestBasicDataViewComponent);
@@ -308,6 +319,7 @@ describe('DataView', () => {
             });
 
             const sortedValues = dataview.value;
+
             expect(sortedValues![0].price).toBe(100);
             expect(sortedValues![4].price).toBe(500);
         });
@@ -321,6 +333,7 @@ describe('DataView', () => {
             dataview.sort();
 
             const sortedValues = dataview.value;
+
             expect(sortedValues![0].price).toBe(500);
             expect(sortedValues![4].price).toBe(100);
         });
@@ -340,6 +353,7 @@ describe('DataView', () => {
             dataview.sort();
 
             const sortedValues = dataview.value;
+
             expect(sortedValues![0].price).toBe(null);
             expect(sortedValues![1].price).toBe(null);
             expect(sortedValues![2].price).toBe(100);
@@ -420,6 +434,7 @@ describe('DataView', () => {
 
         it('should get blockable element', () => {
             const element = dataview.getBlockableElement();
+
             expect(element).toBeTruthy();
             expect(element).toBe(dataview.el.nativeElement.children[0]);
         });
@@ -443,6 +458,7 @@ describe('DataView', () => {
         it('should emit onLazyLoad on init when lazy and lazyLoadOnInit are true', async () => {
             const lazyFixture = TestBed.createComponent(TestBasicDataViewComponent);
             const lazyComponent = lazyFixture.componentInstance;
+
             lazyComponent.lazy = true;
 
             spyOn(lazyComponent, 'onLazyLoadEvent');
@@ -456,6 +472,7 @@ describe('DataView', () => {
         it('should not emit onLazyLoad on init when lazyLoadOnInit is false', async () => {
             const lazyFixture = TestBed.createComponent(TestBasicDataViewComponent);
             const lazyComponent = lazyFixture.componentInstance;
+
             lazyComponent.lazy = true;
             lazyComponent.lazyLoadOnInit = false;
 
@@ -541,6 +558,7 @@ describe('DataView', () => {
     describe('Template and Content Projection', () => {
         it('should render list template', () => {
             const listItems = fixture.debugElement.queryAll(By.css('.list-item'));
+
             expect(listItems.length).toBe(5);
             expect(listItems[0].nativeElement.textContent).toContain('Product 1 - 100');
         });
@@ -551,12 +569,14 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             const gridItems = fixture.debugElement.queryAll(By.css('.grid-item'));
+
             expect(gridItems.length).toBe(5);
             expect(gridItems[0].nativeElement.textContent).toContain('Product 1 - 100');
         });
 
         it('should render header and footer content', async () => {
             const headerFooterFixture = TestBed.createComponent(TestHeaderFooterDataViewComponent);
+
             await headerFooterFixture.whenStable();
 
             const header = headerFooterFixture.debugElement.query(By.css('.custom-header'));
@@ -570,6 +590,7 @@ describe('DataView', () => {
 
         it('should render template-based header and footer', async () => {
             const templateFixture = TestBed.createComponent(TestTemplatesDataViewComponent);
+
             await templateFixture.whenStable();
 
             const header = templateFixture.debugElement.query(By.css('.template-header'));
@@ -588,14 +609,17 @@ describe('DataView', () => {
 
             const emptyMessage = fixture.debugElement.query(By.css('div'));
             const emptyMessageDiv = fixture.debugElement.queryAll(By.css('div')).find((div) => div.nativeElement.textContent && div.nativeElement.textContent.includes('No products found'));
+
             expect(emptyMessageDiv).toBeTruthy();
         });
 
         it('should render custom empty message template', async () => {
             const templateFixture = TestBed.createComponent(TestTemplatesDataViewComponent);
+
             await templateFixture.whenStable();
 
             const emptyTemplate = templateFixture.debugElement.query(By.css('.empty-template'));
+
             expect(emptyTemplate).toBeTruthy();
             expect(emptyTemplate.nativeElement.textContent).toBe('No data available');
         });
@@ -603,9 +627,11 @@ describe('DataView', () => {
         it('should switch between list and grid layouts', async () => {
             const layoutFixture = TestBed.createComponent(TestLayoutDataViewComponent);
             const layoutComponent = layoutFixture.componentInstance;
+
             await layoutFixture.whenStable();
 
             let listItems = layoutFixture.debugElement.queryAll(By.css('.list-item'));
+
             expect(listItems.length).toBe(3);
             expect(listItems[0].nativeElement.textContent).toContain('List: Product 1');
 
@@ -614,6 +640,7 @@ describe('DataView', () => {
             await layoutFixture.whenStable();
 
             const gridItems = layoutFixture.debugElement.queryAll(By.css('.grid-item'));
+
             expect(gridItems.length).toBe(3);
             expect(gridItems[0].nativeElement.textContent).toContain('Grid: Product 1');
         });
@@ -621,9 +648,11 @@ describe('DataView', () => {
         it('should work with signals for value', async () => {
             const layoutFixture = TestBed.createComponent(TestLayoutDataViewComponent);
             const layoutComponent = layoutFixture.componentInstance;
+
             await layoutFixture.whenStable();
 
             const items = layoutFixture.debugElement.queryAll(By.css('.list-item'));
+
             expect(items.length).toBe(3);
 
             layoutComponent.products.set([
@@ -634,6 +663,7 @@ describe('DataView', () => {
             await layoutFixture.whenStable();
 
             const updatedItems = layoutFixture.debugElement.queryAll(By.css('.list-item'));
+
             expect(updatedItems.length).toBe(2);
             expect(updatedItems[0].nativeElement.textContent).toContain('Updated Product 1');
         });
@@ -649,12 +679,14 @@ describe('DataView', () => {
 
         it('should render paginator when enabled', () => {
             const paginator = fixture.debugElement.query(By.css('p-paginator'));
+
             expect(paginator).toBeTruthy();
         });
 
         it('should render paginator at bottom by default', () => {
             const content = fixture.debugElement.query(By.css('[class*="content"]'));
             const paginator = content.nativeElement.nextElementSibling;
+
             expect(paginator.tagName.toLowerCase()).toBe('p-paginator');
         });
 
@@ -665,6 +697,7 @@ describe('DataView', () => {
 
             const content = fixture.debugElement.query(By.css('[class*="content"]'));
             const paginator = content.nativeElement.previousElementSibling;
+
             expect(paginator.tagName.toLowerCase()).toBe('p-paginator');
         });
 
@@ -674,11 +707,13 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             const paginators = fixture.debugElement.queryAll(By.css('p-paginator'));
+
             expect(paginators.length).toBe(2);
         });
 
         it('should slice data based on pagination', () => {
             const items = fixture.debugElement.queryAll(By.css('.list-item'));
+
             expect(items.length).toBe(2);
             expect(items[0].nativeElement.textContent).toContain('Product 1');
             expect(items[1].nativeElement.textContent).toContain('Product 2');
@@ -691,6 +726,7 @@ describe('DataView', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const items = fixture.debugElement.queryAll(By.css('.list-item'));
+
             expect(items.length).toBe(2);
             expect(items[0].nativeElement.textContent).toContain('Product 3');
             expect(items[1].nativeElement.textContent).toContain('Product 4');
@@ -704,6 +740,7 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             const paginator = fixture.debugElement.query(By.css('p-paginator')).componentInstance;
+
             expect(paginator.rows).toBe(2);
             expect(paginator.totalRecords).toBe(5);
             expect(paginator.rowsPerPageOptions).toEqual([2, 5, 10]);
@@ -712,6 +749,7 @@ describe('DataView', () => {
 
         it('should render custom paginator templates', async () => {
             const templateFixture = TestBed.createComponent(TestTemplatesDataViewComponent);
+
             templateFixture.componentInstance.products = [
                 { id: 1, name: 'Product 1' },
                 { id: 2, name: 'Product 2' },
@@ -724,6 +762,7 @@ describe('DataView', () => {
 
             // Check if paginator templates are defined in component
             const templateDataView = templateFixture.debugElement.query(By.directive(DataView)).componentInstance;
+
             expect(templateDataView.paginatorleft).toBeTruthy();
             expect(templateDataView.paginatorright).toBeTruthy();
         });
@@ -739,6 +778,7 @@ describe('DataView', () => {
             dataview.sort();
 
             const sortedValues = dataview.value;
+
             expect(sortedValues![0].name).toBe('Product 1');
             expect(sortedValues![4].name).toBe('Product 5');
         });
@@ -752,6 +792,7 @@ describe('DataView', () => {
             dataview.sort();
 
             const sortedValues = dataview.value;
+
             expect(sortedValues![0].price).toBe(500);
             expect(sortedValues![4].price).toBe(100);
         });
@@ -814,6 +855,7 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             const loadingDiv = fixture.debugElement.query(By.css('[class*="loading"]'));
+
             expect(loadingDiv).toBeTruthy();
         });
 
@@ -824,6 +866,7 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             const loadingIcon = fixture.debugElement.query(By.css('i'));
+
             expect(loadingIcon).toBeTruthy();
             expect(loadingIcon.nativeElement.className).toContain('pi-spinner');
         });
@@ -835,6 +878,7 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             const emptyMessage = fixture.debugElement.query(By.css('[class*="emptyMessage"]'));
+
             expect(emptyMessage).toBeFalsy();
         });
 
@@ -844,6 +888,7 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             const svg = fixture.debugElement.query(By.css('svg')) || fixture.debugElement.query(By.css('[data-p-icon="spinner"]'));
+
             expect(svg).toBeTruthy();
         });
     });
@@ -866,11 +911,13 @@ describe('DataView', () => {
             expect(dataview.isEmpty()).toBe(true);
             const emptyMessageDivs = fixture.debugElement.queryAll(By.css('div'));
             const emptyMessage = emptyMessageDivs.find((div) => div.nativeElement.textContent && div.nativeElement.textContent.includes('No products found'));
+
             expect(emptyMessage).toBeTruthy();
         });
 
         it('should handle rapid layout changes', async () => {
             let changeCount = 0;
+
             dataview.onChangeLayout.subscribe(() => changeCount++);
 
             component.layout = 'grid';
@@ -909,6 +956,7 @@ describe('DataView', () => {
 
         it('should handle large datasets efficiently', async () => {
             const largeData: any[] = [];
+
             for (let i = 0; i < 1000; i++) {
                 largeData.push({
                     id: i,
@@ -919,6 +967,7 @@ describe('DataView', () => {
             }
 
             const startTime = performance.now();
+
             component.products = largeData;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -959,6 +1008,7 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             const dataviewElement = fixture.debugElement.query(By.css('p-dataview'));
+
             expect(dataviewElement.nativeElement.className).toContain('custom-dataview-class');
         });
 
@@ -977,6 +1027,7 @@ describe('DataView', () => {
             await fixture.whenStable();
 
             const loadingDiv = fixture.debugElement.query(By.css('[class*="loading"]'));
+
             expect(loadingDiv).toBeTruthy();
         });
 
@@ -993,6 +1044,7 @@ describe('DataView', () => {
     describe('Lifecycle and Cleanup', () => {
         it('should unsubscribe from translation observer on destroy', () => {
             const translationSub = dataview.translationSubscription;
+
             spyOn(translationSub!, 'unsubscribe');
 
             fixture.destroy();
@@ -1043,15 +1095,18 @@ describe('DataView', () => {
         it('should use default trackBy function', () => {
             const item = { id: 1, name: 'Test' };
             const result = dataview.trackBy(0, item);
+
             expect(result).toBe(item);
         });
 
         it('should use custom trackBy function', () => {
             const customTrackBy = (index: number, item: any) => item.id;
+
             dataview.trackBy = customTrackBy;
 
             const item = { id: 1, name: 'Test' };
             const result = dataview.trackBy(0, item);
+
             expect(result).toBe(1);
         });
     });
@@ -1115,6 +1170,7 @@ describe('DataView', () => {
 
         it('should handle rowsPerPageOptions property', async () => {
             const options = [5, 10, 20, { showAll: 'All' }];
+
             component.rowsPerPageOptions = options;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1152,6 +1208,7 @@ describe('DataView', () => {
 
         it('should handle paginatorDropdownAppendTo property', async () => {
             const element = document.createElement('div');
+
             component.paginatorDropdownAppendTo = element;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1171,6 +1228,7 @@ describe('DataView', () => {
 
         it('should handle currentPageReportTemplate property', async () => {
             const template = 'Page {currentPage} of {totalPages}';
+
             component.currentPageReportTemplate = template;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1268,6 +1326,7 @@ describe('DataView', () => {
 
         it('should handle trackBy property', async () => {
             const customTrackBy = (index: number, item: any) => item.id;
+
             component.trackBy = customTrackBy;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1351,6 +1410,7 @@ describe('DataView', () => {
             expect(dataview.value).toEqual(component.products);
 
             const newProducts = [{ id: 10, name: 'New Product', price: 1000, category: 'New Category', inventoryStatus: 'INSTOCK' }];
+
             component.products = newProducts;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1421,7 +1481,7 @@ describe('DataView', () => {
             dynamicFixture = TestBed.createComponent(TestDynamicDataViewComponent);
             dynamicComponent = dynamicFixture.componentInstance;
             await dynamicFixture.whenStable();
-            dynamicDataView = dynamicComponent.dataView;
+            dynamicDataView = dynamicComponent.dataView();
         });
 
         it('should handle dynamic value changes', async () => {
@@ -1625,7 +1685,6 @@ describe('DataView', () => {
 
 // Test component for dynamic values
 @Component({
-    standalone: false,
     template: `
         <p-dataview
             #dataView
@@ -1644,19 +1703,24 @@ describe('DataView', () => {
         >
             <ng-template #list let-items>
                 <div class="dynamic-list-container">
-                    <div *ngFor="let item of items" class="dynamic-list-item">{{ item.name }} - {{ item.price }}</div>
+                    @for (item of items; track item) {
+                        <div class="dynamic-list-item">{{ item.name }} - {{ item.price }}</div>
+                    }
                 </div>
             </ng-template>
             <ng-template #grid let-items>
                 <div class="dynamic-grid-container">
-                    <div *ngFor="let item of items" class="dynamic-grid-item">{{ item.name }} - {{ item.price }}</div>
+                    @for (item of items; track item) {
+                        <div class="dynamic-grid-item">{{ item.name }} - {{ item.price }}</div>
+                    }
                 </div>
             </ng-template>
         </p-dataview>
-    `
+    `,
+    imports: [CommonModule, DataView, PaginatorModule]
 })
 class TestDynamicDataViewComponent {
-    @ViewChild('dataView') dataView!: DataView;
+    readonly dataView = viewChild.required<DataView>('dataView');
 
     value = [
         { id: 1, name: 'Product 1', price: 100 },

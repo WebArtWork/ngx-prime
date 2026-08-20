@@ -1,5 +1,23 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, input, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterViewChecked,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    Component,
+    computed,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    inject,
+    InjectionToken,
+    input,
+    Input,
+    NgModule,
+    Output,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    viewChild
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
 import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
@@ -31,26 +49,27 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
 @Component({
     selector: 'p-colorPicker, p-colorpicker, p-color-picker',
     standalone: true,
-    imports: [CommonModule, AutoFocusModule, SharedModule, Bind, MotionModule, OverlayModule],
+    imports: [AutoFocusModule, SharedModule, Bind, MotionModule, OverlayModule],
     hostDirectives: [Bind],
     template: `
-        <input
-            *ngIf="!inline"
-            #input
-            type="text"
-            [class]="cx('preview')"
-            readonly
-            [attr.tabindex]="tabindex"
-            [attr.disabled]="$disabled() ? '' : undefined"
-            (click)="onInputClick()"
-            (keydown)="onInputKeydown($event)"
-            (focus)="onInputFocus()"
-            [attr.id]="inputId"
-            [style.backgroundColor]="inputBgColor"
-            [attr.aria-label]="ariaLabel"
-            [pAutoFocus]="autofocus"
-            [pBind]="ptm('preview')"
-        />
+        @if (!inline) {
+            <input
+                #input
+                type="text"
+                [class]="cx('preview')"
+                readonly
+                [attr.tabindex]="tabindex"
+                [attr.disabled]="$disabled() ? '' : undefined"
+                (click)="onInputClick()"
+                (keydown)="onInputKeydown($event)"
+                (focus)="onInputFocus()"
+                [attr.id]="inputId"
+                [style.backgroundColor]="inputBgColor"
+                [attr.aria-label]="ariaLabel"
+                [pAutoFocus]="autofocus"
+                [pBind]="ptm('preview')"
+            />
+        }
 
         <p-overlay
             #overlay
@@ -91,6 +110,8 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
     }
 })
 export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> implements AfterViewChecked {
+    overlayService = inject(OverlayService);
+
     componentName = 'ColorPicker';
 
     $pcColorPicker: ColorPicker | undefined = inject(COLORPICKER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -187,9 +208,9 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
      */
     @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild('input') inputViewChild: Nullable<ElementRef>;
+    readonly inputViewChild = viewChild<Nullable<ElementRef>>('input');
 
-    @ViewChild('overlay') overlayViewChild!: ElementRef<HTMLDivElement>;
+    readonly overlayViewChild = viewChild.required<ElementRef<HTMLDivElement>>('overlay');
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
@@ -224,10 +245,6 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     hueHandleViewChild: Nullable<ElementRef>;
 
     _componentStyle = inject(ColorPickerStyle);
-
-    constructor(public overlayService: OverlayService) {
-        super();
-    }
 
     @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
         this.colorSelectorViewChild = element;
@@ -283,6 +300,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     pickHue(event: MouseEvent | TouchEvent, position?: any) {
         let pageY = position ? position.pageY : (event as MouseEvent).pageY;
         let top: number = this.hueViewChild?.nativeElement.getBoundingClientRect().top + ((this.document as any).defaultView.pageYOffset || this.document.documentElement.scrollTop || this.document.body.scrollTop || 0);
+
         this.value = this.validateHSB({
             h: Math.floor((360 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150),
             s: this.value.s,
@@ -335,6 +353,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         let left = rect.left + this.document.body.scrollLeft;
         let saturation = Math.floor((100 * Math.max(0, Math.min(150, pageX - left))) / 150);
         let brightness = Math.floor((100 * (150 - Math.max(0, Math.min(150, pageY - top)))) / 150);
+
         this.value = this.validateHSB({
             h: this.value.h,
             s: saturation,
@@ -348,6 +367,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
 
     getValueToUpdate() {
         let val: any;
+
         switch (this.format) {
             case 'hex':
                 val = '#' + this.HSBtoHEX(this.value);
@@ -373,6 +393,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     updateColorSelector() {
         if (this.colorSelectorViewChild) {
             const hsb: any = {};
+
             hsb.s = 100;
             hsb.b = 100;
             hsb.h = this.value.h;
@@ -513,15 +534,19 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     }
 
     validateHEX(hex: string) {
-        var len = 6 - hex.length;
+        let len = 6 - hex.length;
+
         if (len > 0) {
-            var o: any = [];
-            for (var i = 0; i < len; i++) {
+            let o: any = [];
+
+            for (let i = 0; i < len; i++) {
                 o.push('0');
             }
+
             o.push(hex);
             hex = o.join('');
         }
+
         return hex;
     }
 
@@ -529,7 +554,9 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         if (!hex || typeof hex !== 'string') {
             return { r: 0, g: 0, b: 0 };
         }
+
         let hexValue = parseInt(hex.indexOf('#') > -1 ? hex.substring(1) : hex, 16);
+
         return { r: hexValue >> 16, g: (hexValue & 0x00ff00) >> 8, b: hexValue & 0x0000ff };
     }
 
@@ -538,16 +565,18 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     }
 
     RGBtoHSB(rgb: { r: number; g: number; b: number }) {
-        var hsb = {
+        let hsb = {
             h: 0,
             s: 0,
             b: 0
         };
-        var min = Math.min(rgb.r, rgb.g, rgb.b);
-        var max = Math.max(rgb.r, rgb.g, rgb.b);
-        var delta = max - min;
+        let min = Math.min(rgb.r, rgb.g, rgb.b);
+        let max = Math.max(rgb.r, rgb.g, rgb.b);
+        let delta = max - min;
+
         hsb.b = max;
         hsb.s = max != 0 ? (255 * delta) / max : 0;
+
         if (hsb.s != 0) {
             if (rgb.r == max) {
                 hsb.h = (rgb.g - rgb.b) / delta;
@@ -559,17 +588,21 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         } else {
             hsb.h = -1;
         }
+
         hsb.h *= 60;
+
         if (hsb.h < 0) {
             hsb.h += 360;
         }
+
         hsb.s *= 100 / 255;
         hsb.b *= 100 / 255;
+
         return hsb;
     }
 
     HSBtoRGB(hsb: { h: number; s: number; b: number }) {
-        var rgb = {
+        let rgb = {
             r: 0,
             g: 0,
             b: 0
@@ -577,6 +610,7 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
         let h: number = hsb.h;
         let s: number = (hsb.s * 255) / 100;
         let v: number = (hsb.b * 255) / 100;
+
         if (s == 0) {
             rgb = {
                 r: v,
@@ -587,7 +621,9 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
             let t1: number = v;
             let t2: number = ((255 - s) * v) / 255;
             let t3: number = ((t1 - t2) * (h % 60)) / 60;
+
             if (h == 360) h = 0;
+
             if (h < 60) {
                 rgb.r = t1;
                 rgb.b = t2;
@@ -618,13 +654,14 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
                 rgb.b = 0;
             }
         }
+
         return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b) };
     }
 
     RGBtoHEX(rgb: { r: number; g: number; b: number }) {
-        var hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)];
+        let hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)];
 
-        for (var key in hex) {
+        for (let key in hex) {
             if (hex[key].length == 1) {
                 hex[key] = '0' + hex[key];
             }
@@ -680,8 +717,10 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
             this.scrollHandler = null;
         }
 
-        if (this.overlayViewChild?.nativeElement && this.autoZIndex) {
-            ZIndexUtils.clear(this.overlayViewChild?.nativeElement);
+        const overlayViewChild = this.overlayViewChild();
+
+        if (overlayViewChild?.nativeElement && this.autoZIndex) {
+            ZIndexUtils.clear(overlayViewChild?.nativeElement);
         }
     }
 }

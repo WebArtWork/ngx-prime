@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicdialog';
 
@@ -16,7 +16,7 @@ import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicd
         </div>
     `
 })
-export class InfoDemo implements OnInit {
+export class InfoDemo implements OnInit, OnDestroy {
     totalProducts: number = 0;
 
     instance: DynamicDialog | undefined;

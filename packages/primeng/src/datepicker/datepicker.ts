@@ -5,7 +5,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -17,10 +16,12 @@ import {
     NgZone,
     numberAttribute,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    viewChild,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
@@ -114,7 +115,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 [pt]="ptm('pcInputText')"
                 [unstyled]="unstyled()"
             />
-            <ng-container *ngIf="showClear && !$disabled() && inputfieldViewChild?.nativeElement?.value">
+            <ng-container *ngIf="showClear && !$disabled() && inputfieldViewChild()?.nativeElement?.value">
                 <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('inputIcon')" (click)="clear()" />
                 <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('inputIcon')" (click)="clear()">
                     <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
@@ -135,15 +136,15 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
             >
                 <span *ngIf="icon" [ngClass]="icon" [pBind]="ptm('dropdownIcon')"></span>
                 <ng-container *ngIf="!icon">
-                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate && !_triggerIconTemplate" [pBind]="ptm('dropdownIcon')" />
-                    <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate"></ng-template>
+                    <svg data-p-icon="calendar" *ngIf="!triggerIconTemplate() && !_triggerIconTemplate" [pBind]="ptm('dropdownIcon')" />
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate() || _triggerIconTemplate"></ng-template>
                 </ng-container>
             </button>
             <ng-container *ngIf="iconDisplay === 'input' && showIcon">
                 <span [class]="cx('inputIconContainer')" [pBind]="ptm('inputIconContainer')" [attr.data-p]="inputIconDataP">
-                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate && !_inputIconTemplate" [class]="cx('inputIcon')" [pBind]="ptm('inputIcon')" />
+                    <svg data-p-icon="calendar" (click)="onButtonClick($event)" *ngIf="!inputIconTemplate() && !_inputIconTemplate" [class]="cx('inputIcon')" [pBind]="ptm('inputIcon')" />
 
-                    <ng-container *ngTemplateOutlet="inputIconTemplate || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
+                    <ng-container *ngTemplateOutlet="inputIconTemplate() || _inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                 </span>
             </ng-container>
         </ng-template>
@@ -160,7 +161,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                 [pBind]="ptm('panel')"
             >
                 <ng-content select="p-header"></ng-content>
-                <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate"></ng-container>
                 <ng-container *ngIf="!timeOnly">
                     <div [class]="cx('calendarContainer')" [pBind]="ptm('calendarContainer')">
                         <div [class]="cx('calendar')" *ngFor="let month of months; let i = index" [pBind]="ptm('calendar')">
@@ -215,8 +216,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                         {{ getYear(month) }}
                                     </button>
                                     <span [class]="cx('decade')" *ngIf="currentView === 'year'" [pBind]="ptm('decade')">
-                                        <ng-container *ngIf="!decadeTemplate && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
-                                        <ng-container *ngTemplateOutlet="decadeTemplate || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
+                                        <ng-container *ngIf="!decadeTemplate() && !_decadeTemplate">{{ yearPickerValues()[0] }} - {{ yearPickerValues()[yearPickerValues().length - 1] }}</ng-container>
+                                        <ng-container *ngTemplateOutlet="decadeTemplate() || _decadeTemplate; context: { $implicit: yearPickerValues }"></ng-container>
                                     </span>
                                 </div>
                                 <p-button
@@ -268,12 +269,12 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                                                     pRipple
                                                     [pBind]="ptm('day')"
                                                 >
-                                                    <ng-container *ngIf="!dateTemplate && !_dateTemplate && (date.selectable || (!disabledDateTemplate && !_disabledDateTemplate))">{{ date.day }}</ng-container>
-                                                    <ng-container *ngIf="date.selectable || (!disabledDateTemplate && !_disabledDateTemplate)">
-                                                        <ng-container *ngTemplateOutlet="dateTemplate || _dateTemplate; context: { $implicit: date }"></ng-container>
+                                                    <ng-container *ngIf="!dateTemplate() && !_dateTemplate && (date.selectable || (!disabledDateTemplate() && !_disabledDateTemplate))">{{ date.day }}</ng-container>
+                                                    <ng-container *ngIf="date.selectable || (!disabledDateTemplate() && !_disabledDateTemplate)">
+                                                        <ng-container *ngTemplateOutlet="dateTemplate() || _dateTemplate; context: { $implicit: date }"></ng-container>
                                                     </ng-container>
                                                     <ng-container *ngIf="!date.selectable">
-                                                        <ng-container *ngTemplateOutlet="disabledDateTemplate || _disabledDateTemplate; context: { $implicit: date }"></ng-container>
+                                                        <ng-container *ngTemplateOutlet="disabledDateTemplate() || _disabledDateTemplate; context: { $implicit: date }"></ng-container>
                                                     </ng-container>
                                                 </span>
                                                 <div *ngIf="isSelected(date)" class="p-hidden-accessible" aria-live="polite">
@@ -323,8 +324,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
-                                <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate() && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
+                                <ng-template *ngTemplateOutlet="incrementIconTemplate() || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                         <span [pBind]="ptm('hour')"><ng-container *ngIf="currentHour < 10">0</ng-container>{{ currentHour }}</span>
@@ -346,8 +347,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
-                                <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate() && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
+                                <ng-template *ngTemplateOutlet="decrementIconTemplate() || _decrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                     </div>
@@ -373,8 +374,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
-                                <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate() && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
+                                <ng-template *ngTemplateOutlet="incrementIconTemplate() || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                         <span [pBind]="ptm('minute')"><ng-container *ngIf="currentMinute < 10">0</ng-container>{{ currentMinute }}</span>
@@ -396,8 +397,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
-                                <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate() && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
+                                <ng-template *ngTemplateOutlet="decrementIconTemplate() || _decrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                     </div>
@@ -423,8 +424,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
-                                <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate() && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
+                                <ng-template *ngTemplateOutlet="incrementIconTemplate() || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                         <span [pBind]="ptm('second')"><ng-container *ngIf="currentSecond < 10">0</ng-container>{{ currentSecond }}</span>
@@ -446,8 +447,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
-                                <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate() && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
+                                <ng-template *ngTemplateOutlet="decrementIconTemplate() || _decrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                     </div>
@@ -468,8 +469,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
-                                <ng-template *ngTemplateOutlet="incrementIconTemplate || _incrementIconTemplate"></ng-template>
+                                <svg data-p-icon="chevron-up" *ngIf="!incrementIconTemplate() && !_incrementIconTemplate" [pBind]="ptm('pcIncrementButton')['icon']" />
+                                <ng-template *ngTemplateOutlet="incrementIconTemplate() || _incrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                         <span [pBind]="ptm('ampm')">{{ pm ? 'PM' : 'AM' }}</span>
@@ -486,8 +487,8 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                             [attr.data-pc-group-section]="'timepickerbutton'"
                         >
                             <ng-template #icon>
-                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
-                                <ng-template *ngTemplateOutlet="decrementIconTemplate || _decrementIconTemplate"></ng-template>
+                                <svg data-p-icon="chevron-down" *ngIf="!decrementIconTemplate() && !_decrementIconTemplate" [pBind]="ptm('pcDecrementButton')['icon']" />
+                                <ng-template *ngTemplateOutlet="decrementIconTemplate() || _decrementIconTemplate"></ng-template>
                             </ng-template>
                         </p-button>
                     </div>
@@ -525,7 +526,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                     }
                 </div>
                 <ng-content select="p-footer"></ng-content>
-                <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="footerTemplate() || _footerTemplate"></ng-container>
             </div>
         </p-motion>
     `,
@@ -538,6 +539,9 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
     }
 })
 export class DatePicker extends BaseInput<DatePickerPassThrough> {
+    private zone = inject(NgZone);
+    overlayService = inject(OverlayService);
+
     componentName = 'DatePicker';
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -597,6 +601,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
     set dateFormat(value: string | undefined) {
         this._dateFormat = value;
+
         if (this.initialized) {
             this.updateInputfield();
         }
@@ -656,6 +661,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
     set hourFormat(value: string) {
         this._hourFormat = value;
+
         if (this.initialized) {
             this.updateInputfield();
         }
@@ -839,6 +845,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
     set disabledDates(disabledDates: Date[]) {
         this._disabledDates = disabledDates;
+
         if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
             this.createMonths(this.currentMonth, this.currentYear);
         }
@@ -870,6 +877,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.currentHour === undefined) {
             this.initTime(this.value || new Date());
         }
+
         this.updateInputfield();
     }
     /**
@@ -933,6 +941,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
         if (this.initialized) {
             const date = defaultDate || new Date();
+
             this.currentMonth = date.getMonth();
             this.currentYear = date.getFullYear();
             this.initTime(date);
@@ -951,12 +960,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
     /**
      * Callback to invoke on focus of input field.
      * @param {Event} event - browser event.
@@ -1028,7 +1035,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      */
     @Output() onShow: EventEmitter<HTMLElement> = new EventEmitter<HTMLElement>();
 
-    @ViewChild('inputfield', { static: false }) inputfieldViewChild: Nullable<ElementRef>;
+    readonly inputfieldViewChild = viewChild<Nullable<ElementRef>>('inputfield');
 
     @ViewChild('contentWrapper', { static: false }) set content(content: ElementRef) {
         this.contentViewChild = content;
@@ -1122,33 +1129,33 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * @param {DatePickerDateTemplateContext} context - date template context.
      * @group Templates
      */
-    @ContentChild('date', { descendants: false }) dateTemplate: Nullable<TemplateRef<DatePickerDateTemplateContext>>;
+    readonly dateTemplate = contentChild<Nullable<TemplateRef<DatePickerDateTemplateContext>>>('date', { descendants: false });
 
     /**
      * Custom template for header section.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
+    readonly headerTemplate = contentChild<Nullable<TemplateRef<void>>>('header', { descendants: false });
 
     /**
      * Custom template for footer section.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
+    readonly footerTemplate = contentChild<Nullable<TemplateRef<void>>>('footer', { descendants: false });
 
     /**
      * Custom template for disabled date cells.
      * @param {DatePickerDisabledDateTemplateContext} context - disabled date template context.
      * @group Templates
      */
-    @ContentChild('disabledDate', { descendants: false }) disabledDateTemplate: Nullable<TemplateRef<DatePickerDisabledDateTemplateContext>>;
+    readonly disabledDateTemplate = contentChild<Nullable<TemplateRef<DatePickerDisabledDateTemplateContext>>>('disabledDate', { descendants: false });
 
     /**
      * Custom template for decade view.
      * @param {DatePickerDecadeTemplateContext} context - decade template context.
      * @group Templates
      */
-    @ContentChild('decade', { descendants: false }) decadeTemplate: Nullable<TemplateRef<DatePickerDecadeTemplateContext>>;
+    readonly decadeTemplate = contentChild<Nullable<TemplateRef<DatePickerDecadeTemplateContext>>>('decade', { descendants: false });
 
     /**
      * Custom template for previous month icon.
@@ -1166,7 +1173,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * Custom template for trigger icon.
      * @group Templates
      */
-    @ContentChild('triggericon', { descendants: false }) triggerIconTemplate: Nullable<TemplateRef<void>>;
+    readonly triggerIconTemplate = contentChild<Nullable<TemplateRef<void>>>('triggericon', { descendants: false });
 
     /**
      * Custom template for clear icon.
@@ -1178,20 +1185,20 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * Custom template for decrement icon.
      * @group Templates
      */
-    @ContentChild('decrementicon', { descendants: false }) decrementIconTemplate: Nullable<TemplateRef<void>>;
+    readonly decrementIconTemplate = contentChild<Nullable<TemplateRef<void>>>('decrementicon', { descendants: false });
 
     /**
      * Custom template for increment icon.
      * @group Templates
      */
-    @ContentChild('incrementicon', { descendants: false }) incrementIconTemplate: Nullable<TemplateRef<void>>;
+    readonly incrementIconTemplate = contentChild<Nullable<TemplateRef<void>>>('incrementicon', { descendants: false });
 
     /**
      * Custom template for input icon.
      * @param {DatePickerInputIconTemplateContext} context - input icon template context.
      * @group Templates
      */
-    @ContentChild('inputicon', { descendants: false }) inputIconTemplate: Nullable<TemplateRef<DatePickerInputIconTemplateContext>>;
+    readonly inputIconTemplate = contentChild<Nullable<TemplateRef<DatePickerInputIconTemplateContext>>>('inputicon', { descendants: false });
 
     /**
      * Custom template for button bar.
@@ -1288,10 +1295,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
     }
 
-    constructor(
-        private zone: NgZone,
-        public overlayService: OverlayService
-    ) {
+    constructor() {
         super();
         this.window = this.document.defaultView as Window;
     }
@@ -1300,6 +1304,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.attributeSelector = uuid('pn_id_');
         this.panelId = this.attributeSelector + '_panel';
         const date = this.defaultDate || new Date();
+
         this.createResponsiveStyle();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
@@ -1327,6 +1332,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         } else {
             if (!this.$disabled() && this.overlay) {
                 this.initFocusableCell();
+
                 if (this.numberOfMonths === 1) {
                     if (this.contentViewChild && this.contentViewChild.nativeElement) {
                         this.contentViewChild.nativeElement.style.width = getOuterWidth(this.el?.nativeElement) + 'px';
@@ -1340,10 +1346,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    readonly templates = contentChildren(PrimeTemplate);
 
     onAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'date':
                     this._dateTemplate = item.template;
@@ -1420,6 +1426,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.weekDays = [];
         let dayIndex = this.getFirstDateOfWeek();
         let dayLabels = this.getTranslation(TranslationKeys.DAY_NAMES_MIN);
+
         for (let i = 0; i < 7; i++) {
             this.weekDays.push(dayLabels[dayIndex]);
             dayIndex = dayIndex == 6 ? 0 : ++dayIndex;
@@ -1428,6 +1435,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     monthPickerValues() {
         let monthPickerValues: any[] = [];
+
         for (let i = 0; i <= 11; i++) {
             monthPickerValues.push(this.config.getTranslation('monthNamesShort')[i]);
         }
@@ -1438,6 +1446,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     yearPickerValues() {
         let yearPickerValues: any[] = [];
         let base = <number>this.currentYear - (<number>this.currentYear % 10);
+
         for (let i = 0; i < 10; i++) {
             yearPickerValues.push(base + i);
         }
@@ -1447,9 +1456,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     createMonths(month: number, year: number) {
         this.months = this.months = [];
+
         for (let i = 0; i < this.numberOfMonths; i++) {
             let m = month + i;
             let y = year;
+
             if (m > 11) {
                 m = m % 12;
                 y = year + Math.floor((month + i) / 12);
@@ -1461,15 +1472,20 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     getWeekNumber(date: Date) {
         let checkDate = new Date(date.getTime());
+
         if (this.startWeekFromFirstDayOfYear) {
             let firstDayOfWeek: number = +this.getFirstDateOfWeek();
+
             checkDate.setDate(checkDate.getDate() + 6 + firstDayOfWeek - checkDate.getDay());
         } else {
             checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
         }
+
         let time = checkDate.getTime();
+
         checkDate.setMonth(0);
         checkDate.setDate(1);
+
         return Math.floor(Math.round((time - checkDate.getTime()) / 86400000) / 7) + 1;
     }
 
@@ -1489,6 +1505,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             if (i == 0) {
                 for (let j = prevMonthDaysLength - firstDay + 1; j <= prevMonthDaysLength; j++) {
                     let prev = this.getPreviousMonthAndYear(month, year);
+
                     week.push({
                         day: j,
                         month: prev.month,
@@ -1500,6 +1517,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 }
 
                 let remainingDaysLength = 7 - week.length;
+
                 for (let j = 0; j < remainingDaysLength; j++) {
                     week.push({
                         day: dayNo,
@@ -1514,6 +1532,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 for (let j = 0; j < 7; j++) {
                     if (dayNo > daysLength) {
                         let next = this.getNextMonthAndYear(month, year);
+
                         week.push({
                             day: dayNo - daysLength,
                             month: next.month,
@@ -1568,6 +1587,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     navBackward(event: any) {
         if (this.$disabled()) {
             event.preventDefault();
+
             return;
         }
 
@@ -1599,6 +1619,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     navForward(event: any) {
         if (this.$disabled()) {
             event.preventDefault();
+
             return;
         }
 
@@ -1633,6 +1654,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
         if (this.currentYear < _yearOptions[0]) {
             let difference = _yearOptions[_yearOptions.length - 1] - _yearOptions[0];
+
             this.populateYearOptions(_yearOptions[0] - difference, _yearOptions[_yearOptions.length - 1] - difference);
         }
     }
@@ -1651,6 +1673,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
         if (this.currentYear > _yearOptions[_yearOptions.length - 1]) {
             let difference = _yearOptions[_yearOptions.length - 1] - _yearOptions[0];
+
             this.populateYearOptions(_yearOptions[0] + difference, _yearOptions[_yearOptions.length - 1] + difference);
         }
     }
@@ -1668,16 +1691,17 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     onDateSelect(event: Event, dateMeta: any) {
         if (this.$disabled() || !dateMeta.selectable) {
             event.preventDefault();
+
             return;
         }
 
         if (this.isMultipleSelection() && this.isSelected(dateMeta)) {
-            this.value = this.value.filter((date: Date, i: number) => {
-                return !this.isDateEquals(date, dateMeta);
-            });
+            this.value = this.value.filter((date: Date, i: number) => !this.isDateEquals(date, dateMeta));
+
             if (this.value.length === 0) {
                 this.value = null;
             }
+
             this.updateModel(this.value);
         } else {
             if (this.shouldSelectDate(dateMeta)) {
@@ -1737,7 +1761,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             } else if (this.isMultipleSelection()) {
                 for (let i = 0; i < this.value.length; i++) {
                     let dateAsString = this.formatDateTime(this.value[i]);
+
                     formattedValue += dateAsString;
+
                     if (i !== this.value.length - 1) {
                         formattedValue += this.multipleSeparator + ' ';
                     }
@@ -1748,6 +1774,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     let endDate = this.value[1];
 
                     formattedValue = this.formatDateTime(startDate);
+
                     if (endDate) {
                         formattedValue += ' ' + this.rangeSeparator + ' ' + this.formatDateTime(endDate);
                     }
@@ -1759,8 +1786,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
         this.inputFieldValue = formattedValue;
 
-        if (this.inputfieldViewChild && this.inputfieldViewChild.nativeElement) {
-            this.inputfieldViewChild.nativeElement.value = this.inputFieldValue;
+        const inputfieldViewChild = this.inputfieldViewChild();
+
+        if (inputfieldViewChild && inputfieldViewChild.nativeElement) {
+            inputfieldViewChild.nativeElement.value = this.inputFieldValue;
         }
     }
 
@@ -1775,6 +1804,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 formattedValue = this.formatTime(date);
             } else {
                 formattedValue = this.formatDate(date, this.getDateFormat());
+
                 if (this.showTime) {
                     formattedValue += ' ' + this.formatTime(date);
                 }
@@ -1782,7 +1812,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         } else if (this.dataType === 'string') {
             formattedValue = date;
         }
+
         formattedValue = isDateValid ? formattedValue : '';
+
         return formattedValue;
     }
 
@@ -1797,6 +1829,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     setCurrentHourPM(hours: number) {
         if (this.hourFormat == '12') {
             this.pm = hours > 11;
+
             if (hours >= 12) {
                 this.currentHour = hours == 12 ? 12 : hours - 12;
             } else {
@@ -1878,9 +1911,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 this.onModelChange(this.formatDateTime(this.value));
             } else {
                 let stringArrValue: any[] | null = null;
+
                 if (Array.isArray(this.value)) {
                     stringArrValue = this.value.map((date: Date) => this.formatDateTime(date));
                 }
+
                 this.writeModelValue(stringArrValue);
                 this.onModelChange(stringArrValue);
             }
@@ -1889,11 +1924,13 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     getFirstDayOfMonthIndex(month: number, year: number) {
         let day = new Date();
+
         day.setDate(1);
         day.setMonth(month);
         day.setFullYear(year);
 
         let dayIndex = day.getDay() + this.getSundayIndex();
+
         return dayIndex >= 7 ? dayIndex - 7 : dayIndex;
     }
 
@@ -1903,6 +1940,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     getDaysCountInPrevMonth(month: number, year: number) {
         let prev = this.getPreviousMonthAndYear(month, year);
+
         return this.getDaysCountInMonth(prev.month, prev.year);
     }
 
@@ -1946,8 +1984,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 return this.isDateEquals(this.value, dateMeta);
             } else if (this.isMultipleSelection()) {
                 let selected = false;
+
                 for (let date of this.value) {
                     selected = this.isDateEquals(date, dateMeta);
+
                     if (selected) {
                         break;
                     }
@@ -1995,6 +2035,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -2021,8 +2062,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     isDateBetween(start: Date, end: Date, dateMeta: any) {
         let between: boolean = false;
+
         if (isDate(start) && isDate(end)) {
             let date: Date = this.formatDateMetaToDate(dateMeta);
+
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
 
@@ -2110,16 +2153,20 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.disabledDays) {
             let weekday = new Date(year, month, day);
             let weekdayNumber = weekday.getDay();
+
             return this.disabledDays.indexOf(weekdayNumber) !== -1;
         }
+
         return false;
     }
 
     onInputFocus(event: Event) {
         this.focus = true;
+
         if (this.showOnFocus) {
             this.showOverlay();
         }
+
         this.onFocus.emit(event);
     }
 
@@ -2132,13 +2179,15 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     onInputBlur(event: Event) {
         this.focus = false;
         this.onBlur.emit(event);
+
         if (!this.keepInvalid) {
             this.updateInputfield();
         }
+
         this.onModelTouched();
     }
 
-    onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild?.nativeElement) {
+    onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild()?.nativeElement) {
         if (this.$disabled()) {
             return;
         }
@@ -2196,9 +2245,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 if (!this.inline) {
                     this.trapFocus(event);
                 }
+
                 if (this.inline) {
                     const headerElements = findSingle(this.el?.nativeElement, '.p-datepicker-header');
                     const element = event.target;
+
                     if (this.timeOnly) {
                         return;
                     } else {
@@ -2207,11 +2258,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                         }
                     }
                 }
+
                 break;
 
             //escape
             case 27:
-                this.inputfieldViewChild?.nativeElement.focus();
+                this.inputfieldViewChild()?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
@@ -2224,11 +2276,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     onInputKeydown(event: any) {
         this.isKeydown = true;
+
         if (event.keyCode === 40 && this.contentViewChild) {
             this.trapFocus(event);
         } else if (event.keyCode === 27) {
             if (this.overlayVisible) {
-                this.inputfieldViewChild?.nativeElement.focus();
+                this.inputfieldViewChild()?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
             }
@@ -2239,6 +2292,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             }
         } else if (event.keyCode === 9 && this.contentViewChild) {
             getFocusableElements(this.contentViewChild.nativeElement).forEach((el: any) => (el.tabIndex = '-1'));
+
             if (this.overlayVisible) {
                 this.overlayVisible = false;
             }
@@ -2249,14 +2303,17 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         const cellContent = event.currentTarget;
         const cell = cellContent.parentElement;
         const currentDate = this.formatDateMetaToDate(dateMeta);
+
         switch (event.which) {
             //down arrow
             case 40: {
                 cellContent.tabIndex = '-1';
                 let cellIndex = getIndex(cell);
                 let nextRow = cell.parentElement.nextElementSibling;
+
                 if (nextRow) {
                     let focusCell = nextRow.children[cellIndex].children[0];
+
                     if (hasClass(focusCell, 'p-disabled')) {
                         this.navigationState = { backward: false };
                         this.navForward(event);
@@ -2268,6 +2325,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     this.navigationState = { backward: false };
                     this.navForward(event);
                 }
+
                 event.preventDefault();
                 break;
             }
@@ -2277,8 +2335,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 cellContent.tabIndex = '-1';
                 let cellIndex = getIndex(cell);
                 let prevRow = cell.parentElement.previousElementSibling;
+
                 if (prevRow) {
                     let focusCell = prevRow.children[cellIndex].children[0];
+
                     if (hasClass(focusCell, 'p-disabled')) {
                         this.navigationState = { backward: true };
                         this.navBackward(event);
@@ -2290,6 +2350,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     this.navigationState = { backward: true };
                     this.navBackward(event);
                 }
+
                 event.preventDefault();
                 break;
             }
@@ -2298,8 +2359,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             case 37: {
                 cellContent.tabIndex = '-1';
                 let prevCell = cell.previousElementSibling;
+
                 if (prevCell) {
                     let focusCell = prevCell.children[0];
+
                     if (hasClass(focusCell, 'p-disabled') || hasClass(focusCell.parentElement, 'p-datepicker-weeknumber')) {
                         this.navigateToMonth(true, groupIndex);
                     } else {
@@ -2309,6 +2372,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 } else {
                     this.navigateToMonth(true, groupIndex);
                 }
+
                 event.preventDefault();
                 break;
             }
@@ -2317,8 +2381,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             case 39: {
                 cellContent.tabIndex = '-1';
                 let nextCell = cell.nextElementSibling;
+
                 if (nextCell) {
                     let focusCell = nextCell.children[0];
+
                     if (hasClass(focusCell, 'p-disabled')) {
                         this.navigateToMonth(false, groupIndex);
                     } else {
@@ -2328,6 +2394,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 } else {
                     this.navigateToMonth(false, groupIndex);
                 }
+
                 event.preventDefault();
                 break;
             }
@@ -2335,6 +2402,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             //enter
             //space
             case 13:
+
             case 32: {
                 this.onDateSelect(event, dateMeta);
                 event.preventDefault();
@@ -2343,7 +2411,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
             //escape
             case 27: {
-                this.inputfieldViewChild?.nativeElement.focus();
+                this.inputfieldViewChild()?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
@@ -2354,6 +2422,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 if (!this.inline) {
                     this.trapFocus(event);
                 }
+
                 break;
             }
 
@@ -2362,6 +2431,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 cellContent.tabIndex = '-1';
                 const dateToFocus = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate());
                 const focusKey = this.formatDateKey(dateToFocus);
+
                 this.navigateToMonth(true, groupIndex, `span[data-date='${focusKey}']:not(.p-disabled):not(.p-ink)`);
                 event.preventDefault();
                 break;
@@ -2372,6 +2442,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 cellContent.tabIndex = '-1';
                 const dateToFocus = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, currentDate.getDate());
                 const focusKey = this.formatDateKey(dateToFocus);
+
                 this.navigateToMonth(false, groupIndex, `span[data-date='${focusKey}']:not(.p-disabled):not(.p-ink)`);
                 event.preventDefault();
                 break;
@@ -2383,10 +2454,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 const firstDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
                 const firstDayDateKey = this.formatDateKey(firstDayDate);
                 const firstDayCell = <any>findSingle(cellContent.offsetParent, `span[data-date='${firstDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+
                 if (firstDayCell) {
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
                 }
+
                 event.preventDefault();
                 break;
 
@@ -2396,10 +2469,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 const lastDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
                 const lastDayDateKey = this.formatDateKey(lastDayDate);
                 const lastDayCell = <any>findSingle(cellContent.offsetParent, `span[data-date='${lastDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+
                 if (lastDayDate) {
                     lastDayCell.tabIndex = '0';
                     lastDayCell.focus();
                 }
+
                 event.preventDefault();
                 break;
 
@@ -2411,18 +2486,22 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     onMonthCellKeydown(event: any, index: number) {
         const cell = event.currentTarget;
+
         switch (event.which) {
             //arrows
             case 38:
+
             case 40: {
                 cell.tabIndex = '-1';
-                var cells = cell.parentElement.children;
-                var cellIndex = getIndex(cell);
+                let cells = cell.parentElement.children;
+                let cellIndex = getIndex(cell);
                 let nextCell = cells[event.which === 40 ? cellIndex + 3 : cellIndex - 3];
+
                 if (nextCell) {
                     nextCell.tabIndex = '0';
                     nextCell.focus();
                 }
+
                 event.preventDefault();
                 break;
             }
@@ -2431,6 +2510,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             case 37: {
                 cell.tabIndex = '-1';
                 let prevCell = cell.previousElementSibling;
+
                 if (prevCell) {
                     prevCell.tabIndex = '0';
                     prevCell.focus();
@@ -2447,6 +2527,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             case 39: {
                 cell.tabIndex = '-1';
                 let nextCell = cell.nextElementSibling;
+
                 if (nextCell) {
                     nextCell.tabIndex = '0';
                     nextCell.focus();
@@ -2462,6 +2543,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             //enter
             //space
             case 13:
+
             case 32: {
                 this.onMonthSelect(event, index);
                 event.preventDefault();
@@ -2470,7 +2552,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
             //escape
             case 27: {
-                this.inputfieldViewChild?.nativeElement.focus();
+                this.inputfieldViewChild()?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
@@ -2481,6 +2563,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 if (!this.inline) {
                     this.trapFocus(event);
                 }
+
                 break;
             }
 
@@ -2496,15 +2579,18 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         switch (event.which) {
             //arrows
             case 38:
+
             case 40: {
                 cell.tabIndex = '-1';
-                var cells = cell.parentElement.children;
-                var cellIndex = getIndex(cell);
+                let cells = cell.parentElement.children;
+                let cellIndex = getIndex(cell);
                 let nextCell = cells[event.which === 40 ? cellIndex + 2 : cellIndex - 2];
+
                 if (nextCell) {
                     nextCell.tabIndex = '0';
                     nextCell.focus();
                 }
+
                 event.preventDefault();
                 break;
             }
@@ -2513,6 +2599,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             case 37: {
                 cell.tabIndex = '-1';
                 let prevCell = cell.previousElementSibling;
+
                 if (prevCell) {
                     prevCell.tabIndex = '0';
                     prevCell.focus();
@@ -2529,6 +2616,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             case 39: {
                 cell.tabIndex = '-1';
                 let nextCell = cell.nextElementSibling;
+
                 if (nextCell) {
                     nextCell.tabIndex = '0';
                     nextCell.focus();
@@ -2544,6 +2632,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             //enter
             //space
             case 13:
+
             case 32: {
                 this.onYearSelect(event, index);
                 event.preventDefault();
@@ -2552,7 +2641,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
             //escape
             case 27: {
-                this.inputfieldViewChild?.nativeElement.focus();
+                this.inputfieldViewChild()?.nativeElement.focus();
                 this.overlayVisible = false;
                 event.preventDefault();
                 break;
@@ -2578,13 +2667,16 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 this.navBackward(event);
             } else {
                 let prevMonthContainer = this.contentViewChild.nativeElement.children[groupIndex - 1];
+
                 if (focusKey) {
                     const firstDayCell = <any>findSingle(prevMonthContainer, focusKey);
+
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
                 } else {
                     let cells = <any>find(prevMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     let focusCell = cells[cells.length - 1];
+
                     focusCell.tabIndex = '0';
                     focusCell.focus();
                 }
@@ -2596,12 +2688,15 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 this.navForward(event);
             } else {
                 let nextMonthContainer = this.contentViewChild.nativeElement.children[groupIndex + 1];
+
                 if (focusKey) {
                     const firstDayCell = <any>findSingle(nextMonthContainer, focusKey);
+
                     firstDayCell.tabIndex = '0';
                     firstDayCell.focus();
                 } else {
                     let focusCell = <any>findSingle(nextMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+
                     focusCell.tabIndex = '0';
                     focusCell.focus();
                 }
@@ -2663,27 +2758,33 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.currentView === 'month') {
             let cells = find(contentEl, '.p-datepicker-month-view .p-datepicker-month:not(.p-disabled)');
             let selectedCell = <any>findSingle(contentEl, '.p-datepicker-month-view .p-datepicker-month.p-highlight');
+
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
                 let disabledCells = find(contentEl, '.p-datepicker-month-view .p-datepicker-month.p-disabled[tabindex = "0"]');
+
                 disabledCells.forEach((cell: any) => (cell.tabIndex = -1));
             }
         } else if (this.currentView === 'year') {
             let cells = find(contentEl, '.p-datepicker-year-view .p-datepicker-year:not(.p-disabled)');
             let selectedCell = findSingle(contentEl, '.p-datepicker-year-view .p-datepicker-year.p-highlight');
+
             cells.forEach((cell: any) => (cell.tabIndex = -1));
             cell = selectedCell || cells[0];
 
             if (cells.length === 0) {
                 let disabledCells = find(contentEl, '.p-datepicker-year-view .p-datepicker-year.p-disabled[tabindex = "0"]');
+
                 disabledCells.forEach((cell: any) => (cell.tabIndex = -1));
             }
         } else {
             cell = findSingle(contentEl, 'span.p-highlight');
+
             if (!cell) {
                 let todayCell = findSingle(contentEl, 'td.p-datepicker-today span:not(.p-disabled):not(.p-ink)');
+
                 if (todayCell) cell = todayCell;
                 else cell = findSingle(contentEl, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
             }
@@ -2772,6 +2873,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 return pm ? hours + 12 : hours;
             }
         }
+
         return hours;
     }
 
@@ -2788,13 +2890,16 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             if (!this.value) {
                 this.value = [new Date(), new Date()];
             }
+
             if (isRange) {
                 value = this.value[1] || this.value[0];
             }
+
             if (isMultiple) {
                 value = this.value[this.value.length - 1];
             }
         }
+
         const valueDateString = value && isDate(value) ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         let isMaxDate = this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString;
@@ -2853,14 +2958,17 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         const prevHour = this.currentHour ?? 0;
         let newHour = (this.currentHour ?? 0) + this.stepHour;
         let newPM = this.pm;
+
         if (this.hourFormat == '24') newHour = newHour >= 24 ? newHour - 24 : newHour;
         else if (this.hourFormat == '12') {
             // Before the AM/PM break, now after
             if (prevHour < 12 && newHour > 11) {
                 newPM = !this.pm;
             }
+
             newHour = newHour >= 13 ? newHour - 12 : newHour;
         }
+
         this.toggleAMPMIfNotMinDate(newPM!);
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         event.preventDefault();
@@ -2870,6 +2978,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         let value = this.value;
         const valueDateString = value && isDate(value) ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
+
         if (isMinDate && this.minDate!.getHours() >= 12) {
             this.pm = true;
         } else {
@@ -2937,14 +3046,17 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     decrementHour(event: any) {
         let newHour = (this.currentHour ?? 0) - this.stepHour;
         let newPM = this.pm;
+
         if (this.hourFormat == '24') newHour = newHour < 0 ? 24 + newHour : newHour;
         else if (this.hourFormat == '12') {
             // If we were at noon/midnight, then switch
             if (this.currentHour === 12) {
                 newPM = !this.pm;
             }
+
             newHour = newHour <= 0 ? 12 + newHour : newHour;
         }
+
         this.toggleAMPMIfNotMinDate(newPM!);
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         event.preventDefault();
@@ -2952,6 +3064,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     incrementMinute(event: any) {
         let newMinute = (this.currentMinute ?? 0) + this.stepMinute;
+
         newMinute = newMinute > 59 ? newMinute - 60 : newMinute;
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, newMinute, this.currentSecond!, this.pm!);
         event.preventDefault();
@@ -2959,6 +3072,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     decrementMinute(event: any) {
         let newMinute = (this.currentMinute ?? 0) - this.stepMinute;
+
         newMinute = newMinute < 0 ? 60 + newMinute : newMinute;
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, newMinute, this.currentSecond || 0, this.pm!);
         event.preventDefault();
@@ -2966,6 +3080,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     incrementSecond(event: any) {
         let newSecond = <any>this.currentSecond + this.stepSecond;
+
         newSecond = newSecond > 59 ? newSecond - 60 : newSecond;
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, this.currentMinute || 0, newSecond, this.pm!);
         event.preventDefault();
@@ -2973,6 +3088,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     decrementSecond(event: any) {
         let newSecond = <any>this.currentSecond - this.stepSecond;
+
         newSecond = newSecond < 0 ? 60 + newSecond : newSecond;
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, this.currentMinute || 0, newSecond, this.pm!);
         event.preventDefault();
@@ -2980,12 +3096,15 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     updateTime() {
         let value = this.value;
+
         if (this.isRangeSelection()) {
             value = this.value[1] || this.value[0];
         }
+
         if (this.isMultipleSelection()) {
             value = this.value[this.value.length - 1];
         }
+
         value = value && isDate(value) ? new Date(value.getTime()) : new Date();
 
         if (this.hourFormat == '12') {
@@ -2997,6 +3116,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
         value.setMinutes(this.currentMinute);
         value.setSeconds(this.currentSecond);
+
         if (this.isRangeSelection()) {
             if (this.value[1]) value = [this.value[0], value];
             else value = [value, null];
@@ -3013,6 +3133,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     toggleAMPM(event: any) {
         const newPM = !this.pm;
+
         this.pm = newPM;
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour || 0, this.currentMinute || 0, this.currentSecond || 0, newPM);
         this.updateTime();
@@ -3025,11 +3146,14 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (!this.isKeydown) {
             return;
         }
+
         this.isKeydown = false;
 
         let val = (<HTMLInputElement>event.target).value;
+
         try {
             let value = this.parseValueFromString(val);
+
             if (this.isValidSelection(value)) {
                 this.updateModel(value);
                 this.updateUI();
@@ -3039,6 +3163,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         } catch (err) {
             //invalid date
             let value = this.keepInvalid ? val : null;
+
             this.updateModel(value);
         }
 
@@ -3049,10 +3174,13 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.isSingleSelection()) {
             return this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false);
         }
+
         let isValid = value.every((v: any) => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false));
+
         if (isValid && this.isRangeSelection()) {
             isValid = value.length === 1 || (value.length > 1 && value[1] >= value[0]);
         }
+
         return isValid;
     }
 
@@ -3067,13 +3195,17 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             value = this.parseDateTime(text);
         } else if (this.isMultipleSelection()) {
             let tokens = text.split(this.multipleSeparator);
+
             value = [];
+
             for (let token of tokens) {
                 value.push(this.parseDateTime(token.trim()));
             }
         } else if (this.isRangeSelection()) {
             let tokens = text.split(' ' + this.rangeSeparator + ' ');
+
             value = [];
+
             for (let i = 0; i < tokens.length; i++) {
                 value[i] = this.parseDateTime(tokens[i].trim());
             }
@@ -3091,6 +3223,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             this.populateTime(date, parts[0], parts[1]);
         } else {
             const dateFormat = this.getDateFormat();
+
             if (this.showTime) {
                 let ampm = this.hourFormat == '12' ? parts.pop() : null;
                 let timeString = parts.pop();
@@ -3112,6 +3245,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
         this.pm = ampm === 'PM' || ampm === 'pm';
         let time = this.parseTime(timeString);
+
         value.setHours(time.hour);
         value.setMinutes(time.minute);
         value.setSeconds(time.second);
@@ -3123,6 +3257,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     updateUI() {
         let propValue = this.value;
+
         if (Array.isArray(propValue)) {
             propValue = propValue.length === 2 ? propValue[1] : propValue[0];
         }
@@ -3154,7 +3289,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     hideOverlay() {
-        this.inputfieldViewChild?.nativeElement.focus();
+        this.inputfieldViewChild()?.nativeElement.focus();
         this.overlayVisible = false;
         this.clearTimePickerTimer();
 
@@ -3169,7 +3304,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (!this.inline) {
             if (!this.overlayVisible) {
                 this.showOverlay();
-                this.inputfieldViewChild?.nativeElement.focus();
+                this.inputfieldViewChild()?.nativeElement.focus();
             } else {
                 this.hideOverlay();
             }
@@ -3180,6 +3315,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.overlay = event.element as HTMLElement;
         this.$attrSelector && this.overlay!.setAttribute(this.$attrSelector, '');
         const styles = !this.inline ? { position: 'absolute', top: '0', minWidth: `${this.overlayMinWidth}px` } : undefined;
+
         addStyle(this.overlay!, styles || {});
         this.appendOverlay();
         this.alignOverlay();
@@ -3193,6 +3329,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.autoZIndex) {
             ZIndexUtils.clear(event.element as HTMLElement);
         }
+
         this.restoreOverlayAppend();
         this.onOverlayHide();
 
@@ -3217,9 +3354,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             this.enableModality(this.overlay);
         } else if (this.overlay) {
             if (this.$appendTo() && this.$appendTo() !== 'self') {
-                absolutePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
+                absolutePosition(this.overlay, this.inputfieldViewChild()?.nativeElement);
             } else {
-                relativePosition(this.overlay, this.inputfieldViewChild?.nativeElement);
+                relativePosition(this.overlay, this.inputfieldViewChild()?.nativeElement);
             }
         }
     }
@@ -3242,6 +3379,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             this.mask = this.renderer.createElement('div');
             this.renderer.setStyle(this.mask, 'zIndex', String(parseInt(element.style.zIndex) - 1));
             let maskStyleClass = 'p-overlay-mask p-datepicker-mask p-datepicker-mask-scrollblocker p-overlay-mask p-overlay-mask-enter-active';
+
             addClass(this.mask!, maskStyleClass);
 
             this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
@@ -3256,6 +3394,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     disableModality() {
         if (this.mask) {
             addClass(this.mask, 'p-overlay-mask-leave');
+
             if (!this.animationEndListener) {
                 this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyMask.bind(this));
             }
@@ -3266,11 +3405,14 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (!this.mask) {
             return;
         }
+
         this.renderer.removeChild(this.document.body, this.mask);
         let bodyChildren = this.document.body.children;
         let hasBlockerMasks!: boolean;
+
         for (let i = 0; i < bodyChildren.length; i++) {
             let bodyChild = bodyChildren[i];
+
             if (hasClass(bodyChild, 'p-datepicker-mask-scrollblocker')) {
                 hasBlockerMasks = true;
                 break;
@@ -3315,25 +3457,29 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
 
         let iFormat!: any;
+
         const lookAhead = (match: string) => {
                 const matches = iFormat + 1 < format.length && format.charAt(iFormat + 1) === match;
+
                 if (matches) {
                     iFormat++;
                 }
+
                 return matches;
             },
             formatNumber = (match: string, value: any, len: any) => {
                 let num = '' + value;
+
                 if (lookAhead(match)) {
                     while (num.length < len) {
                         num = '0' + num;
                     }
                 }
+
                 return num;
             },
-            formatName = (match: string, value: any, shortNames: any, longNames: any) => {
-                return lookAhead(match) ? longNames[value] : shortNames[value];
-            };
+            formatName = (match: string, value: any, shortNames: any, longNames: any) => (lookAhead(match) ? longNames[value] : shortNames[value]);
+
         let output = '';
         let literal = false;
 
@@ -3377,6 +3523,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                             } else {
                                 literal = true;
                             }
+
                             break;
                         default:
                             output += format.charAt(iFormat);
@@ -3384,6 +3531,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 }
             }
         }
+
         return output;
     }
 
@@ -3406,6 +3554,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         } else {
             output += hours < 10 ? '0' + hours : hours;
         }
+
         output += ':';
         output += minutes < 10 ? '0' + minutes : minutes;
 
@@ -3455,6 +3604,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
 
         value = typeof value === 'object' ? value.toString() : value + '';
+
         if (value === '') {
             return null;
         }
@@ -3472,9 +3622,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             date,
             lookAhead = (match: any) => {
                 let matches = iFormat + 1 < format.length && format.charAt(iFormat + 1) === match;
+
                 if (matches) {
                     iFormat++;
                 }
+
                 return matches;
             },
             getNumber = (match: any) => {
@@ -3483,10 +3635,13 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                     minSize = match === 'y' ? size : 1,
                     digits = new RegExp('^\\d{' + minSize + ',' + size + '}'),
                     num = value.substring(iValue).match(digits);
+
                 if (!num) {
                     throw 'Missing number at position ' + iValue;
                 }
+
                 iValue += num[0].length;
+
                 return parseInt(num[0], 10);
             },
             getName = (match: any, shortNames: any, longNames: any) => {
@@ -3497,12 +3652,12 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 for (let i = 0; i < arr.length; i++) {
                     (names as any[]).push([i, arr[i]]);
                 }
-                (names as any[]).sort((a, b) => {
-                    return -((a as any)[1].length - (b as any)[1].length);
-                });
+
+                (names as any[]).sort((a, b) => -((a as any)[1].length - (b as any)[1].length));
 
                 for (let i = 0; i < (names as any[]).length; i++) {
                     let name = (names as any[])[i][1];
+
                     if (value.substr(iValue, (name as string).length).toLowerCase() === (name as string).toLowerCase()) {
                         index = (names as any[])[i][0];
                         iValue += (name as string).length;
@@ -3520,6 +3675,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 if (value.charAt(iValue) !== format.charAt(iFormat)) {
                     throw 'Unexpected literal at position ' + iValue;
                 }
+
                 iValue++;
             };
 
@@ -3572,6 +3728,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                         } else {
                             literal = true;
                         }
+
                         break;
                     default:
                         checkLiteral();
@@ -3581,6 +3738,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
         if (iValue < value.length) {
             extra = value.substr(iValue);
+
             if (!/^\s+/.test(extra)) {
                 throw 'Extra/unparsed characters found in date: ' + extra;
             }
@@ -3595,11 +3753,14 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (doy > -1) {
             month = 1;
             day = doy;
+
             do {
                 dim = this.getDaysCountInMonth(year, month - 1);
+
                 if (day <= dim) {
                     break;
                 }
+
                 month++;
                 day -= dim;
             } while (true);
@@ -3633,6 +3794,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         if (this.keepInvalid) {
             return true; // If we are keeping invalid dates, we don't need to check for time constraints
         }
+
         return (!this.minDate || selectedDate >= this.minDate) && (!this.maxDate || selectedDate <= this.maxDate);
     }
 
@@ -3669,6 +3831,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             }
 
             let innerHTML = '';
+
             if (this.responsiveOptions) {
                 let responsiveOptions = [...this.responsiveOptions].filter((o) => !!(o.breakpoint && o.numMonths)).sort((o1: any, o2: any) => -1 * o1.breakpoint.localeCompare(o2.breakpoint, undefined, { numeric: true }));
 
@@ -3800,6 +3963,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      */
     writeControlValue(value: any): void {
         this.value = value;
+
         if (this.value && typeof this.value === 'string') {
             try {
                 this.value = this.parseValueFromString(this.value);

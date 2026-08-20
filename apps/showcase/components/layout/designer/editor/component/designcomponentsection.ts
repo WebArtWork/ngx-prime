@@ -50,6 +50,7 @@ export class DesignComponentSection {
     tokens = computed(() => {
         const designer = this.designerService.designer();
         const source = designer.theme.preset.components[this.componentKey()];
+
         return this.getObjectProperty(source, this.path());
     });
 
@@ -70,9 +71,7 @@ export class DesignComponentSection {
         return groups;
     });
 
-    hasNestedTokens = computed(() => {
-        return Object.keys(this.nestedTokens()).length > 0;
-    });
+    hasNestedTokens = computed(() => Object.keys(this.nestedTokens()).length > 0);
 
     camelCaseToSpaces(val) {
         return val.replace(/([a-z])([A-Z])/g, '$1 $2');

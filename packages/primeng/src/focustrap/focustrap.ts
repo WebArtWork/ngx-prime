@@ -58,8 +58,8 @@ export class FocusTrap extends BaseComponent {
     createHiddenFocusableElements() {
         const tabindex = '0';
 
-        const createFocusableElement = (onFocus) => {
-            return createElement('span', {
+        const createFocusableElement = (onFocus) =>
+            createElement('span', {
                 class: 'p-hidden-accessible p-hidden-focusable',
                 tabindex,
                 role: 'presentation',
@@ -68,7 +68,6 @@ export class FocusTrap extends BaseComponent {
                 'data-p-hidden-focusable': true,
                 onFocus: onFocus?.bind(this)
             }) as HTMLElement;
-        };
 
         this.firstHiddenFocusableElement = createFocusableElement(this.onFirstHiddenElementFocus);
         this.lastHiddenFocusableElement = createFocusableElement(this.onLastHiddenElementFocus);

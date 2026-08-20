@@ -47,37 +47,21 @@ export class BaseStyle {
         return computedStyle ? this.useStyle.use(minifyCSS(computedStyle), { name: this.name, ...options }) : {};
     };
 
-    loadCSS = (options = {}) => {
-        return this.load(this.css, options);
-    };
+    loadCSS = (options = {}) => this.load(this.css, options);
 
-    loadStyle = (options: any = {}, style: string = '') => {
-        return this.load(this.style, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
-    };
+    loadStyle = (options: any = {}, style: string = '') => this.load(this.style, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
 
-    loadBaseCSS = (options = {}) => {
-        return this.load(css, options);
-    };
+    loadBaseCSS = (options = {}) => this.load(css, options);
 
-    loadBaseStyle = (options: any = {}, style: string = '') => {
-        return this.load(base_style, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
-    };
+    loadBaseStyle = (options: any = {}, style: string = '') => this.load(base_style, options, (computedStyle = '') => Theme.transformCSS(options.name || this.name, `${computedStyle}${Css`${style}`}`));
 
-    getCommonTheme = (params?) => {
-        return Theme.getCommon(this.name, params);
-    };
+    getCommonTheme = (params?) => Theme.getCommon(this.name, params);
 
-    getComponentTheme = (params) => {
-        return Theme.getComponent(this.name, params);
-    };
+    getComponentTheme = (params) => Theme.getComponent(this.name, params);
 
-    getPresetTheme = (preset, selector, params) => {
-        return Theme.getCustomPreset(this.name, preset, selector, params);
-    };
+    getPresetTheme = (preset, selector, params) => Theme.getCustomPreset(this.name, preset, selector, params);
 
-    getLayerOrderThemeCSS = () => {
-        return Theme.getLayerOrderCSS(this.name);
-    };
+    getLayerOrderThemeCSS = () => Theme.getLayerOrderCSS(this.name);
 
     getStyleSheet = (extendedCSS = '', props = {}) => {
         if (this.css) {
@@ -93,9 +77,7 @@ export class BaseStyle {
         return '';
     };
 
-    getCommonThemeStyleSheet = (params, props = {}) => {
-        return Theme.getCommonStyleSheet(this.name, params, props);
-    };
+    getCommonThemeStyleSheet = (params, props = {}) => Theme.getCommonStyleSheet(this.name, params, props);
 
     getThemeStyleSheet = (params, props = {}) => {
         let css = [Theme.getStyleSheet(this.name, params, props)];

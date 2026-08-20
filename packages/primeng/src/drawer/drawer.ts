@@ -5,7 +5,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -15,10 +14,11 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    viewChild,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { addClass, appendChild, removeClass, setAttribute } from '@primeuix/utils';
@@ -71,36 +71,41 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
                     <ng-container *ngTemplateOutlet="headlessTemplate || _headlessTemplate"></ng-container>
                 } @else {
                     <div [pBind]="ptm('header')" [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
-                        <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                        <div *ngIf="header" [pBind]="ptm('title')" [class]="cx('title')">{{ header }}</div>
-                        <p-button
-                            *ngIf="showCloseIcon && closable"
-                            [pt]="ptm('pcCloseButton')"
-                            [ngClass]="cx('pcCloseButton')"
-                            (onClick)="close($event)"
-                            (keydown.enter)="close($event)"
-                            [buttonProps]="closeButtonProps"
-                            [ariaLabel]="ariaCloseLabel"
-                            [attr.data-pc-group-section]="'iconcontainer'"
-                            [unstyled]="unstyled()"
-                        >
-                            <ng-template #icon>
-                                <svg data-p-icon="times" *ngIf="!closeIconTemplate && !_closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
-                                <ng-template *ngTemplateOutlet="closeIconTemplate || _closeIconTemplate"></ng-template>
-                            </ng-template>
-                        </p-button>
+                        <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate"></ng-container>
+                        @if (header) {
+                            <div [pBind]="ptm('title')" [class]="cx('title')">{{ header }}</div>
+                        }
+                        @if (showCloseIcon && closable) {
+                            <p-button
+                                [pt]="ptm('pcCloseButton')"
+                                [ngClass]="cx('pcCloseButton')"
+                                (onClick)="close($event)"
+                                (keydown.enter)="close($event)"
+                                [buttonProps]="closeButtonProps"
+                                [ariaLabel]="ariaCloseLabel"
+                                [attr.data-pc-group-section]="'iconcontainer'"
+                                [unstyled]="unstyled()"
+                            >
+                                <ng-template #icon>
+                                    @if (!closeIconTemplate() && !_closeIconTemplate) {
+                                        <svg data-p-icon="times" [attr.data-pc-section]="'closeicon'" />
+                                    }
+                                    <ng-template *ngTemplateOutlet="closeIconTemplate() || _closeIconTemplate"></ng-template>
+                                </ng-template>
+                            </p-button>
+                        }
                     </div>
 
                     <div [pBind]="ptm('content')" [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
                         <ng-content></ng-content>
-                        <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                        <ng-container *ngTemplateOutlet="contentTemplate() || _contentTemplate"></ng-container>
                     </div>
 
-                    <ng-container *ngIf="footerTemplate || _footerTemplate">
+                    @if (footerTemplate || _footerTemplate) {
                         <div [pBind]="ptm('footer')" [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
                             <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                         </div>
-                    </ng-container>
+                    }
                 }
             </div>
         }
@@ -130,12 +135,10 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
     /**
      * Whether to block scrolling of the document when drawer is active.
      * @group Props
@@ -264,9 +267,9 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @ViewChild('container') containerViewChild: ElementRef | undefined;
+    readonly containerViewChild = viewChild<ElementRef>('container');
 
-    @ViewChild('closeButton') closeButtonViewChild: ElementRef | undefined;
+    readonly closeButtonViewChild = viewChild<ElementRef>('closeButton');
 
     initialized: boolean | undefined;
 
@@ -297,7 +300,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * Custom header template.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
+    readonly headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
     /**
      * Custom footer template.
      * @group Templates
@@ -307,12 +310,12 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * Custom content template.
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
+    readonly contentTemplate = contentChild<TemplateRef<void>>('content', { descendants: false });
     /**
      * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<void> | undefined;
+    readonly closeIconTemplate = contentChild<TemplateRef<void>>('closeicon', { descendants: false });
     /**
      * Custom headless template to replace the entire drawer content.
      * @group Templates
@@ -331,10 +334,10 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
 
     _headlessTemplate: TemplateRef<void> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this._contentTemplate = item.template;
@@ -407,6 +410,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
 
             if (this.mask) {
                 const style = `z-index: ${zIndex};${this.getMaskStyle()}`;
+
                 setAttribute(this.mask, 'style', style);
                 setAttribute(this.mask, 'data-p', this.dataP);
                 addClass(this.mask, this.cx('mask'));
@@ -421,6 +425,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
             }
 
             this.renderer.appendChild(this.document.body, this.mask);
+
             if (this.blockScroll) {
                 blockBodyScroll();
             }

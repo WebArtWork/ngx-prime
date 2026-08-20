@@ -6,9 +6,9 @@ import { BaseComponent } from 'primeng/basecomponent';
 import { Skeleton, SkeletonModule } from './skeleton';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-skeleton',
-    template: `<p-skeleton [shape]="shape" [animation]="animation" [width]="width" [height]="height"></p-skeleton>`
+    template: `<p-skeleton [shape]="shape" [animation]="animation" [width]="width" [height]="height"></p-skeleton>`,
+    imports: [SkeletonModule]
 })
 class TestBasicSkeletonComponent {
     shape = 'rectangle';
@@ -18,9 +18,9 @@ class TestBasicSkeletonComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-skeleton-shapes',
-    template: ` <p-skeleton [shape]="shape" [size]="size" [borderRadius]="borderRadius" [animation]="animation"> </p-skeleton> `
+    template: ` <p-skeleton [shape]="shape" [size]="size" [borderRadius]="borderRadius" [animation]="animation"> </p-skeleton> `,
+    imports: [SkeletonModule]
 })
 class TestSkeletonShapesComponent {
     shape: string = 'rectangle';
@@ -30,9 +30,9 @@ class TestSkeletonShapesComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-skeleton-dimensions',
-    template: ` <p-skeleton [width]="width" [height]="height" [size]="size" [shape]="shape"> </p-skeleton> `
+    template: ` <p-skeleton [width]="width" [height]="height" [size]="size" [shape]="shape"> </p-skeleton> `,
+    imports: [SkeletonModule]
 })
 class TestSkeletonDimensionsComponent {
     width = '200px';
@@ -42,9 +42,9 @@ class TestSkeletonDimensionsComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-skeleton-animations',
-    template: ` <p-skeleton [animation]="animation" [shape]="shape"> </p-skeleton> `
+    template: ` <p-skeleton [animation]="animation" [shape]="shape"> </p-skeleton> `,
+    imports: [SkeletonModule]
 })
 class TestSkeletonAnimationsComponent {
     animation = 'wave';
@@ -52,9 +52,9 @@ class TestSkeletonAnimationsComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-skeleton-styling',
-    template: ` <p-skeleton [styleClass]="styleClass" [shape]="shape" [borderRadius]="borderRadius"> </p-skeleton> `
+    template: ` <p-skeleton [styleClass]="styleClass" [shape]="shape" [borderRadius]="borderRadius"> </p-skeleton> `,
+    imports: [SkeletonModule]
 })
 class TestSkeletonStylingComponent {
     styleClass = 'custom-skeleton';
@@ -63,7 +63,6 @@ class TestSkeletonStylingComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-skeleton-card-layout',
     template: `
         <div class="card-skeleton">
@@ -74,12 +73,12 @@ class TestSkeletonStylingComponent {
                 <p-skeleton height="0.5rem" styleClass="mb-2"></p-skeleton>
             </div>
         </div>
-    `
+    `,
+    imports: [SkeletonModule]
 })
 class TestSkeletonCardLayoutComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-skeleton-data-table',
     template: `
         <div class="table-skeleton">
@@ -87,15 +86,18 @@ class TestSkeletonCardLayoutComponent {}
                 <p-skeleton width="100%" height="2rem" styleClass="mb-2"></p-skeleton>
             </div>
             <div class="table-rows">
-                <div *ngFor="let row of rows; trackBy: trackByFn" class="table-row">
-                    <p-skeleton width="25%" height="1.5rem" styleClass="mr-2"></p-skeleton>
-                    <p-skeleton width="25%" height="1.5rem" styleClass="mr-2"></p-skeleton>
-                    <p-skeleton width="25%" height="1.5rem" styleClass="mr-2"></p-skeleton>
-                    <p-skeleton width="25%" height="1.5rem"></p-skeleton>
-                </div>
+                @for (row of rows; track trackByFn($index)) {
+                    <div class="table-row">
+                        <p-skeleton width="25%" height="1.5rem" styleClass="mr-2"></p-skeleton>
+                        <p-skeleton width="25%" height="1.5rem" styleClass="mr-2"></p-skeleton>
+                        <p-skeleton width="25%" height="1.5rem" styleClass="mr-2"></p-skeleton>
+                        <p-skeleton width="25%" height="1.5rem"></p-skeleton>
+                    </div>
+                }
             </div>
         </div>
-    `
+    `,
+    imports: [SkeletonModule]
 })
 class TestSkeletonDataTableComponent {
     rows = Array(5).fill({});
@@ -106,16 +108,16 @@ class TestSkeletonDataTableComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-skeleton-empty',
-    template: `<p-skeleton></p-skeleton>`
+    template: `<p-skeleton></p-skeleton>`,
+    imports: [SkeletonModule]
 })
 class TestSkeletonEmptyComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-skeleton-dynamic',
-    template: ` <p-skeleton [shape]="dynamicShape" [animation]="dynamicAnimation" [width]="dynamicWidth" [height]="dynamicHeight" [size]="dynamicSize" [borderRadius]="dynamicBorderRadius" [styleClass]="dynamicStyleClass"> </p-skeleton> `
+    template: ` <p-skeleton [shape]="dynamicShape" [animation]="dynamicAnimation" [width]="dynamicWidth" [height]="dynamicHeight" [size]="dynamicSize" [borderRadius]="dynamicBorderRadius" [styleClass]="dynamicStyleClass"> </p-skeleton> `,
+    imports: [SkeletonModule]
 })
 class TestSkeletonDynamicComponent {
     dynamicShape = 'rectangle';
@@ -130,8 +132,8 @@ class TestSkeletonDynamicComponent {
 describe('Skeleton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [SkeletonModule],
-            declarations: [
+            imports: [
+                SkeletonModule,
                 TestBasicSkeletonComponent,
                 TestSkeletonShapesComponent,
                 TestSkeletonDimensionsComponent,
@@ -206,6 +208,7 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Skeleton));
+
             skeleton = debugElement.componentInstance;
             element = debugElement.nativeElement;
         });
@@ -408,6 +411,7 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Skeleton));
+
             skeleton = debugElement.componentInstance;
             element = debugElement.nativeElement;
         });
@@ -418,11 +422,13 @@ describe('Skeleton', () => {
 
         it('should apply root CSS class through cx method', () => {
             const classes = element.className;
+
             expect(classes).toBeTruthy();
         });
 
         it('should merge inline styles with component styles', () => {
             const containerStyle = skeleton.containerStyle;
+
             expect(containerStyle).toBeTruthy();
             expect(containerStyle.borderRadius).toBe('8px');
         });
@@ -519,9 +525,11 @@ describe('Skeleton', () => {
     describe('Real-world Usage Scenarios', () => {
         it('should work in card layout', () => {
             const fixture = TestBed.createComponent(TestSkeletonCardLayoutComponent);
+
             fixture.detectChanges();
 
             const skeletons = fixture.debugElement.queryAll(By.directive(Skeleton));
+
             expect(skeletons.length).toBe(4); // 1 circle + 3 rectangles
 
             // Circle avatar skeleton
@@ -536,9 +544,11 @@ describe('Skeleton', () => {
 
         it('should work in data table layout', () => {
             const fixture = TestBed.createComponent(TestSkeletonDataTableComponent);
+
             fixture.detectChanges();
 
             const skeletons = fixture.debugElement.queryAll(By.directive(Skeleton));
+
             expect(skeletons.length).toBe(21); // 1 header + 20 cells (5 rows * 4 columns)
 
             // Header skeleton
@@ -622,6 +632,7 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const element = fixture.debugElement.query(By.directive(Skeleton)).nativeElement;
+
             expect(element.classList.contains('new-style')).toBe(true);
         });
     });
@@ -649,6 +660,7 @@ describe('Skeleton', () => {
             skeleton.height = '0px';
 
             const style = skeleton.containerStyle;
+
             expect(style.width).toBe('0px');
             expect(style.height).toBe('0px');
         });
@@ -658,6 +670,7 @@ describe('Skeleton', () => {
             skeleton.height = '9999px';
 
             const style = skeleton.containerStyle;
+
             expect(style.width).toBe('9999px');
             expect(style.height).toBe('9999px');
         });
@@ -667,6 +680,7 @@ describe('Skeleton', () => {
             skeleton.height = '';
 
             const style = skeleton.containerStyle;
+
             expect(style.width).toBe('' as any);
             expect(style.height).toBe('' as any);
         });
@@ -677,6 +691,7 @@ describe('Skeleton', () => {
 
             expect(() => {
                 const style = skeleton.containerStyle;
+
                 expect(style).toBeTruthy();
             }).not.toThrow();
         });
@@ -686,6 +701,7 @@ describe('Skeleton', () => {
             skeleton.height = 'another-invalid';
 
             const style = skeleton.containerStyle;
+
             expect(style.width).toBe('invalid-value');
             expect(style.height).toBe('another-invalid');
         });
@@ -717,6 +733,7 @@ describe('Skeleton', () => {
             skeleton.height = 'calc(50vh - 10px)';
 
             const style = skeleton.containerStyle;
+
             expect(style.width).toBe('calc(100% - 20px)');
             expect(style.height).toBe('calc(50vh - 10px)');
         });
@@ -725,12 +742,14 @@ describe('Skeleton', () => {
     describe('Performance', () => {
         it('should handle multiple skeletons efficiently', async () => {
             @Component({
-                standalone: false,
                 template: `
-                    <div *ngFor="let item of items; trackBy: trackByFn">
-                        <p-skeleton [width]="item.width" [height]="item.height"></p-skeleton>
-                    </div>
-                `
+                    @for (item of items; track trackByFn($index)) {
+                        <div>
+                            <p-skeleton [width]="item.width" [height]="item.height"></p-skeleton>
+                        </div>
+                    }
+                `,
+                imports: [SkeletonModule]
             })
             class TestMultipleSkeletonsComponent {
                 items = Array(100)
@@ -746,8 +765,7 @@ describe('Skeleton', () => {
             }
 
             TestBed.configureTestingModule({
-                declarations: [TestMultipleSkeletonsComponent],
-                imports: [SkeletonModule],
+                imports: [SkeletonModule, TestMultipleSkeletonsComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -760,11 +778,13 @@ describe('Skeleton', () => {
             await fixture.whenStable();
 
             const skeletons = fixture.debugElement.queryAll(By.directive(Skeleton));
+
             expect(skeletons.length).toBe(100);
         });
 
         it('should efficiently calculate container styles', () => {
             const fixture = TestBed.createComponent(TestBasicSkeletonComponent);
+
             fixture.detectChanges();
             const skeletonComponent = fixture.debugElement.query(By.directive(Skeleton)).componentInstance;
 
@@ -786,7 +806,6 @@ describe('Skeleton', () => {
     describe('Complex Scenarios', () => {
         it('should handle nested skeleton layouts', () => {
             @Component({
-                standalone: false,
                 template: `
                     <div class="container">
                         <div class="header">
@@ -804,20 +823,22 @@ describe('Skeleton', () => {
                             <p-skeleton width="4rem" height="2rem"></p-skeleton>
                         </div>
                     </div>
-                `
+                `,
+                imports: [SkeletonModule]
             })
             class TestNestedSkeletonsComponent {}
 
             TestBed.configureTestingModule({
-                declarations: [TestNestedSkeletonsComponent],
-                imports: [SkeletonModule],
+                imports: [SkeletonModule, TestNestedSkeletonsComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
             const fixture = TestBed.createComponent(TestNestedSkeletonsComponent);
+
             fixture.detectChanges();
 
             const skeletons = fixture.debugElement.queryAll(By.directive(Skeleton));
+
             expect(skeletons.length).toBe(6);
 
             // Verify different configurations
@@ -830,12 +851,16 @@ describe('Skeleton', () => {
 
         it('should work with conditional rendering', async () => {
             @Component({
-                standalone: false,
                 template: `
-                    <div *ngIf="showSkeletons">
-                        <p-skeleton *ngFor="let item of skeletonItems" [width]="item.width" [height]="item.height" [shape]="item.shape"> </p-skeleton>
-                    </div>
-                `
+                    @if (showSkeletons) {
+                        <div>
+                            @for (item of skeletonItems; track item) {
+                                <p-skeleton [width]="item.width" [height]="item.height" [shape]="item.shape"> </p-skeleton>
+                            }
+                        </div>
+                    }
+                `,
+                imports: [SkeletonModule]
             })
             class TestConditionalSkeletonsComponent {
                 showSkeletons = true;
@@ -847,17 +872,18 @@ describe('Skeleton', () => {
             }
 
             TestBed.configureTestingModule({
-                declarations: [TestConditionalSkeletonsComponent],
-                imports: [SkeletonModule],
+                imports: [SkeletonModule, TestConditionalSkeletonsComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
             const fixture = TestBed.createComponent(TestConditionalSkeletonsComponent);
             const component = fixture.componentInstance;
+
             fixture.detectChanges();
 
             // Should show skeletons initially
             let skeletons = fixture.debugElement.queryAll(By.directive(Skeleton));
+
             expect(skeletons.length).toBe(3);
 
             // Hide skeletons
@@ -916,6 +942,7 @@ describe('Skeleton', () => {
     describe('Template Rendering', () => {
         it('should render empty template correctly', () => {
             const fixture = TestBed.createComponent(TestBasicSkeletonComponent);
+
             fixture.detectChanges();
 
             const element = fixture.debugElement.query(By.directive(Skeleton)).nativeElement;
@@ -926,6 +953,7 @@ describe('Skeleton', () => {
 
         it('should apply host bindings correctly', () => {
             const fixture = TestBed.createComponent(TestBasicSkeletonComponent);
+
             fixture.detectChanges();
 
             const element = fixture.debugElement.query(By.directive(Skeleton)).nativeElement;
@@ -940,8 +968,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 1: Simple string classes', () => {
         @Component({
-            standalone: false,
-            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `,
+            imports: [SkeletonModule]
         })
         class TestSkeletonPtComponent {
             pt: any = {};
@@ -953,8 +981,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtComponent],
+                imports: [SkeletonModule, TestSkeletonPtComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -968,6 +995,7 @@ describe('Skeleton', () => {
             fixture.detectChanges(); // Trigger ngAfterViewChecked
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+
             expect(skeletonElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
         });
 
@@ -977,14 +1005,15 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+
             expect(skeletonElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
         });
     });
 
     describe('PassThrough - Case 2: Objects', () => {
         @Component({
-            standalone: false,
-            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `,
+            imports: [SkeletonModule]
         })
         class TestSkeletonPtObjectComponent {
             pt: any = {};
@@ -996,8 +1025,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtObjectComponent],
+                imports: [SkeletonModule, TestSkeletonPtObjectComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1017,6 +1045,7 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+
             expect(skeletonElement.nativeElement.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
             expect(skeletonElement.nativeElement.style.border).toBe('1px solid red');
             expect(skeletonElement.nativeElement.getAttribute('data-p-test')).toBe('true');
@@ -1034,6 +1063,7 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+
             expect(skeletonElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
             expect(skeletonElement.nativeElement.style.backgroundColor).toBe('yellow');
             expect(skeletonElement.nativeElement.getAttribute('aria-label')).toBe('SKELETON_CONTAINER');
@@ -1042,8 +1072,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 3: Mixed object and string values', () => {
         @Component({
-            standalone: false,
-            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `,
+            imports: [SkeletonModule]
         })
         class TestSkeletonPtMixedComponent {
             pt: any = {};
@@ -1055,8 +1085,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtMixedComponent],
+                imports: [SkeletonModule, TestSkeletonPtMixedComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1076,6 +1105,7 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+
             expect(skeletonElement.nativeElement.classList.contains('HOST_MIXED_CLASS')).toBe(true);
             expect(skeletonElement.nativeElement.classList.contains('ROOT_STRING_CLASS')).toBe(true);
             expect(skeletonElement.nativeElement.style.padding).toBe('10px');
@@ -1084,8 +1114,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 4: Use variables from instance', () => {
         @Component({
-            standalone: false,
-            template: ` <p-skeleton [shape]="shape" [animation]="animation" [pt]="pt"></p-skeleton> `
+            template: ` <p-skeleton [shape]="shape" [animation]="animation" [pt]="pt"></p-skeleton> `,
+            imports: [SkeletonModule]
         })
         class TestSkeletonPtInstanceComponent {
             pt: any = {};
@@ -1099,8 +1129,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtInstanceComponent],
+                imports: [SkeletonModule, TestSkeletonPtInstanceComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1111,14 +1140,12 @@ describe('Skeleton', () => {
         it('should apply pt based on instance shape', async () => {
             component.shape = 'circle';
             component.pt = {
-                host: ({ instance }: any) => {
-                    return {
-                        class: {
-                            SHAPE_CIRCLE: instance?.shape === 'circle',
-                            SHAPE_RECTANGLE: instance?.shape === 'rectangle'
-                        }
-                    };
-                }
+                host: ({ instance }: any) => ({
+                    class: {
+                        SHAPE_CIRCLE: instance?.shape === 'circle',
+                        SHAPE_RECTANGLE: instance?.shape === 'rectangle'
+                    }
+                })
             };
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1135,13 +1162,11 @@ describe('Skeleton', () => {
         it('should apply pt style based on instance animation', async () => {
             component.animation = 'pulse';
             component.pt = {
-                root: ({ instance }: any) => {
-                    return {
-                        style: {
-                            opacity: instance?.animation === 'pulse' ? '0.8' : '1'
-                        }
-                    };
-                }
+                root: ({ instance }: any) => ({
+                    style: {
+                        opacity: instance?.animation === 'pulse' ? '0.8' : '1'
+                    }
+                })
             };
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -1149,14 +1174,15 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+
             expect(skeletonElement.nativeElement.style.opacity).toBe('0.8');
         });
     });
 
     describe('PassThrough - Case 5: Event binding', () => {
         @Component({
-            standalone: false,
-            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `,
+            imports: [SkeletonModule]
         })
         class TestSkeletonPtEventComponent {
             pt: any = {};
@@ -1168,8 +1194,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtEventComponent],
+                imports: [SkeletonModule, TestSkeletonPtEventComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1191,6 +1216,7 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+
             skeletonElement.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1212,6 +1238,7 @@ describe('Skeleton', () => {
             fixture.detectChanges();
 
             const skeletonElement = fixture.debugElement.query(By.directive(Skeleton));
+
             skeletonElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1222,46 +1249,48 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
-            standalone: false,
-            template: ` <p-skeleton [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-skeleton> `
+            template: ` <p-skeleton [pt]="{ host: 'INLINE_HOST_CLASS' }"></p-skeleton> `,
+            imports: [SkeletonModule]
         })
         class TestSkeletonInlineStringPtComponent {}
 
         @Component({
-            standalone: false,
-            template: ` <p-skeleton [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-skeleton> `
+            template: ` <p-skeleton [pt]="{ host: { class: 'INLINE_OBJECT_CLASS', style: { border: '2px solid green' } } }"></p-skeleton> `,
+            imports: [SkeletonModule]
         })
         class TestSkeletonInlineObjectPtComponent {}
 
         it('should apply inline pt with string class', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonInlineStringPtComponent],
+                imports: [SkeletonModule, TestSkeletonInlineStringPtComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
             const testFixture = TestBed.createComponent(TestSkeletonInlineStringPtComponent);
+
             testFixture.detectChanges();
             testFixture.detectChanges();
 
             const skeletonElement = testFixture.debugElement.query(By.directive(Skeleton));
+
             expect(skeletonElement.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
         });
 
         it('should apply inline pt with object', () => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonInlineObjectPtComponent],
+                imports: [SkeletonModule, TestSkeletonInlineObjectPtComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
             const testFixture = TestBed.createComponent(TestSkeletonInlineObjectPtComponent);
+
             testFixture.detectChanges();
             testFixture.detectChanges();
 
             const skeletonElement = testFixture.debugElement.query(By.directive(Skeleton));
+
             expect(skeletonElement.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(skeletonElement.nativeElement.style.border).toBe('2px solid green');
         });
@@ -1272,18 +1301,17 @@ describe('Skeleton', () => {
             const { providePrimeNG } = require('primeng/config');
 
             @Component({
-                standalone: false,
                 template: `
                     <p-skeleton></p-skeleton>
                     <p-skeleton></p-skeleton>
-                `
+                `,
+                imports: [SkeletonModule]
             })
             class TestSkeletonGlobalPtComponent {}
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonGlobalPtComponent],
+                imports: [SkeletonModule, TestSkeletonGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -1298,10 +1326,12 @@ describe('Skeleton', () => {
             });
 
             const testFixture = TestBed.createComponent(TestSkeletonGlobalPtComponent);
+
             testFixture.detectChanges();
             testFixture.detectChanges();
 
             const skeletons = testFixture.debugElement.queryAll(By.directive(Skeleton));
+
             expect(skeletons.length).toBe(2);
 
             skeletons.forEach((skeleton) => {
@@ -1314,15 +1344,14 @@ describe('Skeleton', () => {
             const { providePrimeNG } = require('primeng/config');
 
             @Component({
-                standalone: false,
-                template: ` <p-skeleton [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-skeleton> `
+                template: ` <p-skeleton [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-skeleton> `,
+                imports: [SkeletonModule]
             })
             class TestSkeletonMergedPtComponent {}
 
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonMergedPtComponent],
+                imports: [SkeletonModule, TestSkeletonMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
                     providePrimeNG({
@@ -1336,10 +1365,12 @@ describe('Skeleton', () => {
             });
 
             const testFixture = TestBed.createComponent(TestSkeletonMergedPtComponent);
+
             testFixture.detectChanges();
             testFixture.detectChanges();
 
             const skeletonElement = testFixture.debugElement.query(By.directive(Skeleton));
+
             // Local pt should override global pt
             expect(skeletonElement.nativeElement.classList.contains('LOCAL_HOST_CLASS')).toBe(true);
             expect(skeletonElement.nativeElement.classList.contains('LOCAL_ROOT_CLASS')).toBe(true);
@@ -1348,8 +1379,8 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 8: Test hooks', () => {
         @Component({
-            standalone: false,
-            template: ` <p-skeleton [pt]="pt"></p-skeleton> `
+            template: ` <p-skeleton [pt]="pt"></p-skeleton> `,
+            imports: [SkeletonModule]
         })
         class TestSkeletonPtHooksComponent {
             pt: any = {};
@@ -1361,8 +1392,7 @@ describe('Skeleton', () => {
         beforeEach(() => {
             TestBed.resetTestingModule();
             TestBed.configureTestingModule({
-                imports: [SkeletonModule],
-                declarations: [TestSkeletonPtHooksComponent],
+                imports: [SkeletonModule, TestSkeletonPtHooksComponent],
                 providers: [provideZonelessChangeDetection()]
             });
 
@@ -1457,6 +1487,7 @@ describe('Skeleton', () => {
 
             expect(callOrder).toContain('onInit');
             expect(callOrder).toContain('onAfterViewInit');
+
             if (callOrder.includes('onAfterContentInit')) {
                 expect(callOrder.indexOf('onInit')).toBeLessThan(callOrder.indexOf('onAfterContentInit'));
                 expect(callOrder.indexOf('onAfterContentInit')).toBeLessThan(callOrder.indexOf('onAfterViewInit'));

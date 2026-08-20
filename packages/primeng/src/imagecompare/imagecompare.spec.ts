@@ -11,7 +11,6 @@ const mockImages = {
 };
 
 @Component({
-    standalone: false,
     template: `
         <p-imagecompare [tabindex]="tabindex" [ariaLabel]="ariaLabel" [ariaLabelledby]="ariaLabelledby">
             <ng-template #left>
@@ -21,7 +20,8 @@ const mockImages = {
                 <img [src]="rightImage" [alt]="rightImageAlt" class="right-image" />
             </ng-template>
         </p-imagecompare>
-    `
+    `,
+    imports: [ImageCompareModule, SharedModule]
 })
 class TestBasicImageCompareComponent {
     leftImage: string = mockImages.leftImage;
@@ -34,7 +34,6 @@ class TestBasicImageCompareComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-imagecompare>
             <ng-template pTemplate="left">
@@ -44,7 +43,8 @@ class TestBasicImageCompareComponent {
                 <img [src]="rightImage" [alt]="rightImageAlt" class="ptemplate-right" />
             </ng-template>
         </p-imagecompare>
-    `
+    `,
+    imports: [ImageCompareModule, SharedModule]
 })
 class TestPTemplateImageCompareComponent {
     leftImage: string = mockImages.leftImage;
@@ -54,7 +54,6 @@ class TestPTemplateImageCompareComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <div dir="rtl">
             <p-imagecompare>
@@ -66,7 +65,8 @@ class TestPTemplateImageCompareComponent {
                 </ng-template>
             </p-imagecompare>
         </div>
-    `
+    `,
+    imports: [ImageCompareModule, SharedModule]
 })
 class TestRTLImageCompareComponent {
     leftImage: string = mockImages.leftImage;
@@ -76,7 +76,6 @@ class TestRTLImageCompareComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-imagecompare class="responsive-container">
             <ng-template #left>
@@ -86,14 +85,14 @@ class TestRTLImageCompareComponent {
                 <div class="custom-content right-content">Right Custom Content</div>
             </ng-template>
         </p-imagecompare>
-    `
+    `,
+    imports: [ImageCompareModule, SharedModule]
 })
 class TestCustomContentImageCompareComponent {
     // No additional properties needed
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-imagecompare [pt]="pt" [tabindex]="tabindex" [ariaLabel]="ariaLabel">
             <ng-template #left>
@@ -103,7 +102,8 @@ class TestCustomContentImageCompareComponent {
                 <img [src]="rightImage" alt="Right Image" />
             </ng-template>
         </p-imagecompare>
-    `
+    `,
+    imports: [ImageCompareModule, SharedModule]
 })
 class TestPTImageCompareComponent {
     leftImage: string = mockImages.leftImage;
@@ -122,8 +122,7 @@ describe('ImageCompare', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ImageCompareModule, SharedModule],
-            declarations: [TestBasicImageCompareComponent, TestPTemplateImageCompareComponent, TestRTLImageCompareComponent, TestCustomContentImageCompareComponent, TestPTImageCompareComponent],
+            imports: [ImageCompareModule, SharedModule, TestBasicImageCompareComponent, TestPTemplateImageCompareComponent, TestRTLImageCompareComponent, TestCustomContentImageCompareComponent, TestPTImageCompareComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -146,6 +145,7 @@ describe('ImageCompare', () => {
         it('should accept custom input values', () => {
             const testFixture = TestBed.createComponent(TestBasicImageCompareComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.detectChanges();
 
             const imageCompareElement = testFixture.debugElement.query(By.directive(ImageCompare));
@@ -158,6 +158,7 @@ describe('ImageCompare', () => {
         it('should render slider input element', () => {
             fixture.detectChanges();
             const sliderInput = fixture.debugElement.query(By.css('input[type="range"]'));
+
             expect(sliderInput).toBeTruthy();
             expect(sliderInput.nativeElement.min).toBe('0');
             expect(sliderInput.nativeElement.max).toBe('100');
@@ -168,6 +169,7 @@ describe('ImageCompare', () => {
     describe('Template Content Projection', () => {
         it('should render left and right templates with #template approach', () => {
             const testFixture = TestBed.createComponent(TestBasicImageCompareComponent);
+
             testFixture.detectChanges();
 
             const leftImage = testFixture.debugElement.query(By.css('.left-image'));
@@ -181,6 +183,7 @@ describe('ImageCompare', () => {
 
         it('should render left and right templates with pTemplate approach', () => {
             const testFixture = TestBed.createComponent(TestPTemplateImageCompareComponent);
+
             testFixture.detectChanges();
 
             const leftImage = testFixture.debugElement.query(By.css('.ptemplate-left'));
@@ -192,6 +195,7 @@ describe('ImageCompare', () => {
 
         it('should render custom content in templates', () => {
             const testFixture = TestBed.createComponent(TestCustomContentImageCompareComponent);
+
             testFixture.detectChanges();
 
             const leftContent = testFixture.debugElement.query(By.css('.left-content'));
@@ -216,6 +220,7 @@ describe('ImageCompare', () => {
 
         it('should handle slider input event', () => {
             const imageCompareInstance = testFixture.debugElement.query(By.directive(ImageCompare)).componentInstance;
+
             spyOn(imageCompareInstance, 'onSlide').and.callThrough();
 
             slider.nativeElement.value = '75';
@@ -226,6 +231,7 @@ describe('ImageCompare', () => {
 
         it('should update clip path on slider change in LTR mode', () => {
             const imageCompareInstance = testFixture.debugElement.query(By.directive(ImageCompare)).componentInstance;
+
             imageCompareInstance.isRTL = false;
 
             const mockEvent = {
@@ -243,6 +249,7 @@ describe('ImageCompare', () => {
 
         it('should update clip path on slider change in RTL mode', () => {
             const imageCompareInstance = testFixture.debugElement.query(By.directive(ImageCompare)).componentInstance;
+
             imageCompareInstance.isRTL = true;
 
             const mockEvent = {
@@ -296,26 +303,31 @@ describe('ImageCompare', () => {
 
         it('should set tabindex attribute', () => {
             const imageCompareElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
             expect(imageCompareElement.nativeElement.getAttribute('tabindex')).toBe('0');
         });
 
         it('should set aria-label attribute', () => {
             const imageCompareElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
             expect(imageCompareElement.nativeElement.getAttribute('aria-label')).toBe('Image Compare');
         });
 
         it('should set aria-labelledby attribute when provided', async () => {
             const testComponent = testFixture.componentInstance;
+
             testComponent.ariaLabelledby = 'label-id';
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
             const imageCompareElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
             expect(imageCompareElement.nativeElement.getAttribute('aria-labelledby')).toBe('label-id');
         });
 
         it('should have proper slider accessibility attributes', () => {
             const slider = testFixture.debugElement.query(By.css('input[type="range"]'));
+
             expect(slider.nativeElement.getAttribute('min')).toBe('0');
             expect(slider.nativeElement.getAttribute('max')).toBe('100');
             expect(slider.nativeElement.value).toBe('50');
@@ -332,12 +344,14 @@ describe('ImageCompare', () => {
 
         it('should apply root CSS class to host element', () => {
             const imageCompareElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
             // The cx('root') method should apply the root class from the style component
             expect(imageCompareElement.nativeElement.classList).toBeTruthy();
         });
 
         it('should apply slider CSS class to range input', () => {
             const slider = testFixture.debugElement.query(By.css('input[type="range"]'));
+
             // The cx('slider') method should apply the slider class from the style component
             expect(slider.nativeElement.classList).toBeTruthy();
         });
@@ -395,6 +409,7 @@ describe('ImageCompare', () => {
             const mockMutationObserver = {
                 disconnect: jasmine.createSpy('disconnect')
             };
+
             imageCompareInstance.mutationObserver = mockMutationObserver as any;
 
             imageCompareInstance.ngOnDestroy();
@@ -438,6 +453,7 @@ describe('ImageCompare', () => {
                 observe: jasmine.createSpy('observe'),
                 disconnect: jasmine.createSpy('disconnect')
             });
+
             (window as any).MutationObserver = mockMutationObserver;
 
             imageCompareInstance.observeDirectionChanges();
@@ -449,6 +465,7 @@ describe('ImageCompare', () => {
     describe('Error Handling', () => {
         it('should handle missing templates gracefully', () => {
             const testFixture = TestBed.createComponent(ImageCompare);
+
             testFixture.detectChanges();
 
             expect(() => testFixture.detectChanges()).not.toThrow();
@@ -456,6 +473,7 @@ describe('ImageCompare', () => {
 
         it('should handle onSlide method existence', () => {
             const testFixture = TestBed.createComponent(TestBasicImageCompareComponent);
+
             testFixture.detectChanges();
             const imageCompareInstance = testFixture.debugElement.query(By.directive(ImageCompare)).componentInstance;
 
@@ -500,6 +518,7 @@ describe('ImageCompare', () => {
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
                 expect(rootElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
             });
 
@@ -508,6 +527,7 @@ describe('ImageCompare', () => {
                 testFixture.detectChanges();
 
                 const sliderElement = testFixture.debugElement.query(By.css('input[type="range"]'));
+
                 expect(sliderElement.nativeElement.classList.contains('SLIDER_CLASS')).toBe(true);
             });
 
@@ -547,6 +567,7 @@ describe('ImageCompare', () => {
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
                 expect(rootElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
                 expect(rootElement.nativeElement.style.backgroundColor).toBe('red');
                 expect(rootElement.nativeElement.getAttribute('data-p-test')).toBe('true');
@@ -565,6 +586,7 @@ describe('ImageCompare', () => {
                 testFixture.detectChanges();
 
                 const sliderElement = testFixture.debugElement.query(By.css('input[type="range"]'));
+
                 expect(sliderElement.nativeElement.classList.contains('SLIDER_OBJECT_CLASS')).toBe(true);
                 expect(sliderElement.nativeElement.style.border).toBe('1px solid blue');
                 expect(sliderElement.nativeElement.getAttribute('data-p-slider')).toBe('true');
@@ -613,12 +635,11 @@ describe('ImageCompare', () => {
                 await testFixture.whenStable();
 
                 testComponent.pt = {
-                    root: ({ instance }) => {
+                    root: ({ instance }) =>
                         // Instance parameter is available in PT functions
-                        return {
+                        ({
                             class: instance?.tabindex ? 'HAS_TAB_VALUE' : 'NO_TAB_VALUE'
-                        };
-                    }
+                        })
                 };
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -626,27 +647,28 @@ describe('ImageCompare', () => {
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
                 // Verify that PT function was applied (either class should be present)
                 const hasClass = rootElement.nativeElement.classList.contains('HAS_TAB_VALUE') || rootElement.nativeElement.classList.contains('NO_TAB_VALUE');
+
                 expect(hasClass).toBe(true);
             });
 
             it('should use instance isRTL in PT function', async () => {
                 testFixture.detectChanges();
                 const imageCompareInstance = testFixture.debugElement.query(By.directive(ImageCompare)).componentInstance;
+
                 imageCompareInstance.isRTL = true;
 
                 testComponent.pt = {
-                    slider: ({ instance }) => {
-                        return {
-                            style: {
-                                direction: instance?.isRTL ? 'rtl' : 'ltr'
-                            }
-                        };
-                    }
+                    slider: ({ instance }) => ({
+                        style: {
+                            direction: instance?.isRTL ? 'rtl' : 'ltr'
+                        }
+                    })
                 };
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const sliderElement = testFixture.debugElement.query(By.css('input[type="range"]'));
+
                 expect(sliderElement.nativeElement.style.direction).toBe('rtl');
             });
 
@@ -656,17 +678,17 @@ describe('ImageCompare', () => {
                 await testFixture.whenStable();
 
                 testComponent.pt = {
-                    root: ({ instance }) => {
+                    root: ({ instance }) =>
                         // PT functions can access instance and return dynamic values
-                        return {
+                        ({
                             class: 'DYNAMIC_PT_CLASS'
-                        };
-                    }
+                        })
                 };
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
                 expect(rootElement.nativeElement.classList.contains('DYNAMIC_PT_CLASS')).toBe(true);
             });
         });
@@ -693,6 +715,7 @@ describe('ImageCompare', () => {
                 testFixture.detectChanges();
 
                 const sliderElement = testFixture.debugElement.query(By.css('input[type="range"]'));
+
                 sliderElement.nativeElement.click();
 
                 expect(clicked).toBe(true);
@@ -703,17 +726,16 @@ describe('ImageCompare', () => {
 
                 testComponent.tabindex = 10;
                 testComponent.pt = {
-                    root: ({ instance }) => {
-                        return {
-                            onclick: () => {
-                                instanceTabindex = instance?.tabindex;
-                            }
-                        };
-                    }
+                    root: ({ instance }) => ({
+                        onclick: () => {
+                            instanceTabindex = instance?.tabindex;
+                        }
+                    })
                 };
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
                 rootElement.nativeElement.click();
 
                 expect(instanceTabindex).toBe(10);
@@ -726,6 +748,7 @@ describe('ImageCompare', () => {
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
                 expect(rootElement.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
             });
 
@@ -734,6 +757,7 @@ describe('ImageCompare', () => {
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
                 expect(rootElement.nativeElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
             });
 
@@ -778,6 +802,7 @@ describe('ImageCompare', () => {
 
                 // Verify PT classes still apply when hooks are present
                 const rootElement = testFixture.debugElement.query(By.directive(ImageCompare));
+
                 expect(rootElement.nativeElement.classList.contains('HOOK_ROOT_CLASS')).toBe(true);
             });
         });

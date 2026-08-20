@@ -54,11 +54,13 @@ export class AppComponent {
 
     injectScripts() {
         const script = this.renderer.createElement('script');
+
         script.type = 'text/javascript';
         script.src = 'https://www.googletagmanager.com/gtag/js?id=G-W297P962XH';
         this.renderer.appendChild(this.document.body, script);
 
         const scriptBody = this.renderer.createElement('script');
+
         scriptBody.type = 'text/javascript';
         scriptBody.text = `
           window.dataLayer = window.dataLayer || [];

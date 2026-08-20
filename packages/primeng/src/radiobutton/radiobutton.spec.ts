@@ -154,6 +154,7 @@ describe('RadioButton', () => {
 
         it('should render input element with correct attributes', () => {
             const inputElement = fixture.debugElement.query(By.css('input[type="radio"]'));
+
             expect(inputElement).toBeTruthy();
 
             expect(inputElement.nativeElement.name).toBe('test');
@@ -173,6 +174,7 @@ describe('RadioButton', () => {
 
         it('should apply style classes', () => {
             const rootElement = radioElement.nativeElement;
+
             expect(rootElement.getAttribute('data-pc-name')).toBe('radiobutton');
             expect(rootElement.getAttribute('data-pc-section')).toBe('root');
         });
@@ -231,11 +233,14 @@ describe('RadioButton', () => {
         });
 
         it('should programmatically focus', () => {
-            spyOn(radioInstance.inputViewChild.nativeElement, 'focus');
+            const inputViewChild = radioInstance.inputViewChild();
+            const inputViewChild = radioInstance.inputViewChild();
+
+            spyOn(inputViewChild.nativeElement, 'focus');
 
             radioInstance.focus();
 
-            expect(radioInstance.inputViewChild.nativeElement.focus).toHaveBeenCalled();
+            expect(inputViewChild.nativeElement.focus).toHaveBeenCalled();
         });
 
         it('should update checked state when model value changes', async () => {
@@ -263,6 +268,7 @@ describe('RadioButton', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
 
             const changeEvent = new Event('change');
+
             inputElement.nativeElement.dispatchEvent(changeEvent);
 
             expect(radioInstance.select).toHaveBeenCalledWith(changeEvent);
@@ -296,6 +302,7 @@ describe('RadioButton', () => {
         it('should select only one radio button in group', async () => {
             // Select first radio button
             const firstInput = fixture.debugElement.queryAll(By.css('input'))[0];
+
             firstInput.nativeElement.click();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -306,6 +313,7 @@ describe('RadioButton', () => {
 
             // Select second radio button
             const secondInput = fixture.debugElement.queryAll(By.css('input'))[1];
+
             secondInput.nativeElement.click();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -348,6 +356,7 @@ describe('RadioButton', () => {
 
         it('should integrate with reactive forms', async () => {
             const firstInput = fixture.debugElement.queryAll(By.css('input'))[0];
+
             firstInput.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -358,6 +367,7 @@ describe('RadioButton', () => {
 
         it('should validate form controls', () => {
             const control = component.radioForm.get('selectedValue');
+
             expect(control?.valid).toBe(false);
             expect(control?.hasError('required')).toBe(true);
 
@@ -367,6 +377,7 @@ describe('RadioButton', () => {
 
         it('should update form when radio button changes', async () => {
             const secondInput = fixture.debugElement.queryAll(By.css('input'))[1];
+
             secondInput.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -386,6 +397,7 @@ describe('RadioButton', () => {
 
         it('should reset form correctly', async () => {
             const firstInput = fixture.debugElement.queryAll(By.css('input'))[0];
+
             firstInput.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -426,6 +438,7 @@ describe('RadioButton', () => {
             fixture.detectChanges();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -475,11 +488,13 @@ describe('RadioButton', () => {
             expect(radioInstance.$disabled()).toBe(true);
 
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.hasAttribute('disabled')).toBe(true);
         });
 
         it('should handle different value types', async () => {
             const objectValue = { id: 1, name: 'Test' };
+
             component.radioValue = objectValue;
             component.selectedValue = objectValue;
             fixture.changeDetectorRef.markForCheck();
@@ -514,6 +529,7 @@ describe('RadioButton', () => {
             expect(radioInstance.checked).toBe(false);
 
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             inputElement.nativeElement.click();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -583,6 +599,7 @@ describe('RadioButton', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
 
             const spaceEvent = new KeyboardEvent('keydown', { key: 'Space' });
+
             inputElement.nativeElement.dispatchEvent(spaceEvent);
 
             expect(inputElement.nativeElement).toBeTruthy();
@@ -590,6 +607,7 @@ describe('RadioButton', () => {
 
         it('should have proper tabindex', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.tabIndex).toBe(0);
 
             component.tabindex = -1;
@@ -715,6 +733,7 @@ describe('RadioButton', () => {
 
             for (let i = 0; i < 100; i++) {
                 const inputIndex = i % 3;
+
                 inputs[inputIndex].nativeElement.click();
                 await new Promise((resolve) => setTimeout(resolve, 1));
                 await fixture.whenStable();
@@ -737,8 +756,8 @@ describe('RadioButton', () => {
     describe('PassThrough (PT) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCase1Component {
                 selectedValue: any = 'option1';
@@ -753,22 +772,24 @@ describe('RadioButton', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase1Component],
+                    imports: [RadioButton, FormsModule, TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+
                 if (rootEl) {
                     expect(rootEl.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
                 }
 
                 const inputEl = testFixture.debugElement.query(By.css('input[type="radio"]'));
+
                 if (inputEl) {
                     expect(inputEl.nativeElement.classList.contains('INPUT_CLASS')).toBe(true);
                 }
@@ -777,8 +798,8 @@ describe('RadioButton', () => {
 
         describe('Case 2: Object with class, style, data attributes', () => {
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCase2Component {
                 selectedValue: any = 'option1';
@@ -798,17 +819,18 @@ describe('RadioButton', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase2Component],
+                    imports: [RadioButton, FormsModule, TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+
                 if (rootEl) {
                     expect(rootEl.nativeElement.classList.contains('OBJECT_ROOT_CLASS')).toBe(true);
                     expect(rootEl.nativeElement.style.backgroundColor).toBe('red');
@@ -819,8 +841,8 @@ describe('RadioButton', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCase3Component {
                 selectedValue: any = 'option1';
@@ -836,17 +858,18 @@ describe('RadioButton', () => {
             it('should apply mixed object and string values', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase3Component],
+                    imports: [RadioButton, FormsModule, TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+
                 if (rootEl) {
                     expect(rootEl.nativeElement.classList.contains('MIXED_ROOT_CLASS')).toBe(true);
                 }
@@ -855,44 +878,42 @@ describe('RadioButton', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCase4Component {
                 selectedValue: any = 'option1';
                 pt = {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.checked ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
-                        };
-                    },
-                    box: ({ instance }: any) => {
-                        return {
-                            style: {
-                                opacity: instance?.checked ? '1' : '0.5'
-                            }
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.checked ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
+                    }),
+                    box: ({ instance }: any) => ({
+                        style: {
+                            opacity: instance?.checked ? '1' : '0.5'
+                        }
+                    })
                 };
             }
 
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase4Component],
+                    imports: [RadioButton, FormsModule, TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+
                 if (rootEl) {
                     const hasChecked = rootEl.nativeElement.classList.contains('CHECKED_CLASS');
                     const hasUnchecked = rootEl.nativeElement.classList.contains('UNCHECKED_CLASS');
+
                     expect(hasChecked || hasUnchecked).toBe(true);
                 }
             });
@@ -900,8 +921,8 @@ describe('RadioButton', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCase5Component {
                 selectedValue: any = null;
@@ -923,20 +944,22 @@ describe('RadioButton', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase5Component],
+                    imports: [RadioButton, FormsModule, TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const boxEl = testFixture.debugElement.query(By.css('[data-pc-section="box"]'));
+
                 if (boxEl) {
                     const clickEvent = new MouseEvent('click');
+
                     boxEl.nativeElement.dispatchEvent(clickEvent);
                     testFixture.detectChanges();
                     expect(component.clickedSection).toBeTruthy();
@@ -946,8 +969,8 @@ describe('RadioButton', () => {
 
         describe('Case 6: Inline PT', () => {
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: 'INLINE_ROOT_CLASS', box: 'INLINE_BOX_CLASS' }"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: 'INLINE_ROOT_CLASS', box: 'INLINE_BOX_CLASS' }"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCase6InlineComponent {
                 selectedValue: any = 'option1';
@@ -956,25 +979,26 @@ describe('RadioButton', () => {
             it('should apply inline PT as string', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase6InlineComponent],
+                    imports: [RadioButton, FormsModule, TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+
                 if (rootEl) {
                     expect(rootEl.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
                 }
             });
 
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' }, box: { class: 'BOX_INLINE_CLASS' } }"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS' }, box: { class: 'BOX_INLINE_CLASS' } }"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCase6InlineObjectComponent {
                 selectedValue: any = 'option1';
@@ -983,17 +1007,18 @@ describe('RadioButton', () => {
             it('should apply inline PT as object', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [RadioButton, FormsModule, TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+
                 if (rootEl) {
                     expect(rootEl.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 }
@@ -1002,8 +1027,8 @@ describe('RadioButton', () => {
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCase7GlobalComponent {
                 selectedValue: any = 'option1';
@@ -1012,8 +1037,7 @@ describe('RadioButton', () => {
             it('should apply global PT from config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [RadioButton, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1028,11 +1052,13 @@ describe('RadioButton', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+
                 if (rootEl) {
                     expect(rootEl.nativeElement.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
                 }
@@ -1041,8 +1067,8 @@ describe('RadioButton', () => {
 
         describe('Case 8: PT Hooks', () => {
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCase8HooksComponent {
                 selectedValue: any = 'option1';
@@ -1065,13 +1091,13 @@ describe('RadioButton', () => {
             it('should call PT hooks', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCase8HooksComponent],
+                    imports: [RadioButton, FormsModule, TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
                 const component = testFixture.componentInstance;
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
@@ -1086,8 +1112,8 @@ describe('RadioButton', () => {
 
         describe('PT Section Coverage', () => {
             @Component({
-                standalone: false,
-                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`
+                template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue" [pt]="pt"></p-radiobutton>`,
+                imports: [RadioButton, FormsModule]
             })
             class TestPTCoverageComponent {
                 selectedValue: any = 'option1';
@@ -1102,29 +1128,34 @@ describe('RadioButton', () => {
             it('should apply PT to all sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [RadioButton, FormsModule],
-                    declarations: [TestPTCoverageComponent],
+                    imports: [RadioButton, FormsModule, TestPTCoverageComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCoverageComponent);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await testFixture.whenStable();
 
                 const rootEl = testFixture.debugElement.query(By.css('[data-pc-name="radiobutton"]'));
+
                 expect(rootEl).toBeTruthy();
+
                 if (rootEl) {
                     expect(rootEl.nativeElement.getAttribute('data-pc-name')).toBe('radiobutton');
                 }
 
                 const inputEl = testFixture.debugElement.query(By.css('input[type="radio"]'));
+
                 expect(inputEl).toBeTruthy();
 
                 const boxEl = testFixture.debugElement.query(By.css('[data-pc-section="box"]'));
+
                 expect(boxEl).toBeTruthy();
 
                 const iconEl = testFixture.debugElement.query(By.css('[data-pc-section="icon"]'));
+
                 expect(iconEl).toBeTruthy();
             });
         });

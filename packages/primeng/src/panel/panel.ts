@@ -5,7 +5,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -14,10 +13,11 @@ import {
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
@@ -42,46 +42,49 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
     standalone: true,
     imports: [CommonModule, PlusIcon, MinusIcon, ButtonModule, SharedModule, BindModule, MotionModule],
     template: `
-        <div [pBind]="ptm('header')" [class]="cx('header')" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">
-            <span [pBind]="ptm('title')" [class]="cx('title')" *ngIf="_header" [attr.id]="id + '_header'">{{ _header }}</span>
-            <ng-content select="p-header"></ng-content>
-            <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-            <div [pBind]="ptm('headerActions')" [class]="cx('headerActions')">
-                <ng-template *ngTemplateOutlet="iconsTemplate || _iconsTemplate"></ng-template>
-                <p-button
-                    *ngIf="toggleable"
-                    [attr.id]="id + '_header'"
-                    severity="secondary"
-                    [text]="true"
-                    [rounded]="true"
-                    type="button"
-                    role="button"
-                    [styleClass]="cx('pcToggleButton')"
-                    [attr.aria-label]="buttonAriaLabel"
-                    [attr.aria-controls]="id + '_content'"
-                    [attr.aria-expanded]="!collapsed"
-                    (click)="onIconClick($event)"
-                    (keydown)="onKeyDown($event)"
-                    [buttonProps]="toggleButtonProps"
-                    [pt]="ptm('pcToggleButton')"
-                    [unstyled]="unstyled()"
-                >
-                    <ng-template #icon>
-                        <ng-container *ngIf="!headerIconsTemplate && !_headerIconsTemplate && !toggleButtonProps?.icon">
-                            <ng-container *ngIf="!collapsed">
-                                <svg data-p-icon="minus" [pBind]="ptm('pcToggleButton.icon')" />
-                            </ng-container>
-
-                            <ng-container *ngIf="collapsed">
-                                <svg data-p-icon="plus" [pBind]="ptm('pcToggleButton.icon')" />
-                            </ng-container>
-                        </ng-container>
-
-                        <ng-template *ngTemplateOutlet="headerIconsTemplate || _headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
-                    </ng-template>
-                </p-button>
+        @if (showHeader) {
+            <div [pBind]="ptm('header')" [class]="cx('header')" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'" [attr.data-p]="dataP">
+                @if (_header) {
+                    <span [pBind]="ptm('title')" [class]="cx('title')" [attr.id]="id + '_header'">{{ _header }}</span>
+                }
+                <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate"></ng-container>
+                <div [pBind]="ptm('headerActions')" [class]="cx('headerActions')">
+                    <ng-template *ngTemplateOutlet="iconsTemplate() || _iconsTemplate"></ng-template>
+                    @if (toggleable) {
+                        <p-button
+                            [attr.id]="id + '_header'"
+                            severity="secondary"
+                            [text]="true"
+                            [rounded]="true"
+                            type="button"
+                            role="button"
+                            [styleClass]="cx('pcToggleButton')"
+                            [attr.aria-label]="buttonAriaLabel"
+                            [attr.aria-controls]="id + '_content'"
+                            [attr.aria-expanded]="!collapsed"
+                            (click)="onIconClick($event)"
+                            (keydown)="onKeyDown($event)"
+                            [buttonProps]="toggleButtonProps"
+                            [pt]="ptm('pcToggleButton')"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-template #icon>
+                                @if (!headerIconsTemplate() && !_headerIconsTemplate && !toggleButtonProps?.icon) {
+                                    @if (!collapsed) {
+                                        <svg data-p-icon="minus" [pBind]="ptm('pcToggleButton.icon')" />
+                                    }
+                                    @if (collapsed) {
+                                        <svg data-p-icon="plus" [pBind]="ptm('pcToggleButton.icon')" />
+                                    }
+                                }
+                                <ng-template *ngTemplateOutlet="headerIconsTemplate() || _headerIconsTemplate; context: { $implicit: collapsed }"></ng-template>
+                            </ng-template>
+                        </p-button>
+                    }
+                </div>
             </div>
-        </div>
+        }
         <div
             [pBind]="ptm('contentContainer')"
             [pMotion]="!toggleable || (toggleable && !collapsed)"
@@ -98,13 +101,15 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
             <div [pBind]="ptm('contentWrapper')" [class]="cx('contentWrapper')">
                 <div [pBind]="ptm('content')" [class]="cx('content')" #contentWrapper>
                     <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
+                    <ng-container *ngTemplateOutlet="contentTemplate() || _contentTemplate"></ng-container>
                 </div>
 
-                <div [pBind]="ptm('footer')" [class]="cx('footer')" *ngIf="footerFacet || footerTemplate || _footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
-                </div>
+                @if (footerFacet() || footerTemplate || _footerTemplate) {
+                    <div [pBind]="ptm('footer')" [class]="cx('footer')">
+                        <ng-content select="p-footer"></ng-content>
+                        <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                    </div>
+                }
             </div>
         </div>
     `,
@@ -208,12 +213,10 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
 
     /**
      * Emitted when the collapsed changes.
@@ -236,12 +239,12 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      */
     @Output() onAfterToggle: EventEmitter<PanelAfterToggleEvent> = new EventEmitter<PanelAfterToggleEvent>();
 
-    @ContentChild(Footer) footerFacet: Nullable<TemplateRef<void>>;
+    readonly footerFacet = contentChild(Footer);
     /**
      * Defines template option for header.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: TemplateRef<void> | undefined;
+    readonly headerTemplate = contentChild<TemplateRef<void>>('header', { descendants: false });
     /**
      * Defines template option for icons.
      * @example
@@ -250,7 +253,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * ```
      * @group Templates
      */
-    @ContentChild('icons', { descendants: false }) iconsTemplate: TemplateRef<void> | undefined;
+    readonly iconsTemplate = contentChild<TemplateRef<void>>('icons', { descendants: false });
 
     /**
      * Defines template option for content.
@@ -260,7 +263,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * ```
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: TemplateRef<void> | undefined;
+    readonly contentTemplate = contentChild<TemplateRef<void>>('content', { descendants: false });
 
     /**
      * Defines template option for footer.
@@ -282,7 +285,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * @see {@link PanelHeaderIconsTemplateContext}
      * @group Templates
      */
-    @ContentChild('headericons', { descendants: false }) headerIconsTemplate: TemplateRef<PanelHeaderIconsTemplateContext> | undefined;
+    readonly headerIconsTemplate = contentChild<TemplateRef<PanelHeaderIconsTemplateContext>>('headericons', { descendants: false });
 
     _headerTemplate: TemplateRef<void> | undefined;
 
@@ -340,6 +343,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
     updateTabIndex() {
         if (this.contentWrapperViewChild) {
             const focusableElements = this.contentWrapperViewChild.nativeElement.querySelectorAll('input, button, select, a, textarea, [tabindex]');
+
             focusableElements.forEach((element: HTMLElement) => {
                 if (this.collapsed) {
                     element.setAttribute('tabindex', '-1');
@@ -361,10 +365,10 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
         this.onAfterToggle.emit({ originalEvent: event as any, collapsed: this.collapsed });
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'header':
                     this._headerTemplate = item.template;

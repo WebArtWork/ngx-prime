@@ -6,8 +6,7 @@ import { PrimeTemplate } from 'primeng/api';
 import { Drawer } from './drawer';
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    imports: [Drawer, PrimeTemplate],
     template: `
         <p-drawer
             [(visible)]="visible"
@@ -80,8 +79,7 @@ class TestDrawerBasicComponent {
 }
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    imports: [Drawer, PrimeTemplate],
     template: `
         <p-drawer [(visible)]="visible" [header]="header">
             <ng-template pTemplate="header">
@@ -105,8 +103,7 @@ class TestDrawerTemplatesComponent {
 }
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    imports: [Drawer, PrimeTemplate],
     template: `
         <p-drawer [(visible)]="visible">
             <ng-template #header>
@@ -129,8 +126,7 @@ class TestDrawerTemplateRefsComponent {
 }
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    imports: [Drawer, PrimeTemplate],
     template: `
         <p-drawer [(visible)]="visible">
             <ng-template pTemplate="headless">
@@ -148,8 +144,7 @@ class TestDrawerHeadlessComponent {
 }
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    imports: [Drawer, PrimeTemplate],
     template: `
         <p-drawer [(visible)]="visible" [position]="position">
             <p>Position test content</p>
@@ -162,8 +157,7 @@ class TestDrawerPositionComponent {
 }
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    imports: [Drawer, PrimeTemplate],
     template: `
         <p-drawer [(visible)]="visible" [fullScreen]="fullScreen">
             <p>Full screen test content</p>
@@ -176,8 +170,7 @@ class TestDrawerFullScreenComponent {
 }
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    imports: [Drawer, PrimeTemplate],
     template: `
         <p-drawer [(visible)]="visible" [modal]="modal" [dismissible]="dismissible">
             <p>Modal test content</p>
@@ -191,8 +184,7 @@ class TestDrawerModalComponent {
 }
 
 @Component({
-    standalone: false,
-    imports: [Drawer],
+    imports: [Drawer, PrimeTemplate],
     template: `
         <p-drawer [(visible)]="visible" [closable]="closable" [closeOnEscape]="closeOnEscape" [ariaCloseLabel]="ariaCloseLabel">
             <p>Accessibility test content</p>
@@ -212,8 +204,9 @@ describe('Drawer', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [Drawer, PrimeTemplate],
-            declarations: [
+            imports: [
+                Drawer,
+                PrimeTemplate,
                 TestDrawerBasicComponent,
                 TestDrawerTemplatesComponent,
                 TestDrawerTemplateRefsComponent,
@@ -265,11 +258,13 @@ describe('Drawer', () => {
 
         it('should initialize component correctly', () => {
             const drawerElement = testFixture.debugElement.query(By.css('p-drawer'));
+
             expect(drawerElement).toBeTruthy();
         });
 
         it('should not be visible initially', () => {
             const drawerContainer = testFixture.debugElement.query(By.css('[role="complementary"]'));
+
             expect(drawerContainer).toBeFalsy();
         });
 
@@ -280,6 +275,7 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const drawerContainer = testFixture.debugElement.query(By.css('[role="complementary"]'));
+
             expect(drawerContainer).toBeTruthy();
         });
     });
@@ -355,6 +351,7 @@ describe('Drawer', () => {
 
         it('should set style property correctly', async () => {
             const testStyle = { width: '300px', height: '400px' };
+
             testComponent.style = testStyle;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -411,6 +408,7 @@ describe('Drawer', () => {
         // TODO: This test requires BrowserAnimationsModule as show() is called in onAnimationStart
         xit('should call show method when drawer becomes visible', async () => {
             const showSpy = spyOn(drawerComponent, 'show').and.callThrough();
+
             testComponent.visible = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -428,6 +426,7 @@ describe('Drawer', () => {
 
         it('should call close method with event parameter', () => {
             const mockEvent = new Event('click');
+
             spyOn(drawerComponent, 'close');
             drawerComponent.close(mockEvent);
             expect(drawerComponent.close).toHaveBeenCalledWith(mockEvent);
@@ -491,6 +490,7 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const closeButton = testFixture.debugElement.query(By.css('p-button'));
+
             if (closeButton) {
                 closeButton.triggerEventHandler('onClick', new Event('click'));
                 testFixture.changeDetectorRef.markForCheck();
@@ -527,6 +527,7 @@ describe('Drawer', () => {
 
             // Call onKeyDown method directly
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
+
             drawerComponent.onKeyDown(escapeEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -547,6 +548,7 @@ describe('Drawer', () => {
             const drawerContainer = testFixture.debugElement.query(By.css('[role="complementary"]'));
             // Call onKeyDown method directly
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
+
             drawerComponent.onKeyDown(escapeEvent);
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -562,8 +564,10 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const closeButton = testFixture.debugElement.query(By.css('p-button'));
+
             if (closeButton) {
                 const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+
                 closeButton.triggerEventHandler('keydown.enter', enterEvent);
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -581,6 +585,7 @@ describe('Drawer', () => {
         it('should support pTemplate header template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -591,6 +596,7 @@ describe('Drawer', () => {
 
             // In test environment, verify component is configured for templates
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.visible).toBe(true);
             expect(testComponent.visible).toBe(true);
 
@@ -604,6 +610,7 @@ describe('Drawer', () => {
         it('should support pTemplate content template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -614,6 +621,7 @@ describe('Drawer', () => {
 
             // In test environment, verify component is configured for templates
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.visible).toBe(true);
             expect(testComponent.visible).toBe(true);
 
@@ -626,6 +634,7 @@ describe('Drawer', () => {
         it('should support pTemplate footer template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -636,6 +645,7 @@ describe('Drawer', () => {
 
             // In test environment, verify component is configured for templates
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.visible).toBe(true);
             expect(testComponent.visible).toBe(true);
 
@@ -648,6 +658,7 @@ describe('Drawer', () => {
         it('should support pTemplate closeicon template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -658,6 +669,7 @@ describe('Drawer', () => {
 
             // In test environment, verify component is configured for templates
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.visible).toBe(true);
             expect(testComponent.visible).toBe(true);
 
@@ -670,6 +682,7 @@ describe('Drawer', () => {
         it('should support template reference header template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplateRefsComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -680,6 +693,7 @@ describe('Drawer', () => {
 
             // In test environment, verify component is configured for templates
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.visible).toBe(true);
             expect(testComponent.visible).toBe(true);
 
@@ -692,6 +706,7 @@ describe('Drawer', () => {
         it('should support template reference content template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplateRefsComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -702,6 +717,7 @@ describe('Drawer', () => {
 
             // In test environment, verify component is configured for templates
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.visible).toBe(true);
             expect(testComponent.visible).toBe(true);
 
@@ -714,6 +730,7 @@ describe('Drawer', () => {
         it('should support headless template', async () => {
             const testFixture = TestBed.createComponent(TestDrawerHeadlessComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -724,6 +741,7 @@ describe('Drawer', () => {
 
             // In test environment, verify component is configured for templates
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.visible).toBe(true);
             expect(testComponent.visible).toBe(true);
 
@@ -754,6 +772,7 @@ describe('Drawer', () => {
 
             // Check if modal property is set correctly on component
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.modal).toBe(true);
 
             // The mask creation happens in the component's show() method
@@ -770,6 +789,7 @@ describe('Drawer', () => {
 
             // Check if modal property is set correctly on component
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.modal).toBe(false);
             expect(testComponent.modal).toBe(false);
         });
@@ -784,6 +804,7 @@ describe('Drawer', () => {
 
             // Test that dismissible property is correctly set
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.dismissible).toBe(true);
             expect(drawerComponent.modal).toBe(true);
 
@@ -801,6 +822,7 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const mask = document.querySelector('.p-drawer-mask');
+
             if (mask) {
                 (mask as HTMLElement).click();
                 testFixture.changeDetectorRef.markForCheck();
@@ -830,6 +852,7 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const drawerContainer = testFixture.debugElement.query(By.css('[role="complementary"]'));
+
             expect(drawerContainer).toBeTruthy();
         });
 
@@ -840,6 +863,7 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const drawerContainer = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+
             expect(drawerContainer).toBeTruthy();
             expect(drawerContainer.nativeElement.getAttribute('data-pc-section')).toBe('root');
         });
@@ -854,11 +878,14 @@ describe('Drawer', () => {
 
             // Check if ariaCloseLabel property is set on the drawer component
             const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
             expect(drawerComponent.ariaCloseLabel).toBe('Close drawer');
 
             const closeButton = testFixture.debugElement.query(By.css('p-button'));
+
             if (closeButton) {
                 const ariaLabel = closeButton.componentInstance.ariaLabel || closeButton.nativeElement.getAttribute('aria-label') || closeButton.nativeElement.getAttribute('ng-reflect-aria-label');
+
                 // Check that some form of aria label is set
                 expect(ariaLabel).toBeTruthy();
             }
@@ -872,6 +899,7 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const closeButton = testFixture.debugElement.query(By.css('p-button'));
+
             expect(closeButton).toBeTruthy();
         });
 
@@ -883,6 +911,7 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const closeButton = testFixture.debugElement.query(By.css('p-button'));
+
             expect(closeButton).toBeFalsy();
         });
 
@@ -893,6 +922,7 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const drawerContainer = testFixture.debugElement.query(By.css('[role="complementary"]'));
+
             expect(drawerContainer).toBeTruthy();
             expect(drawerContainer.nativeElement.tabIndex).toBeDefined();
         });
@@ -917,9 +947,11 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const headerElement = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
             expect(headerElement).toBeTruthy();
 
             const titleElement = headerElement.query(By.css('.p-drawer-title'));
+
             if (titleElement) {
                 expect(titleElement.nativeElement.textContent).toContain('Test Header');
             }
@@ -933,6 +965,7 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const titleElement = testFixture.debugElement.query(By.css('.p-drawer-title'));
+
             expect(titleElement).toBeFalsy();
         });
     });
@@ -1007,11 +1040,13 @@ describe('Drawer', () => {
         xit('should handle multiple drawer instances', async () => {
             const fixture1 = TestBed.createComponent(TestDrawerBasicComponent);
             const component1 = fixture1.componentInstance;
+
             fixture1.changeDetectorRef.markForCheck();
             await fixture1.whenStable();
 
             const fixture2 = TestBed.createComponent(TestDrawerBasicComponent);
             const component2 = fixture2.componentInstance;
+
             fixture2.changeDetectorRef.markForCheck();
             await fixture2.whenStable();
 
@@ -1034,6 +1069,7 @@ describe('Drawer', () => {
         it('should project content correctly', async () => {
             const testFixture = TestBed.createComponent(TestDrawerBasicComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
@@ -1043,18 +1079,21 @@ describe('Drawer', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
             expect(content).toBeTruthy();
             expect(content.nativeElement.textContent).toContain('Basic drawer content');
         });
 
         it('should handle empty content projection', async () => {
             const emptyFixture = TestBed.createComponent(Drawer);
+
             emptyFixture.componentInstance.visible = true;
             emptyFixture.changeDetectorRef.markForCheck();
             await emptyFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const content = emptyFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
             expect(content).toBeTruthy();
         });
     });
@@ -1062,8 +1101,8 @@ describe('Drawer', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`,
+                imports: [Drawer]
             })
             class TestPTCase1Component {
                 visible = true;
@@ -1080,27 +1119,30 @@ describe('Drawer', () => {
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [Drawer],
+                    imports: [Drawer, TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+
                 if (root) {
                     expect(root.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('HEADER_CLASS')).toBe(true);
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
                 }
@@ -1109,8 +1151,8 @@ describe('Drawer', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
-                standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`,
+                imports: [Drawer]
             })
             class TestPTCase2Component {
                 visible = true;
@@ -1134,17 +1176,18 @@ describe('Drawer', () => {
             it('should apply object properties to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [Drawer],
+                    imports: [Drawer, TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+
                 if (root) {
                     expect(root.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
                     expect(root.nativeElement.style.border).toBe('2px solid blue');
@@ -1152,12 +1195,14 @@ describe('Drawer', () => {
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('HEADER_OBJECT_CLASS')).toBe(true);
                     expect(header.nativeElement.style.padding).toBe('20px');
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
                     expect(content.nativeElement.getAttribute('aria-label')).toBe('Drawer content');
@@ -1167,8 +1212,8 @@ describe('Drawer', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`,
+                imports: [Drawer]
             })
             class TestPTCase3Component {
                 visible = true;
@@ -1186,27 +1231,30 @@ describe('Drawer', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [Drawer],
+                    imports: [Drawer, TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+
                 if (root) {
                     expect(root.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('HEADER_STRING_CLASS')).toBe(true);
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('CONTENT_MIXED_CLASS')).toBe(true);
                 }
@@ -1215,47 +1263,45 @@ describe('Drawer', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" [position]="position" header="Test Drawer">Content</p-drawer>`
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" [position]="position" header="Test Drawer">Content</p-drawer>`,
+                imports: [Drawer]
             })
             class TestPTCase4Component {
                 visible = true;
                 position = 'right';
                 pt = {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.visible ? 'VISIBLE_CLASS' : 'HIDDEN_CLASS'
-                        };
-                    },
-                    header: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'background-color': instance?.position() === 'right' ? 'lightblue' : 'white'
-                            }
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.visible ? 'VISIBLE_CLASS' : 'HIDDEN_CLASS'
+                    }),
+                    header: ({ instance }: any) => ({
+                        style: {
+                            'background-color': instance?.position() === 'right' ? 'lightblue' : 'white'
+                        }
+                    })
                 };
             }
 
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [Drawer],
+                    imports: [Drawer, TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+
                 if (root) {
                     expect(root.nativeElement.classList.contains('VISIBLE_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.style.backgroundColor).toBe('lightblue');
                 }
@@ -1264,8 +1310,8 @@ describe('Drawer', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`,
+                imports: [Drawer]
             })
             class TestPTCase5Component {
                 visible = true;
@@ -1287,24 +1333,26 @@ describe('Drawer', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [Drawer],
+                    imports: [Drawer, TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     header.nativeElement.click();
                     expect(component.clickedSection).toBe('header');
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     content.nativeElement.click();
                     expect(component.clickedSection).toBe('content');
@@ -1314,16 +1362,16 @@ describe('Drawer', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
-                template: `<p-drawer [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<p-drawer [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`,
+                imports: [Drawer]
             })
             class TestPTCase6InlineComponent {
                 visible = true;
             }
 
             @Component({
-                standalone: false,
-                template: `<p-drawer [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<p-drawer [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`,
+                imports: [Drawer]
             })
             class TestPTCase6InlineObjectComponent {
                 visible = true;
@@ -1332,22 +1380,24 @@ describe('Drawer', () => {
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [Drawer],
+                    imports: [Drawer, TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+
                 if (root) {
                     expect(root.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('INLINE_HEADER_CLASS')).toBe(true);
                 }
@@ -1356,22 +1406,24 @@ describe('Drawer', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Drawer],
+                    imports: [Drawer, TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const root = testFixture.debugElement.query(By.css('[data-pc-name="drawer"]'));
+
                 if (root) {
                     expect(root.nativeElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('INLINE_CONTENT_CLASS')).toBe(true);
                 }
@@ -1380,11 +1432,11 @@ describe('Drawer', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-drawer [(visible)]="visible1" header="Drawer 1">Content 1</p-drawer>
                     <p-drawer [(visible)]="visible2" header="Drawer 2">Content 2</p-drawer>
-                `
+                `,
+                imports: [Drawer]
             })
             class TestPTCase7GlobalComponent {
                 visible1 = true;
@@ -1394,8 +1446,7 @@ describe('Drawer', () => {
             it('should apply global PT configuration from PrimeNGConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [Drawer],
+                    imports: [Drawer, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
@@ -1413,19 +1464,21 @@ describe('Drawer', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const drawers = testFixture.debugElement.queryAll(By.directive(Drawer));
+
                 expect(drawers.length).toBe(2);
             });
         });
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
-                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`
+                template: `<p-drawer [pt]="pt" [(visible)]="visible" header="Test Drawer">Content</p-drawer>`,
+                imports: [Drawer]
             })
             class TestPTCase8HooksComponent {
                 visible = true;
@@ -1452,8 +1505,7 @@ describe('Drawer', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [Drawer],
+                    imports: [Drawer, TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 

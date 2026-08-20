@@ -14,8 +14,18 @@ describe('SelectButton', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent],
-            declarations: [TestFormSelectButtonComponent, TestPrimeTemplateSelectButtonComponent],
+            imports: [
+                SelectButton,
+                SelectButtonModule,
+                FormsModule,
+                ReactiveFormsModule,
+                CommonModule,
+                SharedModule,
+                TestSelectButtonPTemplateComponent,
+                TestSelectButtonRefTemplateComponent,
+                TestFormSelectButtonComponent,
+                TestPrimeTemplateSelectButtonComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -85,6 +95,7 @@ describe('SelectButton', () => {
             component.optionLabel = undefined as any;
             const objectOption = { name: 'Test Object', id: 1 };
             const result = component.getOptionLabel(objectOption);
+
             expect(result).toEqual(objectOption);
         });
 
@@ -153,6 +164,7 @@ describe('SelectButton', () => {
 
         it('should handle option selection in single mode', () => {
             const mockEvent = new Event('click');
+
             component.onOptionSelect(mockEvent, component.options![0], 0);
 
             expect(component.value).toBe('opt1');
@@ -181,6 +193,7 @@ describe('SelectButton', () => {
 
         it('should not select disabled options', () => {
             const mockEvent = new Event('click');
+
             component.onOptionSelect(mockEvent, component.options![2], 2);
 
             expect(component.value).toBeUndefined();
@@ -191,6 +204,7 @@ describe('SelectButton', () => {
             spyOn(component.onOptionClick, 'emit');
 
             const mockEvent = new Event('click');
+
             component.onOptionSelect(mockEvent, component.options![0], 0);
 
             expect(component.onChange.emit).toHaveBeenCalledWith({
@@ -314,6 +328,7 @@ describe('SelectButton', () => {
 
             for (let i = 0; i < 5; i++) {
                 const optionIndex = i % 2;
+
                 component.onOptionSelect(new Event('click'), component.options![optionIndex], optionIndex);
                 await new Promise((resolve) => setTimeout(resolve, 10));
                 await fixture.whenStable();
@@ -332,6 +347,7 @@ describe('SelectButton', () => {
             component.value = 'opt1';
 
             const mockEvent = new Event('click');
+
             component.onOptionSelect(mockEvent, component.options![0], 0);
 
             expect(component.value).toBe('opt1');
@@ -376,6 +392,7 @@ describe('SelectButton', () => {
             fixture.detectChanges();
 
             const mockEvent = new Event('keydown');
+
             expect(() => component.changeTabIndexes(mockEvent, 'next')).not.toThrow();
             expect(() => component.changeTabIndexes(mockEvent, 'prev')).not.toThrow();
         });
@@ -422,12 +439,12 @@ describe('SelectButton', () => {
 
 // Test Components
 @Component({
-    standalone: false,
     template: `
         <form [formGroup]="form">
             <p-selectbutton [options]="options" formControlName="selectedValue"> </p-selectbutton>
         </form>
-    `
+    `,
+    imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent]
 })
 class TestFormSelectButtonComponent {
     form = new FormGroup({
@@ -442,14 +459,14 @@ class TestFormSelectButtonComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-selectbutton [options]="options">
             <ng-template pTemplate="item" let-option let-index="index">
                 <div class="prime-template-content">Prime: {{ option.label }}</div>
             </ng-template>
         </p-selectbutton>
-    `
+    `,
+    imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent]
 })
 class TestPrimeTemplateSelectButtonComponent {
     options = [
@@ -461,7 +478,7 @@ class TestPrimeTemplateSelectButtonComponent {
 // SelectButton pTemplate component
 @Component({
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule, SharedModule],
+    imports: [SelectButton, FormsModule, SharedModule],
     template: `
         <p-selectbutton [(ngModel)]="selectedValue" [options]="options">
             <!-- Item template with pTemplate -->
@@ -486,7 +503,7 @@ class TestSelectButtonPTemplateComponent {
 // SelectButton #template reference component
 @Component({
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule, SharedModule],
+    imports: [SelectButton, FormsModule, SharedModule],
     template: `
         <p-selectbutton [(ngModel)]="selectedValue" [options]="options">
             <!-- Item template with #template reference -->
@@ -843,6 +860,7 @@ describe('SelectButton PassThrough Tests', () => {
     describe('PT Case 5: Event binding', () => {
         it('should handle onclick event through PT', (done) => {
             let clicked = false;
+
             fixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
@@ -875,17 +893,21 @@ describe('SelectButton PassThrough Tests', () => {
     describe('PT Case 6: Inline PT', () => {
         it('should work with inline string PT', () => {
             const inlineFixture = TestBed.createComponent(TestInlineStringPTComponent);
+
             inlineFixture.detectChanges();
 
             const inlineHostElement = inlineFixture.nativeElement.querySelector('p-selectbutton');
+
             expect(inlineHostElement.classList.contains('INLINE_STRING')).toBe(true);
         });
 
         it('should work with inline object PT', () => {
             const inlineFixture = TestBed.createComponent(TestInlineObjectPTComponent);
+
             inlineFixture.detectChanges();
 
             const inlineHostElement = inlineFixture.nativeElement.querySelector('p-selectbutton');
+
             expect(inlineHostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(inlineHostElement.getAttribute('data-inline')).toBe('true');
         });
@@ -911,12 +933,14 @@ describe('SelectButton PassThrough Tests', () => {
 
             const globalFixture = TestBed.createComponent(SelectButton);
             const globalComponent = globalFixture.componentInstance;
+
             globalComponent.options = ['One', 'Two'];
             globalFixture.changeDetectorRef.markForCheck();
             await globalFixture.whenStable();
             globalFixture.detectChanges();
 
             const globalHostElement = globalFixture.nativeElement;
+
             expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
             expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
         });
@@ -941,9 +965,11 @@ describe('SelectButton PassThrough Tests', () => {
             }).compileComponents();
 
             const multiFixture = TestBed.createComponent(TestMultipleInstancesComponent);
+
             multiFixture.detectChanges();
 
             const selectButtons = multiFixture.nativeElement.querySelectorAll('p-selectbutton');
+
             expect(selectButtons.length).toBe(2);
 
             selectButtons.forEach((btn: HTMLElement) => {
@@ -956,6 +982,7 @@ describe('SelectButton PassThrough Tests', () => {
     describe('PT Case 8: Lifecycle hooks', () => {
         it('should support onInit hook', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
@@ -977,6 +1004,7 @@ describe('SelectButton PassThrough Tests', () => {
 
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
+
             hookComponent.options = ['A', 'B'];
             hookFixture.changeDetectorRef.markForCheck();
             await hookFixture.whenStable();
@@ -987,6 +1015,7 @@ describe('SelectButton PassThrough Tests', () => {
 
         it('should support onAfterViewInit hook', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
@@ -1008,6 +1037,7 @@ describe('SelectButton PassThrough Tests', () => {
 
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
+
             hookComponent.options = ['X', 'Y'];
             hookFixture.changeDetectorRef.markForCheck();
             await hookFixture.whenStable();
@@ -1018,6 +1048,7 @@ describe('SelectButton PassThrough Tests', () => {
 
         it('should support onAfterViewChecked hook', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
@@ -1041,6 +1072,7 @@ describe('SelectButton PassThrough Tests', () => {
 
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
+
             hookComponent.options = ['M', 'N'];
             hookFixture.changeDetectorRef.markForCheck();
             await hookFixture.whenStable();
@@ -1051,6 +1083,7 @@ describe('SelectButton PassThrough Tests', () => {
 
         it('should support onDestroy hook', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
@@ -1072,6 +1105,7 @@ describe('SelectButton PassThrough Tests', () => {
 
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
+
             hookComponent.options = ['P', 'Q'];
             hookFixture.changeDetectorRef.markForCheck();
             await hookFixture.whenStable();
@@ -1084,6 +1118,7 @@ describe('SelectButton PassThrough Tests', () => {
 
         it('should support multiple lifecycle hooks', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
@@ -1116,6 +1151,7 @@ describe('SelectButton PassThrough Tests', () => {
 
             const hookFixture = TestBed.createComponent(SelectButton);
             const hookComponent = hookFixture.componentInstance;
+
             hookComponent.options = ['R', 'S'];
             hookFixture.changeDetectorRef.markForCheck();
             await hookFixture.whenStable();
@@ -1141,6 +1177,7 @@ describe('SelectButton PassThrough Tests', () => {
             fixture.detectChanges();
 
             const toggleButtons = hostElement.querySelectorAll('p-togglebutton');
+
             expect(toggleButtons.length).toBeGreaterThan(0);
         });
 
@@ -1156,6 +1193,7 @@ describe('SelectButton PassThrough Tests', () => {
             fixture.detectChanges();
 
             const toggleButtons = hostElement.querySelectorAll('p-togglebutton');
+
             expect(toggleButtons.length).toBeGreaterThan(0);
         });
     });
@@ -1164,7 +1202,7 @@ describe('SelectButton PassThrough Tests', () => {
 // Test components for inline PT tests
 @Component({
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule],
+    imports: [SelectButton, FormsModule],
     template: `<p-selectbutton [options]="options" [pt]="{ root: 'INLINE_STRING' }" />`
 })
 class TestInlineStringPTComponent {
@@ -1173,7 +1211,7 @@ class TestInlineStringPTComponent {
 
 @Component({
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule],
+    imports: [SelectButton, FormsModule],
     template: `<p-selectbutton [options]="options" [pt]="{ root: { class: 'INLINE_OBJECT_CLASS', 'data-inline': 'true' } }" />`
 })
 class TestInlineObjectPTComponent {
@@ -1182,7 +1220,7 @@ class TestInlineObjectPTComponent {
 
 @Component({
     standalone: true,
-    imports: [SelectButton, FormsModule, CommonModule],
+    imports: [SelectButton, FormsModule],
     template: `
         <p-selectbutton [options]="options1" />
         <p-selectbutton [options]="options2" />

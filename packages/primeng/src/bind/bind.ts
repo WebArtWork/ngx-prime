@@ -1,4 +1,4 @@
-import { computed, Directive, effect, ElementRef, input, NgModule, Renderer2, signal } from '@angular/core';
+import { computed, Directive, effect, ElementRef, input, NgModule, Renderer2, signal, OnDestroy, inject } from '@angular/core';
 import { cn, equals } from '@primeuix/utils';
 
 /**
@@ -13,7 +13,10 @@ import { cn, equals } from '@primeuix/utils';
         '[class]': 'classes()'
     }
 })
-export class Bind {
+export class Bind implements OnDestroy {
+    private el = inject(ElementRef);
+    private renderer = inject(Renderer2);
+
     /**
      * Dynamic attributes, properties, and event listeners to be applied to the host element.
      * @group Props
@@ -28,10 +31,7 @@ export class Bind {
 
     private listeners: { eventName: string; unlisten: () => void }[] = [];
 
-    constructor(
-        private el: ElementRef,
-        private renderer: Renderer2
-    ) {
+    constructor() {
         effect(() => {
             const { style, class: className, ...rest } = this.attrs() || {};
 
@@ -42,6 +42,7 @@ export class Bind {
                     // add listener if not already added
                     if (!this.listeners.some((l) => l.eventName === eventName)) {
                         const unlisten = this.renderer.listen(this.el.nativeElement, eventName, value);
+
                         this.listeners.push({ eventName, unlisten });
                     }
                 } else if (value === null || value === undefined) {
@@ -50,6 +51,7 @@ export class Bind {
                 } else {
                     // attr & prop fallback
                     this.renderer.setAttribute(this.el.nativeElement, key, value.toString());
+
                     if (key in this.el.nativeElement) {
                         (this.el.nativeElement as any)[key] = value;
                     }

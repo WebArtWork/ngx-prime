@@ -52,26 +52,31 @@ describe('PClass Directive', () => {
 
     it('should apply string classes', () => {
         const element = fixture.debugElement.query(By.css('[data-testid="string"]'));
+
         expect(element.nativeElement.className).toBe('test-class');
     });
 
     it('should apply array classes', () => {
         const element = fixture.debugElement.query(By.css('[data-testid="array"]'));
+
         expect(element.nativeElement.className).toBe('class1 class2');
     });
 
     it('should apply object classes conditionally', () => {
         const element = fixture.debugElement.query(By.css('[data-testid="object"]'));
+
         expect(element.nativeElement.className).toBe('active');
     });
 
     it('should apply mixed classes', () => {
         const element = fixture.debugElement.query(By.css('[data-testid="mixed"]'));
+
         expect(element.nativeElement.className).toBe('active base');
     });
 
     it('should handle null values', () => {
         const element = fixture.debugElement.query(By.css('[data-testid="null"]'));
+
         expect(element.nativeElement.className).toBe('');
     });
 

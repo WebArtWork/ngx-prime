@@ -1,4 +1,4 @@
-import { booleanAttribute, Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
+import { booleanAttribute, Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2, inject } from '@angular/core';
 import { addClass, getTargetElement, hasClass, isElement, removeClass } from '@primeuix/utils';
 import { VoidListener } from 'primeng/ts-helpers';
 
@@ -11,11 +11,10 @@ import { VoidListener } from 'primeng/ts-helpers';
     standalone: true
 })
 export class StyleClass implements OnDestroy {
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private zone: NgZone
-    ) {}
+    el = inject(ElementRef);
+    renderer = inject(Renderer2);
+    private zone = inject(NgZone);
+
     /**
      * Selector to define the target element. Available selectors are '@next', '@prev', '@parent' and '@grandparent'.
      * @group Props
@@ -132,20 +131,24 @@ export class StyleClass implements OnDestroy {
                 }
 
                 addClass(this.target!, this.enterActiveClass);
+
                 if (this.enterFromClass) {
                     removeClass(this.target!, this.enterFromClass);
                 }
 
                 this.enterListener = this.renderer.listen(this.target!, 'animationend', () => {
                     removeClass(this.target!, this.enterActiveClass as string);
+
                     if (this.enterToClass) {
                         addClass(this.target!, this.enterToClass);
                     }
+
                     this.enterListener && this.enterListener();
 
                     if (this.enterActiveClass?.includes('slidedown')) {
                         (this.target as HTMLElement).style.maxHeight = '';
                     }
+
                     this.animating = false;
                 });
             }
@@ -177,15 +180,18 @@ export class StyleClass implements OnDestroy {
             if (!this.animating) {
                 this.animating = true;
                 addClass(this.target!, this.leaveActiveClass);
+
                 if (this.leaveFromClass) {
                     removeClass(this.target!, this.leaveFromClass);
                 }
 
                 this.leaveListener = this.renderer.listen(this.target!, 'animationend', () => {
                     removeClass(this.target!, this.leaveActiveClass as string);
+
                     if (this.leaveToClass) {
                         addClass(this.target!, this.leaveToClass);
                     }
+
                     this.leaveListener && this.leaveListener();
                     this.animating = false;
                 });
@@ -227,6 +233,7 @@ export class StyleClass implements OnDestroy {
             this.zone.runOutsideAngular(() => {
                 this.documentKeydownListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'keydown', (event) => {
                     const { key, keyCode, which, type } = event;
+
                     if (!this.isVisible() || getComputedStyle(this.target as HTMLElement).getPropertyValue('position') === 'static') this.unbindDocumentKeydownListener();
                     if (this.isVisible() && key === 'Escape' && keyCode === 27 && which === 27) this.leave();
                 });
@@ -258,6 +265,7 @@ export class StyleClass implements OnDestroy {
 
     bindResizeListener() {
         this._resizeTarget = getTargetElement(this.resizeSelector);
+
         if (isElement(this._resizeTarget)) {
             this.bindElementResizeListener();
         } else {
@@ -294,9 +302,11 @@ export class StyleClass implements OnDestroy {
     bindElementResizeListener() {
         if (!this.resizeObserver && this._resizeTarget) {
             let isFirstResize = true;
+
             this.resizeObserver = new ResizeObserver(() => {
                 if (isFirstResize) {
                     isFirstResize = false;
+
                     return;
                 }
 
@@ -322,6 +332,7 @@ export class StyleClass implements OnDestroy {
         if (this.eventListener) {
             this.eventListener();
         }
+
         this.unbindDocumentClickListener();
         this.unbindDocumentKeydownListener();
         this.unbindResizeListener();

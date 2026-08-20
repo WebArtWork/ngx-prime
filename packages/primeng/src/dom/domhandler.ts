@@ -28,11 +28,13 @@ export class DomHandler {
         if (element && className) {
             if (element.classList) {
                 let styles: string[] = className.trim().split(' ');
+
                 for (let i = 0; i < styles.length; i++) {
                     element.classList.add(styles[i]);
                 }
             } else {
                 let styles: string[] = className.split(' ');
+
                 for (let i = 0; i < styles.length; i++) {
                     element.className += ' ' + styles[i];
                 }
@@ -82,20 +84,24 @@ export class DomHandler {
     public static index(element: any): number {
         let children = element.parentNode.childNodes;
         let num = 0;
-        for (var i = 0; i < children.length; i++) {
+
+        for (let i = 0; i < children.length; i++) {
             if (children[i] == element) return num;
             if (children[i].nodeType == 1) num++;
         }
+
         return -1;
     }
 
     public static indexWithinGroup(element: any, attributeName: string): number {
         let children = element.parentNode ? element.parentNode.childNodes : [];
         let num = 0;
-        for (var i = 0; i < children.length; i++) {
+
+        for (let i = 0; i < children.length; i++) {
             if (children[i] == element) return num;
             if (children[i].attributes && children[i].attributes[attributeName] && children[i].nodeType == 1) num++;
         }
+
         return -1;
     }
 
@@ -144,6 +150,7 @@ export class DomHandler {
         if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
             top = targetOffset.top - relativeElementOffset.top - elementDimensions.height;
             origin = 'bottom';
+
             if (targetOffset.top + top < 0) {
                 top = -1 * targetOffset.top;
             }
@@ -154,6 +161,7 @@ export class DomHandler {
 
         const horizontalOverflow = targetOffset.left + elementDimensions.width - viewport.width;
         const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.left - relativeElementOffset.left;
+
         if (elementDimensions.width > viewport.width) {
             // element wider then viewport and cannot fit on screen (align at left side of viewport)
             left = (targetOffset.left - relativeElementOffset.left) * -1;
@@ -218,17 +226,22 @@ export class DomHandler {
         if (element) {
             let parents = this.getParents(element);
             const overflowRegex = /(auto|scroll)/;
+
             const overflowCheck = (node: any) => {
                 let styleDeclaration = window['getComputedStyle'](node, null);
+
                 return overflowRegex.test(styleDeclaration.getPropertyValue('overflow')) || overflowRegex.test(styleDeclaration.getPropertyValue('overflowX')) || overflowRegex.test(styleDeclaration.getPropertyValue('overflowY'));
             };
 
             for (let parent of parents) {
                 let scrollSelectors = parent.nodeType === 1 && parent.dataset['scrollselectors'];
+
                 if (scrollSelectors) {
                     let selectors = scrollSelectors.split(',');
+
                     for (let selector of selectors) {
                         let el = this.findSingle(parent, selector);
+
                         if (el && overflowCheck(el)) {
                             scrollableParents.push(el);
                         }
@@ -248,6 +261,7 @@ export class DomHandler {
         element.style.visibility = 'hidden';
         element.style.display = 'block';
         let elementHeight = element.offsetHeight;
+
         element.style.display = 'none';
         element.style.visibility = 'visible';
 
@@ -258,6 +272,7 @@ export class DomHandler {
         element.style.visibility = 'hidden';
         element.style.display = 'block';
         let elementWidth = element.offsetWidth;
+
         element.style.display = 'none';
         element.style.visibility = 'visible';
 
@@ -266,6 +281,7 @@ export class DomHandler {
 
     public static getHiddenElementDimensions(element: any): any {
         let dimensions: any = {};
+
         element.style.visibility = 'hidden';
         element.style.display = 'block';
         dimensions.width = element.offsetWidth;
@@ -300,6 +316,7 @@ export class DomHandler {
 
         let last = +new Date();
         let opacity = 0;
+
         let tick = function () {
             opacity = +element.style.opacity.replace(',', '.') + (new Date().getTime() - last) / duration;
             element.style.opacity = opacity;
@@ -315,7 +332,7 @@ export class DomHandler {
     }
 
     public static fadeOut(element, ms) {
-        var opacity = 1,
+        let opacity = 1,
             interval = 50,
             duration = ms,
             gap = interval / duration;
@@ -334,17 +351,20 @@ export class DomHandler {
 
     public static getWindowScrollTop(): number {
         let doc = document.documentElement;
+
         return (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
     }
 
     public static getWindowScrollLeft(): number {
         let doc = document.documentElement;
+
         return (window.pageXOffset || doc.scrollLeft) - (doc.clientLeft || 0);
     }
 
     public static matches(element, selector: string): boolean {
-        var p = Element.prototype;
-        var f =
+        let p = Element.prototype;
+
+        let f =
             p['matches'] ||
             p.webkitMatchesSelector ||
             p['mozMatchesSelector'] ||
@@ -352,6 +372,7 @@ export class DomHandler {
             function (s) {
                 return [].indexOf.call(document.querySelectorAll(s), this) !== -1;
             };
+
         return f.call(element, selector);
     }
 
@@ -360,6 +381,7 @@ export class DomHandler {
 
         if (margin) {
             let style = getComputedStyle(el);
+
             width += parseFloat(style.marginLeft) + parseFloat(style.marginRight);
         }
 
@@ -368,11 +390,13 @@ export class DomHandler {
 
     public static getHorizontalPadding(el) {
         let style = getComputedStyle(el);
+
         return parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
     }
 
     public static getHorizontalMargin(el) {
         let style = getComputedStyle(el);
+
         return parseFloat(style.marginLeft) + parseFloat(style.marginRight);
     }
 
@@ -381,6 +405,7 @@ export class DomHandler {
         let style = getComputedStyle(el);
 
         width += parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+
         return width;
     }
 
@@ -389,6 +414,7 @@ export class DomHandler {
         let style = getComputedStyle(el);
 
         width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+
         return width;
     }
 
@@ -397,6 +423,7 @@ export class DomHandler {
         let style = getComputedStyle(el);
 
         height += parseFloat(style.paddingTop) + parseFloat(style.paddingBottom);
+
         return height;
     }
 
@@ -405,6 +432,7 @@ export class DomHandler {
 
         if (margin) {
             let style = getComputedStyle(el);
+
             height += parseFloat(style.marginTop) + parseFloat(style.marginBottom);
         }
 
@@ -441,7 +469,7 @@ export class DomHandler {
     }
 
     public static getOffset(el) {
-        var rect = el.getBoundingClientRect();
+        let rect = el.getBoundingClientRect();
 
         return {
             top: rect.top + (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0),
@@ -451,7 +479,9 @@ export class DomHandler {
 
     public static replaceElementWith(element: any, replacementElement: any): any {
         let parentNode = element.parentNode;
+
         if (!parentNode) throw `Can't replace element`;
+
         return parentNode.replaceChild(replacementElement, element);
     }
 
@@ -462,22 +492,26 @@ export class DomHandler {
     }
 
     public static isIE() {
-        var ua = window.navigator.userAgent;
+        let ua = window.navigator.userAgent;
 
-        var msie = ua.indexOf('MSIE ');
+        let msie = ua.indexOf('MSIE ');
+
         if (msie > 0) {
             // IE 10 or older => return version number
             return true;
         }
 
-        var trident = ua.indexOf('Trident/');
+        let trident = ua.indexOf('Trident/');
+
         if (trident > 0) {
             // IE 11 => return version number
-            var rv = ua.indexOf('rv:');
+            let rv = ua.indexOf('rv:');
+
             return true;
         }
 
-        var edge = ua.indexOf('Edge/');
+        let edge = ua.indexOf('Edge/');
+
         if (edge > 0) {
             // Edge (IE 12+) => return version number
             return true;
@@ -523,15 +557,18 @@ export class DomHandler {
     public static calculateScrollbarWidth(el?: HTMLElement): number {
         if (el) {
             let style = getComputedStyle(el);
+
             return el.offsetWidth - el.clientWidth - parseFloat(style.borderLeftWidth) - parseFloat(style.borderRightWidth);
         } else {
             if (this.calculatedScrollbarWidth !== null) return this.calculatedScrollbarWidth;
 
             let scrollDiv = document.createElement('div');
+
             scrollDiv.className = 'p-scrollbar-measure';
             document.body.appendChild(scrollDiv);
 
             let scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+
             document.body.removeChild(scrollDiv);
 
             this.calculatedScrollbarWidth = scrollbarWidth;
@@ -544,10 +581,12 @@ export class DomHandler {
         if (this.calculatedScrollbarHeight !== null) return this.calculatedScrollbarHeight;
 
         let scrollDiv = document.createElement('div');
+
         scrollDiv.className = 'p-scrollbar-measure';
         document.body.appendChild(scrollDiv);
 
         let scrollbarHeight = scrollDiv.offsetHeight - scrollDiv.clientHeight;
+
         document.body.removeChild(scrollDiv);
 
         this.calculatedScrollbarWidth = scrollbarHeight;
@@ -578,6 +617,7 @@ export class DomHandler {
     public static getBrowser() {
         if (!this.browser) {
             let matched = this.resolveUserAgent();
+
             this.browser = {};
 
             if (matched.browser) {
@@ -649,6 +689,7 @@ export class DomHandler {
 
         for (let focusableElement of focusableElements) {
             const computedStyle = getComputedStyle(focusableElement);
+
             if (this.isVisible(focusableElement) && computedStyle.display != 'none' && computedStyle.visibility != 'hidden') visibleFocusableElements.push(focusableElement);
         }
 
@@ -660,6 +701,7 @@ export class DomHandler {
 
         if (focusableElement) {
             const computedStyle = getComputedStyle(focusableElement);
+
             if (this.isVisible(focusableElement) && computedStyle.display != 'none' && computedStyle.visibility != 'hidden') return focusableElement;
         }
 
@@ -681,6 +723,7 @@ export class DomHandler {
     public static getNextFocusableElement(element: HTMLElement, reverse = false) {
         const focusableElements = DomHandler.getFocusableElements(element);
         let index = 0;
+
         if (focusableElements && focusableElements.length > 0) {
             const focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
 
@@ -700,6 +743,7 @@ export class DomHandler {
 
     static generateZIndex() {
         this.zindex = this.zindex || 999;
+
         return ++this.zindex;
     }
 
@@ -812,7 +856,7 @@ export class DomHandler {
                         } else if (type === 'object') {
                             const _cv = Array.isArray(v)
                                 ? computedStyles(rule, v)
-                                : Object.entries(v).map(([_k, _v]) => (rule === 'style' && (!!_v || _v === 0) ? `${_k.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}:${_v}` : !!_v ? _k : undefined));
+                                : Object.entries(v).map(([_k, _v]) => (rule === 'style' && (!!_v || _v === 0) ? `${_k.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}:${_v}` : _v ? _k : undefined));
 
                             cv = _cv.length ? cv.concat(_cv.filter((c) => !!c)) : cv;
                         }

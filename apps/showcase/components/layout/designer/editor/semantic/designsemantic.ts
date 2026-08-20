@@ -93,6 +93,7 @@ export class DesignSemantic {
     commonTokens = computed(() => {
         const result: any = {};
         const tokens = this.tokens();
+
         if (!tokens) return result;
 
         for (const key in tokens) {
@@ -100,11 +101,13 @@ export class DesignSemantic {
                 result[key] = tokens[key];
             }
         }
+
         return result;
     });
 
     commonPrimitivesArray = computed(() => {
         const obj = this.commonTokens();
+
         return Object.keys(obj)
             .filter((key) => !this.isObject(obj[key]))
             .map((key) => ({ key, value: obj[key] }));
@@ -121,6 +124,7 @@ export class DesignSemantic {
             const indexB = SEMANTIC_ORDER.indexOf(b);
             const orderA = indexA === -1 ? SEMANTIC_ORDER.length : indexA;
             const orderB = indexB === -1 ? SEMANTIC_ORDER.length : indexB;
+
             return orderA - orderB;
         });
 
@@ -131,6 +135,7 @@ export class DesignSemantic {
 
     lightPrimitivesArray = computed(() => {
         const obj = this.lightTokens();
+
         return Object.keys(obj)
             .filter((key) => !this.isObject(obj[key]))
             .map((key) => ({ key, value: obj[key] }));
@@ -147,6 +152,7 @@ export class DesignSemantic {
             const indexB = SEMANTIC_ORDER.indexOf(b);
             const orderA = indexA === -1 ? SEMANTIC_ORDER.length : indexA;
             const orderB = indexB === -1 ? SEMANTIC_ORDER.length : indexB;
+
             return orderA - orderB;
         });
 
@@ -157,6 +163,7 @@ export class DesignSemantic {
 
     darkPrimitivesArray = computed(() => {
         const obj = this.darkTokens();
+
         return Object.keys(obj)
             .filter((key) => !this.isObject(obj[key]))
             .map((key) => ({ key, value: obj[key] }));
@@ -173,6 +180,7 @@ export class DesignSemantic {
             const indexB = SEMANTIC_ORDER.indexOf(b);
             const orderA = indexA === -1 ? SEMANTIC_ORDER.length : indexA;
             const orderB = indexB === -1 ? SEMANTIC_ORDER.length : indexB;
+
             return orderA - orderB;
         });
 
@@ -204,6 +212,7 @@ export class DesignSemantic {
         if (typeof str !== 'string' || str.length === 0) {
             return str;
         }
+
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 

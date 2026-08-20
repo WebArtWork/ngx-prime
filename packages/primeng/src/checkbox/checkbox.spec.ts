@@ -15,7 +15,6 @@ const mockIngredients = [
 ];
 
 @Component({
-    standalone: false,
     template: `
         <p-checkbox
             [(ngModel)]="value"
@@ -44,7 +43,8 @@ const mockIngredients = [
             (onBlur)="onBlurChange($event)"
         >
         </p-checkbox>
-    `
+    `,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule]
 })
 class TestBasicCheckboxComponent {
     value: any;
@@ -87,13 +87,15 @@ class TestBasicCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <p-checkbox formControlName="agreement" [binary]="true" inputId="agreement" [required]="required" (onChange)="onSelectionChange($event)"> </p-checkbox>
-            <p-checkbox formControlName="selectedIngredients" *ngFor="let ingredient of ingredients; let i = index" [value]="ingredient.value" [inputId]="'ingredient-' + i" (onChange)="onSelectionChange($event)"> </p-checkbox>
+            @for (ingredient of ingredients; track ingredient; let i = $index) {
+                <p-checkbox formControlName="selectedIngredients" [value]="ingredient.value" [inputId]="'ingredient-' + i" (onChange)="onSelectionChange($event)"> </p-checkbox>
+            }
         </form>
-    `
+    `,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule]
 })
 class TestReactiveFormCheckboxComponent {
     form = new FormGroup({
@@ -116,8 +118,12 @@ class TestReactiveFormCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-checkbox [(ngModel)]="selectedIngredients" *ngFor="let ingredient of ingredients; let i = index" [value]="ingredient.value" [inputId]="'ingredient-' + i" [name]="'pizza'" (onChange)="onSelectionChange($event)"> </p-checkbox> `
+    template: `
+        @for (ingredient of ingredients; track ingredient; let i = $index) {
+            <p-checkbox [(ngModel)]="selectedIngredients" [value]="ingredient.value" [inputId]="'ingredient-' + i" [name]="'pizza'" (onChange)="onSelectionChange($event)"> </p-checkbox>
+        }
+    `,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule]
 })
 class TestMultipleCheckboxComponent {
     selectedIngredients: string[] = [];
@@ -131,14 +137,14 @@ class TestMultipleCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-checkbox [(ngModel)]="value" [binary]="true" [disabled]="disabled" (onChange)="onSelectionChange($event)">
             <ng-template #icon let-checked="checked" let-class="class">
                 <i [class]="class" [ngClass]="checked ? 'pi pi-check' : 'pi pi-times'"></i>
             </ng-template>
         </p-checkbox>
-    `
+    `,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule]
 })
 class TestTemplateCheckboxComponent {
     value: boolean = false;
@@ -152,8 +158,8 @@ class TestTemplateCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-checkbox [(ngModel)]="value" [binary]="true" [indeterminate]="indeterminate" [trueValue]="customTrueValue" [falseValue]="customFalseValue" (onChange)="onSelectionChange($event)"> </p-checkbox> `
+    template: ` <p-checkbox [(ngModel)]="value" [binary]="true" [indeterminate]="indeterminate" [trueValue]="customTrueValue" [falseValue]="customFalseValue" (onChange)="onSelectionChange($event)"> </p-checkbox> `,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule]
 })
 class TestIndeterminateCheckboxComponent {
     value: any = null as any;
@@ -169,10 +175,10 @@ class TestIndeterminateCheckboxComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-checkbox [(ngModel)]="value" [binary]="true" [variant]="variant" [size]="size" inputId="styled-checkbox" [styleClass]="styleClass" [inputStyle]="inputStyle" [inputClass]="inputClass" (onChange)="onSelectionChange($event)"> </p-checkbox>
-    `
+    `,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule]
 })
 class TestStyledCheckboxComponent {
     value: boolean = false;
@@ -191,18 +197,22 @@ class TestStyledCheckboxComponent {
 
 // Checkbox pTemplate component
 @Component({
-    standalone: false,
     template: `
         <p-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
             <!-- Icon template with pTemplate directive -->
             <ng-template pTemplate="icon" let-checked>
                 <span class="custom-checkbox-icon" data-testid="ptemplate-icon">
-                    <i *ngIf="checked" class="pi pi-check custom-check-icon"></i>
-                    <i *ngIf="!checked" class="pi pi-times custom-uncheck-icon"></i>
+                    @if (checked) {
+                        <i class="pi pi-check custom-check-icon"></i>
+                    }
+                    @if (!checked) {
+                        <i class="pi pi-times custom-uncheck-icon"></i>
+                    }
                 </span>
             </ng-template>
         </p-checkbox>
-    `
+    `,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule]
 })
 class TestCheckboxPTemplateComponent {
     checked: boolean = false;
@@ -211,18 +221,22 @@ class TestCheckboxPTemplateComponent {
 
 // Checkbox #template reference component
 @Component({
-    standalone: false,
     template: `
         <p-checkbox [(ngModel)]="checked" [binary]="true" [value]="value">
             <!-- Icon template with #template reference -->
             <ng-template #icon let-checked>
                 <span class="custom-checkbox-icon" data-testid="ref-icon">
-                    <i *ngIf="checked" class="pi pi-check custom-check-icon"></i>
-                    <i *ngIf="!checked" class="pi pi-times custom-uncheck-icon"></i>
+                    @if (checked) {
+                        <i class="pi pi-check custom-check-icon"></i>
+                    }
+                    @if (!checked) {
+                        <i class="pi pi-times custom-uncheck-icon"></i>
+                    }
                 </span>
             </ng-template>
         </p-checkbox>
-    `
+    `,
+    imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule]
 })
 class TestCheckboxRefTemplateComponent {
     checked: boolean = false;
@@ -232,8 +246,11 @@ class TestCheckboxRefTemplateComponent {
 describe('Checkbox', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FormsModule, ReactiveFormsModule, Checkbox, SharedModule],
-            declarations: [
+            imports: [
+                FormsModule,
+                ReactiveFormsModule,
+                Checkbox,
+                SharedModule,
                 TestBasicCheckboxComponent,
                 TestReactiveFormCheckboxComponent,
                 TestMultipleCheckboxComponent,
@@ -261,6 +278,7 @@ describe('Checkbox', () => {
             expect(testComponent).toBeTruthy();
 
             const checkboxComponent = testFixture.debugElement.query(By.css('p-checkbox'));
+
             expect(checkboxComponent).toBeTruthy();
         });
 
@@ -352,6 +370,7 @@ describe('Checkbox', () => {
             expect(checkboxInstance.checked).toBe(false);
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
+
             inputElement.nativeElement.click();
             await testFixture.whenStable();
 
@@ -554,10 +573,12 @@ describe('Checkbox', () => {
 
             // Check for custom template rendering - look for any icon element
             const iconElements = testFixture.debugElement.queryAll(By.css('i'));
+
             expect(iconElements.length).toBeGreaterThan(0);
 
             // Or check if template is being used
             const templateOutlet = testFixture.debugElement.query(By.css('ng-template'));
+
             expect(templateOutlet || iconElements.length > 0).toBeTruthy();
         });
 
@@ -604,6 +625,7 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
+
             expect(inputElement.nativeElement.getAttribute('aria-labelledby')).toBe('terms-label');
         });
 
@@ -618,6 +640,7 @@ describe('Checkbox', () => {
 
             // Press Space key
             const spaceKeyEvent = new KeyboardEvent('keydown', { code: 'Space', key: ' ' });
+
             inputElement.nativeElement.dispatchEvent(spaceKeyEvent);
 
             // Simulate the change that would happen on space key
@@ -634,6 +657,7 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
+
             expect(inputElement.nativeElement.getAttribute('tabindex')).toBe('5');
         });
     });
@@ -655,6 +679,7 @@ describe('Checkbox', () => {
 
             // Check the checkbox
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
+
             inputElement.nativeElement.click();
             await testFixture.whenStable();
 
@@ -667,6 +692,7 @@ describe('Checkbox', () => {
 
             // Check that component received the style input
             const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+
             expect(checkboxInstance.inputStyle).toEqual({ border: '2px solid red' });
 
             // Manually apply styles to test the style binding works as expected
@@ -685,6 +711,7 @@ describe('Checkbox', () => {
 
         it('should apply input classes', async () => {
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
+
             expect(inputElement.nativeElement.classList.contains('custom-input')).toBe(true);
         });
 
@@ -734,6 +761,7 @@ describe('Checkbox', () => {
 
             // Try to click - should not change value when readonly
             const initialValue = testComponent.value;
+
             inputElement.nativeElement.click();
             await testFixture.whenStable();
 
@@ -779,6 +807,7 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+
             expect(checkboxInstance.checkboxIcon).toBe('pi pi-star');
 
             // The test is primarily to verify the checkboxIcon property is set correctly
@@ -803,6 +832,7 @@ describe('Checkbox', () => {
 
             // Check the agreement checkbox
             const agreementCheckbox = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
+
             agreementCheckbox.nativeElement.click();
             await testFixture.whenStable();
 
@@ -886,6 +916,7 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
+
             inputElement.nativeElement.click();
             await testFixture.whenStable();
 
@@ -907,6 +938,7 @@ describe('Checkbox', () => {
             // Simulate multiple rapid changes
             for (let i = 0; i < 3; i++) {
                 const mockEvent = { target: { checked: i % 2 === 0 } };
+
                 checkboxInstance.updateModel(mockEvent);
                 await new Promise((resolve) => setTimeout(resolve, 10));
             }
@@ -922,6 +954,7 @@ describe('Checkbox', () => {
 
             // Create large dataset
             const largeIngredients: any[] = [];
+
             for (let i = 0; i < 100; i++) {
                 largeIngredients.push({
                     name: `Ingredient ${i}`,
@@ -930,6 +963,7 @@ describe('Checkbox', () => {
             }
 
             const startTime = performance.now();
+
             component.ingredients = largeIngredients;
             largeTestComponent.changeDetectorRef.markForCheck();
             await largeTestComponent.whenStable();
@@ -942,6 +976,7 @@ describe('Checkbox', () => {
         it('should not create memory leaks on destroy', async () => {
             const testFixture = TestBed.createComponent(TestBasicCheckboxComponent);
             const testComponent = testFixture.componentInstance;
+
             testComponent.binary = true;
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
@@ -1003,6 +1038,7 @@ describe('Checkbox', () => {
 
         it('should have icon pTemplate', async () => {
             const checkboxInstance = checkboxElement.componentInstance;
+
             expect(checkboxInstance).toBeTruthy();
             expect(() => checkboxInstance.checkboxIconTemplate).not.toThrow();
         });
@@ -1052,6 +1088,7 @@ describe('Checkbox', () => {
             if (checkboxInstance.ngAfterContentInit) {
                 checkboxInstance.ngAfterContentInit();
             }
+
             await templateFixture.whenStable();
 
             expect(checkboxInstance).toBeTruthy();
@@ -1063,6 +1100,7 @@ describe('Checkbox', () => {
             if (checkboxInstance.ngAfterViewInit) {
                 checkboxInstance.ngAfterViewInit();
             }
+
             await templateFixture.whenStable();
 
             expect(checkboxInstance).toBeTruthy();
@@ -1083,6 +1121,7 @@ describe('Checkbox', () => {
 
             // Verify template is still processed
             const checkboxInstance = checkboxElement.componentInstance;
+
             expect(checkboxInstance).toBeTruthy();
         });
     });
@@ -1101,6 +1140,7 @@ describe('Checkbox', () => {
 
         it('should have icon #template', async () => {
             const checkboxInstance = checkboxElement.componentInstance;
+
             expect(checkboxInstance).toBeTruthy();
             expect(() => checkboxInstance.checkboxIconTemplate).not.toThrow();
         });
@@ -1150,6 +1190,7 @@ describe('Checkbox', () => {
             if (checkboxInstance.ngAfterContentInit) {
                 checkboxInstance.ngAfterContentInit();
             }
+
             await templateFixture.whenStable();
 
             expect(checkboxInstance).toBeTruthy();
@@ -1161,6 +1202,7 @@ describe('Checkbox', () => {
             if (checkboxInstance.ngAfterViewInit) {
                 checkboxInstance.ngAfterViewInit();
             }
+
             await templateFixture.whenStable();
 
             expect(checkboxInstance).toBeTruthy();
@@ -1181,6 +1223,7 @@ describe('Checkbox', () => {
 
             // Verify template is still processed
             const checkboxInstance = checkboxElement.componentInstance;
+
             expect(checkboxInstance).toBeTruthy();
         });
     });
@@ -1245,6 +1288,7 @@ describe('Checkbox', () => {
                 await fixture.whenStable();
 
                 const iconElement = boxElement.querySelector('.p-checkbox-icon') as HTMLElement;
+
                 if (iconElement) {
                     expect(iconElement.classList.contains('ICON_CLASS')).toBe(true);
                 }
@@ -1396,6 +1440,7 @@ describe('Checkbox', () => {
         describe('Case 5: Event binding', () => {
             it('should handle onclick event from pt', async () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
@@ -1412,6 +1457,7 @@ describe('Checkbox', () => {
 
             it('should handle box onclick event from pt', async () => {
                 let boxClicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     box: {
                         onclick: () => {
@@ -1430,21 +1476,25 @@ describe('Checkbox', () => {
         describe('Case 6: Inline test', () => {
             it('should apply inline pt with string class', async () => {
                 const inlineFixture = TestBed.createComponent(Checkbox);
+
                 inlineFixture.componentRef.setInput('pt', { root: 'INLINE_CLASS' });
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const inlineElement = inlineFixture.nativeElement;
+
                 expect(inlineElement.classList.contains('INLINE_CLASS')).toBe(true);
             });
 
             it('should apply inline pt with object class', async () => {
                 const inlineFixture = TestBed.createComponent(Checkbox);
+
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const inlineElement = inlineFixture.nativeElement;
+
                 expect(inlineElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });

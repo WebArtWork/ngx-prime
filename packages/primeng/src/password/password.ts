@@ -5,7 +5,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     Directive,
     effect,
     ElementRef,
@@ -22,11 +21,12 @@ import {
     Output,
     Pipe,
     PipeTransform,
-    QueryList,
     signal,
     TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    viewChild,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
@@ -69,6 +69,8 @@ type Meter = {
     hostDirectives: [Bind]
 })
 export class PasswordDirective extends BaseEditableHolder {
+    zone = inject(NgZone);
+
     bindDirectiveInstance = inject(Bind, { self: true });
 
     $pcPasswordDirective: PasswordDirective | undefined = inject(PASSWORD_DIRECTIVE_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -168,11 +170,12 @@ export class PasswordDirective extends BaseEditableHolder {
 
     _componentStyle = inject(PasswordStyle);
 
-    constructor(public zone: NgZone) {
+    constructor() {
         super();
 
         effect(() => {
             const pt = this.pPasswordPT();
+
             pt && this.directivePT.set(pt);
         });
 
@@ -272,7 +275,7 @@ export class PasswordDirective extends BaseEditableHolder {
                 label = this.promptLabel;
                 meterPos = '0px 0px';
             } else {
-                var score = this.testStrength(value);
+                let score = this.testStrength(value);
 
                 if (score < 30) {
                     label = this.weakLabel;
@@ -373,6 +376,7 @@ export class PasswordDirective extends BaseEditableHolder {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.documentResizeListener) {
                 const window = this.document.defaultView as Window;
+
                 this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
             }
         }
@@ -465,44 +469,53 @@ export const Password_VALUE_ACCESSOR: any = {
             [pt]="ptm('pcInputText')"
             [unstyled]="unstyled()"
         />
-        <ng-container *ngIf="showClear && value != null">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear()" [pBind]="ptm('clearIcon')" />
+        @if (showClear && value != null) {
+            @if (!clearIconTemplate() && !_clearIconTemplate) {
+                <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear()" [pBind]="ptm('clearIcon')" />
+            }
             <span (click)="clear()" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')">
-                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+                <ng-template *ngTemplateOutlet="clearIconTemplate() || _clearIconTemplate"></ng-template>
             </span>
-        </ng-container>
+        }
 
-        <ng-container *ngIf="toggleMask">
-            <ng-container *ngIf="unmasked">
-                <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" *ngIf="!hideIconTemplate && !_hideIconTemplate" (click)="onMaskToggle()" />
-                <span *ngIf="hideIconTemplate || _hideIconTemplate" (click)="onMaskToggle()" [pBind]="ptm('maskIcon')">
-                    <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
-                </span>
-            </ng-container>
-            <ng-container *ngIf="!unmasked">
-                <svg data-p-icon="eye" *ngIf="!showIconTemplate && !_showIconTemplate" [class]="cx('unmaskIcon')" [pBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
-                <span *ngIf="showIconTemplate || _showIconTemplate" (click)="onMaskToggle()" [pBind]="ptm('unmaskIcon')">
-                    <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
-                </span>
-            </ng-container>
-        </ng-container>
+        @if (toggleMask) {
+            @if (unmasked) {
+                @if (!hideIconTemplate && !_hideIconTemplate) {
+                    <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" (click)="onMaskToggle()" />
+                }
+                @if (hideIconTemplate || _hideIconTemplate) {
+                    <span (click)="onMaskToggle()" [pBind]="ptm('maskIcon')">
+                        <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
+                    </span>
+                }
+            }
+            @if (!unmasked) {
+                @if (!showIconTemplate && !_showIconTemplate) {
+                    <svg data-p-icon="eye" [class]="cx('unmaskIcon')" [pBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
+                }
+                @if (showIconTemplate || _showIconTemplate) {
+                    <span (click)="onMaskToggle()" [pBind]="ptm('unmaskIcon')">
+                        <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
+                    </span>
+                }
+            }
+        }
 
         <p-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()" [pt]="ptm('pcOverlay')" [motionOptions]="motionOptions()">
             <ng-template #content>
                 <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
-                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-container>
-                    <ng-container *ngIf="contentTemplate || _contentTemplate; else defaultContent">
+                    <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate"></ng-container>
+                    @if (contentTemplate || _contentTemplate) {
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
-                    </ng-container>
-                    <ng-template #defaultContent>
+                    } @else {
                         <div [class]="cx('content')" [pBind]="ptm('content')">
                             <div [class]="cx('meter')" [pBind]="ptm('meter')">
                                 <div [class]="cx('meterLabel')" [ngStyle]="{ width: meter ? meter.width : '' }" [pBind]="ptm('meterLabel')" [attr.data-p]="meterDataP"></div>
                             </div>
                             <div [class]="cx('meterText')" [pBind]="ptm('meterText')">{{ infoText }}</div>
                         </div>
-                    </ng-template>
-                    <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
+                    }
+                    <ng-container *ngTemplateOutlet="footerTemplate() || _footerTemplate"></ng-container>
                 </div>
             </ng-template>
         </p-overlay>
@@ -681,9 +694,9 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
 
-    @ViewChild('overlay') overlayViewChild!: Overlay;
+    readonly overlayViewChild = viewChild.required<Overlay>('overlay');
 
-    @ViewChild('input') input!: ElementRef;
+    readonly input = viewChild.required<ElementRef>('input');
 
     /**
      * Custom template of content.
@@ -695,19 +708,19 @@ export class Password extends BaseInput<PasswordPassThrough> {
      * Custom template of footer.
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<void>>;
+    readonly footerTemplate = contentChild<Nullable<TemplateRef<void>>>('footer', { descendants: false });
 
     /**
      * Custom template of header.
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<void>>;
+    readonly headerTemplate = contentChild<Nullable<TemplateRef<void>>>('header', { descendants: false });
 
     /**
      * Custom template of clear icon.
      * @group Templates
      */
-    @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
+    readonly clearIconTemplate = contentChild<Nullable<TemplateRef<void>>>('clearicon', { descendants: false });
 
     /**
      * Custom template of hide icon.
@@ -725,7 +738,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     @ContentChild('showicon', { descendants: false }) showIconTemplate: Nullable<TemplateRef<PasswordIconTemplateContext>>;
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    readonly templates = contentChildren(PrimeTemplate);
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
@@ -777,7 +790,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
     }
 
     onAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this._contentTemplate = item.template;
@@ -817,6 +830,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     onInputFocus(event: Event) {
         this.focused = true;
+
         if (this.feedback) {
             this.overlayVisible = true;
         }
@@ -826,6 +840,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     onInputBlur(event: Event) {
         this.focused = false;
+
         if (this.feedback) {
             this.overlayVisible = false;
         }
@@ -837,6 +852,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
     onKeyUp(event: KeyboardEvent) {
         if (this.feedback) {
             let value = (event.target as HTMLInputElement).value;
+
             this.updateUI(value);
 
             if (event.code === 'Escape') {

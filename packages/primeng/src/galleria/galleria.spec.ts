@@ -18,7 +18,6 @@ const mockImages = [
 
 // Test Components for different scenarios
 @Component({
-    standalone: false,
     template: `
         <p-galleria
             [value]="images"
@@ -58,7 +57,8 @@ const mockImages = [
                 <img [src]="item.thumbnailImageSrc" [alt]="item.alt" class="test-thumbnail-image" />
             </ng-template>
         </p-galleria>
-    `
+    `,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate]
 })
 class TestBasicGalleriaComponent {
     images: any[] = mockImages;
@@ -103,7 +103,6 @@ class TestBasicGalleriaComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-galleria [value]="images" [fullScreen]="true" [visible]="true">
             <ng-template #item let-item>
@@ -113,35 +112,36 @@ class TestBasicGalleriaComponent {
                 <img [src]="item.thumbnailImageSrc" [alt]="item.alt" class="fullscreen-thumbnail" />
             </ng-template>
         </p-galleria>
-    `
+    `,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate]
 })
 class TestFullScreenGalleriaComponent {
     images: any[] = mockImages;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-galleria [value]="images" [autoPlay]="true" [circular]="true" [transitionInterval]="1000">
             <ng-template #item let-item>
                 <img [src]="item.itemImageSrc" [alt]="item.alt" class="autoplay-item" />
             </ng-template>
         </p-galleria>
-    `
+    `,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate]
 })
 class TestAutoPlayGalleriaComponent {
     images: any[] = mockImages;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-galleria [value]="images" [responsiveOptions]="responsiveOptions">
             <ng-template #item let-item>
                 <img [src]="item.itemImageSrc" [alt]="item.alt" class="responsive-item" />
             </ng-template>
         </p-galleria>
-    `
+    `,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate]
 })
 class TestResponsiveGalleriaComponent {
     images: any[] = mockImages;
@@ -153,21 +153,20 @@ class TestResponsiveGalleriaComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-galleria [value]="images" [showIndicators]="true" [showThumbnails]="false">
             <ng-template #item let-item>
                 <img [src]="item.itemImageSrc" [alt]="item.alt" class="indicator-item" />
             </ng-template>
         </p-galleria>
-    `
+    `,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate]
 })
 class TestIndicatorsGalleriaComponent {
     images: any[] = mockImages;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-galleria [value]="images" [numVisible]="3">
             <ng-template #header>
@@ -186,14 +185,14 @@ class TestIndicatorsGalleriaComponent {
                 <div class="custom-caption">{{ item?.title || 'Test Caption' }}</div>
             </ng-template>
         </p-galleria>
-    `
+    `,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate]
 })
 class TestTemplateGalleriaComponent {
     images: any[] = mockImages;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-galleria [value]="images">
             <ng-template pTemplate="header">
@@ -209,7 +208,8 @@ class TestTemplateGalleriaComponent {
                 <div class="ptemplate-footer">PTemplate Footer</div>
             </ng-template>
         </p-galleria>
-    `
+    `,
+    imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate]
 })
 class TestPTemplateGalleriaComponent {
     images: any[] = mockImages;
@@ -218,8 +218,19 @@ class TestPTemplateGalleriaComponent {
 describe('Galleria', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, GalleriaModule, SharedModule, PrimeTemplate],
-            declarations: [TestBasicGalleriaComponent, TestFullScreenGalleriaComponent, TestAutoPlayGalleriaComponent, TestResponsiveGalleriaComponent, TestIndicatorsGalleriaComponent, TestTemplateGalleriaComponent, TestPTemplateGalleriaComponent],
+            imports: [
+                CommonModule,
+                GalleriaModule,
+                SharedModule,
+                PrimeTemplate,
+                TestBasicGalleriaComponent,
+                TestFullScreenGalleriaComponent,
+                TestAutoPlayGalleriaComponent,
+                TestResponsiveGalleriaComponent,
+                TestIndicatorsGalleriaComponent,
+                TestTemplateGalleriaComponent,
+                TestPTemplateGalleriaComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -235,6 +246,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -315,6 +327,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -348,6 +361,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -408,6 +422,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -422,6 +437,7 @@ describe('Galleria', () => {
 
         it('should render fullScreen template structure', () => {
             const mask = fixture.debugElement.query(By.css('[role="dialog"]'));
+
             if (mask) {
                 expect(mask).toBeTruthy();
                 expect(mask.nativeElement.getAttribute('aria-modal')).toBe('true');
@@ -440,6 +456,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -465,6 +482,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -475,6 +493,7 @@ describe('Galleria', () => {
 
         it('should have correct breakpoints and numVisible values', () => {
             const options = galleriaInstance.responsiveOptions!;
+
             expect(options[0].breakpoint).toBe('1024px');
             expect(options[0].numVisible).toBe(3);
             expect(options[1].breakpoint).toBe('768px');
@@ -495,6 +514,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -521,6 +541,7 @@ describe('Galleria', () => {
 
         it('should render custom header template', () => {
             const headerContent = fixture.debugElement.query(By.css('.custom-header'));
+
             if (headerContent) {
                 expect(headerContent.nativeElement.textContent).toContain('Gallery Header');
             }
@@ -531,6 +552,7 @@ describe('Galleria', () => {
 
         it('should render custom footer template', () => {
             const footerContent = fixture.debugElement.query(By.css('.custom-footer'));
+
             if (footerContent) {
                 expect(footerContent.nativeElement.textContent).toContain('Gallery Footer');
             }
@@ -538,6 +560,7 @@ describe('Galleria', () => {
 
         it('should render custom caption template', () => {
             const captionContent = fixture.debugElement.query(By.css('.custom-caption'));
+
             if (captionContent) {
                 expect(captionContent.nativeElement.textContent).toBeTruthy();
             }
@@ -545,6 +568,7 @@ describe('Galleria', () => {
 
         it('should render item template for images', () => {
             const itemElements = fixture.debugElement.queryAll(By.css('.template-item'));
+
             if (itemElements.length > 0) {
                 expect(itemElements.length).toBeGreaterThan(0);
                 expect(itemElements[0].nativeElement.textContent).toContain('Item');
@@ -553,6 +577,7 @@ describe('Galleria', () => {
 
         it('should render thumbnail template for thumbnails', () => {
             const thumbnailElements = fixture.debugElement.queryAll(By.css('.template-thumbnail'));
+
             if (thumbnailElements.length > 0) {
                 expect(thumbnailElements.length).toBeGreaterThan(0);
                 expect(thumbnailElements[0].nativeElement.textContent).toContain('Thumb');
@@ -571,6 +596,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -590,6 +616,7 @@ describe('Galleria', () => {
             if (ptemplateHeader) {
                 expect(ptemplateHeader.nativeElement.textContent).toContain('PTemplate Header');
             }
+
             if (ptemplateFooter) {
                 expect(ptemplateFooter.nativeElement.textContent).toContain('PTemplate Footer');
             }
@@ -617,6 +644,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -650,6 +678,7 @@ describe('Galleria', () => {
 
         it('should have proper galleria root structure', () => {
             const galleriaRoot = fixture.debugElement.query(By.css('p-galleria'));
+
             expect(galleriaRoot).toBeTruthy();
         });
     });
@@ -665,6 +694,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -719,6 +749,7 @@ describe('Galleria', () => {
 
         it('should have proper ARIA attributes for fullscreen mode', () => {
             const mask = fixture.debugElement.query(By.css('[role="dialog"]'));
+
             if (mask) {
                 expect(mask.nativeElement.getAttribute('role')).toBe('dialog');
                 expect(mask.nativeElement.getAttribute('aria-modal')).toBe('true');
@@ -728,10 +759,12 @@ describe('Galleria', () => {
         it('should have proper ARIA attributes for windowed mode', () => {
             // Create a windowed galleria component
             const windowedFixture = TestBed.createComponent(TestBasicGalleriaComponent);
+
             windowedFixture.detectChanges();
 
             // In windowed mode, should use 'region' role if any ARIA attributes are present
             const galleriaRoot = windowedFixture.debugElement.query(By.css('p-galleria'));
+
             expect(galleriaRoot).toBeTruthy();
         });
 
@@ -746,6 +779,7 @@ describe('Galleria', () => {
 
             // Add a mock close button element
             const closeButton = document.createElement('button');
+
             closeButton.setAttribute('data-pc-section', 'closebutton');
             galleriaInstance.container!.nativeElement.appendChild(closeButton);
 
@@ -760,6 +794,7 @@ describe('Galleria', () => {
 
         it('should provide proper alt attributes on images', () => {
             const images = fixture.debugElement.queryAll(By.css('img[alt]'));
+
             if (images.length > 0) {
                 images.forEach((img) => {
                     expect(img.nativeElement.getAttribute('alt')).toBeTruthy();
@@ -779,6 +814,7 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
@@ -863,11 +899,13 @@ describe('Galleria', () => {
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
+
             galleriaInstance = galleriaEl.componentInstance as Galleria;
         });
 
         it('should set numVisibleLimit when value changes to smaller array', async () => {
             const smallArray = mockImages.slice(0, 2);
+
             component.images = smallArray;
             component.numVisible = 5;
             fixture.changeDetectorRef.markForCheck();
@@ -914,6 +952,7 @@ describe('Galleria', () => {
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
+
             ptFixture.componentRef.setInput('pt', {
                 root: 'custom-root-class',
                 content: 'custom-content-class',
@@ -924,16 +963,19 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const rootElement = ptFixture.nativeElement.querySelector('[data-pc-section="root"]');
+
             if (rootElement) {
                 expect(rootElement.classList.contains('custom-root-class')).toBe(true);
             }
 
             const contentElement = ptFixture.nativeElement.querySelector('[data-pc-section="content"]');
+
             if (contentElement) {
                 expect(contentElement.classList.contains('custom-content-class')).toBe(true);
             }
 
             const itemsContainer = ptFixture.nativeElement.querySelector('[data-pc-section="itemscontainer"]');
+
             if (itemsContainer) {
                 expect(itemsContainer.classList.contains('custom-items-container-class')).toBe(true);
             }
@@ -947,6 +989,7 @@ describe('Galleria', () => {
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
+
             ptFixture.componentRef.setInput('pt', {
                 root: {
                     class: 'custom-root',
@@ -963,6 +1006,7 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const rootElement = ptFixture.nativeElement.querySelector('[data-pc-section="root"]');
+
             if (rootElement) {
                 expect(rootElement.classList.contains('custom-root')).toBe(true);
                 expect(rootElement.style.backgroundColor).toBe('lightblue');
@@ -970,6 +1014,7 @@ describe('Galleria', () => {
             }
 
             const contentElement = ptFixture.nativeElement.querySelector('[data-pc-section="content"]');
+
             if (contentElement) {
                 expect(contentElement.classList.contains('custom-content')).toBe(true);
                 expect(contentElement.style.padding).toBe('20px');
@@ -984,6 +1029,7 @@ describe('Galleria', () => {
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
+
             ptFixture.componentRef.setInput('pt', {
                 root: 'string-root-class',
                 content: {
@@ -997,17 +1043,20 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const rootElement = ptFixture.nativeElement.querySelector('[data-pc-section="root"]');
+
             if (rootElement) {
                 expect(rootElement.classList.contains('string-root-class')).toBe(true);
             }
 
             const contentElement = ptFixture.nativeElement.querySelector('[data-pc-section="content"]');
+
             if (contentElement) {
                 expect(contentElement.classList.contains('object-content-class')).toBe(true);
                 expect(contentElement.style.border).toBe('1px solid red');
             }
 
             const itemsContainer = ptFixture.nativeElement.querySelector('[data-pc-section="itemscontainer"]');
+
             if (itemsContainer) {
                 expect(itemsContainer.classList.contains('string-items-container-class')).toBe(true);
             }
@@ -1047,6 +1096,7 @@ describe('Galleria', () => {
 
             const ptFixture = TestBed.createComponent(Galleria);
             let clicked = false;
+
             ptFixture.componentRef.setInput('pt', {
                 closeButton: {
                     onClick: () => {
@@ -1061,6 +1111,7 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const closeButton = ptFixture.nativeElement.querySelector('[data-pc-section="closebutton"]');
+
             if (closeButton) {
                 closeButton.click();
                 expect(clicked).toBe(true);
@@ -1075,6 +1126,7 @@ describe('Galleria', () => {
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
+
             ptFixture.componentRef.setInput('ptOptions', { mergeSections: true, mergeProps: true });
             ptFixture.componentRef.setInput('pt', {
                 root: 'inline-root',
@@ -1085,11 +1137,13 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const rootElement = ptFixture.nativeElement.querySelector('[data-pc-section="root"]');
+
             if (rootElement) {
                 expect(rootElement.classList.contains('inline-root')).toBe(true);
             }
 
             const contentElement = ptFixture.nativeElement.querySelector('[data-pc-section="content"]');
+
             if (contentElement) {
                 expect(contentElement.classList.contains('inline-content')).toBe(true);
             }
@@ -1103,6 +1157,7 @@ describe('Galleria', () => {
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
+
             ptFixture.componentRef.setInput('pt', {
                 prevButton: {
                     class: 'custom-prev-button',
@@ -1121,23 +1176,27 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const prevButton = ptFixture.nativeElement.querySelector('[data-pc-section="prevbutton"]');
+
             if (prevButton) {
                 expect(prevButton.classList.contains('custom-prev-button')).toBe(true);
                 expect(prevButton.getAttribute('data-testid')).toBe('prev-btn');
             }
 
             const nextButton = ptFixture.nativeElement.querySelector('[data-pc-section="nextbutton"]');
+
             if (nextButton) {
                 expect(nextButton.classList.contains('custom-next-button')).toBe(true);
                 expect(nextButton.getAttribute('data-testid')).toBe('next-btn');
             }
 
             const prevIcon = ptFixture.nativeElement.querySelector('[data-pc-section="previcon"]');
+
             if (prevIcon) {
                 expect(prevIcon.classList.contains('custom-prev-icon')).toBe(true);
             }
 
             const nextIcon = ptFixture.nativeElement.querySelector('[data-pc-section="nexticon"]');
+
             if (nextIcon) {
                 expect(nextIcon.classList.contains('custom-next-icon')).toBe(true);
             }
@@ -1151,6 +1210,7 @@ describe('Galleria', () => {
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
+
             ptFixture.componentRef.setInput('pt', {
                 thumbnails: 'custom-thumbnails',
                 thumbnailContent: 'custom-thumbnail-content',
@@ -1168,26 +1228,31 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const thumbnails = ptFixture.nativeElement.querySelector('[data-pc-section="thumbnails"]');
+
             if (thumbnails) {
                 expect(thumbnails.classList.contains('custom-thumbnails')).toBe(true);
             }
 
             const thumbnailContent = ptFixture.nativeElement.querySelector('[data-pc-section="thumbnailcontent"]');
+
             if (thumbnailContent) {
                 expect(thumbnailContent.classList.contains('custom-thumbnail-content')).toBe(true);
             }
 
             const thumbnailsViewport = ptFixture.nativeElement.querySelector('[data-pc-section="thumbnailsviewport"]');
+
             if (thumbnailsViewport) {
                 expect(thumbnailsViewport.classList.contains('custom-thumbnails-viewport')).toBe(true);
             }
 
             const thumbnailItems = ptFixture.nativeElement.querySelector('[data-pc-section="thumbnailitems"]');
+
             if (thumbnailItems) {
                 expect(thumbnailItems.classList.contains('custom-thumbnail-items')).toBe(true);
             }
 
             const thumbnailItem = ptFixture.nativeElement.querySelector('[data-pc-section="thumbnailitem"]');
+
             if (thumbnailItem) {
                 expect(thumbnailItem.classList.contains('custom-thumbnail-item')).toBe(true);
                 expect(thumbnailItem.getAttribute('data-item')).toBe('true');
@@ -1202,6 +1267,7 @@ describe('Galleria', () => {
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
+
             ptFixture.componentRef.setInput('pt', {
                 indicatorList: 'custom-indicator-list',
                 indicator: {
@@ -1216,17 +1282,20 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const indicatorList = ptFixture.nativeElement.querySelector('[data-pc-section="indicatorlist"]');
+
             if (indicatorList) {
                 expect(indicatorList.classList.contains('custom-indicator-list')).toBe(true);
             }
 
             const indicator = ptFixture.nativeElement.querySelector('[data-pc-section="indicator"]');
+
             if (indicator) {
                 expect(indicator.classList.contains('custom-indicator')).toBe(true);
                 expect(indicator.getAttribute('data-indicator')).toBe('true');
             }
 
             const indicatorButton = ptFixture.nativeElement.querySelector('[data-pc-section="indicatorbutton"]');
+
             if (indicatorButton) {
                 expect(indicatorButton.classList.contains('custom-indicator-button')).toBe(true);
             }
@@ -1240,6 +1309,7 @@ describe('Galleria', () => {
             }).compileComponents();
 
             const ptFixture = TestBed.createComponent(Galleria);
+
             ptFixture.componentRef.setInput('pt', {
                 mask: {
                     class: 'custom-mask',
@@ -1257,27 +1327,32 @@ describe('Galleria', () => {
             await ptFixture.whenStable();
 
             const mask = ptFixture.nativeElement.querySelector('[data-pc-section="mask"]');
+
             if (mask) {
                 expect(mask.classList.contains('custom-mask')).toBe(true);
                 expect(mask.style.backgroundColor).toBe('rgba(0, 0, 0, 0.8)');
             }
 
             const closeButton = ptFixture.nativeElement.querySelector('[data-pc-section="closebutton"]');
+
             if (closeButton) {
                 expect(closeButton.classList.contains('custom-close-button')).toBe(true);
             }
 
             const closeIcon = ptFixture.nativeElement.querySelector('[data-pc-section="closeicon"]');
+
             if (closeIcon) {
                 expect(closeIcon.classList.contains('custom-close-icon')).toBe(true);
             }
 
             const header = ptFixture.nativeElement.querySelector('[data-pc-section="header"]');
+
             if (header) {
                 expect(header.classList.contains('custom-header')).toBe(true);
             }
 
             const footer = ptFixture.nativeElement.querySelector('[data-pc-section="footer"]');
+
             if (footer) {
                 expect(footer.classList.contains('custom-footer')).toBe(true);
             }

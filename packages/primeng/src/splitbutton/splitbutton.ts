@@ -5,7 +5,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -15,11 +14,12 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     signal,
     TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    viewChild,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { uuid } from '@primeuix/utils';
@@ -47,7 +47,7 @@ type SplitButtonIconPosition = 'left' | 'right';
     standalone: true,
     imports: [CommonModule, ButtonDirective, TieredMenu, AutoFocus, ChevronDownIcon, Ripple, TooltipModule, SharedModule],
     template: `
-        <ng-container *ngIf="contentTemplate || _contentTemplate; else defaultButton">
+        @if (contentTemplate || _contentTemplate) {
             <button
                 [class]="cx('pcButton')"
                 type="button"
@@ -72,8 +72,7 @@ type SplitButtonIconPosition = 'left' | 'right';
             >
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
             </button>
-        </ng-container>
-        <ng-template #defaultButton>
+        } @else {
             <button
                 #defaultbtn
                 [class]="cx('pcButton')"
@@ -98,7 +97,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [pt]="ptm('pcButton')"
                 [unstyled]="unstyled()"
             ></button>
-        </ng-template>
+        }
         <button
             type="button"
             pButton
@@ -118,11 +117,15 @@ type SplitButtonIconPosition = 'left' | 'right';
             [pt]="ptm('pcDropdown')"
             [unstyled]="unstyled()"
         >
-            <span *ngIf="dropdownIcon" [class]="dropdownIcon"></span>
-            <ng-container *ngIf="!dropdownIcon">
-                <svg data-p-icon="chevron-down" *ngIf="!dropdownIconTemplate && !_dropdownIconTemplate" />
-                <ng-template *ngTemplateOutlet="dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
-            </ng-container>
+            @if (dropdownIcon) {
+                <span [class]="dropdownIcon"></span>
+            }
+            @if (!dropdownIcon) {
+                @if (!dropdownIconTemplate() && !_dropdownIconTemplate) {
+                    <svg data-p-icon="chevron-down" />
+                }
+                <ng-template *ngTemplateOutlet="dropdownIconTemplate() || _dropdownIconTemplate"></ng-template>
+            }
         </button>
         <p-tieredmenu
             [id]="ariaId"
@@ -277,12 +280,10 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
     /**
      * Button Props
      */
@@ -346,9 +347,9 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      */
     @Output() onDropdownClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
-    @ViewChild('defaultbtn') buttonViewChild: ElementRef | undefined;
+    readonly buttonViewChild = viewChild<ElementRef>('defaultbtn');
 
-    @ViewChild('menu') menu: TieredMenu | undefined;
+    readonly menu = viewChild<TieredMenu>('menu');
     /**
      * Custom content template.
      * @group Templates
@@ -358,9 +359,9 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
      * Custom dropdown icon template.
      * @group Templates
      **/
-    @ContentChild('dropdownicon', { descendants: false }) dropdownIconTemplate: TemplateRef<void> | undefined;
+    readonly dropdownIconTemplate = contentChild<TemplateRef<void>>('dropdownicon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     ariaId: string | undefined;
 
@@ -381,7 +382,7 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
     }
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this._contentTemplate = item.template;
@@ -400,12 +401,12 @@ export class SplitButton extends BaseComponent<SplitButtonPassThrough> {
 
     onDefaultButtonClick(event: MouseEvent) {
         this.onClick?.emit(event);
-        this.menu?.hide();
+        this.menu()?.hide();
     }
 
     onDropdownButtonClick(event?: MouseEvent) {
         this.onDropdownClick.emit(event);
-        this.menu?.toggle({ currentTarget: this.el?.nativeElement, relativeAlign: this.$appendTo() == 'self' });
+        this.menu()?.toggle({ currentTarget: this.el?.nativeElement, relativeAlign: this.$appendTo() == 'self' });
     }
 
     onDropdownButtonKeydown(event: KeyboardEvent) {

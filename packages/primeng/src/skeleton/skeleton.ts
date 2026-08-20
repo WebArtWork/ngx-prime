@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -15,7 +14,7 @@ const SKELETON_INSTANCE = new InjectionToken<Skeleton>('SKELETON_INSTANCE');
 @Component({
     selector: 'p-skeleton',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [SharedModule],
     template: ``,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -80,6 +79,7 @@ export class Skeleton extends BaseComponent<SkeletonPassThrough> {
     get containerStyle() {
         const inlineStyles = this._componentStyle?.inlineStyles['root'];
         let style;
+
         if (!this.$unstyled()) {
             if (this.size) style = { ...inlineStyles, width: this.size, height: this.size, borderRadius: this.borderRadius };
             else style = { ...inlineStyles, width: this.width, height: this.height, borderRadius: this.borderRadius };

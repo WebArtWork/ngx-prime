@@ -5,7 +5,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     inject,
@@ -14,10 +13,11 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    viewChild,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { findIndexInList, setAttribute, uuid } from '@primeuix/utils';
@@ -45,12 +45,16 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
     template: `
         <div [pBind]="ptm('controls')" [class]="cx('controls')">
             <button [pt]="ptm('pcMoveUpButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveUp()" [attr.aria-label]="moveUpAriaLabel" [buttonProps]="getButtonProps('up')" hostName="orderlist" [unstyled]="unstyled()">
-                <svg data-p-icon="angle-up" *ngIf="!moveUpIconTemplate && !_moveUpIconTemplate" pButtonIcon [pt]="ptm('pcMoveUpButton')['icon']" />
-                <ng-template *ngTemplateOutlet="moveUpIconTemplate || _moveUpIconTemplate"></ng-template>
+                @if (!moveUpIconTemplate() && !_moveUpIconTemplate) {
+                    <svg data-p-icon="angle-up" pButtonIcon [pt]="ptm('pcMoveUpButton')['icon']" />
+                }
+                <ng-template *ngTemplateOutlet="moveUpIconTemplate() || _moveUpIconTemplate"></ng-template>
             </button>
             <button [pt]="ptm('pcMoveTopButton')" type="button" [disabled]="moveDisabled()" pButton pRipple (click)="moveTop()" [attr.aria-label]="moveTopAriaLabel" [buttonProps]="getButtonProps('top')" hostName="orderlist" [unstyled]="unstyled()">
-                <svg data-p-icon="angle-double-up" *ngIf="!moveTopIconTemplate && !_moveTopIconTemplate" pButtonIcon [pt]="ptm('pcMoveTopButton')['icon']" />
-                <ng-template *ngTemplateOutlet="moveTopIconTemplate || _moveTopIconTemplate"></ng-template>
+                @if (!moveTopIconTemplate() && !_moveTopIconTemplate) {
+                    <svg data-p-icon="angle-double-up" pButtonIcon [pt]="ptm('pcMoveTopButton')['icon']" />
+                }
+                <ng-template *ngTemplateOutlet="moveTopIconTemplate() || _moveTopIconTemplate"></ng-template>
             </button>
             <button
                 [pt]="ptm('pcMoveDownButton')"
@@ -64,8 +68,10 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                 hostName="orderlist"
                 [unstyled]="unstyled()"
             >
-                <svg data-p-icon="angle-down" *ngIf="!moveDownIconTemplate && !_moveDownIconTemplate" pButtonIcon [pt]="ptm('pcMoveDownButton')['icon']" />
-                <ng-template *ngTemplateOutlet="moveDownIconTemplate || _moveDownIconTemplate"></ng-template>
+                @if (!moveDownIconTemplate() && !_moveDownIconTemplate) {
+                    <svg data-p-icon="angle-down" pButtonIcon [pt]="ptm('pcMoveDownButton')['icon']" />
+                }
+                <ng-template *ngTemplateOutlet="moveDownIconTemplate() || _moveDownIconTemplate"></ng-template>
             </button>
             <button
                 [pt]="ptm('pcMoveBottomButton')"
@@ -79,8 +85,10 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
                 hostName="orderlist"
                 [unstyled]="unstyled()"
             >
-                <svg data-p-icon="angle-double-down" *ngIf="!moveBottomIconTemplate && !_moveBottomIconTemplate" pButtonIcon [pt]="ptm('pcMoveBottomButton')['icon']" />
-                <ng-template *ngTemplateOutlet="moveBottomIconTemplate || _moveBottomIconTemplate"></ng-template>
+                @if (!moveBottomIconTemplate() && !_moveBottomIconTemplate) {
+                    <svg data-p-icon="angle-double-down" pButtonIcon [pt]="ptm('pcMoveBottomButton')['icon']" />
+                }
+                <ng-template *ngTemplateOutlet="moveBottomIconTemplate() || _moveBottomIconTemplate"></ng-template>
             </button>
         </div>
         <p-listbox
@@ -111,36 +119,36 @@ const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');
             hostName="orderlist"
             [unstyled]="unstyled()"
         >
-            <ng-container *ngIf="headerTemplate || _headerTemplate">
+            @if (headerTemplate || _headerTemplate) {
                 <ng-template #header>
                     <ng-template *ngTemplateOutlet="headerTemplate || _headerTemplate"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="itemTemplate || _itemTemplate">
+            }
+            @if (itemTemplate || _itemTemplate) {
                 <ng-template #item let-option let-selected="selected" let-index="index">
                     <ng-template *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: option, selected: selected, index: index }"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="emptyMessageTemplate || _emptyMessageTemplate">
+            }
+            @if (emptyMessageTemplate || _emptyMessageTemplate) {
                 <ng-template #empty>
                     <ng-template *ngTemplateOutlet="emptyMessageTemplate || _emptyMessageTemplate"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="emptyFilterMessageTemplate || _emptyFilterMessageTemplate">
+            }
+            @if (emptyFilterMessageTemplate || _emptyFilterMessageTemplate) {
                 <ng-template #emptyfilter>
                     <ng-template *ngTemplateOutlet="emptyFilterMessageTemplate || _emptyFilterMessageTemplate"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="filterIconTemplate || _filterIconTemplate">
+            }
+            @if (filterIconTemplate || _filterIconTemplate) {
                 <ng-template #filtericon>
                     <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-template>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="filterTemplate || _filterTemplate">
+            }
+            @if (filterTemplate || _filterTemplate) {
                 <ng-template #filter let-options="options">
                     <ng-template *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { options: options }"></ng-template>
                 </ng-template>
-            </ng-container>
+            }
         </p-listbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -310,6 +318,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
      */
     @Input() set value(val: any[] | undefined) {
         this._value = val;
+
         if (this.filterValue) {
             this.filter();
         } else if (this.dragdrop) {
@@ -393,9 +402,9 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @ViewChild('listelement') listViewChild!: Listbox;
+    readonly listViewChild = viewChild.required<Listbox>('listelement');
 
-    @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
+    readonly filterViewChild = viewChild<Nullable<ElementRef>>('filter');
 
     /**
      * Custom item template.
@@ -435,25 +444,25 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
      * Custom move up icon template.
      * @group Templates
      */
-    @ContentChild('moveupicon', { descendants: false }) moveUpIconTemplate: TemplateRef<void> | undefined;
+    readonly moveUpIconTemplate = contentChild<TemplateRef<void>>('moveupicon', { descendants: false });
 
     /**
      * Custom move top icon template.
      * @group Templates
      */
-    @ContentChild('movetopicon', { descendants: false }) moveTopIconTemplate: TemplateRef<void> | undefined;
+    readonly moveTopIconTemplate = contentChild<TemplateRef<void>>('movetopicon', { descendants: false });
 
     /**
      * Custom move down icon template.
      * @group Templates
      */
-    @ContentChild('movedownicon', { descendants: false }) moveDownIconTemplate: TemplateRef<void> | undefined;
+    readonly moveDownIconTemplate = contentChild<TemplateRef<void>>('movedownicon', { descendants: false });
 
     /**
      * Custom move bottom icon template.
      * @group Templates
      */
-    @ContentChild('movebottomicon', { descendants: false }) moveBottomIconTemplate: TemplateRef<void> | undefined;
+    readonly moveBottomIconTemplate = contentChild<TemplateRef<void>>('movebottomicon', { descendants: false });
 
     /**
      * Custom filter icon template.
@@ -534,7 +543,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
         }
     }
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _itemTemplate: TemplateRef<OrderListItemTemplateContext> | undefined;
 
@@ -557,7 +566,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
     _filterIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this._itemTemplate = item.template;
@@ -628,6 +637,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
 
     filter() {
         let searchFields: string[] = (this.filterBy as string).split(',');
+
         this.visibleOptions = this.filterService.filter(this.value as any[], searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
     }
 
@@ -637,7 +647,9 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
      */
     public resetFilter() {
         this.filterValue = '';
-        this.filterViewChild && ((<HTMLInputElement>this.filterViewChild.nativeElement).value = '');
+        const filterViewChild = this.filterViewChild();
+
+        filterViewChild && ((<HTMLInputElement>filterViewChild.nativeElement).value = '');
     }
 
     isItemVisible(item: any): boolean | undefined {
@@ -667,10 +679,12 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
 
             for (let selectedItem of sortedSelection) {
                 let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+
                 // Only move if not at top and there's a valid position above
                 if (selectedItemIndex > 0) {
                     let movedItem = this.value[selectedItemIndex];
                     let temp = this.value[selectedItemIndex - 1];
+
                     this.value[selectedItemIndex - 1] = movedItem;
                     this.value[selectedItemIndex] = temp;
                 }
@@ -689,7 +703,8 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
             this.movedUp = true;
             this.onReorder.emit(this.selection);
         }
-        this.listViewChild?.cd?.markForCheck();
+
+        this.listViewChild()?.cd?.markForCheck();
     }
 
     moveTop() {
@@ -700,6 +715,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
 
                 if (selectedItemIndex != 0 && this.value instanceof Array) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
+
                     this.value.unshift(movedItem);
                 } else {
                     break;
@@ -717,10 +733,11 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
 
             this.onReorder.emit(this.selection);
             setTimeout(() => {
-                this.listViewChild.scrollInView(0);
+                this.listViewChild().scrollInView(0);
             });
         }
-        this.listViewChild?.cd?.markForCheck();
+
+        this.listViewChild()?.cd?.markForCheck();
     }
 
     moveDown() {
@@ -729,9 +746,11 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
 
             for (let selectedItem of sortedSelection) {
                 let selectedItemIndex: number = findIndexInList(selectedItem, this.value);
+
                 if (selectedItemIndex < this.value.length - 1) {
                     let movedItem = this.value[selectedItemIndex];
                     let temp = this.value[selectedItemIndex + 1];
+
                     this.value[selectedItemIndex + 1] = movedItem;
                     this.value[selectedItemIndex] = temp;
                 }
@@ -749,7 +768,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
             this.onReorder.emit(this.selection);
         }
 
-        this.listViewChild?.cd?.markForCheck();
+        this.listViewChild()?.cd?.markForCheck();
     }
 
     moveBottom() {
@@ -760,6 +779,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
 
                 if (this.value instanceof Array && selectedItemIndex != this.value.length - 1) {
                     let movedItem = this.value.splice(selectedItemIndex, 1)[0];
+
                     this.value.push(movedItem);
                 } else {
                     break;
@@ -775,9 +795,10 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
             }
 
             this.onReorder.emit(this.selection);
-            this.listViewChild?.scrollInView(this.value?.length ? this.value.length - 1 : 0);
+            this.listViewChild()?.scrollInView(this.value?.length ? this.value.length - 1 : 0);
         }
-        this.listViewChild?.cd?.markForCheck();
+
+        this.listViewChild()?.cd?.markForCheck();
     }
 
     onDrop(event: CdkDragDrop<string[]>) {
@@ -802,6 +823,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                     this.value.length = 0;
                     this.value.push(...originalValue);
                 }
+
                 if (originalVisibleOptions && this.visibleOptions) {
                     this.visibleOptions.length = 0;
                     this.visibleOptions.push(...originalVisibleOptions);
@@ -812,8 +834,10 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
 
                 // Calculate how many selected items are before the drop position
                 let itemsBefore = 0;
+
                 for (const item of itemsToMove) {
                     const itemIndex = findIndexInList(item, this.value || []);
+
                     if (itemIndex !== -1 && itemIndex < currentIndex) {
                         itemsBefore++;
                     }
@@ -822,6 +846,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                 // Remove all selected items (in reverse order to avoid index shifting)
                 for (let i = itemsToMove.length - 1; i >= 0; i--) {
                     const itemIndex = findIndexInList(itemsToMove[i], this.value || []);
+
                     if (itemIndex !== -1) {
                         this.value?.splice(itemIndex, 1);
                     }
@@ -835,6 +860,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                 for (let i = 0; i < itemsToMove.length; i++) {
                     this.value?.splice(targetIndex + i, 0, itemsToMove[i]);
                 }
+
                 // Update visibleOptions to match value
                 if (this.dragdrop) {
                     if (this.filterValue) {
@@ -874,6 +900,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
         return items.sort((a, b) => {
             const indexA = findIndexInList(a, list);
             const indexB = findIndexInList(b, list);
+
             return indexA - indexB;
         });
     }
@@ -926,6 +953,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
                         }
                     }
                 `;
+
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
                 setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }

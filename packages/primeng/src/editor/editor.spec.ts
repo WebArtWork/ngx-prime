@@ -10,7 +10,6 @@ import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEv
 import { Editor } from './editor';
 // Test Components for different scenarios
 @Component({
-    standalone: false,
     template: `
         <p-editor
             [(ngModel)]="text"
@@ -31,7 +30,8 @@ import { Editor } from './editor';
             (onBlur)="onBlur($event)"
         >
         </p-editor>
-    `
+    `,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule]
 })
 class TestBasicEditorComponent {
     text: string = '<div>Initial content</div>';
@@ -79,7 +79,6 @@ class TestBasicEditorComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-editor [(ngModel)]="text">
             <ng-template #header>
@@ -89,14 +88,14 @@ class TestBasicEditorComponent {
                 </span>
             </ng-template>
         </p-editor>
-    `
+    `,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule]
 })
 class TestCustomToolbarComponent {
     text: string = '<div>Custom toolbar test</div>';
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-editor [(ngModel)]="text">
             <ng-template pTemplate="header">
@@ -107,23 +106,24 @@ class TestCustomToolbarComponent {
                 </div>
             </ng-template>
         </p-editor>
-    `
+    `,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule]
 })
 class TestPTemplateComponent {
     text: string = '<div>PTemplate test</div>';
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-editor [(ngModel)]="text" [readonly]="true"> </p-editor> `
+    template: ` <p-editor [(ngModel)]="text" [readonly]="true"> </p-editor> `,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule]
 })
 class TestReadonlyComponent {
     text: string = '<div>Readonly editor content</div>';
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-editor [(ngModel)]="text" [modules]="customModules" [formats]="customFormats"> </p-editor> `
+    template: ` <p-editor [(ngModel)]="text" [modules]="customModules" [formats]="customFormats"> </p-editor> `,
+    imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule]
 })
 class TestCustomConfigurationComponent {
     text: string = '<div>Custom config</div>';
@@ -182,8 +182,7 @@ describe('Editor', () => {
         };
 
         await TestBed.configureTestingModule({
-            imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule],
-            declarations: [TestBasicEditorComponent, TestCustomToolbarComponent, TestPTemplateComponent, TestReadonlyComponent, TestCustomConfigurationComponent],
+            imports: [CommonModule, Editor, SharedModule, PrimeTemplate, FormsModule, TestBasicEditorComponent, TestCustomToolbarComponent, TestPTemplateComponent, TestReadonlyComponent, TestCustomConfigurationComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
     });
@@ -200,6 +199,7 @@ describe('Editor', () => {
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
+
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -249,11 +249,13 @@ describe('Editor', () => {
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
+
             editorInstance = editorEl.componentInstance as Editor;
         });
 
         it('should write control value', () => {
             const newValue = '<div>New content</div>';
+
             editorInstance.writeControlValue(newValue);
 
             expect(editorInstance.value).toBe(newValue);
@@ -261,6 +263,7 @@ describe('Editor', () => {
 
         it('should get quill instance', () => {
             const quillInstance = editorInstance.getQuill();
+
             // In test environment, quill might not be fully initialized
             expect(editorInstance.getQuill).toBeDefined();
         });
@@ -298,6 +301,7 @@ describe('Editor', () => {
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
+
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -391,15 +395,18 @@ describe('Editor', () => {
 
         it('should render custom header template', () => {
             const customToolbar = fixture.debugElement.query(By.css('.custom-toolbar'));
+
             expect(customToolbar).toBeTruthy();
 
             const boldButton = fixture.debugElement.query(By.css('.custom-bold'));
+
             expect(boldButton).toBeTruthy();
             expect(boldButton.nativeElement.getAttribute('aria-label')).toBe('Bold');
         });
 
         it('should render custom toolbar buttons', () => {
             const italicButton = fixture.debugElement.query(By.css('.custom-italic'));
+
             expect(italicButton).toBeTruthy();
             expect(italicButton.nativeElement.getAttribute('aria-label')).toBe('Italic');
         });
@@ -430,10 +437,12 @@ describe('Editor', () => {
 
         it('should render pTemplate toolbar content', () => {
             const ptemplateToolbar = fixture.debugElement.query(By.css('.ptemplate-toolbar'));
+
             if (ptemplateToolbar) {
                 expect(ptemplateToolbar).toBeTruthy();
 
                 const underlineButton = fixture.debugElement.query(By.css('.ql-underline'));
+
                 expect(underlineButton).toBeTruthy();
             } else {
                 expect(true).toBe(true);
@@ -475,8 +484,10 @@ describe('Editor', () => {
 
             // Simulate ngStyle behavior in test environment
             const contentElement = fixture.debugElement.query(By.css('.p-editor-content'));
+
             if (contentElement && editorInstance.style) {
                 const element = contentElement.nativeElement;
+
                 Object.keys(editorInstance.style).forEach((key) => {
                     element.style[key] = editorInstance.style![key];
                 });
@@ -561,6 +572,7 @@ describe('Editor', () => {
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
+
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -607,6 +619,7 @@ describe('Editor', () => {
             } else {
                 // Editor content might not be rendered yet in test environment
                 const editorRoot = fixture.debugElement.query(By.css('p-editor'));
+
                 expect(editorRoot).toBeTruthy();
             }
         });
@@ -644,6 +657,7 @@ describe('Editor', () => {
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
+
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -689,6 +703,7 @@ describe('Editor', () => {
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
+
             editorInstance = editorEl.componentInstance as Editor;
         });
 
@@ -699,6 +714,7 @@ describe('Editor', () => {
 
         it('should handle HTML content with special characters', () => {
             const htmlContent = '<div>Test &amp; content with "quotes" and \'apostrophes\'</div>';
+
             editorInstance.writeControlValue(htmlContent);
             expect(editorInstance.value).toBe(htmlContent);
         });
@@ -767,6 +783,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase1Component);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -824,6 +841,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase2Component);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -886,6 +904,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase3Component);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -923,23 +942,17 @@ describe('Editor', () => {
                 isReadonly = true;
                 placeholder = 'Test placeholder';
                 pt = {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.readonly ? 'READONLY_CLASS' : 'NOT_READONLY_CLASS'
-                        };
-                    },
-                    toolbar: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'background-color': instance?.readonly ? 'yellow' : 'red'
-                            } as any
-                        };
-                    },
-                    content: ({ instance }: any) => {
-                        return {
-                            'data-placeholder': instance?.placeholder
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.readonly ? 'READONLY_CLASS' : 'NOT_READONLY_CLASS'
+                    }),
+                    toolbar: ({ instance }: any) => ({
+                        style: {
+                            'background-color': instance?.readonly ? 'yellow' : 'red'
+                        } as any
+                    }),
+                    content: ({ instance }: any) => ({
+                        'data-placeholder': instance?.placeholder
+                    })
                 };
             }
 
@@ -950,6 +963,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestPTCase4Component);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -981,6 +995,7 @@ describe('Editor', () => {
 
                 // Verify class changed
                 const editorRootAfter = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+
                 expect(editorRootAfter.classList.contains('READONLY_CLASS') || editorRootAfter.classList.contains('NOT_READONLY_CLASS')).toBe(true);
             });
         });
@@ -995,20 +1010,16 @@ describe('Editor', () => {
                 text: string = '<div>Test</div>';
                 clickedElement: string = '';
                 pt = {
-                    bold: ({ instance }: any) => {
-                        return {
-                            onclick: (event: Event) => {
-                                this.clickedElement = 'bold';
-                            }
-                        };
-                    },
-                    italic: ({ instance }: any) => {
-                        return {
-                            onclick: (event: Event) => {
-                                this.clickedElement = 'italic';
-                            }
-                        };
-                    }
+                    bold: ({ instance }: any) => ({
+                        onclick: (event: Event) => {
+                            this.clickedElement = 'bold';
+                        }
+                    }),
+                    italic: ({ instance }: any) => ({
+                        onclick: (event: Event) => {
+                            this.clickedElement = 'italic';
+                        }
+                    })
                 };
             }
 
@@ -1020,6 +1031,7 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestPTCase5Component);
                 const component = fixture.componentInstance;
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1062,6 +1074,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestInlineComponent);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1069,6 +1082,7 @@ describe('Editor', () => {
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+
                 expect(editorRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
             });
 
@@ -1088,6 +1102,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestInlineObjectComponent);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1095,6 +1110,7 @@ describe('Editor', () => {
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+
                 expect(editorRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 expect(editorRoot.style.border).toBe('2px solid red');
             });
@@ -1132,6 +1148,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1139,6 +1156,7 @@ describe('Editor', () => {
                 await fixture.whenStable();
 
                 const editors = fixture.debugElement.queryAll(By.css('p-editor'));
+
                 expect(editors.length).toBe(2);
 
                 editors.forEach((editor) => {
@@ -1191,6 +1209,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestGlobalCSSComponent);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1198,10 +1217,12 @@ describe('Editor', () => {
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+
                 expect(editorRoot.classList.contains('GLOBAL_CSS_CLASS')).toBe(true);
 
                 // Check if global CSS style tag was injected
                 const styleTag = document.head.querySelector('style[data-primeng-global-css]');
+
                 if (styleTag) {
                     expect(styleTag.textContent).toContain('.p-editor-toolbar');
                     expect(styleTag.textContent).toContain('border: 1px solid red !important');
@@ -1239,6 +1260,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestHooksComponent);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1249,6 +1271,7 @@ describe('Editor', () => {
                 expect(hookCalls).toContain('onAfterViewInit');
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
+
                 expect(editorRoot.classList.contains('MY-EDITOR')).toBe(true);
 
                 // Destroy the component
@@ -1293,6 +1316,7 @@ describe('Editor', () => {
                 });
 
                 const fixture = TestBed.createComponent(TestMultipleHooksComponent);
+
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));

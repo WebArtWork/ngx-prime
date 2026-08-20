@@ -10,66 +10,90 @@ permissions:
 jobs:
   issue-labeled:
     permissions:
-      issues: write  # for actions-cool/issues-helper to update issues
-      pull-requests: write  # for actions-cool/issues-helper to update PRs
+      issues: write
     runs-on: ubuntu-latest
     steps:
       - name: Cannot Replicate
         if: contains(github.event.label.name, 'Cannot Replicate')
-        uses: actions-cool/issues-helper@v3
+        uses: actions/github-script@v9
         with:
-          actions: 'create-comment'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            We're unable to replicate this issue. Please provide a minimal reproducible example or additional details by editing this issue. This issue will be closed if there is no activity in 20 days.
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: "We're unable to replicate this issue. Please provide a minimal reproducible example or additional details by editing this issue. This issue will be closed if there is no activity in 20 days."
+            });
 
       - name: Needs Upvote
         if: contains(github.event.label.name, 'Needs Upvote')
-        uses: actions-cool/issues-helper@v3
+        uses: actions/github-script@v9
         with:
-          actions: 'create-comment'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            Thanks for this issue. Community feedback and reactions help maintainers prioritize fixes and related pull requests.
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: "Thanks for this issue. Community feedback and reactions help maintainers prioritize fixes and related pull requests."
+            });
 
       - name: Needs More Information
         if: contains(github.event.label.name, 'Needs More Information')
-        uses: actions-cool/issues-helper@v3
+        uses: actions/github-script@v9
         with:
-          actions: 'create-comment'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            More information is needed to find a solution. A runnable StackBlitz example and additional details would be helpful.
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: "More information is needed to find a solution. A runnable StackBlitz example and additional details would be helpful."
+            });
 
       - name: Wontfix
         if: contains(github.event.label.name, 'Wontfix')
-        uses: actions-cool/issues-helper@v3
+        uses: actions/github-script@v9
         with:
-          actions: 'create-comment'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            Unfortunately, this issue cannot be fixed due to technical limitations. Thanks for your understanding.
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: "Unfortunately, this issue cannot be fixed due to technical limitations. Thanks for your understanding."
+            });
 
       - name: Help Wanted
         if: contains(github.event.label.name, 'Help Wanted')
-        uses: actions-cool/issues-helper@v3
+        uses: actions/github-script@v9
         with:
-          actions: 'create-comment'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            This issue is available for anyone to work on. [**Make sure to reference this issue in your pull request.**](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) :sparkles: Thank you for your contribution! :sparkles:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: "This issue is available for anyone to work on. [**Make sure to reference this issue in your pull request.**](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) :sparkles: Thank you for your contribution! :sparkles:"
+            });
 
       - name: Duplicate
         if: contains(github.event.label.name, 'Duplicate')
-        uses: actions-cool/issues-helper@v3
+        uses: actions/github-script@v9
         with:
-          actions: 'create-comment, close-issue'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            This issue has been marked as a duplicate and has been closed. Please refer to the original issue for updates. Thank you!
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              body: "This issue has been marked as a duplicate and has been closed. Please refer to the original issue for updates. Thank you!"
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.issue.number,
+              state: 'closed',
+              state_reason: 'not_planned'
+            });

@@ -87,6 +87,7 @@ export class DesignerService {
 
         if (token && token.startsWith('{') && token.endsWith('}')) {
             let cssVariable = $dt(token).variable.slice(4, -1);
+
             color = getComputedStyle(document.documentElement).getPropertyValue(cssVariable);
         } else {
             color = token;
@@ -152,9 +153,11 @@ export class DesignerService {
             withCredentials: true,
             params: { passkey: this.otp() }
         };
+
         this.http.get(url, options).subscribe({
             next: (res: any) => {
                 const data = res.data;
+
                 if (data.valid) {
                     this.designer.update((prev) => ({ ...prev, verified: true, csrfToken: data.csrfToken, themeLimit: data.themeLimit }));
                     this.loadThemes();
@@ -175,6 +178,7 @@ export class DesignerService {
         this.http.get(`${this.baseUrl}/license/signout`, { withCredentials: true }).subscribe({
             next: (res: any) => {
                 const data = res.data;
+
                 if (data.signout) {
                     this.designer.set({
                         verified: false,
@@ -211,6 +215,7 @@ export class DesignerService {
         this.http.get(`${this.baseUrl}/theme/list`, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
             next: (res: any) => {
                 const data = res.data;
+
                 this.designer.update((prev) => ({ ...prev, themes: data }));
                 this.loading.set(false);
             },
@@ -250,6 +255,7 @@ export class DesignerService {
                 if (res.error) {
                     this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
                 }
+
                 this.loadThemes();
             },
             error: (err: any) => {
@@ -264,6 +270,7 @@ export class DesignerService {
                 if (res.error) {
                     this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
                 }
+
                 this.loadThemes();
             },
             error: (err: any) => {
@@ -349,6 +356,7 @@ export class DesignerService {
         }
 
         usePreset(theme.preset);
+
         if (showMessage) {
             this.messageService.add({ key: 'designer', severity: 'success', summary: 'Success', detail: 'Theme saved.', life: 3000 });
         }
@@ -361,6 +369,7 @@ export class DesignerService {
                     this.status.set('preview');
                     this.missingTokens.set(res.data);
                 }
+
                 if (res.error) {
                     this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
                 }
@@ -396,6 +405,7 @@ export class DesignerService {
                 this.status.set(null);
                 this.missingTokens.set([]);
                 const data = res.data;
+
                 this.activateTheme(data);
             },
             error: (err: any) => {
@@ -420,7 +430,9 @@ export class DesignerService {
                     if (res.error) {
                         this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: res.error.message, life: 3000 });
                     }
+
                     const data = res.data;
+
                     if (data && data.valid) {
                         theme.t_name = data.name;
                     }
@@ -499,6 +511,7 @@ export class DesignerService {
                     font_family: 'Inter var'
                 }
             };
+
             this.http.post(`${url}`, body, { withCredentials: true, headers: { 'X-CSRF-Token': this.designer().csrfToken } }).subscribe({
                 next: (res: any) => {
                     if (res.error) {

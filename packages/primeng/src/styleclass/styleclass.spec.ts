@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { StyleClass } from './styleclass';
 
 @Component({
-    standalone: false,
     template: `
         <button
             pStyleClass="@next"
@@ -24,7 +23,8 @@ import { StyleClass } from './styleclass';
             Toggle
         </button>
         <div class="target-element" [class.hidden]="targetHidden">Target Content</div>
-    `
+    `,
+    imports: [StyleClass]
 })
 class TestBasicStyleClassComponent {
     enterFromClass: string | undefined;
@@ -42,7 +42,6 @@ class TestBasicStyleClassComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <div class="container target-parent">
             <button pStyleClass="@parent" [toggleClass]="toggleClass">Parent Toggle</button>
@@ -51,50 +50,51 @@ class TestBasicStyleClassComponent {
                 <button pStyleClass="@prev" [toggleClass]="toggleClass">Previous Toggle</button>
             </div>
         </div>
-    `
+    `,
+    imports: [StyleClass]
 })
 class TestSelectorStyleClassComponent {
     toggleClass = 'active';
 }
 
 @Component({
-    standalone: false,
     template: `
         <div class="grandparent">
             <div class="parent">
                 <button pStyleClass="@grandparent" [toggleClass]="toggleClass">Grandparent Toggle</button>
             </div>
         </div>
-    `
+    `,
+    imports: [StyleClass]
 })
 class TestGrandparentSelectorComponent {
     toggleClass = 'highlight';
 }
 
 @Component({
-    standalone: false,
     template: `
         <button pStyleClass="@next" enterActiveClass="slide-down-enter" leaveActiveClass="slide-up-leave" [hideOnOutsideClick]="true" [hideOnEscape]="true">Animated Toggle</button>
         <div class="animated-target">Animated Content</div>
-    `
+    `,
+    imports: [StyleClass]
 })
 class TestAnimationStyleClassComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <button pStyleClass="@next" enterActiveClass="slidedown" enterFromClass="hidden" enterToClass="visible" leaveFromClass="visible" leaveActiveClass="slideup" leaveToClass="hidden">Slidedown Animation</button>
         <div class="slidedown-target">Slidedown Content</div>
-    `
+    `,
+    imports: [StyleClass]
 })
 class TestSlidedownStyleClassComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <button pStyleClass="#resize-target" [hideOnResize]="true" [toggleClass]="toggleClass">Resize Toggle</button>
         <div id="resize-target" class="resize-target">Resize Target</div>
-    `
+    `,
+    imports: [StyleClass]
 })
 class TestResizeStyleClassComponent {
     toggleClass = 'expanded';
@@ -108,8 +108,7 @@ describe('StyleClass', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicStyleClassComponent, TestSelectorStyleClassComponent, TestGrandparentSelectorComponent, TestAnimationStyleClassComponent, TestSlidedownStyleClassComponent, TestResizeStyleClassComponent],
-            imports: [StyleClass],
+            imports: [StyleClass, TestBasicStyleClassComponent, TestSelectorStyleClassComponent, TestGrandparentSelectorComponent, TestAnimationStyleClassComponent, TestSlidedownStyleClassComponent, TestResizeStyleClassComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -272,6 +271,7 @@ describe('StyleClass', () => {
 
             // Set target to be hidden (offsetParent === null)
             const targetElement = fixture.debugElement.query(By.css('.target-element'));
+
             Object.defineProperty(targetElement.nativeElement, 'offsetParent', {
                 value: null,
                 configurable: true
@@ -290,6 +290,7 @@ describe('StyleClass', () => {
 
             // Set target to be visible (offsetParent !== null)
             const targetElement = fixture.debugElement.query(By.css('.target-element'));
+
             Object.defineProperty(targetElement.nativeElement, 'offsetParent', {
                 value: document.body,
                 configurable: true
@@ -320,6 +321,7 @@ describe('StyleClass', () => {
 
         it('should add class when not present', () => {
             const targetElement = styleClassInstance.target as HTMLElement;
+
             // Remove any existing classes to ensure clean test state
             targetElement.classList.remove('active', 'hidden');
 
@@ -332,6 +334,7 @@ describe('StyleClass', () => {
 
         it('should remove class when present', () => {
             const targetElement = styleClassInstance.target as HTMLElement;
+
             // Remove any existing classes first, then add the one we want to test
             targetElement.classList.remove('active', 'hidden');
             targetElement.classList.add('active');
@@ -375,6 +378,7 @@ describe('StyleClass', () => {
             await fixture.whenStable();
 
             const targetElement = styleClassInstance.target as HTMLElement;
+
             targetElement.classList.add('hidden');
 
             styleClassInstance.enter();
@@ -391,6 +395,7 @@ describe('StyleClass', () => {
             await fixture.whenStable();
 
             const targetElement = styleClassInstance.target as HTMLElement;
+
             targetElement.classList.add('hidden');
 
             styleClassInstance.enter();
@@ -406,6 +411,7 @@ describe('StyleClass', () => {
             await fixture.whenStable();
 
             const targetElement = styleClassInstance.target as HTMLElement;
+
             // Mock scrollHeight for slidedown calculation
             Object.defineProperty(targetElement, 'scrollHeight', {
                 value: 100,
@@ -481,6 +487,7 @@ describe('StyleClass', () => {
             await fixture.whenStable();
 
             const targetElement = styleClassInstance.target as HTMLElement;
+
             targetElement.classList.add('visible');
 
             styleClassInstance.leave();
@@ -497,6 +504,7 @@ describe('StyleClass', () => {
             await fixture.whenStable();
 
             const targetElement = styleClassInstance.target as HTMLElement;
+
             targetElement.classList.add('visible');
 
             styleClassInstance.leave();
@@ -559,6 +567,7 @@ describe('StyleClass', () => {
     describe('Selector Tests', () => {
         it('should work with @parent selector', async () => {
             const selectorFixture = TestBed.createComponent(TestSelectorStyleClassComponent);
+
             selectorFixture.changeDetectorRef.markForCheck();
             await selectorFixture.whenStable();
 
@@ -573,6 +582,7 @@ describe('StyleClass', () => {
 
         it('should work with @prev selector', async () => {
             const selectorFixture = TestBed.createComponent(TestSelectorStyleClassComponent);
+
             selectorFixture.changeDetectorRef.markForCheck();
             await selectorFixture.whenStable();
 
@@ -588,6 +598,7 @@ describe('StyleClass', () => {
 
         it('should work with @grandparent selector', async () => {
             const grandparentFixture = TestBed.createComponent(TestGrandparentSelectorComponent);
+
             grandparentFixture.changeDetectorRef.markForCheck();
             await grandparentFixture.whenStable();
 
@@ -611,6 +622,7 @@ describe('StyleClass', () => {
             buttonElement.nativeElement.click();
 
             const targetElement = fixture.debugElement.query(By.css('.target-element'));
+
             expect(styleClassInstance.target).toBe(targetElement.nativeElement);
         });
     });
@@ -630,9 +642,11 @@ describe('StyleClass', () => {
 
         it('should detect outside click correctly', () => {
             const outsideElement = document.createElement('div');
+
             document.body.appendChild(outsideElement);
 
             const clickEvent = new MouseEvent('click', { bubbles: true });
+
             Object.defineProperty(clickEvent, 'target', { value: outsideElement });
 
             expect(styleClassInstance.isOutsideClick(clickEvent)).toBe(true);
@@ -642,6 +656,7 @@ describe('StyleClass', () => {
 
         it('should not detect inside click as outside click', () => {
             const clickEvent = new MouseEvent('click', { bubbles: true });
+
             Object.defineProperty(clickEvent, 'target', { value: buttonElement.nativeElement });
 
             expect(styleClassInstance.isOutsideClick(clickEvent)).toBe(false);
@@ -680,6 +695,7 @@ describe('StyleClass', () => {
         it('should call leave method on escape key', async () => {
             // Set up target to be visible
             const targetElement = styleClassInstance.target as HTMLElement;
+
             Object.defineProperty(targetElement, 'offsetParent', {
                 value: document.body,
                 configurable: true
@@ -785,6 +801,7 @@ describe('StyleClass', () => {
 
         it('should detect visible element', () => {
             const targetElement = styleClassInstance.target as HTMLElement;
+
             Object.defineProperty(targetElement, 'offsetParent', {
                 value: document.body,
                 configurable: true
@@ -795,6 +812,7 @@ describe('StyleClass', () => {
 
         it('should detect hidden element', () => {
             const targetElement = styleClassInstance.target as HTMLElement;
+
             Object.defineProperty(targetElement, 'offsetParent', {
                 value: null,
                 configurable: true
@@ -820,6 +838,7 @@ describe('StyleClass', () => {
 
             const targetElement = styleClassInstance.target as HTMLElement;
             const animationEndEvent = new AnimationEvent('animationend');
+
             targetElement.dispatchEvent(animationEndEvent);
 
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -841,6 +860,7 @@ describe('StyleClass', () => {
 
             const targetElement = styleClassInstance.target as HTMLElement;
             const animationEndEvent = new AnimationEvent('animationend');
+
             targetElement.dispatchEvent(animationEndEvent);
 
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -857,9 +877,11 @@ describe('StyleClass', () => {
             await fixture.whenStable();
 
             const targetElement = styleClassInstance.target as HTMLElement;
+
             styleClassInstance.enter();
 
             const animationEndEvent = new AnimationEvent('animationend');
+
             targetElement.dispatchEvent(animationEndEvent);
 
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -900,6 +922,7 @@ describe('StyleClass', () => {
             const targetElement = styleClassInstance.target as HTMLElement;
             // Should only have one instance of the class
             const classCount = targetElement.className.split('slide-in').length - 1;
+
             expect(classCount).toBe(1);
         });
 
@@ -946,6 +969,7 @@ describe('StyleClass', () => {
     describe('Integration Tests', () => {
         it('should work with animation component', async () => {
             const animationFixture = TestBed.createComponent(TestAnimationStyleClassComponent);
+
             animationFixture.changeDetectorRef.markForCheck();
             await animationFixture.whenStable();
 
@@ -961,6 +985,7 @@ describe('StyleClass', () => {
 
         it('should work with slidedown component', async () => {
             const slidedownFixture = TestBed.createComponent(TestSlidedownStyleClassComponent);
+
             slidedownFixture.changeDetectorRef.markForCheck();
             await slidedownFixture.whenStable();
 
@@ -1017,6 +1042,7 @@ describe('StyleClass', () => {
 
         it('should cleanup resize observer on destroy', async () => {
             const resizeFixture = TestBed.createComponent(TestResizeStyleClassComponent);
+
             resizeFixture.changeDetectorRef.markForCheck();
             await resizeFixture.whenStable();
 
@@ -1035,6 +1061,7 @@ describe('StyleClass', () => {
 
         it('should cleanup event listener if exists', () => {
             const mockListener = jasmine.createSpy('eventListener');
+
             styleClassInstance.eventListener = mockListener;
 
             styleClassInstance.ngOnDestroy();

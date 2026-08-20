@@ -6,7 +6,6 @@ import { Button, ButtonDirective, ButtonIcon, ButtonLabel } from './button';
 
 // Basic Button Component Test
 @Component({
-    standalone: false,
     template: `
         <p-button
             [label]="label"
@@ -36,7 +35,8 @@ import { Button, ButtonDirective, ButtonIcon, ButtonLabel } from './button';
             (onBlur)="onButtonBlur($event)"
         >
         </p-button>
-    `
+    `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestBasicButtonComponent {
     label: string | undefined = 'Click Me';
@@ -81,7 +81,6 @@ class TestBasicButtonComponent {
 
 // Button with Templates
 @Component({
-    standalone: false,
     template: `
         <p-button [loading]="loading">
             <ng-template pTemplate="content">
@@ -97,14 +96,14 @@ class TestBasicButtonComponent {
                 <i class="pi pi-spin pi-cog custom-loading-icon"></i>
             </ng-template>
         </p-button>
-    `
+    `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestTemplatePButtonComponent {
     loading: boolean = false;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-button>
             <ng-template #content>
@@ -120,13 +119,13 @@ class TestTemplatePButtonComponent {
                 <i class="content-loading-icon pi pi-spin pi-spinner"></i>
             </ng-template>
         </p-button>
-    `
+    `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestContentTemplateButtonComponent {}
 
 // Button Directive Test
 @Component({
-    standalone: false,
     template: `
         <button
             pButton
@@ -145,7 +144,8 @@ class TestContentTemplateButtonComponent {}
         >
             {{ label }}
         </button>
-    `
+    `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestButtonDirectiveComponent {
     icon: string | undefined;
@@ -170,20 +170,20 @@ class TestButtonDirectiveComponent {
 
 // Button with pButtonIcon and pButtonLabel directives
 @Component({
-    standalone: false,
     template: `
         <button pButton>
             <span pButtonIcon class="pi pi-check"></span>
             <span pButtonLabel>Icon & Label</span>
         </button>
-    `
+    `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestButtonWithIconLabelDirectiveComponent {}
 
 // Loading Button Test
 @Component({
-    standalone: false,
-    template: ` <p-button [label]="label" [loading]="loading" [loadingIcon]="loadingIcon" (onClick)="toggleLoading()"> </p-button> `
+    template: ` <p-button [label]="label" [loading]="loading" [loadingIcon]="loadingIcon" (onClick)="toggleLoading()"> </p-button> `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestLoadingButtonComponent {
     label = 'Load Data';
@@ -197,7 +197,6 @@ class TestLoadingButtonComponent {
 
 // Severity Button Test
 @Component({
-    standalone: false,
     template: `
         <div class="button-group">
             <p-button label="Primary" severity="primary"></p-button>
@@ -209,13 +208,13 @@ class TestLoadingButtonComponent {
             <p-button label="Help" severity="help"></p-button>
             <p-button label="Contrast" severity="contrast"></p-button>
         </div>
-    `
+    `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestSeverityButtonComponent {}
 
 // Button Variants Test
 @Component({
-    standalone: false,
     template: `
         <div class="variant-buttons">
             <p-button label="Raised" [raised]="true"></p-button>
@@ -227,14 +226,15 @@ class TestSeverityButtonComponent {}
             <p-button label="Large" size="large"></p-button>
             <p-button label="Fluid" [fluid]="true"></p-button>
         </div>
-    `
+    `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestButtonVariantsComponent {}
 
 // Badge Button Test
 @Component({
-    standalone: false,
-    template: ` <p-button label="Messages" icon="pi pi-envelope" [badge]="badge" [badgeSeverity]="badgeSeverity"> </p-button> `
+    template: ` <p-button label="Messages" icon="pi pi-envelope" [badge]="badge" [badgeSeverity]="badgeSeverity"> </p-button> `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestBadgeButtonComponent {
     badge = '5';
@@ -243,7 +243,6 @@ class TestBadgeButtonComponent {
 
 // Icon Button Test
 @Component({
-    standalone: false,
     template: `
         <div class="icon-buttons">
             <p-button icon="pi pi-search" [iconPos]="iconPos"></p-button>
@@ -252,7 +251,8 @@ class TestBadgeButtonComponent {
             <p-button label="Search" icon="pi pi-search" iconPos="top"></p-button>
             <p-button label="Search" icon="pi pi-search" iconPos="bottom"></p-button>
         </div>
-    `
+    `,
+    imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel]
 })
 class TestIconButtonComponent {
     iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
@@ -266,7 +266,11 @@ describe('Button', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                Button,
+                ButtonDirective,
+                ButtonIcon,
+                ButtonLabel,
                 TestBasicButtonComponent,
                 TestTemplatePButtonComponent,
                 TestContentTemplateButtonComponent,
@@ -278,7 +282,6 @@ describe('Button', () => {
                 TestBadgeButtonComponent,
                 TestIconButtonComponent
             ],
-            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -317,6 +320,7 @@ describe('Button', () => {
 
         it('should display label correctly', () => {
             const labelElement = buttonElement.querySelector('.p-button-label');
+
             expect(labelElement?.textContent?.trim()).toBe('Click Me');
         });
     });
@@ -330,6 +334,7 @@ describe('Button', () => {
 
             expect(buttonInstance.label).toBe('Updated Label');
             const labelElement = buttonElement.querySelector('.p-button-label');
+
             expect(labelElement?.textContent?.trim()).toBe('Updated Label');
         });
 
@@ -341,6 +346,7 @@ describe('Button', () => {
 
             expect(buttonInstance.icon).toBe('pi pi-search');
             const iconElement = buttonElement.querySelector('.p-button-icon');
+
             expect(iconElement).toBeTruthy();
         });
 
@@ -362,6 +368,7 @@ describe('Button', () => {
 
             expect(buttonInstance.loading()()).toBe(true);
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
         });
 
@@ -396,6 +403,7 @@ describe('Button', () => {
             // Manually apply styles to test the style binding works as expected
             const style = buttonInstance.style();
             const style = buttonInstance.style();
+
             if (style) {
                 Object.keys(style).forEach((key) => {
                     buttonElement.style[key] = buttonInstance.style()()![key];
@@ -461,6 +469,7 @@ describe('Button', () => {
 
         it('should not emit events when disabled', async () => {
             const clickSpy = spyOn(component, 'onButtonClick');
+
             component.disabled = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -605,6 +614,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const iconElement = buttonElement.querySelector('.p-button-icon');
+
             expect(iconElement).toBeTruthy();
         });
 
@@ -618,6 +628,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             let iconElement = buttonElement.querySelector('.p-button-icon-left');
+
             expect(iconElement).toBeTruthy();
 
             // Right position
@@ -649,6 +660,7 @@ describe('Button', () => {
         it('should show loading spinner', async () => {
             const loadingFixture = TestBed.createComponent(TestLoadingButtonComponent);
             const loadingComponent = loadingFixture.componentInstance;
+
             loadingFixture.detectChanges();
 
             loadingComponent.loading = true;
@@ -657,6 +669,7 @@ describe('Button', () => {
             loadingFixture.detectChanges();
 
             const loadingIcon = loadingFixture.debugElement.query(By.css('[data-pc-section="loadingicon"]'));
+
             expect(loadingIcon).toBeTruthy();
         });
 
@@ -681,6 +694,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
         });
     });
@@ -688,10 +702,12 @@ describe('Button', () => {
     describe('Badge Functionality', () => {
         it('should display badge', async () => {
             const badgeFixture = TestBed.createComponent(TestBadgeButtonComponent);
+
             badgeFixture.detectChanges();
             await fixture.whenStable();
 
             const badgeElement = badgeFixture.debugElement.query(By.css('p-badge'));
+
             expect(badgeElement).toBeTruthy();
         });
     });
@@ -701,6 +717,7 @@ describe('Button', () => {
         describe('pTemplate Approach Tests', () => {
             it('should handle pTemplate content processing', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
+
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -715,11 +732,13 @@ describe('Button', () => {
 
                 // Verify pTemplate content container is rendered
                 const buttonElement = templateFixture.debugElement.query(By.css('button'));
+
                 expect(buttonElement).toBeTruthy();
             });
 
             it('should process _contentTemplate from pTemplate="content"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
+
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -735,6 +754,7 @@ describe('Button', () => {
 
             it('should process _iconTemplate from pTemplate="icon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
+
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -751,6 +771,7 @@ describe('Button', () => {
             it('should process _loadingIconTemplate from pTemplate="loadingicon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 const templateComponent = templateFixture.componentInstance;
+
                 templateComponent.loading = true;
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -769,17 +790,20 @@ describe('Button', () => {
 
             it('should render custom content template with pTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
+
                 templateFixture.detectChanges();
                 await fixture.whenStable();
 
                 const customContent = templateFixture.debugElement.queryAll(By.css('.custom-content'));
                 const customLabels = templateFixture.debugElement.queryAll(By.css('.custom-label'));
+
                 // Either custom content or at least custom labels should exist
                 expect(customContent.length + customLabels.length).toBeGreaterThanOrEqual(0);
             });
 
             it('should render custom icon template with pTemplate', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
+
                 templateFixture.detectChanges();
                 await fixture.whenStable();
 
@@ -790,12 +814,14 @@ describe('Button', () => {
                 expect(buttonInstance.templates).toBeDefined();
 
                 const customIcons = templateFixture.debugElement.queryAll(By.css('.custom-template-icon'));
+
                 expect(customIcons.length).toBeGreaterThanOrEqual(0);
             });
 
             it('should render custom loading icon template', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
                 const templateComponent = templateFixture.componentInstance;
+
                 templateComponent.loading = true;
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
@@ -808,6 +834,7 @@ describe('Button', () => {
                 expect(buttonInstance.templates).toBeDefined();
 
                 const customLoadingIcons = templateFixture.debugElement.queryAll(By.css('.custom-loading-icon'));
+
                 expect(customLoadingIcons.length).toBeGreaterThanOrEqual(0);
             });
         });
@@ -815,6 +842,7 @@ describe('Button', () => {
         describe('#template Approach Tests', () => {
             it('should handle #content template processing', async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateButtonComponent);
+
                 contentTemplateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -829,11 +857,13 @@ describe('Button', () => {
 
                 // Verify content container is rendered
                 const buttonElement = contentTemplateFixture.debugElement.query(By.css('button'));
+
                 expect(buttonElement).toBeTruthy();
             });
 
             it("should process contentTemplate from @ContentChild('content')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateButtonComponent);
+
                 contentTemplateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -869,35 +899,42 @@ describe('Button', () => {
 
                 // Test pTemplate rendering
                 const pTemplateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
+
                 pTemplateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
                 const pTemplateButton = pTemplateFixture.debugElement.query(By.directive(Button)).componentInstance;
+
                 expect(pTemplateButton.templates).toBeDefined();
                 expect(() => pTemplateButton.ngAfterContentInit()).not.toThrow();
 
                 // Test #content template rendering
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateButtonComponent);
+
                 contentTemplateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
 
                 const contentTemplateButton = contentTemplateFixture.debugElement.query(By.directive(Button)).componentInstance;
+
                 expect(contentTemplateButton.contentTemplate).toBeDefined();
             });
 
             it('should use default templates when custom ones are not provided', () => {
                 // Test default behavior without custom templates
                 const buttonElement = fixture.debugElement.query(By.css('button'));
+
                 expect(buttonElement).toBeTruthy();
 
                 const defaultLabel = buttonElement.query(By.css('.p-button-label'));
+
                 expect(defaultLabel).toBeTruthy();
             });
 
             it('should handle ngAfterContentInit template processing correctly', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePButtonComponent);
+
                 templateFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable();
@@ -1021,12 +1058,14 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const iconElement = buttonElement.querySelector('.p-button-icon');
+
             expect(iconElement).toBeTruthy();
             expect(iconElement?.classList.contains('pi')).toBe(true);
             expect(iconElement?.classList.contains('pi-search')).toBe(true);
 
             // Should not have loading icon
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeFalsy();
         });
 
@@ -1042,14 +1081,17 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
 
             // Should use default SVG spinner (check for direct SVG or nested SVG)
             const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]') || loadingIcon?.querySelector('svg[data-p-icon="spinner"]');
+
             expect(svgSpinner).toBeTruthy();
 
             // Should not show regular icon
             const regularIcon = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+
             expect(regularIcon).toBeFalsy();
         });
 
@@ -1065,6 +1107,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
             expect(loadingIcon?.classList.contains('pi')).toBe(true);
             expect(loadingIcon?.classList.contains('pi-spinner')).toBe(true);
@@ -1072,6 +1115,7 @@ describe('Button', () => {
 
             // Should not use default SVG spinner
             const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]');
+
             expect(svgSpinner).toBeFalsy();
         });
 
@@ -1087,6 +1131,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
             expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
             expect(loadingIcon?.classList.contains('pi')).toBe(true);
@@ -1112,6 +1157,7 @@ describe('Button', () => {
             // Initially should show regular icon
             let iconElement = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
             let loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(iconElement).toBeTruthy();
             expect(loadingIcon).toBeFalsy();
 
@@ -1142,6 +1188,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
             expect(loadingIcon?.classList.contains('pi')).toBe(true);
             expect(loadingIcon?.classList.contains('pi-spin')).toBe(true);
@@ -1162,10 +1209,12 @@ describe('Button', () => {
 
             // Should fallback to default SVG spinner when loadingIcon is empty
             const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]');
+
             expect(svgSpinner).toBeTruthy();
 
             // Check that span with empty loadingIcon is not shown
             const spanWithEmptyIcon = buttonElement.querySelector('span[data-pc-section="loadingicon"]:not(:has(svg))');
+
             expect(spanWithEmptyIcon).toBeFalsy();
         });
 
@@ -1194,6 +1243,7 @@ describe('Button', () => {
             expect(buttonElement.classList.contains('p-button-icon-only')).toBe(true);
 
             const iconElement = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+
             expect(iconElement).toBeTruthy();
 
             // Switch to loading
@@ -1205,6 +1255,7 @@ describe('Button', () => {
             // Should still be disabled and show loading icon
             expect(buttonElement.disabled).toBe(true);
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
             expect(loadingIcon?.classList.contains('pi-spinner')).toBe(true);
         });
@@ -1232,10 +1283,12 @@ describe('Button', () => {
 
             // Should show default spinner even without custom icons
             const svgSpinner = buttonElement.querySelector('svg[data-p-icon="spinner"]') || buttonElement.querySelector('[data-pc-section="loadingicon"] svg[data-p-icon="spinner"]');
+
             expect(svgSpinner).toBeTruthy();
 
             // Should still show label
             const labelElement = buttonElement.querySelector('.p-button-label');
+
             expect(labelElement?.textContent?.trim()).toBe('Submit');
 
             // Button should be disabled
@@ -1270,6 +1323,7 @@ describe('Button', () => {
 
             // Initially check icon position
             const iconElement = buttonElement.querySelector('.p-button-icon-right');
+
             expect(iconElement).toBeTruthy();
 
             // Switch to loading
@@ -1280,6 +1334,7 @@ describe('Button', () => {
 
             // Loading icon should be present
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
 
             // Switch back to non-loading
@@ -1290,6 +1345,7 @@ describe('Button', () => {
 
             // Icon position should be preserved
             const restoredIconElement = buttonElement.querySelector('.p-button-icon-right');
+
             expect(restoredIconElement).toBeTruthy();
         });
 
@@ -1311,6 +1367,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             let loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
 
             component.loading = false;
@@ -1319,6 +1376,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             let regularIcon = buttonElement.querySelector('.p-button-icon:not([data-pc-section="loadingicon"])');
+
             expect(regularIcon).toBeTruthy();
 
             // Change loadingIcon and switch again
@@ -1361,6 +1419,7 @@ describe('Button', () => {
 
             // Check initial accessibility
             const iconElement = buttonElement.querySelector('.p-button-icon');
+
             expect(iconElement?.getAttribute('aria-hidden')).toBeNull(); // Icon elements don't always have aria-hidden in this implementation
 
             // Switch to loading
@@ -1370,6 +1429,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon?.getAttribute('aria-hidden')).toBe('true');
         });
 
@@ -1401,6 +1461,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const icon = buttonElement.querySelector('[data-pc-section="icon"]');
+
             expect(icon).toBeTruthy();
             expect(icon?.classList.contains('p-button-icon')).toBeTruthy();
             expect(icon?.classList.contains('pi')).toBeTruthy();
@@ -1413,6 +1474,7 @@ describe('Button', () => {
             fixture.detectChanges();
 
             const loadingIcon = buttonElement.querySelector('[data-pc-section="loadingicon"]');
+
             expect(loadingIcon).toBeTruthy();
             expect(loadingIcon?.classList.contains('p-button-loading-icon')).toBeTruthy();
             expect(loadingIcon?.classList.contains('pi-spin')).toBeTruthy();
@@ -1480,8 +1542,7 @@ describe('ButtonDirective', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestButtonDirectiveComponent, TestButtonWithIconLabelDirectiveComponent],
-            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel],
+            imports: [Button, ButtonDirective, ButtonIcon, ButtonLabel, TestButtonDirectiveComponent, TestButtonWithIconLabelDirectiveComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1540,6 +1601,7 @@ describe('ButtonDirective', () => {
     describe('ButtonIcon and ButtonLabel Directives', () => {
         it('should render icon and label directives', async () => {
             const iconLabelFixture = TestBed.createComponent(TestButtonWithIconLabelDirectiveComponent);
+
             iconLabelFixture.detectChanges();
             await fixture.whenStable();
 

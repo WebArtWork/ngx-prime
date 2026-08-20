@@ -5,6 +5,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import bootstrap from './main.server';
+
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
     const server = express();
@@ -63,6 +64,7 @@ export function app(): express.Express {
         }
 
         const content = readFileSync(filePath, 'utf-8');
+
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         res.setHeader('Cache-Control', process.env['NODE_ENV'] === 'production' ? 'public, max-age=300' : 'no-cache');
         res.send(content);
@@ -91,6 +93,7 @@ export function app(): express.Express {
         }
 
         const content = readFileSync(filePath, 'utf-8');
+
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         res.setHeader('Cache-Control', process.env['NODE_ENV'] === 'production' ? 'public, max-age=300' : 'no-cache');
         res.send(content);
@@ -113,6 +116,7 @@ export function app(): express.Express {
         }
 
         const content = readFileSync(filePath, 'utf-8');
+
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         res.setHeader('Cache-Control', process.env['NODE_ENV'] === 'production' ? 'public, max-age=300' : 'no-cache');
         res.send(content);
@@ -134,6 +138,7 @@ export function app(): express.Express {
         }
 
         const content = readFileSync(filePath, 'utf-8');
+
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         res.setHeader('Cache-Control', process.env['NODE_ENV'] === 'production' ? 'public, max-age=300' : 'no-cache');
         res.send(content);
@@ -173,6 +178,7 @@ function run(): void {
 
     // Start up the Node server
     const server = app();
+
     server.listen(port, () => {
         console.log(`Node Express server listening on http://localhost:${port}`);
     });

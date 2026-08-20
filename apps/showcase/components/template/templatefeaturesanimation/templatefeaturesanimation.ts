@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 import { TemplateFeaturesAnimationInline } from './templatefeaturesanimationinline';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -66,7 +66,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TemplateFeaturesAnimation {
+export class TemplateFeaturesAnimation implements OnInit, OnDestroy {
     @Input() featuresData;
 
     @Input() title;
@@ -99,6 +99,7 @@ export class TemplateFeaturesAnimation {
     startInterval() {
         this.intervalId = setInterval(() => {
             this.selectedID++;
+
             if (this.selectedID > this.featuresData.length) {
                 this.selectedID = 1;
             }
@@ -139,6 +140,7 @@ export class TemplateFeaturesAnimation {
     ngOnDestroy() {
         clearInterval(this.intervalId);
         this.intervalId = null;
+
         if (this.el.nativeElement) {
             this.observer?.unobserve(this.el.nativeElement);
         }

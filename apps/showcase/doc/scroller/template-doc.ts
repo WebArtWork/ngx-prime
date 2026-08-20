@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ScrollerModule } from 'primeng/scroller';
 import { SkeletonModule } from 'primeng/skeleton';
 
@@ -43,7 +43,7 @@ import { SkeletonModule } from 'primeng/skeleton';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TemplateDoc {
+export class TemplateDoc implements OnInit {
     items!: string[];
 
     ngOnInit() {

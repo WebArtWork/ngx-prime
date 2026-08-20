@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, forwardRef, inject, InjectionToken, Input, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ElementRef, forwardRef, inject, InjectionToken, Input, NgModule, TemplateRef, ViewChild, ViewEncapsulation, contentChild, contentChildren } from '@angular/core';
 import { getOuterHeight } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -15,14 +15,20 @@ const METERGROUP_INSTANCE = new InjectionToken<MeterGroup>('METERGROUP_INSTANCE'
     imports: [CommonModule, SharedModule, Bind],
     template: `
         <ol [class]="cx('labelList')" [pBind]="ptm('labelList')" [attr.data-p]="dataP">
-            <li *ngFor="let labelItem of value; let index = index; trackBy: parentInstance.trackByFn" [class]="cx('label')" [pBind]="ptm('label')">
-                <ng-container *ngIf="!iconTemplate">
-                    <i *ngIf="labelItem.icon" [class]="labelItem.icon" [ngClass]="cx('labelIcon')" [pBind]="ptm('labelIcon')" [ngStyle]="{ color: labelItem.color }"></i>
-                    <span *ngIf="!labelItem.icon" [class]="cx('labelMarker')" [pBind]="ptm('labelMarker')" [ngStyle]="{ backgroundColor: labelItem.color }"></span>
-                </ng-container>
-                <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: labelItem, icon: labelItem.icon }"></ng-container>
-                <span [class]="cx('labelText')" [pBind]="ptm('labelText')">{{ labelItem.label }} ({{ parentInstance.percentValue(labelItem.value) }})</span>
-            </li>
+            @for (labelItem of value; track parentInstance.trackByFn(index); let index = $index) {
+                <li [class]="cx('label')" [pBind]="ptm('label')">
+                    @if (!iconTemplate) {
+                        @if (labelItem.icon) {
+                            <i [class]="labelItem.icon" [ngClass]="cx('labelIcon')" [pBind]="ptm('labelIcon')" [ngStyle]="{ color: labelItem.color }"></i>
+                        }
+                        @if (!labelItem.icon) {
+                            <span [class]="cx('labelMarker')" [pBind]="ptm('labelMarker')" [ngStyle]="{ backgroundColor: labelItem.color }"></span>
+                        }
+                    }
+                    <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: labelItem, icon: labelItem.icon }"></ng-container>
+                    <span [class]="cx('labelText')" [pBind]="ptm('labelText')">{{ labelItem.label }} ({{ parentInstance.percentValue(labelItem.value) }})</span>
+                </li>
+            }
         </ol>
     `
 })
@@ -59,25 +65,17 @@ export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
     imports: [CommonModule, MeterGroupLabel, SharedModule, Bind],
     template: `
         @if (labelPosition === 'start') {
-            <p-meterGroupLabel
-                *ngIf="!labelTemplate && !_labelTemplate"
-                [value]="value"
-                [labelPosition]="labelPosition"
-                [labelOrientation]="labelOrientation"
-                [min]="min"
-                [max]="max"
-                [iconTemplate]="iconTemplate || _iconTemplate"
-                [pt]="pt"
-                [unstyled]="unstyled()"
-            />
-            <ng-container *ngTemplateOutlet="labelTemplate || labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
+            @if (!labelTemplate() && !_labelTemplate) {
+                <p-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate() || _iconTemplate" [pt]="pt" [unstyled]="unstyled()" />
+            }
+            <ng-container *ngTemplateOutlet="labelTemplate() || labelTemplate(); context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
         }
-        <ng-container *ngTemplateOutlet="startTemplate || _startTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
+        <ng-container *ngTemplateOutlet="startTemplate() || _startTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
         <div [class]="cx('meters')" [pBind]="ptm('meters')" [attr.data-p]="dataP">
-            <ng-container *ngFor="let meterItem of value; let index = index; trackBy: trackByFn">
+            @for (meterItem of value; track trackByFn(index); let index = $index) {
                 <ng-container
                     *ngTemplateOutlet="
-                        meterTemplate || _meterTemplate;
+                        meterTemplate() || _meterTemplate;
                         context: {
                             $implicit: meterItem,
                             index: index,
@@ -90,25 +88,17 @@ export class MeterGroupLabel extends BaseComponent<MeterGroupPassThrough> {
                     "
                 >
                 </ng-container>
-                <ng-container *ngIf="!meterTemplate && !_meterTemplate && meterItem.value > 0">
+                @if (!meterTemplate() && !_meterTemplate && meterItem.value > 0) {
                     <span [class]="cx('meter')" [attr.data-p]="dataP" [pBind]="ptm('meter')" [ngStyle]="meterStyle(meterItem)"></span>
-                </ng-container>
-            </ng-container>
+                }
+            }
         </div>
-        <ng-container *ngTemplateOutlet="endTemplate || _endTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
+        <ng-container *ngTemplateOutlet="endTemplate() || _endTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
         @if (labelPosition === 'end') {
-            <p-meterGroupLabel
-                *ngIf="!labelTemplate && !_labelTemplate"
-                [value]="value"
-                [labelPosition]="labelPosition"
-                [labelOrientation]="labelOrientation"
-                [min]="min"
-                [max]="max"
-                [iconTemplate]="iconTemplate || _iconTemplate"
-                [pt]="pt"
-                [unstyled]="unstyled()"
-            />
-            <ng-container *ngTemplateOutlet="labelTemplate || _labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
+            @if (!labelTemplate() && !_labelTemplate) {
+                <p-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate() || _iconTemplate" [pt]="pt" [unstyled]="unstyled()" />
+            }
+            <ng-container *ngTemplateOutlet="labelTemplate() || _labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -178,7 +168,7 @@ export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
      * @see {@link MeterGroupLabelTemplateContext}
      * @group Templates
      */
-    @ContentChild('label', { descendants: false }) labelTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
+    readonly labelTemplate = contentChild<TemplateRef<MeterGroupLabelTemplateContext>>('label', { descendants: false });
 
     /**
      * Custom meter template.
@@ -186,7 +176,7 @@ export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
      * @see {@link MeterGroupMeterTemplateContext}
      * @group Templates
      */
-    @ContentChild('meter', { descendants: false }) meterTemplate: TemplateRef<MeterGroupMeterTemplateContext> | undefined;
+    readonly meterTemplate = contentChild<TemplateRef<MeterGroupMeterTemplateContext>>('meter', { descendants: false });
 
     /**
      * Custom end template.
@@ -194,7 +184,7 @@ export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
      * @see {@link MeterGroupLabelTemplateContext}
      * @group Templates
      */
-    @ContentChild('end', { descendants: false }) endTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
+    readonly endTemplate = contentChild<TemplateRef<MeterGroupLabelTemplateContext>>('end', { descendants: false });
 
     /**
      * Custom start template.
@@ -202,7 +192,7 @@ export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
      * @see {@link MeterGroupLabelTemplateContext}
      * @group Templates
      */
-    @ContentChild('start', { descendants: false }) startTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
+    readonly startTemplate = contentChild<TemplateRef<MeterGroupLabelTemplateContext>>('start', { descendants: false });
 
     /**
      * Custom icon template.
@@ -210,9 +200,9 @@ export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
      * @see {@link MeterGroupIconTemplateContext}
      * @group Templates
      */
-    @ContentChild('icon', { descendants: false }) iconTemplate: TemplateRef<MeterGroupIconTemplateContext> | undefined;
+    readonly iconTemplate = contentChild<TemplateRef<MeterGroupIconTemplateContext>>('icon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _labelTemplate: TemplateRef<MeterGroupLabelTemplateContext> | undefined;
 
@@ -237,11 +227,12 @@ export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
     onAfterViewInit() {
         const _container = this.el.nativeElement;
         const height = getOuterHeight(_container);
+
         this.vertical && (_container.style.height = height + 'px');
     }
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'label':
                     this._labelTemplate = item.template;
@@ -270,6 +261,7 @@ export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
         if (this.max === this.min) {
             return 100; // When min = max, any value should be 100%
         }
+
         const percentOfItem = ((meter - this.min) / (this.max - this.min)) * 100;
 
         return Math.round(Math.max(0, Math.min(100, percentOfItem)));
@@ -291,6 +283,7 @@ export class MeterGroup extends BaseComponent<MeterGroupPassThrough> {
         if (!this.value) {
             return 0;
         }
+
         return this.percent(this.value.reduce((total, val) => total + (val.value || 0), 0));
     }
 

@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { Splitter } from './splitter';
 
 @Component({
-    standalone: false,
     template: `
         <p-splitter
             [panelSizes]="panelSizes"
@@ -28,7 +27,8 @@ import { Splitter } from './splitter';
                 <div class="panel2">Panel 2</div>
             </ng-template>
         </p-splitter>
-    `
+    `,
+    imports: [Splitter]
 })
 class TestSplitterComponent {
     panelSizes: number[] = [50, 50];
@@ -55,7 +55,6 @@ class TestSplitterComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-splitter>
             <ng-template #panel>
@@ -68,12 +67,12 @@ class TestSplitterComponent {
                 <div>Panel 3</div>
             </ng-template>
         </p-splitter>
-    `
+    `,
+    imports: [Splitter]
 })
 class TestThreePanelComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-splitter [panelSizes]="[20, 80]">
             <ng-template #panel>
@@ -90,12 +89,12 @@ class TestThreePanelComponent {}
                 </p-splitter>
             </ng-template>
         </p-splitter>
-    `
+    `,
+    imports: [Splitter]
 })
 class TestNestedSplitterComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-splitter [pt]="pt">
             <ng-template #panel>
@@ -105,7 +104,8 @@ class TestNestedSplitterComponent {}
                 <div>PT Test Panel 2</div>
             </ng-template>
         </p-splitter>
-    `
+    `,
+    imports: [Splitter]
 })
 class TestPTSplitterComponent {
     @Input() pt: any;
@@ -119,8 +119,7 @@ describe('Splitter', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Splitter],
-            declarations: [TestSplitterComponent, TestThreePanelComponent, TestNestedSplitterComponent, TestPTSplitterComponent],
+            imports: [Splitter, TestSplitterComponent, TestThreePanelComponent, TestNestedSplitterComponent, TestPTSplitterComponent],
             providers: [provideZonelessChangeDetection()]
         });
 
@@ -136,6 +135,7 @@ describe('Splitter', () => {
         if (typeof window !== 'undefined' && window.sessionStorage) {
             window.sessionStorage.clear();
         }
+
         if (typeof window !== 'undefined' && window.localStorage) {
             window.localStorage.clear();
         }
@@ -181,6 +181,7 @@ describe('Splitter', () => {
     describe('Panel Rendering', () => {
         xit('should render two panels by default', () => {
             const panels = testFixture.debugElement.queryAll(By.css('.p-splitterpanel'));
+
             expect(panels.length).toBe(2);
         });
 
@@ -200,11 +201,13 @@ describe('Splitter', () => {
             testFixture.detectChanges();
 
             const panels = testFixture.debugElement.queryAll(By.css('.p-splitterpanel'));
+
             expect(panels[0].nativeElement.className).toContain('custom-panel-class');
         });
 
         xit('should render three panels', () => {
             const fixture = TestBed.createComponent(TestThreePanelComponent);
+
             fixture.detectChanges();
 
             const panels = fixture.debugElement.queryAll(By.css('.p-splitterpanel'));
@@ -218,11 +221,13 @@ describe('Splitter', () => {
     describe('Gutter Functionality', () => {
         xit('should render gutter between panels', () => {
             const gutters = testFixture.debugElement.queryAll(By.css('.p-splitter-gutter'));
+
             expect(gutters.length).toBe(1);
         });
 
         xit('should render gutter handle', () => {
             const handle = testFixture.debugElement.query(By.css('.p-splitter-gutter-handle'));
+
             expect(handle).toBeTruthy();
         });
 
@@ -233,6 +238,7 @@ describe('Splitter', () => {
             testFixture.detectChanges();
 
             const style = splitterInstance.gutterStyle();
+
             expect(style).toEqual({ width: '10px' });
         });
 
@@ -244,11 +250,13 @@ describe('Splitter', () => {
             testFixture.detectChanges();
 
             const style = splitterInstance.gutterStyle();
+
             expect(style).toEqual({ height: '8px' });
         });
 
         xit('should have proper ARIA attributes', () => {
             const handle = testFixture.debugElement.query(By.css('.p-splitter-gutter-handle'));
+
             expect(handle.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
             expect(handle.nativeElement.getAttribute('tabindex')).toBe('0');
         });
@@ -291,6 +299,7 @@ describe('Splitter', () => {
         xit('should start resize on mouse down', () => {
             const gutter = testFixture.debugElement.query(By.css('.p-splitter-gutter'));
             const mouseEvent = new MouseEvent('mousedown');
+
             Object.defineProperty(mouseEvent, 'pageX', { value: 100, writable: true });
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: true });
 
@@ -303,6 +312,7 @@ describe('Splitter', () => {
         xit('should emit onResizeStart event', () => {
             const gutter = testFixture.debugElement.query(By.css('.p-splitter-gutter'));
             const mouseEvent = new MouseEvent('mousedown');
+
             Object.defineProperty(mouseEvent, 'pageX', { value: 100, writable: true });
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: true });
             Object.defineProperty(mouseEvent, 'currentTarget', { value: gutter.nativeElement, writable: true });
@@ -317,6 +327,7 @@ describe('Splitter', () => {
         xit('should emit onResizeEnd event', () => {
             const mouseEvent = new MouseEvent('mouseup');
             const gutter = testFixture.debugElement.query(By.css('.p-splitter-gutter'));
+
             splitterInstance.gutterElement = gutter.nativeElement;
 
             splitterInstance.resizeEnd(mouseEvent);
@@ -344,6 +355,7 @@ describe('Splitter', () => {
             spyOn(splitterInstance, 'onGutterTouchStart');
 
             const touchEvent = new TouchEvent('touchstart', { cancelable: true });
+
             gutter.nativeElement.dispatchEvent(touchEvent);
 
             expect(splitterInstance.onGutterTouchStart).toHaveBeenCalled();
@@ -355,6 +367,7 @@ describe('Splitter', () => {
             spyOn(splitterInstance, 'onGutterTouchMove');
 
             const touchEvent = new TouchEvent('touchmove', { cancelable: true });
+
             gutter.nativeElement.dispatchEvent(touchEvent);
 
             expect(splitterInstance.onGutterTouchMove).toHaveBeenCalled();
@@ -366,6 +379,7 @@ describe('Splitter', () => {
             spyOn(splitterInstance, 'onGutterTouchEnd');
 
             const touchEvent = new TouchEvent('touchend', { cancelable: true });
+
             gutter.nativeElement.dispatchEvent(touchEvent);
 
             expect(splitterInstance.onGutterTouchEnd).toHaveBeenCalled();
@@ -389,6 +403,7 @@ describe('Splitter', () => {
 
             xit('should handle left arrow key', async () => {
                 const event = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
+
                 spyOn(splitterInstance, 'setTimer');
 
                 gutterHandle.nativeElement.dispatchEvent(event);
@@ -398,6 +413,7 @@ describe('Splitter', () => {
 
             xit('should handle right arrow key', async () => {
                 const event = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+
                 spyOn(splitterInstance, 'setTimer');
 
                 gutterHandle.nativeElement.dispatchEvent(event);
@@ -408,6 +424,7 @@ describe('Splitter', () => {
             xit('should not handle up/down arrows in horizontal mode', () => {
                 const upEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
                 const downEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
                 spyOn(splitterInstance, 'setTimer');
 
                 gutterHandle.nativeElement.dispatchEvent(upEvent);
@@ -423,6 +440,7 @@ describe('Splitter', () => {
                 testFixture.detectChanges();
 
                 const event = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
+
                 spyOn(splitterInstance, 'setTimer');
 
                 gutterHandle.nativeElement.dispatchEvent(event);
@@ -441,6 +459,7 @@ describe('Splitter', () => {
 
             xit('should handle up arrow key', async () => {
                 const event = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+
                 spyOn(splitterInstance, 'setTimer');
 
                 gutterHandle.nativeElement.dispatchEvent(event);
@@ -450,6 +469,7 @@ describe('Splitter', () => {
 
             xit('should handle down arrow key', async () => {
                 const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
                 spyOn(splitterInstance, 'setTimer');
 
                 gutterHandle.nativeElement.dispatchEvent(event);
@@ -460,6 +480,7 @@ describe('Splitter', () => {
             xit('should not handle left/right arrows in vertical mode', () => {
                 const leftEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
                 const rightEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+
                 spyOn(splitterInstance, 'setTimer');
 
                 gutterHandle.nativeElement.dispatchEvent(leftEvent);
@@ -471,6 +492,7 @@ describe('Splitter', () => {
 
         xit('should clear timer on key up', () => {
             const event = new KeyboardEvent('keyup');
+
             spyOn(splitterInstance, 'clearTimer');
             spyOn(splitterInstance, 'resizeEnd');
 
@@ -492,6 +514,7 @@ describe('Splitter', () => {
             splitterInstance.saveState();
 
             const savedState = window.sessionStorage.getItem('test-splitter');
+
             expect(savedState).toBe(JSON.stringify([40, 60]));
         });
 
@@ -505,6 +528,7 @@ describe('Splitter', () => {
             splitterInstance.saveState();
 
             const savedState = window.sessionStorage.getItem('test-splitter-custom');
+
             expect(savedState).toBe(JSON.stringify([30, 70]));
         });
 
@@ -517,6 +541,7 @@ describe('Splitter', () => {
             testFixture.detectChanges();
 
             const restored = splitterInstance.restoreState();
+
             expect(restored).toBe(true);
             expect(splitterInstance._panelSizes).toEqual([25, 75]);
         });
@@ -531,6 +556,7 @@ describe('Splitter', () => {
             testFixture.detectChanges();
 
             const restored = splitterInstance.restoreState();
+
             expect(restored).toBe(true);
             expect(splitterInstance._panelSizes).toEqual([20, 80]);
         });
@@ -542,6 +568,7 @@ describe('Splitter', () => {
             testFixture.detectChanges();
 
             const restored = splitterInstance.restoreState();
+
             expect(restored).toBe(false);
         });
 
@@ -569,9 +596,11 @@ describe('Splitter', () => {
     describe('Nested Splitters', () => {
         xit('should render nested splitters', () => {
             const fixture = TestBed.createComponent(TestNestedSplitterComponent);
+
             fixture.detectChanges();
 
             const splitters = fixture.debugElement.queryAll(By.directive(Splitter));
+
             expect(splitters.length).toBe(2);
 
             const horizontalSplitter = splitters[0].componentInstance;
@@ -610,6 +639,7 @@ describe('Splitter', () => {
             testFixture.detectChanges();
 
             const splitterElement = testFixture.debugElement.query(By.css('p-splitter'));
+
             expect(splitterElement.nativeElement.className).toContain('custom-splitter-class');
         });
 
@@ -648,6 +678,7 @@ describe('Splitter', () => {
         xit('should apply resizing classes during resize', () => {
             const gutter = testFixture.debugElement.query(By.css('.p-splitter-gutter'));
             const mouseEvent = new MouseEvent('mousedown');
+
             Object.defineProperty(mouseEvent, 'pageX', { value: 100, writable: true });
             Object.defineProperty(mouseEvent, 'pageY', { value: 100, writable: true });
             Object.defineProperty(mouseEvent, 'currentTarget', { value: gutter.nativeElement, writable: true });
@@ -663,6 +694,7 @@ describe('Splitter', () => {
     describe('Accessibility', () => {
         xit('should have separator role on gutter', () => {
             const gutter = testFixture.debugElement.query(By.css('.p-splitter-gutter'));
+
             expect(gutter.nativeElement.getAttribute('role')).toBe('separator');
         });
 
@@ -684,6 +716,7 @@ describe('Splitter', () => {
 
         xit('should be keyboard navigable', () => {
             const handle = testFixture.debugElement.query(By.css('.p-splitter-gutter-handle'));
+
             expect(handle.nativeElement.getAttribute('tabindex')).toBe('0');
         });
 
@@ -787,6 +820,7 @@ describe('Splitter', () => {
 
             // Try to resize below minimum
             const isValid = splitterInstance.validateResize(5, 15);
+
             expect(isValid).toBe(false);
         });
 
@@ -830,12 +864,14 @@ describe('Splitter', () => {
         xit('should clear timers properly', () => {
             // Set a timer
             const event = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
+
             splitterInstance.setTimer(event, 0, 5);
 
             expect(splitterInstance.timer).toBeTruthy();
 
             // clearTimer calls clearTimeout but doesn't set timer to undefined
             const timerBeforeClear = splitterInstance.timer;
+
             splitterInstance.clearTimer();
 
             // Timer value remains but timeout is cleared
@@ -989,6 +1025,7 @@ describe('Splitter', () => {
 
         xit('should handle event binding in PT options', async () => {
             let clicked = false;
+
             ptComponent.pt = {
                 panel: {
                     onclick: () => {
@@ -1003,6 +1040,7 @@ describe('Splitter', () => {
             await ptFixture.whenStable();
 
             const panel = ptFixture.debugElement.query(By.css('.p-splitterpanel'));
+
             panel.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
             await ptFixture.whenStable();

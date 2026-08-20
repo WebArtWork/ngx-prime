@@ -8,7 +8,6 @@ import { OrganizationChart, OrganizationChartNode } from './organizationchart';
 
 // Test component for basic use cases
 @Component({
-    standalone: false,
     template: `
         <p-organizationChart
             [value]="data"
@@ -24,7 +23,8 @@ import { OrganizationChart, OrganizationChartNode } from './organizationchart';
             (onNodeCollapse)="onNodeCollapse($event)"
         >
         </p-organizationChart>
-    `
+    `,
+    imports: [OrganizationChart, OrganizationChartNode]
 })
 class TestBasicOrganizationChartComponent {
     data: TreeNode[] = [];
@@ -63,7 +63,6 @@ class TestBasicOrganizationChartComponent {
 
 // Test component for template testing
 @Component({
-    standalone: false,
     template: `
         <p-organizationChart [value]="data" [collapsible]="true">
             <ng-template pTemplate="person" let-node>
@@ -83,7 +82,8 @@ class TestBasicOrganizationChartComponent {
                 </div>
             </ng-template>
         </p-organizationChart>
-    `
+    `,
+    imports: [OrganizationChart, OrganizationChartNode]
 })
 class TestTemplateOrganizationChartComponent {
     data: TreeNode[] = [
@@ -107,7 +107,6 @@ class TestTemplateOrganizationChartComponent {
 
 // Test component for toggler icon template
 @Component({
-    standalone: false,
     template: `
         <p-organizationChart [value]="data" [collapsible]="true">
             <ng-template #togglericon let-expanded>
@@ -116,7 +115,8 @@ class TestTemplateOrganizationChartComponent {
                 </span>
             </ng-template>
         </p-organizationChart>
-    `
+    `,
+    imports: [OrganizationChart, OrganizationChartNode]
 })
 class TestTogglerIconTemplateComponent {
     data: TreeNode[] = [
@@ -130,8 +130,8 @@ class TestTogglerIconTemplateComponent {
 
 // Test component for keyboard navigation
 @Component({
-    standalone: false,
-    template: ` <p-organizationChart [value]="data" [collapsible]="true" [selectionMode]="'single'"> </p-organizationChart> `
+    template: ` <p-organizationChart [value]="data" [collapsible]="true" [selectionMode]="'single'"> </p-organizationChart> `,
+    imports: [OrganizationChart, OrganizationChartNode]
 })
 class TestKeyboardNavigationComponent {
     data: TreeNode[] = [
@@ -150,8 +150,7 @@ describe('OrganizationChart', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicOrganizationChartComponent, TestTemplateOrganizationChartComponent, TestTogglerIconTemplateComponent, TestKeyboardNavigationComponent],
-            imports: [OrganizationChart, OrganizationChartNode],
+            imports: [OrganizationChart, OrganizationChartNode, TestBasicOrganizationChartComponent, TestTemplateOrganizationChartComponent, TestTogglerIconTemplateComponent, TestKeyboardNavigationComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -215,6 +214,7 @@ describe('OrganizationChart', () => {
 
             expect(organizationChart.root).toBeNull();
             const table = fixture.debugElement.query(By.css('table'));
+
             expect(table).toBeNull();
         });
     });
@@ -241,6 +241,7 @@ describe('OrganizationChart', () => {
             expect(organizationChart.findIndexInSelection(node)).toBe(0);
 
             const otherNode = component.data[0].children![1];
+
             expect(organizationChart.findIndexInSelection(otherNode)).toBe(-1);
         });
 
@@ -308,6 +309,7 @@ describe('OrganizationChart', () => {
 
             const node = component.data[0].children![0];
             const event = new MouseEvent('click');
+
             Object.defineProperty(event, 'target', {
                 value: document.createElement('div'),
                 writable: true
@@ -328,9 +330,11 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             const node = component.data[0].children![0];
+
             organizationChart.selection = node;
 
             const event = new MouseEvent('click');
+
             Object.defineProperty(event, 'target', {
                 value: document.createElement('div'),
                 writable: true
@@ -352,6 +356,7 @@ describe('OrganizationChart', () => {
             const node2 = component.data[0].children![2];
 
             const event1 = new MouseEvent('click');
+
             Object.defineProperty(event1, 'target', {
                 value: document.createElement('div'),
                 writable: true
@@ -361,6 +366,7 @@ describe('OrganizationChart', () => {
             expect(organizationChart.selection).toEqual([node1]);
 
             const event2 = new MouseEvent('click');
+
             Object.defineProperty(event2, 'target', {
                 value: document.createElement('div'),
                 writable: true
@@ -379,9 +385,11 @@ describe('OrganizationChart', () => {
 
             const node1 = component.data[0].children![0];
             const node2 = component.data[0].children![2];
+
             organizationChart.selection = [node1, node2];
 
             const event = new MouseEvent('click');
+
             Object.defineProperty(event, 'target', {
                 value: document.createElement('div'),
                 writable: true
@@ -400,6 +408,7 @@ describe('OrganizationChart', () => {
 
             const nonSelectableNode = component.data[0].children![1];
             const event = new MouseEvent('click');
+
             Object.defineProperty(event, 'target', {
                 value: document.createElement('div'),
                 writable: true
@@ -420,8 +429,10 @@ describe('OrganizationChart', () => {
 
             const node = component.data[0];
             const mockElement = document.createElement('div');
+
             mockElement.setAttribute('data-pc-section', 'nodetogglebutton');
             const event = new MouseEvent('click');
+
             Object.defineProperty(event, 'target', {
                 value: mockElement,
                 writable: true
@@ -537,6 +548,7 @@ describe('OrganizationChart', () => {
 
             for (let i = 0; i < nodes.length; i++) {
                 const event = new MouseEvent('click');
+
                 Object.defineProperty(event, 'target', {
                     value: document.createElement('div'),
                     writable: true
@@ -563,10 +575,12 @@ describe('OrganizationChart', () => {
 
             // Test that data is rendered (either with templates or default)
             const nodeElements = templateFixture.debugElement.queryAll(By.css('.p-organizationchart-node'));
+
             expect(nodeElements.length).toBeGreaterThan(0);
 
             // Test that content is rendered
             const textContent = templateFixture.nativeElement.textContent;
+
             expect(textContent).toBeTruthy();
         });
 
@@ -577,6 +591,7 @@ describe('OrganizationChart', () => {
             await togglerFixture.whenStable();
 
             const togglerIcon = togglerFixture.debugElement.query(By.css('.custom-toggler-icon'));
+
             expect(togglerIcon).toBeTruthy();
             expect(togglerIcon.nativeElement.textContent.trim()).toBe('COLLAPSED');
         });
@@ -585,6 +600,7 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             const orgChart = fixture.debugElement.query(By.directive(OrganizationChart)).componentInstance;
+
             spyOn(orgChart, 'ngAfterContentInit').and.callThrough();
 
             orgChart.ngAfterContentInit();
@@ -609,6 +625,7 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             const orgChartElement = fixture.debugElement.query(By.css('p-organizationChart'));
+
             expect(orgChartElement.nativeElement.className).toContain('custom-org-chart');
         });
 
@@ -624,6 +641,7 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             const nodeDiv = fixture.debugElement.query(By.css('.p-organizationchart-node'));
+
             expect(nodeDiv.nativeElement.className).toContain('custom-node-class');
         });
 
@@ -642,10 +660,12 @@ describe('OrganizationChart', () => {
             const nodeComponent = nodeElements[0].componentInstance as OrganizationChartNode;
 
             const childStyle = nodeComponent.getChildStyle(component.data[0]);
+
             expect(childStyle.visibility).toBe('hidden');
 
             component.data[0].expanded = true;
             const expandedStyle = nodeComponent.getChildStyle(component.data[0]);
+
             expect(expandedStyle.visibility).toBe('inherit');
         });
 
@@ -660,12 +680,15 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             const connectorDown = fixture.debugElement.query(By.css('.p-organizationchart-connector-down'));
+
             expect(connectorDown).toBeTruthy();
 
             const leftConnectors = fixture.debugElement.queryAll(By.css('.p-organizationchart-connector-left'));
+
             expect(leftConnectors.length).toBeGreaterThan(0);
 
             const rightConnectors = fixture.debugElement.queryAll(By.css('.p-organizationchart-connector-right'));
+
             expect(rightConnectors.length).toBeGreaterThan(0);
         });
     });
@@ -683,6 +706,7 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             const toggleButton = fixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
+
             expect(toggleButton.nativeElement.getAttribute('tabindex')).toBe('0');
         });
 
@@ -713,6 +737,7 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             const chevronDown = fixture.debugElement.query(By.css('[data-p-icon="chevron-down"]'));
+
             expect(chevronDown).toBeTruthy();
 
             component.data[0].expanded = false;
@@ -721,6 +746,7 @@ describe('OrganizationChart', () => {
             fixture.detectChanges();
 
             const chevronUp = fixture.debugElement.query(By.css('[data-p-icon="chevron-up"]'));
+
             expect(chevronUp).toBeTruthy();
         });
     });
@@ -728,12 +754,14 @@ describe('OrganizationChart', () => {
     describe('Keyboard Navigation', () => {
         it('should toggle node on Enter key', async () => {
             const keyboardFixture = TestBed.createComponent(TestKeyboardNavigationComponent);
+
             keyboardFixture.detectChanges();
 
             const toggleButton = keyboardFixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
             const keyEvent = new KeyboardEvent('keydown', { key: 'Enter' });
 
             const initialExpanded = keyboardFixture.componentInstance.data[0].expanded;
+
             toggleButton.nativeElement.dispatchEvent(keyEvent);
             await keyboardFixture.whenStable();
 
@@ -742,12 +770,14 @@ describe('OrganizationChart', () => {
 
         it('should toggle node on Space key', async () => {
             const keyboardFixture = TestBed.createComponent(TestKeyboardNavigationComponent);
+
             keyboardFixture.detectChanges();
 
             const toggleButton = keyboardFixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
             const keyEvent = new KeyboardEvent('keydown', { key: ' ' });
 
             const initialExpanded = keyboardFixture.componentInstance.data[0].expanded;
+
             toggleButton.nativeElement.dispatchEvent(keyEvent);
             await keyboardFixture.whenStable();
 
@@ -769,6 +799,7 @@ describe('OrganizationChart', () => {
             const nodeComponent = nodeElements[0].componentInstance as OrganizationChartNode;
 
             const event = new MouseEvent('click');
+
             spyOn(event, 'preventDefault');
 
             nodeComponent.toggleNode(event, component.data[0]);
@@ -797,43 +828,51 @@ describe('OrganizationChart', () => {
         describe('Case 1: Simple string classes', () => {
             it('should apply string class to root', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 ptFixture.componentRef.setInput('pt', { root: 'CUSTOM_ROOT_CLASS' });
                 ptFixture.detectChanges();
 
                 // Query the component's host element directly
                 const hostElement = ptFixture.nativeElement;
+
                 expect(hostElement.className).toContain('CUSTOM_ROOT_CLASS');
             });
 
             it('should apply string class to table', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 ptFixture.componentRef.setInput('pt', { table: 'CUSTOM_TABLE_CLASS' });
                 ptFixture.detectChanges();
 
                 const table = ptFixture.debugElement.query(By.css('table'));
+
                 expect(table.nativeElement.className).toContain('CUSTOM_TABLE_CLASS');
             });
 
             it('should apply string class to node', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 ptFixture.componentRef.setInput('pt', { node: 'CUSTOM_NODE_CLASS' });
                 ptFixture.detectChanges();
 
                 const node = ptFixture.debugElement.query(By.css('.p-organizationchart-node'));
+
                 expect(node).toBeTruthy(); // Verify node exists with PT configuration
             });
 
             it('should apply string class to nodeToggleButton', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [{ label: 'Root', expanded: true, children: [{ label: 'Child' }] }]);
                 ptFixture.componentRef.setInput('collapsible', true);
                 ptFixture.componentRef.setInput('pt', { nodeToggleButton: 'CUSTOM_TOGGLE_CLASS' });
                 ptFixture.detectChanges();
 
                 const toggleButton = ptFixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
+
                 expect(toggleButton).toBeTruthy(); // Verify button exists
             });
         });
@@ -841,6 +880,7 @@ describe('OrganizationChart', () => {
         describe('Case 2: Objects with class, style, and attributes', () => {
             it('should apply object with class and style to root', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 ptFixture.componentRef.setInput('pt', {
                     root: {
@@ -852,6 +892,7 @@ describe('OrganizationChart', () => {
                 ptFixture.detectChanges();
 
                 const hostElement = ptFixture.nativeElement;
+
                 expect(hostElement.className).toContain('OBJECT_ROOT_CLASS');
                 expect(hostElement.style.backgroundColor).toBe('yellow');
                 expect(hostElement.getAttribute('data-test-attr')).toBe('test-value');
@@ -859,6 +900,7 @@ describe('OrganizationChart', () => {
 
             it('should apply object with aria-label to node', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 ptFixture.componentRef.setInput('pt', {
                     node: {
@@ -868,6 +910,7 @@ describe('OrganizationChart', () => {
                 ptFixture.detectChanges();
 
                 const node = ptFixture.debugElement.query(By.css('.p-organizationchart-node'));
+
                 expect(node).toBeTruthy(); // Verify node exists with PT configuration
             });
         });
@@ -875,6 +918,7 @@ describe('OrganizationChart', () => {
         describe('Case 3: Mixed object and string values', () => {
             it('should handle mixed PT configuration', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 ptFixture.componentRef.setInput('pt', {
                     root: { class: 'MIXED_ROOT_CLASS' },
@@ -884,12 +928,15 @@ describe('OrganizationChart', () => {
                 ptFixture.detectChanges();
 
                 const hostElement = ptFixture.nativeElement;
+
                 expect(hostElement.className).toContain('MIXED_ROOT_CLASS');
 
                 const table = ptFixture.debugElement.query(By.css('table'));
+
                 expect(table.nativeElement.className).toContain('MIXED_TABLE_STRING');
 
                 const node = ptFixture.debugElement.query(By.css('.p-organizationchart-node'));
+
                 expect(node).toBeTruthy(); // Verify node exists with PT configuration
             });
         });
@@ -897,6 +944,7 @@ describe('OrganizationChart', () => {
         describe('Case 4: Use variables from instance', () => {
             it('should access instance properties in PT function', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [{ label: 'Root', selectable: true }]);
                 ptFixture.componentRef.setInput('selectionMode', 'single');
                 ptFixture.componentRef.setInput('pt', {
@@ -912,9 +960,11 @@ describe('OrganizationChart', () => {
                 ptFixture.detectChanges();
 
                 const hostElement = ptFixture.nativeElement;
+
                 expect(hostElement.getAttribute('data-selection-mode')).toBe('single');
 
                 const node = ptFixture.debugElement.query(By.css('.p-organizationchart-node'));
+
                 expect(node).toBeTruthy(); // Verify node exists with PT configuration
             });
         });
@@ -932,6 +982,7 @@ describe('OrganizationChart', () => {
                 ptFixture.detectChanges();
 
                 const hostElement = ptFixture.nativeElement;
+
                 hostElement.click();
 
                 expect(hostElement.onclick).toBeDefined();
@@ -941,21 +992,25 @@ describe('OrganizationChart', () => {
         describe('Case 6: Inline PT', () => {
             it('should apply inline PT with string', () => {
                 const inlineFixture = TestBed.createComponent(OrganizationChart);
+
                 inlineFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 inlineFixture.componentRef.setInput('pt', { root: 'INLINE_CLASS' });
                 inlineFixture.detectChanges();
 
                 const hostElement = inlineFixture.nativeElement;
+
                 expect(hostElement.className).toContain('INLINE_CLASS');
             });
 
             it('should apply inline PT with object', () => {
                 const inlineFixture = TestBed.createComponent(OrganizationChart);
+
                 inlineFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
                 inlineFixture.detectChanges();
 
                 const hostElement = inlineFixture.nativeElement;
+
                 expect(hostElement.className).toContain('INLINE_OBJECT_CLASS');
             });
         });
@@ -979,13 +1034,16 @@ describe('OrganizationChart', () => {
                 });
 
                 const globalFixture = TestBed.createComponent(OrganizationChart);
+
                 globalFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 globalFixture.detectChanges();
 
                 const hostElement = globalFixture.nativeElement;
+
                 expect(hostElement.className).toContain('GLOBAL_ROOT_CLASS');
 
                 const node = globalFixture.debugElement.query(By.css('.p-organizationchart-node'));
+
                 expect(node).toBeTruthy(); // Verify node exists with global PT
             });
 
@@ -1006,11 +1064,13 @@ describe('OrganizationChart', () => {
                 });
 
                 const mergeFixture = TestBed.createComponent(OrganizationChart);
+
                 mergeFixture.componentRef.setInput('value', [{ label: 'Root' }]);
                 mergeFixture.componentRef.setInput('pt', { root: 'LOCAL_CLASS' });
                 mergeFixture.detectChanges();
 
                 const hostElement = mergeFixture.nativeElement;
+
                 // Local PT should override global PT
                 expect(hostElement.className).toContain('LOCAL_CLASS');
             });
@@ -1019,6 +1079,7 @@ describe('OrganizationChart', () => {
         describe('Case 9: Component-Specific PT Methods', () => {
             it('should use getPTOptions with context', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [{ label: 'Root', expanded: true, selectable: true }]);
                 ptFixture.componentRef.setInput('selectionMode', 'single');
                 ptFixture.componentRef.setInput('pt', {
@@ -1030,11 +1091,13 @@ describe('OrganizationChart', () => {
                 ptFixture.detectChanges();
 
                 const node = ptFixture.debugElement.query(By.css('.p-organizationchart-node'));
+
                 expect(node).toBeTruthy(); // Verify node exists with context-aware PT
             });
 
             it('should use getNodeOptions with lineTop context', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [
                     {
                         label: 'Root',
@@ -1050,11 +1113,13 @@ describe('OrganizationChart', () => {
                 ptFixture.detectChanges();
 
                 const connectors = ptFixture.debugElement.queryAll(By.css('.p-organizationchart-connector-left'));
+
                 expect(connectors.length).toBeGreaterThan(0);
             });
 
             it('should support toggleable context in PT', () => {
                 const ptFixture = TestBed.createComponent(OrganizationChart);
+
                 ptFixture.componentRef.setInput('value', [
                     {
                         label: 'Root',
@@ -1071,6 +1136,7 @@ describe('OrganizationChart', () => {
                 ptFixture.detectChanges();
 
                 const toggleButton = ptFixture.debugElement.query(By.css('.p-organizationchart-node-toggle-button'));
+
                 expect(toggleButton).toBeTruthy(); // Verify toggle button exists with context PT
             });
 
@@ -1088,6 +1154,7 @@ describe('OrganizationChart', () => {
                 ptFixture.detectChanges();
 
                 const node = ptFixture.debugElement.query(By.css('.p-organizationchart-node'));
+
                 expect(node).toBeTruthy(); // Verify node exists with selection-aware PT
 
                 // Click to select
@@ -1097,6 +1164,7 @@ describe('OrganizationChart', () => {
 
                 // Verify node is still rendered after selection
                 const selectedNode = ptFixture.debugElement.query(By.css('.p-organizationchart-node'));
+
                 expect(selectedNode).toBeTruthy();
             });
         });

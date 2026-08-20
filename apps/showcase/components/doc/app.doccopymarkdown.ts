@@ -32,6 +32,7 @@ export class AppDocCopyMarkdown implements OnInit {
         if (isPlatformBrowser(this.platformId)) {
             return this.document.location.origin;
         }
+
         return 'https://primeng.org';
     }
 
@@ -39,14 +40,17 @@ export class AppDocCopyMarkdown implements OnInit {
         if (this.componentName()) {
             return this.componentName();
         }
+
         const segments = this.router.url.split('/').filter(Boolean);
         const lastSegment = segments[segments.length - 1]?.split('#')[0];
+
         return lastSegment || '';
     }
 
     get routePath(): string {
         // Get the full route path without hash
         const url = this.router.url.split('#')[0];
+
         // Remove leading slash
         return url.startsWith('/') ? url.slice(1) : url;
     }
@@ -55,6 +59,7 @@ export class AppDocCopyMarkdown implements OnInit {
         if (this.docType() === 'page') {
             return `${this.baseUrl}/llms/pages/${this.currentComponentName.toLowerCase()}.md`;
         }
+
         return `${this.baseUrl}/llms/components/${this.currentComponentName.toLowerCase()}.md`;
     }
 
@@ -62,21 +67,26 @@ export class AppDocCopyMarkdown implements OnInit {
         if (this.docType() === 'page') {
             // For pages, use the full route path for nested pages like theming/styled
             const docPath = this.routePath || this.currentComponentName;
+
             return `https://github.com/primefaces/primeng/tree/master/apps/showcase/doc/${docPath}/`;
         }
+
         if (this.currentComponentName) {
             return `https://github.com/primefaces/primeng/tree/master/apps/showcase/doc/${this.currentComponentName}/`;
         }
+
         return 'https://github.com/primefaces/primeng/tree/master/apps/showcase/';
     }
 
     get chatGPTLink(): string {
         const message = `Read ${this.markdownLink}, I want to ask questions about it.`;
+
         return `https://chatgpt.com/?hints=search&q=${encodeURIComponent(message)}`;
     }
 
     get claudeLink(): string {
         const message = `Read ${this.markdownLink}, I want to ask questions about it.`;
+
         return `https://claude.ai/new?q=${encodeURIComponent(message)}`;
     }
 
@@ -114,6 +124,7 @@ export class AppDocCopyMarkdown implements OnInit {
 
         try {
             const response = await fetch(this.markdownLink);
+
             if (response.ok) {
                 this.markdownContent = await response.text();
             }
@@ -132,6 +143,7 @@ export class AppDocCopyMarkdown implements OnInit {
                 detail: 'Markdown content is still loading. Please try again.',
                 life: 2000
             });
+
             return;
         }
 

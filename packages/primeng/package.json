@@ -40,6 +40,8 @@
         "test:unit:coverage": "ng test primeng --coverage"
     },
     "devDependencies": {
+        "chart.js": "4.4.2",
+        "quill": "2.0.2",
         "karma": "~6.4.4",
         "karma-chrome-launcher": "~3.2.0",
         "karma-coverage": "~2.2.1",

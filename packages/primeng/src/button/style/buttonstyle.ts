@@ -34,11 +34,10 @@ const classes = {
         instance.icon,
         instance.buttonProps?.icon
     ],
-    spinnerIcon: ({ instance }) => {
-        return Object.entries(instance.cx('icon'))
+    spinnerIcon: ({ instance }) =>
+        Object.entries(instance.cx('icon'))
             .filter(([, value]) => !!value)
-            .reduce((acc, [key]) => acc + ` ${key}`, 'p-button-loading-icon');
-    },
+            .reduce((acc, [key]) => acc + ` ${key}`, 'p-button-loading-icon'),
     label: 'p-button-label'
 };
 

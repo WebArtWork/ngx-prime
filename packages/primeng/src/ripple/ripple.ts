@@ -50,6 +50,7 @@ export class Ripple extends BaseComponent {
 
     onMouseDown(event: MouseEvent) {
         let ink = this.getInk();
+
         if (!ink || this.document.defaultView?.getComputedStyle(ink, null).display === 'none') {
             return;
         }
@@ -59,6 +60,7 @@ export class Ripple extends BaseComponent {
 
         if (!getHeight(ink) && !getWidth(ink)) {
             let d = Math.max(getOuterWidth(this.el.nativeElement), getOuterHeight(this.el.nativeElement));
+
             ink.style.height = d + 'px';
             ink.style.width = d + 'px';
         }
@@ -75,6 +77,7 @@ export class Ripple extends BaseComponent {
 
         this.timeout = setTimeout(() => {
             let ink = this.getInk();
+
             if (ink) {
                 !this.$unstyled() && removeClass(ink, 'p-ink-active');
                 ink.setAttribute('data-p-ink-active', 'false');
@@ -84,16 +87,19 @@ export class Ripple extends BaseComponent {
 
     getInk() {
         const children = this.el.nativeElement.children;
+
         for (let i = 0; i < children.length; i++) {
             if (typeof children[i].className === 'string' && children[i].className.indexOf('p-ink') !== -1) {
                 return children[i];
             }
         }
+
         return null;
     }
 
     resetInk() {
         let ink = this.getInk();
+
         if (ink) {
             !this.$unstyled() && removeClass(ink, 'p-ink-active');
             ink.setAttribute('data-p-ink-active', 'false');
@@ -111,6 +117,7 @@ export class Ripple extends BaseComponent {
 
     create() {
         let ink = this.renderer.createElement('span');
+
         this.renderer.addClass(ink, 'p-ink');
         this.renderer.appendChild(this.el.nativeElement, ink);
         this.renderer.setAttribute(ink, 'data-p-ink', 'true');
@@ -125,6 +132,7 @@ export class Ripple extends BaseComponent {
 
     remove() {
         let ink = this.getInk();
+
         if (ink) {
             this.mouseDownListener && this.mouseDownListener();
             this.animationListener && this.animationListener();

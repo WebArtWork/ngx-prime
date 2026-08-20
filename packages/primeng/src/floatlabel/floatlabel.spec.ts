@@ -67,6 +67,7 @@ describe('FloatLabel', () => {
 
         it('should have correct CSS class', () => {
             const floatLabelElement = fixture.debugElement.query(By.directive(FloatLabel));
+
             expect(floatLabelElement.nativeElement.classList.contains('p-floatlabel')).toBe(true);
         });
     });
@@ -150,6 +151,7 @@ describe('FloatLabel', () => {
 
         it('should work without input value', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
@@ -159,6 +161,7 @@ describe('FloatLabel', () => {
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.value).toBe('test value');
         });
     });
@@ -318,6 +321,7 @@ describe('FloatLabel PassThrough Tests', () => {
     describe('PT Case 5: Event binding', () => {
         it('should handle onclick event through PT', (done) => {
             let clicked = false;
+
             fixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
@@ -350,17 +354,21 @@ describe('FloatLabel PassThrough Tests', () => {
     describe('PT Case 6: Inline PT', () => {
         it('should work with inline string PT', () => {
             const inlineFixture = TestBed.createComponent(TestInlineStringPTComponent);
+
             inlineFixture.detectChanges();
 
             const inlineHostElement = inlineFixture.nativeElement.querySelector('p-floatlabel');
+
             expect(inlineHostElement.classList.contains('INLINE_STRING')).toBe(true);
         });
 
         it('should work with inline object PT', () => {
             const inlineFixture = TestBed.createComponent(TestInlineObjectPTComponent);
+
             inlineFixture.detectChanges();
 
             const inlineHostElement = inlineFixture.nativeElement.querySelector('p-floatlabel');
+
             expect(inlineHostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(inlineHostElement.getAttribute('data-inline')).toBe('true');
         });
@@ -385,9 +393,11 @@ describe('FloatLabel PassThrough Tests', () => {
             }).compileComponents();
 
             const globalFixture = TestBed.createComponent(FloatLabel);
+
             globalFixture.detectChanges();
 
             const globalHostElement = globalFixture.nativeElement;
+
             expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
             expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
         });
@@ -412,9 +422,11 @@ describe('FloatLabel PassThrough Tests', () => {
             }).compileComponents();
 
             const multiFixture = TestBed.createComponent(TestMultipleInstancesComponent);
+
             multiFixture.detectChanges();
 
             const floatLabels = multiFixture.nativeElement.querySelectorAll('p-floatlabel');
+
             expect(floatLabels.length).toBe(2);
 
             floatLabels.forEach((fl: HTMLElement) => {
@@ -427,6 +439,7 @@ describe('FloatLabel PassThrough Tests', () => {
     describe('PT Case 8: Lifecycle hooks', () => {
         it('should support onInit hook', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
@@ -447,6 +460,7 @@ describe('FloatLabel PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(FloatLabel);
+
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');
@@ -454,6 +468,7 @@ describe('FloatLabel PassThrough Tests', () => {
 
         it('should support onAfterViewInit hook', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
@@ -474,6 +489,7 @@ describe('FloatLabel PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(FloatLabel);
+
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onAfterViewInit');
@@ -481,6 +497,7 @@ describe('FloatLabel PassThrough Tests', () => {
 
         it('should support onAfterViewChecked hook', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
@@ -503,6 +520,7 @@ describe('FloatLabel PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(FloatLabel);
+
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onAfterViewChecked');
@@ -510,6 +528,7 @@ describe('FloatLabel PassThrough Tests', () => {
 
         it('should support onDestroy hook', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
@@ -530,6 +549,7 @@ describe('FloatLabel PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(FloatLabel);
+
             hookFixture.detectChanges();
 
             hookFixture.destroy();
@@ -539,6 +559,7 @@ describe('FloatLabel PassThrough Tests', () => {
 
         it('should support multiple lifecycle hooks', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [FloatLabel, FormsModule],
@@ -570,6 +591,7 @@ describe('FloatLabel PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(FloatLabel);
+
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');

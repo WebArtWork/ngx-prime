@@ -65,6 +65,7 @@ describe('IftaLabel', () => {
 
         it('should have correct CSS class', () => {
             const iftaLabelElement = fixture.debugElement.query(By.directive(IftaLabel));
+
             expect(iftaLabelElement.nativeElement.classList.contains('p-iftalabel')).toBe(true);
         });
     });
@@ -98,6 +99,7 @@ describe('IftaLabel', () => {
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.value).toBe('test@example.com');
         });
     });
@@ -119,6 +121,7 @@ describe('IftaLabel', () => {
 
         it('should work without input value', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
@@ -128,6 +131,7 @@ describe('IftaLabel', () => {
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.value).toBe('' as any);
         });
     });
@@ -198,6 +202,7 @@ describe('IftaLabel PassThrough Tests', () => {
     describe('PT Case 4: Event binding', () => {
         it('should handle onclick event through PT', (done) => {
             let clicked = false;
+
             fixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
@@ -232,9 +237,11 @@ describe('IftaLabel PassThrough Tests', () => {
             }).compileComponents();
 
             const globalFixture = TestBed.createComponent(IftaLabel);
+
             globalFixture.detectChanges();
 
             const globalHostElement = globalFixture.nativeElement;
+
             expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
             expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_LABEL');
         });
@@ -243,6 +250,7 @@ describe('IftaLabel PassThrough Tests', () => {
     describe('PT Case 6: Lifecycle hooks', () => {
         it('should support lifecycle hooks', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [IftaLabel, FormsModule],
@@ -271,6 +279,7 @@ describe('IftaLabel PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(IftaLabel);
+
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');

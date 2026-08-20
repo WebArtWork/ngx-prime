@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
@@ -217,7 +217,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatApp {
+export class ChatApp implements OnInit {
     search: string = '';
 
     download: boolean = false;

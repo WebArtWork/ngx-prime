@@ -5,25 +5,24 @@ import { By } from '@angular/platform-browser';
 import { Fluid, FluidModule } from './fluid';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-fluid',
-    template: `<p-fluid></p-fluid>`
+    template: `<p-fluid></p-fluid>`,
+    imports: [FluidModule]
 })
 class TestBasicFluidComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-fluid-with-content',
     template: `
         <p-fluid>
             <div class="test-content">Content inside fluid</div>
         </p-fluid>
-    `
+    `,
+    imports: [FluidModule]
 })
 class TestFluidWithContentComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-fluid-with-form-controls',
     template: `
         <p-fluid>
@@ -43,12 +42,12 @@ class TestFluidWithContentComponent {}
                 <textarea id="textarea1" class="form-control"></textarea>
             </div>
         </p-fluid>
-    `
+    `,
+    imports: [FluidModule]
 })
 class TestFluidWithFormControlsComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-nested-fluid',
     template: `
         <p-fluid>
@@ -60,12 +59,12 @@ class TestFluidWithFormControlsComponent {}
                 </p-fluid>
             </div>
         </p-fluid>
-    `
+    `,
+    imports: [FluidModule]
 })
 class TestNestedFluidComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-fluid-with-primeng-components',
     template: `
         <p-fluid>
@@ -86,12 +85,12 @@ class TestNestedFluidComponent {}
                 </div>
             </div>
         </p-fluid>
-    `
+    `,
+    imports: [FluidModule]
 })
 class TestFluidWithPrimeNGComponentsComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-fluid-responsive',
     template: `
         <div class="responsive-container">
@@ -109,31 +108,38 @@ class TestFluidWithPrimeNGComponentsComponent {}
                 </div>
             </p-fluid>
         </div>
-    `
+    `,
+    imports: [FluidModule]
 })
 class TestFluidResponsiveComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-fluid-dynamic-content',
     template: `
         <p-fluid>
-            <div *ngIf="showFirstSection" class="first-section">
-                <input type="text" class="dynamic-input-1" />
-                <button class="dynamic-button-1">Button 1</button>
-            </div>
-            <div *ngIf="showSecondSection" class="second-section">
-                <textarea class="dynamic-textarea"></textarea>
-                <select class="dynamic-select">
-                    <option>Dynamic Option</option>
-                </select>
-            </div>
-            <div *ngFor="let item of dynamicItems" class="dynamic-item">
-                <span>{{ item.label }}</span>
-                <input type="text" [value]="item.value" class="dynamic-list-input" />
-            </div>
+            @if (showFirstSection) {
+                <div class="first-section">
+                    <input type="text" class="dynamic-input-1" />
+                    <button class="dynamic-button-1">Button 1</button>
+                </div>
+            }
+            @if (showSecondSection) {
+                <div class="second-section">
+                    <textarea class="dynamic-textarea"></textarea>
+                    <select class="dynamic-select">
+                        <option>Dynamic Option</option>
+                    </select>
+                </div>
+            }
+            @for (item of dynamicItems; track item) {
+                <div class="dynamic-item">
+                    <span>{{ item.label }}</span>
+                    <input type="text" [value]="item.value" class="dynamic-list-input" />
+                </div>
+            }
         </p-fluid>
-    `
+    `,
+    imports: [FluidModule]
 })
 class TestFluidDynamicContentComponent {
     showFirstSection = true;
@@ -145,7 +151,6 @@ class TestFluidDynamicContentComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-fluid-complex-layout',
     template: `
         <div class="complex-layout">
@@ -173,15 +178,16 @@ class TestFluidDynamicContentComponent {
                 </div>
             </p-fluid>
         </div>
-    `
+    `,
+    imports: [FluidModule]
 })
 class TestFluidComplexLayoutComponent {}
 
 describe('Fluid', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FluidModule],
-            declarations: [
+            imports: [
+                FluidModule,
                 TestBasicFluidComponent,
                 TestFluidWithContentComponent,
                 TestFluidWithFormControlsComponent,
@@ -205,6 +211,7 @@ describe('Fluid', () => {
             fixture.detectChanges();
 
             const fluidDebugElement = fixture.debugElement.query(By.directive(Fluid));
+
             component = fluidDebugElement.componentInstance;
             element = fluidDebugElement.nativeElement;
         });
@@ -255,12 +262,14 @@ describe('Fluid', () => {
 
         it('should project content correctly', () => {
             const projectedContent = element.querySelector('.test-content');
+
             expect(projectedContent).toBeTruthy();
             expect(projectedContent?.textContent?.trim()).toBe('Content inside fluid');
         });
 
         it('should render ng-content as direct child', () => {
             const directChild = element.firstElementChild;
+
             expect(directChild?.classList.contains('test-content')).toBe(true);
         });
 
@@ -301,6 +310,7 @@ describe('Fluid', () => {
 
         it('should preserve form structure', () => {
             const formGroups = element.querySelectorAll('.form-group');
+
             expect(formGroups.length).toBe(3);
 
             formGroups.forEach((group) => {
@@ -331,6 +341,7 @@ describe('Fluid', () => {
 
         it('should support nested fluid components', () => {
             const fluidComponents = fixture.debugElement.queryAll(By.directive(Fluid));
+
             expect(fluidComponents.length).toBe(2);
         });
 
@@ -344,11 +355,13 @@ describe('Fluid', () => {
 
         it('should preserve nested content', () => {
             const nestedInput = element.querySelector('.nested-input');
+
             expect(nestedInput).toBeTruthy();
         });
 
         it('should apply fluid styling to all levels', () => {
             const fluidElements = element.querySelectorAll('p-fluid');
+
             expect(fluidElements.length).toBe(2);
 
             fluidElements.forEach((fluidEl) => {
@@ -379,6 +392,7 @@ describe('Fluid', () => {
 
         it('should maintain control group structure', () => {
             const controlGroups = element.querySelectorAll('.control-group');
+
             expect(controlGroups.length).toBe(3);
 
             controlGroups.forEach((group) => {
@@ -472,6 +486,7 @@ describe('Fluid', () => {
 
         it('should render dynamic list items', () => {
             const dynamicItems = element.querySelectorAll('.dynamic-item');
+
             expect(dynamicItems.length).toBe(2);
 
             dynamicItems.forEach((item, index) => {
@@ -490,6 +505,7 @@ describe('Fluid', () => {
             await fixture.whenStable();
 
             const dynamicItems = element.querySelectorAll('.dynamic-item');
+
             expect(dynamicItems.length).toBe(3);
         });
 
@@ -499,6 +515,7 @@ describe('Fluid', () => {
             await fixture.whenStable();
 
             const dynamicItems = element.querySelectorAll('.dynamic-item');
+
             expect(dynamicItems.length).toBe(0);
         });
     });
@@ -527,18 +544,21 @@ describe('Fluid', () => {
             // Header section
             const headerSearch = element.querySelector('.header-search');
             const headerTitle = element.querySelector('.header-section h2');
+
             expect(headerSearch).toBeTruthy();
             expect(headerTitle?.textContent?.trim()).toBe('Form Header');
 
             // Main section panels
             const leftPanel = element.querySelector('.left-panel');
             const rightPanel = element.querySelector('.right-panel');
+
             expect(leftPanel).toBeTruthy();
             expect(rightPanel).toBeTruthy();
 
             // Footer section
             const statusInfo = element.querySelector('.status-info');
             const footerAction = element.querySelector('.footer-action');
+
             expect(statusInfo?.textContent?.trim()).toBe('Status: Active');
             expect(footerAction).toBeTruthy();
         });
@@ -575,6 +595,7 @@ describe('Fluid', () => {
             fixture.detectChanges();
 
             const fluidDebugElement = fixture.debugElement.query(By.directive(Fluid));
+
             component = fluidDebugElement.componentInstance;
             element = fluidDebugElement.nativeElement;
         });
@@ -582,6 +603,7 @@ describe('Fluid', () => {
         it('should apply root CSS classes through cx method', () => {
             // The cx('root') method should generate appropriate CSS classes
             const classes = element.className;
+
             expect(classes).toBeTruthy();
         });
 
@@ -632,9 +654,11 @@ describe('Fluid', () => {
     describe('Performance', () => {
         it('should handle multiple fluid instances', () => {
             const multiFixture = TestBed.createComponent(TestNestedFluidComponent);
+
             multiFixture.detectChanges();
 
             const fluidComponents = multiFixture.debugElement.queryAll(By.directive(Fluid));
+
             expect(fluidComponents.length).toBe(2);
 
             fluidComponents.forEach((fluidComp) => {
@@ -659,6 +683,7 @@ describe('Fluid', () => {
             }).not.toThrow();
 
             const element = complexFixture.debugElement.query(By.directive(Fluid)).nativeElement;
+
             expect(element.children.length).toBeGreaterThan(0);
         });
     });
@@ -679,6 +704,7 @@ describe('Fluid', () => {
             labels.forEach((label) => {
                 const forId = label.getAttribute('for');
                 const associatedElement = element.querySelector(`#${forId}`);
+
                 expect(associatedElement).toBeTruthy();
             });
         });
@@ -689,8 +715,10 @@ describe('Fluid', () => {
             formControls.forEach((control) => {
                 // Each control should have an ID or be associated with a label
                 const id = control.getAttribute('id');
+
                 if (id) {
                     const label = element.querySelector(`label[for="${id}"]`);
+
                     expect(label).toBeTruthy();
                 }
             });
@@ -699,6 +727,7 @@ describe('Fluid', () => {
         it('should not interfere with ARIA attributes', () => {
             // Fluid should not add or modify ARIA attributes
             const fluidElement = fixture.debugElement.query(By.directive(Fluid)).nativeElement;
+
             expect(fluidElement.hasAttribute('aria-label')).toBe(false);
             expect(fluidElement.hasAttribute('role')).toBe(false);
         });
@@ -820,11 +849,13 @@ describe('Fluid', () => {
 
             it('should access instance in pt function for root', () => {
                 let instanceAccessed = false;
+
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
                         if (instance) {
                             instanceAccessed = true;
                         }
+
                         return {
                             class: 'INSTANCE_TEST'
                         };
@@ -849,6 +880,7 @@ describe('Fluid', () => {
 
             it('should bind onclick event to root through pt', () => {
                 let clickCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
@@ -866,6 +898,7 @@ describe('Fluid', () => {
 
             it('should bind onclick event to host through pt', () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     host: {
                         onclick: () => {
@@ -884,19 +917,23 @@ describe('Fluid', () => {
         describe('Case 7: Inline test', () => {
             it('should apply inline pt with string class', () => {
                 const inlineFixture = TestBed.createComponent(TestPTFluidComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
                 inlineFixture.detectChanges();
 
                 const element = inlineFixture.debugElement.query(By.directive(Fluid)).nativeElement;
+
                 expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
             });
 
             it('should apply inline pt with object class', () => {
                 const inlineFixture = TestBed.createComponent(TestPTFluidComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
                 inlineFixture.detectChanges();
 
                 const element = inlineFixture.debugElement.query(By.directive(Fluid)).nativeElement;
+
                 expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -910,6 +947,7 @@ describe('Fluid', () => {
 
             it('should call onAfterViewInit hook', () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewInit: () => {
@@ -924,6 +962,7 @@ describe('Fluid', () => {
 
             it('should call onAfterContentInit hook', () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterContentInit: () => {
@@ -938,6 +977,7 @@ describe('Fluid', () => {
 
             it('should call onAfterViewChecked hook', () => {
                 let checkCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewChecked: () => {
@@ -952,6 +992,7 @@ describe('Fluid', () => {
 
             it('should call onDestroy hook', () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onDestroy: () => {

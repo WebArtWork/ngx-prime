@@ -96,6 +96,7 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
         super();
         effect(() => {
             const pt = this.pTextareaPT();
+
             pt && this.directivePT.set(pt);
         });
 
@@ -120,9 +121,11 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+
         if (this.autoResize) {
             this.resize();
         }
+
         this.writeModelValue(this.ngControl?.value ?? this.el.nativeElement.value);
     }
 

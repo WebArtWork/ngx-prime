@@ -93,6 +93,7 @@ describe('Textarea', () => {
 
         it('should update model value when text changes', async () => {
             const textarea = textareaEl.nativeElement;
+
             textarea.value = 'test content';
             textarea.dispatchEvent(new Event('input'));
             fixture.changeDetectorRef.markForCheck();
@@ -250,6 +251,7 @@ describe('Textarea', () => {
 
         it('should update form control when textarea changes', async () => {
             const textarea = textareaEl.nativeElement;
+
             textarea.value = 'user input';
             textarea.dispatchEvent(new Event('input'));
             fixture.changeDetectorRef.markForCheck();
@@ -314,6 +316,7 @@ describe('Textarea', () => {
 
         it('should handle multiline content', async () => {
             const multilineContent = 'Line 1\nLine 2\nLine 3';
+
             component.value = multilineContent;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -339,6 +342,7 @@ describe('Textarea', () => {
             fixture = TestBed.createComponent(TestPTTextareaComponent);
             component = fixture.componentInstance;
             const debugEl = fixture.debugElement.query(By.directive(Textarea));
+
             textareaEl = debugEl.nativeElement;
             fixture.detectChanges();
         });
@@ -436,11 +440,13 @@ describe('Textarea', () => {
                 fixture.detectChanges();
 
                 let instanceAccessed = false;
+
                 component.pt = {
                     root: ({ instance }) => {
                         if ((instance as any)?.invalid()) {
                             instanceAccessed = true;
                         }
+
                         return {
                             class: {
                                 INVALID_CLASS: (instance as any)?.invalid()
@@ -464,11 +470,13 @@ describe('Textarea', () => {
                 fixture.detectChanges();
 
                 let instanceAccessed = false;
+
                 component.pt = {
                     root: ({ instance }) => {
                         if ((instance as any)?.autoResize) {
                             instanceAccessed = true;
                         }
+
                         return {
                             class: {
                                 AUTO_RESIZE_ENABLED: (instance as any)?.autoResize
@@ -511,6 +519,7 @@ describe('Textarea', () => {
         describe('Case 5: Event binding', () => {
             it('should bind onclick event via PT', async () => {
                 let clicked = false;
+
                 component.pt = {
                     root: () => ({
                         onclick: () => {
@@ -530,6 +539,7 @@ describe('Textarea', () => {
 
             it('should bind onfocus event via PT', async () => {
                 let focused = false;
+
                 component.pt = {
                     root: () => ({
                         onfocus: () => {
@@ -551,6 +561,7 @@ describe('Textarea', () => {
         describe('Case 6: Inline PT', () => {
             it('should apply inline pt with string class', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTTextareaComponent);
+
                 inlineFixture.componentInstance.pt = { root: 'INLINE_CLASS' };
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
@@ -559,11 +570,13 @@ describe('Textarea', () => {
                 await inlineFixture.whenStable();
 
                 const el = inlineFixture.debugElement.query(By.directive(Textarea)).nativeElement;
+
                 expect(el.classList.contains('INLINE_CLASS')).toBe(true);
             });
 
             it('should apply inline pt with object', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTTextareaComponent);
+
                 inlineFixture.componentInstance.pt = {
                     root: {
                         class: 'INLINE_OBJECT_CLASS'
@@ -576,6 +589,7 @@ describe('Textarea', () => {
                 await inlineFixture.whenStable();
 
                 const el = inlineFixture.debugElement.query(By.directive(Textarea)).nativeElement;
+
                 expect(el.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -598,6 +612,7 @@ describe('Textarea', () => {
                 }).compileComponents();
 
                 const globalFixture = TestBed.createComponent(TestPTTextareaComponent);
+
                 globalFixture.changeDetectorRef.markForCheck();
                 await globalFixture.whenStable();
                 globalFixture.detectChanges();
@@ -605,6 +620,7 @@ describe('Textarea', () => {
                 await globalFixture.whenStable();
 
                 const el = globalFixture.debugElement.query(By.directive(Textarea)).nativeElement;
+
                 expect(el.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
             });
 
@@ -628,6 +644,7 @@ describe('Textarea', () => {
                 }).compileComponents();
 
                 const globalFixture = TestBed.createComponent(TestPTTextareaComponent);
+
                 globalFixture.changeDetectorRef.markForCheck();
                 await globalFixture.whenStable();
                 globalFixture.detectChanges();
@@ -635,6 +652,7 @@ describe('Textarea', () => {
                 await globalFixture.whenStable();
 
                 const el = globalFixture.debugElement.query(By.directive(Textarea)).nativeElement;
+
                 expect(el.classList.contains('GLOBAL_CLASS')).toBe(true);
             });
         });
@@ -642,6 +660,7 @@ describe('Textarea', () => {
         describe('Case 8: Hooks', () => {
             it('should execute onAfterViewInit hook', async () => {
                 let hookCalled = false;
+
                 component.pt = {
                     root: 'HOOK_CLASS',
                     hooks: {
@@ -653,6 +672,7 @@ describe('Textarea', () => {
 
                 // Recreate component to trigger lifecycle hooks
                 const newFixture = TestBed.createComponent(TestPTTextareaComponent);
+
                 newFixture.componentInstance.pt = component.pt;
                 newFixture.changeDetectorRef.markForCheck();
                 await newFixture.whenStable();
@@ -665,6 +685,7 @@ describe('Textarea', () => {
 
             it('should execute onAfterViewChecked hook', async () => {
                 let hookCallCount = 0;
+
                 component.pt = {
                     root: 'HOOK_CLASS',
                     hooks: {
@@ -684,6 +705,7 @@ describe('Textarea', () => {
 
             it('should execute onDestroy hook', async () => {
                 let hookCalled = false;
+
                 component.pt = {
                     root: 'HOOK_CLASS',
                     hooks: {

@@ -53,6 +53,7 @@ export class AutoFocus extends BaseComponent {
                 if (focusableElements.length === 0) {
                     this.host.nativeElement.focus();
                 }
+
                 if (focusableElements.length > 0) {
                     focusableElements[0].focus();
                 }

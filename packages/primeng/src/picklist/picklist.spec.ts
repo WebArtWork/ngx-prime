@@ -18,7 +18,6 @@ import {
 import { PickList } from './picklist';
 
 @Component({
-    standalone: false,
     template: `
         <p-picklist
             [source]="source"
@@ -55,7 +54,8 @@ import { PickList } from './picklist';
                 <div class="target-header">{{ targetHeader }}</div>
             </ng-template>
         </p-picklist>
-    `
+    `,
+    imports: [CommonModule, PickList, DragDropModule]
 })
 class TestPickListComponent {
     source: any[] = [
@@ -135,8 +135,7 @@ describe('PickList', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestPickListComponent],
-            imports: [CommonModule, PickList, DragDropModule],
+            imports: [CommonModule, PickList, DragDropModule, TestPickListComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -382,6 +381,7 @@ describe('PickList', () => {
 
             // No items should be draggable
             const draggableItems = fixture.debugElement.queryAll(By.css('[cdkDrag]'));
+
             expect(draggableItems.length).toBe(0);
         });
 
@@ -391,6 +391,7 @@ describe('PickList', () => {
 
             // Apply filter to show only items with category 'A'
             const sourceFilterInput = fixture.debugElement.query(By.css('[data-pc-section="sourceFilterInput"]'));
+
             if (sourceFilterInput) {
                 sourceFilterInput.nativeElement.value = 'Item 1';
                 sourceFilterInput.nativeElement.dispatchEvent(new Event('input'));
@@ -609,6 +610,7 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             const listboxes = fixture.debugElement.queryAll(By.css('p-listbox'));
+
             expect(listboxes.length).toBe(2);
 
             // Check that both listboxes use the dataKey as optionLabel
@@ -625,6 +627,7 @@ describe('PickList', () => {
             expect(picklistComponent.dataKey).toBe('id');
 
             const listboxes = fixture.debugElement.queryAll(By.css('p-listbox'));
+
             expect(listboxes.length).toBe(2);
 
             // When dataKey is provided, it's used as optionLabel in listboxes
@@ -637,6 +640,7 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             const listboxes = fixture.debugElement.queryAll(By.css('p-listbox'));
+
             expect(listboxes.length).toBe(2);
 
             // Should fallback to 'name'
@@ -652,6 +656,7 @@ describe('PickList', () => {
 
             // Select first item in source
             const itemToMove = picklistComponent.source()[0];
+
             picklistComponent.selectedItemsSource = [itemToMove];
 
             // Move item using arrow button (moveRight)
@@ -703,6 +708,7 @@ describe('PickList', () => {
 
             // Select first item in target
             const itemToMove = picklistComponent.target()[0];
+
             picklistComponent.selectedItemsTarget = [itemToMove];
 
             // Move item using arrow button (moveLeft)
@@ -843,6 +849,7 @@ describe('PickList', () => {
         it('should transfer all selected items when dragging one of them (source to target)', async () => {
             // Select multiple items in source
             const selectedItems = [picklistComponent.source()[0], picklistComponent.source()[1], picklistComponent.source()[2]];
+
             picklistComponent.selectedItemsSource = selectedItems;
 
             const draggedItem = selectedItems[1]; // Drag the second selected item
@@ -887,6 +894,7 @@ describe('PickList', () => {
         it('should transfer all selected items when dragging one of them (target to source)', async () => {
             // First move some items to target to have more items
             const itemsToMoveFirst = [picklistComponent.source()[0], picklistComponent.source()[1]];
+
             picklistComponent.selectedItemsSource = itemsToMoveFirst;
             picklistComponent.moveRight();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -895,6 +903,7 @@ describe('PickList', () => {
 
             // Now select multiple items in target
             const selectedItems = [picklistComponent.target()[0], picklistComponent.target()[1], picklistComponent.target()[2]];
+
             picklistComponent.selectedItemsTarget = selectedItems;
 
             const draggedItem = selectedItems[1]; // Drag the second selected item
@@ -939,6 +948,7 @@ describe('PickList', () => {
         it('should only move dragged item if it is not part of selection', async () => {
             // Select some items in source
             const selectedItems = [picklistComponent.source()[0], picklistComponent.source()[1]];
+
             picklistComponent.selectedItemsSource = selectedItems;
 
             const unselectedItem = picklistComponent.source()[3]; // Not in selection
@@ -988,6 +998,7 @@ describe('PickList', () => {
                 picklistComponent.source()[2], // Item 3
                 picklistComponent.source()[1] // Item 2
             ];
+
             picklistComponent.selectedItemsSource = selectedItems;
 
             const draggedItem = selectedItems[0];
@@ -1065,6 +1076,7 @@ describe('PickList', () => {
 
             // Select multiple items
             const selectedItems = [picklistComponent.source()[0], picklistComponent.source()[1]];
+
             picklistComponent.selectedItemsSource = selectedItems;
 
             const draggedItem = selectedItems[0];
@@ -1137,6 +1149,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const hostElement = ptFixture.debugElement.nativeElement;
+
                 expect(hostElement.classList.contains('HOST_CLASS')).toBe(true);
             });
 
@@ -1145,6 +1158,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+
                 if (sourceControlsEl) {
                     expect(sourceControlsEl.nativeElement.classList.contains('SOURCE_CONTROLS_CLASS')).toBe(true);
                 }
@@ -1155,6 +1169,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const containerEl = ptFixture.debugElement.query(By.css('.p-picklist-source-controls + div'));
+
                 expect(containerEl?.nativeElement.classList.contains('SOURCE_CONTAINER_CLASS')).toBe(true);
             });
 
@@ -1163,6 +1178,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+
                 if (transferControlsEl) {
                     expect(transferControlsEl.nativeElement.classList.contains('TRANSFER_CONTROLS_CLASS')).toBe(true);
                 }
@@ -1185,6 +1201,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const targetControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-target-controls"]'));
+
                 if (targetControlsEl) {
                     expect(targetControlsEl.nativeElement.classList.contains('TARGET_CONTROLS_CLASS')).toBe(true);
                 }
@@ -1204,6 +1221,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const hostElement = ptFixture.debugElement.nativeElement;
+
                 expect(hostElement.classList.contains('HOST_OBJECT_CLASS')).toBe(true);
                 expect(hostElement.style.backgroundColor).toBe('red');
                 expect(hostElement.getAttribute('data-p-test')).toBe('true');
@@ -1220,6 +1238,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+
                 if (sourceControlsEl) {
                     expect(sourceControlsEl.nativeElement.classList.contains('SOURCE_CONTROLS_OBJECT_CLASS')).toBe(true);
                     expect(sourceControlsEl.nativeElement.style.padding).toBe('10px');
@@ -1236,6 +1255,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+
                 if (transferControlsEl) {
                     expect(transferControlsEl.nativeElement.classList.contains('TRANSFER_CONTROLS_OBJECT_CLASS')).toBe(true);
                     expect(transferControlsEl.nativeElement.style.margin).toBe('5px');
@@ -1253,6 +1273,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+
                 // Check if any button has custom styling from PT
                 expect(buttons.length).toBeGreaterThan(0);
             });
@@ -1266,6 +1287,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2); // source and target
             });
         });
@@ -1286,9 +1308,11 @@ describe('PickList', () => {
 
             it('should apply inline PT with string class', () => {
                 const inlineFixture = TestBed.createComponent(InlineTestComponent);
+
                 inlineFixture.detectChanges();
 
                 const hostElement = inlineFixture.debugElement.query(By.css('p-picklist')).nativeElement;
+
                 expect(hostElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
             });
 
@@ -1307,9 +1331,11 @@ describe('PickList', () => {
 
             it('should apply inline PT with object class', () => {
                 const inlineFixture = TestBed.createComponent(InlineObjectTestComponent);
+
                 inlineFixture.detectChanges();
 
                 const hostElement = inlineFixture.debugElement.query(By.css('p-picklist')).nativeElement;
+
                 expect(hostElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -1347,9 +1373,11 @@ describe('PickList', () => {
                 }).compileComponents();
 
                 const globalFixture = TestBed.createComponent(GlobalPTTestComponent);
+
                 globalFixture.detectChanges();
 
                 const picklists = globalFixture.debugElement.queryAll(By.css('p-picklist'));
+
                 expect(picklists.length).toBe(2);
 
                 picklists.forEach((picklistEl) => {
@@ -1381,9 +1409,11 @@ describe('PickList', () => {
                 }).compileComponents();
 
                 const globalFixture = TestBed.createComponent(GlobalPTTestComponent);
+
                 globalFixture.detectChanges();
 
                 const picklists = globalFixture.debugElement.queryAll(By.css('p-picklist'));
+
                 picklists.forEach((picklistEl) => {
                     expect(picklistEl.nativeElement.classList.contains('GLOBAL_CLASS')).toBe(true);
                 });
@@ -1393,6 +1423,7 @@ describe('PickList', () => {
         describe('Case 6: Event binding', () => {
             it('should bind onclick event via PT to sourceControls', async () => {
                 let clickedFromPT = false;
+
                 ptFixture.componentRef.setInput('pt', {
                     sourceControls: {
                         onclick: () => {
@@ -1405,6 +1436,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+
                 sourceControlsEl?.nativeElement.click();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
@@ -1414,6 +1446,7 @@ describe('PickList', () => {
 
             it('should bind onclick event via PT to transferControls', async () => {
                 let transferClicked = false;
+
                 ptFixture.componentRef.setInput('pt', {
                     transferControls: {
                         onclick: () => {
@@ -1426,6 +1459,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+
                 transferControlsEl?.nativeElement.click();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
@@ -1441,6 +1475,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+
                 if (sourceControlsEl) {
                     expect(sourceControlsEl.nativeElement.classList.contains('SOURCE_VISIBLE_CLASS')).toBe(true);
                 }
@@ -1452,6 +1487,7 @@ describe('PickList', () => {
                 ptFixture.detectChanges();
 
                 const targetControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-target-controls"]'));
+
                 if (targetControlsEl) {
                     expect(targetControlsEl.nativeElement.classList.contains('TARGET_VISIBLE_CLASS')).toBe(true);
                 }
@@ -1472,6 +1508,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+
                 expect(buttons.length).toBeGreaterThan(0);
             });
 
@@ -1487,6 +1524,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+
                 expect(buttons.length).toBeGreaterThan(0);
             });
 
@@ -1503,6 +1541,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const buttons = ptFixture.debugElement.queryAll(By.css('button[pbutton]'));
+
                 expect(buttons.length).toBeGreaterThan(0);
             });
         });
@@ -1511,19 +1550,18 @@ describe('PickList', () => {
             it('should access instance.disabled property in PT callback', async () => {
                 ptPicklist.disabled = true;
                 ptFixture.componentRef.setInput('pt', {
-                    sourceControls: ({ instance }) => {
-                        return {
-                            class: {
-                                DISABLED_STATE: instance?.disabled
-                            }
-                        };
-                    }
+                    sourceControls: ({ instance }) => ({
+                        class: {
+                            DISABLED_STATE: instance?.disabled
+                        }
+                    })
                 });
                 ptFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
 
                 const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+
                 if (sourceControlsEl) {
                     expect(sourceControlsEl.nativeElement.classList.contains('DISABLED_STATE')).toBe(true);
                 }
@@ -1532,13 +1570,11 @@ describe('PickList', () => {
             it('should access instance.showSourceControls property in PT callback', async () => {
                 ptPicklist.showSourceControls = true;
                 ptFixture.componentRef.setInput('pt', {
-                    host: ({ instance }) => {
-                        return {
-                            class: {
-                                SOURCE_CONTROLS_VISIBLE: instance?.showSourceControls
-                            }
-                        };
-                    }
+                    host: ({ instance }) => ({
+                        class: {
+                            SOURCE_CONTROLS_VISIBLE: instance?.showSourceControls
+                        }
+                    })
                 });
                 ptFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1546,19 +1582,18 @@ describe('PickList', () => {
 
                 // host is the component's root element
                 const hostEl = ptFixture.debugElement.nativeElement;
+
                 expect(hostEl.classList.contains('SOURCE_CONTROLS_VISIBLE')).toBe(true);
             });
 
             it('should access instance.showTargetControls property in PT callback', async () => {
                 ptPicklist.showTargetControls = true;
                 ptFixture.componentRef.setInput('pt', {
-                    host: ({ instance }) => {
-                        return {
-                            class: {
-                                TARGET_CONTROLS_VISIBLE: instance?.showTargetControls
-                            }
-                        };
-                    }
+                    host: ({ instance }) => ({
+                        class: {
+                            TARGET_CONTROLS_VISIBLE: instance?.showTargetControls
+                        }
+                    })
                 });
                 ptFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1566,6 +1601,7 @@ describe('PickList', () => {
 
                 // host is the component's root element
                 const hostEl = ptFixture.debugElement.nativeElement;
+
                 expect(hostEl.classList.contains('TARGET_CONTROLS_VISIBLE')).toBe(true);
             });
 
@@ -1573,6 +1609,7 @@ describe('PickList', () => {
                 ptFixture.componentRef.setInput('pt', {
                     sourceListContainer: ({ instance }) => {
                         const sourceLength = instance?.source()?.length || 0;
+
                         return {
                             'data-source-count': sourceLength.toString()
                         };
@@ -1583,6 +1620,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const containerEl = ptFixture.debugElement.query(By.css('.p-picklist-source-controls + div'));
+
                 if (containerEl) {
                     expect(containerEl.nativeElement.getAttribute('data-source-count')).toBe('3');
                 }
@@ -1592,6 +1630,7 @@ describe('PickList', () => {
                 ptFixture.componentRef.setInput('pt', {
                     targetListContainer: ({ instance }) => {
                         const targetLength = instance?.target()?.length || 0;
+
                         return {
                             'data-target-count': targetLength.toString()
                         };
@@ -1603,6 +1642,7 @@ describe('PickList', () => {
 
                 const picklistDivs = ptFixture.debugElement.queryAll(By.css('[class*="p-picklist"]'));
                 const targetContainerEl = picklistDivs.find((el) => el.nativeElement.className.includes('target') && el.nativeElement.className.includes('list'));
+
                 if (targetContainerEl) {
                     expect(targetContainerEl.nativeElement.getAttribute('data-target-count')).toBe('2');
                 }
@@ -1611,19 +1651,18 @@ describe('PickList', () => {
             it('should apply conditional styling based on instance.disabled in transferControls', async () => {
                 ptPicklist.disabled = false;
                 ptFixture.componentRef.setInput('pt', {
-                    transferControls: ({ instance }) => {
-                        return {
-                            style: {
-                                'background-color': instance?.disabled ? 'gray' : 'blue'
-                            }
-                        };
-                    }
+                    transferControls: ({ instance }) => ({
+                        style: {
+                            'background-color': instance?.disabled ? 'gray' : 'blue'
+                        }
+                    })
                 });
                 ptFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
 
                 const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+
                 if (transferControlsEl) {
                     expect(transferControlsEl.nativeElement.style.backgroundColor).toBe('blue');
                 }
@@ -1632,19 +1671,18 @@ describe('PickList', () => {
             it('should access instance.viewChanged property in PT callback', async () => {
                 ptPicklist.viewChanged = false;
                 ptFixture.componentRef.setInput('pt', {
-                    transferControls: ({ instance }) => {
-                        return {
-                            class: {
-                                VIEW_CHANGED: instance?.viewChanged
-                            }
-                        };
-                    }
+                    transferControls: ({ instance }) => ({
+                        class: {
+                            VIEW_CHANGED: instance?.viewChanged
+                        }
+                    })
                 });
                 ptFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
 
                 const transferControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-transfer-controls"]'));
+
                 if (transferControlsEl) {
                     expect(transferControlsEl.nativeElement.classList.contains('VIEW_CHANGED')).toBe(false);
                 }
@@ -1652,12 +1690,10 @@ describe('PickList', () => {
 
             it('should access instance.$pcPickList in nested picklist PT callback', async () => {
                 ptFixture.componentRef.setInput('pt', {
-                    host: ({ instance }) => {
-                        return {
-                            class: 'NESTED_TEST',
-                            'data-has-parent': instance?.$pcPickList ? 'true' : 'false'
-                        };
-                    }
+                    host: ({ instance }) => ({
+                        class: 'NESTED_TEST',
+                        'data-has-parent': instance?.$pcPickList ? 'true' : 'false'
+                    })
                 });
                 ptFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1667,6 +1703,7 @@ describe('PickList', () => {
                 expect(ptPicklist.$pcPickList).toBeUndefined();
                 // host is the component's root element
                 const hostEl = ptFixture.debugElement.nativeElement;
+
                 expect(hostEl.getAttribute('data-has-parent')).toBe('false');
             });
 
@@ -1674,20 +1711,19 @@ describe('PickList', () => {
                 ptPicklist.disabled = false;
                 ptPicklist.showSourceControls = true;
                 ptFixture.componentRef.setInput('pt', {
-                    sourceControls: ({ instance }) => {
-                        return {
-                            class: {
-                                ENABLED_AND_VISIBLE: !instance?.disabled && instance?.showSourceControls
-                            },
-                            'data-test-state': 'active'
-                        };
-                    }
+                    sourceControls: ({ instance }) => ({
+                        class: {
+                            ENABLED_AND_VISIBLE: !instance?.disabled && instance?.showSourceControls
+                        },
+                        'data-test-state': 'active'
+                    })
                 });
                 ptFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();
 
                 const sourceControlsEl = ptFixture.debugElement.query(By.css('[class*="p-picklist-source-controls"]'));
+
                 if (sourceControlsEl) {
                     expect(sourceControlsEl.nativeElement.classList.contains('ENABLED_AND_VISIBLE')).toBe(true);
                     expect(sourceControlsEl.nativeElement.getAttribute('data-test-state')).toBe('active');
@@ -1707,6 +1743,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2);
                 listboxes.forEach((listbox) => {
                     expect(listbox.nativeElement.classList.contains('CUSTOM_LISTBOX_HOST')).toBe(true);
@@ -1724,6 +1761,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2);
             });
 
@@ -1738,6 +1776,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2);
             });
 
@@ -1752,6 +1791,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2);
             });
 
@@ -1769,20 +1809,19 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2);
             });
 
             it('should pass PT with instance callback to listbox', async () => {
                 ptFixture.componentRef.setInput('pt', {
-                    pcListbox: ({ instance }) => {
-                        return {
-                            root: {
-                                class: {
-                                    LISTBOX_DISABLED: instance?.disabled
-                                }
+                    pcListbox: ({ instance }) => ({
+                        root: {
+                            class: {
+                                LISTBOX_DISABLED: instance?.disabled
                             }
-                        };
-                    }
+                        }
+                    })
                 });
                 ptPicklist.disabled = true;
                 ptFixture.detectChanges();
@@ -1790,6 +1829,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2);
             });
 
@@ -1807,6 +1847,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2);
                 listboxes.forEach((listbox) => {
                     expect(listbox.nativeElement.classList.contains('LISTBOX_HOST')).toBe(true);
@@ -1826,6 +1867,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2);
                 listboxes.forEach((listbox) => {
                     expect(listbox.nativeElement.style.border).toBe('2px solid red');
@@ -1846,6 +1888,7 @@ describe('PickList', () => {
                 await ptFixture.whenStable();
 
                 const listboxes = ptFixture.debugElement.queryAll(By.css('p-listbox'));
+
                 expect(listboxes.length).toBe(2);
                 listboxes.forEach((listbox) => {
                     expect(listbox.nativeElement.getAttribute('data-testid')).toBe('picklist-listbox');

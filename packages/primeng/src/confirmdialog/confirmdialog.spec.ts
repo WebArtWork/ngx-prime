@@ -1,4 +1,4 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -9,7 +9,6 @@ import { ConfirmDialog } from './confirmdialog';
 
 // Basic ConfirmDialog Component Test
 @Component({
-    standalone: false,
     template: `
         <p-confirmdialog
             [header]="header"
@@ -46,7 +45,8 @@ import { ConfirmDialog } from './confirmdialog';
             (onHide)="onHide($event)"
         >
         </p-confirmdialog>
-    `
+    `,
+    imports: [ConfirmDialog, Dialog, Button]
 })
 class TestBasicConfirmDialogComponent {
     header: string | undefined = 'Confirmation';
@@ -90,7 +90,6 @@ class TestBasicConfirmDialogComponent {
 
 // ConfirmDialog with pTemplate Templates
 @Component({
-    standalone: false,
     template: `
         <p-confirmdialog>
             <ng-template pTemplate="header">
@@ -130,13 +129,13 @@ class TestBasicConfirmDialogComponent {
                 </div>
             </ng-template>
         </p-confirmdialog>
-    `
+    `,
+    imports: [ConfirmDialog, Dialog, Button]
 })
 class TestTemplatePConfirmDialogComponent {}
 
 // ConfirmDialog with #template Templates
 @Component({
-    standalone: false,
     template: `
         <p-confirmdialog>
             <ng-template #header>
@@ -175,14 +174,15 @@ class TestTemplatePConfirmDialogComponent {}
                 </div>
             </ng-template>
         </p-confirmdialog>
-    `
+    `,
+    imports: [ConfirmDialog, Dialog, Button]
 })
 class TestContentTemplateConfirmDialogComponent {}
 
 // ConfirmDialog Position Test
 @Component({
-    standalone: false,
-    template: ` <p-confirmdialog [position]="position" [visible]="visible"> </p-confirmdialog> `
+    template: ` <p-confirmdialog [position]="position" [visible]="visible"> </p-confirmdialog> `,
+    imports: [ConfirmDialog, Dialog, Button]
 })
 class TestPositionConfirmDialogComponent {
     position: 'center' | 'top' | 'bottom' | 'left' | 'right' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright' = 'center';
@@ -191,18 +191,18 @@ class TestPositionConfirmDialogComponent {
 
 // ConfirmDialog with ConfirmationService
 @Component({
-    standalone: false,
     template: `
         <p-confirmdialog></p-confirmdialog>
         <button (click)="confirm()" class="confirm-btn">Confirm</button>
     `,
-    providers: [ConfirmationService]
+    providers: [ConfirmationService],
+    imports: [ConfirmDialog, Dialog, Button]
 })
 class TestConfirmationServiceComponent {
+    private confirmationService = inject(ConfirmationService);
+
     acceptClicked = false;
     rejectClicked = false;
-
-    constructor(private confirmationService: ConfirmationService) {}
 
     confirm() {
         this.confirmationService.confirm({
@@ -230,8 +230,8 @@ class TestConfirmationServiceComponent {
 
 // ConfirmDialog Accessibility Test
 @Component({
-    standalone: false,
-    template: ` <p-confirmdialog [visible]="true" [acceptAriaLabel]="acceptAriaLabel" [rejectAriaLabel]="rejectAriaLabel" [closeAriaLabel]="closeAriaLabel" header="Accessibility Test" message="Test message"> </p-confirmdialog> `
+    template: ` <p-confirmdialog [visible]="true" [acceptAriaLabel]="acceptAriaLabel" [rejectAriaLabel]="rejectAriaLabel" [closeAriaLabel]="closeAriaLabel" header="Accessibility Test" message="Test message"> </p-confirmdialog> `,
+    imports: [ConfirmDialog, Dialog, Button]
 })
 class TestAccessibilityConfirmDialogComponent {
     acceptAriaLabel = 'Accept confirmation';
@@ -241,7 +241,6 @@ class TestAccessibilityConfirmDialogComponent {
 
 // ConfirmDialog Button Properties Test
 @Component({
-    standalone: false,
     template: `
         <p-confirmdialog
             [visible]="visible"
@@ -253,7 +252,8 @@ class TestAccessibilityConfirmDialogComponent {
             [rejectButtonStyleClass]="rejectButtonStyleClass"
         >
         </p-confirmdialog>
-    `
+    `,
+    imports: [ConfirmDialog, Dialog, Button]
 })
 class TestButtonPropertiesComponent {
     visible = false;
@@ -267,8 +267,8 @@ class TestButtonPropertiesComponent {
 
 // ConfirmDialog Events Test
 @Component({
-    standalone: false,
-    template: ` <p-confirmdialog [visible]="visible" (onHide)="onHide($event)"> </p-confirmdialog> `
+    template: ` <p-confirmdialog [visible]="visible" (onHide)="onHide($event)"> </p-confirmdialog> `,
+    imports: [ConfirmDialog, Dialog, Button]
 })
 class TestEventsConfirmDialogComponent {
     visible = false;
@@ -286,7 +286,10 @@ describe('ConfirmDialog', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                ConfirmDialog,
+                Dialog,
+                Button,
                 TestBasicConfirmDialogComponent,
                 TestTemplatePConfirmDialogComponent,
                 TestContentTemplateConfirmDialogComponent,
@@ -296,7 +299,6 @@ describe('ConfirmDialog', () => {
                 TestButtonPropertiesComponent,
                 TestEventsConfirmDialogComponent
             ],
-            imports: [ConfirmDialog, Dialog, Button],
             providers: [ConfirmationService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -323,11 +325,13 @@ describe('ConfirmDialog', () => {
 
         it('should render p-dialog component', () => {
             const dialogElement = fixture.debugElement.query(By.directive(Dialog));
+
             expect(dialogElement).toBeTruthy();
         });
 
         it('should have proper data attributes', () => {
             const dialogElement = fixture.debugElement.query(By.css('p-dialog'));
+
             expect(dialogElement.nativeElement.getAttribute('role')).toBe('alertdialog');
         });
     });
@@ -533,6 +537,7 @@ describe('ConfirmDialog', () => {
         describe('pTemplate Approach Tests', () => {
             it('should handle pTemplate content processing', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -548,6 +553,7 @@ describe('ConfirmDialog', () => {
 
             it('should process _headerTemplate from pTemplate="header"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -560,6 +566,7 @@ describe('ConfirmDialog', () => {
 
             it('should process _messageTemplate from pTemplate="message"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -572,6 +579,7 @@ describe('ConfirmDialog', () => {
 
             it('should process _iconTemplate from pTemplate="icon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -584,6 +592,7 @@ describe('ConfirmDialog', () => {
 
             it('should process _footerTemplate from pTemplate="footer"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -596,6 +605,7 @@ describe('ConfirmDialog', () => {
 
             it('should process _rejectIconTemplate from pTemplate="rejecticon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -608,6 +618,7 @@ describe('ConfirmDialog', () => {
 
             it('should process _acceptIconTemplate from pTemplate="accepticon"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -620,6 +631,7 @@ describe('ConfirmDialog', () => {
 
             it('should process _headlessTemplate from pTemplate="headless"', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -634,6 +646,7 @@ describe('ConfirmDialog', () => {
         describe('#template Approach Tests', () => {
             it('should handle #header template processing', async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
+
                 contentTemplateFixture.changeDetectorRef.markForCheck();
                 await contentTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -649,6 +662,7 @@ describe('ConfirmDialog', () => {
 
             it("should process headerTemplate from @ContentChild('header')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
+
                 contentTemplateFixture.changeDetectorRef.markForCheck();
                 await contentTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -662,6 +676,7 @@ describe('ConfirmDialog', () => {
 
             it("should process messageTemplate from @ContentChild('message')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
+
                 contentTemplateFixture.changeDetectorRef.markForCheck();
                 await contentTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -675,6 +690,7 @@ describe('ConfirmDialog', () => {
 
             it("should process iconTemplate from @ContentChild('icon')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
+
                 contentTemplateFixture.changeDetectorRef.markForCheck();
                 await contentTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -688,6 +704,7 @@ describe('ConfirmDialog', () => {
 
             it("should process footerTemplate from @ContentChild('footer')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
+
                 contentTemplateFixture.changeDetectorRef.markForCheck();
                 await contentTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -701,6 +718,7 @@ describe('ConfirmDialog', () => {
 
             it("should process rejectIconTemplate from @ContentChild('rejecticon')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
+
                 contentTemplateFixture.changeDetectorRef.markForCheck();
                 await contentTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -714,6 +732,7 @@ describe('ConfirmDialog', () => {
 
             it("should process acceptIconTemplate from @ContentChild('accepticon')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
+
                 contentTemplateFixture.changeDetectorRef.markForCheck();
                 await contentTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -727,6 +746,7 @@ describe('ConfirmDialog', () => {
 
             it("should process headlessTemplate from @ContentChild('headless')", async () => {
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
+
                 contentTemplateFixture.changeDetectorRef.markForCheck();
                 await contentTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -745,32 +765,38 @@ describe('ConfirmDialog', () => {
 
                 // Test pTemplate rendering
                 const pTemplateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const pTemplateConfirmDialog = pTemplateFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+
                 expect(pTemplateConfirmDialog.templates).toBeDefined();
                 expect(() => pTemplateConfirmDialog.ngAfterContentInit()).not.toThrow();
 
                 // Test #content template rendering
                 const contentTemplateFixture = TestBed.createComponent(TestContentTemplateConfirmDialogComponent);
+
                 contentTemplateFixture.changeDetectorRef.markForCheck();
                 await contentTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 const contentTemplateConfirmDialog = contentTemplateFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+
                 expect(contentTemplateConfirmDialog.headerTemplate).toBeDefined();
             });
 
             it('should use default templates when custom ones are not provided', () => {
                 // Test default behavior without custom templates
                 const dialogElement = fixture.debugElement.query(By.css('p-dialog'));
+
                 expect(dialogElement).toBeTruthy();
             });
 
             it('should handle ngAfterContentInit template processing correctly', async () => {
                 const templateFixture = TestBed.createComponent(TestTemplatePConfirmDialogComponent);
+
                 templateFixture.changeDetectorRef.markForCheck();
                 await templateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -787,23 +813,27 @@ describe('ConfirmDialog', () => {
         it('should work with ConfirmationService', async () => {
             const serviceFixture = TestBed.createComponent(TestConfirmationServiceComponent);
             const serviceComponent = serviceFixture.componentInstance;
+
             serviceFixture.changeDetectorRef.markForCheck();
             await serviceFixture.whenStable();
 
             // Trigger confirmation
             const confirmBtn = serviceFixture.debugElement.query(By.css('.confirm-btn'));
+
             confirmBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 0));
             serviceFixture.changeDetectorRef.markForCheck();
             await serviceFixture.whenStable();
 
             const confirmDialogInstance = serviceFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+
             expect(confirmDialogInstance.visible).toBe(true);
         });
 
         it('should handle accept callback from ConfirmationService', async () => {
             const serviceFixture = TestBed.createComponent(TestConfirmationServiceComponent);
             const serviceComponent = serviceFixture.componentInstance;
+
             serviceFixture.changeDetectorRef.markForCheck();
             await serviceFixture.whenStable();
 
@@ -814,6 +844,7 @@ describe('ConfirmDialog', () => {
             await serviceFixture.whenStable();
 
             const confirmDialogInstance = serviceFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+
             confirmDialogInstance.onAccept();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -823,6 +854,7 @@ describe('ConfirmDialog', () => {
         it('should handle reject callback from ConfirmationService', async () => {
             const serviceFixture = TestBed.createComponent(TestConfirmationServiceComponent);
             const serviceComponent = serviceFixture.componentInstance;
+
             serviceFixture.changeDetectorRef.markForCheck();
             await serviceFixture.whenStable();
 
@@ -833,6 +865,7 @@ describe('ConfirmDialog', () => {
             await serviceFixture.whenStable();
 
             const confirmDialogInstance = serviceFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+
             confirmDialogInstance.onReject();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -843,21 +876,25 @@ describe('ConfirmDialog', () => {
     describe('Accessibility Tests', () => {
         it('should have proper ARIA attributes on dialog', async () => {
             const accessibilityFixture = TestBed.createComponent(TestAccessibilityConfirmDialogComponent);
+
             accessibilityFixture.changeDetectorRef.markForCheck();
             await accessibilityFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dialog = accessibilityFixture.debugElement.query(By.css('p-dialog'));
+
             expect(dialog.nativeElement.getAttribute('role')).toBe('alertdialog');
         });
 
         it('should handle aria labels for buttons', async () => {
             const accessibilityFixture = TestBed.createComponent(TestAccessibilityConfirmDialogComponent);
+
             accessibilityFixture.changeDetectorRef.markForCheck();
             await accessibilityFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const confirmDialogInstance = accessibilityFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+
             expect(confirmDialogInstance.acceptAriaLabel).toBe('Accept confirmation');
             expect(confirmDialogInstance.rejectAriaLabel).toBe('Reject confirmation');
             expect(confirmDialogInstance.closeAriaLabel).toBe('Close dialog');
@@ -882,6 +919,7 @@ describe('ConfirmDialog', () => {
 
             // Dialog should be present and focusable
             const dialog = fixture.debugElement.query(By.css('p-dialog'));
+
             expect(dialog).toBeTruthy();
         });
     });
@@ -894,6 +932,7 @@ describe('ConfirmDialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dialog = fixture.debugElement.query(By.css('p-dialog'));
+
             expect(dialog).toBeTruthy();
         });
 
@@ -907,11 +946,13 @@ describe('ConfirmDialog', () => {
 
         it('should apply button style classes', async () => {
             const buttonPropsFixture = TestBed.createComponent(TestButtonPropertiesComponent);
+
             buttonPropsFixture.changeDetectorRef.markForCheck();
             await buttonPropsFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const confirmDialogInstance = buttonPropsFixture.debugElement.query(By.directive(ConfirmDialog)).componentInstance;
+
             expect(confirmDialogInstance.acceptButtonStyleClass).toBe('custom-accept');
             expect(confirmDialogInstance.rejectButtonStyleClass).toBe('custom-reject');
         });
@@ -926,6 +967,7 @@ describe('ConfirmDialog', () => {
             await fixture.whenStable();
 
             const dialog = fixture.debugElement.query(By.directive(Dialog));
+
             expect(dialog.componentInstance.visible).toBe(true);
             expect(dialog.componentInstance.draggable).toBe(false);
             expect(dialog.componentInstance.blockScroll).toBe(false);
@@ -1025,6 +1067,7 @@ describe('ConfirmDialog', () => {
             expect(typeof confirmDialogInstance.getButtonStyleClass).toBe('function');
 
             const styleClass = confirmDialogInstance.getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass');
+
             expect(typeof styleClass).toBe('string');
         });
     });
@@ -1046,13 +1089,15 @@ describe('ConfirmDialog', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
-                `
+                `,
+                imports: [ConfirmDialog, Dialog, Button]
             })
             class TestPTCase1Component {
+                private confirmationService = inject(ConfirmationService);
+
                 pt = {
                     pcDialog: 'DIALOG_CLASS',
                     message: 'MESSAGE_CLASS',
@@ -1060,8 +1105,6 @@ describe('ConfirmDialog', () => {
                     pcAcceptButton: 'ACCEPT_BUTTON_CLASS',
                     pcRejectButton: 'REJECT_BUTTON_CLASS'
                 };
-
-                constructor(private confirmationService: ConfirmationService) {}
 
                 confirm() {
                     this.confirmationService.confirm({
@@ -1075,13 +1118,13 @@ describe('ConfirmDialog', () => {
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [ConfirmDialog, Dialog, Button],
+                    imports: [ConfirmDialog, Dialog, Button, TestPTCase1Component],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -1091,6 +1134,7 @@ describe('ConfirmDialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const dialog = testFixture.debugElement.query(By.directive(Dialog));
+
                 if (dialog) {
                     expect(dialog.nativeElement.classList.contains('DIALOG_CLASS') || dialog.componentInstance).toBeTruthy();
                 }
@@ -1099,13 +1143,15 @@ describe('ConfirmDialog', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
-                `
+                `,
+                imports: [ConfirmDialog, Dialog, Button]
             })
             class TestPTCase2Component {
+                private confirmationService = inject(ConfirmationService);
+
                 pt = {
                     pcDialog: {
                         class: 'DIALOG_OBJECT_CLASS',
@@ -1122,8 +1168,6 @@ describe('ConfirmDialog', () => {
                     }
                 };
 
-                constructor(private confirmationService: ConfirmationService) {}
-
                 confirm() {
                     this.confirmationService.confirm({
                         message: 'Are you sure?',
@@ -1136,13 +1180,13 @@ describe('ConfirmDialog', () => {
             it('should apply object properties to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [ConfirmDialog, Dialog, Button],
+                    imports: [ConfirmDialog, Dialog, Button, TestPTCase2Component],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -1152,6 +1196,7 @@ describe('ConfirmDialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const message = testFixture.debugElement.query(By.css('[data-pc-section="message"]'));
+
                 if (message) {
                     expect(message.nativeElement.classList.contains('MESSAGE_OBJECT_CLASS')).toBe(true);
                     expect(message.nativeElement.style.padding).toBe('10px');
@@ -1161,13 +1206,15 @@ describe('ConfirmDialog', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
-                `
+                `,
+                imports: [ConfirmDialog, Dialog, Button]
             })
             class TestPTCase3Component {
+                private confirmationService = inject(ConfirmationService);
+
                 pt = {
                     pcDialog: {
                         class: 'DIALOG_MIXED_CLASS'
@@ -1177,8 +1224,6 @@ describe('ConfirmDialog', () => {
                         class: 'ICON_MIXED_CLASS'
                     }
                 };
-
-                constructor(private confirmationService: ConfirmationService) {}
 
                 confirm() {
                     this.confirmationService.confirm({
@@ -1192,13 +1237,13 @@ describe('ConfirmDialog', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [ConfirmDialog, Dialog, Button],
+                    imports: [ConfirmDialog, Dialog, Button, TestPTCase3Component],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -1208,6 +1253,7 @@ describe('ConfirmDialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const message = testFixture.debugElement.query(By.css('[data-pc-section="message"]'));
+
                 if (message) {
                     expect(message.nativeElement.classList.contains('MESSAGE_STRING_CLASS')).toBe(true);
                 }
@@ -1216,30 +1262,26 @@ describe('ConfirmDialog', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-confirmdialog [pt]="pt" key="test" [visible]="isVisible"></p-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
-                `
+                `,
+                imports: [ConfirmDialog, Dialog, Button]
             })
             class TestPTCase4Component {
+                private confirmationService = inject(ConfirmationService);
+
                 isVisible = false;
                 pt = {
-                    pcDialog: ({ instance }: any) => {
-                        return {
-                            class: instance?.visible ? 'VISIBLE_CLASS' : 'HIDDEN_CLASS'
-                        };
-                    },
-                    message: ({ instance }: any) => {
-                        return {
-                            style: {
-                                color: instance?.visible ? 'black' : 'gray'
-                            }
-                        };
-                    }
+                    pcDialog: ({ instance }: any) => ({
+                        class: instance?.visible ? 'VISIBLE_CLASS' : 'HIDDEN_CLASS'
+                    }),
+                    message: ({ instance }: any) => ({
+                        style: {
+                            color: instance?.visible ? 'black' : 'gray'
+                        }
+                    })
                 };
-
-                constructor(private confirmationService: ConfirmationService) {}
 
                 confirm() {
                     this.confirmationService.confirm({
@@ -1253,13 +1295,13 @@ describe('ConfirmDialog', () => {
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [ConfirmDialog, Dialog, Button],
+                    imports: [ConfirmDialog, Dialog, Button, TestPTCase4Component],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -1270,19 +1312,22 @@ describe('ConfirmDialog', () => {
 
                 // Dialog becomes visible after confirm
                 const confirmDialogInstance = testFixture.debugElement.query(By.directive(ConfirmDialog));
+
                 expect(confirmDialogInstance).toBeTruthy();
             });
         });
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
-                `
+                `,
+                imports: [ConfirmDialog, Dialog, Button]
             })
             class TestPTCase5Component {
+                private confirmationService = inject(ConfirmationService);
+
                 clickedSection: string = '';
                 pt = {
                     message: {
@@ -1297,8 +1342,6 @@ describe('ConfirmDialog', () => {
                     }
                 };
 
-                constructor(private confirmationService: ConfirmationService) {}
-
                 confirm() {
                     this.confirmationService.confirm({
                         message: 'Are you sure?',
@@ -1311,13 +1354,13 @@ describe('ConfirmDialog', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [ConfirmDialog, Dialog, Button],
+                    imports: [ConfirmDialog, Dialog, Button, TestPTCase5Component],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -1327,6 +1370,7 @@ describe('ConfirmDialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const message = testFixture.debugElement.query(By.css('[data-pc-section="message"]'));
+
                 if (message) {
                     message.nativeElement.click();
                     expect(component.clickedSection).toBe('message');
@@ -1336,14 +1380,14 @@ describe('ConfirmDialog', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-confirmdialog [pt]="{ pcDialog: 'INLINE_DIALOG_CLASS', message: 'INLINE_MESSAGE_CLASS' }" key="test"></p-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
-                `
+                `,
+                imports: [ConfirmDialog, Dialog, Button]
             })
             class TestPTCase6InlineComponent {
-                constructor(private confirmationService: ConfirmationService) {}
+                private confirmationService = inject(ConfirmationService);
 
                 confirm() {
                     this.confirmationService.confirm({
@@ -1355,14 +1399,14 @@ describe('ConfirmDialog', () => {
             }
 
             @Component({
-                standalone: false,
                 template: `
                     <p-confirmdialog [pt]="{ pcDialog: { class: 'INLINE_DIALOG_OBJECT_CLASS' }, icon: { class: 'INLINE_ICON_CLASS' } }" key="test"></p-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
-                `
+                `,
+                imports: [ConfirmDialog, Dialog, Button]
             })
             class TestPTCase6InlineObjectComponent {
-                constructor(private confirmationService: ConfirmationService) {}
+                private confirmationService = inject(ConfirmationService);
 
                 confirm() {
                     this.confirmationService.confirm({
@@ -1376,13 +1420,13 @@ describe('ConfirmDialog', () => {
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [ConfirmDialog, Dialog, Button],
+                    imports: [ConfirmDialog, Dialog, Button, TestPTCase6InlineComponent],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -1392,6 +1436,7 @@ describe('ConfirmDialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const message = testFixture.debugElement.query(By.css('[data-pc-section="message"]'));
+
                 if (message) {
                     expect(message.nativeElement.classList.contains('INLINE_MESSAGE_CLASS')).toBe(true);
                 }
@@ -1400,13 +1445,13 @@ describe('ConfirmDialog', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [ConfirmDialog, Dialog, Button],
+                    imports: [ConfirmDialog, Dialog, Button, TestPTCase6InlineObjectComponent],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -1417,10 +1462,12 @@ describe('ConfirmDialog', () => {
 
                 // Verify confirm dialog exists
                 const confirmDialogElement = testFixture.debugElement.query(By.directive(ConfirmDialog));
+
                 expect(confirmDialogElement).toBeTruthy();
 
                 // Check if icon exists (PT may apply to different elements depending on state)
                 const icon = testFixture.debugElement.query(By.css('[data-pc-section="icon"]'));
+
                 if (icon) {
                     expect(icon.nativeElement.classList.contains('INLINE_ICON_CLASS')).toBe(true);
                 } else {
@@ -1432,16 +1479,16 @@ describe('ConfirmDialog', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-confirmdialog key="test1"></p-confirmdialog>
                     <button (click)="confirm('test1')">Confirm 1</button>
                     <p-confirmdialog key="test2"></p-confirmdialog>
                     <button (click)="confirm('test2')">Confirm 2</button>
-                `
+                `,
+                imports: [ConfirmDialog, Dialog, Button]
             })
             class TestPTCase7GlobalComponent {
-                constructor(private confirmationService: ConfirmationService) {}
+                private confirmationService = inject(ConfirmationService);
 
                 confirm(key: string) {
                     this.confirmationService.confirm({
@@ -1455,8 +1502,7 @@ describe('ConfirmDialog', () => {
             it('should apply global PT configuration from PrimeNGConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [ConfirmDialog, Dialog, Button],
+                    imports: [ConfirmDialog, Dialog, Button, TestPTCase7GlobalComponent],
                     providers: [
                         ConfirmationService,
                         provideZonelessChangeDetection(),
@@ -1475,23 +1521,27 @@ describe('ConfirmDialog', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const dialogs = testFixture.debugElement.queryAll(By.directive(ConfirmDialog));
+
                 expect(dialogs.length).toBe(2);
             });
         });
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-confirmdialog [pt]="pt" key="test"></p-confirmdialog>
                     <button (click)="confirm()">Confirm</button>
-                `
+                `,
+                imports: [ConfirmDialog, Dialog, Button]
             })
             class TestPTCase8HooksComponent {
+                private confirmationService = inject(ConfirmationService);
+
                 afterViewInitCalled = false;
                 afterViewCheckedCalled = false;
                 onDestroyCalled = false;
@@ -1511,8 +1561,6 @@ describe('ConfirmDialog', () => {
                     }
                 };
 
-                constructor(private confirmationService: ConfirmationService) {}
-
                 confirm() {
                     this.confirmationService.confirm({
                         message: 'Are you sure?',
@@ -1525,8 +1573,7 @@ describe('ConfirmDialog', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [ConfirmDialog, Dialog, Button],
+                    imports: [ConfirmDialog, Dialog, Button, TestPTCase8HooksComponent],
                     providers: [ConfirmationService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

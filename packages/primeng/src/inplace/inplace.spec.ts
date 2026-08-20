@@ -8,7 +8,6 @@ import { ButtonModule } from 'primeng/button';
 import { Inplace, InplaceContent, InplaceDisplay, InplaceModule } from './inplace';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-inplace',
     template: `
         <p-inplace>
@@ -19,12 +18,12 @@ import { Inplace, InplaceContent, InplaceDisplay, InplaceModule } from './inplac
                 <input type="text" class="edit-input" value="Edit mode" />
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestBasicInplaceComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-with-events',
     template: `
         <p-inplace (onActivate)="onActivate($event)" (onDeactivate)="onDeactivate($event)">
@@ -35,7 +34,8 @@ class TestBasicInplaceComponent {}
                 <textarea class="edit-textarea">Edit Mode Content</textarea>
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplaceWithEventsComponent {
     activateEvent: Event | null = null as any;
@@ -51,7 +51,6 @@ class TestInplaceWithEventsComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-disabled',
     template: `
         <p-inplace [disabled]="disabled">
@@ -62,14 +61,14 @@ class TestInplaceWithEventsComponent {
                 <input type="text" class="disabled-input" />
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplaceDisabledComponent {
     disabled = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-closable',
     template: `
         <p-inplace [closable]="closable" [closeIcon]="closeIcon" [closeAriaLabel]="closeAriaLabel">
@@ -80,7 +79,8 @@ class TestInplaceDisabledComponent {
                 <input type="text" class="closable-input" value="Closable content" />
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplaceClosableComponent {
     closable = true;
@@ -89,7 +89,6 @@ class TestInplaceClosableComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-prevent-click',
     template: `
         <p-inplace [preventClick]="preventClick">
@@ -100,14 +99,14 @@ class TestInplaceClosableComponent {
                 <input type="text" class="prevent-click-input" />
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplacePreventClickComponent {
     preventClick = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-active-state',
     template: `
         <p-inplace [active]="active">
@@ -118,14 +117,14 @@ class TestInplacePreventClickComponent {
                 <input type="text" class="active-input" value="Active content" />
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplaceActiveStateComponent {
     active = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-style-class',
     template: `
         <p-inplace [styleClass]="styleClass">
@@ -136,14 +135,14 @@ class TestInplaceActiveStateComponent {
                 <input type="text" class="style-input" />
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplaceStyleClassComponent {
     styleClass = 'custom-inplace';
 }
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-templates',
     template: `
         <p-inplace [closable]="true">
@@ -160,12 +159,12 @@ class TestInplaceStyleClassComponent {
                 <i class="custom-close-icon pi pi-trash"></i>
             </ng-template>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplaceTemplatesComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-primeng-templates',
     template: `
         <p-inplace>
@@ -182,12 +181,12 @@ class TestInplaceTemplatesComponent {}
                 <i class="p-template-close-icon pi pi-check"></i>
             </ng-template>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplacePrimeNGTemplatesComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-keyboard',
     template: `
         <p-inplace>
@@ -198,12 +197,12 @@ class TestInplacePrimeNGTemplatesComponent {}
                 <input type="text" class="keyboard-input" />
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplaceKeyboardComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-complex-content',
     template: `
         <p-inplace [closable]="true">
@@ -231,7 +230,8 @@ class TestInplaceKeyboardComponent {}
                 </div>
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplaceComplexContentComponent {
     productInfo = {
@@ -241,7 +241,6 @@ class TestInplaceComplexContentComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-inplace-dynamic',
     template: `
         <p-inplace [active]="dynamicActive" [disabled]="dynamicDisabled" [closable]="dynamicClosable" [preventClick]="dynamicPreventClick">
@@ -252,7 +251,8 @@ class TestInplaceComplexContentComponent {
                 <input type="text" class="dynamic-input" [value]="contentText" />
             </p-inplacecontent>
         </p-inplace>
-    `
+    `,
+    imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
 class TestInplaceDynamicComponent {
     dynamicActive = false;
@@ -266,8 +266,11 @@ class TestInplaceDynamicComponent {
 describe('Inplace', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [InplaceModule, SharedModule, ButtonModule, FormsModule],
-            declarations: [
+            imports: [
+                InplaceModule,
+                SharedModule,
+                ButtonModule,
+                FormsModule,
                 TestBasicInplaceComponent,
                 TestInplaceWithEventsComponent,
                 TestInplaceDisabledComponent,
@@ -295,6 +298,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             component = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
@@ -352,18 +356,21 @@ describe('Inplace', () => {
 
         it('should project InplaceDisplay content', () => {
             const displayContent = element.querySelector('.display-content');
+
             expect(displayContent).toBeTruthy();
             expect(displayContent?.textContent?.trim()).toBe('Click to edit');
         });
 
         it('should have tabindex and role on display element', () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             expect(displayDiv.getAttribute('tabindex')).toBe('0');
             expect(displayDiv.getAttribute('role')).toBe('button');
         });
 
         it('should not show content initially', () => {
             const contentDiv = element.querySelector('.edit-input');
+
             expect(contentDiv).toBeFalsy();
         });
 
@@ -394,6 +401,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
@@ -422,6 +430,7 @@ describe('Inplace', () => {
 
         it('should activate programmatically', () => {
             const mockEvent = new MouseEvent('click');
+
             inplaceComponent.activate(mockEvent);
             fixture.detectChanges();
 
@@ -439,6 +448,7 @@ describe('Inplace', () => {
 
             // Then deactivate
             const mockEvent = new MouseEvent('click');
+
             inplaceComponent.deactivate(mockEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -476,6 +486,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
@@ -486,6 +497,7 @@ describe('Inplace', () => {
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -499,6 +511,7 @@ describe('Inplace', () => {
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]');
+
             expect(displayDiv?.classList.contains('p-disabled')).toBe(true);
         });
 
@@ -508,6 +521,7 @@ describe('Inplace', () => {
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]');
+
             expect(displayDiv?.classList.contains('p-disabled')).toBe(true);
 
             component.disabled = false;
@@ -562,6 +576,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
@@ -569,11 +584,13 @@ describe('Inplace', () => {
         it('should show close button when active and closable', async () => {
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
 
             const closeButton = element.querySelector('p-button');
+
             expect(closeButton).toBeTruthy();
         });
 
@@ -584,17 +601,20 @@ describe('Inplace', () => {
 
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
 
             const closeButton = element.querySelector('p-button');
+
             expect(closeButton).toBeFalsy();
         });
 
         it('should close when close button is clicked', async () => {
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -603,6 +623,7 @@ describe('Inplace', () => {
 
             // Click close button
             const closeButton = element.querySelector('p-button') as HTMLElement;
+
             closeButton.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -617,11 +638,13 @@ describe('Inplace', () => {
 
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
 
             const iconElement = element.querySelector('.pi-check');
+
             expect(iconElement).toBeTruthy();
         });
 
@@ -632,11 +655,13 @@ describe('Inplace', () => {
 
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
 
             const closeButton = element.querySelector('p-button') as HTMLElement;
+
             expect(closeButton.getAttribute('aria-label')).toBe('Close Editor');
         });
     });
@@ -653,6 +678,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
@@ -663,6 +689,7 @@ describe('Inplace', () => {
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -676,6 +703,7 @@ describe('Inplace', () => {
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -707,6 +735,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
@@ -794,12 +823,14 @@ describe('Inplace', () => {
 
         it('should render custom display template', () => {
             const templateDisplay = element.querySelector('.template-display');
+
             expect(templateDisplay).toBeTruthy();
             expect(templateDisplay?.textContent?.trim()).toBe('Custom Display Template');
         });
 
         it('should render custom content template when activated', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -818,6 +849,7 @@ describe('Inplace', () => {
 
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -826,6 +858,7 @@ describe('Inplace', () => {
 
             // Click template close button
             const templateCloseBtn = element.querySelector('.template-close-btn') as HTMLElement;
+
             templateCloseBtn.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -836,11 +869,13 @@ describe('Inplace', () => {
         it('should render custom close icon template', async () => {
             // Activate inplace to show close button
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
 
             const customCloseIcon = element.querySelector('.custom-close-icon');
+
             expect(customCloseIcon).toBeTruthy();
             expect(customCloseIcon?.classList.contains('pi-trash')).toBe(true);
         });
@@ -856,6 +891,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
@@ -868,12 +904,14 @@ describe('Inplace', () => {
 
         it('should render pTemplate display', () => {
             const pTemplateDisplay = element.querySelector('.p-template-display');
+
             expect(pTemplateDisplay).toBeTruthy();
             expect(pTemplateDisplay?.textContent?.trim()).toBe('PrimeNG Template Display');
         });
 
         it('should render pTemplate content when activated', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -887,9 +925,9 @@ describe('Inplace', () => {
 
         it('should handle both template types (# and pTemplate)', () => {
             // Component should have both contentTemplate and _contentTemplate defined
-            expect(inplaceComponent.contentTemplate || inplaceComponent._contentTemplate).toBeTruthy();
-            expect(inplaceComponent.displayTemplate || inplaceComponent._displayTemplate).toBeTruthy();
-            expect(inplaceComponent.closeIconTemplate || inplaceComponent._closeIconTemplate).toBeTruthy();
+            expect(inplaceComponent.contentTemplate() || inplaceComponent._contentTemplate).toBeTruthy();
+            expect(inplaceComponent.displayTemplate() || inplaceComponent._displayTemplate).toBeTruthy();
+            expect(inplaceComponent.closeIconTemplate() || inplaceComponent._closeIconTemplate).toBeTruthy();
         });
     });
 
@@ -903,12 +941,14 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
 
         it('should activate on Enter key', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             if (displayDiv) {
                 const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
 
@@ -922,6 +962,7 @@ describe('Inplace', () => {
 
         it('should not activate on other keys', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             if (displayDiv) {
                 const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
 
@@ -935,8 +976,10 @@ describe('Inplace', () => {
 
         it('should prevent default on Enter key', () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             if (displayDiv) {
                 const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
                 spyOn(enterEvent, 'preventDefault');
 
                 displayDiv.dispatchEvent(enterEvent);
@@ -947,11 +990,13 @@ describe('Inplace', () => {
 
         it('should handle keyboard events when disabled', async () => {
             const inplaceComponent = fixture.debugElement.query(By.directive(Inplace)).componentInstance;
+
             inplaceComponent.disabled = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             if (displayDiv) {
                 const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
 
@@ -976,6 +1021,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
@@ -990,6 +1036,7 @@ describe('Inplace', () => {
 
         it('should show complex edit form in content mode', async () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1022,6 +1069,7 @@ describe('Inplace', () => {
         it('should handle form interactions', async () => {
             // Activate edit mode
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1054,6 +1102,7 @@ describe('Inplace', () => {
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
+
             inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
@@ -1099,6 +1148,7 @@ describe('Inplace', () => {
         it('should handle dynamic closable state', async () => {
             // Activate inplace
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1116,6 +1166,7 @@ describe('Inplace', () => {
 
         it('should handle dynamic content changes', async () => {
             const displaySpan = element.querySelector('.dynamic-display');
+
             expect(displaySpan?.textContent).toContain('Click to edit');
 
             component.displayText = 'Updated display text';
@@ -1127,11 +1178,13 @@ describe('Inplace', () => {
 
             // Activate to check content
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             displayDiv.click();
             fixture.detectChanges();
             await fixture.whenStable();
 
             const contentInput = element.querySelector('.dynamic-input') as HTMLInputElement;
+
             expect(contentInput.value).toBe('Updated content');
         });
 
@@ -1240,6 +1293,7 @@ describe('Inplace', () => {
 
         it('should have correct role and tabindex on display element', () => {
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
+
             expect(displayDiv.getAttribute('role')).toBe('button');
             expect(displayDiv.getAttribute('tabindex')).toBe('0');
         });
@@ -1253,6 +1307,7 @@ describe('Inplace', () => {
             await fixture.whenStable();
 
             const inplaceComponent = fixture.debugElement.query(By.directive(Inplace)).componentInstance;
+
             expect(inplaceComponent.active).toBe(true);
         });
     });
@@ -1307,6 +1362,7 @@ describe('Inplace', () => {
                 fixture.detectChanges();
 
                 const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+
                 expect(displayElement?.classList.contains('DISPLAY_CLASS')).toBe(true);
             });
 
@@ -1317,6 +1373,7 @@ describe('Inplace', () => {
                 await fixture.whenStable();
 
                 const contentElement = inplaceElement.nativeElement.querySelector('[data-pc-section="content"]');
+
                 expect(contentElement?.classList.contains('CONTENT_CLASS')).toBe(true);
             });
         });
@@ -1371,6 +1428,7 @@ describe('Inplace', () => {
                 fixture.detectChanges();
 
                 const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+
                 expect(displayElement?.classList.contains('DISPLAY_OBJ_CLASS')).toBe(true);
             });
 
@@ -1379,6 +1437,7 @@ describe('Inplace', () => {
                 fixture.detectChanges();
 
                 const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+
                 expect(displayElement?.style.padding).toBe('10px');
             });
 
@@ -1389,6 +1448,7 @@ describe('Inplace', () => {
                 await fixture.whenStable();
 
                 const contentElement = inplaceElement.nativeElement.querySelector('[data-pc-section="content"]');
+
                 expect(contentElement?.classList.contains('CONTENT_OBJ_CLASS')).toBe(true);
             });
         });
@@ -1429,6 +1489,7 @@ describe('Inplace', () => {
                 fixture.detectChanges();
 
                 const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+
                 expect(displayElement?.classList.contains('DISPLAY_MIXED_CLASS')).toBe(true);
                 expect(displayElement?.style.fontWeight).toBe('bold');
             });
@@ -1475,6 +1536,7 @@ describe('Inplace', () => {
                 fixture.detectChanges();
 
                 const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+
                 expect(displayElement?.classList.contains('CLOSABLE_CLASS')).toBe(true);
             });
         });
@@ -1482,6 +1544,7 @@ describe('Inplace', () => {
         describe('Case 5: Event binding', () => {
             it('should bind onclick event to host section', () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     host: {
                         onclick: () => {
@@ -1497,6 +1560,7 @@ describe('Inplace', () => {
 
             it('should bind onclick event to display section', () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     display: {
                         onclick: () => {
@@ -1507,6 +1571,7 @@ describe('Inplace', () => {
                 fixture.detectChanges();
 
                 const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+
                 displayElement?.click();
                 expect(clicked).toBe(true);
             });
@@ -1515,11 +1580,13 @@ describe('Inplace', () => {
         describe('Case 6: Test emitters', () => {
             it('should access onActivate emitter through instance in pt', () => {
                 let emitterAccessed = false;
+
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
                         if (instance.onActivate) {
                             emitterAccessed = true;
                         }
+
                         return {};
                     }
                 });
@@ -1530,11 +1597,13 @@ describe('Inplace', () => {
 
             it('should access onDeactivate emitter through instance in pt', () => {
                 let emitterAccessed = false;
+
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
                         if (instance.onDeactivate) {
                             emitterAccessed = true;
                         }
+
                         return {};
                     }
                 });
@@ -1582,6 +1651,7 @@ describe('Inplace', () => {
                 fixture.detectChanges();
 
                 const displayElement = inplaceElement.nativeElement.querySelector('[data-pc-section="display"]');
+
                 expect(displayElement?.classList.contains('inline-test-display')).toBe(true);
                 expect(displayElement?.style.border).toBe('1px solid black');
             });
@@ -1591,6 +1661,7 @@ describe('Inplace', () => {
             it('should call onAfterViewInit hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
+
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewInit: () => {
@@ -1608,6 +1679,7 @@ describe('Inplace', () => {
             it('should call onAfterContentInit hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
+
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterContentInit: () => {
@@ -1625,6 +1697,7 @@ describe('Inplace', () => {
             it('should call onAfterViewChecked hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
+
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewChecked: () => {
@@ -1642,6 +1715,7 @@ describe('Inplace', () => {
             it('should call onDestroy hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTInplaceComponent);
+
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
                         onDestroy: () => {

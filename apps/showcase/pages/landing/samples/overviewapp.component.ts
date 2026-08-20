@@ -1,7 +1,7 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem } from 'primeng/api';
@@ -182,7 +182,7 @@ import { TooltipModule } from 'primeng/tooltip';
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OverviewApp {
+export class OverviewApp implements OnInit {
     chartData: any;
 
     chartOptions: any;
@@ -352,6 +352,7 @@ export class OverviewApp {
         const primary400 = documentStyle.getPropertyValue('--p-primary-400');
         const primary500 = documentStyle.getPropertyValue('--p-primary-500');
         const primary600 = documentStyle.getPropertyValue('--p-primary-600');
+
         return {
             labels: datasets.labels,
             datasets: [

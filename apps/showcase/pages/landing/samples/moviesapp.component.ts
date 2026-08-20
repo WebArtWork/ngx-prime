@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SelectButton } from 'primeng/selectbutton';
@@ -112,7 +112,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         class: 'flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl'
     }
 })
-export class MoviesApp {
+export class MoviesApp implements OnInit {
     search: string | undefined;
 
     page: number = 0;

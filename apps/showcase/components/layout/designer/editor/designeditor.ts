@@ -78,6 +78,7 @@ export class DesignEditor implements OnInit, OnDestroy {
         this.routeSubscription = this.router.events.subscribe((event: NavigationEnd) => {
             if (event.url) {
                 const url = event.url.split('/')[1] === 'table' ? 'datatable' : event.url.split('/')[1];
+
                 this.currentPath.set(url);
             }
         });
@@ -86,6 +87,7 @@ export class DesignEditor implements OnInit, OnDestroy {
     ngOnInit() {
         if (!this.currentPath()) {
             const url = this.router.routerState.snapshot.url.split('/')[1] === 'table' ? 'datatable' : this.router.routerState.snapshot.url.split('/')[1];
+
             this.currentPath.set(url);
         }
     }

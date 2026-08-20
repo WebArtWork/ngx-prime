@@ -5,7 +5,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -16,10 +15,11 @@ import {
     Input,
     NgModule,
     Output,
-    QueryList,
     TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    viewChild,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@primeuix/motion';
@@ -87,33 +87,43 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
         </div>
         <div [class]="cx('labelContainer')" [pBind]="ptm('labelContainer')">
             <div [class]="cn(cx('label'), labelStyleClass)" [ngStyle]="labelStyle" [pBind]="ptm('label')">
-                <ng-container *ngIf="valueTemplate || _valueTemplate; else defaultValueTemplate">
+                @if (valueTemplate || _valueTemplate) {
                     <ng-container *ngTemplateOutlet="valueTemplate || _valueTemplate; context: { $implicit: value, placeholder: placeholder }"></ng-container>
-                </ng-container>
-                <ng-template #defaultValueTemplate>
-                    <ng-container *ngIf="display === 'comma'; else chipsValueTemplate">
+                } @else {
+                    @if (display === 'comma') {
                         {{ label || 'empty' }}
-                    </ng-container>
-                    <ng-template #chipsValueTemplate>
-                        <div *ngFor="let node of value" [class]="cx('chipItem')" [pBind]="ptm('chipItem')">
-                            <p-chip [unstyled]="unstyled()" [label]="node.label" [class]="cx('pcChip')" [pt]="ptm('pcChip')" />
-                        </div>
-                        <ng-container *ngIf="emptyValue">{{ placeholder || 'empty' }}</ng-container>
-                    </ng-template>
-                </ng-template>
+                    } @else {
+                        @for (node of value; track node) {
+                            <div [class]="cx('chipItem')" [pBind]="ptm('chipItem')">
+                                <p-chip [unstyled]="unstyled()" [label]="node.label" [class]="cx('pcChip')" [pt]="ptm('pcChip')" />
+                            </div>
+                        }
+                        @if (emptyValue) {
+                            {{ placeholder || 'empty' }}
+                        }
+                    }
+                }
             </div>
         </div>
-        <ng-container *ngIf="checkValue() && !$disabled() && showClear">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [pBind]="ptm('clearIcon')" />
-            <span *ngIf="clearIconTemplate || clearIconTemplate" [class]="cx('clearIcon')" (click)="clear($event)" [pBind]="ptm('clearIcon')">
-                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
-            </span>
-        </ng-container>
+        @if (checkValue() && !$disabled() && showClear) {
+            @if (!clearIconTemplate && !_clearIconTemplate) {
+                <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear($event)" [pBind]="ptm('clearIcon')" />
+            }
+            @if (clearIconTemplate || clearIconTemplate) {
+                <span [class]="cx('clearIcon')" (click)="clear($event)" [pBind]="ptm('clearIcon')">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+                </span>
+            }
+        }
         <div [class]="cx('dropdown')" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible ?? false" [attr.aria-label]="'treeselect trigger'" [pBind]="ptm('dropdown')">
-            <svg data-p-icon="chevron-down" *ngIf="!triggerIconTemplate && !_triggerIconTemplate && !dropdownIconTemplate && !_dropdownIconTemplate" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')" />
-            <span *ngIf="triggerIconTemplate || _triggerIconTemplate || dropdownIconTemplate || _dropdownIconTemplate" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')">
-                <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate || dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
-            </span>
+            @if (!triggerIconTemplate && !_triggerIconTemplate && !dropdownIconTemplate && !_dropdownIconTemplate) {
+                <svg data-p-icon="chevron-down" [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')" />
+            }
+            @if (triggerIconTemplate || _triggerIconTemplate || dropdownIconTemplate || _dropdownIconTemplate) {
+                <span [class]="cx('dropdownIcon')" [pBind]="ptm('dropdownIcon')">
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate || _triggerIconTemplate || dropdownIconTemplate || _dropdownIconTemplate"></ng-template>
+                </span>
+            }
         </div>
         <p-overlay
             #overlay
@@ -143,7 +153,7 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                         [pBind]="ptm('hiddenFirstFocusableEl')"
                     >
                     </span>
-                    <ng-container *ngTemplateOutlet="headerTemplate || _headerTemplate; context: { $implicit: value, options: options }"></ng-container>
+                    <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate; context: { $implicit: value, options: options }"></ng-container>
                     <div [class]="cx('treeContainer')" [ngStyle]="{ 'max-height': scrollHeight }" [pBind]="ptm('treeContainer')">
                         <p-tree
                             #tree
@@ -175,26 +185,32 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                             [pt]="ptm('pcTree')"
                             [unstyled]="unstyled()"
                         >
-                            <ng-container *ngIf="emptyTemplate || _emptyTemplate">
+                            @if (emptyTemplate || _emptyTemplate) {
                                 <ng-template #empty>
                                     <ng-container *ngTemplateOutlet="emptyTemplate || _emptyTemplate"></ng-container>
                                 </ng-template>
-                            </ng-container>
-                            <ng-template #togglericon let-expanded *ngIf="itemTogglerIconTemplate || _itemTogglerIconTemplate">
-                                <ng-container *ngTemplateOutlet="itemTogglerIconTemplate || _itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
-                            </ng-template>
+                            }
+                            @if (itemTogglerIconTemplate || _itemTogglerIconTemplate; as expanded) {
+                                <ng-template #togglericon let-expanded>
+                                    <ng-container *ngTemplateOutlet="itemTogglerIconTemplate || _itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
+                                </ng-template>
+                            }
                             <ng-template #checkboxicon let-selected let-partialSelected="partialSelected" *ngIf="itemCheckboxIconTemplate || _itemCheckboxIconTemplate">
                                 <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate || _itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
                             </ng-template>
-                            <ng-template #loadingicon *ngIf="itemLoadingIconTemplate || _itemLoadingIconTemplate">
-                                <ng-container *ngTemplateOutlet="itemLoadingIconTemplate || _itemLoadingIconTemplate"></ng-container>
-                            </ng-template>
-                            <ng-template #filtericon *ngIf="filterIconTemplate || _filterIconTemplate">
-                                <ng-container *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-container>
-                            </ng-template>
+                            @if (itemLoadingIconTemplate || _itemLoadingIconTemplate) {
+                                <ng-template #loadingicon>
+                                    <ng-container *ngTemplateOutlet="itemLoadingIconTemplate || _itemLoadingIconTemplate"></ng-container>
+                                </ng-template>
+                            }
+                            @if (filterIconTemplate || _filterIconTemplate) {
+                                <ng-template #filtericon>
+                                    <ng-container *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate"></ng-container>
+                                </ng-template>
+                            }
                         </p-tree>
                     </div>
-                    <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: value, options: options }"></ng-container>
+                    <ng-container *ngTemplateOutlet="footerTemplate(); context: { $implicit: value, options: options }"></ng-container>
                     <span
                         #lastHiddenFocusableEl
                         role="presentation"
@@ -515,19 +531,19 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     $appendTo = computed(() => this.appendTo() || this.config.overlayAppendTo());
 
-    @ViewChild('focusInput') focusInput: Nullable<ElementRef>;
+    readonly focusInput = viewChild<Nullable<ElementRef>>('focusInput');
 
-    @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
+    readonly filterViewChild = viewChild<Nullable<ElementRef>>('filter');
 
-    @ViewChild('tree') treeViewChild: Nullable<Tree>;
+    readonly treeViewChild = viewChild<Nullable<Tree>>('tree');
 
-    @ViewChild('panel') panelEl: Nullable<ElementRef>;
+    readonly panelEl = viewChild<Nullable<ElementRef>>('panel');
 
-    @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
+    readonly overlayViewChild = viewChild<Nullable<Overlay>>('overlay');
 
-    @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
+    readonly firstHiddenFocusableElementOnOverlay = viewChild<Nullable<ElementRef>>('firstHiddenFocusableEl');
 
-    @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
+    readonly lastHiddenFocusableElementOnOverlay = viewChild<Nullable<ElementRef>>('lastHiddenFocusableEl');
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
@@ -556,7 +572,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
      * @see {@link TreeSelectHeaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('header', { descendants: false }) headerTemplate: Nullable<TemplateRef<TreeSelectHeaderTemplateContext>>;
+    readonly headerTemplate = contentChild<Nullable<TemplateRef<TreeSelectHeaderTemplateContext>>>('header', { descendants: false });
 
     /**
      * Custom empty message template.
@@ -570,7 +586,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
      * @see {@link TreeSelectHeaderTemplateContext}
      * @group Templates
      */
-    @ContentChild('footer', { descendants: false }) footerTemplate: Nullable<TemplateRef<TreeSelectHeaderTemplateContext>>;
+    readonly footerTemplate = contentChild<Nullable<TemplateRef<TreeSelectHeaderTemplateContext>>>('footer', { descendants: false });
 
     /**
      * Custom clear icon template.
@@ -600,7 +616,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
      * Custom close icon template.
      * @group Templates
      */
-    @ContentChild('closeicon', { descendants: false }) closeIconTemplate: Nullable<TemplateRef<void>>;
+    readonly closeIconTemplate = contentChild<Nullable<TemplateRef<void>>>('closeicon', { descendants: false });
 
     /**
      * Custom item toggler icon template.
@@ -624,7 +640,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
      */
     @ContentChild('itemloadingicon', { descendants: false }) itemLoadingIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _valueTemplate: TemplateRef<TreeSelectValueTemplateContext> | undefined;
 
@@ -675,11 +691,11 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     }
 
     onAfterContentInit() {
-        if ((this.templates as QueryList<PrimeTemplate>).length) {
+        if (this.templates().length) {
             this.templateMap = {};
         }
 
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'value':
                     this._valueTemplate = item.template;
@@ -739,10 +755,10 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     onOverlayBeforeEnter() {
         if (this.filter) {
-            isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
-            this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
+            isNotEmpty(this.filterValue) && this.treeViewChild()?._filter(<any>this.filterValue);
+            this.filterInputAutoFocus && this.filterViewChild()?.nativeElement.focus();
         } else {
-            let focusableElements = <any>getFocusableElements(this.panelEl?.nativeElement!);
+            let focusableElements = <any>getFocusableElements(this.panelEl()?.nativeElement!);
 
             if (focusableElements && focusableElements.length > 0) {
                 focusableElements[0].focus();
@@ -768,15 +784,17 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         if (this.$disabled()) {
             return;
         }
+
         const section = event.target?.getAttribute?.('data-pc-section');
-        if (!this.overlayViewChild?.el?.nativeElement?.contains(event.target) && section !== 'box' && section !== 'icon') {
+
+        if (!this.overlayViewChild()?.el?.nativeElement?.contains(event.target) && section !== 'box' && section !== 'icon') {
             if (this.overlayVisible) {
                 this.hide();
             } else {
                 this.show();
             }
 
-            this.focusInput?.nativeElement.focus();
+            this.focusInput()?.nativeElement.focus();
         }
     }
 
@@ -788,6 +806,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
                     this.show();
                     event.preventDefault();
                 }
+
                 this.onArrowDown(event);
                 event.preventDefault();
                 break;
@@ -799,15 +818,17 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
                     this.show();
                     event.preventDefault();
                 }
+
                 break;
 
             //escape
             case 'Escape':
                 if (this.overlayVisible) {
                     this.hide();
-                    this.focusInput?.nativeElement.focus();
+                    this.focusInput()?.nativeElement.focus();
                     event.preventDefault();
                 }
+
                 break;
 
             //tab
@@ -822,19 +843,22 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     onFilterInput(event: Event) {
         this.filterValue = (event.target as HTMLInputElement).value;
-        this.treeViewChild?._filter(this.filterValue);
+        const treeViewChild = this.treeViewChild();
+        treeViewChild?._filter(this.filterValue);
         this.onFilter.emit({
             filter: this.filterValue,
-            filteredValue: this.treeViewChild?.filteredNodes
+            filteredValue: treeViewChild?.filteredNodes
         });
         setTimeout(() => {
-            this.overlayViewChild?.alignOverlay();
+            this.overlayViewChild()?.alignOverlay();
         });
     }
 
     onArrowDown(event: KeyboardEvent) {
-        if (this.overlayVisible && this.panelEl?.nativeElement) {
-            let focusableElements = <any>getFocusableElements(this.panelEl.nativeElement, '[data-pc-section="node"]');
+        const panelEl = this.panelEl();
+        if (this.overlayVisible && panelEl?.nativeElement) {
+            let focusableElements = <any>getFocusableElements(panelEl.nativeElement, '[data-pc-section="node"]');
+
             if (focusableElements && focusableElements.length > 0) {
                 focusableElements[0].focus();
             }
@@ -844,13 +868,15 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInput?.nativeElement ? getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+        const focusInput = this.focusInput();
+        const focusableEl = event.relatedTarget === focusInput?.nativeElement ? getFirstFocusableElement(this.overlayViewChild()?.overlayViewChild()?.nativeElement, ':not([data-p-hidden-focusable="true"])') : focusInput?.nativeElement;
 
         focus(focusableEl);
     }
 
     onLastHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInput?.nativeElement ? getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+        const focusInput = this.focusInput();
+        const focusableEl = event.relatedTarget === focusInput?.nativeElement ? getLastFocusableElement(this.overlayViewChild()?.overlayViewChild()?.nativeElement, ':not([data-p-hidden-focusable="true"])') : focusInput?.nativeElement;
 
         focus(focusableEl);
     }
@@ -884,7 +910,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay?.nativeElement : this.firstHiddenFocusableElementOnOverlay?.nativeElement);
+                focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay()?.nativeElement : this.firstHiddenFocusableElementOnOverlay()?.nativeElement);
 
                 event.preventDefault();
             } else {
@@ -894,13 +920,14 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     }
 
     hasFocusableElements() {
-        return getFocusableElements(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return getFocusableElements(this.overlayViewChild()?.overlayViewChild()?.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     resetFilter() {
         if (this.filter && !this.resetFilterOnHide) {
-            this.filteredNodes = this.treeViewChild?.filteredNodes;
-            this.treeViewChild?.resetFilter();
+            const treeViewChild = this.treeViewChild();
+            this.filteredNodes = treeViewChild?.filteredNodes;
+            treeViewChild?.resetFilter();
         } else {
             this.filterValue = null;
         }
@@ -909,8 +936,10 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     updateTreeState() {
         if (this.value) {
             let selectedNodes = this.selectionMode === 'single' ? [this.value] : [...this.value];
+
             this.resetExpandedNodes();
             this.resetPartialSelected();
+
             if (selectedNodes && this.options) {
                 this.updateTreeBranchState(null, null, selectedNodes);
             }
@@ -948,7 +977,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         this.onNodeExpand.emit(event);
         this.expandedNodes.push(event.node);
         setTimeout(() => {
-            this.overlayViewChild?.alignOverlay();
+            this.overlayViewChild()?.alignOverlay();
         });
     }
 
@@ -956,7 +985,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         this.onNodeCollapse.emit(event);
         this.expandedNodes.splice(this.expandedNodes.indexOf(event.node), 1);
         setTimeout(() => {
-            this.overlayViewChild?.alignOverlay();
+            this.overlayViewChild()?.alignOverlay();
         });
     }
 
@@ -1011,11 +1040,13 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         if (this.value) {
             if (this.selectionMode === 'single') {
                 let areNodesEqual = (this.value.key && this.value.key === node.key) || this.value == node;
+
                 index = areNodesEqual ? 0 : -1;
             } else {
                 for (let i = 0; i < this.value.length; i++) {
                     let selectedNode = this.value[i];
                     let areNodesEqual = (selectedNode.key && selectedNode.key === node.key) || selectedNode == node;
+
                     if (areNodesEqual) {
                         index = i;
                         break;
@@ -1032,7 +1063,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
         if (this.selectionMode === 'single') {
             this.hide();
-            this.focusInput?.nativeElement.focus();
+            this.focusInput()?.nativeElement.focus();
         }
     }
 
@@ -1078,6 +1109,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     get label() {
         let value = this.value || [];
+
         return value.length ? value.map((node: TreeNode) => node.label).join(', ') : this.selectionMode === 'single' && this.value ? value.label : this.placeholder;
     }
 }

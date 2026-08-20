@@ -191,6 +191,7 @@ describe('Accordion', () => {
 
         it('should render all accordion panels', () => {
             const panels = fixture.debugElement.queryAll(By.directive(AccordionPanel));
+
             expect(panels.length).toBe(3);
         });
 
@@ -219,6 +220,7 @@ describe('Accordion', () => {
 
         it('should expand a panel when clicked', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -232,6 +234,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -251,6 +254,7 @@ describe('Accordion', () => {
             expect(accordion.value()).toBe('tab2');
 
             const expandedHeaders = headers.filter((h) => h.nativeElement.getAttribute('aria-expanded') === 'true');
+
             expect(expandedHeaders.length).toBe(1);
         });
     });
@@ -282,6 +286,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -295,6 +300,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -305,6 +311,7 @@ describe('Accordion', () => {
     describe('Event Handling', () => {
         it('should emit onOpen event when panel is opened', async () => {
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -319,6 +326,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -334,6 +342,7 @@ describe('Accordion', () => {
 
             component.openEvent = undefined as any;
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -350,6 +359,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             spyOn(secondHeader, 'focus');
 
             firstHeader.dispatchEvent(event);
@@ -364,6 +374,7 @@ describe('Accordion', () => {
 
             secondHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+
             spyOn(firstHeader, 'focus');
 
             secondHeader.dispatchEvent(event);
@@ -378,6 +389,7 @@ describe('Accordion', () => {
 
             lastHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'Home' });
+
             spyOn(firstHeader, 'focus');
 
             lastHeader.dispatchEvent(event);
@@ -392,6 +404,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'End' });
+
             spyOn(lastHeader, 'focus');
 
             firstHeader.dispatchEvent(event);
@@ -405,6 +418,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'Enter' });
+
             firstHeader.dispatchEvent(event);
             await fixture.whenStable();
 
@@ -417,6 +431,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'Space' });
+
             firstHeader.dispatchEvent(event);
             await fixture.whenStable();
 
@@ -434,6 +449,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             spyOn(thirdHeader, 'focus');
 
             firstHeader.dispatchEvent(event);
@@ -448,6 +464,7 @@ describe('Accordion', () => {
 
             lastHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             spyOn(firstHeader, 'focus');
 
             lastHeader.dispatchEvent(event);
@@ -462,6 +479,7 @@ describe('Accordion', () => {
 
             firstHeader.focus();
             const event = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+
             spyOn(lastHeader, 'focus');
 
             firstHeader.dispatchEvent(event);
@@ -477,6 +495,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -490,6 +509,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             expect(headers[0].nativeElement.getAttribute('tabindex')).toBe('-1');
         });
 
@@ -500,6 +520,7 @@ describe('Accordion', () => {
 
             const spy = spyOn(accordion, 'updateValue');
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
 
             expect(spy).not.toHaveBeenCalled();
@@ -513,6 +534,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.focus();
             await fixture.whenStable();
 
@@ -559,6 +581,7 @@ describe('Accordion', () => {
 
         it('should implement getBlockableElement', () => {
             const blockableElement = accordion.getBlockableElement();
+
             expect(blockableElement).toBe(accordion.el.nativeElement.children[0]);
         });
     });
@@ -618,6 +641,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -659,13 +683,16 @@ describe('Accordion', () => {
 
         it('should render custom icon template', async () => {
             const customFixture = TestBed.createComponent(TestCustomIconAccordionComponent);
+
             await customFixture.whenStable();
 
             const customIcon = customFixture.nativeElement.querySelector('.custom-icon');
+
             expect(customIcon).toBeTruthy();
             expect(customIcon.textContent).toBe('▶');
 
             const headers = customFixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await customFixture.whenStable();
 
@@ -684,9 +711,11 @@ describe('Accordion', () => {
     describe('Dynamic Panels', () => {
         it('should handle dynamically added panels', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicAccordionComponent);
+
             await dynamicFixture.whenStable();
 
             const panels = dynamicFixture.debugElement.queryAll(By.directive(AccordionPanel));
+
             expect(panels.length).toBe(3);
 
             dynamicFixture.componentInstance.tabs.push({
@@ -698,11 +727,13 @@ describe('Accordion', () => {
             await dynamicFixture.whenStable();
 
             const updatedPanels = dynamicFixture.debugElement.queryAll(By.directive(AccordionPanel));
+
             expect(updatedPanels.length).toBe(4);
         });
 
         it('should handle dynamically removed panels', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicAccordionComponent);
+
             dynamicFixture.componentInstance.value = ['1', '2'];
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
@@ -712,11 +743,13 @@ describe('Accordion', () => {
             await dynamicFixture.whenStable();
 
             const panels = dynamicFixture.debugElement.queryAll(By.directive(AccordionPanel));
+
             expect(panels.length).toBe(2);
 
             // After removing panel with id '2', the value should still contain '1' and '3'
             // (since we removed the middle panel)
             const dynamicAccordion = dynamicFixture.debugElement.query(By.directive(Accordion)).componentInstance;
+
             expect(dynamicAccordion.value()).toContain('1');
         });
     });
@@ -730,6 +763,7 @@ describe('Accordion', () => {
             expect(accordion.value()).toBeNull();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -744,6 +778,7 @@ describe('Accordion', () => {
             expect(accordion.value()).toBeUndefined();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers[0].nativeElement.click();
             await fixture.whenStable();
 
@@ -769,6 +804,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
+
             headers.forEach((header) => {
                 header.nativeElement.click();
             });
@@ -789,6 +825,7 @@ describe('Accordion', () => {
 
             // Verify no panels are active when value is undefined
             const panels = fixture.debugElement.queryAll(By.directive(AccordionPanel));
+
             panels.forEach((panel) => {
                 expect(panel.componentInstance.active()).toBe(false);
             });
@@ -821,6 +858,7 @@ describe('Accordion', () => {
                 code: 'Home',
                 shiftKey: true
             });
+
             firstHeader.dispatchEvent(shiftHomeEvent);
             await fixture.whenStable();
 
@@ -829,6 +867,7 @@ describe('Accordion', () => {
                 code: 'End',
                 shiftKey: true
             });
+
             firstHeader.dispatchEvent(shiftEndEvent);
             await fixture.whenStable();
 
@@ -844,6 +883,7 @@ describe('Accordion', () => {
 
             // Try to navigate up from first (should go to last)
             const upEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+
             headers[0].nativeElement.dispatchEvent(upEvent);
 
             // Focus last header
@@ -852,6 +892,7 @@ describe('Accordion', () => {
 
             // Try to navigate down from last (should go to first)
             const downEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             headers[2].nativeElement.dispatchEvent(downEvent);
         });
     });
@@ -863,6 +904,7 @@ describe('Accordion', () => {
             await fixture.whenStable();
 
             const accordionElement = accordionEl.nativeElement;
+
             expect(accordionElement.className).toContain('custom-accordion');
         });
 
@@ -970,12 +1012,10 @@ describe('Accordion', () => {
 
         it('should use instance variables in PT functions', async () => {
             ptComponent.pt = {
-                root: ({ instance }) => {
-                    return {
-                        class: instance?.multiple() ? 'MULTIPLE' : 'SINGLE',
-                        'data-select-on-focus': instance?.selectOnFocus()
-                    };
-                }
+                root: ({ instance }) => ({
+                    class: instance?.multiple() ? 'MULTIPLE' : 'SINGLE',
+                    'data-select-on-focus': instance?.selectOnFocus()
+                })
             };
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
@@ -988,6 +1028,7 @@ describe('Accordion', () => {
 
         it('should handle event binding in PT options', async () => {
             let clicked = false;
+
             ptComponent.pt = {
                 root: {
                     onclick: () => {
@@ -999,6 +1040,7 @@ describe('Accordion', () => {
             await ptFixture.whenStable();
 
             const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
+
             accordionEl.nativeElement.click();
 
             expect(clicked).toBe(true);

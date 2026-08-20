@@ -16,8 +16,23 @@ describe('ToggleSwitch', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent],
-            declarations: [TestBasicToggleSwitchComponent, TestFormToggleSwitchComponent, TestTemplateToggleSwitchComponent, TestPrimeTemplateToggleSwitchComponent, TestRequiredToggleSwitchComponent, TestNamedToggleSwitchComponent],
+            imports: [
+                ToggleSwitch,
+                ToggleSwitchModule,
+                FormsModule,
+                ReactiveFormsModule,
+                CommonModule,
+                SharedModule,
+                AutoFocus,
+                TestToggleSwitchPTemplateComponent,
+                TestToggleSwitchRefTemplateComponent,
+                TestBasicToggleSwitchComponent,
+                TestFormToggleSwitchComponent,
+                TestTemplateToggleSwitchComponent,
+                TestPrimeTemplateToggleSwitchComponent,
+                TestRequiredToggleSwitchComponent,
+                TestNamedToggleSwitchComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -89,6 +104,7 @@ describe('ToggleSwitch', () => {
             component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
 
             const mockEvent = new Event('click');
+
             spyOn(component.onChange, 'emit');
             spyOn(component, 'onModelChange');
             spyOn(component, 'writeModelValue').and.callThrough();
@@ -110,6 +126,7 @@ describe('ToggleSwitch', () => {
             component.input = { nativeElement: { focus: jasmine.createSpy('focus') } } as any;
 
             const mockEvent = new Event('click');
+
             spyOn(component.onChange, 'emit');
 
             // Initially checked, should become unchecked
@@ -124,6 +141,7 @@ describe('ToggleSwitch', () => {
 
         it('should not handle onClick when disabled', () => {
             const mockEvent = new Event('click');
+
             spyOn(component, '$disabled').and.returnValue(true);
             spyOn(component.onChange, 'emit');
             spyOn(component, 'writeModelValue');
@@ -136,6 +154,7 @@ describe('ToggleSwitch', () => {
 
         it('should not handle onClick when readonly', () => {
             const mockEvent = new Event('click');
+
             component.readonly = true;
             spyOn(component.onChange, 'emit');
             spyOn(component, 'writeModelValue');
@@ -163,6 +182,7 @@ describe('ToggleSwitch', () => {
 
         it('should handle host click events', () => {
             const mockEvent = new MouseEvent('click');
+
             spyOn(component, 'onClick');
 
             component.onHostClick(mockEvent);
@@ -247,6 +267,7 @@ describe('ToggleSwitch', () => {
 
         it('should support custom handle template using ContentChild', () => {
             const customHandle = templateTestFixture.debugElement.query(By.css('.custom-handle-content'));
+
             if (customHandle) {
                 expect(customHandle).toBeTruthy();
                 expect(customHandle.nativeElement.textContent.trim()).toBe('Custom Handle');
@@ -257,14 +278,17 @@ describe('ToggleSwitch', () => {
 
         it('should support custom handle template using PrimeTemplate', () => {
             const primeTemplateFixture = TestBed.createComponent(TestPrimeTemplateToggleSwitchComponent);
+
             primeTemplateFixture.detectChanges();
 
             const customHandle = primeTemplateFixture.debugElement.query(By.css('.prime-template-handle'));
+
             if (customHandle) {
                 expect(customHandle).toBeTruthy();
                 expect(customHandle.nativeElement.textContent.trim()).toBe('Prime Handle');
             } else {
                 const toggleSwitch = primeTemplateFixture.debugElement.query(By.css('p-toggleswitch')).componentInstance;
+
                 expect(toggleSwitch).toBeTruthy();
             }
         });
@@ -315,12 +339,14 @@ describe('ToggleSwitch', () => {
 
         it('should emit onChange event with correct event data', async () => {
             let emittedEvent: ToggleSwitchChangeEvent | undefined;
+
             testComponent.onToggleChange = (event: ToggleSwitchChangeEvent) => {
                 emittedEvent = event;
             };
 
             // Create and trigger the event directly
             const mockEvent = { originalEvent: new Event('click'), checked: true };
+
             testComponent.onToggleChange(mockEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await testFixture.whenStable();
@@ -332,6 +358,7 @@ describe('ToggleSwitch', () => {
 
         it('should handle keyboard events on input', async () => {
             const input = testFixture.debugElement.query(By.css('input'));
+
             spyOn(testComponent, 'onToggleChange');
 
             if (input) {
@@ -351,6 +378,7 @@ describe('ToggleSwitch', () => {
                 spyOn(toggleSwitch.input.nativeElement, 'focus');
 
                 const mockEvent = new Event('click');
+
                 toggleSwitch.onClick(mockEvent);
 
                 expect(toggleSwitch.input.nativeElement.focus).toHaveBeenCalled();
@@ -389,6 +417,7 @@ describe('ToggleSwitch', () => {
             testFixture.detectChanges();
 
             const input = testFixture.debugElement.query(By.css('input'));
+
             if (input) {
                 expect(input.nativeElement.getAttribute('aria-checked')).toBe('true');
             } else {
@@ -403,6 +432,7 @@ describe('ToggleSwitch', () => {
             testFixture.detectChanges();
 
             const input = testFixture.debugElement.query(By.css('input'));
+
             if (input) {
                 expect(input.nativeElement.getAttribute('aria-labelledby')).toBe('test-label');
             } else {
@@ -417,6 +447,7 @@ describe('ToggleSwitch', () => {
             testFixture.detectChanges();
 
             const input = testFixture.debugElement.query(By.css('input'));
+
             if (input) {
                 expect(input.nativeElement.getAttribute('aria-label')).toBe('Toggle switch');
             } else {
@@ -431,9 +462,11 @@ describe('ToggleSwitch', () => {
             testFixture.detectChanges();
 
             const input = testFixture.debugElement.query(By.css('input'));
+
             if (input) {
                 // Check if the pAutoFocus directive is applied
                 const hasAutoFocus = input.nativeElement.hasAttribute('pautofocus') || input.nativeElement.hasAttribute('autofocus') || testComponent.autofocus === true;
+
                 expect(hasAutoFocus).toBe(true);
             } else {
                 expect(testComponent.autofocus).toBe(true);
@@ -447,6 +480,7 @@ describe('ToggleSwitch', () => {
             testFixture.detectChanges();
 
             const input = testFixture.debugElement.query(By.css('input'));
+
             if (input) {
                 expect(input.nativeElement.getAttribute('tabindex')).toBe('10');
             } else {
@@ -545,6 +579,7 @@ describe('ToggleSwitch', () => {
 
         it('should handle writeControlValue correctly', () => {
             const mockSetModelValue = jasmine.createSpy('setModelValue');
+
             spyOn(component.cd, 'markForCheck');
 
             component.writeControlValue('test-value', mockSetModelValue);
@@ -565,6 +600,7 @@ describe('ToggleSwitch', () => {
             fixture.detectChanges();
 
             const input = fixture.debugElement.query(By.css('input'));
+
             if (input) {
                 expect(input.nativeElement.getAttribute('id')).toBe('my-toggle-input');
             } else {
@@ -576,6 +612,7 @@ describe('ToggleSwitch', () => {
             component.readonly = true;
 
             const mockEvent = new Event('click');
+
             spyOn(component, 'writeModelValue');
 
             component.onClick(mockEvent);
@@ -585,10 +622,12 @@ describe('ToggleSwitch', () => {
 
         it('should handle required attribute', () => {
             const testComponent = TestBed.createComponent(TestRequiredToggleSwitchComponent);
+
             testComponent.componentInstance.required = true;
             testComponent.detectChanges();
 
             const input = testComponent.debugElement.query(By.css('input'));
+
             if (input) {
                 expect(input.nativeElement.hasAttribute('required')).toBe(true);
             } else {
@@ -601,6 +640,7 @@ describe('ToggleSwitch', () => {
             fixture.detectChanges();
 
             const input = fixture.debugElement.query(By.css('input'));
+
             if (input) {
                 expect(input.nativeElement.hasAttribute('disabled')).toBe(true);
             } else {
@@ -610,10 +650,12 @@ describe('ToggleSwitch', () => {
 
         it('should handle name attribute', () => {
             const testComponent = TestBed.createComponent(TestNamedToggleSwitchComponent);
+
             testComponent.componentInstance.name = 'toggle-field';
             testComponent.detectChanges();
 
             const input = testComponent.debugElement.query(By.css('input'));
+
             if (input) {
                 expect(input.nativeElement.getAttribute('name')).toBe('toggle-field');
             } else {
@@ -625,10 +667,10 @@ describe('ToggleSwitch', () => {
 
 // Test Components
 @Component({
-    standalone: false,
     template: `
         <p-toggleswitch [(ngModel)]="checked" [readonly]="readonly" [disabled]="disabled" [autofocus]="autofocus" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [tabindex]="tabindex" (onChange)="onToggleChange($event)"> </p-toggleswitch>
-    `
+    `,
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
 })
 class TestBasicToggleSwitchComponent {
     checked: boolean = false;
@@ -643,12 +685,12 @@ class TestBasicToggleSwitchComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <form [formGroup]="form">
             <p-toggleswitch formControlName="toggleValue"></p-toggleswitch>
         </form>
-    `
+    `,
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
 })
 class TestFormToggleSwitchComponent {
     form = new FormGroup({
@@ -657,44 +699,44 @@ class TestFormToggleSwitchComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-toggleswitch [(ngModel)]="checked">
             <ng-template #handle let-checked="checked">
                 <div class="custom-handle-content">Custom Handle</div>
             </ng-template>
         </p-toggleswitch>
-    `
+    `,
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
 })
 class TestTemplateToggleSwitchComponent {
     checked: boolean = false;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-toggleswitch [(ngModel)]="checked">
             <ng-template pTemplate="handle" let-checked="checked">
                 <div class="prime-template-handle">Prime Handle</div>
             </ng-template>
         </p-toggleswitch>
-    `
+    `,
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
 })
 class TestPrimeTemplateToggleSwitchComponent {
     checked: boolean = false;
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-toggleswitch [required]="required"></p-toggleswitch> `
+    template: ` <p-toggleswitch [required]="required"></p-toggleswitch> `,
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
 })
 class TestRequiredToggleSwitchComponent {
     required: boolean = false;
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-toggleswitch [name]="name"></p-toggleswitch> `
+    template: ` <p-toggleswitch [name]="name"></p-toggleswitch> `,
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
 })
 class TestNamedToggleSwitchComponent {
     name: string = '';
@@ -703,7 +745,7 @@ class TestNamedToggleSwitchComponent {
 // ToggleSwitch pTemplate component
 @Component({
     standalone: true,
-    imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleSwitch, FormsModule, SharedModule],
     template: `
         <p-toggleswitch [(ngModel)]="checked">
             <!-- Handle template with pTemplate -->
@@ -723,7 +765,7 @@ class TestToggleSwitchPTemplateComponent {
 // ToggleSwitch #template reference component
 @Component({
     standalone: true,
-    imports: [ToggleSwitch, FormsModule, CommonModule, SharedModule],
+    imports: [ToggleSwitch, FormsModule, SharedModule],
     template: `
         <p-toggleswitch [(ngModel)]="checked">
             <!-- Handle template with #template reference -->
@@ -956,6 +998,7 @@ describe('PassThrough (PT) Tests', () => {
             });
 
             const fixture = TestBed.createComponent(TestPTCase1Component);
+
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1008,6 +1051,7 @@ describe('PassThrough (PT) Tests', () => {
             });
 
             const fixture = TestBed.createComponent(TestPTCase2Component);
+
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1065,6 +1109,7 @@ describe('PassThrough (PT) Tests', () => {
             });
 
             const fixture = TestBed.createComponent(TestPTCase3Component);
+
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1100,18 +1145,14 @@ describe('PassThrough (PT) Tests', () => {
             checked: boolean = false;
             disabled: boolean = false;
             pt = {
-                root: ({ instance }: any) => {
-                    return {
-                        class: instance?.checked() ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
-                    };
-                },
-                slider: ({ instance }: any) => {
-                    return {
-                        style: {
-                            'background-color': instance?.$disabled() ? 'gray' : 'green'
-                        } as any
-                    };
-                }
+                root: ({ instance }: any) => ({
+                    class: instance?.checked() ? 'CHECKED_CLASS' : 'UNCHECKED_CLASS'
+                }),
+                slider: ({ instance }: any) => ({
+                    style: {
+                        'background-color': instance?.$disabled() ? 'gray' : 'green'
+                    } as any
+                })
             };
         }
 
@@ -1122,6 +1163,7 @@ describe('PassThrough (PT) Tests', () => {
             });
 
             const fixture = TestBed.createComponent(TestPTCase4Component);
+
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1158,13 +1200,11 @@ describe('PassThrough (PT) Tests', () => {
             checked: boolean = false;
             clickCount: number = 0;
             pt = {
-                slider: ({ instance }: any) => {
-                    return {
-                        onclick: (event: Event) => {
-                            this.clickCount++;
-                        }
-                    };
-                }
+                slider: ({ instance }: any) => ({
+                    onclick: (event: Event) => {
+                        this.clickCount++;
+                    }
+                })
             };
         }
 
@@ -1176,6 +1216,7 @@ describe('PassThrough (PT) Tests', () => {
 
             const fixture = TestBed.createComponent(TestPTCase5Component);
             const component = fixture.componentInstance;
+
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1207,11 +1248,13 @@ describe('PassThrough (PT) Tests', () => {
             });
 
             const fixture = TestBed.createComponent(TestInlineComponent);
+
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
             const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+
             expect(toggleSwitchRoot.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
         });
 
@@ -1231,11 +1274,13 @@ describe('PassThrough (PT) Tests', () => {
             });
 
             const fixture = TestBed.createComponent(TestInlineObjectComponent);
+
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
             const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+
             expect(toggleSwitchRoot.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             expect(toggleSwitchRoot.style.border).toBe('2px solid red');
         });
@@ -1273,11 +1318,13 @@ describe('PassThrough (PT) Tests', () => {
             });
 
             const fixture = TestBed.createComponent(TestGlobalPTComponent);
+
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
 
             const toggleSwitches = fixture.debugElement.queryAll(By.css('p-toggleswitch'));
+
             expect(toggleSwitches.length).toBe(2);
 
             toggleSwitches.forEach((toggleSwitch) => {
@@ -1329,6 +1376,7 @@ describe('PassThrough (PT) Tests', () => {
             });
 
             const fixture = TestBed.createComponent(TestHooksComponent);
+
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1336,6 +1384,7 @@ describe('PassThrough (PT) Tests', () => {
             expect(hookCalls).toContain('onAfterViewInit');
 
             const toggleSwitchRoot = fixture.debugElement.query(By.css('p-toggleswitch')).nativeElement;
+
             expect(toggleSwitchRoot.classList.contains('MY-TOGGLESWITCH')).toBe(true);
 
             fixture.destroy();

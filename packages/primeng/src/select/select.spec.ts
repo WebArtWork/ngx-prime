@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, DebugElement, provideZonelessChangeDetection, signal } from '@angular/core';
+import { Component, computed, DebugElement, provideZonelessChangeDetection, signal, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -9,7 +9,6 @@ import { map, take } from 'rxjs/operators';
 import { Select } from './select';
 
 @Component({
-    standalone: false,
     template: `
         <p-select
             [options]="options"
@@ -37,7 +36,8 @@ import { Select } from './select';
             (onClick)="onClickEvent($event)"
         >
         </p-select>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestBasicSelectComponent {
     options = [
@@ -101,12 +101,12 @@ class TestBasicSelectComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <form [formGroup]="form">
             <p-select formControlName="selectedOption" [options]="options" optionLabel="name" optionValue="code" placeholder="Choose an option"> </p-select>
         </form>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestReactiveFormSelectComponent {
     form: FormGroup;
@@ -124,8 +124,8 @@ class TestReactiveFormSelectComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-select [options]="groupedOptions" [(ngModel)]="selectedCity" optionLabel="cname" optionValue="code" [group]="true" optionGroupLabel="label" optionGroupChildren="items" placeholder="Select a city"> </p-select> `
+    template: ` <p-select [options]="groupedOptions" [(ngModel)]="selectedCity" optionLabel="cname" optionValue="code" [group]="true" optionGroupLabel="label" optionGroupChildren="items" placeholder="Select a city"> </p-select> `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestGroupedSelectComponent {
     selectedCity: any;
@@ -150,7 +150,6 @@ class TestGroupedSelectComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-select [options]="options" [(ngModel)]="selectedValue" optionLabel="name" optionValue="code" placeholder="Select with templates" [filter]="filter" [showClear]="showClear" [loading]="loading">
             <ng-template pTemplate="item" let-option>
@@ -198,7 +197,8 @@ class TestGroupedSelectComponent {
                 <i class="pi pi-spin pi-spinner custom-loading-icon"></i>
             </ng-template>
         </p-select>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestSelectPTemplateComponent {
     options = [
@@ -216,7 +216,6 @@ class TestSelectPTemplateComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-select [options]="options" [(ngModel)]="selectedValue" optionLabel="name" optionValue="code" placeholder="Select with template refs" [filter]="filter" [showClear]="showClear" [loading]="loading">
             <ng-template #item let-option>
@@ -264,7 +263,8 @@ class TestSelectPTemplateComponent {
                 <i class="pi pi-cog pi-spin ref-loading-icon"></i>
             </ng-template>
         </p-select>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestSelectRefTemplateComponent {
     options = [
@@ -278,8 +278,8 @@ class TestSelectRefTemplateComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-select [options]="dynamicOptions()" [(ngModel)]="selectedValue" optionLabel="label" optionValue="value" [placeholder]="dynamicPlaceholder()" [disabled]="dynamicDisabled()" [loading]="dynamicLoading()"> </p-select> `
+    template: ` <p-select [options]="dynamicOptions()" [(ngModel)]="selectedValue" optionLabel="label" optionValue="value" [placeholder]="dynamicPlaceholder()" [disabled]="dynamicDisabled()" [loading]="dynamicLoading()"> </p-select> `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestDynamicSelectComponent {
     private _options = signal([
@@ -315,7 +315,6 @@ class TestDynamicSelectComponent {
 
 // Dynamic data sources test component (signals, observables, async pipes)
 @Component({
-    standalone: false,
     template: `
         <div class="dynamic-test-container">
             <!-- Signal-based options -->
@@ -373,7 +372,8 @@ class TestDynamicSelectComponent {
             <!-- Complex computed options -->
             <p-select #computedSelect class="computed-select" [options]="computedOptions()" [(ngModel)]="selectedComputed" [optionLabel]="computedLabel()" [placeholder]="computedPlaceholder()" (onChange)="onComputedChange($event)"></p-select>
         </div>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestDynamicDataSourcesComponent {
     // Signal-based properties
@@ -473,6 +473,7 @@ class TestDynamicDataSourcesComponent {
 
     computedOptions = computed(() => {
         const items = this.baseItems();
+
         return this.showInactive() ? items : items.filter((item) => item.active);
     });
 
@@ -549,7 +550,6 @@ class TestDynamicDataSourcesComponent {
 
 // Comprehensive FormControl test component
 @Component({
-    standalone: false,
     template: `
         <div class="form-test-container">
             <form [formGroup]="testForm">
@@ -589,9 +589,12 @@ class TestDynamicDataSourcesComponent {
                 <div>NgModel Touched: {{ ngModelRef.touched }}</div>
             </div>
         </div>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestComprehensiveFormComponent {
+    private fb = inject(FormBuilder);
+
     testForm: FormGroup;
     basicOptions = [
         { name: 'Form Option 1', code: 'form1' },
@@ -600,7 +603,7 @@ class TestComprehensiveFormComponent {
     ];
     ngModelValue: any = null as any;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.testForm = this.fb.group({
             basicSelect: [null],
             disabledSelect: [{ value: null, disabled: true }],
@@ -664,14 +667,14 @@ class TestComprehensiveFormComponent {
 
 // Comprehensive ViewChild properties test component
 @Component({
-    standalone: false,
     template: `
         <div class="viewchild-test-container">
             <p-select #testSelect [options]="options" [(ngModel)]="selectedValue" optionLabel="name" optionValue="code" placeholder="ViewChild test select" [filter]="true" [showClear]="true" [virtualScroll]="false"></p-select>
 
             <p-select #virtualSelect [options]="largeOptions" [(ngModel)]="selectedVirtual" optionLabel="name" optionValue="code" placeholder="Virtual scroll select" [virtualScroll]="true" [virtualScrollItemSize]="38" [scrollHeight]="200"></p-select>
         </div>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestViewChildComponent {
     options = [
@@ -696,7 +699,6 @@ class TestViewChildComponent {
 
 // Complex edge cases test component
 @Component({
-    standalone: false,
     template: `
         <div class="edge-cases-container">
             <!-- Rapid updates test -->
@@ -714,7 +716,8 @@ class TestViewChildComponent {
             <!-- Null/undefined edge cases -->
             <p-select #edgeSelect [options]="edgeOptions" [(ngModel)]="edgeValue" [optionLabel]="edgeLabel" [placeholder]="edgePlaceholder"></p-select>
         </div>
-    `
+    `,
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, Select]
 })
 class TestComplexEdgeCasesComponent {
     // Rapid updates
@@ -765,6 +768,7 @@ class TestComplexEdgeCasesComponent {
         // Create circular reference (carefully)
         const circularBase = { name: 'Circular Base', id: 'base' };
         const circularChild = { name: 'Circular Child', id: 'child', parent: circularBase };
+
         (circularBase as any).child = circularChild;
         this.circularOptions = [circularBase, circularChild];
     }
@@ -808,8 +812,11 @@ describe('Select', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule,
+                Select,
                 TestBasicSelectComponent,
                 TestReactiveFormSelectComponent,
                 TestGroupedSelectComponent,
@@ -900,6 +907,7 @@ describe('Select', () => {
     describe('Selection and Value', () => {
         it('should select option programmatically', () => {
             const testValue = 'opt2';
+
             component.selectedValue = testValue;
             fixture.detectChanges();
 
@@ -911,6 +919,7 @@ describe('Select', () => {
 
         it('should emit onChange event when value changes', async () => {
             const testOption = component.options[1];
+
             selectInstance.onOptionSelect(new Event('click'), testOption);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -921,10 +930,12 @@ describe('Select', () => {
 
         it('should handle selection of disabled option', () => {
             const disabledOption = { ...component.options[0], disabled: true };
+
             component.options[0] = disabledOption;
             fixture.detectChanges();
 
             const initialValue = 'opt2';
+
             selectInstance.writeModelValue(initialValue);
 
             selectInstance.onOptionSelect(new Event('click'), disabledOption);
@@ -935,6 +946,7 @@ describe('Select', () => {
         it('should display disabled option label when set as initial value', async () => {
             // Setup disabled option
             const disabledOption = { name: 'Disabled Option', code: 'disabled1', disabled: true };
+
             component.options = [disabledOption, { name: 'Option 2', code: 'opt2' }, { name: 'Option 3', code: 'opt3' }];
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -956,6 +968,7 @@ describe('Select', () => {
 
             // Check the DOM element with p-select-label class
             const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe('Disabled Option');
 
@@ -999,6 +1012,7 @@ describe('Select', () => {
 
             // Check the DOM element with p-select-label class
             const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe('Berlin');
         });
@@ -1078,6 +1092,7 @@ describe('Select', () => {
 
         it('should handle input focus', () => {
             const focusEvent = new FocusEvent('focus');
+
             selectInstance.onInputFocus(focusEvent);
 
             expect(selectInstance.focused).toBe(true);
@@ -1086,6 +1101,7 @@ describe('Select', () => {
 
         it('should handle input blur', () => {
             const blurEvent = new FocusEvent('blur');
+
             selectInstance.onInputBlur(blurEvent);
 
             expect(selectInstance.focused).toBe(false);
@@ -1124,6 +1140,7 @@ describe('Select', () => {
             // Wait for overlay hide animation to complete
             // Overlay might use animation frames, so we need to wait longer
             let attempts = 0;
+
             while (selectInstance.overlayVisible && attempts < 20) {
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await fixture.whenStable(); // Longer intervals
@@ -1154,6 +1171,7 @@ describe('Select', () => {
     describe('Keyboard Navigation', () => {
         it('should handle Arrow Down key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             selectInstance.onKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1167,6 +1185,7 @@ describe('Select', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp', altKey: true });
+
             selectInstance.onKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1181,6 +1200,7 @@ describe('Select', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
             selectInstance.onKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1188,6 +1208,7 @@ describe('Select', () => {
 
             // Check DOM label element shows selected option
             const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe(component.options[0].name);
         });
@@ -1198,6 +1219,7 @@ describe('Select', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Escape' });
+
             selectInstance.onKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1207,6 +1229,7 @@ describe('Select', () => {
 
         it('should handle Space key', async () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
+
             selectInstance.onKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1240,6 +1263,7 @@ describe('Select', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
+
             selectInstance.onKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1254,6 +1278,7 @@ describe('Select', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
+
             selectInstance.onKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1274,6 +1299,7 @@ describe('Select', () => {
             await fixture.whenStable();
 
             const filterEvent = { target: { value: 'Option 1' } } as any;
+
             selectInstance.onFilterInputChange(filterEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1288,6 +1314,7 @@ describe('Select', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             selectInstance.onFilterKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1323,6 +1350,7 @@ describe('Select', () => {
     describe('Accessibility', () => {
         it('should have proper ARIA attributes', () => {
             const focusInput = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(focusInput).toBeTruthy();
             expect(focusInput.nativeElement.getAttribute('aria-haspopup')).toBe('listbox');
             expect(focusInput.nativeElement.getAttribute('aria-expanded')).toBe('false');
@@ -1335,6 +1363,7 @@ describe('Select', () => {
             fixture.detectChanges();
 
             const focusInput = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(focusInput.nativeElement.getAttribute('aria-expanded')).toBe('true');
         });
 
@@ -1343,6 +1372,7 @@ describe('Select', () => {
             fixture.detectChanges();
 
             const focusInput = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(focusInput.nativeElement.getAttribute('aria-label')).toBe('Select option');
         });
 
@@ -1351,6 +1381,7 @@ describe('Select', () => {
             fixture.detectChanges();
 
             const focusInput = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(focusInput.nativeElement.getAttribute('aria-labelledby')).toBe('label-id');
         });
 
@@ -1434,6 +1465,7 @@ describe('Select', () => {
             fixture.detectChanges();
 
             const rootElement = selectElement.nativeElement;
+
             expect(rootElement.classList.contains('custom-select')).toBe(true);
         });
 
@@ -1460,8 +1492,7 @@ describe('Select - Reactive Forms Integration', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestReactiveFormSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestReactiveFormSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1478,6 +1509,7 @@ describe('Select - Reactive Forms Integration', () => {
 
     it('should update form control on selection', async () => {
         const testOption = component.options[0];
+
         selectInstance.onOptionSelect(new Event('click'), testOption);
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
@@ -1542,8 +1574,7 @@ describe('Select - Grouped Options', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestGroupedSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestGroupedSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1562,18 +1593,21 @@ describe('Select - Grouped Options', () => {
     it('should get option group label', () => {
         const group = component.groupedOptions[0];
         const label = selectInstance.getOptionGroupLabel(group);
+
         expect(label).toBe('Germany');
     });
 
     it('should get option group children', () => {
         const group = component.groupedOptions[0];
         const children = selectInstance.getOptionGroupChildren(group);
+
         expect(children.length).toBe(2);
         expect(children[0].cname).toBe('Berlin');
     });
 
     it('should handle selection from grouped options', async () => {
         const cityOption = component.groupedOptions[0].items[0];
+
         selectInstance.onOptionSelect(new Event('click'), cityOption);
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
@@ -1581,6 +1615,7 @@ describe('Select - Grouped Options', () => {
 
         // Check DOM label element shows selected grouped option
         const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+
         expect(labelElement).toBeTruthy();
         expect(labelElement.nativeElement.textContent.trim()).toBe(cityOption.cname);
     });
@@ -1593,8 +1628,7 @@ describe('Select - pTemplate Content Projection', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestSelectPTemplateComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestSelectPTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1634,6 +1668,7 @@ describe('Select - pTemplate Content Projection', () => {
         fixture.detectChanges();
 
         const customItems = fixture.debugElement.queryAll(By.css('.custom-item'));
+
         if (customItems.length > 0) {
             expect(customItems[0].nativeElement.textContent).toContain('Template Option 1');
             expect(customItems[0].nativeElement.textContent).toContain('(tpl1)');
@@ -1651,11 +1686,13 @@ describe('Select - pTemplate Content Projection', () => {
         await fixture.whenStable();
 
         const customSelected = fixture.debugElement.query(By.css('.custom-selected'));
+
         if (customSelected) {
             expect(customSelected.nativeElement.textContent).toContain('Selected: Template Option 1');
         } else {
             // Check DOM label element instead of instance
             const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe('Template Option 1');
         }
@@ -1668,6 +1705,7 @@ describe('Select - pTemplate Content Projection', () => {
         fixture.detectChanges();
 
         const customHeader = fixture.debugElement.query(By.css('.custom-header'));
+
         if (customHeader) {
             expect(customHeader.nativeElement.textContent).toBe('Available Options');
         } else {
@@ -1683,6 +1721,7 @@ describe('Select - pTemplate Content Projection', () => {
         fixture.detectChanges();
 
         const customFooter = fixture.debugElement.query(By.css('.custom-footer'));
+
         if (customFooter) {
             expect(customFooter.nativeElement.textContent).toContain('Total: 2 options');
         } else {
@@ -1700,6 +1739,7 @@ describe('Select - pTemplate Content Projection', () => {
         fixture.detectChanges();
 
         const customEmpty = fixture.debugElement.query(By.css('.custom-empty'));
+
         if (customEmpty) {
             expect(customEmpty.nativeElement.textContent).toBe('No options available');
         } else {
@@ -1716,6 +1756,7 @@ describe('Select - pTemplate Content Projection', () => {
         fixture.detectChanges();
 
         const customEmptyFilter = fixture.debugElement.query(By.css('.custom-empty-filter'));
+
         if (customEmptyFilter) {
             expect(customEmptyFilter.nativeElement.textContent).toBe('No results found');
         } else {
@@ -1731,8 +1772,10 @@ describe('Select - pTemplate Content Projection', () => {
         fixture.detectChanges();
 
         const customFilter = fixture.debugElement.query(By.css('.custom-filter'));
+
         if (customFilter) {
             const filterInput = customFilter.query(By.css('.custom-filter-input'));
+
             expect(filterInput).toBeTruthy();
         } else {
             // Fallback: just check that overlay is visible when filter template should render
@@ -1811,8 +1854,7 @@ describe('Select - #template Reference Content Projection', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestSelectRefTemplateComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestSelectRefTemplateComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -1828,12 +1870,12 @@ describe('Select - #template Reference Content Projection', () => {
     });
 
     it('should capture ContentChild template references', () => {
-        expect(selectInstance.itemTemplate).toBeDefined();
+        expect(selectInstance.itemTemplate()).toBeDefined();
         expect(selectInstance.selectedItemTemplate).toBeDefined();
-        expect(selectInstance.headerTemplate).toBeDefined();
-        expect(selectInstance.footerTemplate).toBeDefined();
-        expect(selectInstance.emptyTemplate).toBeDefined();
-        expect(selectInstance.emptyFilterTemplate).toBeDefined();
+        expect(selectInstance.headerTemplate()).toBeDefined();
+        expect(selectInstance.footerTemplate()).toBeDefined();
+        expect(selectInstance.emptyTemplate()).toBeDefined();
+        expect(selectInstance.emptyFilterTemplate()).toBeDefined();
         expect(selectInstance.filterTemplate).toBeDefined();
         expect(selectInstance.loaderTemplate).toBeDefined();
         expect(selectInstance.dropdownIconTemplate).toBeDefined();
@@ -1849,6 +1891,7 @@ describe('Select - #template Reference Content Projection', () => {
         fixture.detectChanges();
 
         const refItems = fixture.debugElement.queryAll(By.css('.ref-item'));
+
         if (refItems.length > 0) {
             expect(refItems[0].nativeElement.textContent).toContain('Ref Template Option 1');
             expect(refItems[0].nativeElement.textContent).toContain('[ref1]');
@@ -1862,6 +1905,7 @@ describe('Select - #template Reference Content Projection', () => {
         await fixture.whenStable();
 
         const refSelected = fixture.debugElement.query(By.css('.ref-selected'));
+
         if (refSelected) {
             expect(refSelected.nativeElement.textContent).toContain('Chosen: Ref Template Option 1');
         }
@@ -1877,6 +1921,7 @@ describe('Select - #template Reference Content Projection', () => {
         fixture.detectChanges();
 
         const refHeader = fixture.debugElement.query(By.css('.ref-header'));
+
         if (refHeader) {
             expect(refHeader.nativeElement.textContent).toBe('Choose from list');
         }
@@ -1889,6 +1934,7 @@ describe('Select - #template Reference Content Projection', () => {
         fixture.detectChanges();
 
         const refFooter = fixture.debugElement.query(By.css('.ref-footer'));
+
         if (refFooter) {
             expect(refFooter.nativeElement.textContent).toContain('2 items total');
         }
@@ -1903,6 +1949,7 @@ describe('Select - #template Reference Content Projection', () => {
         fixture.detectChanges();
 
         const refEmpty = fixture.debugElement.query(By.css('.ref-empty'));
+
         if (refEmpty) {
             expect(refEmpty.nativeElement.textContent).toBe('No data to display');
         }
@@ -1916,6 +1963,7 @@ describe('Select - #template Reference Content Projection', () => {
         fixture.detectChanges();
 
         const refEmptyFilter = fixture.debugElement.query(By.css('.ref-empty-filter'));
+
         if (refEmptyFilter) {
             expect(refEmptyFilter.nativeElement.textContent).toBe('Filter yielded no results');
         }
@@ -1928,17 +1976,21 @@ describe('Select - #template Reference Content Projection', () => {
         fixture.detectChanges();
 
         const refFilter = fixture.debugElement.query(By.css('.ref-filter'));
+
         if (refFilter) {
             const filterInput = refFilter.query(By.css('.ref-filter-input'));
+
             expect(filterInput).toBeTruthy();
         }
     });
 
     it('should render dropdown icon template reference with class context', () => {
         const dropdownIcon = fixture.debugElement.query(By.css('.pi-angle-down'));
+
         if (dropdownIcon) {
             expect(dropdownIcon).toBeTruthy();
         }
+
         expect(selectInstance.dropdownIconTemplate).toBeDefined();
     });
 
@@ -1958,6 +2010,7 @@ describe('Select - #template Reference Content Projection', () => {
         fixture.detectChanges();
 
         const filterIcon = fixture.debugElement.query(By.css('.ref-filter-icon'));
+
         if (filterIcon) {
             expect(filterIcon).toBeTruthy();
         }
@@ -1971,9 +2024,11 @@ describe('Select - #template Reference Content Projection', () => {
         fixture.detectChanges();
 
         const loadingIcon = fixture.debugElement.query(By.css('.ref-loading-icon'));
+
         if (loadingIcon) {
             expect(loadingIcon).toBeTruthy();
         }
+
         expect(selectInstance.loadingIconTemplate).toBeDefined();
     });
 });
@@ -1985,8 +2040,7 @@ describe('Select - Dynamic and Signal-based Properties', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestDynamicSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestDynamicSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2107,8 +2161,7 @@ describe('Select - Performance and Large Datasets', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestBasicSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestBasicSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2119,6 +2172,7 @@ describe('Select - Performance and Large Datasets', () => {
 
     it('should handle large datasets efficiently', async () => {
         const largeOptions: any[] = [];
+
         for (let i = 0; i < 1000; i++) {
             largeOptions.push({
                 name: `Option ${i}`,
@@ -2127,6 +2181,7 @@ describe('Select - Performance and Large Datasets', () => {
         }
 
         const startTime = performance.now();
+
         component.options = largeOptions;
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -2139,12 +2194,14 @@ describe('Select - Performance and Large Datasets', () => {
 
     it('should handle rapid selection changes without errors', async () => {
         let changeCount = 0;
+
         component.onSelectionChange = () => changeCount++;
         fixture.detectChanges();
 
         // Simulate rapid selections
         for (let i = 0; i < 10; i++) {
             const option = component.options[i % component.options.length];
+
             selectInstance.onOptionSelect(new Event('click'), option);
             await new Promise((resolve) => setTimeout(resolve, 10));
             await fixture.whenStable();
@@ -2174,8 +2231,7 @@ describe('Select Dynamic Data Sources', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestDynamicDataSourcesComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestDynamicDataSourcesComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2187,8 +2243,10 @@ describe('Select Dynamic Data Sources', () => {
     describe('Signal-based Properties', () => {
         it('should work with signal options', () => {
             const signalSelect = dynamicFixture.debugElement.query(By.css('.signal-select'))?.componentInstance;
+
             if (signalSelect) {
                 expect(signalSelect.options?.length || 0).toBe(2);
+
                 if (signalSelect.options?.[0]) {
                     expect(signalSelect.options[0].label).toBe('Signal Option 1');
                 }
@@ -2252,6 +2310,7 @@ describe('Select Dynamic Data Sources', () => {
             dynamicFixture.detectChanges();
 
             const observableSelect = dynamicFixture.debugElement.query(By.css('.observable-select')).componentInstance;
+
             expect(observableSelect.options.length).toBe(1);
             expect(observableSelect.options[0].name).toBe('Updated Observable Option');
         });
@@ -2271,6 +2330,7 @@ describe('Select Dynamic Data Sources', () => {
             dynamicFixture.detectChanges();
 
             const observableSelect = dynamicFixture.debugElement.query(By.css('.observable-select')).componentInstance;
+
             expect(observableSelect.optionLabel).toBe('id');
         });
     });
@@ -2278,6 +2338,7 @@ describe('Select Dynamic Data Sources', () => {
     describe('Getter-based Properties', () => {
         it('should work with getter options', () => {
             const getterSelect = dynamicFixture.debugElement.query(By.css('.getter-select')).componentInstance;
+
             expect(getterSelect.options.length).toBe(2);
             expect(getterSelect.options[0].title).toBe('Getter Option 1');
         });
@@ -2289,12 +2350,14 @@ describe('Select Dynamic Data Sources', () => {
             await dynamicFixture.whenStable();
 
             const getterSelect = dynamicFixture.debugElement.query(By.css('.getter-select')).componentInstance;
+
             expect(getterSelect.options.length).toBe(1);
             expect(getterSelect.options[0].title).toBe('Updated Getter Option');
         });
 
         it('should work with getter optionLabel and optionValue', () => {
             const getterSelect = dynamicFixture.debugElement.query(By.css('.getter-select')).componentInstance;
+
             expect(getterSelect.optionLabel).toBe('title');
             expect(getterSelect.optionValue).toBe('code');
         });
@@ -2303,12 +2366,14 @@ describe('Select Dynamic Data Sources', () => {
     describe('Function-based Properties', () => {
         it('should work with function-based options', () => {
             const functionSelect = dynamicFixture.debugElement.query(By.css('.function-select')).componentInstance;
+
             expect(functionSelect.options.length).toBe(2);
             expect(functionSelect.options[0].displayName).toBe('Function Option 1');
         });
 
         it('should work with function-based optionLabel', () => {
             const functionSelect = dynamicFixture.debugElement.query(By.css('.function-select')).componentInstance;
+
             expect(functionSelect.optionLabel).toBe('displayName');
         });
     });
@@ -2359,12 +2424,14 @@ describe('Select Dynamic Data Sources', () => {
         it('should work with computed options', () => {
             const computedSelect = dynamicFixture.debugElement.query(By.css('.computed-select')).componentInstance;
             const options = computedSelect.options || [];
+
             expect(Array.isArray(options) ? options.length : 0).toBeGreaterThanOrEqual(0);
         });
 
         it('should update when computed conditions change', async () => {
             const computedSelect = dynamicFixture.debugElement.query(By.css('.computed-select')).componentInstance;
             const options = computedSelect.options || [];
+
             expect(Array.isArray(options) ? options.length : 0).toBeGreaterThanOrEqual(0);
 
             dynamicComponent.toggleShowInactive();
@@ -2373,12 +2440,14 @@ describe('Select Dynamic Data Sources', () => {
             await dynamicFixture.whenStable();
 
             const updatedOptions = computedSelect.options || [];
+
             expect(Array.isArray(updatedOptions) ? updatedOptions.length : 0).toBeGreaterThanOrEqual(0);
         });
 
         it('should work with computed placeholder', () => {
             const computedSelect = dynamicFixture.debugElement.query(By.css('.computed-select')).componentInstance;
             const placeholder = computedSelect.placeholder;
+
             expect(typeof placeholder === 'string' ? placeholder.length : 0).toBeGreaterThanOrEqual(0);
         });
     });
@@ -2391,8 +2460,7 @@ describe('Select Comprehensive Form Integration', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestComprehensiveFormComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestComprehensiveFormComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2481,6 +2549,7 @@ describe('Select Comprehensive Form Integration', () => {
 
         it('should work with updateOn blur', async () => {
             const updateOnBlurControl = formComponent.testForm.get('updateOnBlurSelect');
+
             expect(updateOnBlurControl?.value).toBeNull();
 
             const blurSelect = formFixture.debugElement.query(By.css('p-select[formControlName="updateOnBlurSelect"]')).componentInstance;
@@ -2524,6 +2593,7 @@ describe('Select Comprehensive Form Integration', () => {
 
         it('should work with nested form groups', async () => {
             const nestedControl = formComponent.testForm.get('nested.nestedSelect');
+
             expect(nestedControl).toBeTruthy();
             expect(nestedControl?.hasError('required')).toBe(true);
 
@@ -2569,6 +2639,7 @@ describe('Select Comprehensive Form Integration', () => {
 
                 // Test that ngModel status is tracked in template
                 const statusDiv = formFixture.debugElement.query(By.css('.form-status'));
+
                 expect(statusDiv).toBeTruthy();
             }
         });
@@ -2577,6 +2648,7 @@ describe('Select Comprehensive Form Integration', () => {
     describe('Form Control State Management', () => {
         it('should handle dirty/pristine state correctly', async () => {
             const basicControl = formComponent.testForm.get('basicSelect');
+
             expect(basicControl?.pristine).toBe(true);
             expect(basicControl?.dirty).toBe(false);
 
@@ -2591,6 +2663,7 @@ describe('Select Comprehensive Form Integration', () => {
 
         it('should handle touched/untouched state correctly', async () => {
             const basicControl = formComponent.testForm.get('basicSelect');
+
             expect(basicControl?.untouched).toBe(true);
             expect(basicControl?.touched).toBe(false);
 
@@ -2605,12 +2678,12 @@ describe('Select Comprehensive Form Integration', () => {
         it('should handle pending state for async validators', async () => {
             // Add async validator
             const basicControl = formComponent.testForm.get('basicSelect');
-            const asyncValidator = (control: any) => {
-                return timer(100).pipe(
+
+            const asyncValidator = (control: any) =>
+                timer(100).pipe(
                     map(() => (control.value === 'invalid' ? { invalid: true } : null)),
                     take(1)
                 );
-            };
 
             basicControl?.setAsyncValidators([asyncValidator]);
             basicControl?.setValue('test');
@@ -2631,8 +2704,7 @@ describe('Select ViewChild Properties', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, Select],
-            declarations: [TestViewChildComponent],
+            imports: [CommonModule, FormsModule, Select, TestViewChildComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2662,6 +2734,7 @@ describe('Select ViewChild Properties', () => {
 
         // Filter input should be rendered
         const filterInput = viewChildFixture.debugElement.query(By.css('input[pInputText]'));
+
         expect(filterInput).toBeTruthy();
 
         if (selectInstance.filterInputChild) {
@@ -2679,6 +2752,7 @@ describe('Select ViewChild Properties', () => {
 
         // Items container should be rendered
         const itemsContainer = viewChildFixture.debugElement.query(By.css('[role="listbox"]'));
+
         expect(itemsContainer).toBeTruthy();
 
         if (selectInstance.itemsViewChild) {
@@ -2713,12 +2787,14 @@ describe('Select ViewChild Properties', () => {
 
         // Hidden focusable elements should be rendered
         const hiddenElements = viewChildFixture.debugElement.queryAll(By.css('.p-hidden-focusable'));
+
         expect(hiddenElements.length).toBeGreaterThanOrEqual(2);
 
         // First and last hidden focusable elements should be available
         if (selectInstance.firstHiddenFocusableElementOnOverlay) {
             expect(selectInstance.firstHiddenFocusableElementOnOverlay.nativeElement).toBeTruthy();
         }
+
         if (selectInstance.lastHiddenFocusableElementOnOverlay) {
             expect(selectInstance.lastHiddenFocusableElementOnOverlay.nativeElement).toBeTruthy();
         }
@@ -2732,8 +2808,7 @@ describe('Select Complex Edge Cases', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, Select],
-            declarations: [TestComplexEdgeCasesComponent],
+            imports: [CommonModule, FormsModule, Select, TestComplexEdgeCasesComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2818,6 +2893,7 @@ describe('Select Complex Edge Cases', () => {
             const unicodeSelect = edgeFixture.debugElement.query(By.css('p-select[placeholder="Unicode test"]')).componentInstance;
 
             const unicodeOption = unicodeSelect.options.find((opt: any) => opt.id === 'unicode');
+
             expect(unicodeOption.text).toBe('Unicode: 你好世界 🌍 🚀');
         });
 
@@ -2825,6 +2901,7 @@ describe('Select Complex Edge Cases', () => {
             const unicodeSelect = edgeFixture.debugElement.query(By.css('p-select[placeholder="Unicode test"]')).componentInstance;
 
             const specialOption = unicodeSelect.options.find((opt: any) => opt.id === 'special');
+
             expect(specialOption.text).toBe('Special: !@#$%^&*()');
         });
 
@@ -2832,6 +2909,7 @@ describe('Select Complex Edge Cases', () => {
             const unicodeSelect = edgeFixture.debugElement.query(By.css('p-select[placeholder="Unicode test"]')).componentInstance;
 
             const rtlOption = unicodeSelect.options.find((opt: any) => opt.id === 'rtl');
+
             expect(rtlOption.text).toBe('RTL: مرحبا بالعالم');
         });
 
@@ -2839,6 +2917,7 @@ describe('Select Complex Edge Cases', () => {
             const unicodeSelect = edgeFixture.debugElement.query(By.css('p-select[placeholder="Unicode test"]')).componentInstance;
 
             const newlinesOption = unicodeSelect.options.find((opt: any) => opt.id === 'newlines');
+
             expect(newlinesOption.text).toBe('Newlines\nand\ttabs');
         });
     });
@@ -2863,6 +2942,7 @@ describe('Select Complex Edge Cases', () => {
             expect(() => {
                 JSON.stringify(edgeComponent.circularOptions, (key, value) => {
                     if (key === 'parent' || key === 'child') return '[Circular]';
+
                     return value;
                 });
             }).not.toThrow();
@@ -2884,6 +2964,7 @@ describe('Select Complex Edge Cases', () => {
 
             if (edgeSelect) {
                 const selectInstance = edgeSelect.componentInstance;
+
                 expect(() => {
                     selectInstance.options;
                 }).not.toThrow();
@@ -2926,6 +3007,7 @@ describe('Select Complex Edge Cases', () => {
             // Test multiple create/destroy cycles
             for (let i = 0; i < 5; i++) {
                 const testFixture = TestBed.createComponent(TestComplexEdgeCasesComponent);
+
                 testFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await edgeFixture.whenStable();
@@ -2972,8 +3054,7 @@ describe('Select Advanced Accessibility', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select],
-            declarations: [TestBasicSelectComponent],
+            imports: [CommonModule, FormsModule, ReactiveFormsModule, Select, TestBasicSelectComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -2986,12 +3067,14 @@ describe('Select Advanced Accessibility', () => {
     describe('ARIA Attributes', () => {
         it('should have proper role attributes', () => {
             const combobox = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(combobox).toBeTruthy();
             expect(combobox.nativeElement.getAttribute('role')).toBe('combobox');
         });
 
         it('should have correct aria-haspopup', () => {
             const combobox = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(combobox.nativeElement.getAttribute('aria-haspopup')).toBe('listbox');
         });
 
@@ -3006,6 +3089,7 @@ describe('Select Advanced Accessibility', () => {
 
             if (listbox) {
                 const expectedId = selectInstance.id + '_list';
+
                 expect(combobox.nativeElement.getAttribute('aria-controls')).toBe(expectedId);
             }
         });
@@ -3038,6 +3122,7 @@ describe('Select Advanced Accessibility', () => {
             expect(selectInstance.overlayVisible).toBeFalsy();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
             selectInstance.onKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -3049,6 +3134,7 @@ describe('Select Advanced Accessibility', () => {
             expect(selectInstance.overlayVisible).toBeFalsy();
 
             const keyEvent = new KeyboardEvent('keydown', { key: ' ' });
+
             selectInstance.onKeyDown(keyEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -3065,11 +3151,13 @@ describe('Select Advanced Accessibility', () => {
             expect(selectInstance.focusedOptionIndex()).toBe(-1);
 
             const downEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             selectInstance.onKeyDown(downEvent);
 
             expect(selectInstance.focusedOptionIndex()).toBeGreaterThanOrEqual(0);
 
             const upEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+
             selectInstance.onKeyDown(upEvent);
 
             // Should navigate to previous option or stay at first
@@ -3085,6 +3173,7 @@ describe('Select Advanced Accessibility', () => {
             // Ensure overlay is open before testing close
 
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
+
             spyOn(escapeEvent, 'preventDefault');
             selectInstance.onKeyDown(escapeEvent);
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -3102,6 +3191,7 @@ describe('Select Advanced Accessibility', () => {
             fixture.detectChanges();
 
             const tabEvent = new KeyboardEvent('keydown', { key: 'Tab' });
+
             selectInstance.onKeyDown(tabEvent);
 
             // Should handle tab navigation without errors
@@ -3115,12 +3205,15 @@ describe('Select Advanced Accessibility', () => {
             fixture.detectChanges();
 
             const endEvent = new KeyboardEvent('keydown', { code: 'End' });
+
             selectInstance.onKeyDown(endEvent);
 
             const lastIndex = selectInstance.options!.length - 1;
+
             expect(selectInstance.focusedOptionIndex()).toBe(lastIndex);
 
             const homeEvent = new KeyboardEvent('keydown', { code: 'Home' });
+
             selectInstance.onKeyDown(homeEvent);
 
             expect(selectInstance.focusedOptionIndex()).toBe(0);
@@ -3133,6 +3226,7 @@ describe('Select Advanced Accessibility', () => {
             fixture.detectChanges();
 
             const combobox = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(combobox.nativeElement.getAttribute('aria-label')).toBe('Choose an option');
         });
 
@@ -3149,6 +3243,7 @@ describe('Select Advanced Accessibility', () => {
 
             // The selected option should be reflected in the DOM display
             const labelElement = fixture.debugElement.query(By.css('.p-select-label'));
+
             expect(labelElement).toBeTruthy();
             expect(labelElement.nativeElement.textContent.trim()).toBe(component.options[0].name);
         });
@@ -3160,6 +3255,7 @@ describe('Select Advanced Accessibility', () => {
             fixture.detectChanges();
 
             const options = fixture.debugElement.queryAll(By.css('[role="option"]'));
+
             options.forEach((option) => {
                 expect(option.nativeElement.getAttribute('aria-label')).toBeTruthy();
             });
@@ -3212,7 +3308,7 @@ describe('Select Advanced Accessibility', () => {
 describe('Select PT (PassThrough)', () => {
     @Component({
         standalone: true,
-        imports: [CommonModule, FormsModule, Select],
+        imports: [FormsModule, Select],
         template: `
             <p-select
                 [options]="options"
@@ -3270,6 +3366,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const root = fixture.debugElement.query(By.css('p-select'));
+
             expect(root.nativeElement.classList.contains('CUSTOM_ROOT_CLASS')).toBeTruthy();
         });
 
@@ -3278,6 +3375,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const label = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(label.nativeElement.classList.contains('CUSTOM_LABEL_CLASS')).toBeTruthy();
         });
 
@@ -3286,6 +3384,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const dropdown = fixture.debugElement.query(By.css('.p-select-dropdown'));
+
             expect(dropdown.nativeElement.classList.contains('CUSTOM_DROPDOWN_CLASS')).toBeTruthy();
         });
     });
@@ -3298,6 +3397,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const root = fixture.debugElement.query(By.css('p-select'));
+
             expect(root.nativeElement.classList.contains('PT_ROOT_OBJECT_CLASS')).toBeTruthy();
         });
 
@@ -3308,6 +3408,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const root = fixture.debugElement.query(By.css('p-select'));
+
             expect(root.nativeElement.style.backgroundColor).toBe('red');
             expect(root.nativeElement.style.padding).toBe('10px');
         });
@@ -3322,6 +3423,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const root = fixture.debugElement.query(By.css('p-select'));
+
             expect(root.nativeElement.getAttribute('data-testid')).toBe('select-root');
             expect(root.nativeElement.getAttribute('aria-description')).toBe('Custom select description');
         });
@@ -3337,6 +3439,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const label = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(label.nativeElement.classList.contains('PT_LABEL_CLASS')).toBeTruthy();
             expect(label.nativeElement.style.color).toBe('blue');
             expect(label.nativeElement.getAttribute('data-label')).toBe('test');
@@ -3377,6 +3480,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const label = fixture.debugElement.query(By.css('[role="combobox"]'));
+
             expect(label.nativeElement.classList.contains('NO_VALUE')).toBeTruthy();
 
             component.selectedValue = 'opt1';
@@ -3407,6 +3511,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const root = fixture.debugElement.query(By.css('p-select'));
+
             expect(root.nativeElement.style.opacity).toBe('1');
         });
     });
@@ -3414,6 +3519,7 @@ describe('Select PT (PassThrough)', () => {
     describe('Case 5: Event binding', () => {
         it('should bind onclick event to root', async () => {
             let clicked = false;
+
             component.pt = {
                 root: {
                     onclick: () => {
@@ -3426,6 +3532,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const root = fixture.debugElement.query(By.css('p-select'));
+
             root.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -3435,6 +3542,7 @@ describe('Select PT (PassThrough)', () => {
 
         it('should bind onclick to dropdown trigger', async () => {
             let dropdownClicked = false;
+
             component.pt = {
                 dropdown: {
                     onclick: () => {
@@ -3447,6 +3555,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const dropdown = fixture.debugElement.query(By.css('.p-select-dropdown'));
+
             dropdown.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -3458,11 +3567,13 @@ describe('Select PT (PassThrough)', () => {
     describe('Case 6: Test emitters through instance', () => {
         it('should access onChange emitter through instance', async () => {
             let emitterAccessed = false;
+
             component.pt = {
                 root: ({ instance }: any) => {
                     if (instance?.onChange) {
                         emitterAccessed = true;
                     }
+
                     return {};
                 }
             };
@@ -3475,11 +3586,13 @@ describe('Select PT (PassThrough)', () => {
 
         it('should access onShow emitter through instance', async () => {
             let showEmitterAccessed = false;
+
             component.pt = {
                 root: ({ instance }: any) => {
                     if (instance?.onShow) {
                         showEmitterAccessed = true;
                     }
+
                     return {};
                 }
             };
@@ -3536,6 +3649,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const options = fixture.debugElement.queryAll(By.css('[role="option"]'));
+
             expect(options.length).toBeGreaterThan(0);
 
             options.forEach((option) => {
@@ -3548,6 +3662,7 @@ describe('Select PT (PassThrough)', () => {
         it('should call onAfterViewInit hook', async () => {
             let hookCalled = false;
             const hookFixture = TestBed.createComponent(TestPTSelectComponent);
+
             hookFixture.componentInstance.pt = {
                 hooks: {
                     onAfterViewInit: () => {
@@ -3565,6 +3680,7 @@ describe('Select PT (PassThrough)', () => {
 
         it('should call onAfterViewChecked hook', async () => {
             let checkCount = 0;
+
             component.pt = {
                 hooks: {
                     onAfterViewChecked: () => {
@@ -3586,9 +3702,11 @@ describe('Select PT (PassThrough)', () => {
     describe('Case 9: getPTItemOptions context test', () => {
         it('should provide option context in PT', async () => {
             let capturedContext: any = null;
+
             component.pt = {
                 option: ({ context }: any) => {
                     capturedContext = context;
+
                     return {
                         class: context?.selected ? 'SELECTED_OPTION' : 'NORMAL_OPTION'
                     };
@@ -3602,6 +3720,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const options = fixture.debugElement.queryAll(By.css('[role="option"]'));
+
             expect(options.length).toBeGreaterThan(0);
             expect(capturedContext).toBeTruthy();
             expect(capturedContext.option).toBeDefined();
@@ -3612,12 +3731,14 @@ describe('Select PT (PassThrough)', () => {
 
         it('should reflect selection state in option PT context', async () => {
             let contextStates: any[] = [];
+
             component.pt = {
                 option: ({ context }: any) => {
                     contextStates.push({
                         selected: context?.selected,
                         option: context?.option
                     });
+
                     return {};
                 }
             };
@@ -3638,7 +3759,9 @@ describe('Select PT (PassThrough)', () => {
 
             // Check if we captured the selected state
             const selectedContext = contextStates.find((ctx) => ctx.selected === true);
+
             expect(selectedContext).toBeTruthy();
+
             if (selectedContext) {
                 expect(selectedContext.option?.code).toBe('opt1');
             }
@@ -3646,11 +3769,13 @@ describe('Select PT (PassThrough)', () => {
 
         it('should reflect focused state in option PT context', async () => {
             let focusedContext: any = null;
+
             component.pt = {
                 option: ({ context }: any) => {
                     if (context?.focused) {
                         focusedContext = context;
                     }
+
                     return {
                         class: context?.focused ? 'FOCUSED_OPTION' : ''
                     };
@@ -3670,6 +3795,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             expect(focusedContext).toBeTruthy();
+
             if (focusedContext) {
                 expect(focusedContext.focused).toBeTruthy();
                 expect(focusedContext.index).toBe(1);
@@ -3678,11 +3804,13 @@ describe('Select PT (PassThrough)', () => {
 
         it('should provide option index in PT context', async () => {
             const capturedIndexes = new Set<number>();
+
             component.pt = {
                 option: ({ context }: any) => {
                     if (context?.index !== undefined) {
                         capturedIndexes.add(context.index);
                     }
+
                     return {};
                 }
             };
@@ -3702,6 +3830,7 @@ describe('Select PT (PassThrough)', () => {
 
         it('should provide complete context object with all properties in getPTItemOptions', async () => {
             let capturedContexts: any[] = [];
+
             component.pt = {
                 option: ({ context }: any) => {
                     capturedContexts.push({
@@ -3711,6 +3840,7 @@ describe('Select PT (PassThrough)', () => {
                         focused: context?.focused,
                         disabled: context?.disabled
                     });
+
                     return {};
                 }
             };
@@ -3741,17 +3871,20 @@ describe('Select PT (PassThrough)', () => {
 
             // Find the selected context
             const selectedContext = capturedContexts.find((ctx) => ctx.selected === true);
+
             expect(selectedContext).toBeTruthy();
             expect(selectedContext?.option.code).toBe('opt1');
 
             // Find the focused context
             const focusedContext = capturedContexts.find((ctx) => ctx.focused === true);
+
             expect(focusedContext).toBeTruthy();
             expect(focusedContext?.index).toBe(1);
         });
 
         it('should update context when selection changes via getPTItemOptions', async () => {
             let contextSnapshots: any[] = [];
+
             component.pt = {
                 option: ({ context }: any) => {
                     if (context?.option?.code === 'opt2') {
@@ -3761,6 +3894,7 @@ describe('Select PT (PassThrough)', () => {
                             option: context.option
                         });
                     }
+
                     return {};
                 }
             };
@@ -3772,6 +3906,7 @@ describe('Select PT (PassThrough)', () => {
 
             // Should not be selected initially
             let opt2Context = contextSnapshots[contextSnapshots.length - 1];
+
             expect(opt2Context?.selected).toBe(false);
 
             // Select opt2
@@ -3806,12 +3941,14 @@ describe('Select PT (PassThrough)', () => {
             ];
 
             let disabledContextFound = false;
+
             component.pt = {
                 option: ({ context }: any) => {
                     if (context?.option?.code === 'opt2') {
                         disabledContextFound = true;
                         expect(context.disabled).toBe(true);
                     }
+
                     return {};
                 }
             };
@@ -3838,6 +3975,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
             fixture.detectChanges();
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
+
             expect(clearIcon?.nativeElement.classList.contains('PT_CLEAR_ICON_CLASS')).toBeTruthy();
         });
 
@@ -3856,6 +3994,7 @@ describe('Select PT (PassThrough)', () => {
 
             // Checkmark icons should be rendered
             const icons = fixture.debugElement.queryAll(By.css('[data-p-icon]'));
+
             expect(icons.length).toBeGreaterThan(0);
         });
     });
@@ -3883,7 +4022,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
+
             expect(clearIcon).toBeTruthy();
+
             if (clearIcon) {
                 expect(clearIcon.nativeElement.classList.contains('CUSTOM_CLEAR_ICON')).toBeTruthy();
                 expect(clearIcon.nativeElement.getAttribute('data-test')).toBe('clear-icon');
@@ -3900,7 +4041,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const loadingIcon = fixture.debugElement.query(By.css('.p-select-loading-icon'));
+
             expect(loadingIcon).toBeTruthy();
+
             if (loadingIcon) {
                 expect(loadingIcon.nativeElement.classList.contains('CUSTOM_LOADING_ICON')).toBeTruthy();
             }
@@ -3915,6 +4058,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const dropdownIcon = fixture.debugElement.query(By.css('[data-p-icon="chevron-down"]'));
+
             expect(dropdownIcon).toBeTruthy();
             expect(dropdownIcon.nativeElement.classList.contains('CUSTOM_DROPDOWN_ICON')).toBeTruthy();
         });
@@ -3936,7 +4080,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const filterIcon = fixture.debugElement.query(By.css('[data-p-icon="search"]'));
+
             expect(filterIcon).toBeTruthy();
+
             if (filterIcon) {
                 expect(filterIcon.nativeElement.classList.contains('CUSTOM_FILTER_ICON')).toBeTruthy();
             }
@@ -3958,6 +4104,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const checkIcon = fixture.debugElement.query(By.css('[data-p-icon="check"]'));
+
             expect(checkIcon?.nativeElement.classList.contains('CUSTOM_CHECK_ICON')).toBeTruthy();
             expect(checkIcon?.nativeElement.getAttribute('data-check')).toBe('true');
         });
@@ -3979,7 +4126,9 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const blankIcon = fixture.debugElement.query(By.css('[data-p-icon="blank"]'));
+
             expect(blankIcon).toBeTruthy();
+
             if (blankIcon) {
                 expect(blankIcon.nativeElement.classList.contains('CUSTOM_BLANK_ICON')).toBeTruthy();
             }
@@ -3995,6 +4144,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const hiddenFirst = fixture.debugElement.query(By.css('[data-p-hidden-focusable="true"]'));
+
             expect(hiddenFirst).toBeTruthy();
         });
 
@@ -4008,6 +4158,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const hiddenElements = fixture.debugElement.queryAll(By.css('[data-p-hidden-focusable="true"]'));
+
             expect(hiddenElements.length).toBeGreaterThan(0);
         });
 
@@ -4022,6 +4173,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const overlay = fixture.debugElement.query(By.css('p-overlay'));
+
             expect(overlay).toBeTruthy();
         });
 
@@ -4036,6 +4188,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const overlay = fixture.debugElement.query(By.css('p-overlay'));
+
             expect(overlay).toBeTruthy();
         });
 
@@ -4050,6 +4203,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const overlay = fixture.debugElement.query(By.css('p-overlay'));
+
             expect(overlay).toBeTruthy();
         });
 
@@ -4074,6 +4228,7 @@ describe('Select PT (PassThrough)', () => {
 
             // VirtualScroller should be rendered when enabled
             const virtualScroller = fixture.debugElement.query(By.css('.p-virtualscroller'));
+
             expect(virtualScroller).toBeTruthy();
             expect(virtualScroller.nativeElement.classList.contains('CUSTOM_VSCROLLER_ROOT')).toBeTruthy();
             expect(virtualScroller.nativeElement.getAttribute('data-vscroller')).toBe('root');
@@ -4082,6 +4237,7 @@ describe('Select PT (PassThrough)', () => {
             // Only root and spacer sections are testable in this context
 
             const vScrollerSpacer = fixture.debugElement.query(By.css('.p-virtualscroller-spacer'));
+
             expect(vScrollerSpacer).toBeTruthy();
             expect(vScrollerSpacer.nativeElement.classList.contains('CUSTOM_VSCROLLER_SPACER')).toBeTruthy();
             expect(vScrollerSpacer.nativeElement.getAttribute('data-vscroller')).toBe('spacer');
@@ -4108,13 +4264,17 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const clearIcon = fixture.debugElement.query(By.css('[data-pc-section="clearicon"]'));
+
             expect(clearIcon).toBeTruthy();
+
             if (clearIcon) {
                 expect(clearIcon.nativeElement.classList.contains('PT_CLEAR')).toBeTruthy();
             }
 
             const dropdownIcon = fixture.debugElement.query(By.css('[data-p-icon="chevron-down"]'));
+
             expect(dropdownIcon).toBeTruthy();
+
             if (dropdownIcon) {
                 expect(dropdownIcon.nativeElement.classList.contains('PT_DROPDOWN')).toBeTruthy();
             }
@@ -4127,7 +4287,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const filterIcon = fixture.debugElement.query(By.css('[data-p-icon="search"]'));
+
             expect(filterIcon).toBeTruthy();
+
             if (filterIcon) {
                 expect(filterIcon.nativeElement.classList.contains('PT_FILTER')).toBeTruthy();
             }
@@ -4149,6 +4311,7 @@ describe('Select PT (PassThrough)', () => {
             fixture.detectChanges();
 
             const hiddenElements = fixture.debugElement.queryAll(By.css('[data-p-hidden-focusable="true"]'));
+
             expect(hiddenElements.length).toBeGreaterThan(0);
         });
     });
@@ -4163,6 +4326,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const root = fixture.debugElement.query(By.css('.p-select'));
+
             expect(root).toBeTruthy();
             expect(root.nativeElement.classList.contains('CUSTOM_ROOT')).toBeTruthy();
             expect(root.nativeElement.getAttribute('data-test')).toBe('root-element');
@@ -4186,17 +4350,22 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const overlay = fixture.debugElement.query(By.css('p-overlay'));
+
             expect(overlay).toBeTruthy();
 
             const overlayRoot = fixture.debugElement.query(By.css('.p-overlay'));
+
             expect(overlayRoot).toBeTruthy();
+
             if (overlayRoot) {
                 expect(overlayRoot.nativeElement.classList.contains('CUSTOM_OVERLAY_ROOT')).toBeTruthy();
                 expect(overlayRoot.nativeElement.getAttribute('data-overlay')).toBe('root');
             }
 
             const overlayContent = fixture.debugElement.query(By.css('.p-overlay-content'));
+
             expect(overlayContent).toBeTruthy();
+
             if (overlayContent) {
                 expect(overlayContent.nativeElement.classList.contains('CUSTOM_OVERLAY_CONTENT')).toBeTruthy();
                 expect(overlayContent.nativeElement.getAttribute('data-overlay')).toBe('content');
@@ -4219,7 +4388,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const header = fixture.debugElement.query(By.css('.p-select-header'));
+
             expect(header).toBeTruthy();
+
             if (header) {
                 expect(header.nativeElement.classList.contains('CUSTOM_HEADER')).toBeTruthy();
                 expect(header.nativeElement.getAttribute('data-header')).toBe('test');
@@ -4242,6 +4413,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const filterContainer = fixture.debugElement.query(By.css('p-iconfield'));
+
             expect(filterContainer).toBeTruthy();
         });
 
@@ -4261,7 +4433,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const filterInput = fixture.debugElement.query(By.css('.p-select-filter'));
+
             expect(filterInput).toBeTruthy();
+
             if (filterInput) {
                 expect(filterInput.nativeElement.classList.contains('CUSTOM_FILTER_INPUT')).toBeTruthy();
             }
@@ -4282,7 +4456,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const listContainer = fixture.debugElement.query(By.css('.p-select-list-container'));
+
             expect(listContainer).toBeTruthy();
+
             if (listContainer) {
                 expect(listContainer.nativeElement.classList.contains('CUSTOM_LIST_CONTAINER')).toBeTruthy();
                 expect(listContainer.nativeElement.getAttribute('data-list')).toBe('container');
@@ -4304,7 +4480,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const list = fixture.debugElement.query(By.css('.p-select-list'));
+
             expect(list).toBeTruthy();
+
             if (list) {
                 expect(list.nativeElement.classList.contains('CUSTOM_LIST')).toBeTruthy();
                 expect(list.nativeElement.getAttribute('data-list')).toBe('element');
@@ -4340,7 +4518,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const optionGroup = fixture.debugElement.query(By.css('.p-select-option-group'));
+
             expect(optionGroup).toBeTruthy();
+
             if (optionGroup) {
                 expect(optionGroup.nativeElement.classList.contains('CUSTOM_OPTION_GROUP')).toBeTruthy();
                 expect(optionGroup.nativeElement.getAttribute('data-group')).toBe('test');
@@ -4376,7 +4556,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const groupLabel = fixture.debugElement.query(By.css('.p-select-option-group-label'));
+
             expect(groupLabel).toBeTruthy();
+
             if (groupLabel) {
                 expect(groupLabel.nativeElement.classList.contains('CUSTOM_GROUP_LABEL')).toBeTruthy();
             }
@@ -4397,7 +4579,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const option = fixture.debugElement.query(By.css('.p-select-option'));
+
             expect(option).toBeTruthy();
+
             if (option) {
                 expect(option.nativeElement.classList.contains('CUSTOM_OPTION')).toBeTruthy();
                 expect(option.nativeElement.getAttribute('data-option')).toBe('test');
@@ -4419,6 +4603,7 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const optionLabel = fixture.debugElement.query(By.css('.p-select-option'));
+
             expect(optionLabel).toBeTruthy();
         });
 
@@ -4438,7 +4623,9 @@ describe('Select PT (PassThrough)', () => {
             await fixture.whenStable();
 
             const emptyMessage = fixture.debugElement.query(By.css('.p-select-empty-message'));
+
             expect(emptyMessage).toBeTruthy();
+
             if (emptyMessage) {
                 expect(emptyMessage.nativeElement.classList.contains('CUSTOM_EMPTY_MESSAGE')).toBeTruthy();
                 expect(emptyMessage.nativeElement.getAttribute('data-empty')).toBe('true');

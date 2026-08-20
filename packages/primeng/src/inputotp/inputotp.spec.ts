@@ -174,6 +174,7 @@ describe('InputOtp', () => {
 
         it('should render correct number of input fields', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
+
             expect(inputs.length).toBe(4);
         });
     });
@@ -269,6 +270,7 @@ describe('InputOtp', () => {
             spyOn(secondInput, 'select');
 
             const rightArrowEvent = new KeyboardEvent('keydown', { key: 'ArrowRight' });
+
             firstInput.dispatchEvent(rightArrowEvent);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -286,6 +288,7 @@ describe('InputOtp', () => {
             spyOn(firstInput, 'select');
 
             const leftArrowEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
+
             secondInput.dispatchEvent(leftArrowEvent);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -334,6 +337,7 @@ describe('InputOtp', () => {
             const firstInput = inputs[0].nativeElement;
 
             const pasteEvent = new ClipboardEvent('paste');
+
             Object.defineProperty(pasteEvent, 'clipboardData', {
                 value: {
                     getData: () => '1234'
@@ -355,6 +359,7 @@ describe('InputOtp', () => {
             const firstInput = inputs[0].nativeElement;
 
             const pasteEvent = new ClipboardEvent('paste');
+
             Object.defineProperty(pasteEvent, 'clipboardData', {
                 value: {
                     getData: () => '123456789'
@@ -390,6 +395,7 @@ describe('InputOtp', () => {
 
         it('should respect length property', () => {
             const inputs = fixture.debugElement.queryAll(By.css('input'));
+
             expect(inputs.length).toBe(6);
             expect(inputOtpInstance.length).toBe(6);
         });
@@ -401,6 +407,7 @@ describe('InputOtp', () => {
             expect(inputOtpInstance.inputType).toBe('password');
 
             const inputs = fixture.debugElement.queryAll(By.css('input'));
+
             inputs.forEach((input) => {
                 expect(input.nativeElement.type).toBe('password');
             });
@@ -415,12 +422,14 @@ describe('InputOtp', () => {
             const firstInput = inputs[0].nativeElement;
 
             const numericEvent = new KeyboardEvent('keydown', { code: 'Digit1', key: '1' });
+
             spyOn(numericEvent, 'preventDefault');
             firstInput.dispatchEvent(numericEvent);
 
             expect(numericEvent.preventDefault).not.toHaveBeenCalled();
 
             const alphaEvent = new KeyboardEvent('keydown', { code: 'KeyA', key: 'a' });
+
             spyOn(alphaEvent, 'preventDefault');
             firstInput.dispatchEvent(alphaEvent);
 
@@ -432,6 +441,7 @@ describe('InputOtp', () => {
             fixture.detectChanges();
 
             const inputs = fixture.debugElement.queryAll(By.css('input'));
+
             inputs.forEach((input) => {
                 expect(input.nativeElement.hasAttribute('readonly')).toBe(true);
             });
@@ -559,6 +569,7 @@ describe('InputOtp', () => {
             expect(inputOtpInstance.tokens).toEqual([]);
 
             const inputs = fixture.debugElement.queryAll(By.css('input'));
+
             inputs.forEach((input) => {
                 expect(input.nativeElement.value).toBe('' as any);
             });
@@ -638,10 +649,12 @@ describe('InputOtp', () => {
         it('should handle keyboard events through template context', async () => {
             // Test that template is properly configured
             expect(inputOtpInstance).toBeTruthy();
+
             // Template should be available after content init
             if (inputOtpInstance.ngAfterContentInit) {
                 inputOtpInstance.ngAfterContentInit();
             }
+
             await fixture.whenStable();
             fixture.changeDetectorRef.markForCheck();
             expect(inputOtpInstance).toBeTruthy();
@@ -663,6 +676,7 @@ describe('InputOtp', () => {
             if (inputOtpInstance.ngAfterContentInit) {
                 inputOtpInstance.ngAfterContentInit();
             }
+
             await fixture.whenStable();
             fixture.changeDetectorRef.markForCheck();
 
@@ -673,6 +687,7 @@ describe('InputOtp', () => {
             if (inputOtpInstance.ngAfterViewInit) {
                 inputOtpInstance.ngAfterViewInit();
             }
+
             await fixture.whenStable();
             fixture.changeDetectorRef.markForCheck();
 
@@ -724,10 +739,12 @@ describe('InputOtp', () => {
         it('should handle keyboard events through template context', async () => {
             // Test that template is properly configured
             expect(inputOtpInstance).toBeTruthy();
+
             // Template should be available after content init
             if (inputOtpInstance.ngAfterContentInit) {
                 inputOtpInstance.ngAfterContentInit();
             }
+
             await fixture.whenStable();
             fixture.changeDetectorRef.markForCheck();
             expect(inputOtpInstance).toBeTruthy();
@@ -749,6 +766,7 @@ describe('InputOtp', () => {
             if (inputOtpInstance.ngAfterContentInit) {
                 inputOtpInstance.ngAfterContentInit();
             }
+
             await fixture.whenStable();
             fixture.changeDetectorRef.markForCheck();
 
@@ -759,6 +777,7 @@ describe('InputOtp', () => {
             if (inputOtpInstance.ngAfterViewInit) {
                 inputOtpInstance.ngAfterViewInit();
             }
+
             await fixture.whenStable();
             fixture.changeDetectorRef.markForCheck();
 
@@ -834,6 +853,7 @@ describe('InputOtp PassThrough Tests', () => {
     describe('PT Case 4: Event binding', () => {
         it('should handle onclick event through PT', (done) => {
             let clicked = false;
+
             fixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
@@ -868,9 +888,11 @@ describe('InputOtp PassThrough Tests', () => {
             }).compileComponents();
 
             const globalFixture = TestBed.createComponent(InputOtp);
+
             globalFixture.detectChanges();
 
             const globalHostElement = globalFixture.nativeElement;
+
             expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
             expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_LABEL');
         });
@@ -879,6 +901,7 @@ describe('InputOtp PassThrough Tests', () => {
     describe('PT Case 6: Lifecycle hooks', () => {
         it('should support lifecycle hooks', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [InputOtp, FormsModule],
@@ -907,6 +930,7 @@ describe('InputOtp PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(InputOtp);
+
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');

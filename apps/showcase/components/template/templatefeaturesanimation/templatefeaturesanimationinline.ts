@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, PLATFORM_ID, ViewEncapsulation, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
     selector: 'template-features-animation-inline',
@@ -30,7 +30,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inje
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class TemplateFeaturesAnimationInline {
+export class TemplateFeaturesAnimationInline implements OnInit, OnDestroy {
     @Input() inlineFeaturesData;
 
     @Input() parentHandleClick;
@@ -87,9 +87,11 @@ export class TemplateFeaturesAnimationInline {
     startInterval() {
         this.intervalId = setInterval(() => {
             this.selectedID++;
+
             if (this.selectedID > this.inlineFeaturesData.length) {
                 this.selectedID = 1;
             }
+
             this.cd.markForCheck();
         }, this.inlineSeconds);
     }
@@ -105,6 +107,7 @@ export class TemplateFeaturesAnimationInline {
     ngOnDestroy() {
         clearInterval(this.intervalId);
         this.intervalId = null;
+
         if (this.el.nativeElement) {
             this.observer?.unobserve(this.el.nativeElement);
         }

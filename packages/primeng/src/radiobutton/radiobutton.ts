@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -18,7 +17,7 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    ViewChild
+    viewChild
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
@@ -51,9 +50,7 @@ export class RadioControlRegistry {
     }
 
     remove(accessor: RadioButton) {
-        this.accessors = this.accessors.filter((c) => {
-            return c[1] !== accessor;
-        });
+        this.accessors = this.accessors.filter((c) => c[1] !== accessor);
     }
 
     select(accessor: RadioButton) {
@@ -79,7 +76,7 @@ export class RadioControlRegistry {
 @Component({
     selector: 'p-radioButton, p-radiobutton, p-radio-button',
     standalone: true,
-    imports: [CommonModule, AutoFocus, SharedModule, BindModule],
+    imports: [AutoFocus, SharedModule, BindModule],
     template: `
         <input
             #input
@@ -198,7 +195,7 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @ViewChild('input') inputViewChild!: ElementRef;
+    readonly inputViewChild = viewChild.required<ElementRef>('input');
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
 
@@ -251,7 +248,7 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
      * @group Method
      */
     public focus() {
-        this.inputViewChild.nativeElement.focus();
+        this.inputViewChild().nativeElement.focus();
     }
 
     /**

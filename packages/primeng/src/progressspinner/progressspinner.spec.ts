@@ -4,8 +4,8 @@ import { By } from '@angular/platform-browser';
 import { ProgressSpinner } from './progressspinner';
 
 @Component({
-    standalone: false,
-    template: `<p-progressspinner [strokeWidth]="strokeWidth" [fill]="fill" [animationDuration]="animationDuration" [ariaLabel]="ariaLabel" [styleClass]="styleClass"> </p-progressspinner>`
+    template: `<p-progressspinner [strokeWidth]="strokeWidth" [fill]="fill" [animationDuration]="animationDuration" [ariaLabel]="ariaLabel" [styleClass]="styleClass"> </p-progressspinner>`,
+    imports: [ProgressSpinner]
 })
 class TestBasicProgressSpinnerComponent {
     strokeWidth: string = '2';
@@ -16,8 +16,8 @@ class TestBasicProgressSpinnerComponent {
 }
 
 @Component({
-    standalone: false,
-    template: `<p-progressspinner [style]="style" [styleClass]="styleClass"></p-progressspinner>`
+    template: `<p-progressspinner [style]="style" [styleClass]="styleClass"></p-progressspinner>`,
+    imports: [ProgressSpinner]
 })
 class TestStyleProgressSpinnerComponent {
     style: { [key: string]: any } | undefined = { width: '50px', height: '50px' };
@@ -25,8 +25,8 @@ class TestStyleProgressSpinnerComponent {
 }
 
 @Component({
-    standalone: false,
-    template: `<p-progressspinner strokeWidth="4" fill="red" animationDuration="3s" ariaLabel="Loading content"> </p-progressspinner>`
+    template: `<p-progressspinner strokeWidth="4" fill="red" animationDuration="3s" ariaLabel="Loading content"> </p-progressspinner>`,
+    imports: [ProgressSpinner]
 })
 class TestCustomPropertiesComponent {}
 
@@ -38,8 +38,7 @@ describe('ProgressSpinner', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicProgressSpinnerComponent, TestStyleProgressSpinnerComponent, TestCustomPropertiesComponent],
-            imports: [ProgressSpinner],
+            imports: [ProgressSpinner, TestBasicProgressSpinnerComponent, TestStyleProgressSpinnerComponent, TestCustomPropertiesComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -134,6 +133,7 @@ describe('ProgressSpinner', () => {
     describe('SVG Rendering', () => {
         it('should render SVG element correctly', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement).toBeTruthy();
             expect(svgElement.nativeElement.getAttribute('viewBox')).toBe('25 25 50 50');
             expect(svgElement.nativeElement.getAttribute('data-pc-section')).toBe('spin');
@@ -141,6 +141,7 @@ describe('ProgressSpinner', () => {
 
         it('should render circle element with correct attributes', () => {
             const circleElement = fixture.debugElement.query(By.css('circle'));
+
             expect(circleElement).toBeTruthy();
             expect(circleElement.nativeElement.getAttribute('cx')).toBe('50');
             expect(circleElement.nativeElement.getAttribute('cy')).toBe('50');
@@ -154,6 +155,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
+
             expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe('3');
         });
 
@@ -163,6 +165,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
+
             expect(circleElement.nativeElement.getAttribute('fill')).toBe('#ff0000');
         });
 
@@ -172,16 +175,19 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement.nativeElement.style.animationDuration).toBe('1s');
         });
 
         it('should render with default fill "none"', () => {
             const circleElement = fixture.debugElement.query(By.css('circle'));
+
             expect(circleElement.nativeElement.getAttribute('fill')).toBe('none');
         });
 
         it('should render with default strokeWidth "2"', () => {
             const circleElement = fixture.debugElement.query(By.css('circle'));
+
             expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe('2');
         });
     });
@@ -193,12 +199,14 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
+
             expect(rootElement.nativeElement.classList.contains('custom-spinner-class')).toBe(true);
         });
 
         it('should apply custom styles', () => {
             const styleFixture = TestBed.createComponent(TestStyleProgressSpinnerComponent);
             const styleComponent = styleFixture.componentInstance;
+
             styleFixture.detectChanges();
 
             const element = styleFixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
@@ -224,12 +232,14 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
+
             expect(rootElement.nativeElement.classList.contains('class1')).toBe(true);
             expect(rootElement.nativeElement.classList.contains('class2')).toBe(true);
         });
 
         it('should apply CSS classes to SVG element', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement.nativeElement).toBeTruthy();
             // CSS classes are applied through Angular's cx() function
             expect(svgElement.nativeElement.getAttribute('class')).toBeDefined();
@@ -251,6 +261,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
+
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Loading content');
         });
 
@@ -260,16 +271,19 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
+
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBeNull();
         });
 
         it('should always have aria-busy set to true', () => {
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
+
             expect(rootElement.nativeElement.getAttribute('aria-busy')).toBe('true');
         });
 
         it('should have proper role for screen readers', () => {
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
+
             expect(rootElement.nativeElement.getAttribute('role')).toBe('progressbar');
         });
 
@@ -279,6 +293,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
+
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Initial loading');
 
             component.ariaLabel = 'Updated loading';
@@ -321,6 +336,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
+
             expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe('0');
         });
 
@@ -330,6 +346,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
+
             expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe('100');
         });
 
@@ -339,6 +356,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
+
             expect(circleElement.nativeElement.getAttribute('stroke-width')).toBe('2.5');
         });
 
@@ -348,6 +366,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement.nativeElement.style.animationDuration).toBe('0.1s');
         });
 
@@ -357,6 +376,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement.nativeElement.style.animationDuration).toBe('60s');
         });
 
@@ -369,17 +389,20 @@ describe('ProgressSpinner', () => {
                 await fixture.whenStable();
 
                 const circleElement = fixture.debugElement.query(By.css('circle'));
+
                 expect(circleElement.nativeElement.getAttribute('fill')).toBe(color);
             }
         });
 
         it('should handle long aria-label text', async () => {
             const longLabel = 'This is a very long aria label that describes what is being loaded in great detail';
+
             component.ariaLabel = longLabel;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
+
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe(longLabel);
         });
 
@@ -389,6 +412,7 @@ describe('ProgressSpinner', () => {
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
+
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Loading... 50% complete! @#$%');
         });
 
@@ -431,6 +455,7 @@ describe('ProgressSpinner', () => {
     describe('Integration Tests', () => {
         it('should work with custom properties component', () => {
             const customFixture = TestBed.createComponent(TestCustomPropertiesComponent);
+
             customFixture.detectChanges();
 
             const customSpinner = customFixture.debugElement.query(By.directive(ProgressSpinner)).componentInstance;
@@ -455,12 +480,14 @@ describe('ProgressSpinner', () => {
             for (let index = 0; index < fixtures.length; index++) {
                 const testFixture = fixtures[index];
                 const testComponent = testFixture.componentInstance;
+
                 testComponent.strokeWidth = (index + 1).toString();
                 testComponent.animationDuration = `${index + 1}s`;
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const spinnerInstance = testFixture.debugElement.query(By.directive(ProgressSpinner)).componentInstance;
+
                 expect(spinnerInstance.strokeWidth).toBe((index + 1).toString());
                 expect(spinnerInstance.animationDuration).toBe(`${index + 1}s`);
             }
@@ -536,6 +563,7 @@ describe('ProgressSpinner', () => {
                 fixture.detectChanges();
 
                 const spinElement = fixture.debugElement.query(By.css('svg'));
+
                 expect(spinElement.nativeElement.classList.contains('SPIN_CLASS')).toBe(true);
             });
 
@@ -544,6 +572,7 @@ describe('ProgressSpinner', () => {
                 fixture.detectChanges();
 
                 const circleElement = fixture.debugElement.query(By.css('circle'));
+
                 expect(circleElement.nativeElement.classList.contains('CIRCLE_CLASS')).toBe(true);
             });
         });
@@ -586,6 +615,7 @@ describe('ProgressSpinner', () => {
                 fixture.detectChanges();
 
                 const spinElement = fixture.debugElement.query(By.css('svg'));
+
                 expect(spinElement.nativeElement.classList.contains('SPIN_OBJECT_CLASS')).toBe(true);
                 expect(spinElement.nativeElement.style.width).toBe('100px');
                 expect(spinElement.nativeElement.getAttribute('data-p-spin')).toBe('test');
@@ -602,6 +632,7 @@ describe('ProgressSpinner', () => {
                 fixture.detectChanges();
 
                 const circleElement = fixture.debugElement.query(By.css('circle'));
+
                 expect(circleElement.nativeElement.classList.contains('CIRCLE_OBJECT_CLASS')).toBe(true);
                 expect(circleElement.nativeElement.style.stroke).toBe('blue');
                 expect(circleElement.nativeElement.getAttribute('data-p-circle')).toBe('spinner');
@@ -630,6 +661,7 @@ describe('ProgressSpinner', () => {
                 expect(element.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
 
                 const spinElement = fixture.debugElement.query(By.css('svg'));
+
                 expect(spinElement.nativeElement.classList.contains('SPIN_MIXED_CLASS')).toBe(true);
             });
         });
@@ -649,11 +681,9 @@ describe('ProgressSpinner', () => {
                 fixture.detectChanges();
 
                 fixture.componentRef.setInput('pt', {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.strokeWidth === '4' ? 'THICK_STROKE' : 'THIN_STROKE'
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.strokeWidth === '4' ? 'THICK_STROKE' : 'THIN_STROKE'
+                    })
                 });
                 fixture.detectChanges();
 
@@ -665,15 +695,14 @@ describe('ProgressSpinner', () => {
                 fixture.detectChanges();
 
                 fixture.componentRef.setInput('pt', {
-                    circle: ({ instance }: any) => {
-                        return {
-                            'data-fill': instance?.fill
-                        };
-                    }
+                    circle: ({ instance }: any) => ({
+                        'data-fill': instance?.fill
+                    })
                 });
                 fixture.detectChanges();
 
                 const circleElement = fixture.debugElement.query(By.css('circle'));
+
                 expect(circleElement.nativeElement.getAttribute('data-fill')).toBe('red');
             });
 
@@ -682,17 +711,16 @@ describe('ProgressSpinner', () => {
                 fixture.detectChanges();
 
                 fixture.componentRef.setInput('pt', {
-                    spin: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'animation-duration': instance?.animationDuration
-                            }
-                        };
-                    }
+                    spin: ({ instance }: any) => ({
+                        style: {
+                            'animation-duration': instance?.animationDuration
+                        }
+                    })
                 });
                 fixture.detectChanges();
 
                 const spinElement = fixture.debugElement.query(By.css('svg'));
+
                 expect(spinElement.nativeElement.style.animationDuration).toBe('3s');
             });
         });
@@ -709,6 +737,7 @@ describe('ProgressSpinner', () => {
 
             it('should bind onclick event to root through pt', () => {
                 let clickCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
@@ -726,6 +755,7 @@ describe('ProgressSpinner', () => {
 
             it('should bind onclick event to spin through pt', () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     spin: {
                         onclick: () => {
@@ -736,6 +766,7 @@ describe('ProgressSpinner', () => {
                 fixture.detectChanges();
 
                 const spinElement = fixture.debugElement.query(By.css('svg'));
+
                 spinElement.nativeElement.dispatchEvent(new MouseEvent('click', { bubbles: true }));
 
                 expect(clicked).toBe(true);
@@ -745,19 +776,23 @@ describe('ProgressSpinner', () => {
         describe('Case 7: Inline test', () => {
             it('should apply inline pt with string class', () => {
                 const inlineFixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
                 inlineFixture.detectChanges();
 
                 const element = inlineFixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
+
                 expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
             });
 
             it('should apply inline pt with object class', () => {
                 const inlineFixture = TestBed.createComponent(TestPTProgressSpinnerComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
                 inlineFixture.detectChanges();
 
                 const element = inlineFixture.debugElement.query(By.directive(ProgressSpinner)).nativeElement;
+
                 expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -771,6 +806,7 @@ describe('ProgressSpinner', () => {
 
             it('should call onAfterViewInit hook', () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewInit: () => {
@@ -785,6 +821,7 @@ describe('ProgressSpinner', () => {
 
             it('should call onAfterContentInit hook', () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterContentInit: () => {
@@ -799,6 +836,7 @@ describe('ProgressSpinner', () => {
 
             it('should call onAfterViewChecked hook', () => {
                 let checkCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewChecked: () => {
@@ -813,6 +851,7 @@ describe('ProgressSpinner', () => {
 
             it('should call onDestroy hook', () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onDestroy: () => {

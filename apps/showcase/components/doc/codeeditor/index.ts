@@ -45,6 +45,7 @@ const useStackBlitz = (props: Props) => {
         newWindow: true,
         openFile: `src/app/${props.selector}.ts`
     };
+
     // @ts-ignore
     sdk.openProject(project, options);
 };

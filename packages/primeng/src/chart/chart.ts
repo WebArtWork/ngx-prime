@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, NgZone, Output, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto';
 import { SharedModule } from 'primeng/api';
@@ -16,7 +16,7 @@ const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
 @Component({
     selector: 'p-chart',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: `
         <canvas
             role="img"
@@ -38,6 +38,9 @@ const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
     hostDirectives: [Bind]
 })
 export class UIChart extends BaseComponent<ChartPassThrough> {
+    el = inject(ElementRef);
+    private zone = inject(NgZone);
+
     componentName = 'Chart';
 
     $pcChart: UIChart | undefined = inject(CHART_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -123,13 +126,6 @@ export class UIChart extends BaseComponent<ChartPassThrough> {
 
     _componentStyle = inject(ChartStyle);
 
-    constructor(
-        public el: ElementRef,
-        private zone: NgZone
-    ) {
-        super();
-    }
-
     onAfterViewInit() {
         this.initChart();
         this.initialized = true;
@@ -149,6 +145,7 @@ export class UIChart extends BaseComponent<ChartPassThrough> {
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             let opts = this.options || {};
+
             opts.responsive = this.responsive;
 
             // allows chart to resize in responsive mode

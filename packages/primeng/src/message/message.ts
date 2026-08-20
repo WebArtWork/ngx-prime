@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, EventEmitter, inject, InjectionToken, input, Input, NgModule, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ContentChild, EventEmitter, inject, InjectionToken, input, Input, NgModule, Output, signal, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { MotionOptions } from '@primeuix/motion';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -33,13 +33,17 @@ const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');
                 @if (containerTemplate || _containerTemplate) {
                     <ng-container *ngTemplateOutlet="containerTemplate || _containerTemplate; context: { closeCallback: closeCallback }"></ng-container>
                 } @else {
-                    <div *ngIf="!escape; else escapeOut">
-                        <span [pBind]="ptm('text')" *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text" [attr.data-p]="dataP"></span>
-                    </div>
-
-                    <ng-template #escapeOut>
-                        <span [pBind]="ptm('text')" *ngIf="escape && text" [ngClass]="cx('text')" [attr.data-p]="dataP">{{ text }}</span>
-                    </ng-template>
+                    @if (!escape) {
+                        <div>
+                            @if (!escape) {
+                                <span [pBind]="ptm('text')" [ngClass]="cx('text')" [innerHTML]="text" [attr.data-p]="dataP"></span>
+                            }
+                        </div>
+                    } @else {
+                        @if (escape && text) {
+                            <span [pBind]="ptm('text')" [ngClass]="cx('text')" [attr.data-p]="dataP">{{ text }}</span>
+                        }
+                    }
 
                     <span [pBind]="ptm('text')" [ngClass]="cx('text')" [attr.data-p]="dataP">
                         <ng-content></ng-content>
@@ -169,12 +173,10 @@ export class Message extends BaseComponent<MessagePassThrough> {
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
     /**
      * Emits when the message is closed.
      * @param {{ originalEvent: Event }} event - The event object containing the original event.
@@ -208,7 +210,7 @@ export class Message extends BaseComponent<MessagePassThrough> {
      */
     @ContentChild('closeicon', { descendants: false }) closeIconTemplate: TemplateRef<void> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _containerTemplate: TemplateRef<MessageContainerTemplateContext> | undefined;
 
@@ -229,7 +231,7 @@ export class Message extends BaseComponent<MessagePassThrough> {
     }
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'container':
                     this._containerTemplate = item.template;

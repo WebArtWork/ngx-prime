@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, contentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, QueryList, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, contentChild, ElementRef, EventEmitter, forwardRef, inject, InjectionToken, Input, NgModule, numberAttribute, Output, ViewEncapsulation, contentChildren } from '@angular/core';
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, hasClass, isRTL, removeClass } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -20,35 +20,36 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
     standalone: true,
     imports: [CommonModule, SharedModule, BindModule],
     template: `
-        <ng-template ngFor let-panel [ngForOf]="panels" let-i="index">
+        @for (panel of panels; track panel; let i = $index) {
             <div [pBind]="ptm('panel')" [class]="cn(cx('panel'), panelStyleClass)" [ngStyle]="panelStyle" tabindex="-1">
                 <ng-container *ngTemplateOutlet="panel"></ng-container>
             </div>
-            <div
-                *ngIf="i !== panels.length - 1"
-                [pBind]="ptm('gutter')"
-                [class]="cx('gutter')"
-                role="separator"
-                tabindex="-1"
-                (mousedown)="onGutterMouseDown($event, i)"
-                (touchstart)="onGutterTouchStart($event, i)"
-                (touchmove)="onGutterTouchMove($event)"
-                (touchend)="onGutterTouchEnd($event)"
-                [attr.data-p-gutter-resizing]="false"
-                [attr.data-p]="dataP"
-            >
+            @if (i !== panels.length - 1) {
                 <div
-                    [pBind]="ptm('gutterHandle')"
-                    [class]="cx('gutterHandle')"
-                    tabindex="0"
-                    [ngStyle]="gutterStyle()"
-                    [attr.aria-orientation]="layout"
-                    [attr.aria-valuenow]="prevSize"
-                    (keyup)="onGutterKeyUp($event)"
-                    (keydown)="onGutterKeyDown($event, i)"
-                ></div>
-            </div>
-        </ng-template>
+                    [pBind]="ptm('gutter')"
+                    [class]="cx('gutter')"
+                    role="separator"
+                    tabindex="-1"
+                    (mousedown)="onGutterMouseDown($event, i)"
+                    (touchstart)="onGutterTouchStart($event, i)"
+                    (touchmove)="onGutterTouchMove($event)"
+                    (touchend)="onGutterTouchEnd($event)"
+                    [attr.data-p-gutter-resizing]="false"
+                    [attr.data-p]="dataP"
+                >
+                    <div
+                        [pBind]="ptm('gutterHandle')"
+                        [class]="cx('gutterHandle')"
+                        tabindex="0"
+                        [ngStyle]="gutterStyle()"
+                        [attr.aria-orientation]="layout"
+                        [attr.aria-valuenow]="prevSize"
+                        (keyup)="onGutterKeyUp($event)"
+                        (keydown)="onGutterKeyDown($event, i)"
+                    ></div>
+                </div>
+            }
+        }
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -151,9 +152,9 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
      */
     @Output() onResizeStart: EventEmitter<SplitterResizeStartEvent> = new EventEmitter<SplitterResizeStartEvent>();
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    readonly templates = contentChildren(PrimeTemplate);
 
-    @ContentChildren('panel', { descendants: false }) panelChildren!: QueryList<ElementRef>;
+    readonly panelChildren = contentChildren<ElementRef>('panel');
 
     splitter = contentChild(forwardRef(() => Splitter));
 
@@ -196,8 +197,9 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
     _componentStyle = inject(SplitterStyle);
 
     onAfterContentInit() {
-        if (this.templates && this.templates.toArray().length > 0) {
-            this.templates.forEach((item) => {
+        const templates = this.templates();
+        if (templates && templates.length > 0) {
+            templates.forEach((item) => {
                 switch (item.getType()) {
                     case 'panel':
                         this.panels.push(item.template);
@@ -208,8 +210,10 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
                 }
             });
         }
-        if (this.panelChildren && this.panelChildren.toArray().length > 0) {
-            this.panelChildren.forEach((item) => {
+
+        const panelChildren = this.panelChildren();
+        if (panelChildren && panelChildren.length > 0) {
+            panelChildren.forEach((item) => {
                 this.panels.push(item);
             });
         }
@@ -219,6 +223,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         if (isPlatformBrowser(this.platformId)) {
             if (this.panels && this.panels.length) {
                 let initialized = false;
+
                 if (this.isStateful()) {
                     initialized = this.restoreState();
                 }
@@ -521,6 +526,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         if (stateString) {
             this._panelSizes = JSON.parse(stateString);
             let children = [...(this.el as ElementRef).nativeElement.children].filter((child) => child.getAttribute('data-pc-section') === 'panel');
+
             children.forEach((child, i) => {
                 child.style.flexBasis = 'calc(' + this._panelSizes[i] + '% - ' + (this.panels.length - 1) * this.gutterSize + 'px)';
             });

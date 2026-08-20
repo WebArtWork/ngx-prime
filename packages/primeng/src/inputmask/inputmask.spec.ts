@@ -263,17 +263,21 @@ describe('InputMask', () => {
 
         it('should seek next valid position', () => {
             const nextPos = component.seekNext(-1);
+
             expect(nextPos).toBe(0);
 
             const nextPos2 = component.seekNext(2);
+
             expect(nextPos2).toBe(4);
         });
 
         it('should seek previous valid position', () => {
             const prevPos = component.seekPrev(5);
+
             expect(prevPos).toBe(4);
 
             const prevPos2 = component.seekPrev(1);
+
             expect(prevPos2).toBe(0);
         });
 
@@ -296,6 +300,7 @@ describe('InputMask', () => {
 
             component.buffer = ['1', '2', '3', '-', '4', '5', '-', '6', '7', '8', '9'];
             const unmaskedValue = component.getUnmaskedValue();
+
             expect(unmaskedValue).toBe('123456789'); // Only actual input characters, not separators
         });
 
@@ -333,6 +338,7 @@ describe('InputMask', () => {
 
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
             const focusEvent = new Event('focus');
+
             inputMask.onInputFocus(focusEvent);
             await testFixture.whenStable();
 
@@ -345,6 +351,7 @@ describe('InputMask', () => {
 
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
             const blurEvent = new Event('blur');
+
             inputMask.onInputBlur(blurEvent);
             await testFixture.whenStable();
 
@@ -357,8 +364,10 @@ describe('InputMask', () => {
 
             // Simulate keydown event through the component's output binding
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+
             if (inputMask.onKeydown) {
                 const keyEvent = new KeyboardEvent('keydown', { keyCode: 49 });
+
                 inputMask.onKeydown.emit(keyEvent);
                 expect(testComponent.onKeydownEvent).toHaveBeenCalledWith(keyEvent);
             } else {
@@ -372,6 +381,7 @@ describe('InputMask', () => {
 
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
             const inputEvent = new Event('input');
+
             inputMask.onInputChange(inputEvent);
 
             expect(testComponent.onInputChange).toHaveBeenCalledWith(inputEvent);
@@ -384,6 +394,7 @@ describe('InputMask', () => {
             await testFixture.whenStable();
 
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+
             if (inputMask.onComplete) {
                 inputMask.onComplete.emit();
                 expect(testComponent.onMaskComplete).toHaveBeenCalled();
@@ -401,6 +412,7 @@ describe('InputMask', () => {
             await testFixture.whenStable();
 
             const inputMask = testFixture.debugElement.query(By.css('p-inputmask')).componentInstance;
+
             if (inputMask.onClear) {
                 inputMask.onClear.emit();
                 expect(testComponent.onClearEvent).toHaveBeenCalled();
@@ -435,6 +447,7 @@ describe('InputMask', () => {
             spyOn(component.onInput, 'emit');
 
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 49 }); // '1'
+
             component.onKeyPress(keyEvent as any);
 
             expect(component.buffer[0]).toBe('1');
@@ -449,6 +462,7 @@ describe('InputMask', () => {
             spyOn(component, 'shiftL');
 
             const backspaceEvent = new KeyboardEvent('keydown', { keyCode: 8 });
+
             component.onInputKeydown(backspaceEvent as any);
 
             expect(component.clearBuffer).toHaveBeenCalled();
@@ -463,6 +477,7 @@ describe('InputMask', () => {
             spyOn(component, 'shiftL');
 
             const deleteEvent = new KeyboardEvent('keydown', { keyCode: 46 });
+
             component.onInputKeydown(deleteEvent as any);
 
             expect(component.clearBuffer).toHaveBeenCalled();
@@ -476,6 +491,7 @@ describe('InputMask', () => {
             spyOn(component, 'updateModel');
 
             const escapeEvent = new KeyboardEvent('keydown', { keyCode: 27 });
+
             component.onInputKeydown(escapeEvent as any);
 
             expect(component.inputViewChild?.nativeElement.value).toBe('123-45-');
@@ -487,6 +503,7 @@ describe('InputMask', () => {
             spyOn(component, 'updateModel');
 
             const enterEvent = new KeyboardEvent('keydown', { keyCode: 13 });
+
             component.onInputKeydown(enterEvent as any);
 
             expect(component.onInputBlur).toHaveBeenCalled();
@@ -515,6 +532,7 @@ describe('InputMask', () => {
             spyOn(component, 'updateModel');
 
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 49 });
+
             component.onKeyPress(keyEvent as any);
 
             expect(component.updateModel).not.toHaveBeenCalled();
@@ -573,15 +591,18 @@ describe('InputMask', () => {
     describe('Template and Content Projection', () => {
         it('should process clear icon template correctly', () => {
             const templateComponent = TestBed.createComponent(TestTemplateInputMaskComponent);
+
             templateComponent.detectChanges();
 
             const inputMaskInstance = templateComponent.debugElement.query(By.css('p-inputmask')).componentInstance;
+
             expect(inputMaskInstance).toBeTruthy();
             expect(inputMaskInstance._clearIconTemplate !== undefined || inputMaskInstance._clearIconTemplate === undefined).toBe(true);
         });
 
         it('should show custom clear icon when template is provided and showClear is true', async () => {
             const templateComponent = TestBed.createComponent(TestTemplateInputMaskComponent);
+
             templateComponent.componentInstance.showClear = true;
             templateComponent.componentInstance.value = '123-456-7890';
             templateComponent.changeDetectorRef.markForCheck();
@@ -589,6 +610,7 @@ describe('InputMask', () => {
 
             // Clear icon should be visible when value exists and showClear is true
             const inputMaskInstance = templateComponent.debugElement.query(By.css('p-inputmask')).componentInstance;
+
             expect(inputMaskInstance.showClear).toBe(true);
         });
     });
@@ -614,6 +636,7 @@ describe('InputMask', () => {
 
         it('should handle unmasked values independently', () => {
             const inputMasks = multiFixture.debugElement.queryAll(By.css('p-inputmask'));
+
             expect(inputMasks.length).toBe(3);
             // Test that components are properly rendered
             expect(inputMasks[1]).toBeTruthy();
@@ -663,6 +686,7 @@ describe('InputMask', () => {
             } as any;
 
             const result = component.caret(0, 5);
+
             expect(result).toBeUndefined();
         });
 
@@ -678,6 +702,7 @@ describe('InputMask', () => {
             spyOn(component, 'handleInputChange');
 
             const inputEvent = new Event('input');
+
             component.onInputChange(inputEvent);
 
             expect(component.handleAndroidInput).toHaveBeenCalledWith(inputEvent);
@@ -725,6 +750,7 @@ describe('InputMask', () => {
 
             spyOn(component, 'clearBuffer');
             const blurEvent = new Event('blur');
+
             component.onInputBlur(blurEvent);
 
             // Should clear incomplete values when autoClear is true
@@ -760,6 +786,7 @@ describe('InputMask', () => {
             fixture.detectChanges();
 
             const mockSetValue = jasmine.createSpy('setModelValue');
+
             component.writeControlValue(null, mockSetValue);
 
             expect(component.inputViewChild!.nativeElement.value).toBe('' as any);
@@ -897,6 +924,7 @@ describe('InputMask', () => {
 
         it('should support clear icon template property access', () => {
             const inputMaskComponent = templatesInputMaskElement.componentInstance;
+
             // Verify component can access template properties without errors
             expect(() => inputMaskComponent.clearIconTemplate).not.toThrow();
             expect(inputMaskComponent).toBeTruthy();
@@ -955,6 +983,7 @@ describe('InputMask', () => {
             // Verify component can work with templates without errors
             expect(() => {
                 templatesFixture.detectChanges();
+
                 if (inputMaskComponent.ngAfterContentInit) {
                     inputMaskComponent.ngAfterContentInit();
                 }
@@ -971,6 +1000,7 @@ describe('InputMask', () => {
             // After content init, templates should be available
             expect(() => {
                 templatesFixture.detectChanges();
+
                 if (inputMaskComponent.ngAfterContentInit) {
                     inputMaskComponent.ngAfterContentInit();
                 }
@@ -1083,6 +1113,7 @@ describe('InputMask', () => {
                 // Component should process pTemplate directive for clearicon
                 if (inputMaskComponent.templates) {
                     const clearIconTemplates = inputMaskComponent.templates.filter((t: any) => t.getType && t.getType() === 'clearicon');
+
                     // Should find the clearicon template
                     expect(clearIconTemplates.length).toBeGreaterThanOrEqual(0);
                 }
@@ -1122,6 +1153,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
+
                 expect(inputElement?.classList.contains('PT_INPUT_CLASS')).toBe(true);
             });
 
@@ -1137,6 +1169,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const clearIconElement = fixture.nativeElement.querySelector('svg');
+
                 if (clearIconElement) {
                     expect(clearIconElement.classList.contains('PT_CLEAR_ICON_CLASS')).toBe(true);
                 }
@@ -1161,6 +1194,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
+
                 expect(inputElement?.classList.contains('PT_OBJECT_CLASS')).toBe(true);
                 expect(inputElement?.style.backgroundColor).toBe('red');
                 expect(inputElement?.getAttribute('data-p-test')).toBe('true');
@@ -1183,6 +1217,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const clearIconElement = fixture.nativeElement.querySelector('svg');
+
                 if (clearIconElement) {
                     expect(clearIconElement.classList.contains('PT_CLEAR_ICON_OBJECT_CLASS')).toBe(true);
                     expect(clearIconElement.style.color).toBe('blue');
@@ -1209,9 +1244,11 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
+
                 expect(inputElement?.classList.contains('PT_INPUT_OBJECT_CLASS')).toBe(true);
 
                 const clearIconElement = fixture.nativeElement.querySelector('svg');
+
                 if (clearIconElement) {
                     expect(clearIconElement?.classList.contains('PT_CLEAR_ICON_STRING_CLASS')).toBe(true);
                 }
@@ -1221,16 +1258,14 @@ describe('InputMask', () => {
         describe('Case 4: Use variables from instance', () => {
             it('should apply PT using instance variables for pcInputText', () => {
                 const pt = {
-                    pcInputText: ({ instance }: any) => {
-                        return {
-                            root: {
-                                class: {
-                                    PT_DISABLED: instance?.disabled,
-                                    PT_READONLY: instance?.readonly
-                                }
+                    pcInputText: ({ instance }: any) => ({
+                        root: {
+                            class: {
+                                PT_DISABLED: instance?.disabled,
+                                PT_READONLY: instance?.readonly
                             }
-                        };
-                    }
+                        }
+                    })
                 };
 
                 fixture.componentRef.setInput('pt', pt);
@@ -1240,19 +1275,18 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
+
                 expect(inputElement?.classList.contains('PT_DISABLED')).toBe(true);
                 expect(inputElement?.classList.contains('PT_READONLY')).toBe(false);
             });
 
             it('should apply PT using instance variables for clearIcon', () => {
                 const pt = {
-                    clearIcon: ({ instance }: any) => {
-                        return {
-                            style: {
-                                color: instance?.showClear ? 'green' : 'red'
-                            }
-                        };
-                    }
+                    clearIcon: ({ instance }: any) => ({
+                        style: {
+                            color: instance?.showClear ? 'green' : 'red'
+                        }
+                    })
                 };
 
                 fixture.componentRef.setInput('pt', pt);
@@ -1262,6 +1296,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const clearIconElement = fixture.nativeElement.querySelector('svg');
+
                 if (clearIconElement) {
                     expect(clearIconElement.style.color).toBe('green');
                 }
@@ -1273,15 +1308,13 @@ describe('InputMask', () => {
                 let clickedValue = '';
 
                 const pt = {
-                    pcInputText: ({ instance }: any) => {
-                        return {
-                            root: {
-                                onclick: () => {
-                                    clickedValue = instance.value || 'clicked';
-                                }
+                    pcInputText: ({ instance }: any) => ({
+                        root: {
+                            onclick: () => {
+                                clickedValue = instance.value || 'clicked';
                             }
-                        };
-                    }
+                        }
+                    })
                 };
 
                 fixture.componentRef.setInput('pt', pt);
@@ -1290,6 +1323,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const inputElement = fixture.nativeElement.querySelector('input');
+
                 inputElement?.click();
                 fixture.detectChanges();
 
@@ -1300,13 +1334,11 @@ describe('InputMask', () => {
                 let clearIconClicked = false;
 
                 const pt = {
-                    clearIcon: () => {
-                        return {
-                            onclick: () => {
-                                clearIconClicked = true;
-                            }
-                        };
-                    }
+                    clearIcon: () => ({
+                        onclick: () => {
+                            clearIconClicked = true;
+                        }
+                    })
                 };
 
                 fixture.componentRef.setInput('pt', pt);
@@ -1316,6 +1348,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const clearIconElement = fixture.nativeElement.querySelector('svg');
+
                 if (clearIconElement) {
                     clearIconElement.dispatchEvent(new MouseEvent('click'));
                     fixture.detectChanges();
@@ -1334,9 +1367,11 @@ describe('InputMask', () => {
 
             it('should apply inline PT with string class', () => {
                 const inlineFixture = TestBed.createComponent(InlineTestComponent);
+
                 inlineFixture.detectChanges();
 
                 const inputElement = inlineFixture.nativeElement.querySelector('input');
+
                 expect(inputElement?.classList.contains('INLINE_PT_CLASS')).toBe(true);
             });
 
@@ -1349,9 +1384,11 @@ describe('InputMask', () => {
 
             it('should apply inline PT with object class', () => {
                 const inlineFixture = TestBed.createComponent(InlineObjectTestComponent);
+
                 inlineFixture.detectChanges();
 
                 const inputElement = inlineFixture.nativeElement.querySelector('input');
+
                 expect(inputElement?.classList.contains('INLINE_PT_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -1377,10 +1414,12 @@ describe('InputMask', () => {
                 }).compileComponents();
 
                 const globalFixture = TestBed.createComponent(InputMask);
+
                 globalFixture.componentRef.setInput('mask', '999-99-9999');
                 globalFixture.detectChanges();
 
                 const inputElement = globalFixture.nativeElement.querySelector('input');
+
                 expect(inputElement).toBeTruthy();
             });
         });
@@ -1446,6 +1485,7 @@ describe('InputMask', () => {
 
                 // Host element is the component's root element
                 const hostElement = fixture.debugElement.nativeElement;
+
                 expect(hostElement?.classList.contains('PT_HOST_CLASS')).toBe(true);
             });
 
@@ -1463,6 +1503,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const hostElement = fixture.debugElement.nativeElement;
+
                 expect(hostElement?.classList.contains('PT_HOST_OBJECT_CLASS')).toBe(true);
                 expect(hostElement?.style.border).toBe('2px solid green');
                 expect(hostElement?.getAttribute('data-host-test')).toBe('true');
@@ -1478,6 +1519,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const hostElement = fixture.debugElement.nativeElement;
+
                 expect(hostElement?.classList.contains('PT_ROOT_CLASS')).toBe(true);
             });
 
@@ -1495,6 +1537,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const hostElement = fixture.debugElement.nativeElement;
+
                 expect(hostElement?.classList.contains('PT_ROOT_OBJECT_CLASS')).toBe(true);
                 expect(hostElement?.style.padding).toBe('10px');
                 expect(hostElement?.getAttribute('data-root-test')).toBe('true');
@@ -1511,6 +1554,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const hostElement = fixture.debugElement.nativeElement;
+
                 // Both classes should be applied since host and root target the same element
                 expect(hostElement?.classList.contains('PT_HOST_MERGED')).toBe(true);
                 expect(hostElement?.classList.contains('PT_ROOT_MERGED')).toBe(true);
@@ -1523,6 +1567,7 @@ describe('InputMask', () => {
                 const pt = {
                     host: ({ instance }: any) => {
                         capturedInstance = instance;
+
                         return {
                             'data-has-disabled': instance?.disabled !== undefined ? 'true' : 'false',
                             'data-has-readonly': instance?.readonly !== undefined ? 'true' : 'false'
@@ -1537,6 +1582,7 @@ describe('InputMask', () => {
                 fixture.detectChanges();
 
                 const hostElement = fixture.debugElement.nativeElement;
+
                 expect(capturedInstance).toBeDefined();
                 expect(capturedInstance.disabled).toBeDefined();
                 expect(hostElement?.getAttribute('data-has-disabled')).toBe('true');
@@ -1612,18 +1658,22 @@ describe('InputMaskDirective', () => {
     describe('Directive Initialization', () => {
         it('should create directive on input element', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
             const inputEl = fixture.debugElement.query(By.css('input'));
+
             expect(inputEl).toBeTruthy();
 
             const directive = inputEl.injector.get(InputMaskDirective, null);
+
             expect(directive).toBeTruthy();
         });
 
         it('should initialize with default values', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1638,6 +1688,7 @@ describe('InputMaskDirective', () => {
 
         it('should apply mask input correctly', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1651,6 +1702,7 @@ describe('InputMaskDirective', () => {
     describe('Mask Pattern Processing', () => {
         it('should process numeric mask pattern (999-99-9999)', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.componentInstance.mask = '999-99-9999';
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1664,6 +1716,7 @@ describe('InputMaskDirective', () => {
 
         it('should process phone mask pattern ((999) 999-9999)', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.componentInstance.mask = '(999) 999-9999';
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1677,6 +1730,7 @@ describe('InputMaskDirective', () => {
 
         it('should process date mask pattern (99/99/9999)', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.componentInstance.mask = '99/99/9999';
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1690,6 +1744,7 @@ describe('InputMaskDirective', () => {
 
         it('should process alpha mask pattern (aaa-aaa)', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.componentInstance.mask = 'aaa-aaa';
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1703,6 +1758,7 @@ describe('InputMaskDirective', () => {
 
         it('should process mixed alphanumeric mask (*9a-*9a)', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.componentInstance.mask = '*9a-*9a';
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1715,6 +1771,7 @@ describe('InputMaskDirective', () => {
 
         it('should handle optional characters with ?', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.componentInstance.mask = '999-99-9999?';
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1727,6 +1784,7 @@ describe('InputMaskDirective', () => {
 
         it('should use custom slot character', async () => {
             const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+
             fixture.componentInstance.slotChar = '*';
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1740,6 +1798,7 @@ describe('InputMaskDirective', () => {
 
         it('should use custom character pattern for alpha', async () => {
             const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+
             fixture.componentInstance.mask = 'aaa';
             fixture.componentInstance.characterPattern = '[0-9A-Fa-f]';
             fixture.detectChanges();
@@ -1755,6 +1814,7 @@ describe('InputMaskDirective', () => {
     describe('Form Integration - ngModel', () => {
         it('should work with ngModel two-way binding', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1771,6 +1831,7 @@ describe('InputMaskDirective', () => {
 
         it('should update model when user types', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1797,6 +1858,7 @@ describe('InputMaskDirective', () => {
     describe('Form Integration - Reactive Forms', () => {
         it('should work with FormControl', async () => {
             const fixture = TestBed.createComponent(DirectiveReactiveFormTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1808,6 +1870,7 @@ describe('InputMaskDirective', () => {
             await fixture.whenStable();
 
             const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
+
             expect(inputEl.value).toBe('(123) 456-7890');
         });
     });
@@ -1815,6 +1878,7 @@ describe('InputMaskDirective', () => {
     describe('Event Outputs', () => {
         it('should emit onComplete when mask is fully filled', async () => {
             const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+
             fixture.componentInstance.mask = '999';
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1841,6 +1905,7 @@ describe('InputMaskDirective', () => {
     describe('Keyboard Handling', () => {
         it('should handle backspace key correctly', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1852,6 +1917,7 @@ describe('InputMaskDirective', () => {
             spyOn(directive, 'clearBuffer');
 
             const backspaceEvent = new KeyboardEvent('keydown', { key: 'Backspace', keyCode: 8 });
+
             spyOn(directive, 'caret').and.returnValue({ begin: 6, end: 6 });
 
             directive.onInputKeydown(backspaceEvent);
@@ -1862,6 +1928,7 @@ describe('InputMaskDirective', () => {
 
         it('should handle delete key correctly', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1873,6 +1940,7 @@ describe('InputMaskDirective', () => {
             spyOn(directive, 'clearBuffer');
 
             const deleteEvent = new KeyboardEvent('keydown', { key: 'Delete', keyCode: 46 });
+
             spyOn(directive, 'caret').and.returnValue({ begin: 4, end: 4 });
 
             directive.onInputKeydown(deleteEvent);
@@ -1883,6 +1951,7 @@ describe('InputMaskDirective', () => {
 
         it('should ignore input when readonly is true', async () => {
             const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+
             fixture.componentInstance.readonly = true;
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1894,6 +1963,7 @@ describe('InputMaskDirective', () => {
             const initialValue = inputEl.value;
 
             const keyEvent = new KeyboardEvent('keypress', { key: '1', keyCode: 49 });
+
             directive.onKeyPress(keyEvent);
 
             // Value should remain unchanged when readonly
@@ -1904,6 +1974,7 @@ describe('InputMaskDirective', () => {
     describe('autoClear Behavior', () => {
         it('should clear incomplete value on blur when autoClear is true', async () => {
             const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+
             fixture.componentInstance.autoClear = true;
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1925,6 +1996,7 @@ describe('InputMaskDirective', () => {
 
         it('should keep incomplete value on blur when autoClear is false', async () => {
             const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+
             fixture.componentInstance.autoClear = false;
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1946,6 +2018,7 @@ describe('InputMaskDirective', () => {
     describe('keepBuffer Behavior', () => {
         it('should preserve buffer when keepBuffer is true', async () => {
             const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+
             fixture.componentInstance.keepBuffer = true;
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1964,6 +2037,7 @@ describe('InputMaskDirective', () => {
 
         it('should clear buffer when keepBuffer is false', async () => {
             const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+
             fixture.componentInstance.keepBuffer = false;
             fixture.detectChanges();
             await fixture.whenStable();
@@ -1983,6 +2057,7 @@ describe('InputMaskDirective', () => {
     describe('Public Methods', () => {
         it('should check if mask is completed', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -2000,6 +2075,7 @@ describe('InputMaskDirective', () => {
 
         it('should get unmasked value correctly', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -2016,6 +2092,7 @@ describe('InputMaskDirective', () => {
     describe('Signal Reactivity', () => {
         it('should react to mask signal changes', async () => {
             const fixture = TestBed.createComponent(DirectiveBasicTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -2036,6 +2113,7 @@ describe('InputMaskDirective', () => {
 
         it('should react to slotChar signal changes', async () => {
             const fixture = TestBed.createComponent(DirectiveFullFeaturedTestComponent);
+
             fixture.detectChanges();
             await fixture.whenStable();
 

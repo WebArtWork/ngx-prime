@@ -4,8 +4,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     computed,
-    ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -17,10 +15,11 @@ import {
     NgZone,
     numberAttribute,
     Output,
-    QueryList,
     TemplateRef,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@primeuix/motion';
 import { $dt } from '@primeuix/styled';
@@ -69,7 +68,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
             >
                 <div [pBind]="ptm('content')" [class]="cx('content')" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                     <ng-content></ng-content>
-                    <ng-template *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
+                    <ng-template *ngTemplateOutlet="contentTemplate() || _contentTemplate; context: { closeCallback: onCloseClick.bind(this) }"></ng-template>
                 </div>
             </div>
         }
@@ -157,12 +156,10 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      */
     motionOptions = input<MotionOptions | undefined>(undefined);
 
-    computedMotionOptions = computed<MotionOptions>(() => {
-        return {
-            ...this.ptm('motion'),
-            ...this.motionOptions()
-        };
-    });
+    computedMotionOptions = computed<MotionOptions>(() => ({
+        ...this.ptm('motion'),
+        ...this.motionOptions()
+    }));
     /**
      * Callback to invoke when an overlay becomes visible.
      * @group Emits
@@ -200,9 +197,9 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @see {@link PopoverContentTemplateContext}
      * @group Templates
      */
-    @ContentChild('content', { descendants: false }) contentTemplate: Nullable<TemplateRef<PopoverContentTemplateContext>>;
+    readonly contentTemplate = contentChild<Nullable<TemplateRef<PopoverContentTemplateContext>>>('content', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _contentTemplate: TemplateRef<PopoverContentTemplateContext> | undefined;
 
@@ -219,7 +216,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
     overlayService = inject(OverlayService);
 
     onAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this._contentTemplate = item.template;
@@ -308,6 +305,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
     onContentClick(event: MouseEvent) {
         const targetElement = event.target as HTMLElement;
+
         this.selfClick = event.offsetX < targetElement.clientWidth && event.offsetY < targetElement.clientHeight;
     }
 
@@ -349,6 +347,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
             if (containerOffset.left < targetOffset.left) {
                 arrowLeft = targetOffset.left - containerOffset.left - parseFloat(borderRadius!) * 2;
             }
+
             this.container.style.setProperty($dt('popover.arrow.left').name, `${arrowLeft}px`);
 
             if (containerOffset.top < targetOffset.top) {
@@ -406,6 +405,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
     focus() {
         let focusable = <any>findSingle(this.container!, '[autofocus]');
+
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
@@ -441,6 +441,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.documentResizeListener) {
                 const window = this.document.defaultView as Window;
+
                 this.documentResizeListener = this.renderer.listen(window, 'resize', this.onWindowResize.bind(this));
             }
         }
@@ -498,6 +499,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         }
 
         this.destroyCallback = null;
+
         if (this.container) {
             this.restoreAppend();
             this.onContainerDestroy();

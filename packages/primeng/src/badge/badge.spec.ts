@@ -1,75 +1,75 @@
-import { Component, DebugElement, ElementRef, input, provideZonelessChangeDetection, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, input, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from 'primeng/api';
 import { Badge, BadgeDirective, BadgeModule } from './badge';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-badge',
-    template: `<p-badge></p-badge>`
+    template: `<p-badge></p-badge>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestBasicBadgeComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-value-badge',
-    template: `<p-badge [value]="value"></p-badge>`
+    template: `<p-badge [value]="value"></p-badge>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestValueBadgeComponent {
     value: string | number | null = '2';
 }
 
 @Component({
-    standalone: false,
     selector: 'test-size-badge',
-    template: `<p-badge [badgeSize]="badgeSize" value="1"></p-badge>`
+    template: `<p-badge [badgeSize]="badgeSize" value="1"></p-badge>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestSizeBadgeComponent {
     badgeSize: 'small' | 'large' | 'xlarge' | null = null as any;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-severity-badge',
-    template: `<p-badge [severity]="severity" value="1"></p-badge>`
+    template: `<p-badge [severity]="severity" value="1"></p-badge>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestSeverityBadgeComponent {
     severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null = null as any;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-disabled-badge',
-    template: `<p-badge [badgeDisabled]="disabled" value="1"></p-badge>`
+    template: `<p-badge [badgeDisabled]="disabled" value="1"></p-badge>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestDisabledBadgeComponent {
     disabled = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-style-class-badge',
-    template: `<p-badge [styleClass]="styleClass" value="1"></p-badge>`
+    template: `<p-badge [styleClass]="styleClass" value="1"></p-badge>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestStyleClassBadgeComponent {
     styleClass = 'custom-badge';
 }
 
 @Component({
-    standalone: false,
     selector: 'test-directive-badge',
-    template: `<button #button pBadge [value]="value">Button</button>`
+    template: `<button #button pBadge [value]="value">Button</button>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveBadgeComponent {
-    @ViewChild('button', { static: true }) button!: ElementRef;
+    readonly button = viewChild.required<ElementRef>('button');
     value: string | number | undefined = '5';
 }
 
 @Component({
-    standalone: false,
     selector: 'test-directive-size-badge',
-    template: `<button pBadge [value]="value" [size]="size">Button</button>`
+    template: `<button pBadge [value]="value" [size]="size">Button</button>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveSizeBadgeComponent {
     value: string | number = '1';
@@ -77,9 +77,9 @@ class TestDirectiveSizeBadgeComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-directive-severity-badge',
-    template: `<button pBadge [value]="value" [severity]="severity">Button</button>`
+    template: `<button pBadge [value]="value" [severity]="severity">Button</button>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveSeverityBadgeComponent {
     value: string | number = '1';
@@ -87,9 +87,9 @@ class TestDirectiveSeverityBadgeComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-directive-disabled-badge',
-    template: `<button pBadge [value]="value" [badgeDisabled]="disabled">Button</button>`
+    template: `<button pBadge [value]="value" [badgeDisabled]="disabled">Button</button>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveDisabledBadgeComponent {
     value: string | number = '1';
@@ -97,9 +97,9 @@ class TestDirectiveDisabledBadgeComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-directive-style-badge',
-    template: `<button pBadge [value]="value" [badgeStyle]="badgeStyle" [badgeStyleClass]="badgeStyleClass">Button</button>`
+    template: `<button pBadge [value]="value" [badgeStyle]="badgeStyle" [badgeStyleClass]="badgeStyleClass">Button</button>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveStyleBadgeComponent {
     value: string | number = '1';
@@ -108,9 +108,9 @@ class TestDirectiveStyleBadgeComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-deprecated-size-badge',
-    template: `<button pBadge [value]="value" [size]="size">Button</button>`
+    template: `<button pBadge [value]="value" [size]="size">Button</button>`,
+    imports: [BadgeModule, SharedModule]
 })
 class TestDeprecatedSizeBadgeComponent {
     value: string | number = '1';
@@ -118,9 +118,9 @@ class TestDeprecatedSizeBadgeComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-dynamic-badge',
-    template: ` <p-badge [value]="value" [badgeSize]="badgeSize" [severity]="severity" [badgeDisabled]="disabled" [styleClass]="styleClass"> </p-badge> `
+    template: ` <p-badge [value]="value" [badgeSize]="badgeSize" [severity]="severity" [badgeDisabled]="disabled" [styleClass]="styleClass"> </p-badge> `,
+    imports: [BadgeModule, SharedModule]
 })
 class TestDynamicBadgeComponent {
     value: string | number | null = '1';
@@ -133,8 +133,9 @@ class TestDynamicBadgeComponent {
 describe('Badge', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [BadgeModule, SharedModule],
-            declarations: [
+            imports: [
+                BadgeModule,
+                SharedModule,
                 TestBasicBadgeComponent,
                 TestValueBadgeComponent,
                 TestSizeBadgeComponent,
@@ -164,6 +165,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeDebugElement = fixture.debugElement.query(By.directive(Badge));
+
                 component = badgeDebugElement.componentInstance;
                 element = badgeDebugElement.nativeElement;
             });
@@ -486,12 +488,14 @@ describe('Badge', () => {
 
             it('should create badge element', () => {
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement).toBeTruthy();
                 expect(badgeElement?.classList.contains('p-component')).toBe(true);
             });
 
             it('should display badge value', () => {
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement?.textContent?.trim()).toBe('5');
             });
 
@@ -501,6 +505,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement?.textContent?.trim()).toBe('10');
             });
 
@@ -510,6 +515,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement?.classList.contains('p-badge-dot')).toBe(true);
                 expect(badgeElement?.textContent?.trim()).toBe('' as any);
             });
@@ -520,6 +526,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement?.classList.contains('p-badge-circle')).toBe(true);
             });
         });
@@ -542,6 +549,7 @@ describe('Badge', () => {
             it('should apply large size class', () => {
                 // Badge should already be created with large size from beforeEach
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement).toBeTruthy();
                 expect(badgeElement?.classList.contains('p-badge-lg')).toBe(true);
             });
@@ -552,6 +560,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement).toBeTruthy();
                 expect(badgeElement?.classList.contains('p-badge-xl')).toBe(true);
             });
@@ -559,6 +568,7 @@ describe('Badge', () => {
             it('should change size classes dynamically', async () => {
                 // Badge starts as large from beforeEach
                 let badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement).toBeTruthy();
                 expect(badgeElement?.classList.contains('p-badge-lg')).toBe(true);
                 expect(badgeElement?.classList.contains('p-badge-xl')).toBe(false);
@@ -592,6 +602,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement?.classList.contains('p-badge-info')).toBe(true);
             });
 
@@ -601,6 +612,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement?.classList.contains('p-badge-success')).toBe(true);
             });
 
@@ -610,6 +622,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 let badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement?.classList.contains('p-badge-warn')).toBe(true);
 
                 component.severity = 'danger';
@@ -637,6 +650,7 @@ describe('Badge', () => {
 
             it('should show badge when not disabled', () => {
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement).toBeTruthy();
             });
 
@@ -646,6 +660,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement).toBeFalsy();
             });
 
@@ -681,6 +696,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge') as HTMLElement;
+
                 expect(badgeElement.style.backgroundColor).toBe('red');
                 expect(badgeElement.style.color).toBe('white');
             });
@@ -691,6 +707,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement?.classList.contains('custom-badge-class')).toBe(true);
             });
 
@@ -700,6 +717,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
+
                 expect(badgeElement?.classList.contains('class1')).toBe(true);
                 expect(badgeElement?.classList.contains('class2')).toBe(true);
                 expect(badgeElement?.classList.contains('class3')).toBe(true);
@@ -712,6 +730,7 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge') as HTMLElement;
+
                 expect(badgeElement.style.fontSize).toBe('14px');
                 expect(badgeElement?.classList.contains('styled-badge')).toBe(true);
             });
@@ -808,11 +827,13 @@ describe('Badge', () => {
         it('should handle numeric zero value correctly', async () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
+
             component.value = 0;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+
             expect(element.textContent?.trim()).toBe('0');
             expect(element.classList.contains('p-badge-circle')).toBe(true);
             expect(element.classList.contains('p-badge-dot')).toBe(false);
@@ -821,11 +842,13 @@ describe('Badge', () => {
         it('should handle negative numbers', async () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
+
             component.value = -5;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+
             expect(element.textContent?.trim()).toBe('-5');
             expect(element.classList.contains('p-badge-circle')).toBe(false);
         });
@@ -833,11 +856,13 @@ describe('Badge', () => {
         it('should handle special characters in value', async () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
+
             component.value = '!';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+
             expect(element.textContent?.trim()).toBe('!');
             expect(element.classList.contains('p-badge-circle')).toBe(true);
         });
@@ -845,11 +870,13 @@ describe('Badge', () => {
         it('should handle very long values', async () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
+
             component.value = '999999999';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+
             expect(element.textContent?.trim()).toBe('999999999');
             expect(element.classList.contains('p-badge-circle')).toBe(false);
             expect(element.classList.contains('p-badge-dot')).toBe(false);
@@ -858,11 +885,13 @@ describe('Badge', () => {
         it('should handle whitespace in value', async () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
+
             component.value = '  ';
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
+
             expect(element.textContent?.trim()).toBe('' as any);
             // Whitespace strings are treated as valid content, not empty
             expect(element.classList.contains('p-badge-dot')).toBe(false);
@@ -1068,11 +1097,9 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.value() ? 'HAS_VALUE' : 'NO_VALUE'
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.value() ? 'HAS_VALUE' : 'NO_VALUE'
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1086,13 +1113,11 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
-                    root: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'border-color': instance?.severity() === 'success' ? 'green' : 'red'
-                            }
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        style: {
+                            'border-color': instance?.severity() === 'success' ? 'green' : 'red'
+                        }
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1106,11 +1131,9 @@ describe('Badge', () => {
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
-                    host: ({ instance }: any) => {
-                        return {
-                            'data-size': instance?.badgeSize() || 'normal'
-                        };
-                    }
+                    host: ({ instance }: any) => ({
+                        'data-size': instance?.badgeSize() || 'normal'
+                    })
                 });
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
@@ -1131,6 +1154,7 @@ describe('Badge', () => {
 
             it('should bind onclick event to root through pt', async () => {
                 let clickCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
@@ -1149,6 +1173,7 @@ describe('Badge', () => {
 
             it('should bind onclick event to host through pt', async () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     host: {
                         onclick: () => {
@@ -1168,21 +1193,25 @@ describe('Badge', () => {
         describe('Case 7: Inline test', () => {
             it('should apply inline pt with string class', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTBadgeComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: 'INLINE_TEST_CLASS' });
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const element = inlineFixture.debugElement.query(By.directive(Badge)).nativeElement;
+
                 expect(element.classList.contains('INLINE_TEST_CLASS')).toBe(true);
             });
 
             it('should apply inline pt with object class', async () => {
                 const inlineFixture = TestBed.createComponent(TestPTBadgeComponent);
+
                 inlineFixture.componentRef.setInput('pt', { root: { class: 'INLINE_OBJECT_CLASS' } });
                 inlineFixture.changeDetectorRef.markForCheck();
                 await inlineFixture.whenStable();
 
                 const element = inlineFixture.debugElement.query(By.directive(Badge)).nativeElement;
+
                 expect(element.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -1196,6 +1225,7 @@ describe('Badge', () => {
 
             it('should call onAfterViewInit hook', async () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewInit: () => {
@@ -1211,6 +1241,7 @@ describe('Badge', () => {
 
             it('should call onAfterContentInit hook', async () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterContentInit: () => {
@@ -1226,6 +1257,7 @@ describe('Badge', () => {
 
             it('should call onAfterViewChecked hook', async () => {
                 let checkCount = 0;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewChecked: () => {
@@ -1241,6 +1273,7 @@ describe('Badge', () => {
 
             it('should call onDestroy hook', async () => {
                 let hookCalled = false;
+
                 fixture.componentRef.setInput('pt', {
                     hooks: {
                         onDestroy: () => {

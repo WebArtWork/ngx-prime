@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, HostListener, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
 import { equals, focus, getAttribute } from '@primeuix/utils';
 import { SharedModule } from 'primeng/api';
@@ -19,7 +19,7 @@ const TAB_INSTANCE = new InjectionToken<Tab>('TAB_INSTANCE');
 @Component({
     selector: 'p-tab',
     standalone: true,
-    imports: [CommonModule, SharedModule, BindModule],
+    imports: [SharedModule, BindModule],
     template: ` <ng-content></ng-content>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -138,6 +138,7 @@ export class Tab extends BaseComponent<TabPassThrough> {
 
     onArrowRightKey(event) {
         const nextTab = this.findNextTab(event.currentTarget);
+
         nextTab ? this.changeFocusedTab(event, nextTab) : this.onHomeKey(event);
         event.preventDefault();
     }
@@ -177,6 +178,7 @@ export class Tab extends BaseComponent<TabPassThrough> {
         if (!this.disabled()) {
             this.changeActiveValue();
         }
+
         event.preventDefault();
     }
 

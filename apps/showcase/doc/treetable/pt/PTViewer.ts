@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
@@ -33,7 +33,7 @@ import { TreeTableModule } from 'primeng/treetable';
         </app-docptviewer>
     `
 })
-export class PTViewer {
+export class PTViewer implements OnInit {
     nodes!: TreeNode[];
 
     docs = [

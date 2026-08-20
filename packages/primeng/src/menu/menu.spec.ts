@@ -1,4 +1,4 @@
-import { Component, DebugElement, provideZonelessChangeDetection, ViewChild } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
@@ -8,7 +8,6 @@ import { providePrimeNG } from 'primeng/config';
 import { Menu } from './menu';
 
 @Component({
-    standalone: false,
     template: `
         <p-menu
             [id]="id"
@@ -30,7 +29,8 @@ import { Menu } from './menu';
             (onFocus)="onFocus($event)"
         >
         </p-menu>
-    `
+    `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestBasicMenuComponent {
     id: string | undefined;
@@ -70,14 +70,14 @@ class TestBasicMenuComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-menu #menu [model]="popupItems" [popup]="true"></p-menu>
-        <button #toggleButton (click)="menu.toggle($event)" class="toggle-button">Show Menu</button>
-    `
+        <button #toggleButton (click)="menu().toggle($event)" class="toggle-button">Show Menu</button>
+    `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestPopupMenuComponent {
-    @ViewChild('menu') menu!: Menu;
+    readonly menu = viewChild.required<Menu>('menu');
 
     popupItems: MenuItem[] = [
         {
@@ -106,9 +106,9 @@ class TestPopupMenuComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-router-menu',
-    template: ` <p-menu [model]="routerModel"></p-menu> `
+    template: ` <p-menu [model]="routerModel"></p-menu> `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestRouterMenuComponent {
     routerModel: MenuItem[] = [
@@ -124,9 +124,9 @@ class TestRouterMenuComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-submenu-menu',
-    template: ` <p-menu [model]="submenuModel"></p-menu> `
+    template: ` <p-menu [model]="submenuModel"></p-menu> `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestSubmenuMenuComponent {
     submenuModel: MenuItem[] = [
@@ -148,18 +148,20 @@ class TestSubmenuMenuComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-item-template-menu',
     template: `
         <p-menu [model]="model">
             <ng-template #item let-item>
                 <div class="custom-menu-item">
-                    <i [class]="item.icon" *ngIf="item.icon"></i>
+                    @if (item.icon) {
+                        <i [class]="item.icon"></i>
+                    }
                     <span class="custom-label">{{ item.label }}</span>
                 </div>
             </ng-template>
         </p-menu>
-    `
+    `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestItemTemplateMenuComponent {
     model: MenuItem[] = [
@@ -169,7 +171,6 @@ class TestItemTemplateMenuComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-ptemplate-menu',
     template: `
         <p-menu [model]="model">
@@ -183,25 +184,26 @@ class TestItemTemplateMenuComponent {
                 <div class="menu-end">Footer Content</div>
             </ng-template>
         </p-menu>
-    `
+    `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestPTemplateMenuComponent {
     model: MenuItem[] = [{ label: 'PTemplate Item 1' }, { label: 'PTemplate Item 2' }];
 }
 
 @Component({
-    standalone: false,
     selector: 'test-disabled-items-menu',
-    template: ` <p-menu [model]="disabledModel"></p-menu> `
+    template: ` <p-menu [model]="disabledModel"></p-menu> `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestDisabledItemsMenuComponent {
     disabledModel: MenuItem[] = [{ label: 'Enabled Item', icon: 'pi pi-check' }, { label: 'Disabled Item', icon: 'pi pi-times', disabled: true }, { label: 'Function Disabled', icon: 'pi pi-question', disabled: () => true } as any];
 }
 
 @Component({
-    standalone: false,
     selector: 'test-styled-menu',
-    template: ` <p-menu [model]="model" [styleClass]="customStyleClass" [style]="customStyle"></p-menu> `
+    template: ` <p-menu [model]="model" [styleClass]="customStyleClass" [style]="customStyle"></p-menu> `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestStyledMenuComponent {
     model: MenuItem[] = [{ label: 'Test', icon: 'pi pi-test' }];
@@ -210,16 +212,16 @@ class TestStyledMenuComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-minimal-menu',
-    template: `<p-menu></p-menu>`
+    template: `<p-menu></p-menu>`,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestMinimalMenuComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-dynamic-menu',
-    template: ` <p-menu [model]="dynamicModel"></p-menu> `
+    template: ` <p-menu [model]="dynamicModel"></p-menu> `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestDynamicMenuComponent {
     dynamicModel: MenuItem[] = [];
@@ -238,9 +240,9 @@ class TestDynamicMenuComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-command-menu',
-    template: ` <p-menu [model]="commandModel"></p-menu> `
+    template: ` <p-menu [model]="commandModel"></p-menu> `,
+    imports: [Menu, TestTargetComponent, SharedModule]
 })
 class TestCommandMenuComponent {
     commandExecuted: any;
@@ -271,7 +273,15 @@ describe('Menu', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                Menu,
+                TestTargetComponent,
+                SharedModule,
+                RouterTestingModule.withRoutes([
+                    { path: '', component: TestTargetComponent },
+                    { path: 'products', component: TestTargetComponent },
+                    { path: 'services', component: TestTargetComponent }
+                ]),
                 TestBasicMenuComponent,
                 TestPopupMenuComponent,
                 TestRouterMenuComponent,
@@ -283,17 +293,6 @@ describe('Menu', () => {
                 TestMinimalMenuComponent,
                 TestDynamicMenuComponent,
                 TestCommandMenuComponent
-            ],
-            imports: [
-                Menu,
-                TestTargetComponent,
-
-                SharedModule,
-                RouterTestingModule.withRoutes([
-                    { path: '', component: TestTargetComponent },
-                    { path: 'products', component: TestTargetComponent },
-                    { path: 'services', component: TestTargetComponent }
-                ])
             ],
             providers: [provideZonelessChangeDetection(), provideNoopAnimations(), OverlayService]
         }).compileComponents();
@@ -320,6 +319,7 @@ describe('Menu', () => {
 
         it('should have default values', () => {
             const freshFixture = TestBed.createComponent(TestMinimalMenuComponent);
+
             freshFixture.detectChanges();
 
             const freshMenu = freshFixture.debugElement.query(By.directive(Menu)).componentInstance;
@@ -337,6 +337,7 @@ describe('Menu', () => {
 
         it('should accept custom values', async () => {
             const testModel: MenuItem[] = [{ label: 'Test Item' }];
+
             component.model = testModel;
             component.popup = true;
             component.styleClass = 'custom-menu';
@@ -356,6 +357,7 @@ describe('Menu', () => {
             // Test with a fresh component that doesn't have id set
             const freshFixture = TestBed.createComponent(TestMinimalMenuComponent);
             const freshMenu = freshFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             freshFixture.detectChanges();
 
             expect(freshMenu.id).toBeTruthy();
@@ -381,6 +383,7 @@ describe('Menu', () => {
     describe('Input Properties', () => {
         it('should update model input', async () => {
             const newModel = [{ label: 'New Item' }];
+
             component.model = newModel;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -458,18 +461,21 @@ describe('Menu', () => {
             expect(menuInstance.model!.length).toBe(4); // File, Edit, separator, Settings
             // Count non-separator items
             const nonSeparatorItems = menuInstance.model!.filter((item) => !item.separator);
+
             expect(nonSeparatorItems.length).toBe(3);
         });
 
         it('should render item icons when provided', async () => {
             // Verify items have icons in model
             const itemsWithIcons = menuInstance.model!.filter((item) => item.icon);
+
             expect(itemsWithIcons.length).toBeGreaterThanOrEqual(3);
         });
 
         it('should render item labels', async () => {
             // Verify labels in model
             const items = menuInstance.model!.filter((item) => !item.separator);
+
             expect(items[0].label).toBe('File');
             expect(items[1].label).toBe('Edit');
             expect(items[2].label).toBe('Settings');
@@ -484,30 +490,36 @@ describe('Menu', () => {
             ];
             // Count visible items (visible !== false)
             const visibleItems = testModel.filter((item) => item.visible !== false);
+
             expect(visibleItems.length).toBe(2);
         });
 
         it('should handle empty model', async () => {
             const emptyFixture = TestBed.createComponent(TestMinimalMenuComponent);
+
             emptyFixture.detectChanges();
             await emptyFixture.whenStable();
 
             const emptyMenu = emptyFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             expect(emptyMenu.model).toBeUndefined();
         });
 
         it('should handle null model', async () => {
             const minimalFixture = TestBed.createComponent(TestMinimalMenuComponent);
+
             minimalFixture.detectChanges();
             await minimalFixture.whenStable();
 
             const minimalMenu = minimalFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             expect(minimalMenu.model).toBeUndefined();
         });
 
         it('should render separators', async () => {
             // Verify model has separator
             const separators = menuInstance.model!.filter((item) => item.separator);
+
             expect(separators.length).toBe(1);
         });
     });
@@ -515,10 +527,12 @@ describe('Menu', () => {
     describe('Submenu Tests', () => {
         it('should detect if model has submenus', async () => {
             const submenuFixture = TestBed.createComponent(TestSubmenuMenuComponent);
+
             submenuFixture.detectChanges();
             await submenuFixture.whenStable();
 
             const submenuInstance = submenuFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             expect(submenuInstance.hasSubMenu()).toBe(true);
 
             expect(menuInstance.hasSubMenu()).toBe(false);
@@ -526,21 +540,25 @@ describe('Menu', () => {
 
         it('should render submenu headers', async () => {
             const submenuFixture = TestBed.createComponent(TestSubmenuMenuComponent);
+
             submenuFixture.detectChanges();
             await submenuFixture.whenStable();
 
             // hasSubMenu() returns true, so submenulabel elements should be rendered
             const submenuHeaders = submenuFixture.debugElement.queryAll(By.css('li[data-pc-section="submenulabel"]'));
+
             expect(submenuHeaders.length).toBe(2); // File and Edit headers
         });
 
         it('should render submenu items', async () => {
             const submenuFixture = TestBed.createComponent(TestSubmenuMenuComponent);
+
             submenuFixture.detectChanges();
             await submenuFixture.whenStable();
 
             // Verify the menu instance has submenu
             const submenuInstance = submenuFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             expect(submenuInstance.hasSubMenu()).toBe(true);
             expect(submenuInstance.model.length).toBe(2); // File and Edit groups
             expect(submenuInstance.model[0].items.length).toBe(2); // File has 2 items
@@ -552,10 +570,12 @@ describe('Menu', () => {
         it('should execute command when item is clicked', async () => {
             const commandFixture = TestBed.createComponent(TestCommandMenuComponent);
             const commandComponent = commandFixture.componentInstance;
+
             commandFixture.detectChanges();
             await commandFixture.whenStable();
 
             const commandMenu = commandFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             expect(commandMenu.model.length).toBe(1);
             expect(commandMenu.model[0].label).toBe('Command Item');
 
@@ -568,6 +588,7 @@ describe('Menu', () => {
 
         it('should handle disabled items', async () => {
             const disabledFixture = TestBed.createComponent(TestDisabledItemsMenuComponent);
+
             disabledFixture.detectChanges();
             await disabledFixture.whenStable();
 
@@ -581,6 +602,7 @@ describe('Menu', () => {
 
         it('should set data-p-disabled attribute for disabled items', async () => {
             const disabledFixture = TestBed.createComponent(TestDisabledItemsMenuComponent);
+
             disabledFixture.detectChanges();
             await disabledFixture.whenStable();
 
@@ -597,6 +619,7 @@ describe('Menu', () => {
     describe('Template Tests', () => {
         it('should handle #item template processing', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenuComponent);
+
             itemTemplateFixture.detectChanges();
             await itemTemplateFixture.whenStable();
 
@@ -608,6 +631,7 @@ describe('Menu', () => {
 
         it('should handle pTemplate processing', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
+
             pTemplateFixture.detectChanges();
             await pTemplateFixture.whenStable();
 
@@ -619,6 +643,7 @@ describe('Menu', () => {
 
         it('should process PrimeTemplate types correctly', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
+
             pTemplateFixture.changeDetectorRef.markForCheck();
             await pTemplateFixture.whenStable();
 
@@ -633,6 +658,7 @@ describe('Menu', () => {
 
         it('should render start and end templates', () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
+
             pTemplateFixture.detectChanges();
 
             const startContent = pTemplateFixture.debugElement.query(By.css('.menu-start'));
@@ -646,6 +672,7 @@ describe('Menu', () => {
 
         it('should prioritize itemTemplate over _itemTemplate', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenuComponent);
+
             itemTemplateFixture.changeDetectorRef.markForCheck();
             await itemTemplateFixture.whenStable();
 
@@ -659,19 +686,23 @@ describe('Menu', () => {
         it('should render different template types correctly', async () => {
             // Test pTemplate rendering
             const pTemplateFixture = TestBed.createComponent(TestPTemplateMenuComponent);
+
             pTemplateFixture.changeDetectorRef.markForCheck();
             await pTemplateFixture.whenStable();
 
             const pTemplateMenu = pTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             expect(pTemplateMenu.templates).toBeDefined();
             expect(() => pTemplateMenu.ngAfterContentInit()).not.toThrow();
 
             // Test #item template rendering
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateMenuComponent);
+
             itemTemplateFixture.changeDetectorRef.markForCheck();
             await itemTemplateFixture.whenStable();
 
             const itemTemplateMenu = itemTemplateFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             expect(itemTemplateMenu.itemTemplate).toBeDefined();
         });
     });
@@ -763,6 +794,7 @@ describe('Menu', () => {
         it('should emit onBlur when list loses focus', () => {
             spyOn(menuInstance.onBlur, 'emit');
             const blurEvent = new FocusEvent('blur');
+
             menuInstance.focused = true;
 
             menuInstance.onListBlur(blurEvent);
@@ -799,6 +831,7 @@ describe('Menu', () => {
 
             // Mock the DOM query results
             const mockElement = { getAttribute: () => 'test_id' };
+
             spyOn(menuInstance, 'changeFocusedOptionIndex').and.callThrough();
 
             // Test the method exists and can be called
@@ -809,6 +842,7 @@ describe('Menu', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply styleClass when provided', () => {
             const styleFixture = TestBed.createComponent(TestStyledMenuComponent);
+
             styleFixture.detectChanges();
 
             const menuElement = styleFixture.debugElement.query(By.directive(Menu));
@@ -820,6 +854,7 @@ describe('Menu', () => {
         it('should apply custom styles', () => {
             const styleFixture = TestBed.createComponent(TestStyledMenuComponent);
             const styleComponent = styleFixture.componentInstance;
+
             styleFixture.detectChanges();
 
             const menuInstance = styleFixture.debugElement.query(By.directive(Menu)).componentInstance;
@@ -849,6 +884,7 @@ describe('Menu', () => {
 
         it('should have proper data attributes', () => {
             const menuElement = fixture.debugElement.query(By.css('div[data-pc-name="menu"]'));
+
             expect(menuElement.nativeElement.getAttribute('data-pc-name')).toBe('menu');
         });
 
@@ -856,15 +892,18 @@ describe('Menu', () => {
             // Test with a fresh component to ensure it has an id
             const freshFixture = TestBed.createComponent(TestMinimalMenuComponent);
             const freshMenu = freshFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             freshFixture.detectChanges();
 
             const containerElement = freshFixture.debugElement.query(By.css('div[data-pc-name="menu"]'));
+
             expect(containerElement.nativeElement.getAttribute('id')).toBeTruthy();
             expect(containerElement.nativeElement.getAttribute('id')).toBe(freshMenu.id);
         });
 
         it('should have generated id on list element', () => {
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(listElement.nativeElement.getAttribute('id')).toBeTruthy();
         });
     });
@@ -884,6 +923,7 @@ describe('Menu', () => {
 
             // Check that the menu list has proper ARIA attributes
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(listElement).toBeTruthy();
             expect(listElement.nativeElement.getAttribute('role')).toBe('menu');
         });
@@ -905,6 +945,7 @@ describe('Menu', () => {
             fixture.detectChanges();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(listElement.nativeElement.getAttribute('aria-activedescendant')).toBeNull();
         });
 
@@ -914,6 +955,7 @@ describe('Menu', () => {
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(listElement.nativeElement.getAttribute('aria-label')).toBe('Main Navigation Menu');
         });
 
@@ -923,6 +965,7 @@ describe('Menu', () => {
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(listElement.nativeElement.getAttribute('aria-labelledby')).toBe('menu-heading');
         });
     });
@@ -930,27 +973,33 @@ describe('Menu', () => {
     describe('Router Integration Tests', () => {
         it('should handle router links', () => {
             const routerFixture = TestBed.createComponent(TestRouterMenuComponent);
+
             routerFixture.detectChanges();
 
             // Router links get converted to href after processing, so look for routerlinkactive
             const routerLinks = routerFixture.debugElement.queryAll(By.css('a[routerlinkactive]'));
+
             expect(routerLinks.length).toBe(3);
         });
 
         it('should handle router link with query params', () => {
             const routerFixture = TestBed.createComponent(TestRouterMenuComponent);
+
             routerFixture.detectChanges();
 
             // Look for href instead of routerLink attribute
             const routerLink = routerFixture.debugElement.query(By.css('a[href="/services?tab=overview"]'));
+
             expect(routerLink).toBeTruthy();
         });
 
         it('should have proper router link attributes', () => {
             const routerFixture = TestBed.createComponent(TestRouterMenuComponent);
+
             routerFixture.detectChanges();
 
             const anchors = routerFixture.debugElement.queryAll(By.css('a[routerlinkactive]'));
+
             expect(anchors.length).toBe(3);
 
             anchors.forEach((anchor) => {
@@ -971,6 +1020,7 @@ describe('Menu', () => {
 
             // Show menu
             const mockEvent = { currentTarget: document.createElement('button') };
+
             menuInstance.show(mockEvent);
 
             expect(menuInstance.visible).toBe(true);
@@ -988,6 +1038,7 @@ describe('Menu', () => {
             await fixture.whenStable();
 
             const mockEvent = new MouseEvent('click', { bubbles: true });
+
             Object.defineProperty(mockEvent, 'currentTarget', {
                 value: document.createElement('button'),
                 writable: false
@@ -1035,6 +1086,7 @@ describe('Menu', () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicMenuComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
             const dynamicMenu = dynamicFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
@@ -1077,7 +1129,7 @@ describe('Menu', () => {
             popupComponent = popupFixture.componentInstance;
             popupFixture.detectChanges();
 
-            popupMenuInstance = popupComponent.menu;
+            popupMenuInstance = popupComponent.menu();
         });
 
         it('should create popup menu', () => {
@@ -1092,6 +1144,7 @@ describe('Menu', () => {
         it('should show menu when toggle is called with event', () => {
             const toggleButton = popupFixture.debugElement.query(By.css('.toggle-button'));
             const mockEvent = new MouseEvent('click', { bubbles: true });
+
             Object.defineProperty(mockEvent, 'currentTarget', {
                 value: toggleButton.nativeElement,
                 configurable: true
@@ -1104,6 +1157,7 @@ describe('Menu', () => {
         it('should hide menu when toggle is called again', () => {
             const toggleButton = popupFixture.debugElement.query(By.css('.toggle-button'));
             const mockEvent = new MouseEvent('click', { bubbles: true });
+
             Object.defineProperty(mockEvent, 'currentTarget', {
                 value: toggleButton.nativeElement,
                 configurable: true
@@ -1139,6 +1193,7 @@ describe('Menu', () => {
 
             // Show the menu
             const toggleButton = popupFixture.debugElement.query(By.css('.toggle-button'));
+
             toggleButton.nativeElement.click();
             popupFixture.detectChanges();
             await popupFixture.whenStable();
@@ -1158,6 +1213,7 @@ describe('Menu', () => {
         it('should hide popup menu after item click', async () => {
             // Show the menu
             const mockEvent = { currentTarget: document.createElement('button') };
+
             popupMenuInstance.show(mockEvent);
             expect(popupMenuInstance.visible).toBe(true);
 
@@ -1170,6 +1226,7 @@ describe('Menu', () => {
 
         it('should show popup menu programmatically', () => {
             const mockEvent = new MouseEvent('click');
+
             Object.defineProperty(mockEvent, 'currentTarget', {
                 value: document.createElement('button'),
                 configurable: true
@@ -1185,6 +1242,7 @@ describe('Menu', () => {
         it('should hide popup menu programmatically', () => {
             // First show the menu
             const mockEvent = new MouseEvent('click');
+
             Object.defineProperty(mockEvent, 'currentTarget', {
                 value: document.createElement('button'),
                 configurable: true
@@ -1211,9 +1269,11 @@ describe('Menu', () => {
 
             // Find overlay and trigger click
             const overlay = popupFixture.debugElement.query(By.css('[data-pc-section="root"]'));
+
             if (overlay) {
                 // Simulate clicking outside the menu
                 const outsideClickEvent = new MouseEvent('click');
+
                 Object.defineProperty(outsideClickEvent, 'target', {
                     value: document.body,
                     configurable: true
@@ -1231,6 +1291,7 @@ describe('Menu', () => {
 
             // Show menu to check visibility
             const mockEvent = new MouseEvent('click');
+
             Object.defineProperty(mockEvent, 'currentTarget', {
                 value: document.createElement('button'),
                 configurable: true
@@ -1245,33 +1306,40 @@ describe('Menu', () => {
         it('should handle null/undefined values gracefully', async () => {
             // Use a fresh fixture to avoid ExpressionChangedAfterItHasBeenCheckedError
             const freshFixture = TestBed.createComponent(TestMinimalMenuComponent);
+
             freshFixture.detectChanges();
             await freshFixture.whenStable();
 
             const freshMenu = freshFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             expect(freshMenu.model).toBeUndefined();
         });
 
         it('should handle items without icons', async () => {
             // Create a dedicated component for this test
             const styledFixture = TestBed.createComponent(TestStyledMenuComponent);
+
             styledFixture.detectChanges();
             await styledFixture.whenStable();
 
             const iconElements = styledFixture.debugElement.queryAll(By.css('span[class*="pi-"]'));
+
             expect(iconElements.length).toBeGreaterThanOrEqual(0);
         });
 
         it('should handle items with custom styleClass', async () => {
             // Create a dedicated component for this test
             const styledFixture = TestBed.createComponent(TestStyledMenuComponent);
+
             styledFixture.detectChanges();
             await styledFixture.whenStable();
 
             const menuInstance = styledFixture.debugElement.query(By.directive(Menu)).componentInstance;
+
             expect(menuInstance.styleClass).toBe('custom-menu-class');
 
             const menuElement = styledFixture.debugElement.query(By.css('div[data-pc-name="menu"]'));
+
             expect(menuElement.nativeElement.classList.contains('custom-menu-class')).toBe(true);
         });
 
@@ -1388,25 +1456,30 @@ describe('Menu', () => {
         describe('Case 1: Simple string classes', () => {
             it('should apply simple string class to root', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.className).toContain('ROOT_CLASS');
             });
 
             it('should apply simple string class to list', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('pt', { list: 'LIST_CLASS' });
                 ptFixture.detectChanges();
 
                 const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+
                 expect(listElement.nativeElement.className).toContain('LIST_CLASS');
             });
 
             it('should apply multiple simple string classes to different sections', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('pt', {
                     root: 'ROOT_CLASS',
@@ -1425,6 +1498,7 @@ describe('Menu', () => {
         describe('Case 2: Objects', () => {
             it('should apply object with class to root', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         class: 'OBJECT_CLASS'
@@ -1433,11 +1507,13 @@ describe('Menu', () => {
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.className).toContain('OBJECT_CLASS');
             });
 
             it('should apply object with style to root', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         style: { 'background-color': 'red' }
@@ -1446,11 +1522,13 @@ describe('Menu', () => {
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.style.backgroundColor).toBe('red');
             });
 
             it('should apply object with data attribute to root', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         'data-p-test': true
@@ -1459,11 +1537,13 @@ describe('Menu', () => {
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.getAttribute('data-p-test')).toBe('true');
             });
 
             it('should apply object with aria-label to root', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         'aria-label': 'TEST_ARIA_LABEL'
@@ -1472,11 +1552,13 @@ describe('Menu', () => {
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('TEST_ARIA_LABEL');
             });
 
             it('should apply multiple object properties to list', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('pt', {
                     list: {
@@ -1489,6 +1571,7 @@ describe('Menu', () => {
                 ptFixture.detectChanges();
 
                 const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+
                 expect(listElement?.nativeElement.className).toContain('LIST_OBJECT_CLASS');
                 expect(listElement?.nativeElement.style.color).toBe('blue');
                 expect(listElement?.nativeElement.getAttribute('data-test')).toBe('value');
@@ -1499,6 +1582,7 @@ describe('Menu', () => {
         describe('Case 3: Mixed object and string values', () => {
             it('should apply mixed object and string values to different sections', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('pt', {
                     root: {
@@ -1517,6 +1601,7 @@ describe('Menu', () => {
 
             it('should handle string for root and object for list', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('pt', {
                     root: 'ROOT_STRING_CLASS',
@@ -1539,70 +1624,70 @@ describe('Menu', () => {
         describe('Case 4: Use variables from instance', () => {
             it('should use instance popup property in PT function', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('popup', false);
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
-                        return {
-                            class: instance.popup ? 'POPUP_MENU' : 'STATIC_MENU'
-                        };
-                    }
+                    root: ({ instance }) => ({
+                        class: instance.popup ? 'POPUP_MENU' : 'STATIC_MENU'
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement?.nativeElement.className).toContain('STATIC_MENU');
             });
 
             it('should use instance model property in PT function', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }, { label: 'Item 2' }]);
                 ptFixture.componentRef.setInput('pt', {
-                    list: ({ instance }) => {
-                        return {
-                            style: {
-                                'border-color': instance.model?.length > 1 ? 'green' : 'red'
-                            }
-                        };
-                    }
+                    list: ({ instance }) => ({
+                        style: {
+                            'border-color': instance.model?.length > 1 ? 'green' : 'red'
+                        }
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+
                 expect(listElement?.nativeElement.style.borderColor).toBe('green');
             });
 
             it('should use instance tabindex property in PT function', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('tabindex', 5);
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
-                        return {
-                            class: instance.tabindex === 5 ? 'CUSTOM_TABINDEX' : ''
-                        };
-                    }
+                    root: ({ instance }) => ({
+                        class: instance.tabindex === 5 ? 'CUSTOM_TABINDEX' : ''
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.className).toContain('CUSTOM_TABINDEX');
             });
 
             it('should use multiple instance properties in PT function', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('popup', false);
                 ptFixture.componentRef.setInput('tabindex', 0);
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
-                        return {
-                            class: !instance.popup && instance.tabindex === 0 ? 'STATIC_WITH_TABINDEX' : ''
-                        };
-                    }
+                    root: ({ instance }) => ({
+                        class: !instance.popup && instance.tabindex === 0 ? 'STATIC_WITH_TABINDEX' : ''
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.className).toContain('STATIC_WITH_TABINDEX');
             });
         });
@@ -1611,6 +1696,7 @@ describe('Menu', () => {
             it('should bind onclick event via PT', () => {
                 const ptFixture = TestBed.createComponent(Menu);
                 let clicked = false;
+
                 ptFixture.componentRef.setInput('pt', {
                     root: {
                         onclick: () => {
@@ -1621,14 +1707,17 @@ describe('Menu', () => {
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 rootElement.nativeElement.click();
                 expect(clicked).toBe(true);
             });
 
             it('should bind onclick event to list via PT', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 let listClicked = false;
+
                 ptFixture.componentRef.setInput('pt', {
                     list: {
                         onclick: () => {
@@ -1639,26 +1728,28 @@ describe('Menu', () => {
                 ptFixture.detectChanges();
 
                 const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+
                 listElement.nativeElement.click();
                 expect(listClicked).toBe(true);
             });
 
             it('should bind onclick event with instance reference', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Test Item' }]);
                 let instanceModelLength = 0;
+
                 ptFixture.componentRef.setInput('pt', {
-                    root: ({ instance }) => {
-                        return {
-                            onclick: () => {
-                                instanceModelLength = instance.model?.length || 0;
-                            }
-                        };
-                    }
+                    root: ({ instance }) => ({
+                        onclick: () => {
+                            instanceModelLength = instance.model?.length || 0;
+                        }
+                    })
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 rootElement.nativeElement.click();
                 expect(instanceModelLength).toBe(1);
             });
@@ -1680,9 +1771,11 @@ describe('Menu', () => {
                 });
 
                 const inlineFixture = TestBed.createComponent(TestInlinePTStringComponent);
+
                 inlineFixture.detectChanges();
 
                 const menuElement = inlineFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(menuElement.nativeElement.className).toContain('INLINE_ROOT_CLASS');
             });
 
@@ -1701,9 +1794,11 @@ describe('Menu', () => {
                 });
 
                 const inlineFixture = TestBed.createComponent(TestInlinePTObjectComponent);
+
                 inlineFixture.detectChanges();
 
                 const menuElement = inlineFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(menuElement.nativeElement.className).toContain('INLINE_OBJECT_CLASS');
             });
         });
@@ -1739,9 +1834,11 @@ describe('Menu', () => {
 
             it('should apply global PT configuration from PrimeNG config', () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 globalFixture.detectChanges();
 
                 const menus = globalFixture.debugElement.queryAll(By.css('[data-pc-name="menu"]'));
+
                 expect(menus.length).toBe(2);
 
                 menus.forEach((menu) => {
@@ -1751,10 +1848,12 @@ describe('Menu', () => {
 
             it('should apply global PT to multiple instances of the component', () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 globalFixture.componentInstance['model'] = [{ label: 'Item' }];
                 globalFixture.detectChanges();
 
                 const lists = globalFixture.debugElement.queryAll(By.css('ul[role="menu"]'));
+
                 lists.forEach((list) => {
                     expect(list.nativeElement.className).toContain('GLOBAL_LIST_CLASS');
                 });
@@ -1774,9 +1873,11 @@ describe('Menu', () => {
                 });
 
                 const mergedFixture = TestBed.createComponent(TestMergedPTComponent);
+
                 mergedFixture.detectChanges();
 
                 const menuElement = mergedFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(menuElement.nativeElement.className).toContain('LOCAL_CLASS');
                 expect(menuElement.nativeElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
             });
@@ -1785,17 +1886,20 @@ describe('Menu', () => {
         describe('Case 8: PT configuration', () => {
             it('should apply PT with root class configuration', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: 'MY_MENU'
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.className).toContain('MY_MENU');
             });
 
             it('should apply PT with list class configuration', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('pt', {
                     list: 'LIST_CLASS'
@@ -1803,17 +1907,20 @@ describe('Menu', () => {
                 ptFixture.detectChanges();
 
                 const listElement = ptFixture.debugElement.query(By.css('ul[role="menu"]'));
+
                 expect(listElement.nativeElement.className).toContain('LIST_CLASS');
             });
 
             it('should handle PT configuration changes', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('pt', {
                     root: 'INITIAL_PT_CLASS'
                 });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.className).toContain('INITIAL_PT_CLASS');
 
                 ptFixture.componentRef.setInput('pt', {
@@ -1827,10 +1934,12 @@ describe('Menu', () => {
         describe('PT Complex Scenarios', () => {
             it('should handle PT updates dynamically', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('pt', { root: 'INITIAL_CLASS' });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.className).toContain('INITIAL_CLASS');
 
                 ptFixture.componentRef.setInput('pt', { root: 'UPDATED_CLASS' });
@@ -1841,18 +1950,21 @@ describe('Menu', () => {
 
             it('should combine PT with component inputs', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('popup', false);
                 ptFixture.componentRef.setInput('pt', { root: 'CUSTOM_PT_CLASS' });
                 ptFixture.detectChanges();
 
                 const rootElement = ptFixture.debugElement.query(By.css('[data-pc-name="menu"]'));
+
                 expect(rootElement.nativeElement.className).toContain('p-menu');
                 expect(rootElement.nativeElement.className).toContain('CUSTOM_PT_CLASS');
             });
 
             it('should apply PT to all sections simultaneously', () => {
                 const ptFixture = TestBed.createComponent(Menu);
+
                 ptFixture.componentRef.setInput('model', [{ label: 'Item 1' }]);
                 ptFixture.componentRef.setInput('pt', {
                     root: 'PT_ROOT',

@@ -1,23 +1,22 @@
-import { Component, DebugElement, Input, TemplateRef, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, Input, TemplateRef, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { Toolbar, ToolbarModule } from './toolbar';
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar [ariaLabelledBy]="ariaLabelledBy">
             <div class="default-content">Default Toolbar Content</div>
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestBasicToolbarComponent {
     ariaLabelledBy: string | undefined;
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar>
             <ng-template pTemplate="start">
@@ -30,12 +29,12 @@ class TestBasicToolbarComponent {
                 <button class="end-button">End Button</button>
             </ng-template>
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestTemplateToolbarComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar>
             <ng-template pTemplate="left">
@@ -48,12 +47,12 @@ class TestTemplateToolbarComponent {}
                 <button class="right-button">Right Button</button>
             </ng-template>
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestLegacyTemplateToolbarComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar>
             <ng-template #start>
@@ -66,16 +65,16 @@ class TestLegacyTemplateToolbarComponent {}
                 <button class="end-button">End Content</button>
             </ng-template>
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestContentChildToolbarComponent {
-    @ViewChild('start') startTemplate!: TemplateRef<any>;
-    @ViewChild('center') centerTemplate!: TemplateRef<any>;
-    @ViewChild('end') endTemplate!: TemplateRef<any>;
+    readonly startTemplate = viewChild.required<TemplateRef<any>>('start');
+    readonly centerTemplate = viewChild.required<TemplateRef<any>>('center');
+    readonly endTemplate = viewChild.required<TemplateRef<any>>('end');
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar>
             <ng-template pTemplate="start">
@@ -89,67 +88,68 @@ class TestContentChildToolbarComponent {
                 <button class="btn-search">Search</button>
             </ng-template>
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestComplexToolbarComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar>
             <ng-template pTemplate="start">
                 <span>Only Start</span>
             </ng-template>
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestStartOnlyToolbarComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar>
             <ng-template pTemplate="center">
                 <span>Only Center</span>
             </ng-template>
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestCenterOnlyToolbarComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar>
             <ng-template pTemplate="end">
                 <span>Only End</span>
             </ng-template>
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestEndOnlyToolbarComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar [ariaLabelledBy]="ariaLabel">
-            <ng-container *ngIf="showStart">
+            @if (showStart) {
                 <ng-template pTemplate="start">
                     <button class="dynamic-start">Dynamic Start</button>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="showCenter">
+            }
+            @if (showCenter) {
                 <ng-template pTemplate="center">
                     <span class="dynamic-center">Dynamic Center</span>
                 </ng-template>
-            </ng-container>
-            <ng-container *ngIf="showEnd">
+            }
+            @if (showEnd) {
                 <ng-template pTemplate="end">
                     <button class="dynamic-end">Dynamic End</button>
                 </ng-template>
-            </ng-container>
+            }
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestDynamicToolbarComponent {
     ariaLabel = 'toolbar-label';
@@ -159,7 +159,6 @@ class TestDynamicToolbarComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-toolbar [pt]="pt">
             <ng-template pTemplate="start">
@@ -172,7 +171,8 @@ class TestDynamicToolbarComponent {
                 <button>PT Test End</button>
             </ng-template>
         </p-toolbar>
-    `
+    `,
+    imports: [ToolbarModule]
 })
 class TestPTToolbarComponent {
     @Input() pt: any;
@@ -186,8 +186,8 @@ describe('Toolbar', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ToolbarModule],
-            declarations: [
+            imports: [
+                ToolbarModule,
                 TestBasicToolbarComponent,
                 TestTemplateToolbarComponent,
                 TestLegacyTemplateToolbarComponent,
@@ -231,6 +231,7 @@ describe('Toolbar', () => {
 
         it('should render default content', () => {
             const defaultContent = fixture.debugElement.query(By.css('.default-content'));
+
             expect(defaultContent).toBeTruthy();
             expect(defaultContent.nativeElement.textContent).toBe('Default Toolbar Content');
         });
@@ -280,27 +281,33 @@ describe('Toolbar', () => {
 
         it('should render start template', () => {
             const startSection = templateFixture.debugElement.query(By.css('.p-toolbar-start'));
+
             expect(startSection).toBeTruthy();
 
             const startButton = templateFixture.debugElement.query(By.css('.start-button'));
+
             expect(startButton).toBeTruthy();
             expect(startButton.nativeElement.textContent).toBe('Start Button');
         });
 
         it('should render center template', () => {
             const centerSection = templateFixture.debugElement.query(By.css('.p-toolbar-center'));
+
             expect(centerSection).toBeTruthy();
 
             const centerText = templateFixture.debugElement.query(By.css('.center-text'));
+
             expect(centerText).toBeTruthy();
             expect(centerText.nativeElement.textContent).toBe('Center Content');
         });
 
         it('should render end template', () => {
             const endSection = templateFixture.debugElement.query(By.css('.p-toolbar-end'));
+
             expect(endSection).toBeTruthy();
 
             const endButton = templateFixture.debugElement.query(By.css('.end-button'));
+
             expect(endButton).toBeTruthy();
             expect(endButton.nativeElement.textContent).toBe('End Button');
         });
@@ -326,27 +333,33 @@ describe('Toolbar', () => {
 
         it('should support left template as start', () => {
             const startSection = legacyFixture.debugElement.query(By.css('.p-toolbar-start'));
+
             expect(startSection).toBeTruthy();
 
             const leftButton = legacyFixture.debugElement.query(By.css('.left-button'));
+
             expect(leftButton).toBeTruthy();
             expect(leftButton.nativeElement.textContent).toBe('Left Button');
         });
 
         it('should support right template as end', () => {
             const endSection = legacyFixture.debugElement.query(By.css('.p-toolbar-end'));
+
             expect(endSection).toBeTruthy();
 
             const rightButton = legacyFixture.debugElement.query(By.css('.right-button'));
+
             expect(rightButton).toBeTruthy();
             expect(rightButton.nativeElement.textContent).toBe('Right Button');
         });
 
         it('should support center template in legacy mode', () => {
             const centerSection = legacyFixture.debugElement.query(By.css('.p-toolbar-center'));
+
             expect(centerSection).toBeTruthy();
 
             const centerText = legacyFixture.debugElement.query(By.css('.center-text'));
+
             expect(centerText).toBeTruthy();
         });
     });
@@ -384,6 +397,7 @@ describe('Toolbar', () => {
 
         it('should not render center section when not provided', () => {
             const centerSection = complexFixture.debugElement.query(By.css('.p-toolbar-center'));
+
             expect(centerSection).toBeFalsy();
         });
     });
@@ -391,6 +405,7 @@ describe('Toolbar', () => {
     describe('Dynamic Templates', () => {
         it('should show all sections when templates are provided', () => {
             const templateFixture = TestBed.createComponent(TestTemplateToolbarComponent);
+
             templateFixture.detectChanges();
 
             const startSection = templateFixture.debugElement.query(By.css('.p-toolbar-start'));
@@ -404,6 +419,7 @@ describe('Toolbar', () => {
 
         it('should not show sections when templates are not provided', () => {
             const basicFixture = TestBed.createComponent(TestBasicToolbarComponent);
+
             basicFixture.detectChanges();
 
             const startSection = basicFixture.debugElement.query(By.css('.p-toolbar-start'));
@@ -418,9 +434,11 @@ describe('Toolbar', () => {
         it('should handle dynamic aria label', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicToolbarComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
+
             dynamicFixture.detectChanges();
 
             const toolbar = dynamicFixture.debugElement.query(By.directive(Toolbar));
+
             expect(toolbar.nativeElement.getAttribute('aria-labelledby')).toBe('toolbar-label');
 
             dynamicComponent.ariaLabel = 'new-label';
@@ -438,12 +456,14 @@ describe('Toolbar', () => {
 
         it('should return first child element from getBlockableElement', () => {
             const blockableElement = toolbar.getBlockableElement();
+
             expect(blockableElement).toBeTruthy();
             expect(blockableElement).toBe(toolbarEl.nativeElement.children[0]);
         });
 
         it('should return correct element even with templates', () => {
             const templateFixture = TestBed.createComponent(TestTemplateToolbarComponent);
+
             templateFixture.detectChanges();
 
             const templateToolbar = templateFixture.debugElement.query(By.directive(Toolbar)).componentInstance;
@@ -458,12 +478,14 @@ describe('Toolbar', () => {
         it('should handle toolbar without any content', async () => {
             // Using existing basic component without any content except default
             const basicFixture = TestBed.createComponent(TestBasicToolbarComponent);
+
             basicFixture.componentInstance.ariaLabelledBy = undefined as any;
             basicFixture.changeDetectorRef.markForCheck();
             await basicFixture.whenStable();
             basicFixture.detectChanges();
 
             const toolbar = basicFixture.debugElement.query(By.directive(Toolbar));
+
             expect(toolbar).toBeTruthy();
 
             // Should have toolbar role
@@ -471,15 +493,18 @@ describe('Toolbar', () => {
 
             // Should not have any template sections (start, center, end)
             const templateSections = basicFixture.debugElement.queryAll(By.css('.p-toolbar-start, .p-toolbar-center, .p-toolbar-end'));
+
             expect(templateSections.length).toBe(0);
 
             // But should have default content
             const defaultContent = basicFixture.debugElement.query(By.css('.default-content'));
+
             expect(defaultContent).toBeTruthy();
         });
 
         it('should handle only start section', () => {
             const startOnlyFixture = TestBed.createComponent(TestStartOnlyToolbarComponent);
+
             startOnlyFixture.detectChanges();
 
             const startSection = startOnlyFixture.debugElement.query(By.css('.p-toolbar-start'));
@@ -493,6 +518,7 @@ describe('Toolbar', () => {
 
         it('should handle only center section', () => {
             const centerOnlyFixture = TestBed.createComponent(TestCenterOnlyToolbarComponent);
+
             centerOnlyFixture.detectChanges();
 
             const startSection = centerOnlyFixture.debugElement.query(By.css('.p-toolbar-start'));
@@ -506,6 +532,7 @@ describe('Toolbar', () => {
 
         it('should handle only end section', () => {
             const endOnlyFixture = TestBed.createComponent(TestEndOnlyToolbarComponent);
+
             endOnlyFixture.detectChanges();
 
             const startSection = endOnlyFixture.debugElement.query(By.css('.p-toolbar-start'));
@@ -521,12 +548,14 @@ describe('Toolbar', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply component classes correctly', () => {
             const toolbar = fixture.debugElement.query(By.css('p-toolbar'));
+
             expect(toolbar.nativeElement.className).toContain('p-toolbar');
             expect(toolbar.nativeElement.className).toContain('p-component');
         });
 
         it('should apply section classes correctly', () => {
             const templateFixture = TestBed.createComponent(TestTemplateToolbarComponent);
+
             templateFixture.detectChanges();
 
             const startSection = templateFixture.debugElement.query(By.css('.p-toolbar-start'));
@@ -548,6 +577,7 @@ describe('Toolbar', () => {
 
         it('should cleanup templates on destroy', () => {
             const templateFixture = TestBed.createComponent(TestTemplateToolbarComponent);
+
             templateFixture.detectChanges();
 
             expect(() => {
@@ -558,6 +588,7 @@ describe('Toolbar', () => {
         it('should handle rapid creation and destruction', () => {
             for (let i = 0; i < 5; i++) {
                 const testFixture = TestBed.createComponent(TestBasicToolbarComponent);
+
                 testFixture.detectChanges();
                 testFixture.destroy();
             }
@@ -570,6 +601,7 @@ describe('Toolbar', () => {
     describe('Template Precedence', () => {
         it('should process templates after content init', () => {
             const templateFixture = TestBed.createComponent(TestTemplateToolbarComponent);
+
             templateFixture.detectChanges();
 
             const toolbarInstance = templateFixture.debugElement.query(By.directive(Toolbar)).componentInstance;
@@ -583,9 +615,11 @@ describe('Toolbar', () => {
 
         it('should handle pTemplate directives', () => {
             const templateFixture = TestBed.createComponent(TestTemplateToolbarComponent);
+
             templateFixture.detectChanges();
 
             const startContent = templateFixture.debugElement.query(By.css('.start-button'));
+
             expect(startContent).toBeTruthy();
             expect(startContent.nativeElement.textContent).toBe('Start Button');
         });
@@ -603,27 +637,33 @@ describe('Toolbar', () => {
 
         it('should render ContentChild start template', () => {
             const startSection = contentChildFixture.debugElement.query(By.css('.p-toolbar-start'));
+
             expect(startSection).toBeTruthy();
 
             const startButton = contentChildFixture.debugElement.query(By.css('.start-button'));
+
             expect(startButton).toBeTruthy();
             expect(startButton.nativeElement.textContent).toBe('Start Content');
         });
 
         it('should render ContentChild center template', () => {
             const centerSection = contentChildFixture.debugElement.query(By.css('.p-toolbar-center'));
+
             expect(centerSection).toBeTruthy();
 
             const centerText = contentChildFixture.debugElement.query(By.css('.center-text'));
+
             expect(centerText).toBeTruthy();
             expect(centerText.nativeElement.textContent).toBe('Center Content');
         });
 
         it('should render ContentChild end template', () => {
             const endSection = contentChildFixture.debugElement.query(By.css('.p-toolbar-end'));
+
             expect(endSection).toBeTruthy();
 
             const endButton = contentChildFixture.debugElement.query(By.css('.end-button'));
+
             expect(endButton).toBeTruthy();
             expect(endButton.nativeElement.textContent).toBe('End Content');
         });
@@ -639,13 +679,14 @@ describe('Toolbar', () => {
 
         it('should have correct template references in component', () => {
             // Component's ViewChild references should be defined
-            expect(contentChildComponent.startTemplate).toBeDefined();
-            expect(contentChildComponent.centerTemplate).toBeDefined();
-            expect(contentChildComponent.endTemplate).toBeDefined();
+            expect(contentChildComponent.startTemplate()).toBeDefined();
+            expect(contentChildComponent.centerTemplate()).toBeDefined();
+            expect(contentChildComponent.endTemplate()).toBeDefined();
         });
 
         it('should render all three ContentChild sections', () => {
             const sections = contentChildFixture.debugElement.queryAll(By.css('.p-toolbar-start, .p-toolbar-center, .p-toolbar-end'));
+
             expect(sections.length).toBe(3);
 
             // Verify each section has correct data-pc-section attribute
@@ -662,20 +703,25 @@ describe('Toolbar', () => {
     describe('Component Integration', () => {
         it('should handle complex toolbar content', () => {
             const complexFixture = TestBed.createComponent(TestComplexToolbarComponent);
+
             complexFixture.detectChanges();
 
             const buttons = complexFixture.debugElement.queryAll(By.css('button'));
+
             expect(buttons.length).toBeGreaterThan(0);
 
             const searchInput = complexFixture.debugElement.query(By.css('.search-input'));
+
             expect(searchInput).toBeTruthy();
         });
 
         it('should maintain toolbar structure with different content types', () => {
             const templateFixture = TestBed.createComponent(TestTemplateToolbarComponent);
+
             templateFixture.detectChanges();
 
             const toolbar = templateFixture.debugElement.query(By.directive(Toolbar));
+
             expect(toolbar.nativeElement.children.length).toBeGreaterThan(0);
 
             // Verify toolbar maintains its structure
@@ -776,12 +822,10 @@ describe('Toolbar', () => {
 
         it('should use instance variables in PT functions', async () => {
             ptComponent.pt = {
-                root: ({ instance }) => {
-                    return {
-                        class: instance?.ariaLabelledBy ? 'HAS_ARIA' : 'NO_ARIA',
-                        'data-styleclass': instance?.styleClass
-                    };
-                }
+                root: ({ instance }) => ({
+                    class: instance?.ariaLabelledBy ? 'HAS_ARIA' : 'NO_ARIA',
+                    'data-styleclass': instance?.styleClass
+                })
             };
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
@@ -791,6 +835,7 @@ describe('Toolbar', () => {
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
+
             ptToolbar = ptFixture.debugElement.query(By.directive(Toolbar)).componentInstance;
 
             expect(toolbarEl.nativeElement.className).toContain('NO_ARIA');
@@ -798,6 +843,7 @@ describe('Toolbar', () => {
 
         it('should handle event binding in PT options', async () => {
             let clicked = false;
+
             ptComponent.pt = {
                 root: {
                     onclick: () => {
@@ -813,6 +859,7 @@ describe('Toolbar', () => {
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
+
             toolbarEl.nativeElement.click();
 
             expect(clicked).toBe(true);

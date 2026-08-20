@@ -6,7 +6,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     EventEmitter,
     forwardRef,
     inject,
@@ -16,9 +15,9 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    contentChildren
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@primeuix/utils';
@@ -208,6 +207,7 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
         if (this.multiple) {
             return this.allowEmpty || this.value?.length !== 1;
         }
+
         return this.allowEmpty;
     }
 
@@ -244,6 +244,7 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
             if (selected && !this.allowEmpty) {
                 return;
             }
+
             newValue = selected ? null : optionValue;
         }
 
@@ -315,10 +316,10 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
         return selected;
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this._itemTemplate = item.template;

@@ -98,20 +98,21 @@ export class DesignTokenField implements OnInit {
         if (!this.label) return false;
         const lowerName = this.label.toLowerCase();
         const colorShades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950'];
+
         return lowerName.includes('color') || lowerName.includes('background') || colorShades.includes(this.label);
     });
 
     inputStyleClass = computed(() => {
         const styleClass = this.isInvalid() ? 'border-red-500 dark:border-red-400 bg-red-50 dark:bg-red-500/30' : 'border-surface-300 dark:border-surface-600';
+
         return this.isColorType() ? `!text-xs !pr-8 ${styleClass}` : `!text-xs ${styleClass}`;
     });
 
-    isInvalid = computed(() => {
-        return this.modelValue() == null || this.modelValue().trim().length === 0 || this.modelValue().startsWith(this.componentKey) || (this.modelValue().isColor && $dt(this.modelValue()).value == undefined);
-    });
+    isInvalid = computed(() => this.modelValue() == null || this.modelValue().trim().length === 0 || this.modelValue().startsWith(this.componentKey) || (this.modelValue().isColor && $dt(this.modelValue()).value == undefined));
 
     previewColor = computed(() => {
         const tokenValue = typeof this.modelValue() === 'object' ? this.modelValue().name : this.modelValue();
+
         return tokenValue && tokenValue.trim().length && tokenValue.startsWith('{') && tokenValue.endsWith('}') ? $dt(tokenValue).variable : tokenValue;
     });
 

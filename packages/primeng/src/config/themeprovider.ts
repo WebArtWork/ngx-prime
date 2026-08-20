@@ -1,11 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { effect, inject, Injectable, signal, untracked } from '@angular/core';
+import { effect, inject, Injectable, signal, untracked, OnDestroy } from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { BaseStyle } from 'primeng/base';
 import type { ThemeConfigType } from './primeng.types';
 
 @Injectable({ providedIn: 'root' })
-export class ThemeProvider {
+export class ThemeProvider implements OnDestroy {
     // @todo define type for theme
     theme = signal<any>(undefined);
 
@@ -29,10 +29,12 @@ export class ThemeProvider {
         });
         effect(() => {
             const themeValue = this.theme();
+
             if (this.document && themeValue) {
                 if (!this.isThemeChanged) {
                     this.onThemeChange(themeValue);
                 }
+
                 this.isThemeChanged = false;
             }
         });
@@ -45,6 +47,7 @@ export class ThemeProvider {
 
     onThemeChange(value: any) {
         Theme.setTheme(value);
+
         if (this.document) {
             this.loadCommonTheme();
         }
@@ -69,6 +72,7 @@ export class ThemeProvider {
 
     setThemeConfig(config: ThemeConfigType): void {
         const { theme, csp } = config || {};
+
         if (theme) this.theme.set(theme);
         if (csp) this.csp.set(csp);
     }

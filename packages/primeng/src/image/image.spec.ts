@@ -10,11 +10,11 @@ const mockImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleri
 const mockPreviewImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg';
 
 @Component({
-    standalone: false,
     template: `
         <p-image [src]="src" [alt]="alt" [width]="width" [height]="height" [srcSet]="srcSet" [sizes]="sizes" [loading]="loading" [imageClass]="imageClass" [imageStyle]="imageStyle" [styleClass]="styleClass" (onImageError)="onImageError($event)">
         </p-image>
-    `
+    `,
+    imports: [ImageModule, SharedModule]
 })
 class TestBasicImageComponent {
     src: string = mockImageSrc;
@@ -35,7 +35,6 @@ class TestBasicImageComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-image
             [src]="src"
@@ -51,7 +50,8 @@ class TestBasicImageComponent {
             (onHide)="onHide($event)"
         >
         </p-image>
-    `
+    `,
+    imports: [ImageModule, SharedModule]
 })
 class TestPreviewImageComponent {
     src: string = mockImageSrc;
@@ -75,7 +75,6 @@ class TestPreviewImageComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-image [src]="src" [alt]="alt" [width]="width" [preview]="true">
             <ng-template #indicator>
@@ -103,7 +102,8 @@ class TestPreviewImageComponent {
                 <i class="pi pi-times custom-close"></i>
             </ng-template>
         </p-image>
-    `
+    `,
+    imports: [ImageModule, SharedModule]
 })
 class TestTemplateImageComponent {
     src: string = mockImageSrc;
@@ -113,7 +113,6 @@ class TestTemplateImageComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-image [src]="src" [alt]="alt" [width]="width" [preview]="true">
             <ng-template pTemplate="indicator">
@@ -141,7 +140,8 @@ class TestTemplateImageComponent {
                 <i class="pi pi-times ptemplate-close"></i>
             </ng-template>
         </p-image>
-    `
+    `,
+    imports: [ImageModule, SharedModule]
 })
 class TestPTemplateImageComponent {
     src: string = mockImageSrc;
@@ -156,8 +156,7 @@ describe('Image', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [ImageModule, SharedModule],
-            declarations: [TestBasicImageComponent, TestPreviewImageComponent, TestTemplateImageComponent, TestPTemplateImageComponent],
+            imports: [ImageModule, SharedModule, TestBasicImageComponent, TestPreviewImageComponent, TestTemplateImageComponent, TestPTemplateImageComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -184,9 +183,11 @@ describe('Image', () => {
         it('should accept custom input values', () => {
             const testFixture = TestBed.createComponent(TestBasicImageComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.detectChanges();
 
             const imageElement = testFixture.debugElement.query(By.css('img'));
+
             expect(imageElement.nativeElement.src).toContain(mockImageSrc);
             expect(imageElement.nativeElement.alt).toBe('Test Image');
             expect(imageElement.nativeElement.width).toBeGreaterThan(240);
@@ -202,6 +203,7 @@ describe('Image', () => {
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
+
             expect(imageElement).toBeTruthy();
             expect(imageElement.nativeElement.src).toContain(mockImageSrc);
             expect(imageElement.nativeElement.alt).toBe('Test Image');
@@ -224,12 +226,14 @@ describe('Image', () => {
 
         it('should render preview button when preview is enabled', () => {
             const previewButton = testFixture.debugElement.query(By.css('button'));
+
             expect(previewButton).toBeTruthy();
             expect(previewButton.nativeElement.getAttribute('aria-label')).toBeTruthy();
         });
 
         it('should open preview on button click', async () => {
             const previewButton = testFixture.debugElement.query(By.css('button'));
+
             previewButton.nativeElement.click();
             await testFixture.whenStable();
 
@@ -243,6 +247,7 @@ describe('Image', () => {
             testFixture.detectChanges();
 
             const maskElement = testFixture.debugElement.query(By.css('.p-image-mask, [class*="mask"]'));
+
             expect(maskElement).toBeTruthy();
         });
 
@@ -261,6 +266,7 @@ describe('Image', () => {
             testFixture.detectChanges();
 
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
+
             imageInstance.onMaskKeydown(escapeEvent);
             expect(imageInstance.previewVisible).toBe(false);
         });
@@ -278,6 +284,7 @@ describe('Image', () => {
 
         it('should rotate right', () => {
             const initialRotate = imageInstance.rotate;
+
             imageInstance.rotateRight();
             expect(imageInstance.rotate).toBe(initialRotate + 90);
             expect(imageInstance.previewClick).toBe(true);
@@ -285,6 +292,7 @@ describe('Image', () => {
 
         it('should rotate left', () => {
             const initialRotate = imageInstance.rotate;
+
             imageInstance.rotateLeft();
             expect(imageInstance.rotate).toBe(initialRotate - 90);
             expect(imageInstance.previewClick).toBe(true);
@@ -292,6 +300,7 @@ describe('Image', () => {
 
         it('should zoom in', () => {
             const initialScale = imageInstance.scale;
+
             imageInstance.zoomIn();
             expect(imageInstance.scale).toBe(initialScale + 0.1);
             expect(imageInstance.previewClick).toBe(true);
@@ -299,6 +308,7 @@ describe('Image', () => {
 
         it('should zoom out', () => {
             const initialScale = imageInstance.scale;
+
             imageInstance.zoomOut();
             expect(imageInstance.scale).toBe(initialScale - 0.1);
             expect(imageInstance.previewClick).toBe(true);
@@ -318,6 +328,7 @@ describe('Image', () => {
             imageInstance.rotate = 90;
             imageInstance.scale = 1.2;
             const style = imageInstance.imagePreviewStyle();
+
             expect(style.transform).toBe('rotate(90deg) scale(1.2)');
         });
     });
@@ -325,22 +336,27 @@ describe('Image', () => {
     describe('Template Content Projection', () => {
         it('should render custom indicator template with #template approach', () => {
             const testFixture = TestBed.createComponent(TestTemplateImageComponent);
+
             testFixture.detectChanges();
 
             const customIndicator = testFixture.debugElement.query(By.css('.custom-indicator'));
+
             expect(customIndicator).toBeTruthy();
         });
 
         it('should render custom image template with #template approach', () => {
             const testFixture = TestBed.createComponent(TestTemplateImageComponent);
+
             testFixture.detectChanges();
 
             const customImage = testFixture.debugElement.query(By.css('.custom-image'));
+
             expect(customImage).toBeTruthy();
         });
 
         it('should render custom templates with pTemplate approach', () => {
             const testFixture = TestBed.createComponent(TestPTemplateImageComponent);
+
             testFixture.detectChanges();
 
             const pTemplateIndicator = testFixture.debugElement.query(By.css('.ptemplate-indicator'));
@@ -369,6 +385,7 @@ describe('Image', () => {
             // onShow is now emitted in onAnimationStart, not onAnimationEnd
             const mockElement = document.createElement('div');
             const mockParent = document.createElement('div');
+
             mockParent.appendChild(mockElement);
             imageInstance.onAnimationStart({ element: mockElement } as any);
 
@@ -388,6 +405,7 @@ describe('Image', () => {
         it('should emit onImageError event on image error', () => {
             const testFixture = TestBed.createComponent(TestBasicImageComponent);
             const testComponent = testFixture.componentInstance;
+
             testFixture.detectChanges();
 
             const imageElement = testFixture.debugElement.query(By.css('img'));
@@ -401,6 +419,7 @@ describe('Image', () => {
 
         it('should handle toolbar click', () => {
             const mockEvent = new MouseEvent('click');
+
             spyOn(mockEvent, 'stopPropagation');
 
             imageInstance.handleToolbarClick(mockEvent);
@@ -538,6 +557,7 @@ describe('Image', () => {
 
         it('should handle image error', () => {
             const errorEvent = new Event('error');
+
             spyOn(imageInstance.onImageError, 'emit');
 
             imageInstance.imageError(errorEvent);
@@ -547,6 +567,7 @@ describe('Image', () => {
 
         it('should move overlay to top with proper z-index', () => {
             const mockWrapper = document.createElement('div');
+
             imageInstance.wrapper = mockWrapper;
 
             imageInstance.moveOnTop();
@@ -557,6 +578,7 @@ describe('Image', () => {
 
         it('should append container to specified target', () => {
             const mockWrapper = document.createElement('div');
+
             imageInstance.wrapper = mockWrapper;
 
             // Mock the appendTo computed signal
@@ -607,12 +629,14 @@ describe('Image', () => {
 
         it('should apply image class and style', () => {
             const imageElement = testFixture.debugElement.query(By.css('img'));
+
             expect(imageElement.nativeElement.classList.contains('test-image-class')).toBe(true);
             expect(imageElement.nativeElement.style.border).toBe('1px solid red');
         });
 
         it('should apply component style class', () => {
             const imageComponent = testFixture.debugElement.query(By.directive(Image));
+
             expect(imageComponent.nativeElement.classList.contains('test-style-class')).toBe(true);
         });
     });
@@ -620,6 +644,7 @@ describe('Image', () => {
     describe('Error Handling', () => {
         it('should handle missing templates gracefully', () => {
             const testFixture = TestBed.createComponent(Image);
+
             testFixture.detectChanges();
 
             expect(() => testFixture.detectChanges()).not.toThrow();
@@ -628,6 +653,7 @@ describe('Image', () => {
         it('should handle animation events gracefully', () => {
             const testFixture = TestBed.createComponent(Image);
             const imageInstance = testFixture.componentInstance;
+
             testFixture.detectChanges();
 
             // Test that the method exists and can be called
@@ -715,6 +741,7 @@ describe('Image', () => {
                 testFixture.detectChanges();
 
                 const imageElement = testFixture.debugElement.query(By.css('img'));
+
                 expect(imageElement.nativeElement.classList.contains('IMAGE_CUSTOM')).toBe(true);
                 expect(imageElement.nativeElement.style.border).toBe('2px solid blue');
                 expect(imageElement.nativeElement.getAttribute('data-test-image')).toBe('test-value');
@@ -736,6 +763,7 @@ describe('Image', () => {
                 testFixture.detectChanges();
 
                 const previewButton = testFixture.debugElement.query(By.css('button'));
+
                 expect(previewButton.nativeElement.classList.contains('PREVIEW_CUSTOM')).toBe(true);
                 expect(previewButton.nativeElement.style.opacity).toBe('0.8');
                 expect(previewButton.nativeElement.getAttribute('aria-label')).toBe('CUSTOM_PREVIEW_LABEL');
@@ -794,6 +822,7 @@ describe('Image', () => {
                         if (instance) {
                             instanceReceived = true;
                         }
+
                         return { class: 'PT_FUNCTION_CLASS' };
                     }
                 };
@@ -832,6 +861,7 @@ describe('Image', () => {
                 testFixture.detectChanges();
 
                 const imageElement = testFixture.debugElement.query(By.css('img'));
+
                 imageElement.nativeElement.click();
                 await testFixture.whenStable();
 
@@ -842,13 +872,11 @@ describe('Image', () => {
                 const testFixture = TestBed.createComponent(Image);
                 const testComponent = testFixture.componentInstance;
                 const pt = {
-                    previewMask: ({ instance }: any) => {
-                        return {
-                            onclick: () => {
-                                instance.scale = 2.0;
-                            }
-                        };
-                    }
+                    previewMask: ({ instance }: any) => ({
+                        onclick: () => {
+                            instance.scale = 2.0;
+                        }
+                    })
                 };
 
                 testFixture.componentRef.setInput('src', mockImageSrc);
@@ -857,6 +885,7 @@ describe('Image', () => {
                 testFixture.detectChanges();
 
                 const previewButton = testFixture.debugElement.query(By.css('button'));
+
                 previewButton.nativeElement.click();
                 await testFixture.whenStable();
 
@@ -884,6 +913,7 @@ describe('Image', () => {
                                 emitterCalled = true;
                             });
                         }
+
                         return {};
                     }
                 };
@@ -901,6 +931,7 @@ describe('Image', () => {
                 // onShow is now emitted in onAnimationStart, not onAnimationEnd
                 const mockElement = document.createElement('div');
                 const mockParent = document.createElement('div');
+
                 mockParent.appendChild(mockElement);
                 testComponent.onAnimationStart({ element: mockElement } as any);
                 await testFixture.whenStable();
@@ -916,45 +947,47 @@ describe('Image', () => {
 
             it('should accept inline PT with string class', () => {
                 @Component({
-                    standalone: false,
-                    template: `<p-image [src]="src" [pt]="{ root: 'TEST_INLINE_CLASS' }" />`
+                    template: `<p-image [src]="src" [pt]="{ root: 'TEST_INLINE_CLASS' }" />`,
+                    imports: [ImageModule]
                 })
                 class TestInlineComponent {
                     src = mockImageSrc;
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [ImageModule],
-                    declarations: [TestInlineComponent],
+                    imports: [ImageModule, TestInlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
                 const testFixture = TestBed.createComponent(TestInlineComponent);
+
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.directive(Image));
+
                 expect(rootElement.nativeElement.classList.contains('TEST_INLINE_CLASS')).toBe(true);
             });
 
             it('should accept inline PT with object class', () => {
                 @Component({
-                    standalone: false,
-                    template: `<p-image [src]="src" [pt]="{ root: { class: 'TEST_INLINE_OBJECT_CLASS' } }" />`
+                    template: `<p-image [src]="src" [pt]="{ root: { class: 'TEST_INLINE_OBJECT_CLASS' } }" />`,
+                    imports: [ImageModule]
                 })
                 class TestInlineObjectComponent {
                     src = mockImageSrc;
                 }
 
                 TestBed.configureTestingModule({
-                    imports: [ImageModule],
-                    declarations: [TestInlineObjectComponent],
+                    imports: [ImageModule, TestInlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 });
 
                 const testFixture = TestBed.createComponent(TestInlineObjectComponent);
+
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.directive(Image));
+
                 expect(rootElement.nativeElement.classList.contains('TEST_INLINE_OBJECT_CLASS')).toBe(true);
             });
         });
@@ -968,11 +1001,11 @@ describe('Image', () => {
                 const { providePrimeNG } = await import('primeng/config');
 
                 @Component({
-                    standalone: false,
                     template: `
                         <p-image [src]="src1" />
                         <p-image [src]="src2" />
-                    `
+                    `,
+                    imports: [ImageModule]
                 })
                 class TestGlobalPTComponent {
                     src1 = mockImageSrc;
@@ -980,8 +1013,7 @@ describe('Image', () => {
                 }
 
                 await TestBed.configureTestingModule({
-                    imports: [ImageModule],
-                    declarations: [TestGlobalPTComponent],
+                    imports: [ImageModule, TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -998,9 +1030,11 @@ describe('Image', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 testFixture.detectChanges();
 
                 const imageComponents = testFixture.debugElement.queryAll(By.directive(Image));
+
                 expect(imageComponents.length).toBe(2);
 
                 imageComponents.forEach((imgComp) => {
@@ -1043,6 +1077,7 @@ describe('Image', () => {
                 // Verify basic PT sections are applied
                 expect(testFixture.nativeElement.classList.contains('ROOT_PT')).toBe(true);
                 const imageElement = testFixture.debugElement.query(By.css('img'));
+
                 expect(imageElement.nativeElement.classList.contains('IMAGE_PT')).toBe(true);
             });
         });

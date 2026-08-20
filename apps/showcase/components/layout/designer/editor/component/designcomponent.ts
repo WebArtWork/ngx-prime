@@ -72,6 +72,7 @@ export class DesignComponent implements OnInit {
 
     lightTokens = computed(() => {
         const designer = this.designerService.designer();
+
         return designer.theme.preset.components[this.componentKey()].colorScheme?.light;
     });
 
@@ -79,12 +80,7 @@ export class DesignComponent implements OnInit {
 
     hasColorScheme = computed(() => this.tokens().colorScheme !== undefined);
 
-    hasCommonTokens = computed(
-        () =>
-            Object.keys(this.tokens()).filter((name: string) => {
-                return name !== 'colorScheme' && name !== 'css';
-            }).length > 0
-    );
+    hasCommonTokens = computed(() => Object.keys(this.tokens()).filter((name: string) => name !== 'colorScheme' && name !== 'css').length > 0);
 
     routeSubscription!: Subscription;
 
@@ -92,6 +88,7 @@ export class DesignComponent implements OnInit {
         this.routeSubscription = this.router.events.subscribe((event: NavigationEnd) => {
             if (event.url) {
                 const url = event.url.split('/')[1] === 'table' ? 'datatable' : event.url.split('/')[1];
+
                 this.componentKey.set(url);
             }
         });
@@ -100,6 +97,7 @@ export class DesignComponent implements OnInit {
     ngOnInit() {
         if (!this.componentKey()) {
             const url = this.router.routerState.snapshot.url.split('/')[1] === 'table' ? 'datatable' : this.router.routerState.snapshot.url.split('/')[1];
+
             this.componentKey.set(url);
         }
     }
@@ -108,6 +106,7 @@ export class DesignComponent implements OnInit {
         if (event === 'cs-1') {
             this.configService.appState.update((state) => ({ ...state, darkTheme: true }));
         }
+
         if (event === 'cs-0') {
             this.configService.appState.update((state) => ({ ...state, darkTheme: false }));
         }

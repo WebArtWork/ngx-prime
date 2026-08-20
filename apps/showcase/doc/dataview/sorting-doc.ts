@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -68,7 +68,7 @@ import { TagModule } from 'primeng/tag';
         <app-code [extFiles]="['Product']"></app-code>
     `
 })
-export class SortingDoc {
+export class SortingDoc implements OnInit {
     sortOptions!: SelectItem[];
 
     sortOrder!: number;

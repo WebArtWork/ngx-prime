@@ -1,23 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChild,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    inject,
-    InjectionToken,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    signal,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, inject, InjectionToken, Input, NgModule, Output, signal, TemplateRef, ViewEncapsulation, viewChild, contentChild, contentChildren } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { find, findSingle, resolve, uuid } from '@primeuix/utils';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -59,74 +41,83 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
                 [pBind]="ptm('list')"
             >
                 @for (item of model; track item.label; let i = $index) {
-                    <li
-                        *ngIf="item.visible !== false"
-                        [attr.id]="getItemId(item, i)"
-                        [class]="cn(cx('item', { item, id: getItemId(item, i) }), item?.styleClass)"
-                        [ngStyle]="item.style"
-                        role="menuitem"
-                        [attr.aria-label]="item.label"
-                        [attr.aria-disabled]="disabled(item) || false"
-                        (click)="onItemClick($event, item)"
-                        (mouseenter)="onItemMouseEnter(i)"
-                        [pBind]="getPTOptions(item, i, 'item')"
-                        [attr.data-p-focused]="isItemActive(getItemId(item, i))"
-                        [attr.data-p-disabled]="disabled(item) || false"
-                    >
-                        <div [class]="cx('itemContent')" [pBind]="getPTOptions(item, i, 'itemContent')">
-                            <a
-                                *ngIf="isClickableRouterLink(item); else elseBlock"
-                                pRipple
-                                [routerLink]="item.routerLink"
-                                [queryParams]="item.queryParams"
-                                [class]="cn(cx('itemLink'), item?.linkClass)"
-                                [ngStyle]="item?.linkStyle"
-                                routerLinkActive="router-link-active"
-                                [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                                [target]="item.target"
-                                [attr.title]="item.title"
-                                [attr.data-automationid]="item.automationId"
-                                [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
-                                pTooltip
-                                [tooltipOptions]="item.tooltipOptions"
-                                [pTooltipUnstyled]="unstyled()"
-                                [fragment]="item.fragment"
-                                [queryParamsHandling]="item.queryParamsHandling"
-                                [preserveFragment]="item.preserveFragment"
-                                [skipLocationChange]="item.skipLocationChange"
-                                [replaceUrl]="item.replaceUrl"
-                                [state]="item.state"
-                                [attr.aria-hidden]="true"
-                                [pBind]="getPTOptions(item, i, 'itemLink')"
-                            >
-                                <span [class]="cn(cx('itemIcon'), item.icon, item.iconClass)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
-                                <ng-container *ngTemplateOutlet="itemTemplate || itemTemplate; context: { $implicit: item }"></ng-container>
-                                <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions(item, i, 'pcBadge')" [unstyled]="unstyled()" />
-                            </a>
-                            <ng-template #elseBlock>
-                                <a
-                                    [tooltipPosition]="item.tooltipPosition"
-                                    [attr.href]="item.url || null"
-                                    [class]="cn(cx('itemLink'), item?.linkClass)"
-                                    [ngStyle]="item?.linkStyle"
-                                    pRipple
-                                    pTooltip
-                                    [tooltipOptions]="item.tooltipOptions"
-                                    [pTooltipUnstyled]="unstyled()"
-                                    [target]="item.target"
-                                    [attr.title]="item.title"
-                                    [attr.data-automationid]="item.automationId"
-                                    [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
-                                    [attr.aria-hidden]="true"
-                                    [pBind]="getPTOptions(item, i, 'itemLink')"
-                                >
-                                    <span [class]="cn(cx('itemIcon'), item.icon, item.iconClass)" *ngIf="item.icon && !itemTemplate && !_itemTemplate" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
-                                    <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item }"></ng-container>
-                                    <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions(item, i, 'pcBadge')" [unstyled]="unstyled()" />
-                                </a>
-                            </ng-template>
-                        </div>
-                    </li>
+                    @if (item.visible !== false) {
+                        <li
+                            [attr.id]="getItemId(item, i)"
+                            [class]="cn(cx('item', { item, id: getItemId(item, i) }), item?.styleClass)"
+                            [ngStyle]="item.style"
+                            role="menuitem"
+                            [attr.aria-label]="item.label"
+                            [attr.aria-disabled]="disabled(item) || false"
+                            (click)="onItemClick($event, item)"
+                            (mouseenter)="onItemMouseEnter(i)"
+                            [pBind]="getPTOptions(item, i, 'item')"
+                            [attr.data-p-focused]="isItemActive(getItemId(item, i))"
+                            [attr.data-p-disabled]="disabled(item) || false"
+                        >
+                            <div [class]="cx('itemContent')" [pBind]="getPTOptions(item, i, 'itemContent')">
+                                @if (isClickableRouterLink(item)) {
+                                    <a
+                                        pRipple
+                                        [routerLink]="item.routerLink"
+                                        [queryParams]="item.queryParams"
+                                        [class]="cn(cx('itemLink'), item?.linkClass)"
+                                        [ngStyle]="item?.linkStyle"
+                                        routerLinkActive="router-link-active"
+                                        [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                                        [target]="item.target"
+                                        [attr.title]="item.title"
+                                        [attr.data-automationid]="item.automationId"
+                                        [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
+                                        pTooltip
+                                        [tooltipOptions]="item.tooltipOptions"
+                                        [pTooltipUnstyled]="unstyled()"
+                                        [fragment]="item.fragment"
+                                        [queryParamsHandling]="item.queryParamsHandling"
+                                        [preserveFragment]="item.preserveFragment"
+                                        [skipLocationChange]="item.skipLocationChange"
+                                        [replaceUrl]="item.replaceUrl"
+                                        [state]="item.state"
+                                        [attr.aria-hidden]="true"
+                                        [pBind]="getPTOptions(item, i, 'itemLink')"
+                                    >
+                                        @if (item.icon && !itemTemplate() && !_itemTemplate) {
+                                            <span [class]="cn(cx('itemIcon'), item.icon, item.iconClass)" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
+                                        }
+                                        <ng-container *ngTemplateOutlet="itemTemplate() || itemTemplate(); context: { $implicit: item }"></ng-container>
+                                        @if (item.badge) {
+                                            <p-badge [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions(item, i, 'pcBadge')" [unstyled]="unstyled()" />
+                                        }
+                                    </a>
+                                } @else {
+                                    <a
+                                        [tooltipPosition]="item.tooltipPosition"
+                                        [attr.href]="item.url || null"
+                                        [class]="cn(cx('itemLink'), item?.linkClass)"
+                                        [ngStyle]="item?.linkStyle"
+                                        pRipple
+                                        pTooltip
+                                        [tooltipOptions]="item.tooltipOptions"
+                                        [pTooltipUnstyled]="unstyled()"
+                                        [target]="item.target"
+                                        [attr.title]="item.title"
+                                        [attr.data-automationid]="item.automationId"
+                                        [attr.tabindex]="item.disabled ? null : item.tabindex ? item.tabindex : '-1'"
+                                        [attr.aria-hidden]="true"
+                                        [pBind]="getPTOptions(item, i, 'itemLink')"
+                                    >
+                                        @if (item.icon && !itemTemplate() && !_itemTemplate) {
+                                            <span [class]="cn(cx('itemIcon'), item.icon, item.iconClass)" [ngStyle]="item.iconStyle" [pBind]="getPTOptions(item, i, 'itemIcon')"></span>
+                                        }
+                                        <ng-container *ngTemplateOutlet="itemTemplate() || _itemTemplate; context: { $implicit: item }"></ng-container>
+                                        @if (item.badge) {
+                                            <p-badge [styleClass]="item.badgeStyleClass" [value]="item.badge" [pt]="getPTOptions(item, i, 'pcBadge')" [unstyled]="unstyled()" />
+                                        }
+                                    </a>
+                                }
+                            </div>
+                        </li>
+                    }
                 }
             </ul>
         </div>
@@ -140,6 +131,8 @@ const DOCK_INSTANCE = new InjectionToken<Dock>('DOCK_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Dock extends BaseComponent<DockPassThrough> {
+    cd = inject(ChangeDetectorRef);
+
     componentName = 'Dock';
 
     /**
@@ -192,7 +185,7 @@ export class Dock extends BaseComponent<DockPassThrough> {
      */
     @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
-    @ViewChild('list', { static: false }) listViewChild: Nullable<ElementRef>;
+    readonly listViewChild = viewChild<Nullable<ElementRef>>('list');
 
     currentIndex: number;
 
@@ -220,7 +213,7 @@ export class Dock extends BaseComponent<DockPassThrough> {
         return this.focusedOptionIndex !== -1 && this.focusedOptionIndex !== '-1' ? String(this.focusedOptionIndex) : null;
     }
 
-    constructor(public cd: ChangeDetectorRef) {
+    constructor() {
         super();
         this.currentIndex = -3;
     }
@@ -239,7 +232,7 @@ export class Dock extends BaseComponent<DockPassThrough> {
      * @param {DockItemTemplateContext} context - item template context.
      * @group Templates
      */
-    @ContentChild('item') itemTemplate: TemplateRef<DockItemTemplateContext> | undefined;
+    readonly itemTemplate = contentChild<TemplateRef<DockItemTemplateContext>>('item');
 
     _itemTemplate: TemplateRef<DockItemTemplateContext> | undefined;
 
@@ -359,25 +352,25 @@ export class Dock extends BaseComponent<DockPassThrough> {
     }
 
     onEndKey() {
-        this.changeFocusedOptionIndex(find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]').length - 1);
+        this.changeFocusedOptionIndex(find(this.listViewChild()?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]').length - 1);
     }
 
     onSpaceKey() {
-        const element = <HTMLElement>findSingle(this.listViewChild?.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
+        const element = <HTMLElement>findSingle(this.listViewChild()?.nativeElement, `li[id="${`${this.focusedOptionIndex}`}"]`);
         const anchorElement = element && <HTMLElement>findSingle(element, 'a,button');
 
         anchorElement ? anchorElement.click() : element && element.click();
     }
 
     findNextOptionIndex(index) {
-        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild()?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     changeFocusedOptionIndex(index) {
-        const menuitems = <any>find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
+        const menuitems = <any>find(this.listViewChild()?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
 
         let order = index >= menuitems.length ? menuitems.length - 1 : index < 0 ? 0 : index;
 
@@ -385,7 +378,7 @@ export class Dock extends BaseComponent<DockPassThrough> {
     }
 
     findPrevOptionIndex(index) {
-        const menuitems = find(this.listViewChild?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
+        const menuitems = find(this.listViewChild()?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
         const matchedOptionIndex = [...menuitems].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
@@ -395,10 +388,10 @@ export class Dock extends BaseComponent<DockPassThrough> {
         return !!item.routerLink && !this.disabled(item);
     }
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
     onAfterContentInit() {
-        this.templates?.forEach((item) => {
+        this.templates()?.forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this._itemTemplate = item.template;
@@ -427,6 +420,7 @@ export class Dock extends BaseComponent<DockPassThrough> {
     bindMatchMediaListener() {
         if (!this.matchMediaListener) {
             const query = window.matchMedia(`(max-width: ${this.breakpoint})`);
+
             this.query = query;
             this.queryMatches.set(query.matches);
 

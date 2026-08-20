@@ -8,8 +8,8 @@ import { providePrimeNG } from 'primeng/config';
 import { Dock } from './dock';
 
 @Component({
-    standalone: false,
-    template: ` <p-dock [id]="id" [model]="model" [position]="position" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [breakpoint]="breakpoint" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)"> </p-dock> `
+    template: ` <p-dock [id]="id" [model]="model" [position]="position" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [breakpoint]="breakpoint" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)"> </p-dock> `,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestBasicDockComponent {
     id: string | undefined;
@@ -33,9 +33,9 @@ class TestBasicDockComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-position-dock',
-    template: ` <p-dock [model]="model" [position]="position"></p-dock> `
+    template: ` <p-dock [model]="model" [position]="position"></p-dock> `,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestPositionDockComponent {
     position: 'bottom' | 'top' | 'left' | 'right' = 'bottom';
@@ -46,9 +46,9 @@ class TestPositionDockComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-router-dock',
-    template: ` <p-dock [model]="routerModel"></p-dock> `
+    template: ` <p-dock [model]="routerModel"></p-dock> `,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestRouterDockComponent {
     routerModel: MenuItem[] = [
@@ -64,18 +64,20 @@ class TestRouterDockComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-item-template-dock',
     template: `
         <p-dock [model]="model">
             <ng-template #item let-item>
                 <div class="custom-dock-item">
-                    <i [class]="item.icon" *ngIf="item.icon"></i>
+                    @if (item.icon) {
+                        <i [class]="item.icon"></i>
+                    }
                     <span class="custom-label">{{ item.label }}</span>
                 </div>
             </ng-template>
         </p-dock>
-    `
+    `,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestItemTemplateDockComponent {
     model: MenuItem[] = [
@@ -85,7 +87,6 @@ class TestItemTemplateDockComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-ptemplate-dock',
     template: `
         <p-dock [model]="model">
@@ -93,25 +94,26 @@ class TestItemTemplateDockComponent {
                 <span class="p-template-item">{{ item.label }}</span>
             </ng-template>
         </p-dock>
-    `
+    `,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestPTemplateDockComponent {
     model: MenuItem[] = [{ label: 'PTemplate Item 1' }, { label: 'PTemplate Item 2' }];
 }
 
 @Component({
-    standalone: false,
     selector: 'test-disabled-items-dock',
-    template: ` <p-dock [model]="disabledModel"></p-dock> `
+    template: ` <p-dock [model]="disabledModel"></p-dock> `,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestDisabledItemsDockComponent {
     disabledModel: MenuItem[] = [{ label: 'Enabled Item', icon: 'pi pi-check' }, { label: 'Disabled Item', icon: 'pi pi-times', disabled: true }, { label: 'Function Disabled', icon: 'pi pi-question', disabled: () => true } as any];
 }
 
 @Component({
-    standalone: false,
     selector: 'test-styled-dock',
-    template: ` <p-dock [model]="model" [styleClass]="customStyleClass"></p-dock> `
+    template: ` <p-dock [model]="model" [styleClass]="customStyleClass"></p-dock> `,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestStyledDockComponent {
     model: MenuItem[] = [{ label: 'Test', icon: 'pi pi-test' }];
@@ -119,16 +121,16 @@ class TestStyledDockComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-minimal-dock',
-    template: `<p-dock></p-dock>`
+    template: `<p-dock></p-dock>`,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestMinimalDockComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-dynamic-dock',
-    template: ` <p-dock [model]="dynamicModel"></p-dock> `
+    template: ` <p-dock [model]="dynamicModel"></p-dock> `,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestDynamicDockComponent {
     dynamicModel: MenuItem[] = [];
@@ -147,9 +149,9 @@ class TestDynamicDockComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-command-dock',
-    template: ` <p-dock [model]="commandModel"></p-dock> `
+    template: ` <p-dock [model]="commandModel"></p-dock> `,
+    imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestCommandDockComponent {
     commandExecuted: any;
@@ -179,7 +181,15 @@ describe('Dock', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [
+            imports: [
+                Dock,
+                TestTargetComponent,
+                SharedModule,
+                RouterTestingModule.withRoutes([
+                    { path: '', component: TestTargetComponent },
+                    { path: 'products', component: TestTargetComponent },
+                    { path: 'services', component: TestTargetComponent }
+                ]),
                 TestBasicDockComponent,
                 TestPositionDockComponent,
                 TestRouterDockComponent,
@@ -190,17 +200,6 @@ describe('Dock', () => {
                 TestMinimalDockComponent,
                 TestDynamicDockComponent,
                 TestCommandDockComponent
-            ],
-            imports: [
-                Dock,
-                TestTargetComponent,
-
-                SharedModule,
-                RouterTestingModule.withRoutes([
-                    { path: '', component: TestTargetComponent },
-                    { path: 'products', component: TestTargetComponent },
-                    { path: 'services', component: TestTargetComponent }
-                ])
             ],
             providers: [provideZonelessChangeDetection()],
             schemas: [NO_ERRORS_SCHEMA]
@@ -227,6 +226,7 @@ describe('Dock', () => {
 
         it('should have default values', async () => {
             const freshFixture = TestBed.createComponent(TestMinimalDockComponent);
+
             freshFixture.changeDetectorRef.markForCheck();
             await freshFixture.whenStable();
 
@@ -243,6 +243,7 @@ describe('Dock', () => {
 
         it('should accept custom values', async () => {
             const testModel: MenuItem[] = [{ label: 'Test Item' }];
+
             component.model = testModel;
             component.position = 'top';
             component.styleClass = 'custom-dock';
@@ -278,6 +279,7 @@ describe('Dock', () => {
     describe('Input Properties', () => {
         it('should update model input', async () => {
             const newModel = [{ label: 'New Item' }];
+
             component.model = newModel;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -329,16 +331,19 @@ describe('Dock', () => {
     describe('Dock Item Display Tests', () => {
         it('should render dock items from model', () => {
             const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+
             expect(items.length).toBe(4); // All items including separator
         });
 
         it('should render item icons when provided', () => {
             const iconElements = fixture.debugElement.queryAll(By.css('span[class*="pi-"]'));
+
             expect(iconElements.length).toBeGreaterThanOrEqual(3); // Icons for non-separator items
         });
 
         it('should render item labels', () => {
             const itemElements = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+
             expect(itemElements[0].nativeElement.getAttribute('aria-label')).toBe('File');
             expect(itemElements[1].nativeElement.getAttribute('aria-label')).toBe('Edit');
             // Skip separator item (itemElements[2] is separator)
@@ -355,6 +360,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+
             expect(items.length).toBe(2); // Only visible items
         });
 
@@ -364,6 +370,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+
             expect(items.length).toBe(0);
         });
 
@@ -373,6 +380,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+
             expect(items.length).toBe(0);
         });
     });
@@ -381,44 +389,52 @@ describe('Dock', () => {
         it('should set aria-orientation for bottom position', async () => {
             const positionFixture = TestBed.createComponent(TestPositionDockComponent);
             const positionComponent = positionFixture.componentInstance;
+
             positionComponent.position = 'bottom';
             positionFixture.changeDetectorRef.markForCheck();
             await positionFixture.whenStable();
 
             const list = positionFixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(list.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
         });
 
         it('should set aria-orientation for top position', async () => {
             const positionFixture = TestBed.createComponent(TestPositionDockComponent);
             const positionComponent = positionFixture.componentInstance;
+
             positionComponent.position = 'top';
             positionFixture.changeDetectorRef.markForCheck();
             await positionFixture.whenStable();
 
             const list = positionFixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(list.nativeElement.getAttribute('aria-orientation')).toBe('horizontal');
         });
 
         it('should set aria-orientation for left position', async () => {
             const positionFixture = TestBed.createComponent(TestPositionDockComponent);
             const positionComponent = positionFixture.componentInstance;
+
             positionComponent.position = 'left';
             positionFixture.changeDetectorRef.markForCheck();
             await positionFixture.whenStable();
 
             const list = positionFixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(list.nativeElement.getAttribute('aria-orientation')).toBe('vertical');
         });
 
         it('should set aria-orientation for right position', async () => {
             const positionFixture = TestBed.createComponent(TestPositionDockComponent);
             const positionComponent = positionFixture.componentInstance;
+
             positionComponent.position = 'right';
             positionFixture.changeDetectorRef.markForCheck();
             await positionFixture.whenStable();
 
             const list = positionFixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(list.nativeElement.getAttribute('aria-orientation')).toBe('vertical');
         });
     });
@@ -427,10 +443,12 @@ describe('Dock', () => {
         it('should execute command when item is clicked', async () => {
             const commandFixture = TestBed.createComponent(TestCommandDockComponent);
             const commandComponent = commandFixture.componentInstance;
+
             commandFixture.changeDetectorRef.markForCheck();
             await commandFixture.whenStable();
 
             const itemElement = commandFixture.debugElement.query(By.css('li[role="menuitem"]'));
+
             itemElement.nativeElement.click();
 
             expect(commandComponent.commandExecuted).toBeDefined();
@@ -441,6 +459,7 @@ describe('Dock', () => {
             spyOn(dockInstance, 'onItemMouseEnter');
 
             const itemElement = fixture.debugElement.query(By.css('li[role="menuitem"]'));
+
             itemElement.triggerEventHandler('mouseenter', {});
 
             expect(dockInstance.onItemMouseEnter).toHaveBeenCalled();
@@ -450,6 +469,7 @@ describe('Dock', () => {
             spyOn(dockInstance, 'onListMouseLeave');
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             listElement.triggerEventHandler('mouseleave', {});
 
             expect(dockInstance.onListMouseLeave).toHaveBeenCalled();
@@ -469,6 +489,7 @@ describe('Dock', () => {
     describe('Template Tests', () => {
         it('should handle #item template processing', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateDockComponent);
+
             itemTemplateFixture.changeDetectorRef.markForCheck();
             await itemTemplateFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -481,6 +502,7 @@ describe('Dock', () => {
 
         it('should handle pTemplate processing', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateDockComponent);
+
             pTemplateFixture.changeDetectorRef.markForCheck();
             await pTemplateFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -493,6 +515,7 @@ describe('Dock', () => {
 
         it('should process PrimeTemplate types correctly', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateDockComponent);
+
             pTemplateFixture.changeDetectorRef.markForCheck();
             await pTemplateFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -506,6 +529,7 @@ describe('Dock', () => {
 
         it('should prioritize itemTemplate over _itemTemplate', async () => {
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateDockComponent);
+
             itemTemplateFixture.changeDetectorRef.markForCheck();
             await itemTemplateFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -520,21 +544,25 @@ describe('Dock', () => {
         it('should render different template types correctly', async () => {
             // Test pTemplate rendering
             const pTemplateFixture = TestBed.createComponent(TestPTemplateDockComponent);
+
             pTemplateFixture.changeDetectorRef.markForCheck();
             await pTemplateFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const pTemplateDock = pTemplateFixture.debugElement.query(By.directive(Dock)).componentInstance;
+
             expect(pTemplateDock.templates).toBeDefined();
             expect(() => pTemplateDock.ngAfterContentInit()).not.toThrow();
 
             // Test #item template rendering
             const itemTemplateFixture = TestBed.createComponent(TestItemTemplateDockComponent);
+
             itemTemplateFixture.changeDetectorRef.markForCheck();
             await itemTemplateFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             const itemTemplateDock = itemTemplateFixture.debugElement.query(By.directive(Dock)).componentInstance;
+
             expect(itemTemplateDock.itemTemplate).toBeDefined();
         });
     });
@@ -551,6 +579,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+
             spyOn(keyEvent, 'preventDefault');
             spyOn(dockInstance, 'onArrowDownKey');
 
@@ -566,6 +595,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
+
             spyOn(keyEvent, 'preventDefault');
             spyOn(dockInstance, 'onArrowUpKey');
 
@@ -581,6 +611,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             spyOn(keyEvent, 'preventDefault');
             spyOn(dockInstance, 'onArrowDownKey');
 
@@ -596,6 +627,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+
             spyOn(keyEvent, 'preventDefault');
             spyOn(dockInstance, 'onArrowUpKey');
 
@@ -607,6 +639,7 @@ describe('Dock', () => {
 
         it('should handle home key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Home' });
+
             spyOn(keyEvent, 'preventDefault');
             spyOn(dockInstance, 'onHomeKey');
 
@@ -618,6 +651,7 @@ describe('Dock', () => {
 
         it('should handle end key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'End' });
+
             spyOn(keyEvent, 'preventDefault');
             spyOn(dockInstance, 'onEndKey');
 
@@ -629,6 +663,7 @@ describe('Dock', () => {
 
         it('should handle enter key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
             spyOn(keyEvent, 'preventDefault');
             spyOn(dockInstance, 'onSpaceKey');
 
@@ -640,6 +675,7 @@ describe('Dock', () => {
 
         it('should handle space key', () => {
             const keyEvent = new KeyboardEvent('keydown', { code: 'Space' });
+
             spyOn(keyEvent, 'preventDefault');
             spyOn(dockInstance, 'onSpaceKey');
 
@@ -664,6 +700,7 @@ describe('Dock', () => {
         it('should emit onBlur when list loses focus', () => {
             spyOn(dockInstance.onBlur, 'emit');
             const blurEvent = new FocusEvent('blur');
+
             dockInstance.focused = true;
 
             dockInstance.onListBlur(blurEvent);
@@ -698,6 +735,7 @@ describe('Dock', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply styleClass when provided', async () => {
             const styleFixture = TestBed.createComponent(TestStyledDockComponent);
+
             styleFixture.changeDetectorRef.markForCheck();
             await styleFixture.whenStable();
 
@@ -722,6 +760,7 @@ describe('Dock', () => {
 
         it('should have generated id on list element', () => {
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(listElement.nativeElement.getAttribute('id')).toBeTruthy();
         });
     });
@@ -743,6 +782,7 @@ describe('Dock', () => {
 
                 // Check if item has a label (separators might not have labels)
                 const ariaLabel = item.nativeElement.getAttribute('aria-label');
+
                 if (ariaLabel !== null) {
                     expect(item.nativeElement.hasAttribute('aria-label')).toBe(true);
                 }
@@ -751,6 +791,7 @@ describe('Dock', () => {
                 expect(item.nativeElement.hasAttribute('aria-disabled')).toBe(true);
                 // Check the actual value
                 const ariaDisabledValue = item.nativeElement.getAttribute('aria-disabled');
+
                 expect(ariaDisabledValue === 'true' || ariaDisabledValue === 'false').toBe(true);
             });
         });
@@ -781,6 +822,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(listElement.nativeElement.getAttribute('aria-activedescendant')).toBeNull();
         });
 
@@ -790,6 +832,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(listElement.nativeElement.getAttribute('aria-label')).toBe('Main Navigation Dock');
         });
 
@@ -799,6 +842,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+
             expect(listElement.nativeElement.getAttribute('aria-labelledby')).toBe('dock-heading');
         });
     });
@@ -819,6 +863,7 @@ describe('Dock', () => {
 
             // Router links get converted to href after processing, so look for routerlinkactive
             const routerLinks = routerFixture.debugElement.queryAll(By.css('a[routerlinkactive]'));
+
             expect(routerLinks.length).toBe(3);
         });
 
@@ -838,11 +883,13 @@ describe('Dock', () => {
 
         it('should handle router link with query params', async () => {
             const routerFixture = TestBed.createComponent(TestRouterDockComponent);
+
             routerFixture.changeDetectorRef.markForCheck();
             await routerFixture.whenStable();
 
             // Look for href instead of routerLink attribute
             const routerLink = routerFixture.debugElement.query(By.css('a[href="/services?tab=overview"]'));
+
             expect(routerLink).toBeTruthy();
         });
     });
@@ -850,6 +897,7 @@ describe('Dock', () => {
     describe('Disabled Items Tests', () => {
         it('should handle disabled items correctly', async () => {
             const disabledFixture = TestBed.createComponent(TestDisabledItemsDockComponent);
+
             disabledFixture.changeDetectorRef.markForCheck();
             await disabledFixture.whenStable();
 
@@ -863,6 +911,7 @@ describe('Dock', () => {
 
         it('should set data-p-disabled attribute for disabled items', async () => {
             const disabledFixture = TestBed.createComponent(TestDisabledItemsDockComponent);
+
             disabledFixture.changeDetectorRef.markForCheck();
             await disabledFixture.whenStable();
 
@@ -881,6 +930,7 @@ describe('Dock', () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicDockComponent);
             const dynamicComponent = dynamicFixture.componentInstance;
             const dynamicDock = dynamicFixture.debugElement.query(By.directive(Dock)).componentInstance;
+
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
@@ -933,6 +983,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const iconElements = fixture.debugElement.queryAll(By.css('span[class*="pi-"]'));
+
             expect(iconElements.length).toBe(1); // Only one item has icon
         });
 
@@ -942,6 +993,7 @@ describe('Dock', () => {
             await fixture.whenStable();
 
             const itemElement = fixture.debugElement.query(By.css('li[role="menuitem"]'));
+
             expect(itemElement?.nativeElement.classList.contains('custom-item-class')).toBe(true);
         });
 
@@ -1043,6 +1095,7 @@ describe('Dock', () => {
 
             const listContainerEl = ptFixture.nativeElement.querySelector('.LIST_CONTAINER_CLASS');
             const listEl = ptFixture.nativeElement.querySelector('.LIST_CLASS');
+
             expect(listContainerEl).toBeTruthy();
             expect(listContainerEl.classList.contains('LIST_CONTAINER_CLASS')).toBe(true);
             expect(listEl).toBeTruthy();
@@ -1101,26 +1154,23 @@ describe('Dock', () => {
         it('Case 4: should use instance variables in PT functions', async () => {
             ptFixture.componentRef.setInput('position', 'top');
             ptFixture.componentRef.setInput('pt', {
-                list: ({ instance }: any) => {
-                    return {
-                        class: {
-                            HAS_MODEL: instance?.model?.length > 0,
-                            IS_TOP: instance?.position === 'top'
-                        }
-                    };
-                },
-                listContainer: ({ instance }: any) => {
-                    return {
-                        style: {
-                            'background-color': instance?.position === 'top' ? 'yellow' : 'red'
-                        }
-                    };
-                }
+                list: ({ instance }: any) => ({
+                    class: {
+                        HAS_MODEL: instance?.model?.length > 0,
+                        IS_TOP: instance?.position === 'top'
+                    }
+                }),
+                listContainer: ({ instance }: any) => ({
+                    style: {
+                        'background-color': instance?.position === 'top' ? 'yellow' : 'red'
+                    }
+                })
             });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const listEl = ptFixture.nativeElement.querySelector('ul[role="menu"]');
+
             expect(listEl).toBeTruthy();
             expect(listEl.classList.contains('HAS_MODEL')).toBe(true);
             expect(listEl.classList.contains('IS_TOP')).toBe(true);
@@ -1128,6 +1178,7 @@ describe('Dock', () => {
 
         it('Case 5: should handle event binding in PT', async () => {
             let clicked = false;
+
             ptFixture.componentRef.setInput('pt', {
                 list: {
                     onclick: () => {
@@ -1139,6 +1190,7 @@ describe('Dock', () => {
             await ptFixture.whenStable();
 
             const listEl = ptFixture.nativeElement.querySelector('ul[role="menu"]');
+
             expect(listEl).toBeTruthy();
             listEl.click();
             expect(clicked).toBe(true);
@@ -1146,6 +1198,7 @@ describe('Dock', () => {
 
         it('Case 6: should apply inline PT object', async () => {
             const inlineFixture = TestBed.createComponent(Dock);
+
             inlineFixture.componentRef.setInput('pt', {
                 list: 'INLINE_LIST_CLASS',
                 listContainer: {
@@ -1167,6 +1220,7 @@ describe('Dock', () => {
 
         it('Case 8: should execute PT hooks', async () => {
             let hookCalled = false;
+
             ptFixture.componentRef.setInput('pt', {
                 list: 'HOOK_CLASS',
                 hooks: {
@@ -1194,6 +1248,7 @@ describe('Dock', () => {
             // Verify getPTOptions is called with correct parameters
             if (ptDock.getPTOptions) {
                 const result = ptDock.getPTOptions(testModel[0], 0, 'item');
+
                 expect(result).toBeDefined();
             }
         });
@@ -1202,29 +1257,30 @@ describe('Dock', () => {
             const testModel: MenuItem[] = [{ label: 'Test', icon: 'pi pi-test' }];
 
             const result = ptDock.getPTOptions(testModel[0], 0, 'item');
+
             expect(result).toBeDefined();
         });
 
         it('should apply PT with context for dock items', async () => {
             ptFixture.componentRef.setInput('pt', {
-                item: ({ context }: any) => {
-                    return {
-                        class: {
-                            HAS_ITEM: !!context?.item,
-                            INDEX_ZERO: context?.index === 0,
-                            INDEX_ONE: context?.index === 1
-                        }
-                    };
-                }
+                item: ({ context }: any) => ({
+                    class: {
+                        HAS_ITEM: !!context?.item,
+                        INDEX_ZERO: context?.index === 0,
+                        INDEX_ONE: context?.index === 1
+                    }
+                })
             });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const items = ptFixture.nativeElement.querySelectorAll('li[role="menuitem"]');
+
             if (items.length > 0) {
                 expect(items[0].classList.contains('HAS_ITEM')).toBe(true);
                 expect(items[0].classList.contains('INDEX_ZERO')).toBe(true);
             }
+
             if (items.length > 1) {
                 expect(items[1].classList.contains('HAS_ITEM')).toBe(true);
                 expect(items[1].classList.contains('INDEX_ONE')).toBe(true);
@@ -1233,17 +1289,17 @@ describe('Dock', () => {
 
         it('should apply PT to itemIcon with context', async () => {
             ptFixture.componentRef.setInput('pt', {
-                itemIcon: ({ context }: any) => {
-                    return {
-                        class: 'ICON_PT_CLASS'
-                    };
-                }
+                itemIcon: ({ context }: any) => ({
+                    class: 'ICON_PT_CLASS'
+                })
             });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const iconEls = ptFixture.nativeElement.querySelectorAll('.ICON_PT_CLASS');
+
             expect(iconEls.length).toBeGreaterThan(0);
+
             if (iconEls.length > 0) {
                 expect(iconEls[0].classList.contains('ICON_PT_CLASS')).toBe(true);
             }
@@ -1251,33 +1307,31 @@ describe('Dock', () => {
 
         it('should apply PT to itemLink with context', async () => {
             ptFixture.componentRef.setInput('pt', {
-                itemLink: ({ context }: any) => {
-                    return {
-                        class: 'LINK_PT_CLASS',
-                        'data-link-index': context?.index
-                    };
-                }
+                itemLink: ({ context }: any) => ({
+                    class: 'LINK_PT_CLASS',
+                    'data-link-index': context?.index
+                })
             });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const linkEls = ptFixture.nativeElement.querySelectorAll('a');
             const ptLinks = Array.from(linkEls).filter((el: any) => el.classList.contains('LINK_PT_CLASS'));
+
             expect(ptLinks.length).toBeGreaterThan(0);
         });
 
         it('should apply PT to itemContent with context', async () => {
             ptFixture.componentRef.setInput('pt', {
-                itemContent: ({ context }: any) => {
-                    return {
-                        class: 'CONTENT_PT_CLASS'
-                    };
-                }
+                itemContent: ({ context }: any) => ({
+                    class: 'CONTENT_PT_CLASS'
+                })
             });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const contentEls = ptFixture.nativeElement.querySelectorAll('.CONTENT_PT_CLASS');
+
             expect(contentEls.length).toBeGreaterThan(0);
         });
 
@@ -1318,10 +1372,12 @@ describe('Dock', () => {
 
             it('should apply global PT configuration from PrimeNG config', async () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 globalFixture.changeDetectorRef.markForCheck();
                 await globalFixture.whenStable();
 
                 const docks = globalFixture.debugElement.queryAll(By.css('[data-pc-name="dock"]'));
+
                 expect(docks.length).toBe(2);
 
                 docks.forEach((dock) => {
@@ -1331,10 +1387,12 @@ describe('Dock', () => {
 
             it('should apply global PT to multiple instances of the component', async () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 globalFixture.changeDetectorRef.markForCheck();
                 await globalFixture.whenStable();
 
                 const lists = globalFixture.debugElement.queryAll(By.css('ul[role="menu"]'));
+
                 lists.forEach((list) => {
                     expect(list.nativeElement.className).toContain('GLOBAL_LIST_CLASS');
                 });
@@ -1365,22 +1423,26 @@ describe('Dock', () => {
                 });
 
                 const mergedFixture = TestBed.createComponent(TestMergedPTComponent);
+
                 mergedFixture.changeDetectorRef.markForCheck();
                 await mergedFixture.whenStable();
 
                 const dockRoot = mergedFixture.debugElement.query(By.css('[data-pc-name="dock"]'));
+
                 expect(dockRoot.nativeElement.className).toContain('LOCAL_CLASS');
                 expect(dockRoot.nativeElement.getAttribute('aria-label')).toBe('GLOBAL_LABEL');
             });
 
             it('should apply global.css styles', async () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
+
                 globalFixture.changeDetectorRef.markForCheck();
                 await globalFixture.whenStable();
 
                 // Global CSS may be injected as style tag or in head
                 const styleElements = document.querySelectorAll('style');
                 let hasGlobalCSS = false;
+
                 styleElements.forEach((style) => {
                     if (style.textContent?.includes('.p-dock') && style.textContent?.includes('border: 1px solid red')) {
                         hasGlobalCSS = true;

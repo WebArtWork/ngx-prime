@@ -19,6 +19,7 @@ export class ConfirmationService {
      */
     confirm(confirmation: Confirmation) {
         this.requireConfirmationSource.next(confirmation);
+
         return this;
     }
     /**
@@ -27,6 +28,7 @@ export class ConfirmationService {
      */
     close() {
         this.requireConfirmationSource.next(null);
+
         return this;
     }
     /**

@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { FocusTrap, FocusTrapModule } from './focustrap';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-focus-trap',
     template: `
         <div pFocusTrap>
@@ -13,39 +12,46 @@ import { FocusTrap, FocusTrapModule } from './focustrap';
             <button class="button">Button</button>
             <input type="text" class="second-input" />
         </div>
-    `
+    `,
+    imports: [FocusTrapModule]
 })
 class TestBasicFocusTrapComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-disabled-focus-trap',
     template: `
         <div pFocusTrap [pFocusTrapDisabled]="disabled">
             <input type="text" class="input" />
             <button class="button">Button</button>
         </div>
-    `
+    `,
+    imports: [FocusTrapModule]
 })
 class TestDisabledFocusTrapComponent {
     disabled = false;
 }
 
 @Component({
-    standalone: false,
     selector: 'test-dynamic-focus-trap',
     template: `
         <div pFocusTrap [pFocusTrapDisabled]="trapDisabled">
-            <input type="text" *ngIf="showFirstInput" class="dynamic-first-input" />
+            @if (showFirstInput) {
+                <input type="text" class="dynamic-first-input" />
+            }
             <select class="select">
                 <option>Option 1</option>
                 <option>Option 2</option>
             </select>
-            <textarea *ngIf="showTextarea" class="textarea"></textarea>
+            @if (showTextarea) {
+                <textarea class="textarea"></textarea>
+            }
             <button class="dynamic-button">Dynamic Button</button>
-            <input type="checkbox" *ngIf="showCheckbox" class="checkbox" />
+            @if (showCheckbox) {
+                <input type="checkbox" class="checkbox" />
+            }
         </div>
-    `
+    `,
+    imports: [FocusTrapModule]
 })
 class TestDynamicFocusTrapComponent {
     trapDisabled = false;
@@ -55,7 +61,6 @@ class TestDynamicFocusTrapComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-nested-focus-trap',
     template: `
         <div pFocusTrap class="outer-trap">
@@ -69,12 +74,12 @@ class TestDynamicFocusTrapComponent {
                 <button class="outer-button">Outer Button</button>
             </div>
         </div>
-    `
+    `,
+    imports: [FocusTrapModule]
 })
 class TestNestedFocusTrapComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-complex-focus-trap',
     template: `
         <div pFocusTrap [pFocusTrapDisabled]="trapDisabled" class="complex-trap">
@@ -88,7 +93,8 @@ class TestNestedFocusTrapComponent {}
             <div tabindex="0" class="focusable-div">Focusable Div</div>
             <a href="#" class="link-element">Link</a>
         </div>
-    `
+    `,
+    imports: [FocusTrapModule]
 })
 class TestComplexFocusTrapComponent {
     trapDisabled = false;
@@ -99,27 +105,33 @@ class TestComplexFocusTrapComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-empty-focus-trap',
     template: `
         <div pFocusTrap class="empty-trap">
             <span class="non-focusable">Non-focusable content</span>
             <div class="another-non-focusable">More content</div>
         </div>
-    `
+    `,
+    imports: [FocusTrapModule]
 })
 class TestEmptyFocusTrapComponent {}
 
 @Component({
-    standalone: false,
     selector: 'test-conditional-focus-trap',
     template: `
         <div pFocusTrap [pFocusTrapDisabled]="trapDisabled">
-            <input type="text" *ngIf="showElements" class="conditional-input" />
-            <button *ngIf="showElements" class="conditional-button">Button</button>
-            <div *ngIf="!showElements" class="no-focusable">No focusable elements</div>
+            @if (showElements) {
+                <input type="text" class="conditional-input" />
+            }
+            @if (showElements) {
+                <button class="conditional-button">Button</button>
+            }
+            @if (!showElements) {
+                <div class="no-focusable">No focusable elements</div>
+            }
         </div>
-    `
+    `,
+    imports: [FocusTrapModule]
 })
 class TestConditionalFocusTrapComponent {
     trapDisabled = false;
@@ -129,8 +141,16 @@ class TestConditionalFocusTrapComponent {
 describe('FocusTrap', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FocusTrapModule],
-            declarations: [TestBasicFocusTrapComponent, TestDisabledFocusTrapComponent, TestDynamicFocusTrapComponent, TestNestedFocusTrapComponent, TestComplexFocusTrapComponent, TestEmptyFocusTrapComponent, TestConditionalFocusTrapComponent],
+            imports: [
+                FocusTrapModule,
+                TestBasicFocusTrapComponent,
+                TestDisabledFocusTrapComponent,
+                TestDynamicFocusTrapComponent,
+                TestNestedFocusTrapComponent,
+                TestComplexFocusTrapComponent,
+                TestEmptyFocusTrapComponent,
+                TestConditionalFocusTrapComponent
+            ],
             providers: [{ provide: PLATFORM_ID, useValue: 'browser' }, provideZonelessChangeDetection()]
         });
     });
@@ -145,6 +165,7 @@ describe('FocusTrap', () => {
             fixture.detectChanges();
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(FocusTrap));
+
             directive = directiveDebugElement.injector.get(FocusTrap);
             element = directiveDebugElement.nativeElement;
         });
@@ -216,6 +237,7 @@ describe('FocusTrap', () => {
             fixture.detectChanges();
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(FocusTrap));
+
             directive = directiveDebugElement.injector.get(FocusTrap);
             element = directiveDebugElement.nativeElement;
         });
@@ -273,6 +295,7 @@ describe('FocusTrap', () => {
             fixture.detectChanges();
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(FocusTrap));
+
             directive = directiveDebugElement.injector.get(FocusTrap);
             element = directiveDebugElement.nativeElement;
         });
@@ -285,6 +308,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: lastHidden });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -300,6 +324,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: firstHidden });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -310,6 +335,7 @@ describe('FocusTrap', () => {
         it('should handle focus events from outside the trap', () => {
             const lastHidden = directive.lastHiddenFocusableElement;
             const outsideElement = document.createElement('button');
+
             document.body.appendChild(outsideElement);
 
             // Simulate focus from outside element
@@ -317,6 +343,7 @@ describe('FocusTrap', () => {
                 relatedTarget: outsideElement,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: lastHidden });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: outsideElement });
 
@@ -335,6 +362,7 @@ describe('FocusTrap', () => {
                 relatedTarget: lastHidden,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: firstHidden });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: lastHidden });
 
@@ -348,6 +376,7 @@ describe('FocusTrap', () => {
             TestBed.overrideProvider(PLATFORM_ID, { useValue: 'server' });
 
             const fixture = TestBed.createComponent(TestBasicFocusTrapComponent);
+
             fixture.detectChanges();
 
             const element = fixture.debugElement.query(By.directive(FocusTrap)).nativeElement;
@@ -371,6 +400,7 @@ describe('FocusTrap', () => {
             fixture.detectChanges();
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(FocusTrap));
+
             directive = directiveDebugElement.injector.get(FocusTrap);
             element = directiveDebugElement.nativeElement;
         });
@@ -385,6 +415,7 @@ describe('FocusTrap', () => {
             await fixture.whenStable();
 
             const textarea = element.querySelector('.textarea') as HTMLElement;
+
             expect(textarea).toBeTruthy();
 
             // Test that focus trap still works with new element
@@ -394,6 +425,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: lastHidden });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -419,6 +451,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: firstHidden });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -481,6 +514,7 @@ describe('FocusTrap', () => {
             fixture.detectChanges();
 
             const trapDirectives = fixture.debugElement.queryAll(By.directive(FocusTrap));
+
             outerTrapDirective = trapDirectives[0].injector.get(FocusTrap);
             innerTrapDirective = trapDirectives[1].injector.get(FocusTrap);
             element = fixture.debugElement.nativeElement;
@@ -502,6 +536,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: innerTrapDirective.lastHiddenFocusableElement });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -522,6 +557,7 @@ describe('FocusTrap', () => {
             fixture.detectChanges();
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(FocusTrap));
+
             directive = directiveDebugElement.injector.get(FocusTrap);
             element = directiveDebugElement.nativeElement;
         });
@@ -543,6 +579,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: firstHidden });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -556,6 +593,7 @@ describe('FocusTrap', () => {
             await fixture.whenStable();
 
             const textarea = element.querySelector('.textarea-element') as HTMLTextAreaElement;
+
             expect(textarea.readOnly).toBe(true);
 
             // Readonly elements should still be focusable
@@ -566,6 +604,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: lastHidden });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -577,6 +616,7 @@ describe('FocusTrap', () => {
 
         it('should handle elements with tabindex', () => {
             const focusableDiv = element.querySelector('.focusable-div') as HTMLElement;
+
             expect(focusableDiv.getAttribute('tabindex')).toBe('0');
 
             // Should include div with tabindex in focus trap
@@ -586,6 +626,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: directive.lastHiddenFocusableElement });
 
             directive.onLastHiddenElementFocus(focusEvent);
@@ -596,6 +637,7 @@ describe('FocusTrap', () => {
 
         it('should handle anchor links', () => {
             const linkElement = element.querySelector('.link-element') as HTMLAnchorElement;
+
             expect(linkElement.href).toBeTruthy();
 
             // Links should be included in focus trap
@@ -605,6 +647,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: directive.lastHiddenFocusableElement });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -638,6 +681,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: firstHidden });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -658,6 +702,7 @@ describe('FocusTrap', () => {
             fixture.detectChanges();
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(FocusTrap));
+
             directive = directiveDebugElement.injector.get(FocusTrap);
             element = directiveDebugElement.nativeElement;
         });
@@ -667,6 +712,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: directive.firstHiddenFocusableElement });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -689,6 +735,7 @@ describe('FocusTrap', () => {
                 relatedTarget: null,
                 bubbles: true
             });
+
             Object.defineProperty(focusEvent, 'currentTarget', { value: directive.firstHiddenFocusableElement });
             Object.defineProperty(focusEvent, 'relatedTarget', { value: null });
 
@@ -740,17 +787,21 @@ describe('FocusTrap', () => {
 
         it('should handle getComputedSelector method', () => {
             const selector = directive.getComputedSelector('input');
+
             expect(selector).toBe(':not(.p-hidden-focusable):not([data-p-hidden-focusable="true"])input');
 
             const selectorWithoutParam = directive.getComputedSelector('');
+
             expect(selectorWithoutParam).toBe(':not(.p-hidden-focusable):not([data-p-hidden-focusable="true"])');
 
             const selectorWithNull = directive.getComputedSelector(null);
+
             expect(selectorWithNull).toBe(':not(.p-hidden-focusable):not([data-p-hidden-focusable="true"])');
         });
 
         it('should handle elements that cannot receive focus', () => {
             const nonFocusableElement = document.createElement('div');
+
             // Mock focus method that throws error
             nonFocusableElement.focus = jasmine.createSpy('focus').and.throwError('Cannot focus');
 
@@ -825,17 +876,20 @@ describe('FocusTrap', () => {
             fixture.detectChanges();
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(FocusTrap));
+
             directive = directiveDebugElement.injector.get(FocusTrap);
             element = directiveDebugElement.nativeElement;
         });
 
         it('should prepend first hidden element to container', () => {
             const firstChild = element.firstElementChild;
+
             expect(firstChild).toBe(directive.firstHiddenFocusableElement);
         });
 
         it('should append last hidden element to container', () => {
             const lastChild = element.lastElementChild;
+
             expect(lastChild).toBe(directive.lastHiddenFocusableElement);
         });
 

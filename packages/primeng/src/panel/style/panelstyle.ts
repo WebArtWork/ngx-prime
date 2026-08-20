@@ -27,6 +27,7 @@ const classes = {
     content: 'p-panel-content',
     footer: 'p-panel-footer'
 };
+
 @Injectable()
 export class PanelStyle extends BaseStyle {
     name = 'panel';

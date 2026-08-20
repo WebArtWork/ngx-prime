@@ -6,9 +6,9 @@ import { MeterItem } from 'primeng/types/metergroup';
 import { MeterGroup, MeterGroupLabel, MeterGroupModule } from './metergroup';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-metergroup',
-    template: `<p-metergroup [value]="value" [min]="min" [max]="max"></p-metergroup>`
+    template: `<p-metergroup [value]="value" [min]="min" [max]="max"></p-metergroup>`,
+    imports: [MeterGroupModule]
 })
 class TestBasicMeterGroupComponent {
     value: MeterItem[] = [
@@ -22,9 +22,9 @@ class TestBasicMeterGroupComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-metergroup-orientations',
-    template: ` <p-metergroup [value]="value" [orientation]="orientation" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation"> </p-metergroup> `
+    template: ` <p-metergroup [value]="value" [orientation]="orientation" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation"> </p-metergroup> `,
+    imports: [MeterGroupModule]
 })
 class TestMeterGroupOrientationsComponent {
     value: MeterItem[] = [
@@ -37,7 +37,6 @@ class TestMeterGroupOrientationsComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-metergroup-templates',
     template: `
         <p-metergroup [value]="value">
@@ -61,7 +60,8 @@ class TestMeterGroupOrientationsComponent {
                 <i class="custom-icon">{{ item.label[0] }}</i>
             </ng-template>
         </p-metergroup>
-    `
+    `,
+    imports: [MeterGroupModule]
 })
 class TestMeterGroupTemplatesComponent {
     value: MeterItem[] = [
@@ -71,9 +71,9 @@ class TestMeterGroupTemplatesComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-metergroup-with-icons',
-    template: ` <p-metergroup [value]="value" [min]="min" [max]="max"> </p-metergroup> `
+    template: ` <p-metergroup [value]="value" [min]="min" [max]="max"> </p-metergroup> `,
+    imports: [MeterGroupModule]
 })
 class TestMeterGroupWithIconsComponent {
     value: MeterItem[] = [
@@ -86,18 +86,18 @@ class TestMeterGroupWithIconsComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-metergroup-empty',
-    template: `<p-metergroup [value]="value"></p-metergroup>`
+    template: `<p-metergroup [value]="value"></p-metergroup>`,
+    imports: [MeterGroupModule]
 })
 class TestMeterGroupEmptyComponent {
     value: MeterItem[] = [];
 }
 
 @Component({
-    standalone: false,
     selector: 'test-metergroup-dynamic',
-    template: ` <p-metergroup [value]="value" [min]="min" [max]="max" [styleClass]="styleClass"> </p-metergroup> `
+    template: ` <p-metergroup [value]="value" [min]="min" [max]="max" [styleClass]="styleClass"> </p-metergroup> `,
+    imports: [MeterGroupModule]
 })
 class TestMeterGroupDynamicComponent {
     value: MeterItem[] = [{ label: 'Dynamic 1', value: 10, color: '#ff6b6b' }];
@@ -109,8 +109,7 @@ class TestMeterGroupDynamicComponent {
 describe('MeterGroup', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [MeterGroupModule],
-            declarations: [TestBasicMeterGroupComponent, TestMeterGroupOrientationsComponent, TestMeterGroupTemplatesComponent, TestMeterGroupWithIconsComponent, TestMeterGroupEmptyComponent, TestMeterGroupDynamicComponent],
+            imports: [MeterGroupModule, TestBasicMeterGroupComponent, TestMeterGroupOrientationsComponent, TestMeterGroupTemplatesComponent, TestMeterGroupWithIconsComponent, TestMeterGroupEmptyComponent, TestMeterGroupDynamicComponent],
             providers: [provideZonelessChangeDetection()]
         });
     });
@@ -127,6 +126,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
             element = meterGroupDebugElement.nativeElement;
         });
@@ -174,45 +174,53 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
             element = meterGroupDebugElement.nativeElement;
         });
 
         it('should render all meter items', () => {
             const meters = element.querySelectorAll('.p-metergroup-meter');
+
             expect(meters.length).toBeGreaterThan(0);
         });
 
         it('should calculate percent correctly', () => {
             // Test with value 16, min 0, max 100
             const percent = meterGroup.percent(16);
+
             expect(percent).toBe(16);
 
             // Test with different min/max
             meterGroup.min = 10;
             meterGroup.max = 110;
             const percent2 = meterGroup.percent(60);
+
             expect(percent2).toBe(50);
         });
 
         it('should calculate percentValue correctly', () => {
             const percentValue = meterGroup.percentValue(25);
+
             expect(percentValue).toBe('25%');
         });
 
         it('should calculate totalPercent correctly', () => {
             // Sum of values: 16 + 8 + 24 + 10 = 58
             const totalPercent = meterGroup.totalPercent();
+
             expect(totalPercent).toBe(58);
         });
 
         it('should calculate percentages array correctly', () => {
             const percentages = meterGroup.percentages();
+
             expect(percentages).toEqual([16, 24, 48, 58]); // Cumulative sums
         });
 
         it('should apply meter styles correctly for horizontal orientation', () => {
             const meterStyle = meterGroup.meterStyle({ value: 30, color: '#ff0000' });
+
             expect(meterStyle.backgroundColor).toBe('#ff0000');
             expect(meterStyle.width).toBe('30%');
             expect(meterStyle.height).toBeFalsy();
@@ -221,6 +229,7 @@ describe('MeterGroup', () => {
         it('should apply meter styles correctly for vertical orientation', () => {
             meterGroup.orientation = 'vertical';
             const meterStyle = meterGroup.meterStyle({ value: 40, color: '#00ff00' });
+
             expect(meterStyle.backgroundColor).toBe('#00ff00');
             expect(meterStyle.height).toBe('40%');
             expect(meterStyle.width).toBeFalsy();
@@ -235,16 +244,19 @@ describe('MeterGroup', () => {
             await fixture.whenStable();
 
             const percent = meterGroup.percent(0);
+
             expect(percent).toBe(0);
         });
 
         it('should handle negative values', () => {
             const percent = meterGroup.percent(-10);
+
             expect(percent).toBe(0); // Should be clamped to 0
         });
 
         it('should handle values exceeding max', () => {
             const percent = meterGroup.percent(150);
+
             expect(percent).toBe(100); // Should be clamped to 100
         });
     });
@@ -261,6 +273,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
             element = meterGroupDebugElement.nativeElement;
         });
@@ -298,6 +311,7 @@ describe('MeterGroup', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.directive(MeterGroupLabel));
+
             expect(labelElement).toBeTruthy();
             expect(meterGroup.labelPosition).toBe('start');
         });
@@ -311,6 +325,7 @@ describe('MeterGroup', () => {
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.directive(MeterGroupLabel));
+
             expect(labelElement).toBeTruthy();
             expect(meterGroup.labelPosition).toBe('end');
         });
@@ -364,29 +379,34 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
             element = meterGroupDebugElement.nativeElement;
         });
 
         it('should render custom label template', () => {
             const customLabel = element.querySelector('.custom-label');
+
             expect(customLabel).toBeTruthy();
             expect(customLabel?.textContent).toContain('Total:');
         });
 
         it('should render custom meter template', () => {
             const customMeters = element.querySelectorAll('.custom-meter');
+
             expect(customMeters.length).toBeGreaterThan(0);
         });
 
         it('should render start template', () => {
             const customStart = element.querySelector('.custom-start');
+
             expect(customStart).toBeTruthy();
             expect(customStart?.textContent).toBe('Start Content');
         });
 
         it('should render end template', () => {
             const customEnd = element.querySelector('.custom-end');
+
             expect(customEnd).toBeTruthy();
             expect(customEnd?.textContent).toBe('End Content');
         });
@@ -395,27 +415,29 @@ describe('MeterGroup', () => {
             // Since we're using a custom label template, the icon template won't be used
             // (MeterGroupLabel is only rendered when there's no custom label template)
             // The icon template is stored but not rendered in this test case
-            expect(meterGroup._iconTemplate || meterGroup.iconTemplate).toBeDefined();
+            expect(meterGroup._iconTemplate || meterGroup.iconTemplate()).toBeDefined();
         });
 
         it('should pass correct context to label template', () => {
             const customLabel = element.querySelector('.custom-label');
+
             expect(customLabel?.textContent).toContain('75%'); // 30 + 45 = 75
         });
 
         it('should pass correct context to meter template', () => {
             const customMeters = element.querySelectorAll('.custom-meter');
+
             expect(customMeters[0]?.textContent?.trim()).toBe('Category A');
             expect(customMeters[1]?.textContent?.trim()).toBe('Category B');
         });
 
         it('should handle template processing in ngAfterContentInit', () => {
             // Templates should already be processed during component initialization
-            expect(meterGroup._labelTemplate || meterGroup.labelTemplate).toBeDefined();
-            expect(meterGroup._meterTemplate || meterGroup.meterTemplate).toBeDefined();
-            expect(meterGroup._startTemplate || meterGroup.startTemplate).toBeDefined();
-            expect(meterGroup._endTemplate || meterGroup.endTemplate).toBeDefined();
-            expect(meterGroup._iconTemplate || meterGroup.iconTemplate).toBeDefined();
+            expect(meterGroup._labelTemplate || meterGroup.labelTemplate()).toBeDefined();
+            expect(meterGroup._meterTemplate || meterGroup.meterTemplate()).toBeDefined();
+            expect(meterGroup._startTemplate || meterGroup.startTemplate()).toBeDefined();
+            expect(meterGroup._endTemplate || meterGroup.endTemplate()).toBeDefined();
+            expect(meterGroup._iconTemplate || meterGroup.iconTemplate()).toBeDefined();
 
             // Calling ngAfterContentInit again should not throw
             expect(() => meterGroup.ngAfterContentInit()).not.toThrow();
@@ -436,19 +458,23 @@ describe('MeterGroup', () => {
 
         it('should render MeterGroupLabel component', () => {
             const labelComponent = fixture.debugElement.query(By.directive(MeterGroupLabel));
+
             expect(labelComponent).toBeTruthy();
         });
 
         it('should display all labels with values', () => {
             const labelList = element.querySelector('ol');
+
             expect(labelList).toBeTruthy();
 
             const labelItems = labelList?.querySelectorAll('li');
+
             expect(labelItems?.length).toBe(4);
         });
 
         it('should display label text with percentage', () => {
             const labelTexts = element.querySelectorAll('.p-metergroup-label-text');
+
             expect(labelTexts[0]?.textContent).toContain('Apps');
             expect(labelTexts[0]?.textContent).toContain('16%');
         });
@@ -456,6 +482,7 @@ describe('MeterGroup', () => {
         it('should inject parent MeterGroup instance', () => {
             const labelComponent = fixture.debugElement.query(By.directive(MeterGroupLabel));
             const labelInstance = labelComponent.componentInstance as MeterGroupLabel;
+
             expect(labelInstance.parentInstance).toBeTruthy();
             expect(labelInstance.parentInstance).toBeInstanceOf(MeterGroup);
         });
@@ -464,6 +491,7 @@ describe('MeterGroup', () => {
             const labelComponent = fixture.debugElement.query(By.directive(MeterGroupLabel));
             const labelInstance = labelComponent.componentInstance as MeterGroupLabel;
             const percentValue = labelInstance.parentInstance.percentValue(25);
+
             expect(percentValue).toBe('25%');
         });
     });
@@ -482,6 +510,7 @@ describe('MeterGroup', () => {
 
         it('should render icons when provided', () => {
             const icons = element.querySelectorAll('i.pi');
+
             expect(icons.length).toBeGreaterThan(0);
         });
 
@@ -497,8 +526,10 @@ describe('MeterGroup', () => {
 
         it('should apply icon color from meter item', () => {
             const icons = element.querySelectorAll('.p-metergroup-label-icon');
+
             icons.forEach((icon) => {
                 const style = (icon as HTMLElement).style;
+
                 // In test environment, inline styles might not be applied, so we test the component logic
                 expect(icon).toBeTruthy();
             });
@@ -513,6 +544,7 @@ describe('MeterGroup', () => {
             await fixture.whenStable();
 
             const markers = element.querySelectorAll('.p-metergroup-label-marker');
+
             expect(markers.length).toBeGreaterThan(0);
         });
     });
@@ -529,6 +561,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
             element = meterGroupDebugElement.nativeElement;
         });
@@ -547,6 +580,7 @@ describe('MeterGroup', () => {
 
         it('should have aria-valuenow attribute', () => {
             const totalPercent = meterGroup.totalPercent();
+
             expect(element.getAttribute('aria-valuenow')).toBe(totalPercent.toString());
         });
 
@@ -559,6 +593,7 @@ describe('MeterGroup', () => {
             await fixture.whenStable();
 
             const newTotalPercent = meterGroup.totalPercent();
+
             expect(element.getAttribute('aria-valuenow')).toBe(newTotalPercent.toString());
         });
     });
@@ -575,6 +610,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
             element = meterGroupDebugElement.nativeElement;
         });
@@ -585,11 +621,13 @@ describe('MeterGroup', () => {
 
         it('should apply root CSS class through cx method', () => {
             const classes = element.className;
+
             expect(classes).toBeTruthy();
         });
 
         it('should generate proper meter container class', () => {
             const metersContainer = element.querySelector('.p-metergroup-meters');
+
             expect(metersContainer).toBeTruthy();
         });
     });
@@ -606,6 +644,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
             element = meterGroupDebugElement.nativeElement;
         });
@@ -635,6 +674,7 @@ describe('MeterGroup', () => {
             await fixture.whenStable();
 
             const percent = meterGroup.percent(30);
+
             expect(percent).toBe(50); // (30-10)/(50-10) = 20/40 = 50%
         });
 
@@ -658,6 +698,7 @@ describe('MeterGroup', () => {
 
             // Check DOM elements
             const labelTexts = element.querySelectorAll('.p-metergroup-label-text');
+
             expect(labelTexts.length).toBe(2);
         });
 
@@ -671,6 +712,7 @@ describe('MeterGroup', () => {
 
             expect(meterGroup.value!.length).toBe(0);
             const meters = element.querySelectorAll('.p-metergroup-meter');
+
             expect(meters.length).toBe(0);
         });
     });
@@ -687,6 +729,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
             element = meterGroupDebugElement.nativeElement;
         });
@@ -715,6 +758,7 @@ describe('MeterGroup', () => {
             await fixture.whenStable();
 
             const meterStyle = meterGroup.meterStyle(component.value[0]);
+
             expect(meterStyle.backgroundColor).toBeUndefined();
             expect(meterStyle.width).toBe('30%');
         });
@@ -740,6 +784,7 @@ describe('MeterGroup', () => {
             meterGroup.min = 50;
             meterGroup.max = 50;
             const percent = meterGroup.percent(50);
+
             expect(percent).toBe(100); // When min = max, any value should be 100%
 
             // Reset to normal
@@ -748,10 +793,12 @@ describe('MeterGroup', () => {
 
             // Test with very large numbers
             const largePercent = meterGroup.percent(Number.MAX_SAFE_INTEGER);
+
             expect(largePercent).toBe(100);
 
             // Test with very small numbers
             const smallPercent = meterGroup.percent(Number.MIN_SAFE_INTEGER);
+
             expect(smallPercent).toBe(0);
         });
     });
@@ -765,6 +812,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
         });
 
@@ -788,6 +836,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
+
             meterGroup = meterGroupDebugElement.componentInstance;
         });
 
@@ -805,9 +854,11 @@ describe('MeterGroup', () => {
 
         it('should process templates in ngAfterContentInit', () => {
             const fixture = TestBed.createComponent(TestMeterGroupTemplatesComponent);
+
             fixture.detectChanges();
 
             const meterGroup = fixture.debugElement.query(By.directive(MeterGroup)).componentInstance;
+
             meterGroup.ngAfterContentInit();
 
             // After processing, internal template properties should be set
@@ -818,6 +869,7 @@ describe('MeterGroup', () => {
     describe('Performance', () => {
         it('should handle large datasets efficiently', async () => {
             const largeDataset: MeterItem[] = [];
+
             for (let i = 0; i < 100; i++) {
                 largeDataset.push({
                     label: `Item ${i}`,
@@ -828,6 +880,7 @@ describe('MeterGroup', () => {
 
             const fixture = TestBed.createComponent(TestBasicMeterGroupComponent);
             const component = fixture.componentInstance;
+
             component.value = largeDataset;
             fixture.detectChanges();
 
@@ -837,11 +890,13 @@ describe('MeterGroup', () => {
             }).not.toThrow();
 
             const meterGroup = fixture.debugElement.query(By.directive(MeterGroup)).componentInstance;
+
             expect(meterGroup.value!.length).toBe(100);
         });
 
         it('should efficiently update percentages', () => {
             const fixture = TestBed.createComponent(TestBasicMeterGroupComponent);
+
             fixture.detectChanges();
 
             const meterGroup = fixture.debugElement.query(By.directive(MeterGroup)).componentInstance;
@@ -859,6 +914,7 @@ describe('MeterGroup', () => {
         it('should handle mixed orientations and positions', async () => {
             const fixture = TestBed.createComponent(TestMeterGroupOrientationsComponent);
             const component = fixture.componentInstance;
+
             fixture.detectChanges();
 
             // Test all combinations

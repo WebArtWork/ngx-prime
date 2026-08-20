@@ -25,6 +25,7 @@ class MockIntersectionObserver implements IntersectionObserver {
 
     unobserve(element: Element): void {
         const index = this.elements.indexOf(element);
+
         if (index > -1) {
             this.elements.splice(index, 1);
         }
@@ -50,19 +51,20 @@ class MockIntersectionObserver implements IntersectionObserver {
             rootBounds: new DOMRect(0, 0, 1000, 1000),
             time: Date.now()
         };
+
         this.callback([entry], this);
     }
 }
 
 @Component({
-    standalone: false,
-    template: `<div pAnimateOnScroll>Basic AnimateOnScroll</div>`
+    template: `<div pAnimateOnScroll>Basic AnimateOnScroll</div>`,
+    imports: [AnimateOnScrollModule]
 })
 class TestBasicAnimateOnScrollComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <div pAnimateOnScroll [enterClass]="enterClass" [leaveClass]="leaveClass" [root]="root" [rootMargin]="rootMargin" [threshold]="threshold" [once]="once">Custom AnimateOnScroll</div> `
+    template: ` <div pAnimateOnScroll [enterClass]="enterClass" [leaveClass]="leaveClass" [root]="root" [rootMargin]="rootMargin" [threshold]="threshold" [once]="once">Custom AnimateOnScroll</div> `,
+    imports: [AnimateOnScrollModule]
 })
 class TestCustomAnimateOnScrollComponent {
     enterClass: string | undefined;
@@ -74,32 +76,32 @@ class TestCustomAnimateOnScrollComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <div class="container">
             <div pAnimateOnScroll enterClass="fade-in" leaveClass="fade-out">Element 1</div>
             <div pAnimateOnScroll enterClass="slide-in" leaveClass="slide-out">Element 2</div>
             <div pAnimateOnScroll enterClass="zoom-in" leaveClass="zoom-out">Element 3</div>
         </div>
-    `
+    `,
+    imports: [AnimateOnScrollModule]
 })
 class TestMultipleAnimateOnScrollComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <div pAnimateOnScroll enterClass="animate__fadeIn" [once]="true">Once Animation Element</div> `
+    template: ` <div pAnimateOnScroll enterClass="animate__fadeIn" [once]="true">Once Animation Element</div> `,
+    imports: [AnimateOnScrollModule]
 })
 class TestOnceAnimateOnScrollComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <div pAnimateOnScroll enterClass="custom-enter" leaveClass="custom-leave" [threshold]="0.8" rootMargin="10px">Advanced Config Element</div> `
+    template: ` <div pAnimateOnScroll enterClass="custom-enter" leaveClass="custom-leave" [threshold]="0.8" rootMargin="10px">Advanced Config Element</div> `,
+    imports: [AnimateOnScrollModule]
 })
 class TestAdvancedConfigComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <div pAnimateOnScroll [enterClass]="enterClass" [leaveClass]="leaveClass" [once]="once" [threshold]="threshold">Dynamic Config Element</div> `
+    template: ` <div pAnimateOnScroll [enterClass]="enterClass" [leaveClass]="leaveClass" [once]="once" [threshold]="threshold">Dynamic Config Element</div> `,
+    imports: [AnimateOnScrollModule]
 })
 class TestDynamicConfigComponent {
     enterClass = 'initial-enter';
@@ -120,15 +122,16 @@ describe('AnimateOnScroll', () => {
         (window as any).IntersectionObserver = class {
             constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
                 const instance = new MockIntersectionObserver(callback, options);
+
                 mockIntersectionObserverInstances.push(instance);
                 mockIntersectionObserver = instance;
+
                 return instance;
             }
         };
 
         TestBed.configureTestingModule({
-            imports: [AnimateOnScrollModule],
-            declarations: [TestBasicAnimateOnScrollComponent, TestCustomAnimateOnScrollComponent, TestMultipleAnimateOnScrollComponent, TestOnceAnimateOnScrollComponent, TestAdvancedConfigComponent, TestDynamicConfigComponent],
+            imports: [AnimateOnScrollModule, TestBasicAnimateOnScrollComponent, TestCustomAnimateOnScrollComponent, TestMultipleAnimateOnScrollComponent, TestOnceAnimateOnScrollComponent, TestAdvancedConfigComponent, TestDynamicConfigComponent],
             providers: [provideZonelessChangeDetection()]
         });
     });
@@ -178,11 +181,13 @@ describe('AnimateOnScroll', () => {
         it('should set initial opacity when enterClass is provided', async () => {
             const customFixture = TestBed.createComponent(TestCustomAnimateOnScrollComponent);
             const customComponent = customFixture.componentInstance;
+
             customComponent.enterClass = 'fade-in';
             customFixture.changeDetectorRef.markForCheck();
             await customFixture.whenStable();
 
             const customDirectiveEl = customFixture.debugElement.query(By.directive(AnimateOnScroll));
+
             expect(customDirectiveEl.nativeElement.style.opacity).toBe('0');
         });
     });
@@ -209,6 +214,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
 
             expect(directiveEl.nativeElement.classList.contains('fade-in')).toBe(true);
@@ -220,6 +226,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             directive.animationState = 'enter';
             spyOn(directiveEl.nativeElement.classList, 'add');
 
@@ -233,6 +240,7 @@ describe('AnimateOnScroll', () => {
 
             directiveEl.nativeElement.classList.add('fade-out');
             const mockObserver = mockIntersectionObserverInstances[0];
+
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
 
             expect(directiveEl.nativeElement.classList.contains('fade-out')).toBe(false);
@@ -262,6 +270,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             // First make it active
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
             expect(directive.isObserverActive).toBe(true);
@@ -278,6 +287,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             directive.isObserverActive = true;
             directive.animationState = 'leave';
             spyOn(directiveEl.nativeElement.classList, 'add');
@@ -292,6 +302,7 @@ describe('AnimateOnScroll', () => {
 
             directiveEl.nativeElement.classList.add('fade-in');
             const mockObserver = mockIntersectionObserverInstances[0];
+
             directive.isObserverActive = true;
 
             mockObserver.triggerIntersection(directiveEl.nativeElement, false, { top: 100 });
@@ -332,6 +343,7 @@ describe('AnimateOnScroll', () => {
 
         it('should use custom root element', async () => {
             const rootElement = document.createElement('div');
+
             component.root = rootElement;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -374,6 +386,7 @@ describe('AnimateOnScroll', () => {
             spyOn(directive, 'unbindIntersectionObserver').and.callThrough();
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
 
             expect(directive.unbindIntersectionObserver).toHaveBeenCalled();
@@ -387,6 +400,7 @@ describe('AnimateOnScroll', () => {
             spyOn(directive, 'unbindIntersectionObserver');
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
 
             expect(directive.unbindIntersectionObserver).not.toHaveBeenCalled();
@@ -415,6 +429,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
 
             expect(directive.animationEndListener).toBeDefined();
@@ -424,6 +439,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
 
             // Simulate animation end
@@ -438,9 +454,11 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
 
             const firstListener = directive.animationEndListener;
+
             directive.bindAnimationEvents();
 
             expect(directive.animationEndListener).toBe(firstListener);
@@ -459,6 +477,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const directives = fixture.debugElement.queryAll(By.directive(AnimateOnScroll));
+
             expect(directives.length).toBe(3);
 
             // Each element should have its own observer
@@ -552,6 +571,7 @@ describe('AnimateOnScroll', () => {
             // Simulate reset observer triggering
             if (directive.resetObserver && mockIntersectionObserverInstances.length > 1) {
                 const resetObserver = mockIntersectionObserverInstances[1];
+
                 resetObserver.triggerIntersection(directiveEl.nativeElement, false, { top: 100 });
 
                 expect(directiveEl.nativeElement.style.opacity).toBe('0');
@@ -584,6 +604,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
+
             expect(directive.options.root).toBeNull();
         });
 
@@ -596,6 +617,7 @@ describe('AnimateOnScroll', () => {
             const directive = directiveEl.injector.get(AnimateOnScroll);
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             directive.isObserverActive = true;
 
             // Element at top of viewport or above
@@ -650,6 +672,7 @@ describe('AnimateOnScroll', () => {
             await fixture.whenStable();
 
             const mockObserver = mockIntersectionObserverInstances[0];
+
             mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
 
             expect(directive.animationEndListener).toBeDefined();
@@ -662,6 +685,7 @@ describe('AnimateOnScroll', () => {
         it('should handle rapid create and destroy cycles', async () => {
             for (let i = 0; i < 5; i++) {
                 const testFixture = TestBed.createComponent(TestCustomAnimateOnScrollComponent);
+
                 testFixture.componentInstance.enterClass = 'fade-in';
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -677,9 +701,11 @@ describe('AnimateOnScroll', () => {
         it('should only initialize in browser environment', async () => {
             // This test verifies that isPlatformBrowser check works correctly
             const fixture = TestBed.createComponent(TestBasicAnimateOnScrollComponent);
+
             await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
+
             // In test environment, isPlatformBrowser should return true
             expect(directive.observer).toBeDefined();
         });

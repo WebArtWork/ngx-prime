@@ -32,7 +32,6 @@ import {
     Component,
     computed,
     ContentChild,
-    ContentChildren,
     Directive,
     effect,
     ElementRef,
@@ -45,10 +44,10 @@ import {
     NgModule,
     output,
     Output,
-    QueryList,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    contentChildren
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@primeuix/utils';
@@ -160,14 +159,17 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
 
     private isInputVisible(input: HTMLInputElement): boolean {
         const style = getComputedStyle(input);
+
         return style.display !== 'none' && style.visibility !== 'hidden';
     }
 
     private get inputElement(): HTMLInputElement {
         if (!this._inputElement) {
             const host = this.el.nativeElement;
+
             this._inputElement = host.querySelector('[data-p-maskable]') || Array.from(host.querySelectorAll('input')).find((input: HTMLInputElement) => this.isInputVisible(input)) || host;
         }
+
         return this._inputElement as HTMLInputElement;
     }
 
@@ -176,6 +178,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
 
         effect(() => {
             const pt = this.pInputMaskPT();
+
             pt && this.directivePT.set(pt);
         });
 
@@ -185,6 +188,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
 
         effect(() => {
             const maskValue = this.pInputMask();
+
             if (maskValue) {
                 this.initMask();
             }
@@ -192,6 +196,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
 
         if (isPlatformBrowser(this.platformId)) {
             const ua = navigator.userAgent;
+
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         }
     }
@@ -220,6 +225,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
 
     initMask() {
         const maskValue = this.pInputMask();
+
         if (!maskValue) {
             return;
         }
@@ -235,16 +241,20 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         };
 
         const maskTokens = maskValue.split('');
+
         for (let i = 0; i < maskTokens.length; i++) {
             const c = maskTokens[i];
+
             if (c == '?') {
                 this.len--;
                 this.partialPosition = i;
             } else if (this.defs[c]) {
                 this.tests.push(new RegExp(this.defs[c]));
+
                 if (this.firstNonMaskPos === null) {
                     this.firstNonMaskPos = this.tests.length - 1;
                 }
+
                 if (i < this.partialPosition) {
                     this.lastRequiredNonMaskPos = this.tests.length - 1;
                 }
@@ -254,13 +264,16 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         }
 
         this.buffer = [];
+
         for (let i = 0; i < maskTokens.length; i++) {
             const c = maskTokens[i];
+
             if (c != '?') {
                 if (this.defs[c]) this.buffer.push(this.getPlaceholder(i));
                 else this.buffer.push(c);
             }
         }
+
         this.defaultBuffer = this.buffer.join('');
     }
 
@@ -279,7 +292,9 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
             if (this.inputElement !== this.inputElement.ownerDocument.activeElement) {
                 return;
             }
+
             this.writeBuffer();
+
             if (pos == this.pInputMask()?.replace('?', '').length) {
                 this.caret(0, pos);
             } else {
@@ -298,6 +313,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         // Validate/finalize value on blur (clear incomplete if autoClear)
         if (!this.keepBuffer()) {
             const valueBefore = this.inputElement.value;
+
             this.checkVal();
 
             // If value changed, dispatch input event so ngModel gets updated
@@ -321,6 +337,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         if (isPlatformBrowser(this.platformId)) {
             iPhone = /iphone/i.test(getUserAgent());
         }
+
         this.oldVal = this.inputElement.value;
 
         // backspace, delete, and escape get special treatment
@@ -335,6 +352,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
             }
 
             this.clearBuffer(begin, end);
+
             if (this.keepBuffer()) {
                 this.shiftL(begin, end - 2);
             } else {
@@ -378,8 +396,10 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
             }
 
             p = this.seekNext(pos.begin - 1);
+
             if (p < (this.len as number)) {
                 c = String.fromCharCode(k);
+
                 if (this.tests[p].test(c)) {
                     this.shiftR(p);
 
@@ -395,6 +415,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
                         const proxy = () => {
                             this.caret(next);
                         };
+
                         setTimeout(proxy, 0);
                     } else {
                         this.caret(next);
@@ -405,6 +426,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
                     }
                 }
             }
+
             e.preventDefault();
         }
 
@@ -448,6 +470,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         if (typeof first == 'number') {
             begin = first;
             end = typeof last === 'number' ? last : begin;
+
             if (typeof this.inputElement.setSelectionRange === 'function') {
                 this.inputElement.setSelectionRange(begin, end);
             } else if ((this.inputElement as any)['createTextRange']) {
@@ -477,24 +500,29 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
                 return false;
             }
         }
+
         return true;
     }
 
     getPlaceholder(i: number) {
         const slotCharValue = this.slotChar();
+
         if (i < slotCharValue.length) {
             return slotCharValue.charAt(i);
         }
+
         return slotCharValue.charAt(0);
     }
 
     seekNext(pos: number) {
         while (++pos < (this.len as number) && !this.tests[pos]);
+
         return pos;
     }
 
     seekPrev(pos: number) {
         while (--pos >= 0 && !this.tests[pos]);
+
         return pos;
     }
 
@@ -517,6 +545,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
                 j = this.seekNext(j);
             }
         }
+
         this.writeBuffer();
         this.caret(Math.max(this.firstNonMaskPos as number, begin));
     }
@@ -529,6 +558,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
                 j = this.seekNext(i);
                 t = this.buffer[i];
                 this.buffer[i] = c;
+
                 if (j < (this.len as number) && this.tests[j].test(t)) {
                     c = t;
                 } else {
@@ -541,10 +571,12 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     handleAndroidInput(e: Event) {
         const curVal = this.inputElement.value;
         const pos = this.caret() as Caret;
+
         if (this.oldVal && this.oldVal.length && this.oldVal.length > curVal.length) {
             // a deletion or backspace happened
             this.checkVal(true);
             while (pos.begin > 0 && !this.tests[pos.begin - 1]) pos.begin--;
+
             if (pos.begin === 0) {
                 while (pos.begin < (this.firstNonMaskPos as number) && !this.tests[pos.begin]) pos.begin++;
             }
@@ -552,6 +584,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
                 this.onUnmaskedChange.emit(this.getUnmaskedValue());
+
                 if (this.isCompleted()) {
                     this.onCompleteEvent.emit();
                 }
@@ -563,6 +596,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
                 this.onUnmaskedChange.emit(this.getUnmaskedValue());
+
                 if (this.isCompleted()) {
                     this.onCompleteEvent.emit();
                 }
@@ -577,8 +611,10 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
 
         setTimeout(() => {
             const pos = this.checkVal(true);
+
             this.caret(pos);
             this.onUnmaskedChange.emit(this.getUnmaskedValue());
+
             if (this.isCompleted()) {
                 this.onCompleteEvent.emit();
             }
@@ -588,6 +624,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     clearBuffer(start: number, end: number) {
         if (!this.keepBuffer()) {
             let i;
+
             for (i = start; i < end && i < (this.len as number); i++) {
                 if (this.tests[i]) {
                     this.buffer[i] = this.getPlaceholder(i);
@@ -609,6 +646,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
      */
     dispatchInputEvent() {
         const event = new Event('input', { bubbles: true, cancelable: true });
+
         this.inputElement.dispatchEvent(event);
 
         this.onUnmaskedChange.emit(this.getUnmaskedValue());
@@ -625,16 +663,20 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         for (i = 0, pos = 0; i < (this.len as number); i++) {
             if (this.tests[i]) {
                 this.buffer[i] = this.getPlaceholder(i);
+
                 while (pos++ < test.length) {
                     c = test.charAt(pos - 1);
+
                     if (this.tests[i].test(c)) {
                         if (!this.keepBuffer()) {
                             this.buffer[i] = c;
                         }
+
                         lastMatch = i;
                         break;
                     }
                 }
+
                 if (pos > test.length) {
                     this.clearBuffer(i + 1, this.len as number);
                     break;
@@ -643,11 +685,13 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
                 if (this.buffer[i] === test.charAt(pos)) {
                     pos++;
                 }
+
                 if (i < (this.partialPosition as number)) {
                     lastMatch = i;
                 }
             }
         }
+
         if (allow) {
             this.writeBuffer();
         } else if (lastMatch + 1 < (this.partialPosition as number)) {
@@ -665,17 +709,21 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
             this.writeBuffer();
             this.inputElement.value = this.inputElement.value.substring(0, lastMatch + 1);
         }
+
         return (this.partialPosition ? i : this.firstNonMaskPos) as number;
     }
 
     getUnmaskedValue(): string {
         const unmaskedBuffer: string[] = [];
+
         for (let i = 0; i < this.buffer.length; i++) {
             const c = this.buffer[i];
+
             if (this.tests[i] && c != this.getPlaceholder(i)) {
                 unmaskedBuffer.push(c);
             }
         }
+
         return unmaskedBuffer.join('');
     }
 }
@@ -729,12 +777,16 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (paste)="handleInputChange($event)"
             [fluid]="hasFluid"
         />
-        <ng-container *ngIf="value != null && $filled() && showClear && !$disabled()">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear()" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear()">
-                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
-            </span>
-        </ng-container>
+        @if (value != null && $filled() && showClear && !$disabled()) {
+            @if (!clearIconTemplate && !_clearIconTemplate) {
+                <svg data-p-icon="times" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear()" />
+            }
+            @if (clearIconTemplate || _clearIconTemplate) {
+                <span [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')" (click)="clear()">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+                </span>
+            }
+        }
     `,
     providers: [INPUTMASK_VALUE_ACCESSOR, InputMaskStyle, { provide: INPUTMASK_INSTANCE, useExisting: InputMask }, { provide: PARENT_INSTANCE, useExisting: InputMask }],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -908,7 +960,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
      */
     @ContentChild('clearicon', { descendants: false }) clearIconTemplate: Nullable<TemplateRef<void>>;
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    readonly templates = contentChildren(PrimeTemplate);
 
     @ViewChild('input', { static: true }) inputViewChild: Nullable<ElementRef>;
 
@@ -947,15 +999,17 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
     onInit() {
         if (isPlatformBrowser(this.platformId)) {
             let ua = navigator.userAgent;
+
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
         }
+
         this.initMask();
     }
 
     _clearIconTemplate: TemplateRef<void> | undefined;
 
     onAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'clearicon':
                     this._clearIconTemplate = item.template;
@@ -980,16 +1034,20 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
         };
 
         let maskTokens = (this.mask as string).split('');
+
         for (let i = 0; i < maskTokens.length; i++) {
             let c = maskTokens[i];
+
             if (c == '?') {
                 this.len--;
                 this.partialPosition = i;
             } else if (this.defs[c]) {
                 this.tests.push(new RegExp(this.defs[c]));
+
                 if (this.firstNonMaskPos === null) {
                     this.firstNonMaskPos = this.tests.length - 1;
                 }
+
                 if (i < this.partialPosition) {
                     this.lastRequiredNonMaskPos = this.tests.length - 1;
                 }
@@ -999,13 +1057,16 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
         }
 
         this.buffer = [];
+
         for (let i = 0; i < maskTokens.length; i++) {
             let c = maskTokens[i];
+
             if (c != '?') {
                 if (this.defs[c]) this.buffer.push(this.getPlaceholder(i));
                 else this.buffer.push(c);
             }
         }
+
         this.defaultBuffer = this.buffer.join('');
     }
 
@@ -1019,6 +1080,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
         if (typeof first == 'number') {
             begin = first;
             end = typeof last === 'number' ? last : begin;
+
             if (this.inputViewChild.nativeElement.setSelectionRange) {
                 this.inputViewChild.nativeElement.setSelectionRange(begin, end);
             } else if (this.inputViewChild.nativeElement['createTextRange']) {
@@ -1044,6 +1106,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
     isCompleted(): boolean {
         let completed: boolean;
+
         for (let i = this.firstNonMaskPos as number; i <= (this.lastRequiredNonMaskPos as number); i++) {
             if (this.tests[i] && (this.buffer as string[])[i] === this.getPlaceholder(i)) {
                 return false;
@@ -1057,16 +1120,19 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
         if (i < this.slotChar.length) {
             return this.slotChar.charAt(i);
         }
+
         return this.slotChar.charAt(0);
     }
 
     seekNext(pos: number) {
         while (++pos < (this.len as number) && !this.tests[pos]);
+
         return pos;
     }
 
     seekPrev(pos: number) {
         while (--pos >= 0 && !this.tests[pos]);
+
         return pos;
     }
 
@@ -1089,6 +1155,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
                 j = this.seekNext(j);
             }
         }
+
         this.writeBuffer();
         this.caret(Math.max(this.firstNonMaskPos as number, begin));
     }
@@ -1101,6 +1168,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
                 j = this.seekNext(i);
                 t = this.buffer[i];
                 this.buffer[i] = c;
+
                 if (j < (this.len as number) && this.tests[j].test(t)) {
                     c = t;
                 } else {
@@ -1111,12 +1179,14 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
     }
 
     handleAndroidInput(e: Event) {
-        var curVal = this.inputViewChild?.nativeElement.value;
-        var pos = this.caret() as Caret;
+        let curVal = this.inputViewChild?.nativeElement.value;
+        let pos = this.caret() as Caret;
+
         if (this.oldVal && this.oldVal.length && this.oldVal.length > curVal.length) {
             // a deletion or backspace happened
             this.checkVal(true);
             while (pos.begin > 0 && !this.tests[pos.begin - 1]) pos.begin--;
+
             if (pos.begin === 0) {
                 while (pos.begin < (this.firstNonMaskPos as number) && !this.tests[pos.begin]) pos.begin++;
             }
@@ -1124,6 +1194,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
                 this.updateModel(e);
+
                 if (this.isCompleted()) {
                     this.onComplete.emit();
                 }
@@ -1135,6 +1206,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
                 this.updateModel(e);
+
                 if (this.isCompleted()) {
                     this.onComplete.emit();
                 }
@@ -1145,14 +1217,17 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
     onInputBlur(e: Event) {
         this.focused = false;
         this.onModelTouched();
+
         if (!this.keepBuffer) {
             this.checkVal();
         }
+
         this.onBlur.emit(e);
 
         if (this.modelValue() != this.focusText || this.modelValue() != this.value) {
             this.updateModel(e);
             let event = this.document.createEvent('HTMLEvents');
+
             event.initEvent('change', true, false);
             this.inputViewChild?.nativeElement.dispatchEvent(event);
         }
@@ -1168,9 +1243,11 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             begin,
             end;
         let iPhone;
+
         if (isPlatformBrowser(this.platformId)) {
             iPhone = /iphone/i.test(getUserAgent());
         }
+
         this.oldVal = this.inputViewChild?.nativeElement.value;
 
         this.onKeydown.emit(e);
@@ -1187,11 +1264,13 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             }
 
             this.clearBuffer(begin, end);
+
             if (this.keepBuffer) {
                 this.shiftL(begin, end - 2);
             } else {
                 this.shiftL(begin, end - 1);
             }
+
             this.updateModel(e);
             this.onInput.emit(e);
 
@@ -1215,7 +1294,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             return;
         }
 
-        var k = e.which || e.keyCode,
+        let k = e.which || e.keyCode,
             pos = this.caret() as Caret,
             p: number,
             c: string,
@@ -1232,8 +1311,10 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             }
 
             p = this.seekNext(pos.begin - 1);
+
             if (p < (this.len as number)) {
                 c = String.fromCharCode(k);
+
                 if (this.tests[p].test(c)) {
                     this.shiftR(p);
 
@@ -1258,6 +1339,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
                     this.onInput.emit(e);
                 }
             }
+
             e.preventDefault();
         }
 
@@ -1271,6 +1353,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
     clearBuffer(start: number, end: number) {
         if (!this.keepBuffer) {
             let i;
+
             for (i = start; i < end && i < (this.len as number); i++) {
                 if (this.tests[i]) {
                     this.buffer[i] = this.getPlaceholder(i);
@@ -1296,16 +1379,20 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
         for (i = 0, pos = 0; i < (this.len as number); i++) {
             if (this.tests[i]) {
                 this.buffer[i] = this.getPlaceholder(i);
+
                 while (pos++ < test.length) {
                     c = test.charAt(pos - 1);
+
                     if (this.tests[i].test(c)) {
                         if (!this.keepBuffer) {
                             this.buffer[i] = c;
                         }
+
                         lastMatch = i;
                         break;
                     }
                 }
+
                 if (pos > test.length) {
                     this.clearBuffer(i + 1, this.len as number);
                     break;
@@ -1314,11 +1401,13 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
                 if (this.buffer[i] === test.charAt(pos)) {
                     pos++;
                 }
+
                 if (i < (this.partialPosition as number)) {
                     lastMatch = i;
                 }
             }
         }
+
         if (allow) {
             this.writeBuffer();
         } else if (lastMatch + 1 < (this.partialPosition as number)) {
@@ -1336,6 +1425,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             this.writeBuffer();
             (this.inputViewChild as ElementRef).nativeElement.value = this.inputViewChild?.nativeElement.value.substring(0, lastMatch + 1);
         }
+
         return (this.partialPosition ? i : this.firstNonMaskPos) as number;
     }
 
@@ -1357,7 +1447,9 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             if (this.inputViewChild?.nativeElement !== this.inputViewChild?.nativeElement.ownerDocument.activeElement) {
                 return;
             }
+
             this.writeBuffer();
+
             if (pos == this.mask?.replace('?', '').length) {
                 this.caret(0, pos);
             } else {
@@ -1381,9 +1473,11 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
         }
 
         setTimeout(() => {
-            var pos = this.checkVal(true);
+            let pos = this.checkVal(true);
+
             this.caret(pos);
             this.updateModel(event);
+
             if (this.isCompleted()) {
                 this.onComplete.emit();
             }
@@ -1392,8 +1486,10 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
     getUnmaskedValue() {
         let unmaskedBuffer: string[] = [];
+
         for (let i = 0; i < this.buffer.length; i++) {
             let c = this.buffer[i];
+
             if (this.tests[i] && c != this.getPlaceholder(i)) {
                 unmaskedBuffer.push(c);
             }
@@ -1404,11 +1500,13 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
     updateModel(e: Event) {
         const target = e.target as HTMLInputElement;
+
         if (!target) {
             return;
         }
 
         const updatedValue = this.unmask ? this.getUnmaskedValue() : target.value;
+
         if (updatedValue !== null && updatedValue !== undefined) {
             this.value = updatedValue;
             this.writeModelValue(this.value);
@@ -1444,6 +1542,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
             this.checkVal();
             this.focusText = this.inputViewChild.nativeElement.value;
         }
+
         this.cd.markForCheck();
     }
 }

@@ -10,17 +10,13 @@ export class JsonService {
             .get<any>('https://www.primefaces.org/primeng/versions.json')
             .toPromise()
             .then((res) => res.versions)
-            .then((data) => {
-                return data;
-            });
+            .then((data) => data);
     }
 
     getAnnouncement() {
         return this.http
             .get<any>('https://www.primefaces.org/cdn/news/primeng.json')
             .toPromise()
-            .then((data) => {
-                return data;
-            });
+            .then((data) => data);
     }
 }

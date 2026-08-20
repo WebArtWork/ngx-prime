@@ -23,13 +23,11 @@ export class LandingComponent implements OnInit {
 
     isDarkMode = computed(() => this.configService.appState().darkTheme);
 
-    landingClass = computed(() => {
-        return {
-            'layout-dark': this.isDarkMode(),
-            'layout-light': !this.isDarkMode(),
-            'layout-news-active': this.isNewsActive()
-        };
-    });
+    landingClass = computed(() => ({
+        'layout-dark': this.isDarkMode(),
+        'layout-light': !this.isDarkMode(),
+        'layout-news-active': this.isNewsActive()
+    }));
 
     constructor(
         private configService: AppConfigService,

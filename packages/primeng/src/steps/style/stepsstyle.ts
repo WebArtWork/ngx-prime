@@ -16,6 +16,7 @@ const classes = {
     itemNumber: 'p-steps-item-number',
     itemLabel: 'p-steps-item-label'
 };
+
 @Injectable()
 export class StepsStyle extends BaseStyle {
     name = 'steps';

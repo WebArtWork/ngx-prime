@@ -212,6 +212,7 @@ describe('InputGroup', () => {
 
         it('should work without input value', () => {
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.value).toBe('' as any);
         });
 
@@ -221,6 +222,7 @@ describe('InputGroup', () => {
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
+
             expect(inputElement.nativeElement.value).toBe('testuser');
         });
     });
@@ -257,15 +259,18 @@ describe('InputGroup', () => {
             }
 
             const emptyFixture = TestBed.createComponent(TestEmptyAddonComponent);
+
             emptyFixture.detectChanges();
 
             const addonElement = emptyFixture.debugElement.query(By.directive(InputGroupAddon));
+
             expect(addonElement).toBeTruthy();
             expect(addonElement.nativeElement.textContent.trim()).toBe('' as any);
         });
 
         it('should handle undefined styleClass', async () => {
             const inputGroupInstance = fixture.debugElement.query(By.directive(InputGroup)).componentInstance;
+
             inputGroupInstance.styleClass = undefined as any;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -378,6 +383,7 @@ describe('InputGroup PassThrough Tests', () => {
     describe('PT Case 5: Event binding', () => {
         it('should handle onclick event through PT', (done) => {
             let clicked = false;
+
             fixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
@@ -412,9 +418,11 @@ describe('InputGroup PassThrough Tests', () => {
             }).compileComponents();
 
             const globalFixture = TestBed.createComponent(InputGroup);
+
             globalFixture.detectChanges();
 
             const globalHostElement = globalFixture.nativeElement;
+
             expect(globalHostElement.classList.contains('GLOBAL_CLASS')).toBe(true);
             expect(globalHostElement.getAttribute('aria-label')).toBe('GLOBAL_LABEL');
         });
@@ -423,6 +431,7 @@ describe('InputGroup PassThrough Tests', () => {
     describe('PT Case 7: Lifecycle hooks', () => {
         it('should support lifecycle hooks', async () => {
             const hooksCalled: string[] = [];
+
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [InputGroup, FormsModule],
@@ -451,6 +460,7 @@ describe('InputGroup PassThrough Tests', () => {
             }).compileComponents();
 
             const hookFixture = TestBed.createComponent(InputGroup);
+
             hookFixture.detectChanges();
 
             expect(hooksCalled).toContain('onInit');

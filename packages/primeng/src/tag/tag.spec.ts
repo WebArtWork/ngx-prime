@@ -5,8 +5,8 @@ import { By } from '@angular/platform-browser';
 import { Tag } from './tag';
 
 @Component({
-    standalone: false,
-    template: ` <p-tag [value]="value" [icon]="icon" [severity]="severity" [rounded]="rounded" [styleClass]="styleClass"> </p-tag> `
+    template: ` <p-tag [value]="value" [icon]="icon" [severity]="severity" [rounded]="rounded" [styleClass]="styleClass"> </p-tag> `,
+    imports: [Tag]
 })
 class TestBasicTagComponent {
     value: string | undefined = 'Test Tag';
@@ -17,54 +17,54 @@ class TestBasicTagComponent {
 }
 
 @Component({
-    standalone: false,
-    template: ` <p-tag value="Icon Tag" icon="pi pi-check"></p-tag> `
+    template: ` <p-tag value="Icon Tag" icon="pi pi-check"></p-tag> `,
+    imports: [Tag]
 })
 class TestIconTagComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-tag value="Template Tag">
             <ng-template #icon>
                 <i class="custom-icon">✓</i>
             </ng-template>
         </p-tag>
-    `
+    `,
+    imports: [Tag]
 })
 class TestIconTemplateTagComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-tag value="PTemplate Tag">
             <ng-template pTemplate="icon">
                 <span class="p-template-icon">⭐</span>
             </ng-template>
         </p-tag>
-    `
+    `,
+    imports: [Tag]
 })
 class TestPTemplateTagComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-tag>
             <span class="content-projection">Custom Content</span>
         </p-tag>
-    `
+    `,
+    imports: [Tag]
 })
 class TestContentProjectionTagComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <p-tag value="Success Tag" severity="success" icon="pi pi-check" [rounded]="true"> </p-tag> `
+    template: ` <p-tag value="Success Tag" severity="success" icon="pi pi-check" [rounded]="true"> </p-tag> `,
+    imports: [Tag]
 })
 class TestSeverityTagComponent {}
 
 @Component({
-    standalone: false,
-    template: ` <p-tag [value]="value" [severity]="severity" [style]="style" [styleClass]="styleClass"> </p-tag> `
+    template: ` <p-tag [value]="value" [severity]="severity" [style]="style" [styleClass]="styleClass"> </p-tag> `,
+    imports: [Tag]
 })
 class TestStyleTagComponent {
     value = 'Styled Tag';
@@ -74,7 +74,6 @@ class TestStyleTagComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-tag value="Multiple Icons">
             <ng-template #icon>
@@ -84,7 +83,8 @@ class TestStyleTagComponent {
                 <span class="p-template-icon">📌</span>
             </ng-template>
         </p-tag>
-    `
+    `,
+    imports: [Tag]
 })
 class TestMultipleIconTemplatesComponent {}
 
@@ -96,8 +96,7 @@ describe('Tag', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicTagComponent, TestIconTagComponent, TestIconTemplateTagComponent, TestPTemplateTagComponent, TestContentProjectionTagComponent, TestSeverityTagComponent, TestStyleTagComponent, TestMultipleIconTemplatesComponent],
-            imports: [Tag],
+            imports: [Tag, TestBasicTagComponent, TestIconTagComponent, TestIconTemplateTagComponent, TestPTemplateTagComponent, TestContentProjectionTagComponent, TestSeverityTagComponent, TestStyleTagComponent, TestMultipleIconTemplatesComponent],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -116,6 +115,7 @@ describe('Tag', () => {
         it('should have default values', () => {
             const freshFixture = TestBed.createComponent(TestBasicTagComponent);
             const freshComponent = freshFixture.componentInstance;
+
             freshComponent.value = undefined as any;
             freshComponent.icon = undefined as any;
             freshComponent.severity = undefined as any;
@@ -155,7 +155,7 @@ describe('Tag', () => {
         });
 
         it('should initialize templates properties', () => {
-            expect(tagInstance.templates).toBeDefined();
+            expect(tagInstance.templates()).toBeDefined();
             expect(tagInstance._iconTemplate).toBeUndefined();
         });
     });
@@ -250,6 +250,7 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const labelSpan = fixture.debugElement.query(By.css('span:last-child'));
+
             expect(labelSpan).toBeTruthy();
             expect(labelSpan.nativeElement.textContent.trim()).toBe('Display Test');
         });
@@ -261,6 +262,7 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             let labelSpan = fixture.debugElement.query(By.css('span:last-child'));
+
             expect(labelSpan.nativeElement.textContent.trim()).toBe('Initial Value');
 
             component.value = 'Updated Value';
@@ -279,6 +281,7 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const labelSpan = fixture.debugElement.query(By.css('span:last-child'));
+
             expect(labelSpan.nativeElement.textContent.trim()).toBe('' as any);
         });
 
@@ -289,6 +292,7 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const labelSpan = fixture.debugElement.query(By.css('span:last-child'));
+
             expect(labelSpan.nativeElement.textContent.trim()).toBe('' as any);
         });
     });
@@ -296,9 +300,11 @@ describe('Tag', () => {
     describe('Icon Display', () => {
         it('should display icon when icon property is set', () => {
             const iconFixture = TestBed.createComponent(TestIconTagComponent);
+
             iconFixture.detectChanges();
 
             const iconSpan = iconFixture.debugElement.query(By.css('span[ngClass]'));
+
             if (iconSpan) {
                 expect(iconSpan).toBeTruthy();
                 expect(iconSpan.nativeElement.classList.contains('pi')).toBe(true);
@@ -306,6 +312,7 @@ describe('Tag', () => {
             } else {
                 // Icon may not render in test environment, just verify component has icon property
                 const tagInstance = iconFixture.debugElement.query(By.directive(Tag)).componentInstance;
+
                 expect(tagInstance.icon).toBe('pi pi-check');
             }
         });
@@ -315,6 +322,7 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const iconSpan = fixture.debugElement.query(By.css('span[ngClass]'));
+
             expect(iconSpan).toBeFalsy();
         });
 
@@ -325,6 +333,7 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const iconSpan = fixture.debugElement.query(By.css('span[ngClass]'));
+
             if (iconSpan) {
                 expect(iconSpan.nativeElement.classList.contains('pi-star')).toBe(true);
 
@@ -353,6 +362,7 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const iconSpan = fixture.debugElement.query(By.css('span[ngClass]'));
+
             if (iconSpan) {
                 expect(iconSpan.nativeElement.classList.contains('pi')).toBe(true);
                 expect(iconSpan.nativeElement.classList.contains('pi-check')).toBe(true);
@@ -367,6 +377,7 @@ describe('Tag', () => {
     describe('Icon Template Tests', () => {
         it('should handle #icon template processing', async () => {
             const iconTemplateFixture = TestBed.createComponent(TestIconTemplateTagComponent);
+
             iconTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await iconTemplateFixture.whenStable();
@@ -378,6 +389,7 @@ describe('Tag', () => {
 
             // Check if icon section exists, may be rendered differently in test environment
             const iconContainer = iconTemplateFixture.debugElement.query(By.css('span:nth-child(2)'));
+
             if (iconContainer) {
                 expect(iconContainer).toBeTruthy();
             } else {
@@ -388,6 +400,7 @@ describe('Tag', () => {
 
         it('should handle pTemplate icon processing', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+
             pTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await pTemplateFixture.whenStable();
@@ -399,6 +412,7 @@ describe('Tag', () => {
 
             // Check if icon section exists, may be rendered differently in test environment
             const iconContainer = pTemplateFixture.debugElement.query(By.css('span:nth-child(2)'));
+
             if (iconContainer) {
                 expect(iconContainer).toBeTruthy();
             } else {
@@ -409,40 +423,47 @@ describe('Tag', () => {
 
         it('should render #icon template correctly', async () => {
             const iconTemplateFixture = TestBed.createComponent(TestIconTemplateTagComponent);
+
             iconTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await iconTemplateFixture.whenStable();
 
             const customIcon = iconTemplateFixture.debugElement.query(By.css('.custom-icon'));
+
             if (customIcon) {
                 expect(customIcon).toBeTruthy();
                 expect(customIcon.nativeElement.textContent.trim()).toBe('✓');
             } else {
                 // If template processing doesn't work in test environment, just verify component exists
                 const tagComponent = iconTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
+
                 expect(tagComponent.iconTemplate).toBeDefined();
             }
         });
 
         it('should render pTemplate icon correctly', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+
             pTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await pTemplateFixture.whenStable();
 
             const pTemplateIcon = pTemplateFixture.debugElement.query(By.css('.p-template-icon'));
+
             if (pTemplateIcon) {
                 expect(pTemplateIcon).toBeTruthy();
                 expect(pTemplateIcon.nativeElement.textContent.trim()).toBe('⭐');
             } else {
                 // If template processing doesn't work in test environment, just verify component exists
                 const tagComponent = pTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
+
                 expect(tagComponent.templates).toBeDefined();
             }
         });
 
         it('should prioritize iconTemplate over _iconTemplate', async () => {
             const multipleFixture = TestBed.createComponent(TestMultipleIconTemplatesComponent);
+
             multipleFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await multipleFixture.whenStable();
@@ -460,19 +481,23 @@ describe('Tag', () => {
 
         it('should not show icon span when template is used', () => {
             const iconTemplateFixture = TestBed.createComponent(TestIconTemplateTagComponent);
+
             iconTemplateFixture.detectChanges();
 
             // When template is used, the regular icon span should not be shown
             const regularIconSpan = iconTemplateFixture.debugElement.query(By.css('span[ngClass]'));
+
             expect(regularIconSpan).toBeFalsy();
 
             // But template icon container should be present or component should have template
             const tagComponent = iconTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
+
             expect(tagComponent.iconTemplate).toBeDefined();
         });
 
         it('should pass correct template context', async () => {
             const iconTemplateFixture = TestBed.createComponent(TestIconTemplateTagComponent);
+
             iconTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await iconTemplateFixture.whenStable();
@@ -488,6 +513,7 @@ describe('Tag', () => {
 
         it('should update template when component state changes', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+
             pTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await pTemplateFixture.whenStable();
@@ -511,15 +537,18 @@ describe('Tag', () => {
     describe('Content Projection Tests', () => {
         it('should project ng-content correctly', () => {
             const contentFixture = TestBed.createComponent(TestContentProjectionTagComponent);
+
             contentFixture.detectChanges();
 
             const projectedContent = contentFixture.debugElement.query(By.css('.content-projection'));
+
             expect(projectedContent).toBeTruthy();
             expect(projectedContent.nativeElement.textContent.trim()).toBe('Custom Content');
         });
 
         it('should project content before icon and label', () => {
             const contentFixture = TestBed.createComponent(TestContentProjectionTagComponent);
+
             contentFixture.detectChanges();
 
             const tagElement = contentFixture.debugElement.query(By.directive(Tag));
@@ -528,6 +557,7 @@ describe('Tag', () => {
             // ng-content should be first
             expect(children.length).toBeGreaterThan(0);
             const projectedContent = contentFixture.debugElement.query(By.css('.content-projection'));
+
             expect(projectedContent).toBeTruthy();
         });
 
@@ -545,6 +575,7 @@ describe('Tag', () => {
             const labelSpan = complexFixture.debugElement.query(By.css('span:last-child'));
 
             expect(projectedContent).toBeTruthy();
+
             if (labelSpan) {
                 expect(labelSpan).toBeTruthy();
                 expect(labelSpan.nativeElement.textContent.trim()).toBe('With Content');
@@ -562,12 +593,14 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.query(By.directive(Tag));
+
             expect(rootElement.nativeElement.classList.contains('custom-tag-class')).toBe(true);
         });
 
         it('should apply custom styles', () => {
             const styleFixture = TestBed.createComponent(TestStyleTagComponent);
             const styleComponent = styleFixture.componentInstance;
+
             styleFixture.detectChanges();
 
             const element = styleFixture.debugElement.query(By.directive(Tag)).nativeElement;
@@ -594,15 +627,18 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.query(By.directive(Tag));
+
             expect(rootElement.nativeElement.classList.contains('class1')).toBe(true);
             expect(rootElement.nativeElement.classList.contains('class2')).toBe(true);
         });
 
         it('should apply severity-based CSS classes', () => {
             const severityFixture = TestBed.createComponent(TestSeverityTagComponent);
+
             severityFixture.detectChanges();
 
             const rootElement = severityFixture.debugElement.query(By.directive(Tag));
+
             // CSS classes are applied through Angular's cx() and cn() functions
             expect(rootElement.nativeElement.getAttribute('class')).toBeDefined();
         });
@@ -614,6 +650,7 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const rootElement = fixture.debugElement.query(By.directive(Tag));
+
             // CSS classes are applied through Angular's cx() function
             expect(rootElement.nativeElement.getAttribute('class')).toBeDefined();
         });
@@ -626,9 +663,11 @@ describe('Tag', () => {
             fixture.detectChanges();
 
             const labelSpan = fixture.debugElement.query(By.css('span:last-child'));
+
             expect(labelSpan).toBeTruthy();
 
             const iconSpan = fixture.debugElement.query(By.css('span[ngClass]'));
+
             if (iconSpan) {
                 expect(iconSpan).toBeTruthy();
             } else {
@@ -773,6 +812,7 @@ describe('Tag', () => {
 
         it('should process templates in ngAfterContentInit', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+
             pTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await pTemplateFixture.whenStable();
@@ -786,6 +826,7 @@ describe('Tag', () => {
 
         it('should set _iconTemplate when processing PrimeTemplate', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+
             pTemplateFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await pTemplateFixture.whenStable();
@@ -803,6 +844,7 @@ describe('Tag', () => {
 
         it('should handle templates without icon type', async () => {
             const basicFixture = TestBed.createComponent(TestBasicTagComponent);
+
             basicFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await basicFixture.whenStable();
@@ -865,6 +907,7 @@ describe('Tag', () => {
 
         it('should handle very long values', async () => {
             const longValue = 'This is a very long tag value that might cause layout issues or performance problems in some cases but should be handled gracefully by the component';
+
             component.value = longValue;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -872,6 +915,7 @@ describe('Tag', () => {
 
             expect(tagInstance.value).toBe(longValue);
             const labelSpan = fixture.debugElement.query(By.css('span:last-child'));
+
             if (labelSpan) {
                 expect(labelSpan.nativeElement.textContent.trim()).toBe(longValue);
             } else {
@@ -900,8 +944,10 @@ describe('Tag', () => {
         it('should handle component creation and destruction gracefully', () => {
             expect(() => {
                 const tempFixture = TestBed.createComponent(TestBasicTagComponent);
+
                 tempFixture.detectChanges();
                 const tempInstance = tempFixture.debugElement.query(By.directive(Tag)).componentInstance;
+
                 expect(tempInstance).toBeTruthy();
                 tempFixture.destroy();
             }).not.toThrow();
@@ -937,6 +983,7 @@ describe('Tag', () => {
     describe('Integration Tests', () => {
         it('should work with severity component', () => {
             const severityFixture = TestBed.createComponent(TestSeverityTagComponent);
+
             severityFixture.detectChanges();
 
             const severityTag = severityFixture.debugElement.query(By.directive(Tag)).componentInstance;
@@ -949,6 +996,7 @@ describe('Tag', () => {
 
         it('should work with styled component', () => {
             const styleFixture = TestBed.createComponent(TestStyleTagComponent);
+
             styleFixture.detectChanges();
 
             const styleTag = styleFixture.debugElement.query(By.directive(Tag)).componentInstance;
@@ -1021,6 +1069,7 @@ describe('Tag', () => {
             expect(tagInstance).toBeTruthy();
 
             const rootElement = fixture.debugElement.query(By.directive(Tag));
+
             expect(rootElement.nativeElement.classList.contains('complete-tag')).toBe(true);
         });
     });
@@ -1036,6 +1085,7 @@ describe('Tag', () => {
 
         it('should process icon templates correctly', async () => {
             const pTemplateFixture = TestBed.createComponent(TestPTemplateTagComponent);
+
             pTemplateFixture.detectChanges();
 
             const pTemplateTag = pTemplateFixture.debugElement.query(By.directive(Tag)).componentInstance;
@@ -1097,6 +1147,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+
                 expect(iconElement?.classList.contains('ICON_CLASS')).toBe(true);
             });
 
@@ -1105,6 +1156,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 const labelElement = tagElement.nativeElement.querySelector('[data-pc-section="label"]');
+
                 expect(labelElement?.classList.contains('LABEL_CLASS')).toBe(true);
             });
         });
@@ -1160,6 +1212,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+
                 expect(iconElement?.classList.contains('ICON_OBJ_CLASS')).toBe(true);
             });
 
@@ -1169,6 +1222,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+
                 expect(iconElement?.style.padding).toBe('10px');
             });
 
@@ -1177,6 +1231,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 const labelElement = tagElement.nativeElement.querySelector('[data-pc-section="label"]');
+
                 expect(labelElement?.classList.contains('LABEL_OBJ_CLASS')).toBe(true);
             });
         });
@@ -1218,6 +1273,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+
                 expect(iconElement?.classList.contains('ICON_MIXED_CLASS')).toBe(true);
                 expect(iconElement?.style.fontSize).toBe('16px');
             });
@@ -1264,6 +1320,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 const labelElement = tagElement.nativeElement.querySelector('[data-pc-section="label"]');
+
                 expect(labelElement?.classList.contains('ROUNDED_CLASS')).toBe(true);
             });
         });
@@ -1271,6 +1328,7 @@ describe('Tag', () => {
         describe('Case 5: Event binding', () => {
             it('should bind onclick event to host section', () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('pt', {
                     host: {
                         onclick: () => {
@@ -1286,6 +1344,7 @@ describe('Tag', () => {
 
             it('should bind onclick event to icon section', () => {
                 let clicked = false;
+
                 fixture.componentRef.setInput('icon', 'pi pi-tag');
                 fixture.componentRef.setInput('pt', {
                     icon: {
@@ -1297,6 +1356,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 const iconElement = tagElement.nativeElement.querySelector('[data-pc-section="icon"]');
+
                 iconElement?.click();
                 expect(clicked).toBe(true);
             });
@@ -1308,6 +1368,7 @@ describe('Tag', () => {
                     root: ({ instance }: any) => {
                         // Tag component doesn't have emitters
                         expect(instance).toBeDefined();
+
                         return {};
                     }
                 });
@@ -1353,6 +1414,7 @@ describe('Tag', () => {
                 fixture.detectChanges();
 
                 const labelElement = tagElement.nativeElement.querySelector('[data-pc-section="label"]');
+
                 expect(labelElement?.classList.contains('inline-test-label')).toBe(true);
                 expect(labelElement?.style.fontWeight).toBe('bold');
             });
@@ -1362,6 +1424,7 @@ describe('Tag', () => {
             it('should call onAfterViewInit hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTTagComponent);
+
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewInit: () => {
@@ -1380,6 +1443,7 @@ describe('Tag', () => {
             it('should call onAfterContentInit hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTTagComponent);
+
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterContentInit: () => {
@@ -1398,6 +1462,7 @@ describe('Tag', () => {
             it('should call onAfterViewChecked hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTTagComponent);
+
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
                         onAfterViewChecked: () => {
@@ -1416,6 +1481,7 @@ describe('Tag', () => {
             it('should call onDestroy hook in pt', async () => {
                 let hookCalled = false;
                 const hookFixture = TestBed.createComponent(TestPTTagComponent);
+
                 hookFixture.componentRef.setInput('pt', {
                     hooks: {
                         onDestroy: () => {

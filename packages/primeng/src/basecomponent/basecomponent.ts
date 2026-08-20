@@ -1,5 +1,27 @@
 import { DOCUMENT, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, InjectionToken, Injector, input, PLATFORM_ID, Renderer2, signal, SimpleChanges } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    computed,
+    Directive,
+    effect,
+    ElementRef,
+    inject,
+    InjectionToken,
+    Injector,
+    input,
+    PLATFORM_ID,
+    Renderer2,
+    signal,
+    SimpleChanges,
+    OnInit,
+    OnChanges,
+    DoCheck,
+    AfterContentInit,
+    AfterContentChecked,
+    AfterViewInit,
+    AfterViewChecked,
+    OnDestroy
+} from '@angular/core';
 import { Theme, ThemeService } from '@primeuix/styled';
 import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@primeuix/utils';
 import type { Lifecycle, PassThroughOptions } from 'primeng/api';
@@ -13,7 +35,7 @@ export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANC
     standalone: true,
     providers: [BaseComponentStyle, BaseStyle]
 })
-export class BaseComponent<PT = any> implements Lifecycle {
+export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy {
     public document: Document = inject(DOCUMENT);
 
     public platformId: any = inject(PLATFORM_ID);
@@ -51,7 +73,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
      * @defaultValue undefined
      * @group Props
      */
-    dt = input<Object | undefined>();
+    dt = input<object | undefined>();
     /**
      * Indicates whether the component should be rendered without styles.
      * @defaultValue undefined
@@ -91,13 +113,9 @@ export class BaseComponent<PT = any> implements Lifecycle {
 
     directiveUnstyled = signal<boolean | undefined>(undefined);
 
-    $unstyled = computed(() => {
-        return this.unstyled() ?? this.directiveUnstyled() ?? this.config?.unstyled() ?? false;
-    });
+    $unstyled = computed(() => this.unstyled() ?? this.directiveUnstyled() ?? this.config?.unstyled() ?? false);
 
-    $pt = computed(() => {
-        return resolve(this.pt() || this.directivePT(), this.$params);
-    });
+    $pt = computed(() => resolve(this.pt() || this.directivePT(), this.$params));
 
     get $globalPT() {
         return this._getPT(this.config?.pt(), undefined, (value) => resolve(value, this.$params));
@@ -396,6 +414,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
         this._offThemeChangeListener(id);
         Base.clearLoadedStyleNames();
         const hold = callback.bind(this);
+
         this.themeChangeListenerMap.set(id, hold);
         ThemeService.on('theme:change', hold);
     }
@@ -500,6 +519,7 @@ export class BaseComponent<PT = any> implements Lifecycle {
     public ptms(keys: string[], params = {}) {
         return keys.reduce((acc, arg) => {
             acc = mergeProps(acc, this.ptm(arg, params)) || {};
+
             return acc;
         }, {});
     }

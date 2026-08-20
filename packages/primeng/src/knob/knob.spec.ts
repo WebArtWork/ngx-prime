@@ -141,6 +141,7 @@ describe('Knob', () => {
 
         it('should render SVG element with correct attributes', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement).toBeTruthy();
             expect(svgElement.nativeElement.getAttribute('role')).toBe('slider');
             expect(svgElement.nativeElement.getAttribute('aria-valuemin')).toBe('0');
@@ -149,6 +150,7 @@ describe('Knob', () => {
 
         it('should render paths for range and value', () => {
             const paths = fixture.debugElement.queryAll(By.css('path'));
+
             expect(paths.length).toBe(2);
 
             const rangePath = paths[0];
@@ -160,6 +162,7 @@ describe('Knob', () => {
 
         it('should render value text when showValue is true', () => {
             const textElement = fixture.debugElement.query(By.css('text'));
+
             expect(textElement).toBeTruthy();
             expect(textElement.nativeElement.textContent.trim()).toBe('0');
         });
@@ -198,6 +201,7 @@ describe('Knob', () => {
             await fixture.whenStable();
 
             const textElement = fixture.debugElement.query(By.css('text'));
+
             expect(textElement.nativeElement.textContent.trim()).toBe('60');
         });
 
@@ -209,6 +213,7 @@ describe('Knob', () => {
                 clientX: 50,
                 clientY: 50
             });
+
             Object.defineProperty(clickEvent, 'offsetX', { value: 50 });
             Object.defineProperty(clickEvent, 'offsetY', { value: 50 });
 
@@ -247,6 +252,7 @@ describe('Knob', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const upEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
+
             spyOn(upEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(upEvent);
 
@@ -254,6 +260,7 @@ describe('Knob', () => {
             expect(knobInstance.value()).toBe(51);
 
             const rightEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
+
             spyOn(rightEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(rightEvent);
 
@@ -265,6 +272,7 @@ describe('Knob', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const downEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
             spyOn(downEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(downEvent);
 
@@ -272,6 +280,7 @@ describe('Knob', () => {
             expect(knobInstance.value()).toBe(49);
 
             const leftEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
+
             spyOn(leftEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(leftEvent);
 
@@ -283,6 +292,7 @@ describe('Knob', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const homeEvent = new KeyboardEvent('keydown', { code: 'Home' });
+
             spyOn(homeEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(homeEvent);
 
@@ -290,6 +300,7 @@ describe('Knob', () => {
             expect(knobInstance.value()).toBe(0);
 
             const endEvent = new KeyboardEvent('keydown', { code: 'End' });
+
             spyOn(endEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(endEvent);
 
@@ -301,6 +312,7 @@ describe('Knob', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const pageUpEvent = new KeyboardEvent('keydown', { code: 'PageUp' });
+
             spyOn(pageUpEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(pageUpEvent);
 
@@ -308,6 +320,7 @@ describe('Knob', () => {
             expect(knobInstance.value()).toBe(60);
 
             const pageDownEvent = new KeyboardEvent('keydown', { code: 'PageDown' });
+
             spyOn(pageDownEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(pageDownEvent);
 
@@ -335,6 +348,7 @@ describe('Knob', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const mouseDownEvent = new MouseEvent('mousedown');
+
             spyOn(mouseDownEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(mouseDownEvent);
 
@@ -350,6 +364,7 @@ describe('Knob', () => {
             svgElement.nativeElement.dispatchEvent(new MouseEvent('mousedown'));
 
             const mouseUpEvent = new MouseEvent('mouseup');
+
             spyOn(mouseUpEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(mouseUpEvent);
 
@@ -376,6 +391,7 @@ describe('Knob', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const touchStartEvent = new TouchEvent('touchstart');
+
             spyOn(touchStartEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(touchStartEvent);
 
@@ -391,6 +407,7 @@ describe('Knob', () => {
             svgElement.nativeElement.dispatchEvent(new TouchEvent('touchstart'));
 
             const touchEndEvent = new TouchEvent('touchend');
+
             spyOn(touchEndEvent, 'preventDefault');
             svgElement.nativeElement.dispatchEvent(touchEndEvent);
 
@@ -424,6 +441,7 @@ describe('Knob', () => {
             expect(knobInstance.max).toBe(90);
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement.nativeElement.getAttribute('aria-valuemin')).toBe('10');
             expect(svgElement.nativeElement.getAttribute('aria-valuemax')).toBe('90');
         });
@@ -436,6 +454,7 @@ describe('Knob', () => {
             expect(knobInstance.size).toBe(150);
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement.nativeElement.style.width).toBe('150px');
             expect(svgElement.nativeElement.style.height).toBe('150px');
         });
@@ -444,6 +463,7 @@ describe('Knob', () => {
             expect(knobInstance.strokeWidth).toBe(20);
 
             const paths = fixture.debugElement.queryAll(By.css('path'));
+
             paths.forEach((path) => {
                 expect(path.nativeElement.getAttribute('stroke-width')).toBe('20');
             });
@@ -455,10 +475,12 @@ describe('Knob', () => {
             expect(knobInstance.textColor).toBe('#333');
 
             const paths = fixture.debugElement.queryAll(By.css('path'));
+
             expect(paths[0].nativeElement.getAttribute('stroke')).toBe('#f1f1f1');
             expect(paths[1].nativeElement.getAttribute('stroke')).toBe('#007ad9');
 
             const textElement = fixture.debugElement.query(By.css('text'));
+
             expect(textElement.nativeElement.getAttribute('fill')).toBe('#333');
         });
 
@@ -469,16 +491,19 @@ describe('Knob', () => {
             expect(knobInstance.valueToDisplay()).toBe('50%');
 
             const textElement = fixture.debugElement.query(By.css('text'));
+
             expect(textElement.nativeElement.textContent.trim()).toBe('50%');
         });
 
         it('should apply custom style class', () => {
             const knobElement = fixture.debugElement.query(By.directive(Knob));
+
             expect(knobElement.nativeElement.classList.contains('custom-knob')).toBe(true);
         });
 
         it('should apply accessibility attributes', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement.nativeElement.getAttribute('aria-label')).toBe('Volume Control');
             expect(svgElement.nativeElement.getAttribute('tabindex')).toBe('0');
         });
@@ -488,6 +513,7 @@ describe('Knob', () => {
             fixture.detectChanges();
 
             const textElement = fixture.debugElement.query(By.css('text'));
+
             expect(textElement).toBeFalsy();
         });
 
@@ -496,11 +522,13 @@ describe('Knob', () => {
             fixture.detectChanges();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
+
             expect(svgElement.nativeElement.getAttribute('tabindex')).toBe('-1');
 
             // Test that click is ignored in readonly mode
             spyOn(knobInstance, 'updateValue');
             const clickEvent = new MouseEvent('click');
+
             Object.defineProperty(clickEvent, 'offsetX', { value: 50 });
             Object.defineProperty(clickEvent, 'offsetY', { value: 50 });
             svgElement.nativeElement.dispatchEvent(clickEvent);
@@ -606,6 +634,7 @@ describe('Knob', () => {
             expect(knobInstance.valueToDisplay()).toBe('25°C');
 
             const textElement = fixture.debugElement.query(By.css('text'));
+
             expect(textElement.nativeElement.textContent.trim()).toBe('25°C');
         });
 
@@ -618,6 +647,7 @@ describe('Knob', () => {
             expect(knobInstance.valueToDisplay()).toBe('30°C');
 
             const textElement = fixture.debugElement.query(By.css('text'));
+
             expect(textElement.nativeElement.textContent.trim()).toBe('30°C');
         });
     });
@@ -684,6 +714,7 @@ describe('Knob', () => {
             const svgElement = fixture.debugElement.query(By.css('svg'));
 
             const clickEvent = new MouseEvent('click');
+
             Object.defineProperty(clickEvent, 'offsetX', { value: 50 });
             Object.defineProperty(clickEvent, 'offsetY', { value: 50 });
             svgElement.nativeElement.dispatchEvent(clickEvent);
@@ -711,9 +742,11 @@ describe('Knob', () => {
 
         it('should calculate range mapping correctly', () => {
             const result = knobInstance.mapRange(50, 0, 100, 0, 360);
+
             expect(result).toBe(180);
 
             const result2 = knobInstance.mapRange(25, 0, 100, 0, 360);
+
             expect(result2).toBe(90);
         });
 
@@ -793,8 +826,8 @@ describe('Knob', () => {
     describe('PassThrough (PT) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCase1Component {
                 value: number = 50;
@@ -811,37 +844,42 @@ describe('Knob', () => {
             it('should apply simple string classes to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCase1Component],
+                    imports: [Knob, FormsModule, TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
                     expect(hostEl.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
                 }
 
                 const svgEl = testFixture.debugElement.query(By.css('svg'));
+
                 if (svgEl) {
                     expect(svgEl.nativeElement.classList.contains('SVG_CLASS')).toBe(true);
                 }
 
                 const rangePath = testFixture.debugElement.query(By.css('[data-pc-section="range"]'));
+
                 if (rangePath) {
                     expect(rangePath.nativeElement.classList.contains('RANGE_CLASS')).toBe(true);
                 }
 
                 const valuePath = testFixture.debugElement.query(By.css('[data-pc-section="value"]'));
+
                 if (valuePath) {
                     expect(valuePath.nativeElement.classList.contains('VALUE_CLASS')).toBe(true);
                 }
 
                 const textEl = testFixture.debugElement.query(By.css('[data-pc-section="text"]'));
+
                 if (textEl) {
                     expect(textEl.nativeElement.classList.contains('TEXT_CLASS')).toBe(true);
                 }
@@ -850,8 +888,8 @@ describe('Knob', () => {
 
         describe('Case 2: Object with class, style, data attributes', () => {
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCase2Component {
                 value: number = 50;
@@ -874,16 +912,17 @@ describe('Knob', () => {
             it('should apply object properties to PT sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCase2Component],
+                    imports: [Knob, FormsModule, TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('OBJECT_HOST_CLASS')).toBe(true);
                     expect(hostEl.nativeElement.style.backgroundColor).toBe('red');
@@ -891,6 +930,7 @@ describe('Knob', () => {
                 }
 
                 const svgEl = testFixture.debugElement.query(By.css('svg'));
+
                 if (svgEl) {
                     expect(svgEl.nativeElement.classList.contains('SVG_OBJECT_CLASS')).toBe(true);
                     expect(svgEl.nativeElement.getAttribute('data-p-custom')).toBe('custom-value');
@@ -900,8 +940,8 @@ describe('Knob', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCase3Component {
                 value: number = 50;
@@ -918,21 +958,23 @@ describe('Knob', () => {
             it('should apply mixed object and string values', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCase3Component],
+                    imports: [Knob, FormsModule, TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('MIXED_HOST_CLASS')).toBe(true);
                 }
 
                 const svgEl = testFixture.debugElement.query(By.css('svg'));
+
                 if (svgEl) {
                     expect(svgEl.nativeElement.classList.contains('MIXED_SVG_CLASS')).toBe(true);
                 }
@@ -941,49 +983,49 @@ describe('Knob', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value" [min]="0" [max]="100" [showValue]="true" [pt]="pt"></p-knob>`
+                template: `<p-knob [(ngModel)]="value" [min]="0" [max]="100" [showValue]="true" [pt]="pt"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCase4Component {
                 value: number = 75;
                 pt = {
-                    host: ({ instance }: any) => {
-                        return {
-                            class: instance?.value > 50 ? 'HIGH_VALUE_CLASS' : 'LOW_VALUE_CLASS'
-                        };
-                    },
-                    text: ({ instance }: any) => {
-                        return {
-                            style: {
-                                fill: instance?.value > 50 ? 'green' : 'red'
-                            }
-                        };
-                    }
+                    host: ({ instance }: any) => ({
+                        class: instance?.value > 50 ? 'HIGH_VALUE_CLASS' : 'LOW_VALUE_CLASS'
+                    }),
+                    text: ({ instance }: any) => ({
+                        style: {
+                            fill: instance?.value > 50 ? 'green' : 'red'
+                        }
+                    })
                 };
             }
 
             it('should use instance variables in PT functions', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCase4Component],
+                    imports: [Knob, FormsModule, TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+
                 if (hostEl) {
                     const hasHighValue = hostEl.nativeElement.classList.contains('HIGH_VALUE_CLASS');
                     const hasLowValue = hostEl.nativeElement.classList.contains('LOW_VALUE_CLASS');
+
                     expect(hasHighValue || hasLowValue).toBe(true);
                 }
 
                 const textEl = testFixture.debugElement.query(By.css('[data-pc-section="text"]'));
+
                 if (textEl) {
                     const fillColor = textEl.nativeElement.getAttribute('fill');
+
                     expect(fillColor).toBeTruthy();
                 }
             });
@@ -991,8 +1033,8 @@ describe('Knob', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCase5Component {
                 value: number = 50;
@@ -1014,19 +1056,21 @@ describe('Knob', () => {
             it('should bind click events through PT', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCase5Component],
+                    imports: [Knob, FormsModule, TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const svgEl = testFixture.debugElement.query(By.css('svg'));
+
                 if (svgEl) {
                     const clickEvent = new MouseEvent('click');
+
                     svgEl.nativeElement.dispatchEvent(clickEvent);
                     testFixture.changeDetectorRef.markForCheck();
                     expect(component.clickedSection).toBeTruthy();
@@ -1036,8 +1080,8 @@ describe('Knob', () => {
 
         describe('Case 6: Inline PT', () => {
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', svg: 'INLINE_SVG_CLASS' }"></p-knob>`
+                template: `<p-knob [(ngModel)]="value" [pt]="{ host: 'INLINE_HOST_CLASS', svg: 'INLINE_SVG_CLASS' }"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCase6InlineComponent {
                 value: number = 50;
@@ -1046,24 +1090,25 @@ describe('Knob', () => {
             it('should apply inline PT as string', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCase6InlineComponent],
+                    imports: [Knob, FormsModule, TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('INLINE_HOST_CLASS')).toBe(true);
                 }
             });
 
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, svg: { class: 'SVG_INLINE_CLASS' } }"></p-knob>`
+                template: `<p-knob [(ngModel)]="value" [pt]="{ host: { class: 'INLINE_OBJECT_CLASS' }, svg: { class: 'SVG_INLINE_CLASS' } }"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCase6InlineObjectComponent {
                 value: number = 50;
@@ -1072,16 +1117,17 @@ describe('Knob', () => {
             it('should apply inline PT as object', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCase6InlineObjectComponent],
+                    imports: [Knob, FormsModule, TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
                 }
@@ -1090,8 +1136,8 @@ describe('Knob', () => {
 
         describe('Case 7: Global PT from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value"></p-knob>`
+                template: `<p-knob [(ngModel)]="value"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCase7GlobalComponent {
                 value: number = 50;
@@ -1100,8 +1146,7 @@ describe('Knob', () => {
             it('should apply global PT from config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCase7GlobalComponent],
+                    imports: [Knob, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         providePrimeNG({
@@ -1116,10 +1161,12 @@ describe('Knob', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.classList.contains('GLOBAL_HOST_CLASS')).toBe(true);
                 }
@@ -1128,8 +1175,8 @@ describe('Knob', () => {
 
         describe('Case 8: PT Hooks', () => {
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`
+                template: `<p-knob [(ngModel)]="value" [pt]="pt"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCase8HooksComponent {
                 value: number = 50;
@@ -1152,13 +1199,13 @@ describe('Knob', () => {
             it('should call PT hooks', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCase8HooksComponent],
+                    imports: [Knob, FormsModule, TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase8HooksComponent);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -1171,8 +1218,8 @@ describe('Knob', () => {
 
         describe('PT Section Coverage', () => {
             @Component({
-                standalone: false,
-                template: `<p-knob [(ngModel)]="value" [showValue]="true" [pt]="pt"></p-knob>`
+                template: `<p-knob [(ngModel)]="value" [showValue]="true" [pt]="pt"></p-knob>`,
+                imports: [Knob, FormsModule]
             })
             class TestPTCoverageComponent {
                 value: number = 50;
@@ -1189,31 +1236,37 @@ describe('Knob', () => {
             it('should apply PT to all sections', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    imports: [Knob, FormsModule],
-                    declarations: [TestPTCoverageComponent],
+                    imports: [Knob, FormsModule, TestPTCoverageComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCoverageComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const hostEl = testFixture.debugElement.query(By.css('[data-pc-name="knob"]'));
+
                 expect(hostEl).toBeTruthy();
+
                 if (hostEl) {
                     expect(hostEl.nativeElement.getAttribute('data-pc-name')).toBe('knob');
                 }
 
                 const svgEl = testFixture.debugElement.query(By.css('[data-pc-section="svg"]'));
+
                 expect(svgEl).toBeTruthy();
 
                 const rangeEl = testFixture.debugElement.query(By.css('[data-pc-section="range"]'));
+
                 expect(rangeEl).toBeTruthy();
 
                 const valueEl = testFixture.debugElement.query(By.css('[data-pc-section="value"]'));
+
                 expect(valueEl).toBeTruthy();
 
                 const textEl = testFixture.debugElement.query(By.css('[data-pc-section="text"]'));
+
                 expect(textEl).toBeTruthy();
             });
         });

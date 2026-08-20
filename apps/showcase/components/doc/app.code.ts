@@ -76,24 +76,31 @@ export class AppCode {
     resolvedSelector = computed(() => {
         // 1. Use explicit selector if provided
         const explicitSelector = this.selector();
+
         if (explicitSelector) {
             return explicitSelector;
         }
 
         // 2. Auto-detect from parent component's tag name
         const parentElement = this.elementRef.nativeElement.parentElement;
+
         if (parentElement) {
             let el = parentElement;
+
             while (el) {
                 const tagName = el.tagName?.toLowerCase();
+
                 if (tagName && (tagName.endsWith('-doc') || tagName.endsWith('-demo'))) {
                     const component = this.route.snapshot.url[0]?.path || this.route.parent?.snapshot.url[0]?.path || '';
                     const section = tagName.replace('-doc', '').replace('-demo', '');
+
                     if (component && section) {
                         return `${component}-${section}-demo`;
                     }
+
                     return tagName;
                 }
+
                 el = el.parentElement;
             }
         }
@@ -104,9 +111,11 @@ export class AppCode {
     // Computed initial language based on resolved code
     private initialLang = computed(() => {
         const code = this.resolvedCode();
+
         if (code) {
             return Object.keys(code)[0];
         }
+
         return 'typescript';
     });
 
@@ -127,25 +136,31 @@ export class AppCode {
                 this.resolvedCode.set(codeInput);
                 this.resolvedExtFiles.set(this.resolveExtFilesInput(this.extFiles()));
                 const { routeFiles: resolvedRoutes, services: routeServices } = this.resolveRouteFilesInput(this.routeFiles());
+
                 this.resolvedRouteFiles.set(resolvedRoutes);
                 // Merge services from route files with code.service
                 const codeServices = this.service() || [];
+
                 this.resolvedService.set(this.mergeServices(codeServices, routeServices));
             } else if (selector && isLoaded) {
                 // Priority 2: Look up from JSON
                 const demo = this.demoCodeService.getCode(selector);
+
                 if (demo) {
                     this.resolvedCode.set(demo.code);
                     // Merge extFiles from input with those from demos.json
                     const inputExtFiles = this.resolveExtFilesInput(this.extFiles());
                     const demoExtFiles = demo.metadata.extFiles || [];
+
                     this.resolvedExtFiles.set(this.mergeExtFiles(inputExtFiles, demoExtFiles));
                     // Merge routeFiles from input with those from demos.json
                     const { routeFiles: inputRouteFiles, services: routeServices } = this.resolveRouteFilesInput(this.routeFiles());
                     const demoRouteFiles = demo.metadata.routeFiles || [];
+
                     this.resolvedRouteFiles.set(this.mergeRouteFiles(inputRouteFiles, demoRouteFiles));
                     // Merge services from route files with those from demos.json
                     const demoServices = demo.metadata.services || [];
+
                     this.resolvedService.set(this.mergeServices(demoServices, routeServices));
                 }
             }
@@ -154,6 +169,7 @@ export class AppCode {
         // Effect: Set initial language when code is resolved
         effect(() => {
             const initialLang = this.initialLang();
+
             if (initialLang && this.lang() === 'typescript' && initialLang !== 'typescript') {
                 // Only update if we haven't manually changed the lang
                 this.lang.set(initialLang);
@@ -185,6 +201,7 @@ export class AppCode {
 
     async copyCode() {
         const code = this.resolvedCode();
+
         if (code) {
             await navigator.clipboard.writeText(code[this.lang()]);
         }
@@ -192,9 +209,11 @@ export class AppCode {
 
     toggleCode() {
         const isVisible = !this.fullCodeVisible();
+
         this.fullCodeVisible.set(isVisible);
 
         const code = this.resolvedCode();
+
         if (code) {
             this.lang.set('typescript');
             // Re-highlight after toggle
@@ -204,6 +223,7 @@ export class AppCode {
 
     openStackBlitz() {
         const code = this.resolvedCode();
+
         if (code) {
             let str = code.typescript;
 
@@ -225,6 +245,7 @@ export class AppCode {
 
             // Add selector to @Component if missing
             const selector = this.resolvedSelector();
+
             if (selector && !/@Component\s*\(\s*\{[\s\S]*?selector\s*:/.test(str)) {
                 str = str.replace(/@Component\s*\(\s*\{/, `@Component({\n    selector: '${selector}',`);
             }
@@ -243,9 +264,11 @@ export class AppCode {
 
     openCodeSandbox() {
         const code = this.resolvedCode();
+
         if (code) {
             // Include service array in the code object for CodeSandbox
             const codeSandboxObject = { ...code, service: this.resolvedService() };
+
             useCodeSandbox({
                 code: codeSandboxObject,
                 selector: this.resolvedSelector(),

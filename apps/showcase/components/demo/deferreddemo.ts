@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, OnDestroy } from '@angular/core';
 
 @Component({
     selector: 'p-deferred-demo',
@@ -16,7 +16,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLA
     `,
     styleUrl: './deferreddemo.scss'
 })
-export class DeferredDemo implements OnInit {
+export class DeferredDemo implements OnInit, OnDestroy {
     visible: boolean = false;
 
     observer = null;
@@ -54,6 +54,7 @@ export class DeferredDemo implements OnInit {
         if (!this.visible && this.el.nativeElement) {
             this.observer?.unobserve(this.el.nativeElement);
         }
+
         clearTimeout(this.timeout);
     }
 }

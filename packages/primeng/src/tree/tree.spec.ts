@@ -1,4 +1,4 @@
-import { Component, ViewChild, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -8,7 +8,6 @@ import { Tree, UITreeNode } from './tree';
 
 // Test component for basic use cases
 @Component({
-    standalone: false,
     template: `
         <p-tree
             [value]="nodes"
@@ -56,7 +55,8 @@ import { Tree, UITreeNode } from './tree';
             (onNodeCollapse)="onNodeCollapse($event)"
         >
         </p-tree>
-    `
+    `,
+    imports: [Tree, UITreeNode, FormsModule]
 })
 class TestBasicTreeComponent {
     nodes: TreeNode[] = [];
@@ -123,7 +123,6 @@ class TestBasicTreeComponent {
 
 // Test component for pTemplate testing
 @Component({
-    standalone: false,
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading">
             <ng-template pTemplate="default" let-node>
@@ -162,7 +161,8 @@ class TestBasicTreeComponent {
                 <div class="custom-loader">Custom Loader...</div>
             </ng-template>
         </p-tree>
-    `
+    `,
+    imports: [Tree, UITreeNode, FormsModule]
 })
 class TestPTemplateTreeComponent {
     loading = false;
@@ -188,7 +188,6 @@ class TestPTemplateTreeComponent {
 
 // Test component for #template testing (new approach)
 @Component({
-    standalone: false,
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading">
             <ng-template #node let-node>
@@ -226,7 +225,8 @@ class TestPTemplateTreeComponent {
                 <div class="custom-loader-template">Template Loader...</div>
             </ng-template>
         </p-tree>
-    `
+    `,
+    imports: [Tree, UITreeNode, FormsModule]
 })
 class TestTemplateRefTreeComponent {
     loading = false;
@@ -241,7 +241,6 @@ class TestTemplateRefTreeComponent {
 
 // Test component for context testing
 @Component({
-    standalone: false,
     template: `
         <p-tree [value]="nodes" [selectionMode]="'checkbox'">
             <ng-template pTemplate="default" let-node let-index="index" let-first="first" let-last="last">
@@ -265,7 +264,8 @@ class TestTemplateRefTreeComponent {
                 </div>
             </ng-template>
         </p-tree>
-    `
+    `,
+    imports: [Tree, UITreeNode, FormsModule]
 })
 class TestContextTreeComponent {
     nodes: TreeNode[] = [
@@ -279,7 +279,6 @@ class TestContextTreeComponent {
 
 // Dedicated Template Test Components (originally in tree-templates.spec.ts)
 @Component({
-    standalone: false,
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading" [selectionMode]="'checkbox'">
             <ng-template pTemplate="default" let-node>
@@ -306,7 +305,8 @@ class TestContextTreeComponent {
                 <div class="custom-empty-message">No data found with pTemplate</div>
             </ng-template>
         </p-tree>
-    `
+    `,
+    imports: [Tree, UITreeNode, FormsModule]
 })
 class TestPTemplateComponent {
     loading = false;
@@ -331,7 +331,6 @@ class TestPTemplateComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-tree [value]="nodes" [filter]="true" [loading]="loading">
             <ng-template #node let-node>
@@ -352,7 +351,8 @@ class TestPTemplateComponent {
                 </span>
             </ng-template>
         </p-tree>
-    `
+    `,
+    imports: [Tree, UITreeNode, FormsModule]
 })
 class TestTemplateRefComponent {
     loading = false;
@@ -372,8 +372,7 @@ describe('Tree', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicTreeComponent, TestPTemplateTreeComponent, TestTemplateRefTreeComponent, TestContextTreeComponent, TestPTemplateComponent, TestTemplateRefComponent, TestDynamicTreeComponent],
-            imports: [Tree, UITreeNode, FormsModule],
+            imports: [Tree, UITreeNode, FormsModule, TestBasicTreeComponent, TestPTemplateTreeComponent, TestTemplateRefTreeComponent, TestContextTreeComponent, TestPTemplateComponent, TestTemplateRefComponent, TestDynamicTreeComponent],
             providers: [TreeDragDropService, provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -445,6 +444,7 @@ describe('Tree', () => {
 
         it('should handle single TreeNode value', async () => {
             const singleNode: TreeNode = { label: 'Single Node' };
+
             component.nodes = singleNode as any;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -493,6 +493,7 @@ describe('Tree', () => {
 
         it('should get root node', () => {
             const rootNode = tree.getRootNode();
+
             expect(rootNode).toBe(component.nodes);
         });
 
@@ -512,6 +513,7 @@ describe('Tree', () => {
         it('should handle trackBy function', () => {
             const item = { label: 'Test' };
             const result = tree.trackBy(0, item);
+
             expect(result).toBe(item);
         });
     });
@@ -673,6 +675,7 @@ describe('Tree', () => {
             fixture.detectChanges();
 
             const nodeElements = fixture.debugElement.queryAll(By.css('[role="treeitem"]'));
+
             expect(nodeElements.length).toBe(2);
         });
 
@@ -701,6 +704,7 @@ describe('Tree', () => {
             fixture.detectChanges();
 
             const nodeElements = fixture.debugElement.queryAll(By.css('[role="treeitem"]'));
+
             expect(nodeElements.length).toBe(4);
         });
     });
@@ -722,6 +726,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customNodeContent = pTemplateFixture.debugElement.query(By.css('.custom-node-content'));
+
                 if (customNodeContent) {
                     expect(customNodeContent.nativeElement.textContent).toContain('Root - Custom Default');
                 } else {
@@ -738,6 +743,7 @@ describe('Tree', () => {
                 await pTemplateFixture.whenStable();
 
                 const customUrlNode = pTemplateFixture.debugElement.query(By.css('.custom-url-node'));
+
                 if (customUrlNode) {
                     expect(customUrlNode.nativeElement.textContent).toContain('Google');
                     expect(customUrlNode.nativeElement.href).toContain('https://google.com');
@@ -751,6 +757,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
+
                 if (customHeader) {
                     expect(customHeader.nativeElement.textContent).toContain('Tree Header with pTemplate');
                 } else {
@@ -763,6 +770,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
+
                 if (customFooter) {
                     expect(customFooter.nativeElement.textContent).toContain('Tree Footer with pTemplate');
                 } else {
@@ -779,6 +787,7 @@ describe('Tree', () => {
                 await pTemplateFixture.whenStable();
 
                 const customEmpty = pTemplateFixture.debugElement.query(By.css('.custom-empty-message'));
+
                 if (customEmpty) {
                     expect(customEmpty.nativeElement.textContent).toContain('No data found with pTemplate');
                 } else {
@@ -795,6 +804,7 @@ describe('Tree', () => {
                 await pTemplateFixture.whenStable();
 
                 const customToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+
                 if (customToggler) {
                     expect(customToggler.nativeElement.textContent).toContain('COLLAPSED');
                     expect(customToggler.nativeElement.textContent).toContain('Root');
@@ -811,6 +821,7 @@ describe('Tree', () => {
                 await pTemplateFixture.whenStable();
 
                 const expandedToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+
                 if (expandedToggler) {
                     expect(expandedToggler.nativeElement.textContent).toContain('EXPANDED');
                 } else {
@@ -827,6 +838,7 @@ describe('Tree', () => {
                 await pTemplateFixture.whenStable();
 
                 const customLoadingIcon = pTemplateFixture.debugElement.query(By.css('.custom-loading-icon'));
+
                 if (customLoadingIcon) {
                     expect(customLoadingIcon.nativeElement.textContent).toContain('LOADING...');
                 } else {
@@ -839,6 +851,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customFilter = pTemplateFixture.debugElement.query(By.css('.custom-filter-input'));
+
                 if (customFilter) {
                     expect(customFilter.nativeElement.placeholder).toContain('Custom Filter...');
                 } else {
@@ -878,6 +891,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customNodeTemplate = templateRefFixture.debugElement.query(By.css('.custom-node-template'));
+
                 if (customNodeTemplate) {
                     expect(customNodeTemplate.nativeElement.textContent).toContain('Template Root - Template Ref');
                 } else {
@@ -890,6 +904,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customHeaderTemplate = templateRefFixture.debugElement.query(By.css('.custom-header-template'));
+
                 if (customHeaderTemplate) {
                     expect(customHeaderTemplate.nativeElement.textContent).toContain('Tree Header with #template');
                 }
@@ -899,6 +914,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customFooterTemplate = templateRefFixture.debugElement.query(By.css('.custom-footer-template'));
+
                 if (customFooterTemplate) {
                     expect(customFooterTemplate.nativeElement.textContent).toContain('Tree Footer with #template');
                 }
@@ -912,6 +928,7 @@ describe('Tree', () => {
                 await templateRefFixture.whenStable();
 
                 const customEmptyTemplate = templateRefFixture.debugElement.query(By.css('.custom-empty-template'));
+
                 if (customEmptyTemplate) {
                     expect(customEmptyTemplate.nativeElement.textContent).toContain('No data found with #template');
                 }
@@ -925,6 +942,7 @@ describe('Tree', () => {
                 await templateRefFixture.whenStable();
 
                 const customTogglerTemplate = templateRefFixture.debugElement.query(By.css('.custom-toggler-template'));
+
                 if (customTogglerTemplate) {
                     expect(customTogglerTemplate.nativeElement.textContent).toContain('CLOSED');
                 }
@@ -937,6 +955,7 @@ describe('Tree', () => {
                 await templateRefFixture.whenStable();
 
                 const loadingToggler = templateRefFixture.debugElement.query(By.css('.custom-toggler-template'));
+
                 if (loadingToggler && loadingToggler.nativeElement.textContent.includes('LOADING')) {
                     expect(loadingToggler.nativeElement.textContent).toContain('LOADING');
                 } else {
@@ -949,6 +968,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customFilterTemplate = templateRefFixture.debugElement.query(By.css('.custom-filter-template'));
+
                 if (customFilterTemplate) {
                     expect(customFilterTemplate.nativeElement.placeholder).toContain('Template Filter...');
                 }
@@ -958,6 +978,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customLoadingTemplate = templateRefFixture.debugElement.query(By.css('.custom-loading-template'));
+
                 if (customLoadingTemplate) {
                     expect(customLoadingTemplate.nativeElement.textContent).toContain('WAIT...');
                 } else {
@@ -970,6 +991,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customFilterIconTemplate = templateRefFixture.debugElement.query(By.css('.custom-filter-icon-template'));
+
                 if (customFilterIconTemplate) {
                     expect(customFilterIconTemplate.nativeElement.textContent).toContain('FIND');
                 } else {
@@ -982,6 +1004,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customLoaderTemplate = templateRefFixture.debugElement.query(By.css('.custom-loader-template'));
+
                 if (customLoaderTemplate) {
                     expect(customLoaderTemplate.nativeElement.textContent).toContain('Template Loader...');
                 } else {
@@ -1011,6 +1034,7 @@ describe('Tree', () => {
                 await contextFixture.whenStable();
 
                 const contextNodes = contextFixture.debugElement.queryAll(By.css('.context-node-template'));
+
                 if (contextNodes.length > 0) {
                     const firstNode = contextNodes[0];
 
@@ -1024,6 +1048,7 @@ describe('Tree', () => {
 
                 if (contextNodes.length > 2) {
                     const lastNode = contextNodes[contextNodes.length - 1];
+
                     expect(lastNode.query(By.css('.node-position'))?.nativeElement.textContent).toContain('LAST');
                 }
             });
@@ -1032,6 +1057,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const contextCheckbox = contextFixture.debugElement.query(By.css('.context-checkbox-template'));
+
                 if (contextCheckbox) {
                     expect(contextCheckbox.query(By.css('.checkbox-state'))?.nativeElement.textContent).toContain('UNCHECKED');
                     expect(contextCheckbox.query(By.css('.checkbox-class'))).toBeTruthy();
@@ -1045,6 +1071,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const contextToggler = contextFixture.debugElement.query(By.css('.context-toggler-template'));
+
                 if (contextToggler) {
                     expect(contextToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('COLLAPSED');
                     expect(contextToggler.query(By.css('.toggler-node'))?.nativeElement.textContent).toContain('Context Root');
@@ -1062,6 +1089,7 @@ describe('Tree', () => {
                 await contextFixture.whenStable();
 
                 const expandedToggler = contextFixture.debugElement.query(By.css('.context-toggler-template'));
+
                 if (expandedToggler) {
                     expect(expandedToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('EXPANDED');
                 }
@@ -1070,6 +1098,7 @@ describe('Tree', () => {
             it('should update context when component state changes', async () => {
                 // Initially collapsed
                 const initialToggler = contextFixture.debugElement.query(By.css('.context-toggler-template'));
+
                 if (initialToggler) {
                     expect(initialToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('COLLAPSED');
                 }
@@ -1082,6 +1111,7 @@ describe('Tree', () => {
                 await contextFixture.whenStable();
 
                 const updatedToggler = contextFixture.debugElement.query(By.css('.context-toggler-template'));
+
                 if (updatedToggler) {
                     expect(updatedToggler.query(By.css('.toggler-state'))?.nativeElement.textContent).toContain('EXPANDED');
                 } else {
@@ -1146,6 +1176,7 @@ describe('Tree', () => {
             fixture.detectChanges();
 
             const treeElement = fixture.debugElement.query(By.css('p-tree'));
+
             expect(treeElement.nativeElement.className).toContain('custom-tree-class');
         });
 
@@ -1163,6 +1194,7 @@ describe('Tree', () => {
             fixture.detectChanges();
 
             const nodeElement = fixture.debugElement.query(By.css('[role="treeitem"]'));
+
             if (nodeElement) {
                 expect(nodeElement.nativeElement.className).toContain('custom-node');
             }
@@ -1201,6 +1233,7 @@ describe('Tree', () => {
 
             if (nodeElements.length > 0) {
                 const firstNode = nodeElements[0];
+
                 expect(firstNode.nativeElement.getAttribute('aria-expanded')).toBe('true');
                 expect(firstNode.nativeElement.getAttribute('aria-level')).toBe('1');
                 expect(firstNode.nativeElement.getAttribute('aria-label')).toBe('Root');
@@ -1212,6 +1245,7 @@ describe('Tree', () => {
 
             if (nodeElements.length > 0) {
                 expect(nodeElements[0].nativeElement.getAttribute('tabindex')).toBe('0');
+
                 for (let i = 1; i < nodeElements.length; i++) {
                     expect(nodeElements[i].nativeElement.getAttribute('tabindex')).toBe('-1');
                 }
@@ -1242,6 +1276,7 @@ describe('Tree', () => {
 
             if (firstNode) {
                 const event = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+
                 firstNode.nativeElement.dispatchEvent(event);
                 await fixture.whenStable();
 
@@ -1254,6 +1289,7 @@ describe('Tree', () => {
 
             if (firstNode) {
                 const event = new KeyboardEvent('keydown', { code: 'Enter' });
+
                 firstNode.nativeElement.dispatchEvent(event);
                 await fixture.whenStable();
 
@@ -1266,6 +1302,7 @@ describe('Tree', () => {
 
             if (firstNode) {
                 const event = new KeyboardEvent('keydown', { code: 'Space' });
+
                 firstNode.nativeElement.dispatchEvent(event);
                 await fixture.whenStable();
 
@@ -1303,6 +1340,7 @@ describe('Tree', () => {
 
         it('should have draggable attribute on nodes', () => {
             const nodeContent = fixture.debugElement.query(By.css('[data-pc-section="nodeContent"]'));
+
             if (nodeContent) {
                 expect(nodeContent.nativeElement.draggable).toBe(true);
             } else {
@@ -1379,6 +1417,7 @@ describe('Tree', () => {
 
         it('should display checkboxes', () => {
             const checkboxes = fixture.debugElement.queryAll(By.css('p-checkbox'));
+
             expect(checkboxes.length).toBeGreaterThan(0);
         });
 
@@ -1391,9 +1430,11 @@ describe('Tree', () => {
     describe('Virtual Scroll', () => {
         beforeEach(async () => {
             component.nodes = [];
+
             for (let i = 0; i < 10; i++) {
                 component.nodes.push({ label: `Node ${i}` });
             }
+
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1405,6 +1446,7 @@ describe('Tree', () => {
 
         it('should render nodes without virtual scroll', () => {
             const visibleNodes = fixture.debugElement.queryAll(By.css('[role="treeitem"]'));
+
             expect(visibleNodes.length).toBe(10);
         });
     });
@@ -1429,6 +1471,7 @@ describe('Tree', () => {
 
         it('should handle leaf nodes', () => {
             const parentNode = component.nodes[0];
+
             expect(tree.isNodeLeaf(parentNode)).toBe(false);
         });
     });
@@ -1467,6 +1510,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customNodeContent = pTemplateFixture.debugElement.query(By.css('.custom-node-content'));
+
                 if (customNodeContent) {
                     expect(customNodeContent.nativeElement.textContent).toContain('Root - Custom Default');
                 } else {
@@ -1483,6 +1527,7 @@ describe('Tree', () => {
                 await pTemplateFixture.whenStable();
 
                 const customUrlNode = pTemplateFixture.debugElement.query(By.css('.custom-url-node'));
+
                 if (customUrlNode) {
                     expect(customUrlNode.nativeElement.textContent).toContain('Google');
                     expect(customUrlNode.nativeElement.href).toContain('https://google.com');
@@ -1496,11 +1541,12 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
+
                 if (customHeader) {
                     expect(customHeader.nativeElement.textContent).toContain('Tree Header with pTemplate');
                 } else {
                     // Header template is configured
-                    expect(tree.headerTemplate || true).toBeTruthy();
+                    expect(tree.headerTemplate() || true).toBeTruthy();
                 }
             });
 
@@ -1508,11 +1554,12 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
+
                 if (customFooter) {
                     expect(customFooter.nativeElement.textContent).toContain('Tree Footer with pTemplate');
                 } else {
                     // Footer template is configured
-                    expect(tree.footerTemplate || true).toBeTruthy();
+                    expect(tree.footerTemplate() || true).toBeTruthy();
                 }
             });
 
@@ -1524,6 +1571,7 @@ describe('Tree', () => {
                 await pTemplateFixture.whenStable();
 
                 const customEmpty = pTemplateFixture.debugElement.query(By.css('.custom-empty-message'));
+
                 if (customEmpty) {
                     expect(customEmpty.nativeElement.textContent).toContain('No data found with pTemplate');
                 } else {
@@ -1540,6 +1588,7 @@ describe('Tree', () => {
                 await pTemplateFixture.whenStable();
 
                 const customToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+
                 if (customToggler) {
                     expect(customToggler.nativeElement.textContent).toContain('COLLAPSED');
                     expect(customToggler.nativeElement.textContent).toContain('Root');
@@ -1556,6 +1605,7 @@ describe('Tree', () => {
                 await pTemplateFixture.whenStable();
 
                 const expandedToggler = pTemplateFixture.debugElement.query(By.css('.custom-toggler-icon'));
+
                 if (expandedToggler) {
                     expect(expandedToggler.nativeElement.textContent).toContain('EXPANDED');
                 } else {
@@ -1568,6 +1618,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const checkboxes = pTemplateFixture.debugElement.queryAll(By.css('p-checkbox'));
+
                 expect(checkboxes.length).toBeGreaterThan(0);
 
                 // Checkbox icon template should be available for checkbox selection mode
@@ -1583,6 +1634,7 @@ describe('Tree', () => {
 
                 // Test that templates receive context
                 const toggleButton = pTemplateFixture.debugElement.query(By.css('[data-pc-section="toggler"]'));
+
                 if (toggleButton) {
                     expect(toggleButton).toBeTruthy();
                 }
@@ -1613,7 +1665,7 @@ describe('Tree', () => {
 
                 // After content init, template references should be available
                 expect(
-                    tree.nodeTemplate || tree.headerTemplate || tree.footerTemplate || tree.emptyTemplate || tree.togglerIconTemplate || true // At least one should be defined or test passes
+                    tree.nodeTemplate() || tree.headerTemplate() || tree.footerTemplate() || tree.emptyTemplate() || tree.togglerIconTemplate || true // At least one should be defined or test passes
                 ).toBeTruthy();
             });
 
@@ -1621,6 +1673,7 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customNodeTemplate = templateRefFixture.debugElement.query(By.css('.custom-node-template'));
+
                 if (customNodeTemplate) {
                     expect(customNodeTemplate.nativeElement.textContent).toContain('Template Root - Template Ref');
                 } else {
@@ -1633,11 +1686,12 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customHeaderTemplate = templateRefFixture.debugElement.query(By.css('.custom-header-template'));
+
                 if (customHeaderTemplate) {
                     expect(customHeaderTemplate.nativeElement.textContent).toContain('Tree Header with #template');
                 } else {
                     // Header template reference is available
-                    expect(tree.headerTemplate || true).toBeTruthy();
+                    expect(tree.headerTemplate() || true).toBeTruthy();
                 }
             });
 
@@ -1645,11 +1699,12 @@ describe('Tree', () => {
                 await fixture.whenStable();
 
                 const customFooterTemplate = templateRefFixture.debugElement.query(By.css('.custom-footer-template'));
+
                 if (customFooterTemplate) {
                     expect(customFooterTemplate.nativeElement.textContent).toContain('Tree Footer with #template');
                 } else {
                     // Footer template reference is available
-                    expect(tree.footerTemplate || true).toBeTruthy();
+                    expect(tree.footerTemplate() || true).toBeTruthy();
                 }
             });
 
@@ -1661,6 +1716,7 @@ describe('Tree', () => {
                 await templateRefFixture.whenStable();
 
                 const customEmptyTemplate = templateRefFixture.debugElement.query(By.css('.custom-empty-template'));
+
                 if (customEmptyTemplate) {
                     expect(customEmptyTemplate.nativeElement.textContent).toContain('No data found with #template');
                 } else {
@@ -1677,6 +1733,7 @@ describe('Tree', () => {
                 await templateRefFixture.whenStable();
 
                 const customTogglerTemplate = templateRefFixture.debugElement.query(By.css('.custom-toggler-template'));
+
                 if (customTogglerTemplate) {
                     expect(customTogglerTemplate.nativeElement.textContent).toContain('CLOSED');
                 }
@@ -1689,6 +1746,7 @@ describe('Tree', () => {
                 await templateRefFixture.whenStable();
 
                 const loadingToggler = templateRefFixture.debugElement.query(By.css('.custom-toggler-template'));
+
                 if (loadingToggler && loadingToggler.nativeElement.textContent.includes('LOADING')) {
                     expect(loadingToggler.nativeElement.textContent).toContain('LOADING');
                 } else {
@@ -1833,6 +1891,7 @@ describe('Tree', () => {
 
         it('should handle contextMenu property', async () => {
             const mockContextMenu = { show: () => {} };
+
             component.contextMenu = mockContextMenu;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -2029,6 +2088,7 @@ describe('Tree', () => {
 
         it('should handle filterOptions property', async () => {
             const options = { filterMatchMode: 'contains' };
+
             component.filterOptions = options;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -2048,6 +2108,7 @@ describe('Tree', () => {
 
         it('should handle filteredNodes property', async () => {
             const filteredNodes = [{ label: 'Filtered Node' }];
+
             component.filteredNodes = filteredNodes;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -2107,6 +2168,7 @@ describe('Tree', () => {
 
         it('should handle virtualScrollOptions property', async () => {
             const options = { itemSize: 40, numToleratedItems: 10 };
+
             component.virtualScrollOptions = options;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -2128,6 +2190,7 @@ describe('Tree', () => {
 
         it('should handle trackBy property', async () => {
             const customTrackBy = (index: number, item: any) => item.id;
+
             component.trackBy = customTrackBy;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -2149,6 +2212,7 @@ describe('Tree', () => {
 
         it('should handle value property changes', async () => {
             const nodes = [{ label: 'Node 1', children: [{ label: 'Child 1' }] }, { label: 'Node 2' }];
+
             component.nodes = nodes;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -2210,6 +2274,7 @@ describe('Tree', () => {
 
         it('should handle templateMap property', async () => {
             const templateMap = { default: 'custom-template' };
+
             component._templateMap = templateMap;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
@@ -2230,7 +2295,7 @@ describe('Tree', () => {
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
             dynamicFixture.detectChanges();
-            dynamicTree = dynamicComponent.tree;
+            dynamicTree = dynamicComponent.tree();
         });
 
         it('should handle dynamic value changes', async () => {
@@ -2435,6 +2500,7 @@ describe('Tree', () => {
 
         it('should handle dynamic trackBy function changes', async () => {
             const customTrackBy = (index: number, item: any) => item.id || index;
+
             dynamicComponent.updateTrackBy(customTrackBy);
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
@@ -2467,8 +2533,7 @@ describe('Tree', () => {
         beforeEach(async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
-                declarations: [TestBasicTreeComponent],
-                imports: [Tree, FormsModule],
+                imports: [Tree, FormsModule, TestBasicTreeComponent],
                 providers: [TreeDragDropService, provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -2510,6 +2575,7 @@ describe('Tree', () => {
 
         it('should not allow left click selection when contextMenu is provided', async () => {
             const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+
             expect(nodeContent).toBeTruthy();
 
             // Left click on node
@@ -2523,6 +2589,7 @@ describe('Tree', () => {
 
         it('should select node on right click when contextMenu is provided', async () => {
             const nodeContent = fixture.debugElement.query(By.css('.p-tree-node-content'));
+
             expect(nodeContent).toBeTruthy();
 
             // Right click on node
@@ -2531,6 +2598,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContent.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2543,6 +2611,7 @@ describe('Tree', () => {
 
         it('should only allow single selection when contextMenu is provided', async () => {
             const nodeContents = fixture.debugElement.queryAll(By.css('.p-tree-node-content'));
+
             expect(nodeContents.length).toBeGreaterThan(1);
 
             // Right click on first node
@@ -2551,6 +2620,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContents[0].nativeElement.dispatchEvent(rightClickEvent1);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2563,6 +2633,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContents[1].nativeElement.dispatchEvent(rightClickEvent2);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2585,6 +2656,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContents[0].nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2596,6 +2668,7 @@ describe('Tree', () => {
 
         it('should update model when contextMenuSelection changes externally', async () => {
             const testNode = component.nodes[1];
+
             tree.contextMenuSelection.set(testNode);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2612,6 +2685,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContent.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2636,12 +2710,14 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContent.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
 
             // Check if the class is applied
             const selectedNodeContent = fixture.debugElement.query(By.css('.p-tree-node-contextmenu-selected'));
+
             expect(selectedNodeContent).toBeTruthy();
         });
 
@@ -2653,6 +2729,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContent.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2681,6 +2758,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContent.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2704,6 +2782,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContent.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2722,6 +2801,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContent.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2736,6 +2816,7 @@ describe('Tree', () => {
 
         it('should not select when right clicking on toggle button', async () => {
             const toggleButton = fixture.debugElement.query(By.css('.p-tree-node-toggle-button'));
+
             expect(toggleButton).toBeTruthy();
 
             const rightClickEvent = new MouseEvent('contextmenu', {
@@ -2743,6 +2824,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             toggleButton.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2760,6 +2842,7 @@ describe('Tree', () => {
             const nodeContents = fixture.debugElement.queryAll(By.css('.p-tree-node-content'));
             // Find a child node (Work or Home)
             const childNodeContent = nodeContents.find((el) => el.nativeElement.textContent.includes('Work'));
+
             expect(childNodeContent).toBeTruthy();
 
             const rightClickEvent = new MouseEvent('contextmenu', {
@@ -2767,6 +2850,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             childNodeContent!.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2783,6 +2867,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContent.nativeElement.dispatchEvent(rightClickEvent);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2802,6 +2887,7 @@ describe('Tree', () => {
                 cancelable: true,
                 button: 2
             });
+
             nodeContent.nativeElement.dispatchEvent(rightClickEvent2);
             fixture.detectChanges();
             await fixture.whenStable();
@@ -2814,7 +2900,6 @@ describe('Tree', () => {
 
 // Test component for dynamic values
 @Component({
-    standalone: false,
     template: `
         <p-tree
             #tree
@@ -2834,10 +2919,11 @@ describe('Tree', () => {
             [indentation]="indentation"
         >
         </p-tree>
-    `
+    `,
+    imports: [Tree, UITreeNode, FormsModule]
 })
 class TestDynamicTreeComponent {
-    @ViewChild('tree') tree!: Tree;
+    readonly tree = viewChild.required<Tree>('tree');
 
     value: TreeNode[] = [
         {

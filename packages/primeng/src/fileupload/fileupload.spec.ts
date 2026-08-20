@@ -99,10 +99,12 @@ describe('FileUpload', () => {
 
         it('should remove file by index', () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+
             component.files = [testFile];
             spyOn(component.onRemove, 'emit');
 
             const event = new Event('click');
+
             component.remove(event, 0);
 
             expect(component.files).toEqual([]);
@@ -114,6 +116,7 @@ describe('FileUpload', () => {
 
         it('should upload files when upload method called', async () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+
             component.files = [testFile];
             spyOn(component, 'uploader');
 
@@ -127,10 +130,13 @@ describe('FileUpload', () => {
             component.mode = 'basic';
             fixture.detectChanges();
 
-            if (component.basicFileInput?.nativeElement) {
-                spyOn(component.basicFileInput.nativeElement, 'click');
+            const basicFileInput = component.basicFileInput();
+            const basicFileInput = component.basicFileInput();
+
+            if (basicFileInput?.nativeElement) {
+                spyOn(basicFileInput.nativeElement, 'click');
                 component.onBasicUploaderClick();
-                expect(component.basicFileInput.nativeElement.click).toHaveBeenCalled();
+                expect(basicFileInput.nativeElement.click).toHaveBeenCalled();
             } else {
                 // If element doesn't exist, just verify the method doesn't throw
                 expect(() => component.onBasicUploaderClick()).not.toThrow();
@@ -280,6 +286,7 @@ describe('FileUpload', () => {
         it('should handle drag enter event', () => {
             component.disabled = false;
             const dragEvent = new DragEvent('dragenter');
+
             spyOn(dragEvent, 'stopPropagation');
             spyOn(dragEvent, 'preventDefault');
 
@@ -292,6 +299,7 @@ describe('FileUpload', () => {
         it('should handle drag over event', () => {
             component.disabled = false;
             const dragEvent = new DragEvent('dragover');
+
             spyOn(dragEvent, 'stopPropagation');
             spyOn(dragEvent, 'preventDefault');
 
@@ -307,6 +315,7 @@ describe('FileUpload', () => {
             component.dragHighlight = true;
 
             const dragEvent = new DragEvent('dragleave');
+
             component.onDragLeave(dragEvent);
 
             // dragHighlight should be reset in the actual implementation
@@ -337,6 +346,7 @@ describe('FileUpload', () => {
         it('should not handle drag events when disabled', () => {
             component.disabled = true;
             const dragEvent = new DragEvent('dragenter');
+
             spyOn(dragEvent, 'stopPropagation');
 
             component.onDragEnter(dragEvent);
@@ -361,6 +371,7 @@ describe('FileUpload', () => {
 
         it('should upload files via HTTP', async () => {
             const testFile = new File(['test content'], 'test.txt', { type: 'text/plain' });
+
             component.files = [testFile];
 
             spyOn(component.onBeforeUpload, 'emit');
@@ -371,6 +382,7 @@ describe('FileUpload', () => {
             await fixture.whenStable();
 
             const req = httpMock.expectOne('https://test.com/upload');
+
             expect(req.request.method).toBe('POST');
             expect(component.onBeforeUpload.emit).toHaveBeenCalled();
 
@@ -394,6 +406,7 @@ describe('FileUpload', () => {
 
         it('should handle upload error', async () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+
             component.files = [testFile];
 
             spyOn(component.onError, 'emit');
@@ -402,6 +415,7 @@ describe('FileUpload', () => {
             await fixture.whenStable();
 
             const req = httpMock.expectOne('https://test.com/upload');
+
             req.error(new ErrorEvent('Network error'));
 
             expect(component.onError.emit).toHaveBeenCalled();
@@ -411,6 +425,7 @@ describe('FileUpload', () => {
         it('should handle custom upload', async () => {
             component.customUpload = true;
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+
             component.files = [testFile];
 
             spyOn(component.uploadHandler, 'emit');
@@ -433,6 +448,7 @@ describe('FileUpload', () => {
 
         it('should show choose button', () => {
             const chooseButton = fixture.debugElement.query(By.css('.p-fileupload-choose-button'));
+
             expect(chooseButton).toBeTruthy();
         });
 
@@ -442,6 +458,7 @@ describe('FileUpload', () => {
             fixture.detectChanges();
 
             const uploadButton = fixture.debugElement.query(By.css('.p-fileupload-upload'));
+
             // Button might not be visible without files, but component should handle this case
             expect(component.showUploadButton).toBe(true);
         });
@@ -464,6 +481,7 @@ describe('FileUpload', () => {
             // The actual button disabling is handled by the template bindings,
             // which we can verify by checking the component property
             const chooseButton = fixture.debugElement.query(By.css('.p-fileupload-choose-button button'));
+
             if (chooseButton && chooseButton.nativeElement.disabled !== undefined) {
                 expect(chooseButton.nativeElement.disabled).toBe(true);
             } else {
@@ -481,6 +499,7 @@ describe('FileUpload', () => {
 
         it('should show basic file input', () => {
             const basicContent = fixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
             expect(basicContent).toBeTruthy();
         });
 
@@ -488,6 +507,7 @@ describe('FileUpload', () => {
             spyOn(component, 'onBasicUploaderClick');
 
             const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
+
             spyOn(spaceEvent, 'preventDefault');
 
             component.onBasicKeydown(spaceEvent);
@@ -500,6 +520,7 @@ describe('FileUpload', () => {
             spyOn(component, 'onBasicUploaderClick');
 
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
             spyOn(enterEvent, 'preventDefault');
 
             component.onBasicKeydown(enterEvent);
@@ -637,8 +658,10 @@ describe('FileUpload', () => {
             expect(component.basicButtonLabel).toBe('Choose');
 
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+
             component.files = [testFile];
             const result = component.basicButtonLabel;
+
             // In basic mode with files, it should return either the upload label or the file name
             expect(result).toBeTruthy();
         });
@@ -648,12 +671,14 @@ describe('FileUpload', () => {
         it('should handle rapid file selection', async () => {
             component.multiple = true;
             let selectCount = 0;
+
             component.onSelect.subscribe(() => selectCount++);
 
             for (let i = 0; i < 3; i++) {
                 const event = {
                     target: { files: [new File([`test${i}`], `test${i}.txt`, { type: 'text/plain' })] }
                 };
+
                 component.onFileSelect(event);
                 await new Promise((resolve) => setTimeout(resolve, 10));
             }
@@ -674,6 +699,7 @@ describe('FileUpload', () => {
 
         it('should handle duplicate file selection', async () => {
             const testFile = new File(['test'], 'test.txt', { type: 'text/plain' });
+
             component.files = [testFile];
 
             const event = {
@@ -681,6 +707,7 @@ describe('FileUpload', () => {
             };
 
             const initialLength = component.files.length;
+
             component.onFileSelect(event);
             await fixture.whenStable();
 
@@ -704,6 +731,7 @@ describe('FileUpload', () => {
             const files = Array.from({ length: 100 }, (_, i) => new File([`content${i}`], `file${i}.txt`, { type: 'text/plain' }));
 
             const event = { target: { files } };
+
             component.onFileSelect(event);
             await fixture.whenStable();
 
@@ -738,7 +766,6 @@ describe('FileUpload', () => {
 
 // Test Components for Template Testing
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
@@ -749,12 +776,12 @@ describe('FileUpload', () => {
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestPTemplateHeaderComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
@@ -765,46 +792,50 @@ class TestPTemplateHeaderComponent {}
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestHashHeaderComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
                 <div class="custom-content">
-                    <div *ngFor="let file of files; let i = index" class="file-item">
-                        <span>{{ file.name }}</span>
-                        <button (click)="removeFileCallback($event, i)" class="remove-btn">Remove</button>
-                    </div>
+                    @for (file of files; track file; let i = $index) {
+                        <div class="file-item">
+                            <span>{{ file.name }}</span>
+                            <button (click)="removeFileCallback($event, i)" class="remove-btn">Remove</button>
+                        </div>
+                    }
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestPTemplateContentComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template #content let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback">
                 <div class="custom-content">
-                    <div *ngFor="let file of files; let i = index" class="file-item">
-                        <span>{{ file.name }}</span>
-                        <button (click)="removeFileCallback($event, i)" class="remove-btn">Remove</button>
-                    </div>
+                    @for (file of files; track file; let i = $index) {
+                        <div class="file-item">
+                            <span>{{ file.name }}</span>
+                            <button (click)="removeFileCallback($event, i)" class="remove-btn">Remove</button>
+                        </div>
+                    }
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestHashContentComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="file" let-file let-index="index">
@@ -813,24 +844,24 @@ class TestHashContentComponent {}
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestPTemplateFileComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="empty">
                 <div class="custom-empty">No files selected</div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestPTemplateEmptyComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="filelabel" let-files>
@@ -839,12 +870,12 @@ class TestPTemplateEmptyComponent {}
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestPTemplateFileLabelComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="chooseicon">
@@ -857,12 +888,12 @@ class TestPTemplateFileLabelComponent {}
                 <i class="custom-cancel-icon pi pi-times"></i>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestPTemplateIconsComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="toolbar">
@@ -872,12 +903,12 @@ class TestPTemplateIconsComponent {}
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestPTemplateToolbarComponent {}
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload" [files]="files">
             <ng-template pTemplate="file" let-file let-index="index">
@@ -890,7 +921,8 @@ class TestPTemplateToolbarComponent {}
         <ng-template #removeIconTemplate let-class="class" let-file="file" let-index="index">
             <i [class]="class" class="custom-remove-icon pi pi-trash" [attr.data-file-name]="file.name" [attr.data-file-index]="index"></i>
         </ng-template>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestFileRemoveIconComponent {
     files = [new File(['test1'], 'test1.txt', { type: 'text/plain' }), new File(['test2'], 'test2.txt', { type: 'text/plain' })];
@@ -901,7 +933,6 @@ class TestFileRemoveIconComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
@@ -913,7 +944,8 @@ class TestFileRemoveIconComponent {
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestContextObjectsComponent {
     testChoose(callback: () => void) {
@@ -930,7 +962,6 @@ class TestContextObjectsComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback" let-progress="progress" let-messages="messages">
@@ -948,7 +979,8 @@ class TestContextObjectsComponent {
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestContentContextComponent {
     testRemoveFile(callback: (event: any, index: number) => void) {
@@ -961,20 +993,24 @@ class TestContentContextComponent {
 }
 
 @Component({
-    standalone: false,
     template: `
         <p-fileupload mode="basic" name="testFile[]" url="https://test.com/upload">
             <ng-template pTemplate="filelabel" let-files>
                 <div class="context-file-label">
                     <span [attr.data-files-array-length]="files?.length || 0">Files Array Length: {{ files?.length || 0 }}</span>
                     <span [attr.data-first-file-name]="files?.[0]?.name || 'none'">First File: {{ files?.[0]?.name || 'none' }}</span>
-                    <div class="file-details" *ngIf="files && files.length > 0">
-                        <div *ngFor="let file of files; let i = index" [attr.data-file-index]="i">{{ file.name }} ({{ file.size }} bytes)</div>
-                    </div>
+                    @if (files && files.length > 0) {
+                        <div class="file-details">
+                            @for (file of files; track file; let i = $index) {
+                                <div [attr.data-file-index]="i">{{ file.name }} ({{ file.size }} bytes)</div>
+                            }
+                        </div>
+                    }
                 </div>
             </ng-template>
         </p-fileupload>
-    `
+    `,
+    imports: [FileUpload, HttpClientTestingModule]
 })
 class TestFileLabelContextComponent {}
 
@@ -986,15 +1022,16 @@ describe('FileUpload Template Tests', () => {
     describe('pTemplate Tests', () => {
         it('should render pTemplate="header" with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateHeaderComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateHeaderComponent);
+
             fixture.detectChanges();
 
             const customHeader = fixture.debugElement.query(By.css('.custom-header'));
+
             if (customHeader) {
                 expect(customHeader).toBeTruthy();
 
@@ -1008,47 +1045,52 @@ describe('FileUpload Template Tests', () => {
             } else {
                 // If template not rendered, at least check component is there
                 const fileUpload = fixture.debugElement.query(By.directive(FileUpload));
+
                 expect(fileUpload).toBeTruthy();
             }
         });
 
         it('should render pTemplate="content" with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateContentComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateContentComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateContentComponent);
+
             fixture.detectChanges();
 
             const fileUpload = fixture.debugElement.query(By.directive(FileUpload)).componentInstance;
+
             if (fileUpload) {
                 fileUpload.files = [new File(['test'], 'test.txt', { type: 'text/plain' })];
                 fixture.detectChanges();
             }
 
             const customContent = fixture.debugElement.query(By.css('.custom-content'));
+
             if (customContent) {
                 expect(customContent).toBeTruthy();
             } else {
                 // If template not rendered, at least check component is there
                 const fileUploadElement = fixture.debugElement.query(By.directive(FileUpload));
+
                 expect(fileUploadElement).toBeTruthy();
             }
         });
 
         it('should render pTemplate="file" with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateFileComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateFileComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateFileComponent);
+
             fixture.detectChanges();
 
             const fileUpload = fixture.debugElement.query(By.directive(FileUpload)).componentInstance;
+
             if (fileUpload) {
                 fileUpload.files = [new File(['test'], 'test.txt', { type: 'text/plain' })];
                 fixture.detectChanges();
@@ -1061,15 +1103,16 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="empty" when no files', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateEmptyComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateEmptyComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateEmptyComponent);
+
             fixture.detectChanges();
 
             const customEmpty = fixture.debugElement.query(By.css('.custom-empty'));
+
             if (customEmpty) {
                 expect(customEmpty).toBeTruthy();
                 expect(customEmpty.nativeElement.textContent.trim()).toBe('No files selected');
@@ -1081,15 +1124,16 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="filelabel" in basic mode', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateFileLabelComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateFileLabelComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateFileLabelComponent);
+
             fixture.detectChanges();
 
             const customFileLabel = fixture.debugElement.query(By.css('.custom-file-label'));
+
             if (customFileLabel) {
                 expect(customFileLabel).toBeTruthy();
             } else {
@@ -1100,15 +1144,16 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate icons', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateIconsComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateIconsComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateIconsComponent);
+
             fixture.detectChanges();
 
             const chooseIcon = fixture.debugElement.query(By.css('.custom-choose-icon'));
+
             if (chooseIcon) {
                 expect(chooseIcon).toBeTruthy();
             } else {
@@ -1119,19 +1164,21 @@ describe('FileUpload Template Tests', () => {
 
         it('should render pTemplate="toolbar"', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateToolbarComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateToolbarComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestPTemplateToolbarComponent);
+
             fixture.detectChanges();
 
             const customToolbar = fixture.debugElement.query(By.css('.custom-toolbar'));
+
             if (customToolbar) {
                 expect(customToolbar).toBeTruthy();
                 const toolbarInfo = fixture.debugElement.query(By.css('.toolbar-info'));
                 const toolbarAction = fixture.debugElement.query(By.css('.toolbar-action'));
+
                 expect(toolbarInfo).toBeTruthy();
                 expect(toolbarAction).toBeTruthy();
                 expect(toolbarInfo.nativeElement.textContent.trim()).toBe('Custom Toolbar Content');
@@ -1143,15 +1190,16 @@ describe('FileUpload Template Tests', () => {
 
         it('should render fileRemoveIconTemplate with context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestFileRemoveIconComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestFileRemoveIconComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestFileRemoveIconComponent);
+
             fixture.detectChanges();
 
             const customRemoveIcon = fixture.debugElement.query(By.css('.custom-remove-icon'));
+
             if (customRemoveIcon) {
                 expect(customRemoveIcon).toBeTruthy();
 
@@ -1172,18 +1220,20 @@ describe('FileUpload Template Tests', () => {
     describe('#template Tests', () => {
         it('should render #header template with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestHashHeaderComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestHashHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestHashHeaderComponent);
+
             fixture.detectChanges();
 
             const customHeader = fixture.debugElement.query(By.css('.custom-header'));
+
             if (customHeader) {
                 expect(customHeader).toBeTruthy();
                 const chooseBtn = fixture.debugElement.query(By.css('.choose-btn'));
+
                 expect(chooseBtn).toBeTruthy();
             } else {
                 // If template not rendered, verify component exists
@@ -1193,15 +1243,16 @@ describe('FileUpload Template Tests', () => {
 
         it('should render #content template with correct context', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestHashContentComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestHashContentComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestHashContentComponent);
+
             fixture.detectChanges();
 
             const customContent = fixture.debugElement.query(By.css('.custom-content'));
+
             if (customContent) {
                 expect(customContent).toBeTruthy();
             } else {
@@ -1214,8 +1265,7 @@ describe('FileUpload Template Tests', () => {
     describe('Comprehensive Context Object Testing', () => {
         it('should provide correct header context objects', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestContextObjectsComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestContextObjectsComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1225,16 +1275,19 @@ describe('FileUpload Template Tests', () => {
             if (fileUpload) {
                 // Add some test files
                 const testFiles = [new File(['test1'], 'test1.txt', { type: 'text/plain' }), new File(['test2'], 'test2.txt', { type: 'text/plain' })];
+
                 fileUpload.files = testFiles;
             }
 
             fixture.detectChanges();
 
             const contextHeader = fixture.debugElement.query(By.css('.context-test-header'));
+
             if (contextHeader) {
                 expect(contextHeader).toBeTruthy();
 
                 const filesCount = contextHeader.nativeElement.getAttribute('data-files-count');
+
                 expect(filesCount).toBeDefined();
 
                 const chooseBtn = fixture.debugElement.query(By.css('.ctx-choose'));
@@ -1251,8 +1304,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should provide correct content context objects', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestContentContextComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestContentContextComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1270,10 +1322,12 @@ describe('FileUpload Template Tests', () => {
             fixture.detectChanges();
 
             const contextContent = fixture.debugElement.query(By.css('.context-content-test'));
+
             if (contextContent) {
                 expect(contextContent).toBeTruthy();
 
                 const filesInfo = fixture.debugElement.query(By.css('.files-info'));
+
                 expect(filesInfo).toBeTruthy();
 
                 // Test context data attributes
@@ -1288,6 +1342,7 @@ describe('FileUpload Template Tests', () => {
                 expect(messagesCount).toBeTruthy();
 
                 const fileActions = fixture.debugElement.query(By.css('.file-actions'));
+
                 expect(fileActions).toBeTruthy();
             } else {
                 expect(fixture.componentInstance).toBeTruthy();
@@ -1296,8 +1351,7 @@ describe('FileUpload Template Tests', () => {
 
         it('should provide correct file label context objects', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestFileLabelContextComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestFileLabelContextComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1307,12 +1361,14 @@ describe('FileUpload Template Tests', () => {
             if (fileUpload) {
                 // Add test files for file label context
                 const testFiles = [new File(['content1'], 'document1.pdf', { type: 'application/pdf' }), new File(['content2'], 'image.jpg', { type: 'image/jpeg' })];
+
                 fileUpload.files = testFiles;
             }
 
             fixture.detectChanges();
 
             const contextLabel = fixture.debugElement.query(By.css('.context-file-label'));
+
             if (contextLabel) {
                 expect(contextLabel).toBeTruthy();
 
@@ -1323,8 +1379,10 @@ describe('FileUpload Template Tests', () => {
                 expect(firstFileName).toBeDefined();
 
                 const fileDetails = fixture.debugElement.query(By.css('.file-details'));
+
                 if (fileDetails) {
                     const fileItems = fixture.debugElement.queryAll(By.css('[data-file-index]'));
+
                     expect(fileItems.length).toBeGreaterThanOrEqual(0);
                 }
             } else {
@@ -1339,8 +1397,7 @@ describe('FileUpload Template Tests', () => {
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestPTemplateHeaderComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestPTemplateHeaderComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1354,6 +1411,7 @@ describe('FileUpload Template Tests', () => {
                 spyOn(fileUploadComponent, 'choose');
 
                 const chooseBtn = testFixture.debugElement.query(By.css('.choose-btn'));
+
                 if (chooseBtn) {
                     chooseBtn.nativeElement.click();
                     expect(fileUploadComponent.choose).toHaveBeenCalled();
@@ -1372,6 +1430,7 @@ describe('FileUpload Template Tests', () => {
                 spyOn(fileUploadComponent, 'clear');
 
                 const clearBtn = testFixture.debugElement.query(By.css('.clear-btn'));
+
                 if (clearBtn) {
                     clearBtn.nativeElement.click();
                     expect(fileUploadComponent.clear).toHaveBeenCalled();
@@ -1390,6 +1449,7 @@ describe('FileUpload Template Tests', () => {
                 spyOn(fileUploadComponent, 'upload');
 
                 const uploadBtn = testFixture.debugElement.query(By.css('.upload-btn'));
+
                 if (uploadBtn) {
                     uploadBtn.nativeElement.click();
                     expect(fileUploadComponent.upload).toHaveBeenCalled();
@@ -1424,6 +1484,7 @@ describe('FileUpload CSS Classes and Styling', () => {
 
     it('should apply correct classes based on mode', () => {
         const fileUploadElement = fixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
         expect(fileUploadElement).toBeTruthy();
     });
 
@@ -1432,9 +1493,11 @@ describe('FileUpload CSS Classes and Styling', () => {
         fixture.detectChanges();
 
         const fileUploadElement = fixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
         if (fileUploadElement) {
             // Check if the class is applied or if the component has the styleClass property set
             const hasClass = fileUploadElement.nativeElement.classList.contains('custom-fileupload');
+
             if (hasClass) {
                 expect(hasClass).toBe(true);
             } else {
@@ -1490,6 +1553,7 @@ describe('FileUpload CSS Classes and Styling', () => {
     it('should show drag highlight class on drag over', () => {
         component.disabled = false;
         const dragEvent = new DragEvent('dragover');
+
         spyOn(dragEvent, 'stopPropagation');
         spyOn(dragEvent, 'preventDefault');
 
@@ -1517,6 +1581,7 @@ describe('FileUpload Accessibility', () => {
 
     it('should have proper ARIA labels', () => {
         const fileInput = fixture.debugElement.query(By.css('input[type="file"]'));
+
         expect(fileInput.nativeElement.getAttribute('aria-label')).toBeTruthy();
     });
 
@@ -1535,19 +1600,23 @@ describe('FileUpload Accessibility', () => {
         spyOn(component, 'onBasicUploaderClick');
 
         const spaceEvent = new KeyboardEvent('keydown', { code: 'Space' });
+
         component.onBasicKeydown(spaceEvent);
         expect(component.onBasicUploaderClick).toHaveBeenCalled();
 
         const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+
         component.onBasicKeydown(enterEvent);
         expect(component.onBasicUploaderClick).toHaveBeenCalled();
     });
 
     it('should have proper data attributes', () => {
         const fileUploadElement = fixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
         expect(fileUploadElement.nativeElement.getAttribute('data-pc-name')).toBe('fileupload');
 
         const fileInput = fixture.debugElement.query(By.css('input[type="file"]'));
+
         expect(fileInput.nativeElement.getAttribute('data-pc-section')).toBe('input');
     });
 });
@@ -1578,6 +1647,7 @@ describe('FileUpload Performance and Edge Cases', () => {
 
     it('should handle empty file arrays', async () => {
         const event = { target: { files: [] } };
+
         component.onFileSelect(event);
         await fixture.whenStable();
 
@@ -1597,6 +1667,7 @@ describe('FileUpload Performance and Edge Cases', () => {
         spyOn(component, 'isIE11').and.returnValue(true);
 
         const result = component.isIE11();
+
         expect(result).toBe(true);
     });
 
@@ -1630,7 +1701,6 @@ describe('FileUpload Advanced Template Combinations', () => {
 
     describe('Mixed Template Usage', () => {
         @Component({
-            standalone: false,
             template: `
                 <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
                     <ng-template pTemplate="header" let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
@@ -1646,26 +1716,36 @@ describe('FileUpload Advanced Template Combinations', () => {
 
                     <ng-template pTemplate="content" let-files let-uploadedFiles="uploadedFiles" let-progress="progress">
                         <div class="mixed-content">
-                            <div class="upload-section" *ngIf="files?.length">
-                                <h4>Ready to Upload ({{ files.length }})</h4>
-                                <div class="file-grid">
-                                    <div *ngFor="let file of files; let i = index" class="file-card" [attr.data-file-index]="i">
-                                        <div class="file-name">{{ file.name }}</div>
-                                        <div class="file-size">{{ file.size }} bytes</div>
+                            @if (files?.length) {
+                                <div class="upload-section">
+                                    <h4>Ready to Upload ({{ files.length }})</h4>
+                                    <div class="file-grid">
+                                        @for (file of files; track file; let i = $index) {
+                                            <div class="file-card" [attr.data-file-index]="i">
+                                                <div class="file-name">{{ file.name }}</div>
+                                                <div class="file-size">{{ file.size }} bytes</div>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
-                            </div>
+                            }
 
-                            <div class="completed-section" *ngIf="uploadedFiles?.length">
-                                <h4>Uploaded Files ({{ uploadedFiles.length }})</h4>
-                                <div class="uploaded-list">
-                                    <div *ngFor="let file of uploadedFiles" class="uploaded-item">{{ file.name }}</div>
+                            @if (uploadedFiles?.length) {
+                                <div class="completed-section">
+                                    <h4>Uploaded Files ({{ uploadedFiles.length }})</h4>
+                                    <div class="uploaded-list">
+                                        @for (file of uploadedFiles; track file) {
+                                            <div class="uploaded-item">{{ file.name }}</div>
+                                        }
+                                    </div>
                                 </div>
-                            </div>
+                            }
 
-                            <div class="progress-section" *ngIf="progress > 0">
-                                <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
-                            </div>
+                            @if (progress > 0) {
+                                <div class="progress-section">
+                                    <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
+                                </div>
+                            }
                         </div>
                     </ng-template>
 
@@ -1695,18 +1775,19 @@ describe('FileUpload Advanced Template Combinations', () => {
                         <i class="pi pi-send mixed-upload-icon"></i>
                     </ng-template>
                 </p-fileupload>
-            `
+            `,
+            imports: [FileUpload, HttpClientTestingModule]
         })
         class TestMixedTemplatesComponent {}
 
         it('should render all mixed templates correctly', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestMixedTemplatesComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestMixedTemplatesComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
             const fixture = TestBed.createComponent(TestMixedTemplatesComponent);
+
             fixture.detectChanges();
 
             // Test if component exists
@@ -1714,30 +1795,36 @@ describe('FileUpload Advanced Template Combinations', () => {
 
             // Test mixed header
             const mixedHeader = fixture.debugElement.query(By.css('.mixed-header'));
+
             if (mixedHeader) {
                 expect(mixedHeader).toBeTruthy();
                 const fileCount = fixture.debugElement.query(By.css('.file-count'));
                 const headerActions = fixture.debugElement.query(By.css('.header-actions'));
+
                 expect(fileCount).toBeTruthy();
                 expect(headerActions).toBeTruthy();
             }
 
             // Test mixed toolbar
             const mixedToolbar = fixture.debugElement.query(By.css('.mixed-toolbar'));
+
             if (mixedToolbar) {
                 expect(mixedToolbar).toBeTruthy();
                 const toolbarTitle = fixture.debugElement.query(By.css('.toolbar-title'));
                 const toolbarStats = fixture.debugElement.query(By.css('.toolbar-stats'));
+
                 expect(toolbarTitle).toBeTruthy();
                 expect(toolbarStats).toBeTruthy();
             }
 
             // Test mixed empty template
             const mixedEmpty = fixture.debugElement.query(By.css('.mixed-empty'));
+
             if (mixedEmpty) {
                 expect(mixedEmpty).toBeTruthy();
                 const emptyIcon = fixture.debugElement.query(By.css('.empty-icon'));
                 const emptyText = fixture.debugElement.query(By.css('.empty-text'));
+
                 expect(emptyIcon).toBeTruthy();
                 expect(emptyText).toBeTruthy();
             }
@@ -1745,8 +1832,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
         it('should handle mixed template interactions', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestMixedTemplatesComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestMixedTemplatesComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1756,6 +1842,7 @@ describe('FileUpload Advanced Template Combinations', () => {
             if (fileUpload) {
                 // Add test files
                 const testFiles = [new File(['content1'], 'test1.pdf', { type: 'application/pdf' }), new File(['content2'], 'test2.jpg', { type: 'image/jpeg' })];
+
                 fileUpload.files = testFiles;
                 fileUpload.uploadedFiles = [new File(['uploaded'], 'completed.txt', { type: 'text/plain' })];
                 fileUpload.progress = 45;
@@ -1764,6 +1851,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
                 // Test mixed content with data
                 const mixedContent = fixture.debugElement.query(By.css('.mixed-content'));
+
                 if (mixedContent) {
                     const uploadSection = fixture.debugElement.query(By.css('.upload-section'));
                     const completedSection = fixture.debugElement.query(By.css('.completed-section'));
@@ -1772,6 +1860,7 @@ describe('FileUpload Advanced Template Combinations', () => {
                     if (uploadSection) {
                         expect(uploadSection).toBeTruthy();
                         const fileCards = fixture.debugElement.queryAll(By.css('.file-card'));
+
                         expect(fileCards.length).toBeGreaterThanOrEqual(0);
                     }
 
@@ -1794,7 +1883,6 @@ describe('FileUpload Advanced Template Combinations', () => {
 
     describe('Template Context Validation', () => {
         @Component({
-            standalone: false,
             template: `
                 <p-fileupload mode="advanced" name="testFile[]" url="https://test.com/upload">
                     <ng-template
@@ -1830,7 +1918,8 @@ describe('FileUpload Advanced Template Combinations', () => {
                         </div>
                     </ng-template>
                 </p-fileupload>
-            `
+            `,
+            imports: [FileUpload, HttpClientTestingModule]
         })
         class TestAdvancedContextValidationComponent {
             testContextAction(action: string, callback: any) {
@@ -1853,8 +1942,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
         it('should validate all content template context variables', async () => {
             await TestBed.configureTestingModule({
-                imports: [FileUpload, HttpClientTestingModule],
-                declarations: [TestAdvancedContextValidationComponent],
+                imports: [FileUpload, HttpClientTestingModule, TestAdvancedContextValidationComponent],
                 providers: [provideZonelessChangeDetection()]
             }).compileComponents();
 
@@ -1875,10 +1963,12 @@ describe('FileUpload Advanced Template Combinations', () => {
             fixture.detectChanges();
 
             const contextValidation = fixture.debugElement.query(By.css('.context-validation'));
+
             if (contextValidation) {
                 expect(contextValidation).toBeTruthy();
 
                 const contextInfo = fixture.debugElement.query(By.css('.context-info'));
+
                 if (contextInfo) {
                     // Check context attributes
                     const hasFiles = contextInfo.nativeElement.querySelector('[data-has-files]');
@@ -1893,8 +1983,10 @@ describe('FileUpload Advanced Template Combinations', () => {
                 }
 
                 const contextActions = fixture.debugElement.query(By.css('.context-actions'));
+
                 if (contextActions) {
                     const actionButtons = fixture.debugElement.queryAll(By.css('button[class^="ctx-"]'));
+
                     expect(actionButtons.length).toBeGreaterThan(0);
                 }
             } else {
@@ -2006,6 +2098,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get invalidFileSizeMessageSummary property', () => {
             const message = 'File size error: {0}';
+
             component.invalidFileSizeMessageSummary = message;
             fixture.detectChanges();
             expect(component.invalidFileSizeMessageSummary).toBe(message);
@@ -2013,6 +2106,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get invalidFileSizeMessageDetail property', () => {
             const message = 'File exceeds maximum size of {0}';
+
             component.invalidFileSizeMessageDetail = message;
             fixture.detectChanges();
             expect(component.invalidFileSizeMessageDetail).toBe(message);
@@ -2020,6 +2114,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get invalidFileTypeMessageSummary property', () => {
             const message = 'Invalid file type: {0}';
+
             component.invalidFileTypeMessageSummary = message;
             fixture.detectChanges();
             expect(component.invalidFileTypeMessageSummary).toBe(message);
@@ -2027,6 +2122,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get invalidFileTypeMessageDetail property', () => {
             const message = 'Allowed types: {0}';
+
             component.invalidFileTypeMessageDetail = message;
             fixture.detectChanges();
             expect(component.invalidFileTypeMessageDetail).toBe(message);
@@ -2034,6 +2130,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get invalidFileLimitMessageSummary property', () => {
             const message = 'File limit exceeded: {0}';
+
             component.invalidFileLimitMessageSummary = message;
             fixture.detectChanges();
             expect(component.invalidFileLimitMessageSummary).toBe(message);
@@ -2041,6 +2138,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get invalidFileLimitMessageDetail property', () => {
             const message = 'Maximum {0} files allowed';
+
             component.invalidFileLimitMessageDetail = message;
             fixture.detectChanges();
             expect(component.invalidFileLimitMessageDetail).toBe(message);
@@ -2176,6 +2274,7 @@ describe('FileUpload Input Properties - Static Values', () => {
     describe('Object Input Properties', () => {
         it('should set and get style property', () => {
             const customStyle = { width: '100%', border: '2px solid red' };
+
             component.style = customStyle;
             fixture.detectChanges();
             expect(component.style).toEqual(customStyle);
@@ -2187,6 +2286,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get chooseButtonProps property', () => {
             const buttonProps = { size: 'large' as const, outlined: true };
+
             component.chooseButtonProps = buttonProps;
             fixture.detectChanges();
             expect(component.chooseButtonProps).toEqual(buttonProps);
@@ -2194,6 +2294,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get uploadButtonProps property', () => {
             const buttonProps = { severity: 'success' as const, size: 'small' as const };
+
             component.uploadButtonProps = buttonProps;
             fixture.detectChanges();
             expect(component.uploadButtonProps).toEqual(buttonProps);
@@ -2201,6 +2302,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get cancelButtonProps property', () => {
             const buttonProps = { severity: 'danger' as const, text: true };
+
             component.cancelButtonProps = buttonProps;
             fixture.detectChanges();
             expect(component.cancelButtonProps).toEqual(buttonProps);
@@ -2208,6 +2310,7 @@ describe('FileUpload Input Properties - Static Values', () => {
 
         it('should set and get files property', () => {
             const testFiles = [new File(['test'], 'test.txt', { type: 'text/plain' }), new File(['image'], 'image.jpg', { type: 'image/jpeg' })];
+
             component.files = testFiles;
             fixture.detectChanges();
             expect(component.files).toEqual(testFiles);
@@ -2233,6 +2336,7 @@ describe('FileUpload Input Properties - Dynamic Values', () => {
     describe('Dynamic String Properties', () => {
         it('should handle dynamic name changes', () => {
             let dynamicName = 'initial-name';
+
             component.name = dynamicName;
             fixture.detectChanges();
             expect(component.name).toBe('initial-name');
@@ -2622,6 +2726,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             expect(component.files).toEqual([]);
 
             const newFiles = [new File(['test'], 'test.txt', { type: 'text/plain' })];
+
             filesSubject.next(newFiles);
             await fixture.whenStable();
             expect(component.files).toEqual(newFiles);
@@ -2699,8 +2804,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`,
+                imports: [FileUpload, HttpClientTestingModule]
             })
             class TestPTCase1Component {
                 pt = {
@@ -2717,25 +2822,28 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase1Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
+
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
                 if (rootElement) {
                     expect(rootElement.nativeElement.classList.contains('ROOT_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('HEADER_CLASS')).toBe(true);
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
                 }
@@ -2744,8 +2852,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
-                standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`,
+                imports: [FileUpload, HttpClientTestingModule]
             })
             class TestPTCase2Component {
                 pt = {
@@ -2768,15 +2876,16 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply object properties to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase2Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
+
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
                 if (rootElement) {
                     expect(rootElement.nativeElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
                     expect(rootElement.nativeElement.style.border).toBe('2px solid blue');
@@ -2784,12 +2893,14 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('HEADER_OBJECT_CLASS')).toBe(true);
                     expect(header.nativeElement.style.padding).toBe('10px');
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
                     expect(content.nativeElement.getAttribute('aria-label')).toBe('Content area');
@@ -2799,8 +2910,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`,
+                imports: [FileUpload, HttpClientTestingModule]
             })
             class TestPTCase3Component {
                 pt = {
@@ -2817,25 +2928,28 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase3Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
+
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
                 if (rootElement) {
                     expect(rootElement.nativeElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('HEADER_STRING_CLASS')).toBe(true);
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('CONTENT_MIXED_CLASS')).toBe(true);
                 }
@@ -2844,45 +2958,43 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
-                template: `<p-fileupload [pt]="pt" [name]="fileName" url="./upload" [disabled]="isDisabled"></p-fileupload>`
+                template: `<p-fileupload [pt]="pt" [name]="fileName" url="./upload" [disabled]="isDisabled"></p-fileupload>`,
+                imports: [FileUpload, HttpClientTestingModule]
             })
             class TestPTCase4Component {
                 fileName = 'test-upload';
                 isDisabled = false;
                 pt = {
-                    root: ({ instance }: any) => {
-                        return {
-                            class: instance?.disabled ? 'DISABLED_CLASS' : 'ENABLED_CLASS'
-                        };
-                    },
-                    header: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'background-color': instance?.disabled ? 'gray' : 'white'
-                            }
-                        };
-                    }
+                    root: ({ instance }: any) => ({
+                        class: instance?.disabled ? 'DISABLED_CLASS' : 'ENABLED_CLASS'
+                    }),
+                    header: ({ instance }: any) => ({
+                        style: {
+                            'background-color': instance?.disabled ? 'gray' : 'white'
+                        }
+                    })
                 };
             }
 
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase4Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
+
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
                 if (rootElement) {
                     expect(rootElement.nativeElement.classList.contains('ENABLED_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.style.backgroundColor).toBe('white');
                 }
@@ -2891,8 +3003,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`,
+                imports: [FileUpload, HttpClientTestingModule]
             })
             class TestPTCase5Component {
                 clickedSection: string = '';
@@ -2913,22 +3025,24 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase5Component],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.detectChanges();
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     header.nativeElement.click();
                     expect(component.clickedSection).toBe('header');
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     content.nativeElement.click();
                     expect(component.clickedSection).toBe('content');
@@ -2938,34 +3052,36 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
-                template: `<p-fileupload [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" name="test" url="./upload"></p-fileupload>`
+                template: `<p-fileupload [pt]="{ root: 'INLINE_ROOT_CLASS', header: 'INLINE_HEADER_CLASS' }" name="test" url="./upload"></p-fileupload>`,
+                imports: [FileUpload, HttpClientTestingModule]
             })
             class TestPTCase6InlineComponent {}
 
             @Component({
-                standalone: false,
-                template: `<p-fileupload [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" name="test" url="./upload"></p-fileupload>`
+                template: `<p-fileupload [pt]="{ root: { class: 'INLINE_ROOT_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" name="test" url="./upload"></p-fileupload>`,
+                imports: [FileUpload, HttpClientTestingModule]
             })
             class TestPTCase6InlineObjectComponent {}
 
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase6InlineComponent],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
                 if (rootElement) {
                     expect(rootElement.nativeElement.classList.contains('INLINE_ROOT_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('INLINE_HEADER_CLASS')).toBe(true);
                 }
@@ -2974,20 +3090,22 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase6InlineObjectComponent],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+
                 testFixture.detectChanges();
 
                 const rootElement = testFixture.debugElement.query(By.css('[data-pc-name="fileupload"]'));
+
                 if (rootElement) {
                     expect(rootElement.nativeElement.classList.contains('INLINE_ROOT_OBJECT_CLASS')).toBe(true);
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('INLINE_CONTENT_CLASS')).toBe(true);
                 }
@@ -2996,19 +3114,18 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-fileupload name="file1" url="./upload"></p-fileupload>
                     <p-fileupload name="file2" url="./upload"></p-fileupload>
-                `
+                `,
+                imports: [FileUpload, HttpClientTestingModule]
             })
             class TestPTCase7GlobalComponent {}
 
             it('should apply global PT configuration from PrimeNGConfig to multiple instances', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase7GlobalComponent],
                     providers: [
                         MessageService,
                         {
@@ -3027,13 +3144,16 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+
                 testFixture.detectChanges();
 
                 const fileUploads = testFixture.debugElement.queryAll(By.directive(FileUpload));
+
                 expect(fileUploads.length).toBe(2);
 
                 fileUploads.forEach((fileUploadDebug) => {
                     const rootElement = fileUploadDebug.nativeElement;
+
                     // Note: Global PT config might not work in test environment without proper setup
                     // This test verifies the structure exists
                     expect(rootElement).toBeTruthy();
@@ -3043,8 +3163,8 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
-                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`
+                template: `<p-fileupload [pt]="pt" name="test" url="./upload"></p-fileupload>`,
+                imports: [FileUpload, HttpClientTestingModule]
             })
             class TestPTCase8HooksComponent {
                 afterViewInitCalled = false;
@@ -3070,8 +3190,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [FileUpload, HttpClientTestingModule],
+                    imports: [FileUpload, HttpClientTestingModule, TestPTCase8HooksComponent],
                     providers: [MessageService, provideZonelessChangeDetection()]
                 }).compileComponents();
 

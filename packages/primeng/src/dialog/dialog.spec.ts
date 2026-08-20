@@ -8,7 +8,6 @@ import { Dialog } from './dialog';
 
 // Basic Dialog Test Component
 @Component({
-    standalone: false,
     template: `
         <p-dialog
             [(visible)]="visible"
@@ -55,7 +54,8 @@ import { Dialog } from './dialog';
             <div class="dialog-content">Basic dialog content</div>
         </p-dialog>
         <button #triggerBtn (click)="showDialog()" class="trigger-btn">Show Dialog</button>
-    `
+    `,
+    imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestBasicDialogComponent {
     visible = false;
@@ -137,7 +137,6 @@ class TestBasicDialogComponent {
 
 // Dialog with pTemplate Templates
 @Component({
-    standalone: false,
     template: `
         <p-dialog [(visible)]="visible" [modal]="true">
             <ng-template pTemplate="header">
@@ -159,7 +158,8 @@ class TestBasicDialogComponent {
                 <i class="pi pi-custom-minimize custom-minimize-icon"></i>
             </ng-template>
         </p-dialog>
-    `
+    `,
+    imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestPTemplateDialogComponent {
     visible = false;
@@ -167,7 +167,6 @@ class TestPTemplateDialogComponent {
 
 // Dialog with #template Templates
 @Component({
-    standalone: false,
     template: `
         <p-dialog [(visible)]="visible" [modal]="true" [maximizable]="true">
             <ng-template #header>
@@ -189,7 +188,8 @@ class TestPTemplateDialogComponent {
                 <i class="pi pi-custom-minimize custom-minimize-icon"></i>
             </ng-template>
         </p-dialog>
-    `
+    `,
+    imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestHashTemplateDialogComponent {
     visible = false;
@@ -197,7 +197,6 @@ class TestHashTemplateDialogComponent {
 
 // Dialog with Headless Template
 @Component({
-    standalone: false,
     template: `
         <p-dialog [(visible)]="visible">
             <ng-template #headless>
@@ -208,7 +207,8 @@ class TestHashTemplateDialogComponent {
                 </div>
             </ng-template>
         </p-dialog>
-    `
+    `,
+    imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestHeadlessDialogComponent {
     visible = false;
@@ -216,12 +216,12 @@ class TestHeadlessDialogComponent {
 
 // Dialog for Position Testing
 @Component({
-    standalone: false,
     template: `
         <p-dialog [(visible)]="visible" [position]="position" header="Position Test">
             <div>Testing different positions</div>
         </p-dialog>
-    `
+    `,
+    imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestPositionDialogComponent {
     visible = false;
@@ -230,12 +230,12 @@ class TestPositionDialogComponent {
 
 // Dialog for Maximizable Testing
 @Component({
-    standalone: false,
     template: `
         <p-dialog [(visible)]="visible" [maximizable]="maximizable" header="Maximizable Test" (onMaximize)="onMaximize($event)">
             <div>Testing maximize functionality</div>
         </p-dialog>
-    `
+    `,
+    imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestMaximizableDialogComponent {
     visible = false;
@@ -249,13 +249,13 @@ class TestMaximizableDialogComponent {
 
 // Dialog for Accessibility Testing
 @Component({
-    standalone: false,
     template: `
         <p-dialog [(visible)]="visible" [modal]="true" header="Accessibility Test" [closeAriaLabel]="closeAriaLabel" [role]="role" [focusTrap]="focusTrap">
             <div>Testing accessibility features</div>
             <button class="focusable-element">Focusable Button</button>
         </p-dialog>
-    `
+    `,
+    imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestAccessibilityDialogComponent {
     visible = false;
@@ -271,8 +271,18 @@ describe('Dialog', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [TestBasicDialogComponent, TestPTemplateDialogComponent, TestHashTemplateDialogComponent, TestHeadlessDialogComponent, TestPositionDialogComponent, TestMaximizableDialogComponent, TestAccessibilityDialogComponent],
-            imports: [Dialog, ButtonModule, FocusTrap],
+            imports: [
+                Dialog,
+                ButtonModule,
+                FocusTrap,
+                TestBasicDialogComponent,
+                TestPTemplateDialogComponent,
+                TestHashTemplateDialogComponent,
+                TestHeadlessDialogComponent,
+                TestPositionDialogComponent,
+                TestMaximizableDialogComponent,
+                TestAccessibilityDialogComponent
+            ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
 
@@ -514,6 +524,7 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const mouseEvent = new MouseEvent('mousedown');
+
             dialogInstance.onResizeInit.emit(mouseEvent);
 
             expect(component.onResizeInitEvent).toHaveBeenCalledWith(mouseEvent);
@@ -528,6 +539,7 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dragEvent = new DragEvent('dragend');
+
             dialogInstance.onDragEnd.emit(dragEvent);
 
             expect(component.onDragEndEvent).toHaveBeenCalledWith(dragEvent);
@@ -573,6 +585,7 @@ describe('Dialog', () => {
 
                 // Simulate mousedown on wrapper (which is what the mask click listener listens to)
                 const mouseDownEvent = new MouseEvent('mousedown', { bubbles: true });
+
                 Object.defineProperty(mouseDownEvent, 'target', {
                     value: dialogInstance.wrapper,
                     enumerable: true
@@ -683,16 +696,19 @@ describe('Dialog', () => {
     describe('Accessibility Tests', () => {
         it('should have proper ARIA attributes', async () => {
             const accessibilityFixture = TestBed.createComponent(TestAccessibilityDialogComponent);
+
             accessibilityFixture.changeDetectorRef.markForCheck();
             await accessibilityFixture.whenStable();
 
             const accessibilityComponent = accessibilityFixture.componentInstance;
+
             accessibilityComponent.visible = true;
             accessibilityFixture.changeDetectorRef.markForCheck();
             await accessibilityFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dialogElement = accessibilityFixture.debugElement.query(By.css('[role="dialog"]'));
+
             expect(dialogElement).toBeTruthy();
             expect(dialogElement.nativeElement.getAttribute('role')).toBe('dialog');
             expect(dialogElement.nativeElement.getAttribute('aria-modal')).toBe('true');
@@ -705,6 +721,7 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const focusTrapElement = fixture.debugElement.query(By.directive(FocusTrap));
+
             expect(focusTrapElement).toBeTruthy();
         });
 
@@ -745,6 +762,7 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dialogElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
+
             expect(dialogElement).toBeTruthy();
         });
 
@@ -823,8 +841,10 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const closeButton = fixture.debugElement.query(By.css('p-button[class*="pcCloseButton"]'));
+
             if (closeButton) {
                 const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+
                 closeButton.nativeElement.dispatchEvent(enterEvent);
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -846,8 +866,10 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const maximizeButton = fixture.debugElement.query(By.css('p-button[class*="pcMaximizeButton"]'));
+
             if (maximizeButton) {
                 const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+
                 maximizeButton.nativeElement.dispatchEvent(enterEvent);
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -874,6 +896,7 @@ describe('Dialog', () => {
 
             // FocusTrap should handle Tab navigation
             const focusTrap = fixture.debugElement.query(By.directive(FocusTrap));
+
             expect(focusTrap).toBeTruthy();
         });
     });
@@ -899,6 +922,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customHeader = pTemplateFixture.debugElement.query(By.css('.custom-header'));
+
                 expect(customHeader).toBeTruthy();
                 expect(customHeader.nativeElement.textContent.trim()).toBe('Custom Header with pTemplate');
             });
@@ -910,6 +934,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customContent = pTemplateFixture.debugElement.query(By.css('.custom-content'));
+
                 expect(customContent).toBeTruthy();
                 expect(customContent.nativeElement.textContent.trim()).toBe('Custom content with pTemplate');
             });
@@ -921,6 +946,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customFooter = pTemplateFixture.debugElement.query(By.css('.custom-footer'));
+
                 expect(customFooter).toBeTruthy();
                 expect(customFooter.nativeElement.textContent.trim()).toBe('Custom footer with pTemplate');
             });
@@ -932,6 +958,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customCloseIcon = pTemplateFixture.debugElement.query(By.css('.custom-close-icon'));
+
                 expect(customCloseIcon).toBeTruthy();
             });
 
@@ -966,6 +993,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customHeader = hashTemplateFixture.debugElement.query(By.css('.custom-header'));
+
                 expect(customHeader).toBeTruthy();
                 expect(customHeader.nativeElement.textContent.trim()).toBe('Custom Header with #template');
             });
@@ -977,6 +1005,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customContent = hashTemplateFixture.debugElement.query(By.css('.custom-content'));
+
                 expect(customContent).toBeTruthy();
                 expect(customContent.nativeElement.textContent.trim()).toBe('Custom content with #template');
             });
@@ -988,6 +1017,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const customFooter = hashTemplateFixture.debugElement.query(By.css('.custom-footer'));
+
                 expect(customFooter).toBeTruthy();
                 expect(customFooter.nativeElement.textContent.trim()).toBe('Custom footer with #template');
             });
@@ -999,12 +1029,12 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 // Check that ContentChild templates are assigned
-                expect(hashTemplateDialogInstance._headerTemplate).toBeDefined();
-                expect(hashTemplateDialogInstance._contentTemplate).toBeDefined();
+                expect(hashTemplateDialogInstance._headerTemplate()).toBeDefined();
+                expect(hashTemplateDialogInstance._contentTemplate()).toBeDefined();
                 expect(hashTemplateDialogInstance._footerTemplate).toBeDefined();
                 expect(hashTemplateDialogInstance._closeiconTemplate).toBeDefined();
-                expect(hashTemplateDialogInstance._maximizeiconTemplate).toBeDefined();
-                expect(hashTemplateDialogInstance._minimizeiconTemplate).toBeDefined();
+                expect(hashTemplateDialogInstance._maximizeiconTemplate()).toBeDefined();
+                expect(hashTemplateDialogInstance._minimizeiconTemplate()).toBeDefined();
             });
         });
 
@@ -1026,6 +1056,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const headlessContent = headlessFixture.debugElement.query(By.css('.custom-headless'));
+
                 expect(headlessContent).toBeTruthy();
                 expect(headlessContent.nativeElement.textContent).toContain('Headless Dialog');
             });
@@ -1037,6 +1068,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const closeButton = headlessFixture.debugElement.query(By.css('.custom-headless button'));
+
                 expect(closeButton).toBeTruthy();
 
                 closeButton.nativeElement.click();
@@ -1067,6 +1099,7 @@ describe('Dialog', () => {
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 const dialogContent = fixture.debugElement.query(By.css('.dialog-content'));
+
                 expect(dialogContent).toBeTruthy();
                 expect(dialogContent.nativeElement.textContent.trim()).toBe('Basic dialog content');
             });
@@ -1094,15 +1127,19 @@ describe('Dialog', () => {
 
             // Try different selectors for maximize button
             let maximizeButton = maximizableFixture.debugElement.query(By.css('p-button[class*="pcMaximizeButton"]'));
+
             if (!maximizeButton) {
                 maximizeButton = maximizableFixture.debugElement.query(By.css('.p-dialog-maximize-button'));
             }
+
             if (!maximizeButton) {
                 maximizeButton = maximizableFixture.debugElement.query(By.css('p-button[aria-label*="maximize"], p-button[aria-label*="Maximize"]'));
             }
+
             if (!maximizeButton) {
                 // Check if maximize button exists in header actions
                 const headerActions = maximizableFixture.debugElement.query(By.css('.p-dialog-header-actions'));
+
                 if (headerActions) {
                     maximizeButton = headerActions.query(By.css('p-button'));
                 }
@@ -1247,6 +1284,7 @@ describe('Dialog', () => {
 
             // Verify container is cleaned up after destroy
             const initialContainer = dialogInstance.container;
+
             dialogInstance.ngOnDestroy();
 
             // Container should be cleaned up
@@ -1266,9 +1304,11 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const mouseEvent = new MouseEvent('mousedown', { clientX: 100, clientY: 100 });
+
             spyOn(dialogInstance, 'initDrag');
 
             const titleBar = fixture.debugElement.query(By.css('[class*="header"]'));
+
             if (titleBar) {
                 titleBar.nativeElement.dispatchEvent(mouseEvent);
                 expect(dialogInstance.initDrag).toHaveBeenCalled();
@@ -1286,6 +1326,7 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const mouseEvent = new MouseEvent('mousedown', { clientX: 100, clientY: 100 });
+
             dialogInstance.initResize(mouseEvent);
 
             expect(dialogInstance.resizing).toBe(true);
@@ -1293,6 +1334,7 @@ describe('Dialog', () => {
 
         it('should emit onResizeInit event', () => {
             const mouseEvent = new MouseEvent('mousedown');
+
             spyOn(component, 'onResizeInitEvent');
 
             dialogInstance.onResizeInit.emit(mouseEvent);
@@ -1302,6 +1344,7 @@ describe('Dialog', () => {
 
         it('should emit onDragEnd event', () => {
             const dragEvent = new DragEvent('dragend');
+
             spyOn(component, 'onDragEndEvent');
 
             dialogInstance.onDragEnd.emit(dragEvent);
@@ -1313,8 +1356,8 @@ describe('Dialog', () => {
     describe('PT (PassThrough) Tests', () => {
         describe('Case 1: Simple string classes', () => {
             @Component({
-                standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`,
+                imports: [Dialog]
             })
             class TestPTCase1Component {
                 visible = true;
@@ -1333,26 +1376,29 @@ describe('Dialog', () => {
             it('should apply simple string classes to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase1Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase1Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase1Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+
                 if (mask) {
                     expect(mask.nativeElement.classList.contains('MASK_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('HEADER_CLASS')).toBe(true);
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('CONTENT_CLASS')).toBe(true);
                 }
@@ -1361,8 +1407,8 @@ describe('Dialog', () => {
 
         describe('Case 2: Objects with class, style, and attributes', () => {
             @Component({
-                standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`,
+                imports: [Dialog]
             })
             class TestPTCase2Component {
                 visible = true;
@@ -1386,28 +1432,31 @@ describe('Dialog', () => {
             it('should apply object properties to PT sections', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase2Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase2Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase2Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+
                 if (mask) {
                     expect(mask.nativeElement.classList.contains('MASK_OBJECT_CLASS')).toBe(true);
                     expect(mask.nativeElement.getAttribute('data-test')).toBe('mask-test');
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('HEADER_OBJECT_CLASS')).toBe(true);
                     expect(header.nativeElement.style.padding).toBe('20px');
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('CONTENT_OBJECT_CLASS')).toBe(true);
                     expect(content.nativeElement.getAttribute('aria-label')).toBe('Dialog content');
@@ -1417,8 +1466,8 @@ describe('Dialog', () => {
 
         describe('Case 3: Mixed object and string values', () => {
             @Component({
-                standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`,
+                imports: [Dialog]
             })
             class TestPTCase3Component {
                 visible = true;
@@ -1436,26 +1485,29 @@ describe('Dialog', () => {
             it('should apply mixed object and string values correctly', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase3Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase3Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase3Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+
                 if (mask) {
                     expect(mask.nativeElement.classList.contains('MASK_MIXED_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('HEADER_STRING_CLASS')).toBe(true);
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('CONTENT_MIXED_CLASS')).toBe(true);
                 }
@@ -1464,46 +1516,44 @@ describe('Dialog', () => {
 
         describe('Case 4: Use variables from instance', () => {
             @Component({
-                standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" [maximizable]="isMaximizable" header="Test Dialog">Content</p-dialog>`
+                template: `<p-dialog [pt]="pt" [visible]="visible" [maximizable]="isMaximizable" header="Test Dialog">Content</p-dialog>`,
+                imports: [Dialog]
             })
             class TestPTCase4Component {
                 visible = true;
                 isMaximizable = true;
                 pt = {
-                    mask: ({ instance }: any) => {
-                        return {
-                            class: instance?.visible ? 'VISIBLE_MASK' : 'HIDDEN_MASK'
-                        };
-                    },
-                    header: ({ instance }: any) => {
-                        return {
-                            style: {
-                                'background-color': instance?.maximizable ? 'lightblue' : 'white'
-                            }
-                        };
-                    }
+                    mask: ({ instance }: any) => ({
+                        class: instance?.visible ? 'VISIBLE_MASK' : 'HIDDEN_MASK'
+                    }),
+                    header: ({ instance }: any) => ({
+                        style: {
+                            'background-color': instance?.maximizable ? 'lightblue' : 'white'
+                        }
+                    })
                 };
             }
 
             it('should use instance variables in PT functions', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase4Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase4Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase4Component);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+
                 if (mask) {
                     expect(mask.nativeElement.classList.contains('VISIBLE_MASK')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.style.backgroundColor).toBe('lightblue');
                 }
@@ -1512,8 +1562,8 @@ describe('Dialog', () => {
 
         describe('Case 5: Event binding', () => {
             @Component({
-                standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`,
+                imports: [Dialog]
             })
             class TestPTCase5Component {
                 visible = true;
@@ -1535,23 +1585,25 @@ describe('Dialog', () => {
             it('should bind click events through PT', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase5Component],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase5Component],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase5Component);
                 const component = testFixture.componentInstance;
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     header.nativeElement.click();
                     expect(component.clickedSection).toBe('header');
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     content.nativeElement.click();
                     expect(component.clickedSection).toBe('content');
@@ -1561,16 +1613,16 @@ describe('Dialog', () => {
 
         describe('Case 6: Inline test', () => {
             @Component({
-                standalone: false,
-                template: `<p-dialog [pt]="{ mask: 'INLINE_MASK_CLASS', header: 'INLINE_HEADER_CLASS' }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<p-dialog [pt]="{ mask: 'INLINE_MASK_CLASS', header: 'INLINE_HEADER_CLASS' }" [visible]="visible" header="Test Dialog">Content</p-dialog>`,
+                imports: [Dialog]
             })
             class TestPTCase6InlineComponent {
                 visible = true;
             }
 
             @Component({
-                standalone: false,
-                template: `<p-dialog [pt]="{ mask: { class: 'INLINE_MASK_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<p-dialog [pt]="{ mask: { class: 'INLINE_MASK_OBJECT_CLASS' }, content: { class: 'INLINE_CONTENT_CLASS' } }" [visible]="visible" header="Test Dialog">Content</p-dialog>`,
+                imports: [Dialog]
             })
             class TestPTCase6InlineObjectComponent {
                 visible = true;
@@ -1579,21 +1631,23 @@ describe('Dialog', () => {
             it('should apply inline PT string classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineComponent],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase6InlineComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+
                 if (mask) {
                     expect(mask.nativeElement.classList.contains('INLINE_MASK_CLASS')).toBe(true);
                 }
 
                 const header = testFixture.debugElement.query(By.css('[data-pc-section="header"]'));
+
                 if (header) {
                     expect(header.nativeElement.classList.contains('INLINE_HEADER_CLASS')).toBe(true);
                 }
@@ -1602,21 +1656,23 @@ describe('Dialog', () => {
             it('should apply inline PT object classes', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase6InlineObjectComponent],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase6InlineObjectComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase6InlineObjectComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const mask = testFixture.debugElement.query(By.css('[data-pc-section="mask"]'));
+
                 if (mask) {
                     expect(mask.nativeElement.classList.contains('INLINE_MASK_OBJECT_CLASS')).toBe(true);
                 }
 
                 const content = testFixture.debugElement.query(By.css('[data-pc-section="content"]'));
+
                 if (content) {
                     expect(content.nativeElement.classList.contains('INLINE_CONTENT_CLASS')).toBe(true);
                 }
@@ -1625,11 +1681,11 @@ describe('Dialog', () => {
 
         describe('Case 7: Test from PrimeNGConfig', () => {
             @Component({
-                standalone: false,
                 template: `
                     <p-dialog [visible]="visible1" header="Dialog 1">Content 1</p-dialog>
                     <p-dialog [visible]="visible2" header="Dialog 2">Content 2</p-dialog>
-                `
+                `,
+                imports: [Dialog]
             })
             class TestPTCase7GlobalComponent {
                 visible1 = true;
@@ -1639,8 +1695,7 @@ describe('Dialog', () => {
             it('should apply global PT configuration from PrimeNGConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase7GlobalComponent],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
@@ -1658,18 +1713,20 @@ describe('Dialog', () => {
                 }).compileComponents();
 
                 const testFixture = TestBed.createComponent(TestPTCase7GlobalComponent);
+
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
                 const dialogs = testFixture.debugElement.queryAll(By.directive(Dialog));
+
                 expect(dialogs.length).toBe(2);
             });
         });
 
         describe('Case 8: Test hooks', () => {
             @Component({
-                standalone: false,
-                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`
+                template: `<p-dialog [pt]="pt" [visible]="visible" header="Test Dialog">Content</p-dialog>`,
+                imports: [Dialog]
             })
             class TestPTCase8HooksComponent {
                 visible = true;
@@ -1696,8 +1753,7 @@ describe('Dialog', () => {
             it('should call PT hooks on Angular lifecycle events', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
-                    declarations: [TestPTCase8HooksComponent],
-                    imports: [Dialog],
+                    imports: [Dialog, TestPTCase8HooksComponent],
                     providers: [provideZonelessChangeDetection()]
                 }).compileComponents();
 

@@ -23,6 +23,9 @@ const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
     providers: [TooltipStyle, { provide: TOOLTIP_INSTANCE, useExisting: Tooltip }, { provide: PARENT_INSTANCE, useExisting: Tooltip }]
 })
 export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
+    zone = inject(NgZone);
+    private viewContainer = inject(ViewContainerRef);
+
     componentName = 'Tooltip';
 
     $pcTooltip: Tooltip | undefined = inject(TOOLTIP_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -218,13 +221,11 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
      */
     pTooltipUnstyled = input<boolean | undefined>();
 
-    constructor(
-        public zone: NgZone,
-        private viewContainer: ViewContainerRef
-    ) {
+    constructor() {
         super();
         effect(() => {
             const pt = this.ptTooltip() || this.pTooltipPT();
+
             pt && this.directivePT.set(pt);
         });
 
@@ -252,6 +253,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
                     this.el.nativeElement.addEventListener('touchstart', this.touchStartListener, { passive: true });
                     this.el.nativeElement.addEventListener('touchend', this.touchEndListener, { passive: true });
                 }
+
                 if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
                     this.focusListener = this.onFocus.bind(this);
                     this.blurListener = this.onBlur.bind(this);
@@ -383,6 +385,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
             const valid = hasClass(e.relatedTarget as any, 'p-tooltip') || hasClass(e.relatedTarget as any, 'p-tooltip-text') || hasClass(e.relatedTarget as any, 'p-tooltip-arrow');
+
             !valid && this.deactivate();
         } else {
             this.deactivate();
@@ -437,6 +440,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     hasEllipsis(): boolean {
         const el = this.el.nativeElement;
+
         return el.offsetWidth < el.scrollWidth || el.offsetHeight < el.scrollHeight;
     }
 
@@ -445,6 +449,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             if (this.getOption('showOnEllipsis') && !this.hasEllipsis()) {
                 return;
             }
+
             this.active = true;
             this.clearHideTimeout();
 
@@ -456,6 +461,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
             if (this.getOption('life')) {
                 let duration = this.getOption('showDelay') ? this.getOption('life') + this.getOption('showDelay') : this.getOption('life');
+
                 this.hideTimeout = setTimeout(() => {
                     this.hide();
                 }, duration);
@@ -467,6 +473,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
                     this.documentEscapeListener?.();
                 });
             }
+
             this.interactionInProgress = true;
         }
     }
@@ -499,6 +506,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
         this.container.setAttribute('role', 'tooltip');
         let tooltipArrow = createElement('div', { class: this.cx('arrow'), 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
+
         this.container.appendChild(tooltipArrow);
         this.tooltipText = createElement('div', { class: this.cx('text'), 'p-bind': this.ptm('text'), 'data-pc-section': 'text' });
 
@@ -578,13 +586,16 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         if (this.getOption('tooltipZIndex') === 'auto') {
             ZIndexUtils.clear(this.container);
         }
+
         this.remove();
     }
 
     updateText() {
         const content = this.getOption('tooltipLabel');
+
         if (content && typeof (content as TemplateRef<any>).createEmbeddedView === 'function') {
             const embeddedViewRef = this.viewContainer.createEmbeddedView(content);
+
             embeddedViewRef.detectChanges();
             embeddedViewRef.rootNodes.forEach((node) => this.tooltipText.appendChild(node));
         } else if (this.getOption('escape')) {
@@ -606,6 +617,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         };
 
         const alignFns = positionPriority[position] || [];
+
         for (let [index, alignmentFn] of alignFns.entries()) {
             if (index === 0) alignmentFn.call(this);
             else if (this.isOutOfBounds()) alignmentFn.call(this);
@@ -634,6 +646,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         const el = this.activeElement;
         const offsetLeft = getOuterWidth(el);
         const offsetTop = (getOuterHeight(el) - getOuterHeight(this.container)) / 2;
+
         this.alignTooltip(offsetLeft, offsetTop);
         let arrowElement = this.getArrowElement();
 
@@ -648,6 +661,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         let arrowElement = this.getArrowElement();
         let offsetLeft = getOuterWidth(this.container);
         let offsetTop = (getOuterHeight(this.el.nativeElement) - getOuterHeight(this.container)) / 2;
+
         this.alignTooltip(-offsetLeft, offsetTop);
 
         arrowElement.style.top = '50%';
@@ -664,9 +678,11 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
         let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
         let offsetTop = getOuterHeight(this.container);
+
         this.alignTooltip(offsetLeft, -offsetTop);
 
         let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
+
         arrowElement.style.top = null;
         arrowElement.style.right = null;
         arrowElement.style.bottom = '0';
@@ -684,6 +700,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         let hostOffset = this.getHostOffset();
         let offsetLeft = (getOuterWidth(this.el.nativeElement) - getOuterWidth(this.container)) / 2;
         let offsetTop = getOuterHeight(this.el.nativeElement);
+
         this.alignTooltip(offsetLeft, offsetTop);
 
         let elementRelativeCenter = hostOffset.left - this.getHostOffset().left + elementWidth / 2;
@@ -698,6 +715,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         let hostOffset = this.getHostOffset();
         let left = hostOffset.left + offsetLeft;
         let top = hostOffset.top + offsetTop;
+
         this.container.style.left = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
     }
@@ -780,6 +798,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             this.el.nativeElement.removeEventListener('touchend', this.touchEndListener);
             this.unbindDocumentTouchListener();
         }
+
         if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
             let target = this.el.nativeElement.querySelector('.p-component');
 
@@ -790,6 +809,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
             target.removeEventListener('focus', this.focusListener);
             target.removeEventListener('blur', this.blurListener);
         }
+
         this.unbindDocumentResizeListener();
     }
 

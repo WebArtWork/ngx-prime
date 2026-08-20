@@ -33,17 +33,21 @@ export class DesignSemanticSection {
         const names = this.path.split('.');
         const filtered = names.filter((n) => n !== 'colorScheme' && n !== 'light' && n !== 'dark');
         const lastPart = filtered[filtered.length - 1];
+
         return this.capitalize(this.camelCaseToSpaces(lastPart));
     });
 
     tokens = computed(() => {
         const source = this.designerService.designer().theme.preset.semantic;
+
         return this.getObjectProperty(source, this.path);
     });
 
     primitiveTokensArray = computed(() => {
         const obj = this.tokens();
+
         if (!obj) return [];
+
         return Object.keys(obj)
             .filter((key) => !this.isObject(obj[key]))
             .map((key) => ({ key, value: obj[key] }));
@@ -53,7 +57,9 @@ export class DesignSemanticSection {
 
     nestedTokensArray = computed(() => {
         const obj = this.tokens();
+
         if (!obj) return [];
+
         return Object.keys(obj)
             .filter((key) => this.isObject(obj[key]))
             .map((key) => ({ key, value: obj[key] }));
@@ -88,6 +94,7 @@ export class DesignSemanticSection {
         if (typeof str !== 'string' || str.length === 0) {
             return str;
         }
+
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 }

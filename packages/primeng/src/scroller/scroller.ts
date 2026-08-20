@@ -3,7 +3,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     HostBinding,
@@ -13,11 +12,13 @@ import {
     NgModule,
     NgZone,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    viewChild,
+    contentChild,
+    contentChildren
 } from '@angular/core';
 import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@primeuix/utils';
 import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
@@ -49,49 +50,49 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
     imports: [CommonModule, SpinnerIcon, SharedModule, Bind],
     standalone: true,
     template: `
-        <ng-container *ngIf="!_disabled; else disabledContainer">
+        @if (!_disabled) {
             <div #element [attr.id]="_id" [attr.tabindex]="tabindex" [ngStyle]="_style" [class]="cn(cx('root'), styleClass)" (scroll)="onContainerScroll($event)" [pBind]="ptm('root')">
-                <ng-container *ngIf="contentTemplate || _contentTemplate; else buildInContent">
+                @if (contentTemplate || _contentTemplate) {
                     <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
-                </ng-container>
-                <ng-template #buildInContent>
+                } @else {
                     <div #content [class]="cn(cx('content'), contentStyleClass)" [style]="contentStyle" [pBind]="ptm('content')">
-                        <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy">
-                            <ng-container *ngTemplateOutlet="itemTemplate || _itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
-                        </ng-container>
+                        @for (item of loadedItems; track _trackBy(index, item); let index = $index) {
+                            <ng-container *ngTemplateOutlet="itemTemplate() || _itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
+                        }
                     </div>
-                </ng-template>
-                <div *ngIf="_showSpacer" [class]="cx('spacer')" [ngStyle]="spacerStyle" [pBind]="ptm('spacer')"></div>
-                <div *ngIf="!loaderDisabled && _showLoader && d_loading" [class]="cx('loader')" [pBind]="ptm('loader')">
-                    <ng-container *ngIf="loaderTemplate || _loaderTemplate; else buildInLoader">
-                        <ng-container *ngFor="let item of loaderArr; let index = index">
-                            <ng-container
-                                *ngTemplateOutlet="
-                                    loaderTemplate || _loaderTemplate;
-                                    context: {
-                                        options: getLoaderOptions(index, both && { numCols: numItemsInViewport.cols })
-                                    }
-                                "
-                            ></ng-container>
-                        </ng-container>
-                    </ng-container>
-                    <ng-template #buildInLoader>
-                        <ng-container *ngIf="loaderIconTemplate || _loaderIconTemplate; else buildInLoaderIcon">
-                            <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
-                        </ng-container>
-                        <ng-template #buildInLoaderIcon>
-                            <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [pBind]="ptm('loadingIcon')" />
-                        </ng-template>
-                    </ng-template>
-                </div>
+                }
+                @if (_showSpacer) {
+                    <div [class]="cx('spacer')" [ngStyle]="spacerStyle" [pBind]="ptm('spacer')"></div>
+                }
+                @if (!loaderDisabled && _showLoader && d_loading) {
+                    <div [class]="cx('loader')" [pBind]="ptm('loader')">
+                        @if (loaderTemplate || _loaderTemplate) {
+                            @for (item of loaderArr; track item; let index = $index) {
+                                <ng-container
+                                    *ngTemplateOutlet="
+                                        loaderTemplate || _loaderTemplate;
+                                        context: {
+                                            options: getLoaderOptions(index, both && { numCols: numItemsInViewport.cols })
+                                        }
+                                    "
+                                ></ng-container>
+                            }
+                        } @else {
+                            @if (loaderIconTemplate || _loaderIconTemplate) {
+                                <ng-container *ngTemplateOutlet="loaderIconTemplate || _loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
+                            } @else {
+                                <svg data-p-icon="spinner" [class]="cx('loadingIcon')" [spin]="true" [pBind]="ptm('loadingIcon')" />
+                            }
+                        }
+                    </div>
+                }
             </div>
-        </ng-container>
-        <ng-template #disabledContainer>
+        } @else {
             <ng-content></ng-content>
-            <ng-container *ngIf="contentTemplate || _contentTemplate">
+            @if (contentTemplate || _contentTemplate) {
                 <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate; context: { $implicit: items, options: { rows: _items, columns: loadedColumns } }"></ng-container>
-            </ng-container>
-        </ng-template>
+            }
+        }
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
@@ -99,6 +100,8 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
     hostDirectives: [Bind]
 })
 export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
+    private zone = inject(NgZone);
+
     componentName = 'VirtualScroller';
 
     bindDirectiveInstance = inject(Bind, { self: true });
@@ -382,7 +385,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     @ViewChild('element') elementViewChild: Nullable<ElementRef>;
 
-    @ViewChild('content') contentViewChild: Nullable<ElementRef>;
+    readonly contentViewChild = viewChild<Nullable<ElementRef>>('content');
 
     @HostBinding('style.height') height: string;
 
@@ -455,7 +458,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * @see {@link ScrollerItemTemplateContext}
      * @group Templates
      */
-    @ContentChild('item', { descendants: false }) itemTemplate: Nullable<TemplateRef<ScrollerItemTemplateContext>>;
+    readonly itemTemplate = contentChild<Nullable<TemplateRef<ScrollerItemTemplateContext>>>('item', { descendants: false });
 
     /**
      * Loader template of the component.
@@ -473,7 +476,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      */
     @ContentChild('loadericon', { descendants: false }) loaderIconTemplate: Nullable<TemplateRef<ScrollerLoaderIconTemplateContext>>;
 
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+    readonly templates = contentChildren(PrimeTemplate);
 
     _contentTemplate: TemplateRef<ScrollerContentTemplateContext> | undefined;
 
@@ -574,19 +577,17 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     _componentStyle = inject(ScrollerStyle);
 
-    constructor(private zone: NgZone) {
-        super();
-    }
-
     onInit() {
         this.setInitialState();
     }
 
     onChanges(simpleChanges: SimpleChanges) {
         let isLoadingChanged = false;
+
         if (this.scrollHeight == '100%') {
             this.height = '100%';
         }
+
         if (simpleChanges.loading) {
             const { previousValue, currentValue } = simpleChanges.loading;
 
@@ -631,7 +632,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
     }
 
     onAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this._contentTemplate = item.template;
@@ -664,6 +665,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+
         if (!this.initialized) {
             this.viewInit();
         }
@@ -708,16 +710,18 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
     }
 
     setContentEl(el?: HTMLElement) {
-        this.contentEl = el || this.contentViewChild?.nativeElement || findSingle(this.elementViewChild?.nativeElement, '.p-virtualscroller-content');
+        this.contentEl = el || this.contentViewChild()?.nativeElement || findSingle(this.elementViewChild?.nativeElement, '.p-virtualscroller-content');
     }
     setInitialState() {
         this.first = this.both ? { rows: 0, cols: 0 } : 0;
         this.last = this.both ? { rows: 0, cols: 0 } : 0;
         this.numItemsInViewport = this.both ? { rows: 0, cols: 0 } : 0;
         this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
+
         if (this.d_loading === undefined || this.d_loading === false) {
             this.d_loading = this._loading || false;
         }
+
         this.d_numToleratedItems = this._numToleratedItems;
         this.loaderArr = this.loaderArr.length > 0 ? this.loaderArr : [];
     }
@@ -792,6 +796,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
                 } else {
                     if (viewport.first - first > index) {
                         const pos = (viewport.first - 1) * <number>this._itemSize;
+
                         this.horizontal ? scrollTo(pos, 0) : scrollTo(0, pos);
                     }
                 }
@@ -805,6 +810,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
                 } else {
                     if (viewport.last - first <= index + 1) {
                         const pos = (viewport.first + 1) * <number>this._itemSize;
+
                         this.horizontal ? scrollTo(pos, 0) : scrollTo(0, pos);
                     }
                 }
@@ -834,6 +840,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
                 };
             } else {
                 const scrollPos = this.horizontal ? scrollLeft : scrollTop;
+
                 firstInViewport = calculateFirstInViewport(scrollPos, <number>this._itemSize);
                 lastInViewport = firstInViewport + this.numItemsInViewport;
             }
@@ -907,10 +914,12 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
                     (<ElementRef>this.elementViewChild).nativeElement.style.contain = 'none';
 
                     const [contentWidth, contentHeight] = [getWidth(this.contentEl), getHeight(this.contentEl)];
+
                     contentWidth !== this.defaultContentWidth && ((<ElementRef>this.elementViewChild).nativeElement.style.width = '');
                     contentHeight !== this.defaultContentHeight && ((<ElementRef>this.elementViewChild).nativeElement.style.height = '');
 
                     const [width, height] = [getWidth((<ElementRef>this.elementViewChild).nativeElement), getHeight((<ElementRef>this.elementViewChild).nativeElement)];
+
                     (this.both || this.horizontal) && ((<ElementRef>this.elementViewChild).nativeElement.style.width = width < <number>this.defaultWidth ? width + 'px' : this._scrollWidth || this.defaultWidth + 'px');
                     (this.both || this.vertical) && ((<ElementRef>this.elementViewChild).nativeElement.style.height = height < <number>this.defaultHeight ? height + 'px' : this._scrollHeight || this.defaultHeight + 'px');
 
@@ -992,6 +1001,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
                 setTransform(calculateTranslateVal(first.cols, (<number[]>this._itemSize)[1]), calculateTranslateVal(first.rows, (<number[]>this._itemSize)[0]));
             } else {
                 const translateVal = calculateTranslateVal(first, <number>this._itemSize);
+
                 this.horizontal ? setTransform(translateVal, 0) : setTransform(0, translateVal);
             }
         }
@@ -999,19 +1009,23 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
     onScrollPositionChange(event: Event) {
         const target = event.target;
+
         if (!target) {
             throw new Error('Event target is null');
         }
+
         const contentPos = this.getContentPosition();
         const calculateScrollPos = (_pos: number, _cpos: number) => (_pos ? (_pos > _cpos ? _pos - _cpos : _pos) : 0);
         const calculateCurrentIndex = (_pos: number, _size: number) => (_size || _pos ? Math.floor(_pos / (_size || _pos)) : 0);
-        const calculateTriggerIndex = (_currentIndex: number, _first: number, _last: number, _num: number, _numT: number, _isScrollDownOrRight: any) => {
-            return _currentIndex <= _numT ? _numT : _isScrollDownOrRight ? _last - _num - _numT : _first + _numT - 1;
-        };
+
+        const calculateTriggerIndex = (_currentIndex: number, _first: number, _last: number, _num: number, _numT: number, _isScrollDownOrRight: any) =>
+            _currentIndex <= _numT ? _numT : _isScrollDownOrRight ? _last - _num - _numT : _first + _numT - 1;
+
         const calculateFirst = (_currentIndex: number, _triggerIndex: number, _first: number, _last: number, _num: number, _numT: number, _isScrollDownOrRight: any) => {
             if (_currentIndex <= _numT) return 0;
             else return Math.max(0, _isScrollDownOrRight ? (_currentIndex < _triggerIndex ? _first : _currentIndex - _numT) : _currentIndex > _triggerIndex ? _first : _currentIndex - 2 * _numT);
         };
+
         const calculateLast = (_currentIndex: number, _first: number, _last: number, _num: number, _numT: number, _isCols = false) => {
             let lastValue = _first + _num + 2 * _numT;
 
@@ -1132,6 +1146,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
                     this.d_loading = false;
                     this.page = this.getPageByFirst();
                 }
+
                 this.cd.detectChanges();
             }, this._delay);
         } else {
@@ -1145,6 +1160,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
                 this.zone.runOutsideAngular(() => {
                     const window = this.document.defaultView as Window;
                     const event = isTouchDevice() ? 'orientationchange' : 'resize';
+
                     this.windowResizeListener = this.renderer.listen(window, event, this.onWindowResize.bind(this));
                 });
             }

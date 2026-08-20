@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, ContentChild, ContentChildren, effect, ElementRef, forwardRef, inject, InjectionToken, QueryList, signal, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, effect, ElementRef, forwardRef, inject, InjectionToken, signal, TemplateRef, ViewEncapsulation, contentChildren, viewChild } from '@angular/core';
 import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -97,17 +97,17 @@ export class TabList extends BaseComponent<TabListPassThrough> {
      */
     @ContentChild('nexticon', { descendants: false }) nextIconTemplate: TemplateRef<any> | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    readonly templates = contentChildren(PrimeTemplate);
 
-    @ViewChild('content') content: ElementRef<HTMLDivElement>;
+    readonly content = viewChild.required<ElementRef<HTMLDivElement>>('content');
 
-    @ViewChild('prevButton') prevButton: ElementRef<HTMLButtonElement>;
+    readonly prevButton = viewChild.required<ElementRef<HTMLButtonElement>>('prevButton');
 
-    @ViewChild('nextButton') nextButton: ElementRef<HTMLButtonElement>;
+    readonly nextButton = viewChild.required<ElementRef<HTMLButtonElement>>('nextButton');
 
-    @ViewChild('inkbar') inkbar: ElementRef<HTMLSpanElement>;
+    readonly inkbar = viewChild.required<ElementRef<HTMLSpanElement>>('inkbar');
 
-    @ViewChild('tabs') tabs: ElementRef<HTMLDivElement>;
+    readonly tabs = viewChild.required<ElementRef<HTMLDivElement>>('tabs');
 
     pcTabs = inject(forwardRef(() => Tabs));
 
@@ -129,6 +129,7 @@ export class TabList extends BaseComponent<TabListPassThrough> {
         super();
         effect(() => {
             this.pcTabs.value();
+
             if (isPlatformBrowser(this.platformId)) {
                 setTimeout(() => {
                     this.updateInkBar();
@@ -157,7 +158,7 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     _nextIconTemplate: TemplateRef<any> | undefined;
 
     onAfterContentInit() {
-        this.templates?.forEach((t) => {
+        this.templates()?.forEach((t) => {
             switch (t.getType()) {
                 case 'previcon':
                     this._prevIconTemplate = t.template;
@@ -180,7 +181,7 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     }
 
     onPrevButtonClick() {
-        const _content = this.content.nativeElement;
+        const _content = this.content().nativeElement;
         const width = getWidth(_content);
         const pos = Math.abs(_content.scrollLeft) - width;
         const scrollLeft = pos <= 0 ? 0 : pos;
@@ -189,7 +190,7 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     }
 
     onNextButtonClick() {
-        const _content = this.content.nativeElement;
+        const _content = this.content().nativeElement;
         const width = getWidth(_content) - this.getVisibleButtonWidths();
         const pos = _content.scrollLeft + width;
         const lastPos = _content.scrollWidth - width;
@@ -199,7 +200,7 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     }
 
     updateButtonState() {
-        const _content = this.content?.nativeElement;
+        const _content = this.content()?.nativeElement;
         const _list = this.el?.nativeElement;
 
         const { scrollWidth, offsetWidth } = _content;
@@ -211,11 +212,12 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     }
 
     updateInkBar() {
-        const _content = this.content?.nativeElement;
-        const _inkbar = this.inkbar?.nativeElement;
-        const _tabs = this.tabs?.nativeElement;
+        const _content = this.content()?.nativeElement;
+        const _inkbar = this.inkbar()?.nativeElement;
+        const _tabs = this.tabs()?.nativeElement;
 
         const activeTab = findSingle(_content, '[data-pc-name="tab"][data-p-active="true"]');
+
         if (_inkbar) {
             _inkbar.style.width = getOuterWidth(activeTab) + 'px';
             _inkbar.style.left = <any>getOffset(activeTab).left - <any>getOffset(_tabs).left + 'px';
@@ -223,8 +225,8 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     }
 
     getVisibleButtonWidths() {
-        const _prevBtn = this.prevButton?.nativeElement;
-        const _nextBtn = this.nextButton?.nativeElement;
+        const _prevBtn = this.prevButton()?.nativeElement;
+        const _nextBtn = this.nextButton()?.nativeElement;
 
         return [_prevBtn, _nextBtn].reduce((acc, el) => (el ? acc + getWidth(el) : acc), 0);
     }

@@ -4,7 +4,6 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
-    ContentChildren,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -15,11 +14,12 @@ import {
     NgModule,
     numberAttribute,
     Output,
-    QueryList,
     SimpleChanges,
     TemplateRef,
-    ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    contentChild,
+    contentChildren,
+    viewChild
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { getSelection } from '@primeuix/utils';
@@ -96,34 +96,95 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [fluid]="hasFluid"
             [attr.data-p]="dataP"
         />
-        <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
-            <svg data-p-icon="times" *ngIf="!clearIconTemplate && !_clearIconTemplate" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" />
-            <span *ngIf="clearIconTemplate || _clearIconTemplate" [pBind]="ptm('clearIcon')" (click)="clear()" [class]="cx('clearIcon')">
-                <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+        @if (buttonLayout !== 'vertical' && showClear && value) {
+            @if (!clearIconTemplate && !_clearIconTemplate) {
+                <svg data-p-icon="times" [pBind]="ptm('clearIcon')" [class]="cx('clearIcon')" (click)="clear()" />
+            }
+            @if (clearIconTemplate || _clearIconTemplate) {
+                <span [pBind]="ptm('clearIcon')" (click)="clear()" [class]="cx('clearIcon')">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate || _clearIconTemplate"></ng-template>
+                </span>
+            }
+        }
+        @if (showButtons && buttonLayout === 'stacked') {
+            <span [pBind]="ptm('buttonGroup')" [class]="cx('buttonGroup')" [attr.data-p]="dataP">
+                <button
+                    type="button"
+                    [pBind]="ptm('incrementButton')"
+                    [class]="cn(cx('incrementButton'), incrementButtonClass)"
+                    [attr.disabled]="$disabled() ? '' : undefined"
+                    tabindex="-1"
+                    (mousedown)="onUpButtonMouseDown($event)"
+                    (mouseup)="onUpButtonMouseUp()"
+                    (mouseleave)="onUpButtonMouseLeave()"
+                    (keydown)="onUpButtonKeyDown($event)"
+                    (keyup)="onUpButtonKeyUp()"
+                    [attr.aria-hidden]="true"
+                    [attr.data-p]="dataP"
+                >
+                    @if (incrementButtonIcon) {
+                        <span [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
+                    }
+                    @if (!incrementButtonIcon) {
+                        @if (!incrementButtonIconTemplate() && !_incrementButtonIconTemplate) {
+                            <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" />
+                        }
+                        <ng-template *ngTemplateOutlet="incrementButtonIconTemplate() || _incrementButtonIconTemplate"></ng-template>
+                    }
+                </button>
+                <button
+                    type="button"
+                    [pBind]="ptm('decrementButton')"
+                    [class]="cn(cx('decrementButton'), decrementButtonClass)"
+                    [attr.disabled]="$disabled() ? '' : undefined"
+                    tabindex="-1"
+                    [attr.aria-hidden]="true"
+                    (mousedown)="onDownButtonMouseDown($event)"
+                    (mouseup)="onDownButtonMouseUp()"
+                    (mouseleave)="onDownButtonMouseLeave()"
+                    (keydown)="onDownButtonKeyDown($event)"
+                    (keyup)="onDownButtonKeyUp()"
+                    [attr.data-p]="dataP"
+                >
+                    @if (decrementButtonIcon) {
+                        <span [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
+                    }
+                    @if (!decrementButtonIcon) {
+                        @if (!decrementButtonIconTemplate() && !_decrementButtonIconTemplate) {
+                            <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" />
+                        }
+                        <ng-template *ngTemplateOutlet="decrementButtonIconTemplate() || _decrementButtonIconTemplate"></ng-template>
+                    }
+                </button>
             </span>
-        </ng-container>
-        <span [pBind]="ptm('buttonGroup')" [class]="cx('buttonGroup')" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-p]="dataP">
+        }
+        @if (showButtons && buttonLayout !== 'stacked') {
             <button
                 type="button"
                 [pBind]="ptm('incrementButton')"
                 [class]="cn(cx('incrementButton'), incrementButtonClass)"
                 [attr.disabled]="$disabled() ? '' : undefined"
                 tabindex="-1"
+                [attr.aria-hidden]="true"
                 (mousedown)="onUpButtonMouseDown($event)"
                 (mouseup)="onUpButtonMouseUp()"
                 (mouseleave)="onUpButtonMouseLeave()"
                 (keydown)="onUpButtonKeyDown($event)"
                 (keyup)="onUpButtonKeyUp()"
-                [attr.aria-hidden]="true"
                 [attr.data-p]="dataP"
             >
-                <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
-                <ng-container *ngIf="!incrementButtonIcon">
-                    <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
-                    <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
-                </ng-container>
+                @if (incrementButtonIcon) {
+                    <span [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
+                }
+                @if (!incrementButtonIcon) {
+                    @if (!incrementButtonIconTemplate() && !_incrementButtonIconTemplate) {
+                        <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" />
+                    }
+                    <ng-template *ngTemplateOutlet="incrementButtonIconTemplate() || _incrementButtonIconTemplate"></ng-template>
+                }
             </button>
-
+        }
+        @if (showButtons && buttonLayout !== 'stacked') {
             <button
                 type="button"
                 [pBind]="ptm('decrementButton')"
@@ -138,55 +199,17 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (keyup)="onDownButtonKeyUp()"
                 [attr.data-p]="dataP"
             >
-                <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
-                <ng-container *ngIf="!decrementButtonIcon">
-                    <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
-                    <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
-                </ng-container>
+                @if (decrementButtonIcon) {
+                    <span [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
+                }
+                @if (!decrementButtonIcon) {
+                    @if (!decrementButtonIconTemplate() && !_decrementButtonIconTemplate) {
+                        <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" />
+                    }
+                    <ng-template *ngTemplateOutlet="decrementButtonIconTemplate() || _decrementButtonIconTemplate"></ng-template>
+                }
             </button>
-        </span>
-        <button
-            *ngIf="showButtons && buttonLayout !== 'stacked'"
-            type="button"
-            [pBind]="ptm('incrementButton')"
-            [class]="cn(cx('incrementButton'), incrementButtonClass)"
-            [attr.disabled]="$disabled() ? '' : undefined"
-            tabindex="-1"
-            [attr.aria-hidden]="true"
-            (mousedown)="onUpButtonMouseDown($event)"
-            (mouseup)="onUpButtonMouseUp()"
-            (mouseleave)="onUpButtonMouseLeave()"
-            (keydown)="onUpButtonKeyDown($event)"
-            (keyup)="onUpButtonKeyUp()"
-            [attr.data-p]="dataP"
-        >
-            <span *ngIf="incrementButtonIcon" [pBind]="ptm('incrementButtonIcon')" [ngClass]="incrementButtonIcon"></span>
-            <ng-container *ngIf="!incrementButtonIcon">
-                <svg data-p-icon="angle-up" [pBind]="ptm('incrementButtonIcon')" *ngIf="!incrementButtonIconTemplate && !_incrementButtonIconTemplate" />
-                <ng-template *ngTemplateOutlet="incrementButtonIconTemplate || _incrementButtonIconTemplate"></ng-template>
-            </ng-container>
-        </button>
-        <button
-            *ngIf="showButtons && buttonLayout !== 'stacked'"
-            type="button"
-            [pBind]="ptm('decrementButton')"
-            [class]="cn(cx('decrementButton'), decrementButtonClass)"
-            [attr.disabled]="$disabled() ? '' : undefined"
-            tabindex="-1"
-            [attr.aria-hidden]="true"
-            (mousedown)="onDownButtonMouseDown($event)"
-            (mouseup)="onDownButtonMouseUp()"
-            (mouseleave)="onDownButtonMouseLeave()"
-            (keydown)="onDownButtonKeyDown($event)"
-            (keyup)="onDownButtonKeyUp()"
-            [attr.data-p]="dataP"
-        >
-            <span *ngIf="decrementButtonIcon" [pBind]="ptm('decrementButtonIcon')" [ngClass]="decrementButtonIcon"></span>
-            <ng-container *ngIf="!decrementButtonIcon">
-                <svg data-p-icon="angle-down" [pBind]="ptm('decrementButtonIcon')" *ngIf="!decrementButtonIconTemplate && !_decrementButtonIconTemplate" />
-                <ng-template *ngTemplateOutlet="decrementButtonIconTemplate || _decrementButtonIconTemplate"></ng-template>
-            </ng-container>
-        </button>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [INPUTNUMBER_VALUE_ACCESSOR, InputNumberStyle, { provide: INPUTNUMBER_INSTANCE, useExisting: InputNumber }, { provide: PARENT_INSTANCE, useExisting: InputNumber }],
@@ -198,6 +221,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     hostDirectives: [Bind]
 })
 export class InputNumber extends BaseInput<InputNumberPassThrough> {
+    readonly injector = inject(Injector);
+
     componentName = 'InputNumber';
 
     $pcInputNumber: InputNumber | undefined = inject(INPUTNUMBER_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
@@ -415,17 +440,17 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
      * Custom increment button icon template.
      * @group Templates
      */
-    @ContentChild('incrementbuttonicon', { descendants: false }) incrementButtonIconTemplate: Nullable<TemplateRef<void>>;
+    readonly incrementButtonIconTemplate = contentChild<Nullable<TemplateRef<void>>>('incrementbuttonicon', { descendants: false });
 
     /**
      * Custom decrement button icon template.
      * @group Templates
      */
-    @ContentChild('decrementbuttonicon', { descendants: false }) decrementButtonIconTemplate: Nullable<TemplateRef<void>>;
+    readonly decrementButtonIconTemplate = contentChild<Nullable<TemplateRef<void>>>('decrementbuttonicon', { descendants: false });
 
-    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+    readonly templates = contentChildren(PrimeTemplate);
 
-    @ViewChild('input') input!: ElementRef<HTMLInputElement>;
+    readonly input = viewChild.required<ElementRef<HTMLInputElement>>('input');
 
     _clearIconTemplate: TemplateRef<void> | undefined;
 
@@ -473,12 +498,9 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     private ngControl: NgControl | null = null;
 
-    constructor(public readonly injector: Injector) {
-        super();
-    }
-
     onChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
+
         if (props.some((p) => !!simpleChange[p])) {
             this.updateConstructParser();
         }
@@ -493,7 +515,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     }
 
     onAfterContentInit() {
-        this.templates.forEach((item) => {
+        this.templates().forEach((item) => {
             switch (item.getType()) {
                 case 'clearicon':
                     this._clearIconTemplate = item.template;
@@ -517,6 +539,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
             if (value == null || isNaN(value) || !isFinite(value)) {
                 return undefined;
             }
+
             return Math.max(min, Math.min(max, Math.floor(value)));
         };
 
@@ -541,9 +564,11 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         const options = this.getOptions();
         // Remove any properties with undefined or invalid values to let Intl.NumberFormat use defaults
         const cleanOptions = Object.fromEntries(Object.entries(options).filter(([_key, value]) => value !== undefined));
+
         this.numberFormat = new Intl.NumberFormat(this.locale, cleanOptions);
         const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [d, i]));
+
         this._numeral = new RegExp(`[${numerals.join('')}]`, 'g');
         this._group = this.getGroupingExpression();
         this._minusSign = this.getMinusSignExpression();
@@ -567,10 +592,12 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     getDecimalExpression(): RegExp {
         const decimalChar = this.getDecimalChar();
+
         return new RegExp(`[${decimalChar}]`, 'g');
     }
     getDecimalChar(): string {
         const formatter = new Intl.NumberFormat(this.locale, { ...this.getOptions(), useGrouping: false });
+
         return formatter
             .format(1.1)
             .replace(this._currency as RegExp | string, '')
@@ -580,12 +607,15 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     getGroupingExpression(): RegExp {
         const formatter = new Intl.NumberFormat(this.locale, { useGrouping: true });
+
         this.groupChar = formatter.format(1000000).trim().replace(this._numeral, '').charAt(0);
+
         return new RegExp(`[${this.groupChar}]`, 'g');
     }
 
     getMinusSignExpression(): RegExp {
         const formatter = new Intl.NumberFormat(this.locale, { useGrouping: false });
+
         return new RegExp(`[${formatter.format(-1).trim().replace(this._numeral, '')}]`, 'g');
     }
 
@@ -598,6 +628,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
             });
+
             return new RegExp(`[${formatter.format(1).replace(/\s/g, '').replace(this._numeral, '').replace(this._group, '')}]`, 'g');
         }
 
@@ -613,6 +644,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                 currency: this.currency,
                 currencyDisplay: this.currencyDisplay
             });
+
             this.prefixChar = formatter.format(1).split('1')[0];
         }
 
@@ -630,6 +662,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 0
             });
+
             this.suffixChar = formatter.format(1).split('1')[1];
         }
 
@@ -686,6 +719,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                 return filteredText;
 
             let parsedValue = +filteredText;
+
             return isNaN(parsedValue) ? null : parsedValue;
         }
 
@@ -709,9 +743,10 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     spin(event: Event, dir: number) {
         let step = (this.step() ?? 1) * dir;
-        let currentValue = this.parseValue(this.input?.nativeElement.value) || 0;
+        let currentValue = this.parseValue(this.input()?.nativeElement.value) || 0;
         let newValue = this.validateValue((currentValue as number) + step);
         const max = this.maxlength();
+
         if (max && max < this.formatValue(newValue).length) {
             return;
         }
@@ -731,11 +766,12 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     onUpButtonMouseDown(event: MouseEvent) {
         if (event.button === 2) {
             this.clearTimer();
+
             return;
         }
 
         if (!this.$disabled()) {
-            this.input?.nativeElement.focus();
+            this.input()?.nativeElement.focus();
             this.repeat(event, null, 1);
             event.preventDefault();
         }
@@ -768,10 +804,12 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     onDownButtonMouseDown(event: MouseEvent) {
         if (event.button === 2) {
             this.clearTimer();
+
             return;
         }
+
         if (!this.$disabled()) {
-            this.input?.nativeElement.focus();
+            this.input()?.nativeElement.focus();
             this.repeat(event, null, -1);
             event.preventDefault();
         }
@@ -809,6 +847,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         if (this.isSpecialChar) {
             (event.target as HTMLInputElement).value = this.lastValue as string;
         }
+
         this.isSpecialChar = false;
     }
 
@@ -818,8 +857,10 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         }
 
         this.lastValue = (event.target as HTMLInputElement).value;
+
         if ((event as KeyboardEvent).shiftKey || (event as KeyboardEvent).altKey) {
             this.isSpecialChar = true;
+
             return;
         }
 
@@ -831,6 +872,8 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         if (event.altKey) {
             event.preventDefault();
         }
+
+        const input = this.input();
 
         switch (event.key) {
             case 'ArrowUp':
@@ -846,27 +889,30 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
             case 'ArrowLeft':
                 for (let index = selectionStart; index <= inputValue.length; index++) {
                     const previousCharIndex = index === 0 ? 0 : index - 1;
+
                     if (this.isNumeralChar(inputValue.charAt(previousCharIndex))) {
-                        this.input.nativeElement.setSelectionRange(index, index);
+                        this.input().nativeElement.setSelectionRange(index, index);
                         break;
                     }
                 }
+
                 break;
 
             case 'ArrowRight':
                 for (let index = selectionEnd; index >= 0; index--) {
                     if (this.isNumeralChar(inputValue.charAt(index))) {
-                        this.input.nativeElement.setSelectionRange(index, index);
+                        this.input().nativeElement.setSelectionRange(index, index);
                         break;
                     }
                 }
+
                 break;
 
             case 'Tab':
             case 'Enter':
-                newValueStr = this.validateValue(this.parseValue(this.input.nativeElement.value));
-                this.input.nativeElement.value = this.formatValue(newValueStr);
-                this.input.nativeElement.setAttribute('aria-valuenow', newValueStr);
+                newValueStr = this.validateValue(this.parseValue(this.input().nativeElement.value));
+                input.nativeElement.value = this.formatValue(newValueStr);
+                input.nativeElement.setAttribute('aria-valuenow', newValueStr);
                 this.updateModel(event, newValueStr);
                 break;
 
@@ -891,12 +937,13 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                             this._decimal.lastIndex = 0;
 
                             if (decimalLength) {
-                                this.input?.nativeElement.setSelectionRange(selectionStart - 1, selectionStart - 1);
+                                this.input()?.nativeElement.setSelectionRange(selectionStart - 1, selectionStart - 1);
                             } else {
                                 newValueStr = inputValue.slice(0, selectionStart - 1) + inputValue.slice(selectionStart);
                             }
                         } else if (decimalCharIndex > 0 && selectionStart > decimalCharIndex) {
                             const insertedText = this.isDecimalMode() && (this.minFractionDigits || 0) < decimalLength ? '' : '0';
+
                             newValueStr = inputValue.slice(0, selectionStart - 1) + insertedText + inputValue.slice(selectionStart);
                         } else if (decimalCharIndexWithoutPrefix === 1) {
                             newValueStr = inputValue.slice(0, selectionStart - 1) + '0' + inputValue.slice(selectionStart);
@@ -924,6 +971,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                     if ((selectionStart == 0 && this.prefix) || (selectionStart == inputValue.length - 1 && this.suffix)) {
                         break;
                     }
+
                     const deleteChar = inputValue.charAt(selectionStart);
                     const { decimalCharIndex, decimalCharIndexWithoutPrefix } = this.getDecimalCharIndexes(inputValue);
 
@@ -937,12 +985,13 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                             this._decimal.lastIndex = 0;
 
                             if (decimalLength) {
-                                this.input?.nativeElement.setSelectionRange(selectionStart + 1, selectionStart + 1);
+                                this.input()?.nativeElement.setSelectionRange(selectionStart + 1, selectionStart + 1);
                             } else {
                                 newValueStr = inputValue.slice(0, selectionStart) + inputValue.slice(selectionStart + 1);
                             }
                         } else if (decimalCharIndex > 0 && selectionStart > decimalCharIndex) {
                             const insertedText = this.isDecimalMode() && (this.minFractionDigits || 0) < decimalLength ? '' : '0';
+
                             newValueStr = inputValue.slice(0, selectionStart) + insertedText + inputValue.slice(selectionStart + 1);
                         } else if (decimalCharIndexWithoutPrefix === 1) {
                             newValueStr = inputValue.slice(0, selectionStart) + '0' + inputValue.slice(selectionStart + 1);
@@ -957,6 +1006,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                     newValueStr = this.deleteRange(inputValue, selectionStart, selectionEnd);
                     this.updateValue(event, newValueStr, null, 'delete-range');
                 }
+
                 break;
 
             case 'Home':
@@ -964,6 +1014,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                     this.updateModel(event, this.min());
                     event.preventDefault();
                 }
+
                 break;
 
             case 'End':
@@ -971,6 +1022,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                     this.updateModel(event, this.max());
                     event.preventDefault();
                 }
+
                 break;
 
             default:
@@ -993,12 +1045,14 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         if (code != 13) {
             event.preventDefault();
         }
+
         if (!isDecimalSign && event.code === 'NumpadDecimal') {
             isDecimalSign = true;
             char = this._decimalChar;
             code = char.charCodeAt(0);
         }
-        const { value, selectionStart, selectionEnd } = this.input.nativeElement;
+
+        const { value, selectionStart, selectionEnd } = this.input().nativeElement;
         const newValue = this.parseValue(value + char);
         const newValueStr = newValue != null ? newValue.toString() : '';
         const selectedValue = value.substring(selectionStart as number, selectionEnd as number);
@@ -1007,6 +1061,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
         if (selectionStart !== selectionEnd && selectedValueStr.length > 0) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
+
             return;
         }
 
@@ -1025,15 +1080,18 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         if (!this.$disabled() && !this.readonly) {
             event.preventDefault();
             let data = (event.clipboardData || (this.document as any).defaultView['clipboardData']).getData('Text');
+
             if (this.inputId === 'integeronly' && /[^\d-]/.test(data)) {
                 return;
             }
+
             if (data) {
                 if (this.maxlength()) {
                     data = data.toString().substring(0, this.maxlength());
                 }
 
                 let filteredData = this.parseValue(data);
+
                 if (filteredData != null) {
                     this.insert(event, filteredData.toString());
                 }
@@ -1050,6 +1108,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     isMinusSign(char: string) {
         if (this._minusSign.test(char) || char === '-') {
             this._minusSign.lastIndex = 0;
+
             return true;
         }
 
@@ -1059,6 +1118,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     isDecimalSign(char: string) {
         if (this._decimal.test(char)) {
             this._decimal.lastIndex = 0;
+
             return true;
         }
 
@@ -1071,6 +1131,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     getDecimalCharIndexes(val: string) {
         let decimalCharIndex = val.search(this._decimal);
+
         this._decimal.lastIndex = 0;
 
         const filteredVal = val
@@ -1079,6 +1140,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
             .replace(/\s/g, '')
             .replace(this._currency as RegExp, '');
         const decimalCharIndexWithoutPrefix = filteredVal.search(this._decimal);
+
         this._decimal.lastIndex = 0;
 
         return { decimalCharIndex, decimalCharIndexWithoutPrefix };
@@ -1086,12 +1148,16 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     getCharIndexes(val: string) {
         const decimalCharIndex = val.search(this._decimal);
+
         this._decimal.lastIndex = 0;
         const minusCharIndex = val.search(this._minusSign);
+
         this._minusSign.lastIndex = 0;
         const suffixCharIndex = val.search(this._suffix as RegExp);
+
         (this._suffix as RegExp).lastIndex = 0;
         const currencyCharIndex = val.search(this._currency as RegExp);
+
         (this._currency as RegExp).lastIndex = 0;
 
         return { decimalCharIndex, minusCharIndex, suffixCharIndex, currencyCharIndex };
@@ -1099,20 +1165,24 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     insert(event: Event, text: string, sign = { isDecimalSign: false, isMinusSign: false }) {
         const minusCharIndexOnText = text.search(this._minusSign);
+
         this._minusSign.lastIndex = 0;
+
         if (!this.allowMinusSign() && minusCharIndexOnText !== -1) {
             return;
         }
 
-        let selectionStart: any = this.input?.nativeElement.selectionStart;
-        let selectionEnd: any = this.input?.nativeElement.selectionEnd;
-        let inputValue = this.input?.nativeElement.value.trim();
+        const input = this.input();
+        let selectionStart: any = input?.nativeElement.selectionStart;
+        let selectionEnd: any = input?.nativeElement.selectionEnd;
+        let inputValue = input?.nativeElement.value.trim();
         const { decimalCharIndex, minusCharIndex, suffixCharIndex, currencyCharIndex } = this.getCharIndexes(inputValue);
         let newValueStr;
 
         if (sign.isMinusSign) {
             if (selectionStart === 0) {
                 newValueStr = inputValue;
+
                 if (minusCharIndex === -1 || selectionEnd !== 0) {
                     newValueStr = this.insertText(inputValue, text, 0, selectionEnd);
                 }
@@ -1152,7 +1222,9 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
         if (textSplit.length === 2) {
             const decimalCharIndex = value.slice(start, end).search(this._decimal);
+
             this._decimal.lastIndex = 0;
+
             return decimalCharIndex > 0 ? value.slice(0, start) + this.formatValue(text) + value.slice(end) : value || this.formatValue(text);
         } else if (end - start === value.length) {
             return this.formatValue(text);
@@ -1177,14 +1249,16 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     }
 
     initCursor() {
-        let selectionStart: any = this.input?.nativeElement.selectionStart;
-        let selectionEnd: any = this.input?.nativeElement.selectionEnd;
-        let inputValue = this.input?.nativeElement.value;
+        const input = this.input();
+        let selectionStart: any = input?.nativeElement.selectionStart;
+        let selectionEnd: any = input?.nativeElement.selectionEnd;
+        let inputValue = input?.nativeElement.value;
         let valueLength = inputValue.length;
         let index: any = null;
 
         // remove prefix
         let prefixLength = (this.prefixChar || '').length;
+
         inputValue = inputValue.replace(this._prefix as RegExp, '');
 
         // Will allow selecting whole prefix. But not a part of it.
@@ -1194,14 +1268,17 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         }
 
         let char = inputValue.charAt(selectionStart);
+
         if (this.isNumeralChar(char)) {
             return selectionStart + prefixLength;
         }
 
         //left
         let i = selectionStart - 1;
+
         while (i >= 0) {
             char = inputValue.charAt(i);
+
             if (this.isNumeralChar(char)) {
                 index = i + prefixLength;
                 break;
@@ -1211,11 +1288,13 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         }
 
         if (index !== null) {
-            this.input?.nativeElement.setSelectionRange(index + 1, index + 1);
+            input?.nativeElement.setSelectionRange(index + 1, index + 1);
         } else {
             i = selectionStart;
+
             while (i < valueLength) {
                 char = inputValue.charAt(i);
+
                 if (this.isNumeralChar(char)) {
                     index = i + prefixLength;
                     break;
@@ -1225,7 +1304,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
             }
 
             if (index !== null) {
-                this.input?.nativeElement.setSelectionRange(index, index);
+                input?.nativeElement.setSelectionRange(index, index);
             }
         }
 
@@ -1233,7 +1312,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     }
 
     onInputClick() {
-        const currentValue = this.input?.nativeElement.value;
+        const currentValue = this.input()?.nativeElement.value;
 
         if (!this.readonly && currentValue !== getSelection()) {
             this.initCursor();
@@ -1243,6 +1322,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     isNumeralChar(char: string) {
         if (char.length === 1 && (this._numeral.test(char) || this._decimal.test(char) || this._group.test(char) || this._minusSign.test(char))) {
             this.resetRegex();
+
             return true;
         }
 
@@ -1257,7 +1337,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     }
 
     updateValue(event: Event, valueStr: Nullable<string>, insertedValueStr: Nullable<string>, operation: Nullable<string>) {
-        let currentValue = this.input?.nativeElement.value;
+        let currentValue = this.input()?.nativeElement.value;
         let newValue: any = null;
 
         if (valueStr != null) {
@@ -1271,8 +1351,8 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     handleOnInput(event: Event, currentValue: string, newValue: any) {
         if (this.isValueChanged(currentValue, newValue)) {
-            (this.input as ElementRef).nativeElement.value = this.formatValue(newValue);
-            this.input?.nativeElement.setAttribute('aria-valuenow', newValue);
+            (this.input() as ElementRef).nativeElement.value = this.formatValue(newValue);
+            this.input()?.nativeElement.setAttribute('aria-valuenow', newValue);
             this.updateModel(event, newValue);
             this.onInput.emit({ originalEvent: event, value: newValue, formattedValue: currentValue });
         }
@@ -1285,6 +1365,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
         if (newValue != null) {
             let parsedCurrentValue = typeof currentValue === 'string' ? this.parseValue(currentValue) : currentValue;
+
             return newValue !== parsedCurrentValue;
         }
 
@@ -1295,6 +1376,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         if (value === '-' || value == null) {
             return null;
         }
+
         const min = this.min();
         const max = this.max();
 
@@ -1312,7 +1394,8 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     updateInput(value: any, insertedValueStr: Nullable<string>, operation: Nullable<string>, valueStr: Nullable<string>) {
         insertedValueStr = insertedValueStr || '';
 
-        let inputValue = this.input?.nativeElement.value;
+        const input = this.input();
+        let inputValue = input?.nativeElement.value;
         let newValue = this.formatValue(value);
         let currentLength = inputValue.length;
 
@@ -1321,15 +1404,17 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
         }
 
         if (currentLength === 0) {
-            this.input.nativeElement.value = newValue;
-            this.input.nativeElement.setSelectionRange(0, 0);
+            input.nativeElement.value = newValue;
+            input.nativeElement.setSelectionRange(0, 0);
             const index = this.initCursor();
             const selectionEnd = index + insertedValueStr.length;
-            this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+
+            input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
         } else {
-            let selectionStart: any = this.input.nativeElement.selectionStart;
-            let selectionEnd: any = this.input.nativeElement.selectionEnd;
+            let selectionStart: any = input.nativeElement.selectionStart;
+            let selectionEnd: any = input.nativeElement.selectionEnd;
             const maxlength = this.maxlength();
+
             if (maxlength && newValue.length > maxlength) {
                 newValue = newValue.slice(0, maxlength);
                 selectionStart = Math.min(selectionStart, maxlength);
@@ -1340,7 +1425,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                 return;
             }
 
-            this.input.nativeElement.value = newValue;
+            input.nativeElement.value = newValue;
             let newLength = newValue.length;
 
             if (operation === 'range-insert') {
@@ -1348,18 +1433,20 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                 const startValueStr = startValue !== null ? startValue.toString() : '';
                 const startExpr = startValueStr.split('').join(`(${this.groupChar})?`);
                 const sRegex = new RegExp(startExpr, 'g');
+
                 sRegex.test(newValue);
 
                 const tExpr = insertedValueStr.split('').join(`(${this.groupChar})?`);
                 const tRegex = new RegExp(tExpr, 'g');
+
                 tRegex.test(newValue.slice(sRegex.lastIndex));
 
                 selectionEnd = sRegex.lastIndex + tRegex.lastIndex;
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             } else if (newLength === currentLength) {
-                if (operation === 'insert' || operation === 'delete-back-single') this.input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
-                else if (operation === 'delete-single') this.input.nativeElement.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
-                else if (operation === 'delete-range' || operation === 'spin') this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                if (operation === 'insert' || operation === 'delete-back-single') input.nativeElement.setSelectionRange(selectionEnd + 1, selectionEnd + 1);
+                else if (operation === 'delete-single') input.nativeElement.setSelectionRange(selectionEnd - 1, selectionEnd - 1);
+                else if (operation === 'delete-range' || operation === 'spin') input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             } else if (operation === 'delete-back-single') {
                 let prevChar = inputValue.charAt(selectionEnd - 1);
                 let nextChar = inputValue.charAt(selectionEnd);
@@ -1373,24 +1460,26 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                 }
 
                 this._group.lastIndex = 0;
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             } else if (inputValue === '-' && operation === 'insert') {
-                this.input.nativeElement.setSelectionRange(0, 0);
+                input.nativeElement.setSelectionRange(0, 0);
                 const index = this.initCursor();
                 const selectionEnd = index + insertedValueStr.length + 1;
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+
+                input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             } else {
                 selectionEnd = selectionEnd + (newLength - currentLength);
-                this.input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
+                input.nativeElement.setSelectionRange(selectionEnd, selectionEnd);
             }
         }
 
-        this.input.nativeElement.setAttribute('aria-valuenow', value);
+        input.nativeElement.setAttribute('aria-valuenow', value);
     }
 
     concatValues(val1: string, val2: string) {
         if (val1 && val2) {
             let decimalCharIndex = val2.search(this._decimal);
+
             this._decimal.lastIndex = 0;
 
             if (this.suffixChar) {
@@ -1399,6 +1488,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
                 return decimalCharIndex !== -1 ? val1.split(this._decimal)[0] + val2.slice(decimalCharIndex) : val1;
             }
         }
+
         return val1;
     }
 
@@ -1426,10 +1516,11 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     onInputBlur(event: Event) {
         this.focused = false;
 
-        const newValueNumber = this.validateValue(this.parseValue(this.input.nativeElement.value));
+        const newValueNumber = this.validateValue(this.parseValue(this.input().nativeElement.value));
         const newValueString: any = newValueNumber?.toString();
-        this.input.nativeElement.value = this.formatValue(newValueString);
-        this.input.nativeElement.setAttribute('aria-valuenow', newValueString);
+
+        this.input().nativeElement.value = this.formatValue(newValueString);
+        this.input().nativeElement.setAttribute('aria-valuenow', newValueString);
         this.updateModel(event, newValueNumber);
         this.onModelTouched();
         this.onBlur.emit(event);
@@ -1437,6 +1528,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     formattedValue() {
         const val = !this.value && !this.allowEmpty ? 0 : this.value;
+
         return this.formatValue(val);
     }
 

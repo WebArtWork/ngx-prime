@@ -57,6 +57,7 @@ export class DesignCustomTokens implements OnInit {
 
     ngOnInit() {
         const extend = this.designerService.designer().theme.preset.extend;
+
         this.tokens = [];
 
         if (extend) {
@@ -74,11 +75,13 @@ export class DesignCustomTokens implements OnInit {
 
     save() {
         const designer = this.designerService.designer();
+
         designer.theme.preset.extend = {};
 
         this.tokens.forEach((token) => {
             const { name, value } = token;
             const nestedObj = this.transformTokenName(name, value);
+
             this.mergeObjects(designer.theme.preset.extend, nestedObj);
         });
 

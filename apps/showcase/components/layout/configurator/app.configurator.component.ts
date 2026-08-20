@@ -110,8 +110,10 @@ export class AppConfiguratorComponent {
 
     onRTLChange(value: boolean) {
         this.configService.appState.update((state) => ({ ...state, RTL: value }));
+
         if (!(document as any).startViewTransition) {
             this.toggleRTL(value);
+
             return;
         }
 
@@ -267,9 +269,7 @@ export class AppConfiguratorComponent {
         }
     ];
 
-    selectedPrimaryColor = computed(() => {
-        return this.configService.appState().primary;
-    });
+    selectedPrimaryColor = computed(() => this.configService.appState().primary);
 
     selectedSurfaceColor = computed(() => this.configService.appState().surface);
 
@@ -460,6 +460,7 @@ export class AppConfiguratorComponent {
         } else if (type === 'surface') {
             this.configService.appState.update((state) => ({ ...state, surface: color.name }));
         }
+
         this.applyTheme(type, color);
         event.stopPropagation();
     }
@@ -476,6 +477,7 @@ export class AppConfiguratorComponent {
         this.configService.appState.update((state) => ({ ...state, preset: event }));
         const preset = presets[event];
         const surfacePalette = this.surfaces.find((s) => s.name === this.selectedSurfaceColor())?.palette;
+
         if (this.configService.appState().preset === 'Material') {
             document.body.classList.add('material');
             this.config.ripple.set(true);
@@ -483,6 +485,7 @@ export class AppConfiguratorComponent {
             document.body.classList.remove('material');
             this.config.ripple.set(false);
         }
+
         $t().preset(preset).preset(this.getPresetExt()).surfacePalette(surfacePalette).use({ useDefaultOptions: true });
     }
 }

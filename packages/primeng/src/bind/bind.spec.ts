@@ -4,18 +4,18 @@ import { By } from '@angular/platform-browser';
 import { Bind } from './bind';
 
 @Component({
-    standalone: false,
     selector: 'test-basic-bind',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [pBind]="attrs"></div>`,
+    imports: [Bind]
 })
 class TestBasicBindComponent {
     attrs: any = {};
 }
 
 @Component({
-    standalone: false,
     selector: 'test-bind-attributes',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [pBind]="attrs"></div>`,
+    imports: [Bind]
 })
 class TestBindAttributesComponent {
     attrs = {
@@ -26,9 +26,9 @@ class TestBindAttributesComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-bind-classes',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [pBind]="attrs"></div>`,
+    imports: [Bind]
 })
 class TestBindClassesComponent {
     attrs = {
@@ -37,9 +37,9 @@ class TestBindClassesComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-bind-classes-array',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [pBind]="attrs"></div>`,
+    imports: [Bind]
 })
 class TestBindClassesArrayComponent {
     attrs = {
@@ -48,9 +48,9 @@ class TestBindClassesArrayComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-bind-classes-object',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [pBind]="attrs"></div>`,
+    imports: [Bind]
 })
 class TestBindClassesObjectComponent {
     attrs = {
@@ -63,9 +63,9 @@ class TestBindClassesObjectComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-bind-styles',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [pBind]="attrs"></div>`,
+    imports: [Bind]
 })
 class TestBindStylesComponent {
     attrs = {
@@ -77,9 +77,9 @@ class TestBindStylesComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-bind-listeners',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [pBind]="attrs"></div>`,
+    imports: [Bind]
 })
 class TestBindListenersComponent {
     clickHandler = jasmine.createSpy('click');
@@ -92,9 +92,9 @@ class TestBindListenersComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-bind-mixed',
-    template: `<div [pBind]="attrs" class="existing-class" style="margin: 10px;"></div>`
+    template: `<div [pBind]="attrs" class="existing-class" style="margin: 10px;"></div>`,
+    imports: [Bind]
 })
 class TestBindMixedComponent {
     clickHandler = jasmine.createSpy('click');
@@ -111,9 +111,9 @@ class TestBindMixedComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-bind-dynamic',
-    template: `<div [pBind]="attrs"></div>`
+    template: `<div [pBind]="attrs"></div>`,
+    imports: [Bind]
 })
 class TestBindDynamicComponent {
     attrs: any = {
@@ -131,17 +131,17 @@ class TestBindDynamicComponent {
 }
 
 @Component({
-    standalone: false,
     selector: 'test-set-attrs',
-    template: `<div [pBind]="undefined"></div>`
+    template: `<div [pBind]="undefined"></div>`,
+    imports: [Bind]
 })
 class TestSetAttrsComponent {}
 
 describe('Bind', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [Bind],
-            declarations: [
+            imports: [
+                Bind,
                 TestBasicBindComponent,
                 TestBindAttributesComponent,
                 TestBindClassesComponent,
@@ -160,6 +160,7 @@ describe('Bind', () => {
     describe('Directive Initialization', () => {
         it('should create the directive', async () => {
             const fixture = TestBed.createComponent(TestBasicBindComponent);
+
             await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
@@ -171,6 +172,7 @@ describe('Bind', () => {
     describe('Attribute Binding', () => {
         it('should bind attributes to host element', async () => {
             const fixture = TestBed.createComponent(TestBindAttributesComponent);
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -203,6 +205,7 @@ describe('Bind', () => {
     describe('Class Binding', () => {
         it('should handle string classes', async () => {
             const fixture = TestBed.createComponent(TestBindClassesComponent);
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -213,6 +216,7 @@ describe('Bind', () => {
 
         it('should handle array classes', async () => {
             const fixture = TestBed.createComponent(TestBindClassesArrayComponent);
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -223,6 +227,7 @@ describe('Bind', () => {
 
         it('should handle object classes', async () => {
             const fixture = TestBed.createComponent(TestBindClassesObjectComponent);
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -234,6 +239,7 @@ describe('Bind', () => {
 
         it('should merge with existing classes', async () => {
             const fixture = TestBed.createComponent(TestBindMixedComponent);
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -246,6 +252,7 @@ describe('Bind', () => {
     describe('Style Binding', () => {
         it('should bind styles from attrs', async () => {
             const fixture = TestBed.createComponent(TestBindStylesComponent);
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -256,6 +263,7 @@ describe('Bind', () => {
 
         it('should merge with existing styles', async () => {
             const fixture = TestBed.createComponent(TestBindMixedComponent);
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -270,6 +278,7 @@ describe('Bind', () => {
         it('should bind event listeners', async () => {
             const fixture = TestBed.createComponent(TestBindListenersComponent);
             const component = fixture.componentInstance;
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -312,6 +321,7 @@ describe('Bind', () => {
         it('should handle mixed attributes, classes, styles, and listeners', async () => {
             const fixture = TestBed.createComponent(TestBindMixedComponent);
             const component = fixture.componentInstance;
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -337,6 +347,7 @@ describe('Bind', () => {
         it('should update attributes when attrs changes', async () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -387,6 +398,7 @@ describe('Bind', () => {
     describe('setAttrs Method', () => {
         it('should update attrs via setAttrs method', async () => {
             const fixture = TestBed.createComponent(TestSetAttrsComponent);
+
             await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
@@ -480,6 +492,7 @@ describe('Bind', () => {
         it('should not duplicate classes in DOM on multiple updates', async () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -509,6 +522,7 @@ describe('Bind', () => {
         it('should not accumulate event listeners on multiple updates', async () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -540,6 +554,7 @@ describe('Bind', () => {
             const fixture = TestBed.createComponent(TestBindDynamicComponent);
             const component = fixture.componentInstance;
             const isActive = signal(false);
+
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -559,6 +574,7 @@ describe('Bind', () => {
             // Should have either active or inactive, not both
             const hasActive = classes.includes('active');
             const hasInactive = classes.includes('inactive');
+
             expect(hasActive !== hasInactive).toBe(true);
         });
     });

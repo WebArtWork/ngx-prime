@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal, untracked } from '@angular/core';
 import { type ClassNameOptions, createMotion, resolveDuration, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@primeuix/motion';
 import { nextFrame } from '@primeuix/utils';
@@ -17,7 +16,7 @@ const MOTION_INSTANCE = new InjectionToken<Motion>('MOTION_INSTANCE');
 @Component({
     selector: 'p-motion',
     standalone: true,
-    imports: [CommonModule, BindModule],
+    imports: [BindModule],
     template: `
         @if (rendered()) {
             <ng-content />
@@ -37,6 +36,7 @@ export class Motion extends BaseComponent<MotionPassThrough> {
     onAfterViewChecked(): void {
         const options = this.options() as any;
         const optionsAttrs = options?.root || {};
+
         this.bindDirectiveInstance.setAttrs({ ...this.ptms(['host', 'root']), ...optionsAttrs });
     }
 
@@ -307,6 +307,7 @@ export class Motion extends BaseComponent<MotionPassThrough> {
 
                         if (this.unmountOnLeave()) {
                             await nextFrame();
+
                             if (!this.cancelled) {
                                 this.rendered.set(false);
                             }
