@@ -4,7 +4,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'previewimagesource-doc',
+    selector: 'app-previewimagesource-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, ImageModule],
     template: `

@@ -1,11 +1,11 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'customtokens-doc',
+    selector: 'app-customtokens-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText],
+    imports: [AppDocSectionText],
     template: `<app-docsectiontext>
         <p>
             Custom tokens allow bringing in your own design tokens to the theme to go beyond the built-in ones. A design token requires a name and a value where the value can be a static value like a color or another token. The name of the token

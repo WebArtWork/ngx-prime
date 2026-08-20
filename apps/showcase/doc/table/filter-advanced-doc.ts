@@ -18,13 +18,13 @@ import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'filter-advanced-doc',
+    selector: 'app-filter-advanced-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ButtonModule, TagModule, IconFieldModule, InputIconModule, InputTextModule, MultiSelectModule, SelectModule, SliderModule, ProgressBarModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Filters are displayed in an overlay.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table #dt1 [value]="customers()" dataKey="id" [rows]="10" [rowsPerPageOptions]="[10, 25, 50]" [loading]="loading()" [paginator]="true" [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']" showGridlines>
                     <ng-template #caption>
@@ -164,7 +164,7 @@ import { TagModule } from 'primeng/tag';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })

@@ -6,7 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, FormsModule, IftaLabelModule, InputTextModule],
     template: `

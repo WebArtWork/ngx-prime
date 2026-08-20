@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { ToastModule } from 'primeng/toast';
@@ -10,9 +10,9 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'app-templatedrivenforms-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, ToggleSwitchModule, ToastModule, MessageModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, ToggleSwitchModule, ToastModule, MessageModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />

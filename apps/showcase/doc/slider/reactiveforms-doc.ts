@@ -5,14 +5,14 @@ import { SliderModule } from 'primeng/slider';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
-import { CommonModule } from '@angular/common';
+
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, SliderModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
+    imports: [ReactiveFormsModule, SliderModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
             <p>Slider can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -33,13 +33,15 @@ import { AppCode } from '@/components/doc/app.code';
     `
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     exampleForm: FormGroup | undefined;
 
     formSubmitted: boolean = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
             value: ['', Validators.required]
         });

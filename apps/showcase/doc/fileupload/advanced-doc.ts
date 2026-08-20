@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -11,7 +11,7 @@ interface UploadEvent {
 }
 
 @Component({
-    selector: 'advanced-doc',
+    selector: 'app-advanced-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, FileUploadModule, ToastModule],
     template: `
@@ -31,9 +31,9 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class AdvancedDoc {
-    uploadedFiles: any[] = [];
+    private messageService = inject(MessageService);
 
-    constructor(private messageService: MessageService) {}
+    uploadedFiles: any[] = [];
 
     onUpload(event: UploadEvent) {
         for (let file of event.files) {

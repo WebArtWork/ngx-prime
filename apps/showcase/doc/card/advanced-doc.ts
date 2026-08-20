@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
 @Component({
-    selector: 'advanced-doc',
+    selector: 'app-advanced-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule, CardModule],
     template: `

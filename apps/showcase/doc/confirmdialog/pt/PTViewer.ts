@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, inject } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
-    selector: 'confirmdialog-pt-viewer',
+    selector: 'app-confirmdialog-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ConfirmDialogModule],
+    imports: [AppDocPtViewer, ConfirmDialogModule],
     providers: [ConfirmationService],
     template: `
         <app-docptviewer [docs]="docs">
@@ -17,14 +17,14 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     `
 })
 export class PTViewer implements OnInit {
+    private confirmationService = inject(ConfirmationService);
+
     docs = [
         {
             data: getPTOptions('ConfirmDialog'),
             key: 'ConfirmDialog'
         }
     ];
-
-    constructor(private confirmationService: ConfirmationService) {}
 
     ngOnInit() {
         this.confirmationService.confirm({

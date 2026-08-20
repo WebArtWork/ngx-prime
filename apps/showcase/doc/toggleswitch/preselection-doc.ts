@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'preselection-doc',
+    selector: 'app-preselection-doc',
     standalone: true,
     imports: [FormsModule, ToggleSwitchModule, AppCode, AppDocSectionText],
     template: `

@@ -11,7 +11,7 @@ interface Country {
 }
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
     imports: [FormsModule, MultiSelectModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `

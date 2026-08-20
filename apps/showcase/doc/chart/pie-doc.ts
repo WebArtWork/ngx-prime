@@ -7,7 +7,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'pie-doc',
+    selector: 'app-pie-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ChartModule],
     template: `
@@ -21,6 +21,8 @@ import { ChartModule } from 'primeng/chart';
     `
 })
 export class PieDoc implements OnInit {
+    private cd = inject(ChangeDetectorRef);
+
     data: any;
 
     options: any;
@@ -30,8 +32,6 @@ export class PieDoc implements OnInit {
     configService = inject(AppConfigService);
 
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.transitionComplete()) {

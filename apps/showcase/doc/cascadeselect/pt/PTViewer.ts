@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
-    selector: 'cascadeselect-pt-viewer',
+    selector: 'app-cascadeselect-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, CascadeSelectModule, FormsModule],
+    imports: [AppDocPtViewer, CascadeSelectModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-cascadeselect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ 'min-width': '14rem' }" placeholder="Select a City" />

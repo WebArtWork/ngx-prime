@@ -12,7 +12,7 @@ interface City {
 }
 
 @Component({
-    selector: 'example-doc',
+    selector: 'app-example-doc',
     standalone: true,
     imports: [AppDocSectionText, FormsModule, RouterModule, AppCode, ButtonModule],
     template: `

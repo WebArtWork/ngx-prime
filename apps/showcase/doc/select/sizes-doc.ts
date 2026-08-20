@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'sizes-doc',
+    selector: 'app-sizes-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
     template: `

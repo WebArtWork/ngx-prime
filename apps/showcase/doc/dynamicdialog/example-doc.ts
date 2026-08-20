@@ -1,6 +1,6 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -9,7 +9,7 @@ import { Footer } from './footer';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({
-    selector: 'example-doc',
+    selector: 'app-example-doc',
     standalone: true,
     imports: [ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
@@ -28,10 +28,8 @@ import { ProductListDemo } from './productlistdemo';
     providers: [DialogService, MessageService]
 })
 export class ExampleDoc implements OnDestroy {
-    constructor(
-        public dialogService: DialogService,
-        public messageService: MessageService
-    ) {}
+    dialogService = inject(DialogService);
+    messageService = inject(MessageService);
 
     ref: DynamicDialogRef | undefined;
 

@@ -9,7 +9,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'app-templatedrivenforms-doc',
     standalone: true,
     imports: [FormsModule, PasswordModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
     providers: [MessageService],

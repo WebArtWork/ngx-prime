@@ -1,7 +1,7 @@
 import { Code, ExtFile, RouteFile } from '@/domain/code';
 import { resolveDomainTypes, ResolvedRouteFiles, resolveRouteFiles } from '@/domain/types';
 import { DemoCodeService } from '@/service/democodeservice';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { afterNextRender, Component, computed, effect, ElementRef, inject, input, NgModule, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
@@ -11,7 +11,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
 @Component({
     selector: 'app-code',
     standalone: true,
-    imports: [CommonModule, ButtonModule, TooltipModule],
+    imports: [ButtonModule, TooltipModule],
     template: `
         @if (resolvedCode()) {
             <div class="doc-section-code">

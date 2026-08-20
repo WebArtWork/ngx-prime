@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'semantichtml-doc',
+    selector: 'app-semantichtml-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule],
     template: `
@@ -47,6 +47,6 @@ export class SemanticHTMLDoc {
     <aside></aside>
 </main>
 
-<footer></footer>`
+<app-footer></app-footer>`
     };
 }

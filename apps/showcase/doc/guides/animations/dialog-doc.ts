@@ -6,7 +6,7 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'dialog-doc',
+    selector: 'app-dialog-doc',
     standalone: true,
     imports: [AppDocSectionText, ButtonModule, DialogModule, InputTextModule, AppCode],
     template: `

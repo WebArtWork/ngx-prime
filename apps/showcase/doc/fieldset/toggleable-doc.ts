@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
-    selector: 'toggleable-doc',
+    selector: 'app-toggleable-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, FieldsetModule],
     template: `

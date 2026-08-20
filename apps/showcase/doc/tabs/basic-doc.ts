@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, TabsModule],
     template: `

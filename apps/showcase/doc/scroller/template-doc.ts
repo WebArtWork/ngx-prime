@@ -6,7 +6,7 @@ import { ScrollerModule } from 'primeng/scroller';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
     imports: [ScrollerModule, SkeletonModule, AppCode, AppDocSectionText, CommonModule],
     template: `

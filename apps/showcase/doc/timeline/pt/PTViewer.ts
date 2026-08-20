@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component, signal } from '@angular/core';
 import { TimelineModule } from 'primeng/timeline';
 
 @Component({
-    selector: 'timeline-pt-viewer',
+    selector: 'app-timeline-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, TimelineModule],
+    imports: [AppDocPtViewer, TimelineModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-timeline [value]="events()">

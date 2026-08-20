@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'events-doc',
+    selector: 'app-events-doc',
     standalone: true,
     imports: [AppCode],
     template: ` <section class="py-6">

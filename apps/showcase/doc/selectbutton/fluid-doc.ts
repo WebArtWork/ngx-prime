@@ -5,7 +5,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
-    selector: 'fluid-doc',
+    selector: 'app-fluid-doc',
     standalone: true,
     imports: [FormsModule, SelectButtonModule, AppDocSectionText, AppCode],
     template: `

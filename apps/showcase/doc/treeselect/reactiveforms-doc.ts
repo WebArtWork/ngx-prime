@@ -6,14 +6,14 @@ import { TreeSelectModule } from 'primeng/treeselect';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
-import { CommonModule } from '@angular/common';
+
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, TreeSelectModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
+    imports: [ReactiveFormsModule, TreeSelectModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>TreeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -35,6 +35,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+    private nodeService = inject(NodeService);
+
     messageService = inject(MessageService);
 
     nodes!: any[];
@@ -43,10 +46,7 @@ export class ReactiveFormsDoc {
 
     formSubmitted: boolean = false;
 
-    constructor(
-        private fb: FormBuilder,
-        private nodeService: NodeService
-    ) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
         this.exampleForm = this.fb.group({
             selectedNodes: ['', Validators.required]

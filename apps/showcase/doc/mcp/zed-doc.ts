@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'zed-doc',
+    selector: 'app-zed-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
     template: `

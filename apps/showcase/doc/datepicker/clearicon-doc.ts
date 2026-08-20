@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'clearicon-doc',
+    selector: 'app-clearicon-doc',
     standalone: true,
     imports: [FormsModule, DatePickerModule, AppCode, AppDocSectionText],
     template: `

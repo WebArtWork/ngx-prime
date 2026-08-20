@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'v19-deprecated-doc',
+    selector: 'app-v19-deprecated-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `

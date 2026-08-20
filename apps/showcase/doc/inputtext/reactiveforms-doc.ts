@@ -8,7 +8,7 @@ import { MessageModule } from 'primeng/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCodeModule],
     template: `
@@ -39,13 +39,15 @@ import { AppCodeModule } from '@/components/doc/app.code';
     `
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     exampleForm: FormGroup;
 
     formSubmitted = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
             username: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]]

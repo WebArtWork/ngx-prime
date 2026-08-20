@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'prime-ui-figma-plugin-doc',
+    selector: 'app-prime-ui-figma-plugin-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `<app-docsectiontext>

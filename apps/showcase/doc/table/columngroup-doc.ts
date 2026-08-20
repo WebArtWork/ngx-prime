@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -6,13 +6,13 @@ import { AppCode } from '@/components/doc/app.code';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
-    selector: 'columngroup-doc',
+    selector: 'app-columngroup-doc',
     standalone: true,
     imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Columns can be grouped using rowspan and <i>colspan</i> properties.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
@@ -49,18 +49,18 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnGroupDoc {
+    private cd = inject(ChangeDetectorRef);
+
     sales!: any[];
 
     lastYearTotal!: number;
 
     thisYearTotal!: number;
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     calculateLastYearTotal() {
         let total = 0;

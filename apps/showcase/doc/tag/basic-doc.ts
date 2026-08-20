@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, TagModule],
     template: `

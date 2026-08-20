@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'users-section',
+    selector: 'app-users-section',
     standalone: true,
     template: `
         <section class="landing-users py-20 px-4 lg:px-20">

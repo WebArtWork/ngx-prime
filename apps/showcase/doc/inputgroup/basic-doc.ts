@@ -13,7 +13,7 @@ interface City {
     code: string;
 }
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, InputNumberModule, SelectModule],
     template: `

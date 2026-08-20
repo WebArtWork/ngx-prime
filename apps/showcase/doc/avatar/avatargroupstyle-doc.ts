@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'avatargroupstyle-doc',
+    selector: 'app-avatargroupstyle-doc',
     standalone: true,
     template: `
         <div class="doc-tablewrapper">

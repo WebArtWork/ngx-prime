@@ -6,7 +6,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { MenuModule } from 'primeng/menu';
 
 @Component({
-    selector: 'constants-doc',
+    selector: 'app-constants-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, MenuModule],
     template: `

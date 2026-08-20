@@ -6,7 +6,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { FluidModule } from 'primeng/fluid';
 
 @Component({
-    selector: 'icon-doc',
+    selector: 'app-icon-doc',
     standalone: true,
     imports: [FormsModule, DatePickerModule, FluidModule, AppCode, AppDocSectionText],
     template: `

@@ -12,7 +12,7 @@ interface EventItem {
 }
 
 @Component({
-    selector: 'alignment-doc',
+    selector: 'app-alignment-doc',
     standalone: true,
     imports: [AppDocSectionText, TimelineModule, AppCode],
     template: `

@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ContextMenuModule } from 'primeng/contextmenu';
 
 @Component({
-    selector: 'contextmenu-pt-viewer',
+    selector: 'app-contextmenu-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ContextMenuModule],
+    imports: [AppDocPtViewer, ContextMenuModule],
     template: `
         <app-docptviewer [docs]="docs">
             <img #image src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-80 rounded shadow-lg" (contextmenu)="cm.show($event)" />

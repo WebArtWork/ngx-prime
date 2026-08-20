@@ -5,7 +5,7 @@ import { DragDropModule } from 'primeng/dragdrop';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
-    selector: 'draghandle-doc',
+    selector: 'app-draghandle-doc',
     standalone: true,
     imports: [DragDropModule, PanelModule, AppCode, AppDocSectionText],
     template: `

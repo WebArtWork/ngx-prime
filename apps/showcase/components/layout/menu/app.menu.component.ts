@@ -1,7 +1,7 @@
 import { default as MenuData } from '@/assets/data/menu.json';
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule } from '@angular/common';
-import { afterNextRender, Component, computed, ElementRef, OnDestroy } from '@angular/core';
+
+import { afterNextRender, Component, computed, ElementRef, OnDestroy, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AutoComplete } from 'primeng/autocomplete';
 import { DomHandler } from 'primeng/dom';
@@ -22,7 +22,9 @@ export interface MenuItem {
     template: ` <aside>
         <nav>
             <ol class="layout-menu">
-                <li *ngFor="let item of menu; let i = index" app-menuitem [item]="item" [root]="true"></li>
+                @for (item of menu; track item; let i = $index) {
+                    <li app-menuitem [item]="item" [root]="true"></li>
+                }
             </ol>
         </nav>
     </aside>`,
@@ -31,20 +33,20 @@ export interface MenuItem {
         '[class.active]': 'isActive()'
     },
     standalone: true,
-    imports: [CommonModule, RouterModule, AppMenuItemComponent]
+    imports: [RouterModule, AppMenuItemComponent]
 })
 export class AppMenuComponent implements OnDestroy {
+    private configService = inject(AppConfigService);
+    private el = inject(ElementRef);
+    private router = inject(Router);
+
     menu!: MenuItem[];
 
     private routerSubscription: Subscription;
 
     isActive = computed(() => this.configService.appState().menuActive);
 
-    constructor(
-        private configService: AppConfigService,
-        private el: ElementRef,
-        private router: Router
-    ) {
+    constructor() {
         this.menu = MenuData.data;
 
         afterNextRender(() => {

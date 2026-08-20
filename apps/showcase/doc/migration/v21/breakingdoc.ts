@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'v21-breaking-doc',
+    selector: 'app-v21-breaking-doc',
     standalone: true,
     imports: [AppDocSectionText, RouterModule],
     template: `

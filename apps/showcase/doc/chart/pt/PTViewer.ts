@@ -1,15 +1,15 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'chart-pt-viewer',
+    selector: 'app-chart-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, FormsModule, ChartModule],
+    imports: [AppDocPtViewer, FormsModule, ChartModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-chart type="bar" [data]="basicData" [options]="basicOptions" class="w-full md:w-[30rem]" />
@@ -17,6 +17,8 @@ import { ChartModule } from 'primeng/chart';
     `
 })
 export class PTViewer implements OnInit {
+    private cd = inject(ChangeDetectorRef);
+
     basicData: any;
 
     basicOptions: any;
@@ -26,8 +28,6 @@ export class PTViewer implements OnInit {
     configService = inject(AppConfigService);
 
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.transitionComplete()) {

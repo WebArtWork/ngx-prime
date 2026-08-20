@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-    selector: 'disabled-doc',
+    selector: 'app-disabled-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, TextareaModule],
     template: `

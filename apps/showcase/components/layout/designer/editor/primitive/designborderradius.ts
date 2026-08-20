@@ -1,33 +1,33 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FieldsetModule } from 'primeng/fieldset';
 import { FormsModule } from '@angular/forms';
 import { DesignerService } from '@/service/designerservice';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
 
 @Component({
-    selector: 'design-border-radius',
+    selector: 'app-design-border-radius',
     standalone: true,
-    imports: [CommonModule, DesignTokenField, FieldsetModule, FormsModule],
+    imports: [DesignTokenField, FieldsetModule, FormsModule],
     template: ` <p-fieldset legend="Rounded" [toggleable]="true">
         <section class="grid grid-cols-4 gap-2">
             <div class="flex flex-col gap-1">
-                <design-token-field [(modelValue)]="borderRadiusNone" label="None" />
+                <app-design-token-field [(modelValue)]="borderRadiusNone" label="None" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [(modelValue)]="borderRadiusXs" label="Extra Small" />
+                <app-design-token-field [(modelValue)]="borderRadiusXs" label="Extra Small" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [(modelValue)]="borderRadiusSm" label="Small" />
+                <app-design-token-field [(modelValue)]="borderRadiusSm" label="Small" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [(modelValue)]="borderRadiusMd" label="Medium" />
+                <app-design-token-field [(modelValue)]="borderRadiusMd" label="Medium" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [(modelValue)]="borderRadiusLg" label="Large" />
+                <app-design-token-field [(modelValue)]="borderRadiusLg" label="Large" />
             </div>
             <div class="flex flex-col gap-1">
-                <design-token-field [(modelValue)]="borderRadiusXl" label="Extra Large" />
+                <app-design-token-field [(modelValue)]="borderRadiusXl" label="Extra Large" />
             </div>
         </section>
     </p-fieldset>`,

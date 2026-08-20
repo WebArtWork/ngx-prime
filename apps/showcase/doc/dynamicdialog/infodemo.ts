@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicdialog';
 
@@ -17,14 +17,14 @@ import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicd
     `
 })
 export class InfoDemo implements OnInit, OnDestroy {
+    ref = inject(DynamicDialogRef);
+    private dialogService = inject(DialogService);
+
     totalProducts: number = 0;
 
     instance: DynamicDialog | undefined;
 
-    constructor(
-        public ref: DynamicDialogRef,
-        private dialogService: DialogService
-    ) {
+    constructor() {
         this.instance = this.dialogService.getInstance(this.ref);
     }
 

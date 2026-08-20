@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { Code } from '@/domain/code';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { RippleModule } from 'primeng/ripple';
@@ -9,7 +9,7 @@ import { TagModule } from 'primeng/tag';
 
 @Component({
     standalone: true,
-    imports: [CommonModule, TagModule, AppCode, RouterModule, RippleModule],
+    imports: [TagModule, AppCode, RouterModule, RippleModule],
     template: `
         <div>
             <div class="flex flex-col xl:flex-row mb-8 gap-8">
@@ -324,6 +324,9 @@ import { TagModule } from 'primeng/tag';
     `
 })
 export class LTSDemo {
+    private titleService = inject(Title);
+    private metaService = inject(Meta);
+
     code: Code = {
         typescript: `import { Component } from '@angular/core';
 import { LicenseManager } from 'primeng/api';
@@ -341,10 +344,7 @@ export class AppComponent implements OnInit {
 }`
     };
 
-    constructor(
-        private titleService: Title,
-        private metaService: Meta
-    ) {
+    constructor() {
         this.titleService.setTitle('Long Term Support - PrimeNG');
         this.metaService.updateTag({ name: 'description', content: 'Long Term Support' });
     }

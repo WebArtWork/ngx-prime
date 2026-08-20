@@ -2,8 +2,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
@@ -15,9 +15,9 @@ interface Column {
 }
 
 @Component({
-    selector: 'selectionsingle-doc',
+    selector: 'app-selectionsingle-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TreeTableModule, ToggleSwitchModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [FormsModule, TreeTableModule, ToggleSwitchModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
@@ -31,7 +31,7 @@ interface Column {
                 <p-toggleswitch [(ngModel)]="metaKeySelection" />
                 <span>Metakey</span>
             </div>
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
                         <tr>
@@ -59,13 +59,15 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectionSingleDoc {
+    private nodeService = inject(NodeService);
+
     metaKeySelection: boolean = true;
 
     files!: TreeNode[];
@@ -73,8 +75,6 @@ export class SelectionSingleDoc {
     selectedNode!: TreeNode;
 
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

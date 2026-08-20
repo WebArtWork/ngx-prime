@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ColorPickerModule } from 'primeng/colorpicker';
@@ -10,9 +10,9 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, ColorPickerModule, ButtonModule, MessageModule, ToastModule, AppCode, AppDocSectionText],
+    imports: [ReactiveFormsModule, ColorPickerModule, ButtonModule, MessageModule, ToastModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>ColorPicker can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -33,13 +33,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     exampleForm: FormGroup;
 
     formSubmitted = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
             color: ['', Validators.required]
         });

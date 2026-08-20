@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'loadingstate-doc',
+    selector: 'app-loadingstate-doc',
     standalone: true,
     imports: [FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
     template: `

@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'avalon-logo',
+    selector: 'app-avalon-logo',
     template: `
         <svg xmlns="http://www.w3.org/2000/svg" width="125" height="40" viewBox="0 0 125 40" fill="none">
             <path d="M6.33333 0.555555H14.6111L20.9444 39.4444H14.8333L13.7222 31.7222V31.8333H6.77778L5.66667 39.4444H0L6.33333 0.555555ZM13 26.5556L10.2778 7.33334H10.1667L7.5 26.5556H13Z" [attr.fill]="fillColor" />

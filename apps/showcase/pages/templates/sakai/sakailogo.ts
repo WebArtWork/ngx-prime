@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'sakai-logo',
+    selector: 'app-sakai-logo',
     template: `
         <svg width="140" height="40" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_3182_1798)">

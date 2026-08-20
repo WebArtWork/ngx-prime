@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { StepperModule } from 'primeng/stepper';
 
 @Component({
-    selector: 'stepper-pt-viewer',
+    selector: 'app-stepper-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, StepperModule, ButtonModule],
     template: `

@@ -7,7 +7,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'app-filter-doc',
     standalone: true,
     imports: [CommonModule, PickListModule, AppCode, AppDocSectionText],
     providers: [ProductService],

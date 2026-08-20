@@ -8,7 +8,6 @@ import { SelectModule } from 'primeng/select';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
-import { CommonModule } from '@angular/common';
 
 interface City {
     name: string;
@@ -16,9 +15,9 @@ interface City {
 }
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, ReactiveFormsModule, SelectModule, ToastModule, MessageModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, ReactiveFormsModule, SelectModule, ToastModule, MessageModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>Select can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -39,6 +38,8 @@ interface City {
     `
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     cities: City[] = [
@@ -53,7 +54,7 @@ export class ReactiveFormsDoc {
 
     formSubmitted = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
             city: ['', Validators.required]
         });

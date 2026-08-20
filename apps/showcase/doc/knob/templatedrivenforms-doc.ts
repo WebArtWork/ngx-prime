@@ -9,7 +9,7 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'app-templatedrivenforms-doc',
     standalone: true,
     imports: [FormsModule, KnobModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText],
     template: `

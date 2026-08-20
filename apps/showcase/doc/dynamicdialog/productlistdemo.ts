@@ -1,6 +1,6 @@
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InfoDemo } from './infodemo';
 import { ButtonModule } from 'primeng/button';
@@ -41,13 +41,11 @@ import { TableModule } from 'primeng/table';
         </p-table>`
 })
 export class ProductListDemo implements OnInit {
-    products = signal(<Product[] | null>[]);
+    private productService = inject(ProductService);
+    private dialogService = inject(DialogService);
+    private ref = inject(DynamicDialogRef);
 
-    constructor(
-        private productService: ProductService,
-        private dialogService: DialogService,
-        private ref: DynamicDialogRef
-    ) {}
+    products = signal(<Product[] | null>[]);
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => this.products.set(products.slice(0, 5)));

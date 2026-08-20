@@ -5,7 +5,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
-    selector: 'icon-doc',
+    selector: 'app-icon-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AvatarModule, OverlayBadgeModule],
     template: `

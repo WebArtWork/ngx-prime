@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [FieldsetModule, AppCode, AppDocSectionText],
     template: `

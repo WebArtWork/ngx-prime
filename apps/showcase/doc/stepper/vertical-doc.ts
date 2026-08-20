@@ -5,7 +5,7 @@ import { StepperModule } from 'primeng/stepper';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'vertical-doc',
+    selector: 'app-vertical-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, StepperModule, ButtonModule],
     template: `

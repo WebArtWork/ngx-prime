@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { CardModule } from 'primeng/card';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, CardModule],
     template: `

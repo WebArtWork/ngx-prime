@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'cursor-doc',
+    selector: 'app-cursor-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
     template: `

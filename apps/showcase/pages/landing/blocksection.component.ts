@@ -1,11 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'block-section',
+    selector: 'app-block-section',
     standalone: true,
-    imports: [CommonModule, TagModule],
+    imports: [TagModule],
     template: `
         <section id="blocks-section" class="landing-blocks pt-20 overflow-hidden">
             <div class="section-header relative z-30 flex items-center justify-center gap-4">PrimeBlocks</div>

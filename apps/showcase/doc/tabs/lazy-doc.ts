@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
-    selector: 'lazy-doc',
+    selector: 'app-lazy-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, TabsModule],
     template: `

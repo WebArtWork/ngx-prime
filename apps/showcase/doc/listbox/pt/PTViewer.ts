@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Listbox } from 'primeng/listbox';
@@ -10,9 +10,9 @@ interface City {
 }
 
 @Component({
-    selector: 'listbox-pt-viewer',
+    selector: 'app-listbox-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, Listbox, FormsModule],
+    imports: [AppDocPtViewer, Listbox, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-listbox [(ngModel)]="selectedCity" [options]="cities" [multiple]="true" [checkbox]="true" [filter]="true" optionLabel="name" class="w-full md:w-56" />

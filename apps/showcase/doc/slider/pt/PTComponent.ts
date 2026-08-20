@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { PTViewer } from './PTViewer';
 
 @Component({
-    selector: 'slider-pt-component',
+    selector: 'app-slider-pt-component',
     standalone: true,
     imports: [AppDocSection],
     template: `

@@ -6,7 +6,7 @@ import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'login-doc',
+    selector: 'app-login-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule, DividerModule, InputTextModule],
     template: `

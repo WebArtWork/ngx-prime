@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'v19-breaking-doc',
+    selector: 'app-v19-breaking-doc',
     standalone: true,
     imports: [RouterModule, AppDocSectionText],
     template: `

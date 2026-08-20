@@ -1,13 +1,13 @@
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 import { TableModule } from 'primeng/table';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'lazy-doc',
+    selector: 'app-lazy-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, InplaceModule, TableModule],
     template: `
@@ -45,9 +45,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class LazyDoc {
-    products: Product[] | undefined;
+    private productService = inject(ProductService);
 
-    constructor(private productService: ProductService) {}
+    products: Product[] | undefined;
 
     loadData() {
         this.productService.getProductsMini().then((products) => (this.products = products));

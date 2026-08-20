@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'group-doc',
+    selector: 'app-group-doc',
     standalone: true,
     imports: [MenuModule, AppCodeModule, AppDocSectionText],
     template: `
@@ -20,9 +20,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [MessageService]
 })
 export class GroupDoc implements OnInit {
-    items: MenuItem[] | undefined;
+    private messageService = inject(MessageService);
 
-    constructor(private messageService: MessageService) {}
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

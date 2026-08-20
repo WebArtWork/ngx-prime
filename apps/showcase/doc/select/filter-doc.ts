@@ -3,12 +3,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'app-filter-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule],
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
     template: `
         <app-docsectiontext>
             <p>Select provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>

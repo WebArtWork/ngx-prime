@@ -2,16 +2,16 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ChipModule } from 'primeng/chip';
 
 @Component({
-    selector: 'advanced-chips-doc',
+    selector: 'app-advanced-chips-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, ChipModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, ChipModule, AppDocSectionText, AppCode],
     providers: [ProductService],
     template: ` <app-docsectiontext>
             <p>This example demonstrates an advanced use case with templating, object handling, dropdown, and multiple mode.</p>
@@ -55,9 +55,9 @@ import { ChipModule } from 'primeng/chip';
         <app-code></app-code>`
 })
 export class AdvancedChipsDoc implements OnInit {
-    products = signal<Product[]>([]);
+    private productService = inject(ProductService);
 
-    constructor(private productService: ProductService) {}
+    products = signal<Product[]>([]);
 
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => this.products.set(data));

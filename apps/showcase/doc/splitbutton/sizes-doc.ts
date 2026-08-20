@@ -1,13 +1,13 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'sizes-doc',
+    selector: 'app-sizes-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
     template: `
@@ -25,7 +25,9 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService]
 })
 export class SizesDoc {
-    constructor(private messageService: MessageService) {
+    private messageService = inject(MessageService);
+
+    constructor() {
         this.items = [
             {
                 label: 'Update',

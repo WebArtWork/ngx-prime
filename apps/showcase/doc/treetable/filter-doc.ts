@@ -2,8 +2,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -18,9 +18,9 @@ interface Column {
 }
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'app-filter-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, InputTextModule, IconFieldModule, InputIconModule, AppCode, AppDocSectionText, DeferredDemo],
+    imports: [FormsModule, TreeTableModule, SelectButtonModule, InputTextModule, IconFieldModule, InputIconModule, AppCode, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>
@@ -32,7 +32,7 @@ interface Column {
             <div class="flex justify-center mb-6">
                 <p-selectbutton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
             </div>
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #caption>
                         <div class="flex justify-end items-center">
@@ -80,13 +80,15 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterDoc {
+    private nodeService = inject(NodeService);
+
     filterMode = 'lenient';
 
     filterModes = [
@@ -97,8 +99,6 @@ export class FilterDoc {
     files!: TreeNode[];
 
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

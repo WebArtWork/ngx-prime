@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { ScrollTop, ScrollTopModule } from 'primeng/scrolltop';
 
 @Component({
-    selector: 'element-doc',
+    selector: 'app-element-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ScrollTopModule],
     template: `

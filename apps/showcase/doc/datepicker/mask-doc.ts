@@ -6,7 +6,7 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
-    selector: 'mask-doc',
+    selector: 'app-mask-doc',
     standalone: true,
     imports: [FormsModule, DatePickerModule, InputMaskModule, AppCode, AppDocSectionText],
     template: `

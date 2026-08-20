@@ -1,12 +1,12 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'figma-doc',
+    selector: 'app-figma-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, RouterModule],
+    imports: [AppDocSectionText, RouterModule],
     template: `<app-docsectiontext>
         <p>
             Tokens Studio in Figma is the starting point of a continuous integration pipeline. You can connect a remote repository to sync your tokens data so that changes are saved remotely instead of locally. Tokens Studio offers various remote

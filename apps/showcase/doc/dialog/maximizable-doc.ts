@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'maximizable-doc',
+    selector: 'app-maximizable-doc',
     standalone: true,
     imports: [DialogModule, ButtonModule, AppCode, AppDocSectionText],
     template: `

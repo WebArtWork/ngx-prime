@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 
 @Component({
-    selector: 'collapsibles-doc',
+    selector: 'app-collapsibles-doc',
     standalone: true,
     imports: [AppDocSectionText, AccordionModule, AppCodeModule],
     template: `

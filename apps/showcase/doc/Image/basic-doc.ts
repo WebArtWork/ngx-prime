@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ImageModule } from 'primeng/image';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, ImageModule, RouterModule],
     template: `

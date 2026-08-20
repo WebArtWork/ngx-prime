@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'app-filter-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `

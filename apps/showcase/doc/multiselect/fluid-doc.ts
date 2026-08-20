@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'fluid-doc',
+    selector: 'app-fluid-doc',
     standalone: true,
     imports: [FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
     template: `

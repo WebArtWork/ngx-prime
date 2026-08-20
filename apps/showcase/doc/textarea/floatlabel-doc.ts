@@ -7,7 +7,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-    selector: 'floatlabel-doc',
+    selector: 'app-floatlabel-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, AppCode, AppDocSectionText, FloatLabelModule, TextareaModule],
     template: `

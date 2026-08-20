@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 
 @Component({
-    selector: 'organizationchart-pt-viewer',
+    selector: 'app-organizationchart-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, OrganizationChartModule],
+    imports: [AppDocPtViewer, OrganizationChartModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-organizationchart [value]="data" [collapsible]="true">

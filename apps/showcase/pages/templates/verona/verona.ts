@@ -10,28 +10,28 @@ import { VeronaSeparator } from './veronaseparator';
 
 @Component({
     standalone: true,
-    selector: 'verona-page',
+    selector: 'app-verona-page',
     imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, VeronaSeparator],
     template: `<div class="verona template">
-        <template-hero [templateHeroData]="templateHeroData" [templateLogo]="veronaLogo"></template-hero>
-        <verona-separator></verona-separator>
-        <template-license [license]="license"></template-license>
-        <verona-separator></verona-separator>
+        <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="veronaLogo"></app-template-hero>
+        <app-verona-separator></app-verona-separator>
+        <app-template-license [license]="license"></app-template-license>
+        <app-verona-separator></app-verona-separator>
         <div [style.display]="'none'">
-            <verona-separator></verona-separator>
-            <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/verona/verona-youtube-screen.png"></template-youtube>
+            <app-verona-separator></app-verona-separator>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/verona/verona-youtube-screen.png"></app-template-youtube>
         </div>
-        <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <verona-separator></verona-separator>
-        <template-configuration
+        <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
+        <app-verona-separator></app-verona-separator>
+        <app-template-configuration
             title="Angular with CLI"
             description="Verona is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
             appName="verona"
-        ></template-configuration>
-        <verona-separator></verona-separator>
-        <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <verona-separator></verona-separator>
-        <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
+        ></app-template-configuration>
+        <app-verona-separator></app-verona-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData1"></app-template-features-animation>
+        <app-verona-separator></app-verona-separator>
+        <app-template-features [featuresData]="features2Data" displayType="vertical"></app-template-features>
     </div>`
 })
 export class VeronaPage {

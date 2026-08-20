@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'instance-doc',
+    selector: 'app-instance-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `

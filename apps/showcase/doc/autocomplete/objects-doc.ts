@@ -1,5 +1,5 @@
 import { CountryService } from '@/service/countryservice';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -11,7 +11,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'objects-doc',
+    selector: 'app-objects-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
@@ -26,13 +26,13 @@ interface AutoCompleteCompleteEvent {
         <app-code></app-code>`
 })
 export class ObjectsDoc implements OnInit {
+    private countryService = inject(CountryService);
+
     countries: any[] | undefined;
 
     selectedCountry: any;
 
     filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {

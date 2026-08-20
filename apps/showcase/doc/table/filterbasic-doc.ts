@@ -1,6 +1,6 @@
 import { Customer, Representative } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Table, TableModule } from 'primeng/table';
@@ -15,7 +15,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 
 @Component({
-    selector: 'filterbasic-doc',
+    selector: 'app-filterbasic-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, TagModule, IconFieldModule, InputIconModule, InputTextModule, MultiSelectModule, SelectModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
@@ -25,7 +25,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
             </p>
             <p>The optional global filtering searches the data against a single value that is bound to the <i>global</i> key of the <i>filters</i> object. The fields to search against is defined with the <i>globalFilterFields</i>.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table
                     #dt2
@@ -131,11 +131,14 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterBasicDoc {
+    private customerService = inject(CustomerService);
+    private cd = inject(ChangeDetectorRef);
+
     customers!: Customer[];
 
     representatives!: Representative[];
@@ -145,11 +148,6 @@ export class FilterBasicDoc {
     loading: boolean = true;
 
     activityValues: number[] = [0, 100];
-
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {

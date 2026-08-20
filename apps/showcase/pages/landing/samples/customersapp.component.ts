@@ -19,7 +19,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
-    selector: 'customers-app',
+    selector: 'app-customers-app',
     standalone: true,
     imports: [
         CommonModule,

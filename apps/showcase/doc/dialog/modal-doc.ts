@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'modal-doc',
+    selector: 'app-modal-doc',
     standalone: true,
     imports: [DialogModule, ButtonModule, AppCode, AppDocSectionText],
     template: `

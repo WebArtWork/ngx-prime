@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { TabsModule } from 'primeng/tabs';
 import { DesignBorderRadius } from './primitive/designborderradius';
 import { DesignColors } from './primitive/designcolors';
@@ -13,9 +13,9 @@ import { DesignComponent } from './component/designcomponent';
 import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'design-editor',
+    selector: 'app-design-editor',
     standalone: true,
-    imports: [CommonModule, TabsModule, FormsModule, DesignBorderRadius, DesignComponent, DesignColors, DesignSemantic, DesignCustomTokens, DesignSettings],
+    imports: [TabsModule, FormsModule, DesignBorderRadius, DesignComponent, DesignColors, DesignSemantic, DesignCustomTokens, DesignSettings],
     template: ` <p-tabs [(value)]="activeTab" [lazy]="true">
         <p-tablist>
             <p-tab [value]="0"> Primitive </p-tab>
@@ -28,28 +28,30 @@ import { Subscription } from 'rxjs';
             <p-tabpanel [value]="0">
                 <div>
                     <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
-                        <design-border-radius />
-                        <design-colors />
+                        <app-design-border-radius />
+                        <app-design-colors />
                     </form>
                 </div>
             </p-tabpanel>
 
             <p-tabpanel [value]="1">
-                <design-semantic />
+                <app-design-semantic />
             </p-tabpanel>
 
             <p-tabpanel [value]="2">
-                <form *ngIf="isComponentRoute()" (keydown)="onKeyDown($event)">
-                    <design-component />
-                </form>
+                @if (isComponentRoute()) {
+                    <form (keydown)="onKeyDown($event)">
+                        <app-design-component />
+                    </form>
+                }
             </p-tabpanel>
 
             <p-tabpanel [value]="3">
-                <design-custom-tokens />
+                <app-design-custom-tokens />
             </p-tabpanel>
 
             <p-tabpanel [value]="4">
-                <design-settings />
+                <app-design-settings />
             </p-tabpanel>
         </p-tabpanels>
     </p-tabs>`,

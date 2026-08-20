@@ -2,19 +2,19 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'loadingskeleton-doc',
+    selector: 'app-loadingskeleton-doc',
     standalone: true,
     imports: [TreeTableModule, AppDocSectionText, AppCode, DeferredDemo, SkeletonModule],
     template: ` <app-docsectiontext>
             <p>Skeleton component can be used as a placeholder during the loading process.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
@@ -33,14 +33,14 @@ import { TreeTableModule } from 'primeng/treetable';
                     </ng-template>
                 </p-treetable>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadingSkeletonDoc {
-    files = signal<TreeNode[]>([]);
+    private nodeService = inject(NodeService);
 
-    constructor(private nodeService: NodeService) {}
+    files = signal<TreeNode[]>([]);
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => this.files.set(files));

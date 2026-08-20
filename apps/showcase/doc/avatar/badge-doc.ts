@@ -6,7 +6,7 @@ import { BadgeModule } from 'primeng/badge';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'badge-doc',
+    selector: 'app-badge-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AvatarModule, BadgeModule, RouterModule],
     template: `

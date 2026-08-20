@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'ci-pipeline-doc',
+    selector: 'app-ci-pipeline-doc',
     standalone: true,
     imports: [AppDocSectionText, RouterLink],
     template: `<app-docsectiontext>

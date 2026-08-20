@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'v20-backward-compatible-doc',
+    selector: 'app-v20-backward-compatible-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
     template: `

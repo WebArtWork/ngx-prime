@@ -9,7 +9,7 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, DatePickerModule, MessageModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
@@ -32,13 +32,15 @@ import { ToastModule } from 'primeng/toast';
     `
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     exampleForm: FormGroup | undefined;
 
     formSubmitted: boolean = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
             selectedDate: ['', Validators.required]
         });

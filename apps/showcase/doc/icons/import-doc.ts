@@ -4,7 +4,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'import-doc',
+    selector: 'app-import-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule],
     template: `

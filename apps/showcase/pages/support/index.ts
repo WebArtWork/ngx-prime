@@ -1,9 +1,8 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: `
         <div>
             <div class="flex flex-col md:flex-row mb-8 gap-8">

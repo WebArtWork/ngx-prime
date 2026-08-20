@@ -7,7 +7,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ChartModule],
     template: `
@@ -24,6 +24,8 @@ import { ChartModule } from 'primeng/chart';
     `
 })
 export class BasicDoc implements OnInit {
+    private cd = inject(ChangeDetectorRef);
+
     basicData: any;
 
     basicOptions: any;
@@ -33,8 +35,6 @@ export class BasicDoc implements OnInit {
     configService = inject(AppConfigService);
 
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.transitionComplete()) {

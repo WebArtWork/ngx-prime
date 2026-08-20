@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 @Component({
-    selector: 'templates',
+    selector: 'app-templates',
     standalone: false,
     templateUrl: './learnmore.component.html',
     styleUrl: './learnmore.scss'

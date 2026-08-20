@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AvatarModule } from 'primeng/avatar';
 
 @Component({
-    selector: 'shape-doc',
+    selector: 'app-shape-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AvatarModule],
     template: `

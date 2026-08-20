@@ -6,7 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'virtualscroll-doc',
+    selector: 'app-virtualscroll-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
     template: `
@@ -32,8 +32,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 #ms
             >
                 <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
-                    <i class="pi pi-check" *ngIf="allSelected"></i>
-                    <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                    @if (allSelected) {
+                        <i class="pi pi-check"></i>
+                    }
+                    @if (partialSelected) {
+                        <i class="pi pi-minus" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                    }
                 </ng-template>
             </p-multiselect>
         </div>

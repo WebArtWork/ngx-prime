@@ -1,12 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChangeDetectorRef, Component, signal, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, signal, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
 import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
-    selector: 'lazy-doc',
+    selector: 'app-lazy-doc',
     standalone: true,
     imports: [FormsModule, TreeSelectModule, AppCode, AppDocSectionText],
     template: `
@@ -34,13 +34,13 @@ import { TreeSelectModule } from 'primeng/treeselect';
     `
 })
 export class LazyDoc implements OnInit {
+    private cd = inject(ChangeDetectorRef);
+
     selectedNodes: TreeNode[] = [];
 
     nodes = signal<TreeNode[]>(undefined);
 
     loading = signal<boolean>(false);
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.loading.set(true);

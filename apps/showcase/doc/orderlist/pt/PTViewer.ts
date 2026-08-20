@@ -1,6 +1,6 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 import { ProductService } from '@/service/productservice';
 
@@ -18,9 +18,9 @@ interface Product {
 }
 
 @Component({
-    selector: 'orderlist-pt-viewer',
+    selector: 'app-orderlist-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, OrderListModule],
+    imports: [AppDocPtViewer, OrderListModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-orderlist [value]="products()" dataKey="id">
@@ -33,6 +33,8 @@ interface Product {
     providers: [ProductService]
 })
 export class PTViewer implements OnInit {
+    private productService = inject(ProductService);
+
     products = signal<Product[]>([]);
 
     docs = [
@@ -41,8 +43,6 @@ export class PTViewer implements OnInit {
             key: 'OrderList'
         }
     ];
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => {

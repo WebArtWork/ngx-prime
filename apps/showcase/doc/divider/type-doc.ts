@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'type-doc',
+    selector: 'app-type-doc',
     standalone: true,
     imports: [DividerModule, AppCode, AppDocSectionText],
     template: `

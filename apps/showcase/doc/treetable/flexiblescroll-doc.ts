@@ -2,14 +2,14 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'flexiblescroll-doc',
+    selector: 'app-flexiblescroll-doc',
     standalone: true,
     imports: [TreeTableModule, ButtonModule, DialogModule, AppCode, AppDocSectionText, DeferredDemo],
     template: ` <app-docsectiontext>
@@ -19,7 +19,7 @@ import { TreeTableModule } from 'primeng/treetable';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
                 <p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
                     <ng-template #content>
@@ -49,20 +49,18 @@ import { TreeTableModule } from 'primeng/treetable';
                         <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
                     </ng-template>
                 </p-dialog>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScrollFlexibleDoc {
+    private nodeService = inject(NodeService);
+    private cd = inject(ChangeDetectorRef);
+
     files!: TreeNode[];
 
     dialogVisible: boolean = false;
-
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => {

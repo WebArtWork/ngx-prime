@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'limitations-doc',
+    selector: 'app-limitations-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `

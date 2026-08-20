@@ -3,17 +3,17 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'paginatorbasic-doc',
+    selector: 'app-paginatorbasic-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Pagination is enabled by setting <i>paginator</i> property to <i>true</i> and defining a rows property to specify the number of rows per page.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="customers" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
                     <ng-template #header>
@@ -34,17 +34,15 @@ import { TableModule } from 'primeng/table';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorBasicDoc {
-    customers!: Customer[];
+    private customerService = inject(CustomerService);
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    customers!: Customer[];
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {

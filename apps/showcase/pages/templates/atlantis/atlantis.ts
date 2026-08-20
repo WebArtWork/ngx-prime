@@ -9,28 +9,28 @@ import { AtlantisLogo } from './atlantislogo';
 import { AtlantisSeparator } from './atlantisseparator';
 @Component({
     standalone: true,
-    selector: 'atlantis-page',
+    selector: 'app-atlantis-page',
     imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, AtlantisSeparator],
     template: `<div class="atlantis template">
-        <template-hero [templateHeroData]="templateHeroData" [templateLogo]="atlantisLogo"></template-hero>
-        <atlantis-separator></atlantis-separator>
-        <template-license [license]="license"></template-license>
-        <atlantis-separator></atlantis-separator>
+        <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="atlantisLogo"></app-template-hero>
+        <app-atlantis-separator></app-atlantis-separator>
+        <app-template-license [license]="license"></app-template-license>
+        <app-atlantis-separator></app-atlantis-separator>
         <div [style.display]="'none'">
-            <atlantis-separator></atlantis-separator>
-            <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-youtube-screen.png"></template-youtube>
+            <app-atlantis-separator></app-atlantis-separator>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-youtube-screen.png"></app-template-youtube>
         </div>
-        <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <atlantis-separator></atlantis-separator>
-        <template-configuration
+        <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
+        <app-atlantis-separator></app-atlantis-separator>
+        <app-template-configuration
             title="Angular with CLI"
             description="Atlantis is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
             appName="atlantis"
-        ></template-configuration>
-        <atlantis-separator></atlantis-separator>
-        <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <atlantis-separator></atlantis-separator>
-        <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
+        ></app-template-configuration>
+        <app-atlantis-separator></app-atlantis-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData1"></app-template-features-animation>
+        <app-atlantis-separator></app-atlantis-separator>
+        <app-template-features [featuresData]="features2Data" displayType="vertical"></app-template-features>
     </div>`
 })
 export class AtlantisPage {

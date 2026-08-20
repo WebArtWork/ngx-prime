@@ -4,10 +4,10 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'poseidon-separator',
+    selector: 'app-poseidon-separator',
     imports: [TemplateSeparator],
     template: `
-        <template-separator>
+        <app-template-separator>
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" fill="white" />
                 <rect x="0.5" y="0.5" width="47" height="47" rx="23.5" stroke="#DFE7EF" />
@@ -22,7 +22,7 @@ import { Component, inject } from '@angular/core';
                     </linearGradient>
                 </defs>
             </svg>
-        </template-separator>
+        </app-template-separator>
     `
 })
 export class PoseidonSeparator {

@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'longcontent-doc',
+    selector: 'app-longcontent-doc',
     standalone: true,
     imports: [DialogModule, ButtonModule, AppCode, AppDocSectionText],
     template: `

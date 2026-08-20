@@ -4,10 +4,10 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'avalon-separator',
+    selector: 'app-avalon-separator',
     imports: [TemplateSeparator],
     template: `
-        <template-separator>
+        <app-template-separator>
             <svg width="66" height="32" viewBox="0 0 66 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1870_170886)">
                     <path
@@ -1261,7 +1261,7 @@ import { Component, inject } from '@angular/core';
                     </clipPath>
                 </defs>
             </svg>
-        </template-separator>
+        </app-template-separator>
     `
 })
 export class AvalonSeparator {

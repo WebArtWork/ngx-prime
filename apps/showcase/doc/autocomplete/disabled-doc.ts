@@ -10,7 +10,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'disabled-doc',
+    selector: 'app-disabled-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>

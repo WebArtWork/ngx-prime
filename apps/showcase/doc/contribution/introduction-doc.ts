@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'introduction-doc',
+    selector: 'app-introduction-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
     template: `

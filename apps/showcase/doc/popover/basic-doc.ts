@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { PopoverModule } from 'primeng/popover';
 import { ButtonModule } from 'primeng/button';
 import { InputGroupModule } from 'primeng/inputgroup';
@@ -9,9 +9,9 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
-    imports: [CommonModule, PopoverModule, ButtonModule, InputGroupModule, InputGroupAddonModule, InputTextModule, AppCode, AppDocSectionText],
+    imports: [PopoverModule, ButtonModule, InputGroupModule, InputGroupAddonModule, InputTextModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Popover is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and <i>hide</i> methods with an event of the target.</p>

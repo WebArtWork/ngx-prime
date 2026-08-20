@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
-    selector: 'datepicker-pt-viewer',
+    selector: 'app-datepicker-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, DatePickerModule, FormsModule],
+    imports: [AppDocPtViewer, DatePickerModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-datepicker [(ngModel)]="date" [showTime]="true" [showButtonBar]="true" [showIcon]="true" [iconDisplay]="'button'" placeholder="Select a date" class="w-full md:w-80" />

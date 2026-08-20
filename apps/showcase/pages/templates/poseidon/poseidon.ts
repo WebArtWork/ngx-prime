@@ -10,28 +10,28 @@ import { PoseidonSeparator } from './poseidonseparator';
 
 @Component({
     standalone: true,
-    selector: 'poseidon-page',
+    selector: 'app-poseidon-page',
     imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, PoseidonSeparator],
     template: `<div class="apollo template">
-        <template-hero [templateHeroData]="templateHeroData" [templateLogo]="poseidonLogo"></template-hero>
-        <poseidon-separator></poseidon-separator>
+        <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="poseidonLogo"></app-template-hero>
+        <app-poseidon-separator></app-poseidon-separator>
         <div [style.display]="'none'">
-            <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-youtube-screen.png"></template-youtube>
-            <poseidon-separator></poseidon-separator>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-youtube-screen.png"></app-template-youtube>
+            <app-poseidon-separator></app-poseidon-separator>
         </div>
-        <template-license [license]="license"></template-license>
-        <poseidon-separator></poseidon-separator>
-        <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <poseidon-separator></poseidon-separator>
-        <template-configuration
+        <app-template-license [license]="license"></app-template-license>
+        <app-poseidon-separator></app-poseidon-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
+        <app-poseidon-separator></app-poseidon-separator>
+        <app-template-configuration
             title="Angular with CLI"
             description="Poseidon is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
             appName="poseidon"
-        ></template-configuration>
-        <poseidon-separator></poseidon-separator>
-        <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <poseidon-separator></poseidon-separator>
-        <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
+        ></app-template-configuration>
+        <app-poseidon-separator></app-poseidon-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData1"></app-template-features-animation>
+        <app-poseidon-separator></app-poseidon-separator>
+        <app-template-features [featuresData]="features2Data" displayType="vertical"></app-template-features>
     </div>`
 })
 export class PoseidonPage {

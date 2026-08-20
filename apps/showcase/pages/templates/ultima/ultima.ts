@@ -10,28 +10,28 @@ import { UltimaSeparator } from './ultimaseparator';
 
 @Component({
     standalone: true,
-    selector: 'ultima-page',
+    selector: 'app-ultima-page',
     imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, UltimaSeparator],
     template: `<div class="ultima template">
-        <template-hero [templateHeroData]="templateHeroData" [templateLogo]="ultimaLogo"></template-hero>
-        <ultima-separator></ultima-separator>
-        <template-license [license]="license"></template-license>
-        <ultima-separator></ultima-separator>
+        <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="ultimaLogo"></app-template-hero>
+        <app-ultima-separator></app-ultima-separator>
+        <app-template-license [license]="license"></app-template-license>
+        <app-ultima-separator></app-ultima-separator>
         <div [style.display]="'none'">
-            <ultima-separator></ultima-separator>
-            <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-youtube-screen.png"></template-youtube>
+            <app-ultima-separator></app-ultima-separator>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-youtube-screen.png"></app-template-youtube>
         </div>
-        <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <ultima-separator></ultima-separator>
-        <template-configuration
+        <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
+        <app-ultima-separator></app-ultima-separator>
+        <app-template-configuration
             title="Angular with CLI"
             description="Ultima is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
             appName="ultima"
-        ></template-configuration>
-        <ultima-separator></ultima-separator>
-        <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <ultima-separator></ultima-separator>
-        <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
+        ></app-template-configuration>
+        <app-ultima-separator></app-ultima-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData1"></app-template-features-animation>
+        <app-ultima-separator></app-ultima-separator>
+        <app-template-features [featuresData]="features2Data" displayType="vertical"></app-template-features>
     </div>`
 })
 export class UltimaPage {

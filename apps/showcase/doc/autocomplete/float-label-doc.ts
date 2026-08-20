@@ -12,7 +12,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'float-label-doc',
+    selector: 'app-float-label-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, FloatLabelModule, RouterModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>

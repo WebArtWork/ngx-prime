@@ -3,7 +3,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'import-doc',
+    selector: 'app-import-doc',
     standalone: true,
     imports: [AppCode],
     template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `

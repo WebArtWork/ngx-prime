@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { CommonModule } from '@angular/common';
+
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
@@ -15,9 +15,9 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'reactive-forms-doc',
+    selector: 'app-reactive-forms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, AutoCompleteModule, ToastModule, MessageModule, ButtonModule, CommonModule, AppDocSectionText, AppCode],
+    imports: [ReactiveFormsModule, AutoCompleteModule, ToastModule, MessageModule, ButtonModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>AutoComplete can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
@@ -36,6 +36,8 @@ interface AutoCompleteCompleteEvent {
         <app-code></app-code>`
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     items: any[] | undefined;
@@ -44,7 +46,7 @@ export class ReactiveFormsDoc {
 
     formSubmitted: boolean = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
             value: ['', Validators.required]
         });

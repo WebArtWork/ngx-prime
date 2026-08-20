@@ -11,7 +11,7 @@ interface City {
 }
 
 @Component({
-    selector: 'group-doc',
+    selector: 'app-group-doc',
     standalone: true,
     imports: [FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
     template: `

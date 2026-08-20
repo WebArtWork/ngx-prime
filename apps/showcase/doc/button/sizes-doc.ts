@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'sizes-doc',
+    selector: 'app-sizes-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule],
     template: `

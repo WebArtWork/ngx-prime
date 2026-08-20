@@ -6,7 +6,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [FormsModule, AppCode, AppDocSectionText, FloatLabelModule, InputTextModule],
     template: `

@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'document-doc',
+    selector: 'app-document-doc',
     standalone: true,
     imports: [ContextMenuModule, AppCode, AppDocSectionText],
     template: `

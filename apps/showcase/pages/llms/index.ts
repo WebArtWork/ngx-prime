@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    selector: 'llms-demo',
+    selector: 'app-llms-demo',
     standalone: true,
     imports: [AppDoc],
     template: ` <app-doc docTitle="LLMs.txt - PrimeNG" header="LLMs.txt" description="LLM-optimized documentation endpoints for PrimeNG components." [docs]="docs" docType="page"></app-doc> `

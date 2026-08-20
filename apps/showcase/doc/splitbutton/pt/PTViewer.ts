@@ -1,14 +1,14 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'splitbutton-pt-viewer',
+    selector: 'app-splitbutton-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, SplitButtonModule, ToastModule],
+    imports: [AppDocPtViewer, SplitButtonModule, ToastModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-toast />

@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'loading-doc',
+    selector: 'app-loading-doc',
     standalone: true,
     imports: [CascadeSelectModule, AppCode, AppDocSectionText],
     template: `

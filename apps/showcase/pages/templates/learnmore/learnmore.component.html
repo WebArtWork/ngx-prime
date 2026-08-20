@@ -1,40 +1,40 @@
 <div [class]="templateName + ' template'">
-    <template-hero [selectedTemplate]="selectedTemplate?.templateHeroData"></template-hero>
-    <template-separator></template-separator>
+    <app-template-hero [selectedTemplate]="selectedTemplate?.templateHeroData"></app-template-hero>
+    <app-template-separator></app-template-separator>
 
-    <ng-container *ngIf="selectedTemplate?.youtubeImgSrc">
-        <template-youtube [imgSrc]="selectedTemplate?.youtubeImgSrc"></template-youtube>
-    </ng-container>
+    @if (selectedTemplate?.youtubeImgSrc) {
+        <app-template-youtube [imgSrc]="selectedTemplate?.youtubeImgSrc"></app-template-youtube>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.license">
-        <template-license [license]="selectedTemplate?.license"></template-license>
-        <template-separator></template-separator>
-    </ng-container>
+    @if (selectedTemplate?.license) {
+        <app-template-license [license]="selectedTemplate?.license"></app-template-license>
+        <app-template-separator></app-template-separator>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.animationFeaturesData2">
-        <template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData2" title="Features"></template-features-animation>
-        <template-separator></template-separator>
-    </ng-container>
+    @if (selectedTemplate?.animationFeaturesData2) {
+        <app-template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData2" title="Features"></app-template-features-animation>
+        <app-template-separator></app-template-separator>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.features1Data">
-        <template-features [featuresData]="selectedTemplate?.features1Data" displayType="horizontal"></template-features>
-        <template-separator></template-separator>
-    </ng-container>
+    @if (selectedTemplate?.features1Data) {
+        <app-template-features [featuresData]="selectedTemplate?.features1Data" displayType="horizontal"></app-template-features>
+        <app-template-separator></app-template-separator>
+    }
 
-    <template-configuration [configurationData]="selectedTemplate?.templateConfigurationData"></template-configuration>
-    <template-separator></template-separator>
+    <app-template-configuration [configurationData]="selectedTemplate?.templateConfigurationData"></app-template-configuration>
+    <app-template-separator></app-template-separator>
 
-    <ng-container *ngIf="selectedTemplate?.animationFeaturesData1">
-        <template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData1"></template-features-animation>
-        <template-separator></template-separator>
-    </ng-container>
+    @if (selectedTemplate?.animationFeaturesData1) {
+        <app-template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData1"></app-template-features-animation>
+        <app-template-separator></app-template-separator>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.features2Data">
-        <template-features [featuresData]="selectedTemplate?.features2Data" displayType="vertical"></template-features>
-    </ng-container>
+    @if (selectedTemplate?.features2Data) {
+        <app-template-features [featuresData]="selectedTemplate?.features2Data" displayType="vertical"></app-template-features>
+    }
 
-    <ng-container *ngIf="selectedTemplate?.relatedData">
-        <template-separator></template-separator>
-        <template-related [relatedData]="selectedTemplate?.relatedData"></template-related>
-    </ng-container>
+    @if (selectedTemplate?.relatedData) {
+        <app-template-separator></app-template-separator>
+        <app-template-related [relatedData]="selectedTemplate?.relatedData"></app-template-related>
+    }
 </div>

@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { SelectModule } from 'primeng/select';
 
 @Component({
-    selector: 'animations-doc',
+    selector: 'app-animations-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, SelectModule, RouterModule],
     template: `

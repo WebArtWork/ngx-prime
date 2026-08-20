@@ -14,8 +14,7 @@ import {
     Output,
     TemplateRef,
     ViewEncapsulation,
-    contentChildren,
-    AfterViewChecked
+    contentChildren
 } from '@angular/core';
 import { hasClass, isAttributeEquals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
@@ -208,7 +207,7 @@ export class OrganizationChartNode extends BaseComponent {
     },
     hostDirectives: [Bind]
 })
-export class OrganizationChart extends BaseComponent implements AfterViewChecked<OrganizationChartPassThrough> {
+export class OrganizationChart extends BaseComponent<OrganizationChartPassThrough> {
     el = inject(ElementRef);
     cd = inject(ChangeDetectorRef);
 

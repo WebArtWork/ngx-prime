@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -7,7 +7,7 @@ import { ToastModule } from 'primeng/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'rounded-doc',
+    selector: 'app-rounded-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule, RouterModule],
     template: `
@@ -30,9 +30,11 @@ import { RouterModule } from '@angular/router';
     providers: [MessageService]
 })
 export class RoundedDoc {
+    private messageService = inject(MessageService);
+
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
             {
                 label: 'Update',

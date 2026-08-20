@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'readonly-doc',
+    selector: 'app-readonly-doc',
     standalone: true,
     imports: [FormsModule, RatingModule, AppCode, AppDocSectionText],
     template: `

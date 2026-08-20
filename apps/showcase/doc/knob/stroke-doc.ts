@@ -5,7 +5,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'stroke-doc',
+    selector: 'app-stroke-doc',
     standalone: true,
     imports: [FormsModule, KnobModule, AppCodeModule, AppDocSectionText],
     template: `

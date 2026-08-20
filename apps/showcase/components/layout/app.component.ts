@@ -9,7 +9,7 @@ import { PhotoService } from '@/service/photoservice';
 import { ProductService } from '@/service/productservice';
 import { DOCUMENT, IMAGE_CONFIG } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { afterNextRender, Component, Inject, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { afterNextRender, Component, PLATFORM_ID, Renderer2, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 
@@ -37,12 +37,12 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
     ]
 })
 export class AppComponent {
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2,
-        private router: Router,
-        @Inject(PLATFORM_ID) private platformId: any
-    ) {
+    private document = inject<Document>(DOCUMENT);
+    private renderer = inject(Renderer2);
+    private router = inject(Router);
+    private platformId = inject(PLATFORM_ID);
+
+    constructor() {
         afterNextRender(() => {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();

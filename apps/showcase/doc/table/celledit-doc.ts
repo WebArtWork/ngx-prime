@@ -4,19 +4,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'celledit-doc',
+    selector: 'app-celledit-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, InputTextModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>In-cell editing is enabled by adding <i>pEditableColumn</i> directive to an editable cell that has a <i>p-cellEditor</i> helper component to define the input-output templates for the edit and view modes respectively.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
@@ -73,17 +73,15 @@ import { TableModule } from 'primeng/table';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditDoc {
-    products!: Product[];
+    private productService = inject(ProductService);
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    products!: Product[];
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

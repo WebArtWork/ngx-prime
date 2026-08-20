@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'label-doc',
+    selector: 'app-label-doc',
     standalone: true,
     imports: [FormsModule, CheckboxModule, AppCode, AppDocSectionText],
     template: `

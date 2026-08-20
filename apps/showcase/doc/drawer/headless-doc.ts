@@ -10,7 +10,7 @@ import { RippleModule } from 'primeng/ripple';
 import { StyleClassModule } from 'primeng/styleclass';
 
 @Component({
-    selector: 'headless-doc',
+    selector: 'app-headless-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, DrawerModule, ButtonModule, FormsModule, AvatarModule, RippleModule, StyleClassModule],
     template: `

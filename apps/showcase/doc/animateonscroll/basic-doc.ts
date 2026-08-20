@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { AvatarModule } from 'primeng/avatar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
-    imports: [CommonModule, AnimateOnScrollModule, AvatarModule, AppCode, AppDocSectionText],
+    imports: [AnimateOnScrollModule, AvatarModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Animation classes are defined with the <i>enterClass</i> and <i>leaveClass</i> properties. This example utilizes tailwindcss-primeui plugin animations however any valid CSS animation is supported.</p>

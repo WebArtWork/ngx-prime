@@ -1,14 +1,14 @@
 import { Component, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Popover, PopoverModule } from 'primeng/popover';
 import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'selectdata-doc',
+    selector: 'app-selectdata-doc',
     standalone: true,
-    imports: [CommonModule, PopoverModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [PopoverModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>In this sample, data is retrieved from the content inside the popover.</p>
@@ -21,13 +21,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <div>
                         <span class="font-medium block mb-2">Team Members</span>
                         <ul class="list-none p-0 m-0 flex flex-col">
-                            <li *ngFor="let member of members" class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
-                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
-                                <div>
-                                    <span class="font-medium">{{ member.name }}</span>
-                                    <div class="text-sm text-surface-500 dark:text-surface-400">{{ member.email }}</div>
-                                </div>
-                            </li>
+                            @for (member of members; track member) {
+                                <li class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
+                                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                                    <div>
+                                        <span class="font-medium">{{ member.name }}</span>
+                                        <div class="text-sm text-surface-500 dark:text-surface-400">{{ member.email }}</div>
+                                    </div>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

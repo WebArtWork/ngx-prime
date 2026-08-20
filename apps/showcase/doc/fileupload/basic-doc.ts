@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
@@ -12,7 +12,7 @@ interface UploadEvent {
 }
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [FileUploadModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
@@ -29,7 +29,7 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class BasicDoc {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     onUpload(event: UploadEvent) {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });

@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-    selector: 'autoresize-doc',
+    selector: 'app-autoresize-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, TextareaModule],
     template: `

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule],
     template: `

@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'llmstxt-doc',
+    selector: 'app-llmstxt-doc',
     standalone: true,
     imports: [AppDocSectionText, ButtonModule],
     template: `

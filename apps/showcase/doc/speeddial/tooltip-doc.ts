@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -8,7 +8,7 @@ import { ToastModule } from 'primeng/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'tooltip-doc',
+    selector: 'app-tooltip-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, SpeedDialModule, ToastModule, RouterModule],
     template: `
@@ -27,12 +27,10 @@ import { RouterModule } from '@angular/router';
     providers: [MessageService]
 })
 export class TooltipDoc implements OnInit {
-    items: MenuItem[] | undefined;
+    private messageService = inject(MessageService);
+    private router = inject(Router);
 
-    constructor(
-        private messageService: MessageService,
-        private router: Router
-    ) {}
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

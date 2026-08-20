@@ -6,7 +6,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'app-filter-doc',
     standalone: true,
     imports: [FormsModule, SliderModule, SelectButtonModule, AppDocSectionText, AppCode],
     template: `

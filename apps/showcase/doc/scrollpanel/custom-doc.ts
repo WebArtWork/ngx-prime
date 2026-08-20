@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
-    selector: 'custom-doc',
+    selector: 'app-custom-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ScrollPanelModule],
     template: `

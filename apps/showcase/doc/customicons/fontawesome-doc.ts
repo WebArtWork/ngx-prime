@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'fontawesome-doc',
+    selector: 'app-fontawesome-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `

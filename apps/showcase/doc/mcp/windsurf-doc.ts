@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'windsurf-doc',
+    selector: 'app-windsurf-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
     template: `

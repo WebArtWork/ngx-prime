@@ -12,7 +12,7 @@ interface City {
 }
 
 @Component({
-    selector: 'floatlabel-doc',
+    selector: 'app-floatlabel-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, MultiSelectModule, FloatLabelModule, AppCodeModule, AppDocSectionText],
     template: `

@@ -10,7 +10,7 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, AppDocSectionText, AppCode, StepperModule, ButtonModule, PasswordModule, ToggleButtonModule, InputTextModule],
     template: `

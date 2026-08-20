@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { PaginatorModule } from 'primeng/paginator';
 
 @Component({
-    selector: 'paginator-pt-viewer',
+    selector: 'app-paginator-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, PaginatorModule],
+    imports: [AppDocPtViewer, PaginatorModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="w-full">

@@ -9,7 +9,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'button-doc',
+    selector: 'app-button-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule, MenuModule],
     template: `

@@ -3,7 +3,7 @@ import { TagModule } from 'primeng/tag';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'v20-breaking-doc',
+    selector: 'app-v20-breaking-doc',
     standalone: true,
     imports: [TagModule, AppDocSectionText],
     template: `

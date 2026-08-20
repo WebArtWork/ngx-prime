@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { Ripple } from 'primeng/ripple';
 
 @Component({
-    selector: 'position-doc',
+    selector: 'app-position-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, Ripple],
     template: `
@@ -29,7 +29,7 @@ import { Ripple } from 'primeng/ripple';
     providers: [MessageService]
 })
 export class PositionDoc {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     showTopLeft() {
         this.messageService.add({

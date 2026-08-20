@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { DividerModule } from 'primeng/divider';
 
 @Component({
-    selector: 'divider-pt-viewer',
+    selector: 'app-divider-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, DividerModule],
+    imports: [AppDocPtViewer, DividerModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div>

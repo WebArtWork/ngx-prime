@@ -5,7 +5,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
-    selector: 'disabled-doc',
+    selector: 'app-disabled-doc',
     standalone: true,
     imports: [FormsModule, SelectButtonModule, AppDocSectionText, AppCode],
     template: `

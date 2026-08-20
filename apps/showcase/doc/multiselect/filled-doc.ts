@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'filled-doc',
+    selector: 'app-filled-doc',
     standalone: true,
     imports: [FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
     template: `

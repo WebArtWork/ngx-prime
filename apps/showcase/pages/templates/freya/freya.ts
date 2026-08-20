@@ -9,28 +9,28 @@ import { FreyaLogo } from './freyalogo';
 import { FreyaSeparator } from './freyaseparator';
 @Component({
     standalone: true,
-    selector: 'freya-page',
+    selector: 'app-freya-page',
     imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, FreyaSeparator],
     template: `<div class="freya template">
-        <template-hero [templateHeroData]="templateHeroData" [templateLogo]="freyaLogo"></template-hero>
-        <freya-separator></freya-separator>
-        <template-license [license]="license"></template-license>
-        <freya-separator></freya-separator>
+        <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="freyaLogo"></app-template-hero>
+        <app-freya-separator></app-freya-separator>
+        <app-template-license [license]="license"></app-template-license>
+        <app-freya-separator></app-freya-separator>
         <div [style.display]="'none'">
-            <freya-separator></freya-separator>
-            <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/freya/freya-youtube-screen.png"></template-youtube>
+            <app-freya-separator></app-freya-separator>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/freya/freya-youtube-screen.png"></app-template-youtube>
         </div>
-        <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <freya-separator></freya-separator>
-        <template-configuration
+        <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
+        <app-freya-separator></app-freya-separator>
+        <app-template-configuration
             title="Angular with CLI"
             description="Freya is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
             appName="freya"
-        ></template-configuration>
-        <freya-separator></freya-separator>
-        <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <freya-separator></freya-separator>
-        <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
+        ></app-template-configuration>
+        <app-freya-separator></app-freya-separator>
+        <app-template-features [featuresData]="features2Data" displayType="vertical"></app-template-features>
+        <app-freya-separator></app-freya-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData1"></app-template-features-animation>
     </div>`
 })
 export class FreyaPage {

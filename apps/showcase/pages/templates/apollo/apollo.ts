@@ -10,28 +10,28 @@ import { ApolloSeparator } from './apolloseparator';
 
 @Component({
     standalone: true,
-    selector: 'apollo-page',
+    selector: 'app-apollo-page',
     imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, ApolloSeparator],
     template: `<div class="apollo template">
-        <template-hero [templateHeroData]="templateHeroData" [templateLogo]="apolloLogo"></template-hero>
+        <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="apolloLogo"></app-template-hero>
         <div [style.display]="'none'">
-            <apollo-separator></apollo-separator>
-            <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-youtube-screen.png"></template-youtube>
+            <app-apollo-separator></app-apollo-separator>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-youtube-screen.png"></app-template-youtube>
         </div>
-        <apollo-separator></apollo-separator>
-        <template-license [license]="license"></template-license>
-        <apollo-separator></apollo-separator>
-        <template-features-animation [featuresData]="animationFeaturesData2" title="Features" displayType="horizontal"></template-features-animation>
-        <apollo-separator></apollo-separator>
-        <template-configuration
+        <app-apollo-separator></app-apollo-separator>
+        <app-template-license [license]="license"></app-template-license>
+        <app-apollo-separator></app-apollo-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features" displayType="horizontal"></app-template-features-animation>
+        <app-apollo-separator></app-apollo-separator>
+        <app-template-configuration
             title="Angular with CLI"
             description="Apollo is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
             appName="apollo"
-        ></template-configuration>
-        <apollo-separator></apollo-separator>
-        <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <apollo-separator></apollo-separator>
-        <template-features [featuresData]="apolloFeatures2Data" displayType="vertical"></template-features>
+        ></app-template-configuration>
+        <app-apollo-separator></app-apollo-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData1"></app-template-features-animation>
+        <app-apollo-separator></app-apollo-separator>
+        <app-template-features [featuresData]="apolloFeatures2Data" displayType="vertical"></app-template-features>
     </div>`
 })
 export class ApolloPage {

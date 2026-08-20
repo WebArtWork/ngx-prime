@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'editable-doc',
+    selector: 'app-editable-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, FormsModule, SelectModule],
     template: `

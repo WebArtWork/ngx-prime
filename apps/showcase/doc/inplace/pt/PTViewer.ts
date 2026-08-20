@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 
 @Component({
-    selector: 'inplace-pt-viewer',
+    selector: 'app-inplace-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, InplaceModule],
+    imports: [AppDocPtViewer, InplaceModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-inplace>

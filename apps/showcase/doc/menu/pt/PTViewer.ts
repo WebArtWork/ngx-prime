@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { MenuModule } from 'primeng/menu';
 
 @Component({
-    selector: 'menu-pt-viewer',
+    selector: 'app-menu-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, MenuModule],
+    imports: [AppDocPtViewer, MenuModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-menu [model]="items" />

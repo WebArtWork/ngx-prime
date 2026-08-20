@@ -1,14 +1,14 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, model, OnInit } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
-    selector: 'clickevent-doc',
+    selector: 'app-clickevent-doc',
     standalone: true,
-    imports: [CommonModule, GalleriaModule, AppCode, AppDocSectionText],
+    imports: [GalleriaModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Indicators are displayed at the bottom by enabling <i>showIndicators</i> property and interacted with the click event by default.</p>

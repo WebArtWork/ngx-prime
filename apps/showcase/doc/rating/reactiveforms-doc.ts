@@ -7,12 +7,11 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
-    imports: [ReactiveFormsModule, RatingModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText, CommonModule],
+    imports: [ReactiveFormsModule, RatingModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
     providers: [MessageService],
     template: `
         <app-docsectiontext>
@@ -34,13 +33,15 @@ import { CommonModule } from '@angular/common';
     `
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     exampleForm: FormGroup | undefined;
 
     formSubmitted = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
             ratingValue: [undefined, Validators.required]
         });

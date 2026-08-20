@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
-    selector: 'metergroup-pt-viewer',
+    selector: 'app-metergroup-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, MeterGroupModule],
+    imports: [AppDocPtViewer, MeterGroupModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-metergroup [value]="value" />

@@ -3,12 +3,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'datatable-doc',
+    selector: 'app-datatable-doc',
     standalone: true,
-    imports: [AppDocSectionText, AppCode, SkeletonModule, TableModule, CommonModule],
+    imports: [AppDocSectionText, AppCode, SkeletonModule, TableModule],
     template: `
         <app-docsectiontext>
             <p>Sample DataTable implementation using different Skeleton components and Tailwind CSS utilities.</p>

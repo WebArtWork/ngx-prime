@@ -14,7 +14,7 @@ interface City {
 }
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, ListboxModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText],
     template: `
@@ -38,6 +38,8 @@ interface City {
     `
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     exampleForm: FormGroup | undefined;
@@ -46,7 +48,7 @@ export class ReactiveFormsDoc {
 
     cities!: City[];
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.cities = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },

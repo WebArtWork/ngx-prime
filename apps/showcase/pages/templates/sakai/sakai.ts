@@ -7,24 +7,24 @@ import { SakaiLogo } from './sakailogo';
 import { SakaiSeparator } from './sakaiseparator';
 @Component({
     standalone: true,
-    selector: 'sakai-page',
+    selector: 'app-sakai-page',
     imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, SakaiSeparator],
     template: `<div class="sakai template">
-        <template-hero [templateHeroData]="templateHeroData" [templateLogo]="sakaiLogo"></template-hero>
-        <sakai-separator></sakai-separator>
-        <template-features [featuresData]="features1Data" displayType="horizontal"></template-features>
-        <sakai-separator></sakai-separator>
-        <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <sakai-separator></sakai-separator>
-        <template-configuration
+        <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="sakaiLogo"></app-template-hero>
+        <app-sakai-separator></app-sakai-separator>
+        <app-template-features [featuresData]="features1Data" displayType="horizontal"></app-template-features>
+        <app-sakai-separator></app-sakai-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
+        <app-sakai-separator></app-sakai-separator>
+        <app-template-configuration
             title="Angular with CLI"
             description="Sakai is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
             appName="sakai"
-        ></template-configuration>
-        <sakai-separator></sakai-separator>
-        <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <sakai-separator></sakai-separator>
-        <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
+        ></app-template-configuration>
+        <app-sakai-separator></app-sakai-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData1"></app-template-features-animation>
+        <app-sakai-separator></app-sakai-separator>
+        <app-template-features [featuresData]="features2Data" displayType="vertical"></app-template-features>
     </div>`
 })
 export class SakaiPage {

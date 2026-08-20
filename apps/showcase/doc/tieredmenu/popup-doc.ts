@@ -6,7 +6,7 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'popup-doc',
+    selector: 'app-popup-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, TieredMenuModule, ButtonModule],
     template: `

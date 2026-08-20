@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'setup-doc',
+    selector: 'app-setup-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule],
     template: `

@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -15,7 +15,7 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'rowexpansion-doc',
+    selector: 'app-rowexpansion-doc',
     standalone: true,
     imports: [TableModule, ToastModule, ButtonModule, FormsModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo, CommonModule, RatingModule, TagModule],
     template: ` <app-docsectiontext>
@@ -24,7 +24,7 @@ import { ToastModule } from 'primeng/toast';
                 toggle an expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle event for the element.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-toast />
                 <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
@@ -131,21 +131,19 @@ import { ToastModule } from 'primeng/toast';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
 export class RowExpansionDoc {
+    private productService = inject(ProductService);
+    private cd = inject(ChangeDetectorRef);
+    private messageService = inject(MessageService);
+
     products!: Product[];
 
     expandedRows = {};
-
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef,
-        private messageService: MessageService
-    ) {}
 
     loadDemoData() {
         this.productService.getProductsWithOrdersSmall().then((data) => {

@@ -2,17 +2,17 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'size-doc',
+    selector: 'app-size-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TreeTableModule, SelectButtonModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [FormsModule, TreeTableModule, SelectButtonModule, DeferredDemo, AppCode, AppDocSectionText],
     template: ` <section class="py-6">
         <app-docsectiontext>
             <p>In addition to a regular treetable, alternatives with alternative sizes are available. Add <i>p-treetable-sm</i> class to reduce the size of treetable or <i>p-treetable-lg</i> to enlarge it.</p>
@@ -21,7 +21,7 @@ import { TreeTableModule } from 'primeng/treetable';
             <div class="flex justify-center mb-4">
                 <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
             </div>
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [class]="selectedSize">
                     <ng-template #header>
                         <tr>
@@ -43,20 +43,20 @@ import { TreeTableModule } from 'primeng/treetable';
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SizeDoc {
+    private nodeService = inject(NodeService);
+
     files!: TreeNode[];
 
     sizes!: any[];
 
     selectedSize: any = '';
-
-    constructor(private nodeService: NodeService) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'token-collections-doc',
+    selector: 'app-token-collections-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText],
+    imports: [AppDocSectionText],
     template: `<app-docsectiontext>
         <p>
             The theming architecture is based on primitive, semantic and components tokens. The visual editor, displays a dedicated section for each collection. For basic purposes such as customizing the primary and surface colors, primitive and

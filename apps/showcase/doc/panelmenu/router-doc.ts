@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { PanelMenu } from 'primeng/panelmenu';
@@ -6,7 +6,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'router-doc',
+    selector: 'app-router-doc',
     standalone: true,
     imports: [PanelMenu, AppCode, AppDocSectionText],
     template: `
@@ -21,9 +21,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [MessageService]
 })
 export class RouterDoc implements OnInit {
-    items: MenuItem[];
+    private router = inject(Router);
 
-    constructor(private router: Router) {}
+    items: MenuItem[];
 
     ngOnInit() {
         this.items = [

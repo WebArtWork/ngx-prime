@@ -3,11 +3,11 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'singlecolumnsort-doc',
+    selector: 'app-singlecolumnsort-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: `
@@ -21,7 +21,7 @@ import { TableModule } from 'primeng/table';
                 property to "multiple" and use metakey when clicking on another column.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #header>
@@ -62,18 +62,16 @@ import { TableModule } from 'primeng/table';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleColumnSortDoc {
-    products!: Product[];
+    private productService = inject(ProductService);
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    products!: Product[];
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

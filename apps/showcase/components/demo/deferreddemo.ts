@@ -1,10 +1,10 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, PLATFORM_ID, OnDestroy, inject } from '@angular/core';
 
 @Component({
-    selector: 'p-deferred-demo',
+    selector: 'app-p-deferred-demo',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     template: `
         @if (!visible) {
             <div class="card">
@@ -17,6 +17,9 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLA
     styleUrl: './deferreddemo.scss'
 })
 export class DeferredDemo implements OnInit, OnDestroy {
+    el = inject(ElementRef);
+    private platformId = inject(PLATFORM_ID);
+
     visible: boolean = false;
 
     observer = null;
@@ -26,11 +29,6 @@ export class DeferredDemo implements OnInit, OnDestroy {
     @Input() options: any;
 
     @Output() load: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-    constructor(
-        public el: ElementRef,
-        @Inject(PLATFORM_ID) private platformId: any
-    ) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {

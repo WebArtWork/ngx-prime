@@ -1,14 +1,14 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, inject } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 @Component({
-    selector: 'confirmpopup-pt-viewer',
+    selector: 'app-confirmpopup-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ConfirmPopupModule, ButtonModule],
+    imports: [AppDocPtViewer, ConfirmPopupModule, ButtonModule],
     providers: [ConfirmationService],
     template: `
         <app-docptviewer [docs]="docs">
@@ -18,7 +18,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
     `
 })
 export class PTViewer {
-    constructor(private confirmationService: ConfirmationService) {}
+    private confirmationService = inject(ConfirmationService);
 
     confirm(event: Event) {
         this.confirmationService.confirm({

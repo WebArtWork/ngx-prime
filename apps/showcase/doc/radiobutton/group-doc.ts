@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'group-doc',
+    selector: 'app-group-doc',
     standalone: true,
     imports: [FormsModule, RadioButtonModule, AppCode, AppDocSectionText],
     template: `

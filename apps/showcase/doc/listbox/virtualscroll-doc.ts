@@ -5,7 +5,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'virtualscroll-doc',
+    selector: 'app-virtualscroll-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `

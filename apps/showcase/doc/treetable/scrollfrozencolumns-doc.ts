@@ -2,8 +2,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
@@ -13,15 +13,15 @@ interface Column {
 }
 
 @Component({
-    selector: 'scrollfrozencolumns-doc',
+    selector: 'app-scrollfrozencolumns-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>A column can be fixed during horizontal scrolling by enabling the <i>frozenColumns</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #colgroup let-columns>
                         <colgroup>
@@ -59,13 +59,15 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FrozenColumnsDoc {
+    private nodeService = inject(NodeService);
+
     files!: TreeNode[];
 
     cols!: Column[];
@@ -73,8 +75,6 @@ export class FrozenColumnsDoc {
     frozenCols!: Column[];
 
     scrollableCols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

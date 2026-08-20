@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'router-doc',
+    selector: 'app-router-doc',
     standalone: true,
     imports: [BreadcrumbModule, AppCode, AppDocSectionText],
     template: `

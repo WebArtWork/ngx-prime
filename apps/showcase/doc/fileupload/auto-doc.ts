@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -11,7 +11,7 @@ interface UploadEvent {
 }
 
 @Component({
-    selector: 'auto-doc',
+    selector: 'app-auto-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, FileUploadModule, ToastModule],
     template: `
@@ -27,7 +27,7 @@ interface UploadEvent {
     providers: [MessageService]
 })
 export class AutoDoc {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     onBasicUploadAuto(event: UploadEvent) {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });

@@ -5,7 +5,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [FormsModule, AppCode, AppDocSectionText, TextareaModule],
     template: `

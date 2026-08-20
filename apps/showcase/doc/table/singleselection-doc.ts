@@ -3,13 +3,13 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
-    selector: 'singleselection-doc',
+    selector: 'app-singleselection-doc',
     standalone: true,
     imports: [FormsModule, TableModule, ToggleSwitchModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
@@ -22,7 +22,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 setting it to false.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center items-center mb-6 gap-2">
                     <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />
@@ -47,21 +47,19 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SingleSelectionDoc {
+    private productService = inject(ProductService);
+    private cd = inject(ChangeDetectorRef);
+
     products!: Product[];
 
     selectedProduct!: Product;
 
     metaKey: boolean = true;
-
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

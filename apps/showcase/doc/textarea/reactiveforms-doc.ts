@@ -7,12 +7,11 @@ import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, AppCode, AppDocSectionText, ButtonModule, MessageModule, TextareaModule, ToastModule],
+    imports: [ReactiveFormsModule, AppCode, AppDocSectionText, ButtonModule, MessageModule, TextareaModule, ToastModule],
     template: `
         <app-docsectiontext>
             <p>Textarea can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
@@ -33,6 +32,8 @@ import { CommonModule } from '@angular/common';
     `
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     items: any[] | undefined;
@@ -41,7 +42,7 @@ export class ReactiveFormsDoc {
 
     formSubmitted: boolean = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
             address: ['', Validators.required]
         });

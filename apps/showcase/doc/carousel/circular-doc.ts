@@ -9,7 +9,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'circular-doc',
+    selector: 'app-circular-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppCode, CarouselModule, ButtonModule, TagModule],
     template: `

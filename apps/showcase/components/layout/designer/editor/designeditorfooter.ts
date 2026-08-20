@@ -1,12 +1,12 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { DesignerService } from '@/service/designerservice';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'design-editor-footer',
-    imports: [CommonModule],
+    selector: 'app-design-editor-footer',
+    imports: [],
     template: `<div class="flex justify-end gap-2">
         <button type="button" (click)="download()" class="btn-design-outlined">Download</button>
         <button type="button" (click)="apply()" class="btn-design" [disabled]="designerService.isThemeViewOnly()">Apply</button>

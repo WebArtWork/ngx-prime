@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -7,7 +7,7 @@ import { ToastModule } from 'primeng/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'circle-doc',
+    selector: 'app-circle-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, SpeedDialModule, ToastModule, RouterModule],
     template: `
@@ -25,9 +25,9 @@ import { RouterModule } from '@angular/router';
     providers: [MessageService]
 })
 export class CircleDoc implements OnInit {
-    items: MenuItem[] | undefined;
+    private messageService = inject(MessageService);
 
-    constructor(private messageService: MessageService) {}
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

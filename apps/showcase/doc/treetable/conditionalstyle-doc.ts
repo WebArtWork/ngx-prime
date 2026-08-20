@@ -3,7 +3,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
@@ -13,7 +13,7 @@ interface Column {
 }
 
 @Component({
-    selector: 'conditionalstyle-doc',
+    selector: 'app-conditionalstyle-doc',
     standalone: true,
     imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
@@ -21,7 +21,7 @@ interface Column {
             <p>Particular rows and cells can be styled based on conditions. The <i>ngClass</i> receives a row data as a parameter to return a style class for a row whereas cells are customized using the <i>body</i> template.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
                         <tr>
@@ -49,18 +49,18 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConditionalStyleDoc {
+    private nodeService = inject(NodeService);
+
     files!: TreeNode[];
 
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

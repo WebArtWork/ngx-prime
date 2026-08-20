@@ -250,9 +250,15 @@ importers:
       '@docsearch/js':
         specifier: ^3.3.4
         version: 3.9.0(@algolia/client-search@4.27.0)(@types/react@18.3.28)(search-insights@2.17.3)
+      '@primeuix/styled':
+        specifier: 'catalog:'
+        version: 0.7.4
       '@primeuix/themes':
         specifier: 'catalog:'
         version: 2.0.3
+      '@primeuix/utils':
+        specifier: 'catalog:'
+        version: 0.7.2
       '@stackblitz/sdk':
         specifier: 1.9.0
         version: 1.9.0

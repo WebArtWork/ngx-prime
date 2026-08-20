@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'v21-breaking-doc',
+    selector: 'app-v21-breaking-doc',
     standalone: true,
     imports: [TagModule, AppDocSectionText, RouterModule],
     template: `

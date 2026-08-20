@@ -10,7 +10,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'filled-doc',
+    selector: 'app-filled-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>

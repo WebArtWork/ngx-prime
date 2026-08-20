@@ -2569,6 +2569,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      */
     public scrollToVirtualIndex(index: number) {
         const scroller = this.scroller();
+
         scroller && scroller.scrollToIndex(index);
     }
     /**
@@ -2578,6 +2579,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      */
     public scrollTo(options: any) {
         const wrapperViewChild = this.wrapperViewChild();
+
         if (this.virtualScroll) {
             this.scroller()?.scrollTo(options);
         } else if (wrapperViewChild && wrapperViewChild.nativeElement) {
@@ -3148,6 +3150,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         state.columnWidths = widths.join(',');
 
         const tableViewChild = this.tableViewChild();
+
         if (this.columnResizeMode === 'expand' && tableViewChild) {
             state.tableWidth = DomHandler.getOuterWidth(tableViewChild.nativeElement);
         }
@@ -5097,7 +5100,8 @@ export class CellEditor extends BaseComponent {
 
     get editing(): boolean {
         return !!(
-            (this.dataTable.editingCell && this.editableColumn && this.dataTable.editingCell === this.editableColumn.el.nativeElement) || (this.editableRow && this.dataTable.editMode === 'row' && this.dataTable.isRowEditing(this.editableRow.data))
+            (this.dataTable.editingCell && this.editableColumn && this.dataTable.editingCell === this.editableColumn.el.nativeElement) ||
+            (this.editableRow && this.dataTable.editMode === 'row' && this.dataTable.isRowEditing(this.editableRow.data))
         );
     }
 }
@@ -6361,6 +6365,7 @@ export class ColumnFilter extends BaseComponent {
 
     isOutsideClicked(event: any): boolean {
         const icon = this.icon();
+
         return !(
             findSingle((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-section="filteroverlay"]') ||
             findSingle((this.overlay as HTMLElement).nextElementSibling!, '[data-pc-name="popover"]') ||

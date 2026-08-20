@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
 
 @Component({
-    selector: 'splitter-pt-viewer',
+    selector: 'app-splitter-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, SplitterModule],
     template: `

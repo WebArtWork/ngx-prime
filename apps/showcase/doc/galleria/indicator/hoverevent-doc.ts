@@ -1,14 +1,14 @@
 import { PhotoService } from '@/service/photoservice';
 import { Component, inject, model, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { GalleriaModule } from 'primeng/galleria';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'hoverevent-doc',
+    selector: 'app-hoverevent-doc',
     standalone: true,
-    imports: [CommonModule, GalleriaModule, AppCode, AppDocSectionText],
+    imports: [GalleriaModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Indicators can be activated on hover instead of click if <i>changeItemOnIndicatorHover</i> is added.</p>

@@ -3,19 +3,19 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewChild, inject } from '@angular/core';
 import { SortEvent } from 'primeng/api';
 import { Table, TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'removablesort-doc',
+    selector: 'app-removablesort-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table #dt [value]="products" (sortFunction)="customSort($event)" [customSort]="true">
                     <ng-template #header>
@@ -56,12 +56,14 @@ import { Table, TableModule } from 'primeng/table';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RemovableSortDoc {
+    private productService = inject(ProductService);
+
     @ViewChild('dt') dt: Table;
 
     products: Product[];
@@ -69,8 +71,6 @@ export class RemovableSortDoc {
     initialValue: Product[];
 
     isSorted: boolean = null;
-
-    constructor(private productService: ProductService) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

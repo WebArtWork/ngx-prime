@@ -1,14 +1,14 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'speeddial-pt-viewer',
+    selector: 'app-speeddial-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, SpeedDialModule, ToastModule],
+    imports: [AppDocPtViewer, SpeedDialModule, ToastModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div style="height: 500px; position: relative;">
@@ -20,9 +20,9 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService]
 })
 export class PTViewer implements OnInit {
-    items: MenuItem[] | undefined;
+    private messageService = inject(MessageService);
 
-    constructor(private messageService: MessageService) {}
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

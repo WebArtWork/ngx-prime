@@ -1,7 +1,7 @@
 import News from '@/assets/data/news.json';
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule } from '@angular/common';
-import { afterNextRender, ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+
+import { afterNextRender, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -9,17 +9,17 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     templateUrl: './app.news.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, RouterModule]
+    imports: [RouterModule]
 })
 export class AppNewsComponent {
+    private configService = inject(AppConfigService);
+    private cd = inject(ChangeDetectorRef);
+
     storageKey: string = 'primeng';
 
     announcement: any;
 
-    constructor(
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef
-    ) {
+    constructor() {
         afterNextRender(() => {
             const itemString = localStorage.getItem(this.storageKey);
 

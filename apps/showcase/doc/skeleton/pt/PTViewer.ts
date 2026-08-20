@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
-    selector: 'skeleton-pt-viewer',
+    selector: 'app-skeleton-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, SkeletonModule],
+    imports: [AppDocPtViewer, SkeletonModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="w-full">

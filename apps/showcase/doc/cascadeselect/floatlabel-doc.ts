@@ -7,7 +7,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'floatlabel-doc',
+    selector: 'app-floatlabel-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, CascadeSelectModule, FloatLabelModule, AppCode, AppDocSectionText],
     template: `

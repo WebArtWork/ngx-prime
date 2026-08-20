@@ -10,7 +10,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'fluid-doc',
+    selector: 'app-fluid-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>

@@ -6,7 +6,7 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'target-doc',
+    selector: 'app-target-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule],
     template: `

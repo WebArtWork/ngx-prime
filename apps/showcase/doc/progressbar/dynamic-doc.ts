@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ToastModule } from 'primeng/toast';
@@ -6,7 +6,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'dynamic-doc',
+    selector: 'app-dynamic-doc',
     standalone: true,
     imports: [ProgressBarModule, ToastModule, AppCode, AppDocSectionText],
     providers: [MessageService],
@@ -22,15 +22,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class DynamicDoc implements OnInit, OnDestroy {
+    private messageService = inject(MessageService);
+    private cd = inject(ChangeDetectorRef);
+    private ngZone = inject(NgZone);
+
     value: number = 0;
 
     interval: any;
-
-    constructor(
-        private messageService: MessageService,
-        private cd: ChangeDetectorRef,
-        private ngZone: NgZone
-    ) {}
 
     ngOnInit() {
         this.ngZone.runOutsideAngular(() => {

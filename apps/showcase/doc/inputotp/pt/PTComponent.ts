@@ -1,14 +1,14 @@
 import { AppDocPtTable } from '@/components/doc/app.docpttable';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppDocSection } from '@/components/doc/app.docsection';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { PTViewer } from './PTViewer';
 
 @Component({
-    selector: 'inputotp-pt-component',
+    selector: 'app-inputotp-pt-component',
     standalone: true,
-    imports: [CommonModule, AppDocSection],
+    imports: [AppDocSection],
     template: `
         <div class="doc-main">
             <div class="doc-intro">

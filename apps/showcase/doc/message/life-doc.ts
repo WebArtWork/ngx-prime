@@ -3,12 +3,11 @@ import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'life-doc',
+    selector: 'app-life-doc',
     standalone: true,
-    imports: [MessageModule, ButtonModule, AppCodeModule, AppDocSectionText, CommonModule],
+    imports: [MessageModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Messages can disappear automatically by defined the <i>life</i> in milliseconds.</p>

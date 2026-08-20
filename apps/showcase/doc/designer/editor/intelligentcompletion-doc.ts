@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'intelligentcompletion-doc',
+    selector: 'app-intelligentcompletion-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText],
+    imports: [AppDocSectionText],
     template: `<app-docsectiontext>
         <p>
             The editor is packed with features for improved user experience. The input fields in the editor are capable of displaying a color preview when the value is a color, and beginning the value with a curly brace opens up the autocompletion

@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'currentpagereport-doc',
+    selector: 'app-currentpagereport-doc',
     standalone: true,
     imports: [PaginatorModule, AppCode, AppDocSectionText],
     template: `

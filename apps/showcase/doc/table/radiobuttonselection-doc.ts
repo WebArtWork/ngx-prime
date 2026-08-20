@@ -3,17 +3,17 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'radiobuttonselection-doc',
+    selector: 'app-radiobuttonselection-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Single selection can also be handled using radio buttons.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
@@ -38,19 +38,17 @@ import { TableModule } from 'primeng/table';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RadioButtonSelectionDoc {
+    private productService = inject(ProductService);
+    private cd = inject(ChangeDetectorRef);
+
     products!: Product[];
 
     selectedProduct!: Product;
-
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

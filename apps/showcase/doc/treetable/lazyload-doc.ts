@@ -1,8 +1,8 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
@@ -12,9 +12,9 @@ interface Column {
 }
 
 @Component({
-    selector: 'lazyload-doc',
+    selector: 'app-lazyload-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, AppCode, AppDocSectionText],
+    imports: [TreeTableModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -73,6 +73,9 @@ interface Column {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyLoadDoc implements OnInit {
+    private nodeService = inject(NodeService);
+    private cd = inject(ChangeDetectorRef);
+
     files!: TreeNode[];
 
     cols!: Column[];
@@ -80,11 +83,6 @@ export class LazyLoadDoc implements OnInit {
     totalRecords!: number;
 
     loading: boolean = false;
-
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     ngOnInit() {
         this.cols = [

@@ -2,8 +2,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TreeTableModule } from 'primeng/treetable';
@@ -14,15 +14,15 @@ interface Column {
 }
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, ButtonModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [TreeTableModule, ButtonModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Custom content at <i>caption</i>, <i>header</i>, <i>body</i> and <i>summary</i> sections are supported via templating.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #caption><div class="text-xl font-bold">File Viewer</div> </ng-template>
                     <ng-template #header let-columns>
@@ -61,18 +61,18 @@ interface Column {
                         </div>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDoc {
+    private nodeService = inject(NodeService);
+
     files!: TreeNode[];
 
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

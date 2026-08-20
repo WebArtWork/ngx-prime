@@ -10,7 +10,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'invalid-doc',
+    selector: 'app-invalid-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>

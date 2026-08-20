@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
@@ -7,7 +7,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [ConfirmDialogModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
@@ -25,10 +25,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [ConfirmationService, MessageService]
 })
 export class BasicDoc {
-    constructor(
-        private confirmationService: ConfirmationService,
-        private messageService: MessageService
-    ) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 
     confirm1(event: Event) {
         this.confirmationService.confirm({

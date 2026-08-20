@@ -6,7 +6,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'custom-doc',
+    selector: 'app-custom-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, FileUploadModule, ToastModule],
     template: `

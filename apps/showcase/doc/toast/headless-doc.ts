@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressBar } from 'primeng/progressbar';
 
 @Component({
-    selector: 'headless-doc',
+    selector: 'app-headless-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, ProgressBar],
     template: `

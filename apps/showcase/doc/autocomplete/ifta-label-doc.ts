@@ -12,7 +12,7 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'ifta-label-doc',
+    selector: 'app-ifta-label-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, IftaLabelModule, RouterModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>

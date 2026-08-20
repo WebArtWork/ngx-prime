@@ -1,13 +1,13 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'gitlab-doc',
+    selector: 'app-gitlab-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, RouterModule, AppCode],
+    imports: [AppDocSectionText, RouterModule, AppCode],
     template: `<app-docsectiontext>
         <p>The GitLab integration is implemented by executing a script whenever the tokens file changes.</p>
         <h4>1. Add Secret Key to Repository Secrets</h4>

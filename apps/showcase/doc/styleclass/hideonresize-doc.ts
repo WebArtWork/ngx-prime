@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { StyleClassModule } from 'primeng/styleclass';
 
 @Component({
-    selector: 'hideonresize-doc',
+    selector: 'app-hideonresize-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule],
     template: `

@@ -31,12 +31,10 @@ const commonTsRules = {
     '@typescript-eslint/no-inferrable-types': 'off',
     'arrow-body-style': ['error', 'as-needed'],
     curly: 'off',
-    '@typescript-eslint/member-ordering': [
-        'error',
-        {
-            default: ['public-static-field', 'static-field', 'instance-field', 'public-instance-method', 'public-static-field']
-        }
-    ],
+    // This codebase's real convention groups a field next to the method(s)
+    // that use it rather than hoisting all fields above all methods, so a
+    // strict field-before-method ordering fights ~3000 legitimate call sites.
+    '@typescript-eslint/member-ordering': 'off',
     'no-console': 'off',
     'prefer-const': 'off',
     // `condition && doSomething()` is used pervasively in this codebase as a
@@ -78,13 +76,23 @@ module.exports = tseslint.config(
     },
     {
         files: ['packages/**/*.ts'],
-        ignores: ['packages/**/*.spec.ts'],
+        ignores: ['packages/**/*.spec.ts', 'packages/primeng/src/icons/**'],
         extends: [js.configs.recommended, ...tseslint.configs.recommended, ...angular.configs.tsRecommended, prettierRecommended],
         processor: angular.processInlineTemplates,
         rules: {
             ...commonTsRules,
             ...selectorRules('p')
         }
+    },
+    {
+        // Icon subcomponents use their own PascalCase, no-prefix selector
+        // convention (e.g. AngleDownIcon) — internal building blocks, not part
+        // of the library's p-* public component surface.
+        files: ['packages/primeng/src/icons/**/*.ts'],
+        ignores: ['packages/primeng/src/icons/**/*.spec.ts'],
+        extends: [js.configs.recommended, ...tseslint.configs.recommended, ...angular.configs.tsRecommended, prettierRecommended],
+        processor: angular.processInlineTemplates,
+        rules: commonTsRules
     },
     {
         files: ['apps/**/*.ts'],

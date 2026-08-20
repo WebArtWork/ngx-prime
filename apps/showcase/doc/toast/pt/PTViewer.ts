@@ -1,11 +1,11 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'toast-pt-viewer',
+    selector: 'app-toast-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer],
+    imports: [AppDocPtViewer],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="p-toast p-component" data-pc-name="toast" data-pc-section="root">

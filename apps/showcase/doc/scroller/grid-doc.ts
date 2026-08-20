@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { ScrollerModule } from 'primeng/scroller';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'grid-doc',
+    selector: 'app-grid-doc',
     standalone: true,
     imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
     template: `
@@ -16,7 +16,9 @@ import { CommonModule } from '@angular/common';
             <p-virtualscroller [items]="items" [itemSize]="[50, 100]" orientation="both" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                 <ng-template #item let-item let-options="options">
                     <div class="flex items-center p-2" [ngClass]="{ 'bg-surface-100 dark:bg-surface-700': options.odd }" style="height: 50px;">
-                        <div *ngFor="let el of item" style="width: 100px">{{ el }}</div>
+                        @for (el of item; track el) {
+                            <div style="width: 100px">{{ el }}</div>
+                        }
                     </div>
                 </ng-template>
             </p-virtualscroller>
@@ -26,9 +28,9 @@ import { CommonModule } from '@angular/common';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridDoc implements OnInit {
-    items!: string[][];
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(private cd: ChangeDetectorRef) {}
+    items!: string[][];
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 }).map((_, i) => Array.from({ length: 1000 }).map((_j, j) => `Item #${i}_${j}`));

@@ -1,14 +1,14 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component, model, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, model, OnInit, signal, inject } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
 
 @Component({
-    selector: 'contextmenu-doc',
+    selector: 'app-contextmenu-doc',
     standalone: true,
     imports: [TreeModule, ContextMenuModule, ToastModule, AppCode, AppDocSectionText],
     template: `
@@ -26,6 +26,9 @@ import { TreeModule } from 'primeng/tree';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContextMenuDoc implements OnInit {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
+
     files = signal<TreeNode[]>([]);
 
     selectedNode = model<TreeNode | null>(null);
@@ -33,11 +36,6 @@ export class ContextMenuDoc implements OnInit {
     contextMenuNode = model<TreeNode | null>(null);
 
     items!: MenuItem[];
-
-    constructor(
-        private nodeService: NodeService,
-        private messageService: MessageService
-    ) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((files) => this.files.set(files));

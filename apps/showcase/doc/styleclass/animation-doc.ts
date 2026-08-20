@@ -5,7 +5,7 @@ import { StyleClassModule } from 'primeng/styleclass';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'animation-doc',
+    selector: 'app-animation-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule],
     template: `

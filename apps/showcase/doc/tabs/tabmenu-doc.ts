@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
-    selector: 'tabmenu-doc',
+    selector: 'app-tabmenu-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, TabsModule],
+    imports: [AppDocSectionText, AppCode, TabsModule],
     template: `
         <app-docsectiontext>
             <p>

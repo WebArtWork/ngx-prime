@@ -4,19 +4,19 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
-    selector: 'frozencolumns-doc',
+    selector: 'app-frozencolumns-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ToggleButtonModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-togglebutton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
 
@@ -51,19 +51,17 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FrozenColumnsDoc {
+    private customerService = inject(CustomerService);
+    private cd = inject(ChangeDetectorRef);
+
     balanceFrozen: boolean = false;
 
     customers!: Customer[];
-
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersMedium().then((data) => {

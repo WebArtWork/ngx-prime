@@ -18,7 +18,7 @@ const presets = {
 };
 
 @Component({
-    selector: 'design-create-theme',
+    selector: 'app-design-create-theme',
     standalone: true,
     imports: [CommonModule, FormsModule, DividerModule, FileUploadModule],
     template: `<section class="mb-6">
@@ -40,18 +40,19 @@ const presets = {
                     <span class="text-muted-color">Variety of built-in themes with distinct characteristics.</span>
                     <div class="flex justify-between">
                         <div class="flex">
-                            <button
-                                *ngFor="let presetOption of presetOptions"
-                                type="button"
-                                (click)="updateBasePreset(presetOption)"
-                                class="border border-surface-200 dark:border-surface-700 px-3 py-2 border-r-0 last:border-r first:rounded-l-md last:rounded-r-md transition-colors duration-200"
-                                [ngClass]="{
-                                    'bg-zinc-950 text-white dark:bg-white dark:text-black': presetOption.value === basePreset,
-                                    'hover:bg-gray-100 dark:hover:bg-surface-800': presetOption.value !== basePreset
-                                }"
-                            >
-                                {{ presetOption.label }}
-                            </button>
+                            @for (presetOption of presetOptions; track presetOption) {
+                                <button
+                                    type="button"
+                                    (click)="updateBasePreset(presetOption)"
+                                    class="border border-surface-200 dark:border-surface-700 px-3 py-2 border-r-0 last:border-r first:rounded-l-md last:rounded-r-md transition-colors duration-200"
+                                    [ngClass]="{
+                                        'bg-zinc-950 text-white dark:bg-white dark:text-black': presetOption.value === basePreset,
+                                        'hover:bg-gray-100 dark:hover:bg-surface-800': presetOption.value !== basePreset
+                                    }"
+                                >
+                                    {{ presetOption.label }}
+                                </button>
+                            }
                         </div>
                         <button type="button" (click)="createThemeFromPreset()" class="btn-design">Create</button>
                     </div>
@@ -100,7 +101,7 @@ const presets = {
                     </div>
                 </div>
             </div>
-        </section> `,
+        </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignCreateTheme {

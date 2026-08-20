@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'selection-doc',
+    selector: 'app-selection-doc',
     standalone: true,
     imports: [OrganizationChartModule, AppCode, AppDocSectionText],
     template: `

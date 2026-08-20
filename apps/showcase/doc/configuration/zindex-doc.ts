@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
-    selector: 'zindex-doc',
+    selector: 'app-zindex-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `

@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 
 @Component({
-    selector: 'avatar-pt-viewer',
+    selector: 'app-avatar-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, AvatarModule, AvatarGroupModule],
+    imports: [AppDocPtViewer, AvatarModule, AvatarGroupModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="flex flex-wrap gap-8">

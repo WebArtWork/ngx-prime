@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
-    selector: 'scrollpanel-pt-viewer',
+    selector: 'app-scrollpanel-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ScrollPanelModule],
+    imports: [AppDocPtViewer, ScrollPanelModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-scroll-panel [style]="{ width: '100%', height: '200px' }" [pt]="{ barY: '!visible !opacity-100' }">

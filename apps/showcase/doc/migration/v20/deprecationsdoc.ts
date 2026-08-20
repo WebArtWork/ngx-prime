@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'v20-deprecations-doc',
+    selector: 'app-v20-deprecations-doc',
     standalone: true,
     imports: [TagModule, AppDocSectionText],
     template: `

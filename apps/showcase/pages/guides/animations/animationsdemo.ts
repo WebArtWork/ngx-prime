@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    selector: 'animations',
+    selector: 'app-animations',
     standalone: true,
     imports: [AppDoc],
     template: `<app-doc

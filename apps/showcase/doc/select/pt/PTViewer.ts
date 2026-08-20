@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
@@ -16,9 +16,9 @@ interface Country {
 }
 
 @Component({
-    selector: 'select-pt-viewer',
+    selector: 'app-select-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, SelectModule, FormsModule],
+    imports: [AppDocPtViewer, SelectModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-select [(ngModel)]="selectedCity" [filter]="true" [options]="groupedCities" optionLabel="label" optionGroupLabel="label" optionGroupChildren="items" [showClear]="true" placeholder="Select a City" styleClass="w-full md:w-56" checkmark>

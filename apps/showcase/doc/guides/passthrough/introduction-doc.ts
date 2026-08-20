@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
 
 @Component({
-    selector: 'introduction-doc',
+    selector: 'app-introduction-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, PanelModule, RouterLink],
     template: `

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'footer-section',
+    selector: 'app-footer-section',
     standalone: true,
     imports: [RouterModule],
     template: `

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'updateprimeone-doc',
+    selector: 'app-updateprimeone-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `<app-docsectiontext>

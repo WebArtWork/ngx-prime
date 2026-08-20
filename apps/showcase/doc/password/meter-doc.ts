@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'meter-doc',
+    selector: 'app-meter-doc',
     standalone: true,
     imports: [FormsModule, PasswordModule, AppCode, AppDocSectionText],
     template: `

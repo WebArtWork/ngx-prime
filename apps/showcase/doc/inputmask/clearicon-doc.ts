@@ -5,7 +5,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'clearicon-doc',
+    selector: 'app-clearicon-doc',
     standalone: true,
     imports: [FormsModule, InputMaskModule, AppCodeModule, AppDocSectionText],
     template: `

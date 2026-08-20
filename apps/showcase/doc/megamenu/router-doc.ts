@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MegaMenuItem } from 'primeng/api';
 import { MegaMenuModule } from 'primeng/megamenu';
@@ -6,7 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'router-doc',
+    selector: 'app-router-doc',
     standalone: true,
     imports: [MegaMenuModule, AppCodeModule, AppDocSectionText],
     template: `
@@ -20,9 +20,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class RouterDoc implements OnInit {
-    items: MegaMenuItem[] | undefined;
+    private router = inject(Router);
 
-    constructor(private router: Router) {}
+    items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

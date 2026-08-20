@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { PickListModule } from 'primeng/picklist';
 
@@ -17,9 +17,9 @@ interface Product {
 }
 
 @Component({
-    selector: 'picklist-pt-viewer',
+    selector: 'app-picklist-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, PickListModule],
+    imports: [AppDocPtViewer, PickListModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-picklist [source]="products[0]" [target]="products[1]" dataKey="id" [breakpoint]="'1400px'" [sourceStyle]="{ width: '200px' }" [targetStyle]="{ width: '200px' }">

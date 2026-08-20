@@ -1907,6 +1907,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
         this.filteredNodes = null;
 
         const filterViewChild = this.filterViewChild();
+
         if (filterViewChild && filterViewChild.nativeElement) {
             filterViewChild.nativeElement.value = '';
         }
@@ -1926,6 +1927,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      */
     public scrollTo(options: any) {
         const wrapperViewChild = this.wrapperViewChild();
+
         if (this.virtualScroll) {
             this.scroller()?.scrollTo(options);
         } else if (wrapperViewChild && wrapperViewChild.nativeElement) {

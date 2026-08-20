@@ -2,13 +2,13 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'controlled-doc',
+    selector: 'app-controlled-doc',
     standalone: true,
     imports: [TreeTableModule, ButtonModule, AppCode, AppDocSectionText, DeferredDemo],
     template: ` <app-docsectiontext>
@@ -16,7 +16,7 @@ import { TreeTableModule } from 'primeng/treetable';
         </app-docsectiontext>
         <div class="card">
             <p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
@@ -38,18 +38,16 @@ import { TreeTableModule } from 'primeng/treetable';
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ControlledDoc {
-    files!: TreeNode[];
+    private nodeService = inject(NodeService);
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
+    files!: TreeNode[];
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => {

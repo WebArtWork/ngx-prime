@@ -10,7 +10,7 @@ interface Country {
 }
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `

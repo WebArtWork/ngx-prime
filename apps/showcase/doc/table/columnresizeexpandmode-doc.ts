@@ -3,18 +3,18 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'columnresizeexpandmode-doc',
+    selector: 'app-columnresizeexpandmode-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Setting <i>columnResizeMode</i> as <i>expand</i> changes the table width as well.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" showGridlines [resizableColumns]="true" columnResizeMode="expand" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
@@ -35,17 +35,15 @@ import { TableModule } from 'primeng/table';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnResizeExpandModeDoc {
-    products!: Product[];
+    private productService = inject(ProductService);
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    products!: Product[];
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

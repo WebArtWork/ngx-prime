@@ -1,6 +1,6 @@
 import { PhotoService } from '@/service/photoservice';
 import { Component, inject, model, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { GalleriaModule } from 'primeng/galleria';
 import { RadioButtonModule } from 'primeng/radiobutton';
@@ -9,9 +9,9 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'positioned-doc',
+    selector: 'app-positioned-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, GalleriaModule, RadioButtonModule, CheckboxModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, GalleriaModule, RadioButtonModule, CheckboxModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -21,10 +21,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </app-docsectiontext>
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
-                <div *ngFor="let option of positionOptions" class="flex items-center">
-                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
-                    <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
-                </div>
+                @for (option of positionOptions; track option) {
+                    <div class="flex items-center">
+                        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+                        <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+                    </div>
+                }
             </div>
             <div class="flex items-center mb-8">
                 <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="inside_cbox" />

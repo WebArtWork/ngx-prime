@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'directive-doc',
+    selector: 'app-directive-doc',
     standalone: true,
     imports: [BadgeModule, AppCode, AppDocSectionText],
     template: `

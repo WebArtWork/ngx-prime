@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ChipModule } from 'primeng/chip';
 
 @Component({
-    selector: 'chip-pt-viewer',
+    selector: 'app-chip-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ChipModule],
+    imports: [AppDocPtViewer, ChipModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="flex flex-wrap gap-4">

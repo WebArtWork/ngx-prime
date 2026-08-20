@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'customized-doc',
+    selector: 'app-customized-doc',
     standalone: true,
     imports: [FormsModule, ToggleButtonModule, AppCode, AppDocSectionText],
     template: `

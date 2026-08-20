@@ -1,14 +1,14 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'treetable-pt-viewer',
+    selector: 'app-treetable-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, TreeTableModule],
+    imports: [AppDocPtViewer, TreeTableModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-treetable [value]="nodes" [tableStyle]="{ 'min-width': '50rem' }">
@@ -34,6 +34,9 @@ import { TreeTableModule } from 'primeng/treetable';
     `
 })
 export class PTViewer implements OnInit {
+    private nodeService = inject(NodeService);
+    private cd = inject(ChangeDetectorRef);
+
     nodes!: TreeNode[];
 
     docs = [
@@ -42,11 +45,6 @@ export class PTViewer implements OnInit {
             key: 'TreeTable'
         }
     ];
-
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     ngOnInit() {
         this.nodeService.getFilesystem().then((data) => {

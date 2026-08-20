@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 
 @Component({
-    selector: 'fullscreen-doc',
+    selector: 'app-fullscreen-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, DrawerModule, ButtonModule, FormsModule],
     template: `

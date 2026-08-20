@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
-    selector: 'ripple-doc',
+    selector: 'app-ripple-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `

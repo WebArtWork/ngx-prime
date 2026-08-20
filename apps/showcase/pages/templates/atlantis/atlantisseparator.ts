@@ -4,10 +4,10 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'atlantis-separator',
+    selector: 'app-atlantis-separator',
     imports: [TemplateSeparator],
     template: `
-        <template-separator>
+        <app-template-separator>
             <svg width="48" height="49" viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                     fillRule="evenodd"
@@ -16,7 +16,7 @@ import { Component, inject } from '@angular/core';
                     [attr.fill]="fillColor"
                 />
             </svg>
-        </template-separator>
+        </app-template-separator>
     `
 })
 export class AtlantisSeparator {

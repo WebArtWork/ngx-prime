@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'disabled-doc',
+    selector: 'app-disabled-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `

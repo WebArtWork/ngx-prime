@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
 
 @Component({
-    selector: 'tabs-pt-viewer',
+    selector: 'app-tabs-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, TabsModule],
+    imports: [AppDocPtViewer, TabsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-tabs [value]="0">

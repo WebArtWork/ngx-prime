@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { SplitterModule } from 'primeng/splitter';
 
 @Component({
-    selector: 'vertical-doc',
+    selector: 'app-vertical-doc',
     standalone: true,
     imports: [AppDocSectionText, SplitterModule, AppCode],
     template: `

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    selector: 'rtl-demo',
+    selector: 'app-rtl-demo',
     standalone: true,
     imports: [AppDoc],
     template: `<app-doc title="RTL Support" header="RTL Support" description="Right-to-left direction support of PrimeNG." [docs]="docs" docType="page"></app-doc>`

@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { PTViewer } from './PTViewer';
 
 @Component({
-    selector: 'toggleswitch-pt-component',
+    selector: 'app-toggleswitch-pt-component',
     standalone: true,
     imports: [AppDocSection],
     template: `

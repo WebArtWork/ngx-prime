@@ -6,7 +6,6 @@ import { TemplatesComponent } from './templates.component';
 import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    declarations: [TemplatesComponent],
-    imports: [CommonModule, TemplatesRoutingModule, ButtonModule]
+    imports: [CommonModule, TemplatesRoutingModule, ButtonModule, TemplatesComponent]
 })
 export class TemplatesModule {}

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
@@ -10,9 +10,9 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'app-templatedrivenforms-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, CascadeSelectModule, ToastModule, MessageModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, CascadeSelectModule, ToastModule, MessageModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />

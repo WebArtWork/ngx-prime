@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'global-doc',
+    selector: 'app-global-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `

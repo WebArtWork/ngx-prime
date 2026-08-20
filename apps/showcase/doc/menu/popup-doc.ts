@@ -6,7 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'popup-doc',
+    selector: 'app-popup-doc',
     standalone: true,
     imports: [MenuModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `

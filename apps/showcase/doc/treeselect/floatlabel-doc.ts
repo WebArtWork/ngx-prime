@@ -1,5 +1,5 @@
 import { NodeService } from '@/service/nodeservice';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TreeSelectModule } from 'primeng/treeselect';
@@ -8,7 +8,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'floatlabel-doc',
+    selector: 'app-floatlabel-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, TreeSelectModule, FloatLabelModule, AppCode, AppDocSectionText],
     template: `
@@ -38,6 +38,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class FloatLabelDoc {
+    private nodeService = inject(NodeService);
+
     nodes!: any[];
 
     value1: any;
@@ -46,7 +48,7 @@ export class FloatLabelDoc {
 
     value3: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 }

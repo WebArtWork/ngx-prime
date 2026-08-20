@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
-    selector: 'progressbar-pt-viewer',
+    selector: 'app-progressbar-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ProgressBarModule],
+    imports: [AppDocPtViewer, ProgressBarModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="w-full">

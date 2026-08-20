@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { TerminalModule, TerminalService } from 'primeng/terminal';
 
 @Component({
-    selector: 'terminal-pt-viewer',
+    selector: 'app-terminal-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, TerminalModule],
+    imports: [AppDocPtViewer, TerminalModule],
     providers: [TerminalService],
     template: `
         <app-docptviewer [docs]="docs">
@@ -21,6 +21,8 @@ import { TerminalModule, TerminalService } from 'primeng/terminal';
     `
 })
 export class PTViewer implements OnInit, OnDestroy {
+    private terminalService = inject(TerminalService);
+
     docs = [
         {
             data: getPTOptions('Terminal'),
@@ -29,8 +31,6 @@ export class PTViewer implements OnInit, OnDestroy {
     ];
 
     subscription: any;
-
-    constructor(private terminalService: TerminalService) {}
 
     ngOnInit() {
         this.terminalService.commandHandler.subscribe((command) => this.commandHandler(command));

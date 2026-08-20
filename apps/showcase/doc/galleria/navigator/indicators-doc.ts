@@ -1,14 +1,14 @@
 import { PhotoService } from '@/service/photoservice';
 import { Component, inject, model, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { GalleriaModule } from 'primeng/galleria';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'indicators-doc',
+    selector: 'app-indicators-doc',
     standalone: true,
-    imports: [CommonModule, GalleriaModule, AppCode, AppDocSectionText],
+    imports: [GalleriaModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Navigators and Indicators can be combined as well.</p>

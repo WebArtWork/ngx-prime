@@ -10,28 +10,28 @@ import { DiamondSeparator } from './diamondseparator';
 
 @Component({
     standalone: true,
-    selector: 'diamond-page',
+    selector: 'app-diamond-page',
     imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateYoutube, TemplateLicense, DiamondSeparator],
     template: `<div class="diamond template">
-        <template-hero [templateHeroData]="templateHeroData" [templateLogo]="diamondLogo"></template-hero>
-        <diamond-separator></diamond-separator>
-        <template-license [license]="license"></template-license>
-        <diamond-separator></diamond-separator>
+        <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="diamondLogo"></app-template-hero>
+        <app-diamond-separator></app-diamond-separator>
+        <app-template-license [license]="license"></app-template-license>
+        <app-diamond-separator></app-diamond-separator>
         <div [style.display]="'none'">
-            <diamond-separator></diamond-separator>
-            <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-youtube-screen.png"></template-youtube>
+            <app-diamond-separator></app-diamond-separator>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-youtube-screen.png"></app-template-youtube>
         </div>
-        <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <diamond-separator></diamond-separator>
-        <template-configuration
+        <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
+        <app-diamond-separator></app-diamond-separator>
+        <app-template-configuration
             title="Angular with CLI"
             description="Diamond is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
             appName="diamond"
-        ></template-configuration>
-        <diamond-separator></diamond-separator>
-        <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <diamond-separator></diamond-separator>
-        <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
+        ></app-template-configuration>
+        <app-diamond-separator></app-diamond-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData1"></app-template-features-animation>
+        <app-diamond-separator></app-diamond-separator>
+        <app-template-features [featuresData]="features2Data" displayType="vertical"></app-template-features>
     </div>`
 })
 export class DiamondPage {

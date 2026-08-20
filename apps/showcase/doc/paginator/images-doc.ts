@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 
 @Component({
-    selector: 'images-doc',
+    selector: 'app-images-doc',
     standalone: true,
     imports: [PaginatorModule, AppCode, AppDocSectionText],
     template: `

@@ -2,12 +2,12 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'gridlines-doc',
+    selector: 'app-gridlines-doc',
     standalone: true,
     imports: [TreeTableModule, AppCode, AppDocSectionText, DeferredDemo],
     template: ` <section class="py-6">
@@ -15,7 +15,7 @@ import { TreeTableModule } from 'primeng/treetable';
             <p>Enabling <i>showGridlines</i> displays grid lines.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
@@ -37,16 +37,16 @@ import { TreeTableModule } from 'primeng/treetable';
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridlinesDoc {
-    files!: TreeNode[];
+    private nodeService = inject(NodeService);
 
-    constructor(private nodeService: NodeService) {}
+    files!: TreeNode[];
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

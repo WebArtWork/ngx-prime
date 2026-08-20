@@ -5,7 +5,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-    selector: 'invalid-doc',
+    selector: 'app-invalid-doc',
     standalone: true,
     imports: [FormsModule, AppCode, AppDocSectionText, TextareaModule],
     template: `

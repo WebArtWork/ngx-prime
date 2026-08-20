@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -8,9 +8,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
-    selector: 'toolbar-pt-viewer',
+    selector: 'app-toolbar-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ToolbarModule, ButtonModule, InputTextModule, IconFieldModule, InputIconModule],
+    imports: [AppDocPtViewer, ToolbarModule, ButtonModule, InputTextModule, IconFieldModule, InputIconModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-toolbar class="w-full">

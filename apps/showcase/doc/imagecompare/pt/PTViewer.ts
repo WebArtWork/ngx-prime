@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ImageCompareModule } from 'primeng/imagecompare';
 
 @Component({
-    selector: 'imagecompare-pt-viewer',
+    selector: 'app-imagecompare-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ImageCompareModule],
+    imports: [AppDocPtViewer, ImageCompareModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-imagecompare>

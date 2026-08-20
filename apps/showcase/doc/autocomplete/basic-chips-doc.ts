@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
-    selector: 'basic-chips-doc',
+    selector: 'app-basic-chips-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>

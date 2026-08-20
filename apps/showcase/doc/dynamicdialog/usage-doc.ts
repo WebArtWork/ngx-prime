@@ -1,11 +1,11 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'usage-doc',
+    selector: 'app-usage-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `
@@ -17,9 +17,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [DialogService]
 })
 export class UsageDoc {
-    ref: DynamicDialogRef | undefined;
+    dialogService = inject(DialogService);
 
-    constructor(public dialogService: DialogService) {}
+    ref: DynamicDialogRef | undefined;
 
     code: Code = {
         typescript: `

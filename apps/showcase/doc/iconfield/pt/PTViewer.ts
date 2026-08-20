@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -7,9 +7,9 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'iconfield-pt-viewer',
+    selector: 'app-iconfield-pt-viewer',
     standalone: true,
-    imports: [CommonModule, FormsModule, AppDocPtViewer, IconFieldModule, InputIconModule, InputTextModule],
+    imports: [FormsModule, AppDocPtViewer, IconFieldModule, InputIconModule, InputTextModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-iconfield>

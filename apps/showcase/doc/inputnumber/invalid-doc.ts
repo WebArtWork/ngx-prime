@@ -5,7 +5,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'invalid-doc',
+    selector: 'app-invalid-doc',
     standalone: true,
     imports: [FormsModule, InputNumberModule, AppCodeModule, AppDocSectionText],
     template: `

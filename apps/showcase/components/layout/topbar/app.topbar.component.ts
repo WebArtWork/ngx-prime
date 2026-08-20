@@ -2,7 +2,7 @@ import Versions from '@/assets/data/versions.json';
 import { AppConfiguratorComponent } from '@/components/layout/configurator/app.configurator.component';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { afterNextRender, booleanAttribute, Component, computed, ElementRef, Inject, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { afterNextRender, booleanAttribute, Component, computed, ElementRef, Input, OnDestroy, Renderer2, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
@@ -30,22 +30,24 @@ import { StyleClass } from 'primeng/styleclass';
                         <i class="pi" [ngClass]="{ 'pi-moon': isDarkMode(), 'pi-sun': !isDarkMode() }"></i>
                     </button>
                 </li>
-                <li *ngIf="showConfigurator" class="relative">
-                    <button
-                        type="button"
-                        class="topbar-item config-item"
-                        enterActiveClass="px-overlay-enter-active"
-                        enterFromClass="hidden"
-                        leaveActiveClass="px-overlay-leave-active"
-                        leaveToClass="hidden"
-                        pStyleClass="@next"
-                        [hideOnOutsideClick]="true"
-                        aria-label="Open theme settings"
-                    >
-                        <i class="pi pi-palette"></i>
-                    </button>
-                    <app-configurator />
-                </li>
+                @if (showConfigurator) {
+                    <li class="relative">
+                        <button
+                            type="button"
+                            class="topbar-item config-item"
+                            enterActiveClass="px-overlay-enter-active"
+                            enterFromClass="hidden"
+                            leaveActiveClass="px-overlay-leave-active"
+                            leaveToClass="hidden"
+                            pStyleClass="@next"
+                            [hideOnOutsideClick]="true"
+                            aria-label="Open theme settings"
+                        >
+                            <i class="pi pi-palette"></i>
+                        </button>
+                        <app-configurator />
+                    </li>
+                }
                 <li>
                     <button type="button" class="topbar-item" (click)="toggleDesigner()" aria-label="Open theme designer">
                         <i class="pi pi-cog"></i>
@@ -67,22 +69,31 @@ import { StyleClass } from 'primeng/styleclass';
                     </button>
                     <div class="versions-panel hidden">
                         <ul>
-                            <li role="none" *ngFor="let v of versions">
-                                <a [href]="v.url"
-                                    ><span>{{ v.version }}</span></a
-                                >
-                            </li>
+                            @for (v of versions; track v) {
+                                <li role="none">
+                                    <a [href]="v.url"
+                                        ><span>{{ v.version }}</span></a
+                                    >
+                                </li>
+                            }
                         </ul>
                     </div>
                 </li>
-                <li *ngIf="showMenuButton" class="menu-button">
-                    <button type="button" class="topbar-item menu-button" (click)="toggleMenu()" aria-label="Menu"><i class="pi pi-bars"></i></button>
-                </li>
+                @if (showMenuButton) {
+                    <li class="menu-button">
+                        <button type="button" class="topbar-item menu-button" (click)="toggleMenu()" aria-label="Menu"><i class="pi pi-bars"></i></button>
+                    </li>
+                }
             </ul>
         </div>
     </div>`
 })
 export class AppTopBarComponent implements OnDestroy {
+    private document = inject<Document>(DOCUMENT);
+    private el = inject(ElementRef);
+    private renderer = inject(Renderer2);
+    private configService = inject(AppConfigService);
+
     @Input({ transform: booleanAttribute }) showConfigurator = true;
 
     @Input({ transform: booleanAttribute }) showMenuButton = true;
@@ -93,12 +104,7 @@ export class AppTopBarComponent implements OnDestroy {
 
     private window: Window;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private el: ElementRef,
-        private renderer: Renderer2,
-        private configService: AppConfigService
-    ) {
+    constructor() {
         this.window = this.document.defaultView as Window;
 
         afterNextRender(() => this.bindScrollListener());

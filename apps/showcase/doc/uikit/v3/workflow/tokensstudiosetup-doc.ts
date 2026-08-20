@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'tokens-studio-setup-doc',
+    selector: 'app-tokens-studio-setup-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `<app-docsectiontext>

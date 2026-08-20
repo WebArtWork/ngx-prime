@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'v19-renamed-doc',
+    selector: 'app-v19-renamed-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `

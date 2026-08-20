@@ -6,7 +6,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { StyleClassModule } from 'primeng/styleclass';
 
 @Component({
-    selector: 'toggleclass-doc',
+    selector: 'app-toggleclass-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, StyleClassModule, ButtonModule, InputTextModule],
     template: `

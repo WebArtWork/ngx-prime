@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { TabsModule } from 'primeng/tabs';
 import { FieldsetModule } from 'primeng/fieldset';
-import { CommonModule } from '@angular/common';
+
 import { DesignerService } from '@/service/designerservice';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -9,9 +9,9 @@ import { DesignComponentSection } from '@/components/layout/designer/editor/comp
 import { AppConfigService } from '@/service/appconfigservice';
 
 @Component({
-    selector: 'design-component',
+    selector: 'app-design-component',
     standalone: true,
-    imports: [CommonModule, FieldsetModule, TabsModule, DesignComponentSection],
+    imports: [FieldsetModule, TabsModule, DesignComponentSection],
     template: `<section class="flex flex-col gap-3">
         <div class="text-lg font-semibold capitalize mb-2">{{ componentKey() }}</div>
         <p-fieldset legend="Common" [toggleable]="true">
@@ -19,7 +19,7 @@ import { AppConfigService } from '@/service/appconfigservice';
                 @if (hasCommonTokens()) {
                     @for (entry of objectKeys(this.tokens()); track entry) {
                         @if (entry !== 'colorScheme' && entry !== 'css') {
-                            <design-component-section [componentKey]="componentKey()" [path]="entry" />
+                            <app-design-component-section [componentKey]="componentKey()" [path]="entry" />
                         }
                     }
                 } @else {
@@ -38,14 +38,14 @@ import { AppConfigService } from '@/service/appconfigservice';
                         <p-tabpanel value="cs-0">
                             <div class="flex flex-col gap-3">
                                 @for (entry of objectKeys(lightTokens()); track entry) {
-                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.light.' + entry" />
+                                    <app-design-component-section [componentKey]="componentKey()" [path]="'colorScheme.light.' + entry" />
                                 }
                             </div>
                         </p-tabpanel>
                         <p-tabpanel value="cs-1">
                             <div class="flex flex-col gap-3">
                                 @for (entry of objectKeys(darkTokens()); track entry) {
-                                    <design-component-section [componentKey]="componentKey()" [path]="'colorScheme.dark.' + entry" />
+                                    <app-design-component-section [componentKey]="componentKey()" [path]="'colorScheme.dark.' + entry" />
                                 }
                             </div>
                         </p-tabpanel>

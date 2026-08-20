@@ -1,12 +1,12 @@
 import { NodeService } from '@/service/nodeservice';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'app-filter-doc',
     standalone: true,
     imports: [FormsModule, TreeSelectModule, AppCode, AppDocSectionText],
     template: `
@@ -24,11 +24,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class FilterDoc {
+    private nodeService = inject(NodeService);
+
     nodes!: any[];
 
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 }

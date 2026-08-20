@@ -1,6 +1,6 @@
 import APIDoc from '@/doc/apidoc/index.json';
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input, Input, OnInit, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, Input, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { ObjectUtils } from 'primeng/utils';
 import { AppDocApiTable } from './app.docapitable';
@@ -22,16 +22,14 @@ import { AppDocSectionNav } from './app.docsection-nav';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppDocApiSection implements OnInit, OnDestroy {
+    private location = inject(Location);
+    private router = inject(Router);
+
     @Input() header!: string;
 
     docs = input<any[] | undefined>([]);
 
     _docs = computed(() => this.docs() && this.createDocs());
-
-    constructor(
-        private location: Location,
-        private router: Router
-    ) {}
 
     ngOnInit() {
         if (!this.router.url.includes('#api')) {

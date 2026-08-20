@@ -6,7 +6,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { OrderListModule } from 'primeng/orderlist';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [OrderListModule, AppCodeModule, AppDocSectionText],
     providers: [ProductService],

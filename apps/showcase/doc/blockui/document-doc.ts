@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'document-doc',
+    selector: 'app-document-doc',
     standalone: true,
     imports: [BlockUIModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
@@ -20,9 +20,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class DocumentDoc {
-    blockedDocument: boolean = false;
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(private cd: ChangeDetectorRef) {}
+    blockedDocument: boolean = false;
 
     blockDocument() {
         this.blockedDocument = true;

@@ -2,13 +2,13 @@ import { AppDocPtTable } from '@/components/doc/app.docpttable';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { AppDocSection } from '@/components/doc/app.docsection';
 import { PTViewer } from '@/doc/confirmpopup/pt/PTViewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'confirmpopup-pt-component',
+    selector: 'app-confirmpopup-pt-component',
     standalone: true,
-    imports: [CommonModule, AppDocSection],
+    imports: [AppDocSection],
     template: `<div class="doc-main">
         <div class="doc-intro">
             <h1>ConfirmPopup Pass Through</h1>

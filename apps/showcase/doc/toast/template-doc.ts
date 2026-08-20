@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule, AvatarModule],
     template: `
@@ -34,7 +34,7 @@ import { AvatarModule } from 'primeng/avatar';
     providers: [MessageService]
 })
 export class TemplateDoc {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     visible: boolean = false;
 

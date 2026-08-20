@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({
-    selector: 'fieldset-pt-viewer',
+    selector: 'app-fieldset-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, FieldsetModule],
+    imports: [AppDocPtViewer, FieldsetModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-fieldset legend="Header" [toggleable]="true">

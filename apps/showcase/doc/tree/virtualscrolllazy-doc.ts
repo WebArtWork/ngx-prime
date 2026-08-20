@@ -1,12 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 
 @Component({
-    selector: 'virtualscrolllazy-doc',
+    selector: 'app-virtualscrolllazy-doc',
     standalone: true,
     imports: [TreeModule, AppCode, AppDocSectionText],
     template: `
@@ -20,11 +20,11 @@ import { TreeModule } from 'primeng/tree';
     `
 })
 export class LazyVirtualScrollDoc implements OnInit {
+    private nodeService = inject(NodeService);
+
     loading = signal<boolean>(false);
 
     nodes = signal<TreeNode[]>(undefined);
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.loading.set(true);

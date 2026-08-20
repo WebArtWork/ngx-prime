@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'responsive-doc',
+    selector: 'app-responsive-doc',
     standalone: true,
     imports: [DialogModule, ButtonModule, AppCode, AppDocSectionText],
     template: `

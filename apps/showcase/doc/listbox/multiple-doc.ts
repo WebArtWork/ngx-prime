@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'multiple-doc',
+    selector: 'app-multiple-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `

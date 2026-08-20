@@ -5,12 +5,12 @@ import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
-    selector: 'columngroup-doc',
+    selector: 'app-columngroup-doc',
     standalone: true,
     imports: [TreeTableModule, DeferredDemo, AppCode],
     template: `
         <div class="card">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>
@@ -50,7 +50,7 @@ import { TreeTableModule } from 'primeng/treetable';
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `,

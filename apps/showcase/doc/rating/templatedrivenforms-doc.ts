@@ -7,12 +7,11 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'app-templatedrivenforms-doc',
     standalone: true,
-    imports: [FormsModule, RatingModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText, CommonModule],
+    imports: [FormsModule, RatingModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
     providers: [MessageService],
     template: `
         <app-docsectiontext></app-docsectiontext>

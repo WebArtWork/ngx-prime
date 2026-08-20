@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
-    selector: 'list-doc',
+    selector: 'app-list-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, SkeletonModule],
     template: `

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -6,7 +6,7 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'command-doc',
+    selector: 'app-command-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, TieredMenuModule, ToastModule],
     providers: [MessageService],
@@ -22,9 +22,9 @@ import { ToastModule } from 'primeng/toast';
     `
 })
 export class CommandDoc implements OnInit {
-    items: MenuItem[] | undefined;
+    private messageService = inject(MessageService);
 
-    constructor(private messageService: MessageService) {}
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

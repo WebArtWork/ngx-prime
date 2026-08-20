@@ -4,10 +4,10 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'verona-separator',
+    selector: 'app-verona-separator',
     imports: [TemplateSeparator],
     template: `
-        <template-separator>
+        <app-template-separator>
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 48 49" fill="none">
                 <g clipPath="url(#clip0_987_15401)">
                     <path d="M33.5642 18.0857H14.8584V18.2232H33.5642V18.0857Z" [attr.fill]="fillColor" fillOpacity="0.5" />
@@ -39,7 +39,7 @@ import { Component, inject } from '@angular/core';
                     </g>
                 </g>
             </svg>
-        </template-separator>
+        </app-template-separator>
     `
 })
 export class VeronaSeparator {

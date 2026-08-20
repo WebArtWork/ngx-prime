@@ -1,5 +1,5 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -7,9 +7,9 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'dialog-pt-viewer',
+    selector: 'app-dialog-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, DialogModule, ButtonModule, InputTextModule, FormsModule],
+    imports: [AppDocPtViewer, DialogModule, ButtonModule, InputTextModule, FormsModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-dialog [(visible)]="visible" header="Edit Profile" [maximizable]="true" maskStyleClass="!relative" [draggable]="false" class="!my-auto w-full">

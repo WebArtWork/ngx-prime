@@ -6,7 +6,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputText } from 'primeng/inputtext';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [FormsModule, InputMaskModule, InputText, AppCodeModule, AppDocSectionText],
     template: `

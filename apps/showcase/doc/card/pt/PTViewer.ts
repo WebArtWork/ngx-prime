@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 
 @Component({
-    selector: 'card-pt-viewer',
+    selector: 'app-card-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, CardModule, ButtonModule],
+    imports: [AppDocPtViewer, CardModule, ButtonModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-card [style]="{ width: '25rem' }">

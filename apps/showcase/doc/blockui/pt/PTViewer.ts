@@ -1,14 +1,14 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { BlockUIModule } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
-    selector: 'blockui-pt-viewer',
+    selector: 'app-blockui-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, BlockUIModule, ButtonModule, PanelModule],
+    imports: [AppDocPtViewer, BlockUIModule, ButtonModule, PanelModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="flex flex-col gap-4">

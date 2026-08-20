@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'app-accessibility-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: ` <div>

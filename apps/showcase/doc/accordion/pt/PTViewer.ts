@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { AccordionModule } from 'primeng/accordion';
 
 @Component({
-    selector: 'accordion-pt-viewer',
+    selector: 'app-accordion-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, AccordionModule],
+    imports: [AppDocPtViewer, AccordionModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-accordion value="0">

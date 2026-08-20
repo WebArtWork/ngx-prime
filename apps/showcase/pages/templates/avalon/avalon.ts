@@ -9,24 +9,24 @@ import { AvalonSeparator } from './avalonseparator';
 
 @Component({
     standalone: true,
-    selector: 'avalon-page',
+    selector: 'app-avalon-page',
     imports: [TemplateHero, TemplateFeaturesAnimation, TemplateFeatures, TemplateConfiguration, TemplateFeaturesAnimation, TemplateLicense, AvalonSeparator],
     template: `<div class="avalon template">
-        <template-hero [templateHeroData]="templateHeroData" [templateLogo]="avalonLogo"></template-hero>
-        <avalon-separator></avalon-separator>
-        <template-license [license]="license"></template-license>
-        <avalon-separator></avalon-separator>
-        <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <avalon-separator></avalon-separator>
-        <template-configuration
+        <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="avalonLogo"></app-template-hero>
+        <app-avalon-separator></app-avalon-separator>
+        <app-template-license [license]="license"></app-template-license>
+        <app-avalon-separator></app-avalon-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
+        <app-avalon-separator></app-avalon-separator>
+        <app-template-configuration
             title="Angular with CLI"
             description="Avalon is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
             appName="avalon"
-        ></template-configuration>
-        <avalon-separator></avalon-separator>
-        <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <avalon-separator></avalon-separator>
-        <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
+        ></app-template-configuration>
+        <app-avalon-separator></app-avalon-separator>
+        <app-template-features-animation [featuresData]="animationFeaturesData1"></app-template-features-animation>
+        <app-avalon-separator></app-avalon-separator>
+        <app-template-features [featuresData]="features2Data" displayType="vertical"></app-template-features>
     </div>`
 })
 export class AvalonPage {

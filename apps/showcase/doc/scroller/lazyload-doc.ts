@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { ScrollerModule } from 'primeng/scroller';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -9,7 +9,7 @@ interface LazyEvent {
     last: number;
 }
 @Component({
-    selector: 'lazyload-doc',
+    selector: 'app-lazyload-doc',
     standalone: true,
     imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
     template: `
@@ -35,13 +35,13 @@ interface LazyEvent {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyLoadDoc implements OnInit {
+    private cd = inject(ChangeDetectorRef);
+
     items!: string[];
 
     lazyLoading: boolean = true;
 
     loadLazyTimeout: any;
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.items = Array.from({ length: 1000 });

@@ -1,12 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
-    selector: 'virtualscroll-doc',
+    selector: 'app-virtualscroll-doc',
     standalone: true,
     imports: [FormsModule, TreeSelectModule, AppCode, AppDocSectionText],
     template: ` <app-docsectiontext>
@@ -32,11 +32,13 @@ import { TreeSelectModule } from 'primeng/treeselect';
         <app-code></app-code>`
 })
 export class VirtualScrollDoc {
+    private nodeService = inject(NodeService);
+
     nodes!: any[];
 
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getLargeTreeNodes().then((files) => (this.nodes = files));
     }
 }

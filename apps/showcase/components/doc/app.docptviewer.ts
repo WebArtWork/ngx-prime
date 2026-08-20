@@ -1,5 +1,5 @@
 import APIDoc from '@/doc/apidoc/index.json';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectorRef, Component, computed, ElementRef, inject, input, InputSignal, viewChild, AfterViewChecked } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { addClass, find, removeClass } from '@primeuix/utils/dom';
@@ -79,7 +79,7 @@ export const getPTOptions = (name) => {
 @Component({
     selector: 'app-docptviewer',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, RouterModule],
+    imports: [AppDocSectionText, RouterModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -92,16 +92,18 @@ export const getPTOptions = (name) => {
                 <ng-content />
             </div>
             <div class="doc-ptoptions">
-                <ng-container *ngIf="docs() && docs()[0]?.data">
-                    <ng-container *ngFor="let doc of docs()">
-                        <div *ngFor="let item of handleData(doc.data)" class="doc-ptoption" (mouseenter)="enterSection(item, doc.key)" (mouseleave)="leaveSection()">
-                            <span class="doc-ptoption-text">
-                                {{ item.label }}
-                                {{ findComponentName(item.label, doc) }}
-                            </span>
-                        </div>
-                    </ng-container>
-                </ng-container>
+                @if (docs() && docs()[0]?.data) {
+                    @for (doc of docs(); track doc) {
+                        @for (item of handleData(doc.data); track item) {
+                            <div class="doc-ptoption" (mouseenter)="enterSection(item, doc.key)" (mouseleave)="leaveSection()">
+                                <span class="doc-ptoption-text">
+                                    {{ item.label }}
+                                    {{ findComponentName(item.label, doc) }}
+                                </span>
+                            </div>
+                        }
+                    }
+                }
             </div>
         </div>
     `

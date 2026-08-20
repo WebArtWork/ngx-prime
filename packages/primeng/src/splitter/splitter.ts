@@ -198,6 +198,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
 
     onAfterContentInit() {
         const templates = this.templates();
+
         if (templates && templates.length > 0) {
             templates.forEach((item) => {
                 switch (item.getType()) {
@@ -212,6 +213,7 @@ export class Splitter extends BaseComponent<SplitterPassThrough> {
         }
 
         const panelChildren = this.panelChildren();
+
         if (panelChildren && panelChildren.length > 0) {
             panelChildren.forEach((item) => {
                 this.panels.push(item);

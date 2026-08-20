@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { TimelineModule } from 'primeng/timeline';
 
 @Component({
-    selector: 'horizontal-doc',
+    selector: 'app-horizontal-doc',
     standalone: true,
     imports: [AppDocSectionText, TimelineModule, AppCode],
     template: `

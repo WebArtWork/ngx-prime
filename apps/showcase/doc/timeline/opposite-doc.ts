@@ -12,7 +12,7 @@ interface EventItem {
 }
 
 @Component({
-    selector: 'opposite-doc',
+    selector: 'app-opposite-doc',
     standalone: true,
     imports: [AppDocSectionText, TimelineModule, AppCode],
     template: `

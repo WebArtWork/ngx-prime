@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'image-doc',
+    selector: 'app-image-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `

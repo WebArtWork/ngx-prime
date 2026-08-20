@@ -3,17 +3,17 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'loadingmask-doc',
+    selector: 'app-loadingmask-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>The <i>loading</i> property displays a mask layer to indicate busy state. Use the paginator to display the mask.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
                     <ng-template #header>
@@ -34,17 +34,15 @@ import { TableModule } from 'primeng/table';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoadingMaskDoc {
-    products!: Product[];
+    private productService = inject(ProductService);
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    products!: Product[];
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

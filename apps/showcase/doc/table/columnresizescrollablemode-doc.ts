@@ -2,15 +2,15 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'columnresizescrollablemode-doc',
+    selector: 'app-columnresizescrollablemode-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, AppCode, DeferredDemo],
-    template: ` <p-deferred-demo (load)="loadDemoData()">
+    imports: [TableModule, AppCode, DeferredDemo],
+    template: ` <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
@@ -31,17 +31,15 @@ import { TableModule } from 'primeng/table';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnResizeScrollableModeDoc {
-    customers!: Customer[];
+    private customerService = inject(CustomerService);
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    customers!: Customer[];
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {

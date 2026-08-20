@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'position-doc',
+    selector: 'app-position-doc',
     standalone: true,
     imports: [BadgeModule, AppCode, AppDocSectionText],
     template: `

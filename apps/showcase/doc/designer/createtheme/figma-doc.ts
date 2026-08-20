@@ -1,12 +1,12 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'figma-doc',
+    selector: 'app-figma-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, RouterModule],
+    imports: [AppDocSectionText, RouterModule],
     template: `<app-docsectiontext>
         <p>
             For teams with UI designers, we recommend using PrimeOne Figma UI Kit for the design phase and utilizing the Theme Designer service to automate code generation during handoff. This workflow eliminates manual design-to-code translation,

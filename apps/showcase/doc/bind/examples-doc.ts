@@ -1,14 +1,14 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, signal } from '@angular/core';
 import { BindModule } from 'primeng/bind';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
-    selector: 'examples-doc',
+    selector: 'app-examples-doc',
     standalone: true,
-    imports: [AppCode, BindModule, TooltipModule, CommonModule, AppDocSectionText],
+    imports: [AppCode, BindModule, TooltipModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>The <i>pBind</i> is a directive that accepts an object of HTML attributes.</p>

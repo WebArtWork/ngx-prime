@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector: 'template-hero-light',
+    selector: 'app-template-hero-light',
     standalone: true,
     template: `
         <svg width="490" height="143" viewBox="0 0 490 143" fill="none" xmlns="http://www.w3.org/2000/svg" class="template-hero-light">

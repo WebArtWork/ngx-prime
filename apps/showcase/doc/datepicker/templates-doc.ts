@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-    selector: 'templates-doc',
+    selector: 'app-templates-doc',
     standalone: true,
     template: ` <div class="doc-tablewrapper">
         <table class="doc-table">

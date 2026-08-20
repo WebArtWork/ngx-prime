@@ -1,12 +1,12 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'videotutorial-doc',
+    selector: 'app-videotutorial-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, RouterModule],
+    imports: [AppDocSectionText, RouterModule],
     template: `<app-docsectiontext>
         <p>Before diving into the implementation details, if you would like to understand the final outcome and see how the solution operates, please refer to the video tutorial for a comprehensive walkthrough and demonstration.</p>
         <div class="video-container">

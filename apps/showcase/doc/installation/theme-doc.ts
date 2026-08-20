@@ -2,7 +2,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'theme-doc',
+    selector: 'app-theme-doc',
     template: `
         <app-docsectiontext>
             <p>Configure PrimeNG to use a theme like Aura.</p>

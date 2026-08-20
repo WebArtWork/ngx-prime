@@ -2,8 +2,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { ToastModule } from 'primeng/toast';
@@ -15,9 +15,9 @@ interface Column {
 }
 
 @Component({
-    selector: 'contextmenu-doc',
+    selector: 'app-contextmenu-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, ToastModule, ContextMenuModule, AppCode, AppDocSectionText, DeferredDemo],
+    imports: [TreeTableModule, ToastModule, ContextMenuModule, AppCode, AppDocSectionText, DeferredDemo],
     template: `
         <app-docsectiontext>
             <p>
@@ -28,7 +28,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }" />
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
                         <tr>
@@ -56,7 +56,7 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
             <p-contextmenu #cm [model]="items" />
         </div>
         <app-code></app-code>
@@ -65,6 +65,9 @@ interface Column {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContextMenuDoc {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
+
     files!: TreeNode[];
 
     selectedNode!: TreeNode;
@@ -72,11 +75,6 @@ export class ContextMenuDoc {
     cols!: Column[];
 
     items!: MenuItem[];
-
-    constructor(
-        private nodeService: NodeService,
-        private messageService: MessageService
-    ) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

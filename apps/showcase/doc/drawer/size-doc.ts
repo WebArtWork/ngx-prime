@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'size-doc',
+    selector: 'app-size-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, DrawerModule, ButtonModule, FormsModule],
     template: `

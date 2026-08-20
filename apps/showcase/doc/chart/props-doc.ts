@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'props-doc',
+    selector: 'app-props-doc',
     standalone: true,
     template: `
         <div class="doc-tablewrapper">

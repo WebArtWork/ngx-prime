@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { AvatarModule } from 'primeng/avatar';
 
 @Component({
-    selector: 'custom-doc',
+    selector: 'app-custom-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToolbarModule, ButtonModule, AvatarModule],
     template: `

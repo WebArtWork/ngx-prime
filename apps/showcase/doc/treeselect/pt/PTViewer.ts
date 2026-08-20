@@ -1,15 +1,15 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
-    selector: 'treeselect-pt-viewer',
+    selector: 'app-treeselect-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, TreeSelectModule, FormsModule],
+    imports: [AppDocPtViewer, TreeSelectModule, FormsModule],
     providers: [NodeService],
     template: `
         <app-docptviewer [docs]="docs">
@@ -18,13 +18,13 @@ import { NodeService } from '@/service/nodeservice';
     `
 })
 export class PTViewer implements OnInit {
+    private nodeService = inject(NodeService);
+
     selectedNodes: TreeNode | null = null;
 
     nodes: TreeNode[] | undefined;
 
     docs = [{ data: getPTOptions('TreeSelect'), key: 'TreeSelect' }];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));

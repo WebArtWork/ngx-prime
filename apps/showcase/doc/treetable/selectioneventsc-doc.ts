@@ -2,8 +2,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { TreeTableModule } from 'primeng/treetable';
@@ -19,16 +19,16 @@ interface NodeEvent {
 }
 
 @Component({
-    selector: 'selectioneventsc-doc',
+    selector: 'app-selectioneventsc-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, ToastModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [TreeTableModule, ToastModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>TreeTable provides <i>onNodeSelect</i> and <i>onNodeUnselect</i> events to listen selection events.</p>
         </app-docsectiontext>
         <div class="card">
             <p-toast />
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable
                     [value]="files"
                     [columns]="cols"
@@ -66,7 +66,7 @@ interface NodeEvent {
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `,
@@ -74,16 +74,14 @@ interface NodeEvent {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SelectionEventsDoc {
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
+
     files!: TreeNode[];
 
     selectedNode!: TreeNode;
 
     cols!: Column[];
-
-    constructor(
-        private nodeService: NodeService,
-        private messageService: MessageService
-    ) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

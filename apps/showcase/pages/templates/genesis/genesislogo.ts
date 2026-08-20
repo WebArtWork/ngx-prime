@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'genesis-logo',
+    selector: 'app-genesis-logo',
     template: `
         <svg width="168" height="39" viewBox="0 0 168 39" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

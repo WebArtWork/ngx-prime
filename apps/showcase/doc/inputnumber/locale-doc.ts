@@ -6,7 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'locale-doc',
+    selector: 'app-locale-doc',
     standalone: true,
     imports: [FormsModule, InputNumberModule, FluidModule, AppCodeModule, AppDocSectionText],
     template: `

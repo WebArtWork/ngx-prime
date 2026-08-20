@@ -8,7 +8,7 @@ import { WCAGDoc } from '@/doc/guides/accessibility/wcag-doc';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'accessibility',
+    selector: 'app-accessibility',
     standalone: true,
     imports: [AppDoc],
     template: `<app-doc

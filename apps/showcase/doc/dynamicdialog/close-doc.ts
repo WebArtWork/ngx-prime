@@ -1,6 +1,6 @@
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
@@ -8,7 +8,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'close-doc',
+    selector: 'app-close-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `
@@ -23,10 +23,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [DialogService, MessageService]
 })
 export class CloseDoc {
-    constructor(
-        public dialogService: DialogService,
-        public messageService: MessageService
-    ) {}
+    dialogService = inject(DialogService);
+    messageService = inject(MessageService);
 
     ref: DynamicDialogRef | undefined;
 

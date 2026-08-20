@@ -5,7 +5,7 @@ import { ButtonGroupModule } from 'primeng/buttongroup';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'buttongroup-doc',
+    selector: 'app-buttongroup-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonGroupModule, ButtonModule],
     template: `

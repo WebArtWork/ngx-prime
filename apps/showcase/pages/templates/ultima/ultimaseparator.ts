@@ -4,10 +4,10 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'ultima-separator',
+    selector: 'app-ultima-separator',
     imports: [TemplateSeparator],
     template: `
-        <template-separator>
+        <app-template-separator>
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="49" viewBox="0 0 48 49" fill="none">
                 <path
                     fillRule="evenodd"
@@ -16,7 +16,7 @@ import { Component, inject } from '@angular/core';
                     [attr.fill]="fillColor"
                 />
             </svg>
-        </template-separator>
+        </app-template-separator>
     `
 })
 export class UltimaSeparator {

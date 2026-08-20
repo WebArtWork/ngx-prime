@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'app-accessibility-doc',
     standalone: true,
     imports: [RouterModule, AppCodeModule, AppDocSectionText],
     template: ` <app-docsectiontext>

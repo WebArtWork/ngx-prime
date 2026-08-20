@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
-    selector: 'delay-doc',
+    selector: 'app-delay-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule, TooltipModule],
     template: `

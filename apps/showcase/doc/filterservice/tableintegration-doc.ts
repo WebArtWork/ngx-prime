@@ -2,15 +2,15 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'tableintegration-doc',
+    selector: 'app-tableintegration-doc',
     standalone: true,
-    imports: [CommonModule, AppCode, AppDocSectionText, TableModule],
+    imports: [AppCode, AppDocSectionText, TableModule],
     template: `
         <app-docsectiontext>
             <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>
@@ -19,17 +19,23 @@ import { TableModule } from 'primeng/table';
             <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" [tableStyle]="{ 'min-width': '75rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th *ngFor="let col of columns" [style.width]="'25%'">{{ col.header }}</th>
+                        @for (col of columns; track col) {
+                            <th [style.width]="'25%'">{{ col.header }}</th>
+                        }
                     </tr>
                     <tr>
-                        <th *ngFor="let col of columns">
-                            <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
-                        </th>
+                        @for (col of columns; track col) {
+                            <th>
+                                <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
+                            </th>
+                        }
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-columns="columns">
                     <tr [pSelectableRow]="rowData">
-                        <td *ngFor="let col of columns">{{ rowData[col.field] }}</td>
+                        @for (col of columns; track col) {
+                            <td>{{ rowData[col.field] }}</td>
+                        }
                     </tr>
                 </ng-template>
             </p-table>
@@ -39,17 +45,15 @@ import { TableModule } from 'primeng/table';
     providers: [FilterService]
 })
 export class TableIntegrationDoc implements OnInit {
+    private carService = inject(CarService);
+    private filterService = inject(FilterService);
+    private cd = inject(ChangeDetectorRef);
+
     cars: Car[];
 
     cols: any[];
 
     matchModeOptions: SelectItem[];
-
-    constructor(
-        private carService: CarService,
-        private filterService: FilterService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     ngOnInit() {
         const customFilterName = 'custom-equals';

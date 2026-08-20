@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'link-doc',
+    selector: 'app-link-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule, RouterModule],
     template: `

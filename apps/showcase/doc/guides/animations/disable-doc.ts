@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 @Component({
-    selector: 'disable-doc',
+    selector: 'app-disable-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode],
     template: `

@@ -17,7 +17,7 @@ interface Product {
 }
 
 @Component({
-    selector: 'table-pt-viewer',
+    selector: 'app-table-pt-viewer',
     standalone: true,
     imports: [TableModule, CurrencyPipe, AppDocPtViewer],
     template: `

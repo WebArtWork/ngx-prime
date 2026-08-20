@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'theme-doc',
+    selector: 'app-theme-doc',
     standalone: true,
     imports: [RouterModule, AppDocSectionText, AppCode],
     template: `

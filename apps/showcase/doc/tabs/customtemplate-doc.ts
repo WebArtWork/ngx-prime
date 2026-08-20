@@ -6,7 +6,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 
 @Component({
-    selector: 'customtemplate-doc',
+    selector: 'app-customtemplate-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, TabsModule, AvatarModule, BadgeModule],
     template: `

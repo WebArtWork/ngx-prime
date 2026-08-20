@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'transitionoptions-doc',
+    selector: 'app-transitionoptions-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: ` <app-docsectiontext>

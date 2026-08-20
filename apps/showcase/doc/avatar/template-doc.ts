@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, AvatarModule],
     template: `

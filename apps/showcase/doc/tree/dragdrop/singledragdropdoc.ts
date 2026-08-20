@@ -5,7 +5,7 @@ import { TreeDragDropService, TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 
 @Component({
-    selector: 'single-drag-drop-doc',
+    selector: 'app-single-drag-drop-doc',
     standalone: true,
     imports: [TreeModule, AppCode, AppDocSectionText],
     template: `

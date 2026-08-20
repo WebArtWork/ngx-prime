@@ -7,7 +7,6 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
 
 interface City {
     name: string;
@@ -15,9 +14,9 @@ interface City {
 }
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'app-templatedrivenforms-doc',
     standalone: true,
-    imports: [FormsModule, MultiSelectModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText, CommonModule],
+    imports: [FormsModule, MultiSelectModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText],
     providers: [MessageService],
     template: `
         <app-docsectiontext></app-docsectiontext>

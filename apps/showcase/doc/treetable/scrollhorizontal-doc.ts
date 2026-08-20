@@ -2,8 +2,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
 
@@ -13,15 +13,15 @@ interface Column {
 }
 
 @Component({
-    selector: 'scrollhorizontal-doc',
+    selector: 'app-scrollhorizontal-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Horizontal scrolling is enabled when the total width of columns exceeds table width.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #colgroup let-columns>
                         <colgroup>
@@ -56,17 +56,17 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `
 })
 export class ScrollHorizontalDoc {
+    private nodeService = inject(NodeService);
+
     files!: TreeNode[];
 
     cols!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

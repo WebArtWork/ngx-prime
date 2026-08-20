@@ -3,7 +3,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'bootstrap-doc',
+    selector: 'app-bootstrap-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule],
     template: `

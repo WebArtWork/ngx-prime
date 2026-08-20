@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    selector: 'css-layer',
+    selector: 'app-css-layer',
     standalone: true,
     imports: [AppDoc],
     template: `<app-doc docTitle="PrimeFlex - PrimeNG" header="Introduction" [docs]="docs" description="Moving from PrimeFlex to Tailwind CSS."></app-doc>`

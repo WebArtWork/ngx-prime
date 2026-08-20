@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'indeterminate-doc',
+    selector: 'app-indeterminate-doc',
     standalone: true,
     imports: [FormsModule, CheckboxModule, AppCode, AppDocSectionText],
     template: `

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -6,12 +6,11 @@ import { AppCode } from '@/components/doc/app.code';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, SpeedDialModule, ToastModule, ButtonModule],
+    imports: [AppDocSectionText, AppCode, SpeedDialModule, ToastModule, ButtonModule],
     template: `
         <app-docsectiontext>
             <p>
@@ -72,12 +71,10 @@ import { CommonModule } from '@angular/common';
     providers: [MessageService]
 })
 export class TemplateDoc implements OnInit {
-    items: MenuItem[] | undefined;
+    private messageService = inject(MessageService);
+    private router = inject(Router);
 
-    constructor(
-        private messageService: MessageService,
-        private router: Router
-    ) {}
+    items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [

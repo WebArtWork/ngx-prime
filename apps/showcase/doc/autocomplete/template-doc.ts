@@ -1,6 +1,6 @@
 import { CountryService } from '@/service/countryservice';
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit, inject } from '@angular/core';
+
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ButtonModule } from 'primeng/button';
@@ -13,9 +13,9 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, AutoCompleteModule, ButtonModule, AppDocSectionText, AppCode],
+    imports: [FormsModule, AutoCompleteModule, ButtonModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
             <p>AutoComplete offers multiple templates for customization through templating.</p>
         </app-docsectiontext>
@@ -40,13 +40,13 @@ interface AutoCompleteCompleteEvent {
         <app-code></app-code>`
 })
 export class TemplateDoc implements OnInit {
+    private countryService = inject(CountryService);
+
     countries: any[] | undefined;
 
     selectedCountryAdvanced: any[] | undefined;
 
     filteredCountries: any[] | undefined;
-
-    constructor(private countryService: CountryService) {}
 
     ngOnInit() {
         this.countryService.getCountries().then((countries) => {

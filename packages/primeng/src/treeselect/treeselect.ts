@@ -844,6 +844,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     onFilterInput(event: Event) {
         this.filterValue = (event.target as HTMLInputElement).value;
         const treeViewChild = this.treeViewChild();
+
         treeViewChild?._filter(this.filterValue);
         this.onFilter.emit({
             filter: this.filterValue,
@@ -856,6 +857,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
 
     onArrowDown(event: KeyboardEvent) {
         const panelEl = this.panelEl();
+
         if (this.overlayVisible && panelEl?.nativeElement) {
             let focusableElements = <any>getFocusableElements(panelEl.nativeElement, '[data-pc-section="node"]');
 
@@ -926,6 +928,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
     resetFilter() {
         if (this.filter && !this.resetFilterOnHide) {
             const treeViewChild = this.treeViewChild();
+
             this.filteredNodes = treeViewChild?.filteredNodes;
             treeViewChild?.resetFilter();
         } else {

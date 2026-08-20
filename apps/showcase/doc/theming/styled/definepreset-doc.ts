@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'definepreset-doc',
+    selector: 'app-definepreset-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
     template: `

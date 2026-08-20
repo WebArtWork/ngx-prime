@@ -9,7 +9,7 @@ import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'responsive-doc',
+    selector: 'app-responsive-doc',
     standalone: true,
     imports: [CommonModule, AppDocSectionText, AppCode, CarouselModule, ButtonModule, TagModule],
     template: `

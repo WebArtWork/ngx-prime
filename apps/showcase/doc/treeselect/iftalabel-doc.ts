@@ -1,5 +1,5 @@
 import { NodeService } from '@/service/nodeservice';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TreeSelectModule } from 'primeng/treeselect';
@@ -8,7 +8,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'iftalabel-doc',
+    selector: 'app-iftalabel-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, TreeSelectModule, IftaLabelModule, AppCode, AppDocSectionText],
     template: `
@@ -25,11 +25,13 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class IftaLabelDoc {
+    private nodeService = inject(NodeService);
+
     nodes!: any[];
 
     selectedValue: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 }

@@ -11,7 +11,7 @@ interface Country {
 }
 
 @Component({
-    selector: 'group-doc',
+    selector: 'app-group-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `

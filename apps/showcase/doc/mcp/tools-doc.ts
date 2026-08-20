@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'tools-doc',
+    selector: 'app-tools-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `

@@ -13,7 +13,7 @@ import { Table, TableModule } from 'primeng/table';
 import { Tag } from 'primeng/tag';
 
 @Component({
-    selector: 'theme-section',
+    selector: 'app-theme-section',
     standalone: true,
     imports: [CommonModule, TableModule, ButtonModule, Tag, ProgressBar, InputTextModule, IconField, InputIcon],
     template: `

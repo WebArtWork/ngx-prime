@@ -5,7 +5,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 
 @Component({
-    selector: 'vertical-doc',
+    selector: 'app-vertical-doc',
     standalone: true,
     imports: [FormsModule, SliderModule, AppDocSectionText, AppCode],
     template: `

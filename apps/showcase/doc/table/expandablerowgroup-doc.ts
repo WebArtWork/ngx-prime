@@ -3,21 +3,21 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'expandablerowgroup-doc',
+    selector: 'app-expandablerowgroup-doc',
     standalone: true,
-    imports: [CommonModule, TableModule, ButtonModule, RippleModule, TagModule, AppDocSectionText, AppCode, DeferredDemo],
+    imports: [TableModule, ButtonModule, RippleModule, TagModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>When <i>expandableRowGroups</i> is present in subheader based row grouping, groups can be expanded and collapsed. State of the expansions are controlled using the <i>expandedRows</i> and <i>onRowToggle</i> properties.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="customers" sortField="representative.name" sortMode="single" dataKey="representative.name" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{ 'min-width': '70rem' }">
                     <ng-template #header>
@@ -68,17 +68,15 @@ import { TagModule } from 'primeng/tag';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExpandableRowGroupDoc {
-    customers!: Customer[];
+    private customerService = inject(CustomerService);
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    customers!: Customer[];
 
     loadDemoData() {
         this.customerService.getCustomersMedium().then((data) => {

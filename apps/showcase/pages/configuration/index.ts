@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    selector: 'configuration',
+    selector: 'app-configuration',
     standalone: true,
     imports: [AppDoc],
     template: `<app-doc docTitle="Configuration - PrimeNG" header="Configuration" description="Application wide configuration for PrimeNG." [docs]="docs" docType="page"></app-doc>`

@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { StepperModule } from 'primeng/stepper';
 
 @Component({
-    selector: 'stepsonly',
+    selector: 'app-stepsonly',
     standalone: true,
     imports: [AppDocSectionText, AppCode, StepperModule],
     template: `

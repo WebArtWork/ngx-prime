@@ -1,7 +1,7 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeTableModule } from 'primeng/treetable';
@@ -12,14 +12,14 @@ interface Column {
 }
 
 @Component({
-    selector: 'paginatorbasic-doc',
+    selector: 'app-paginatorbasic-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [TreeTableModule, DeferredDemo, AppCode, AppDocSectionText],
     template: ` <app-docsectiontext>
             <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
                         <tr>
@@ -47,7 +47,7 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush

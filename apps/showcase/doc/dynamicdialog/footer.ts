@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'footer',
+    selector: 'app-footer',
     standalone: true,
     imports: [ButtonModule],
     template: `
@@ -13,7 +13,7 @@ import { ButtonModule } from 'primeng/button';
     `
 })
 export class Footer {
-    constructor(public ref: DynamicDialogRef) {}
+    ref = inject(DynamicDialogRef);
 
     closeDialog(data) {
         this.ref.close(data);

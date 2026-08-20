@@ -4,7 +4,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'icon-doc',
+    selector: 'app-icon-doc',
     standalone: true,
     imports: [MeterGroupModule, AppCodeModule, AppDocSectionText],
     template: `

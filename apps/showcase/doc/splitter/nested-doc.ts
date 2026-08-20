@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { SplitterModule } from 'primeng/splitter';
 
 @Component({
-    selector: 'nested-doc',
+    selector: 'app-nested-doc',
     standalone: true,
     imports: [AppDocSectionText, SplitterModule, AppCode],
     template: `

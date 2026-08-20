@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'v20-migration-overview-doc',
+    selector: 'app-v20-migration-overview-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `

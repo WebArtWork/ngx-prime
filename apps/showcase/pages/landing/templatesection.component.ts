@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'templates-section',
+    selector: 'app-templates-section',
     standalone: true,
     imports: [CommonModule],
     template: `

@@ -6,7 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'dynamic-doc',
+    selector: 'app-dynamic-doc',
     standalone: true,
     imports: [CommonModule, MessageModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `

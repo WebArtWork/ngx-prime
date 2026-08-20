@@ -9,23 +9,23 @@ import { GenesisSeparator } from './genesisseparator';
 
 @Component({
     standalone: true,
-    selector: 'genesis-page',
+    selector: 'app-genesis-page',
     imports: [TemplateHero, TemplateLicense, GenesisSeparator, TemplateFeaturesAnimation, TemplateConfiguration, TemplateFeatures],
     template: `
         <div class="template">
-            <template-hero [templateHeroData]="templateHeroData" [templateLogo]="genesisLogo"></template-hero>
-            <genesis-separator></genesis-separator>
-            <template-license [license]="license"></template-license>
-            <genesis-separator></genesis-separator>
-            <template-features-animation [featuresData]="animationFeaturesData1" title="Features"></template-features-animation>
-            <genesis-separator></genesis-separator>
-            <template-configuration title="Angular with CLI" description="Genesis is powered by Angular CLI to get started in no time following the best practices." appName="genesis"></template-configuration>
-            <genesis-separator></genesis-separator>
-            <template-features [featuresData]="featuresData" displayType="horizontal"></template-features>
-            <genesis-separator></genesis-separator>
-            <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-            <genesis-separator></genesis-separator>
-            <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
+            <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="genesisLogo"></app-template-hero>
+            <app-genesis-separator></app-genesis-separator>
+            <app-template-license [license]="license"></app-template-license>
+            <app-genesis-separator></app-genesis-separator>
+            <app-template-features-animation [featuresData]="animationFeaturesData1" title="Features"></app-template-features-animation>
+            <app-genesis-separator></app-genesis-separator>
+            <app-template-configuration title="Angular with CLI" description="Genesis is powered by Angular CLI to get started in no time following the best practices." appName="genesis"></app-template-configuration>
+            <app-genesis-separator></app-genesis-separator>
+            <app-template-features [featuresData]="featuresData" displayType="horizontal"></app-template-features>
+            <app-genesis-separator></app-genesis-separator>
+            <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
+            <app-genesis-separator></app-genesis-separator>
+            <app-template-features [featuresData]="features2Data" displayType="vertical"></app-template-features>
         </div>
     `
 })

@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'checkbox-doc',
+    selector: 'app-checkbox-doc',
     standalone: true,
     imports: [FormsModule, ListboxModule, AppCodeModule, AppDocSectionText],
     template: `

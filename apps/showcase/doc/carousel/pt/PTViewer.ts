@@ -2,13 +2,13 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { Component, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit, inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'carousel-pt-viewer',
+    selector: 'app-carousel-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, CarouselModule, TagModule, ButtonModule],
     template: `
@@ -38,11 +38,11 @@ import { TagModule } from 'primeng/tag';
     providers: [ProductService]
 })
 export class PTViewer implements OnInit {
+    private productService = inject(ProductService);
+
     products = signal<Product[]>([]);
 
     responsiveOptions: any[] | undefined;
-
-    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((data) => {

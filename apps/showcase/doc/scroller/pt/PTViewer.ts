@@ -5,7 +5,7 @@ import { ClassNamesModule } from 'primeng/classnames';
 import { ScrollerModule } from 'primeng/scroller';
 
 @Component({
-    selector: 'scroller-pt-viewer',
+    selector: 'app-scroller-pt-viewer',
     standalone: true,
     imports: [CommonModule, AppDocPtViewer, ClassNamesModule, ScrollerModule],
     template: `

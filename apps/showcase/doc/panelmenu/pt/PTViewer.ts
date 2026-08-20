@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { PanelMenuModule } from 'primeng/panelmenu';
 
 @Component({
-    selector: 'panelmenu-pt-viewer',
+    selector: 'app-panelmenu-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, PanelMenuModule],
+    imports: [AppDocPtViewer, PanelMenuModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-panelmenu [model]="items" styleClass="w-full md:w-80" />

@@ -5,7 +5,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { KeyFilterModule } from 'primeng/keyfilter';
 
 @Component({
-    selector: 'regex-doc',
+    selector: 'app-regex-doc',
     standalone: true,
     imports: [InputTextModule, KeyFilterModule, AppCodeModule, AppDocSectionText],
     template: `

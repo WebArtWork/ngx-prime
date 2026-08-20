@@ -1,17 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, OnInit, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { DialogModule } from 'primeng/dialog';
 
 @Component({
-    selector: 'template-youtube',
+    selector: 'app-template-youtube',
     standalone: true,
-    imports: [CommonModule, DialogModule],
+    imports: [DialogModule],
     template: `
         <div class="template-youtube-wrapper">
             <div class="template-youtube">
                 <div class="template-youtube-title">
-                    <h2 *ngFor="let data of title; let i = index" [key]="i">{{ data }}</h2>
+                    @for (data of title; track data; let i = $index) {
+                        <h2 [key]="i">{{ data }}</h2>
+                    }
                 </div>
                 <div class="template-youtube-description">{{ description }}</div>
                 <div class="template-youtube-screen" (click)="setYoutubeVideoVisible(true)">
@@ -55,12 +56,13 @@ import { DialogModule } from 'primeng/dialog';
     encapsulation: ViewEncapsulation.None
 })
 export class TemplateYoutube implements OnInit {
+    private sanitizer = inject(DomSanitizer);
+
     @Input() imgSrc: string;
     title: string[] = ['Integration with', 'Existing Vite Applications'];
     description: string = 'Only the folders that are related to the layout needs to move in to your project. We‘ve already created a short tutorial with details for Sakai Vue. The both templates have the same implementation.';
     youtubeLink: string = 'https://www.youtube.com/embed/Y07edRJd5QM';
     youtubeVideoVisible: boolean = false;
-    constructor(private sanitizer: DomSanitizer) {}
     iframeSrc: SafeResourceUrl;
     setYoutubeVideoVisible(visible: boolean) {
         this.youtubeVideoVisible = visible;

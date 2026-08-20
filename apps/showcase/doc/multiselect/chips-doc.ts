@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'chips-doc',
+    selector: 'app-chips-doc',
     standalone: true,
     imports: [FormsModule, MultiSelectModule, AppCodeModule, AppDocSectionText],
     template: `

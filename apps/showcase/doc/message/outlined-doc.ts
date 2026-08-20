@@ -4,7 +4,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'outlined-doc',
+    selector: 'app-outlined-doc',
     standalone: true,
     imports: [MessageModule, AppCodeModule, AppDocSectionText],
     template: `

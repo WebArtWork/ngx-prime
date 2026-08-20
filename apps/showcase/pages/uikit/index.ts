@@ -1,5 +1,5 @@
 import { AppConfigService } from '@/service/appconfigservice';
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { BadgeModule } from 'primeng/badge';
@@ -7,9 +7,9 @@ import { Ripple } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
-    selector: 'overview-doc',
+    selector: 'app-overview-doc',
     standalone: true,
-    imports: [CommonModule, Ripple, BadgeModule, TooltipModule, RouterModule],
+    imports: [Ripple, BadgeModule, TooltipModule, RouterModule],
     template: ` <div>
         <div style="border-radius: 50px" class="overflow-hidden mb-8 flex items-center">
             <img alt="PrimeNG Designer" src="https://fqjltiegiezfetthbags.supabase.co/storage/v1/object/public/common.images/uikit/primeone-cover-{{ isDarkMode() ? 'dark' : 'light' }}.jpg" class="w-full" />

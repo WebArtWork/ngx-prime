@@ -4,14 +4,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'contextmenu-doc',
+    selector: 'app-contextmenu-doc',
     standalone: true,
     imports: [CommonModule, TableModule, ContextMenuModule, ToastModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
@@ -21,7 +21,7 @@ import { ToastModule } from 'primeng/toast';
                 <i>contextMenuSelection</i> property is used to get a hold of the right clicked row. For dynamic columns, setting <i>pContextMenuRowDisabled</i> property as true disables context menu for that particular row.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-contextmenu #cm [model]="items" (onHide)="selectedProduct = null" />
                 <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
@@ -44,23 +44,21 @@ import { ToastModule } from 'primeng/toast';
                 </p-table>
                 <p-toast />
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
 export class ContextMenuDoc {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
+    private cd = inject(ChangeDetectorRef);
+
     products!: Product[];
 
     selectedProduct!: Product;
 
     items!: MenuItem[];
-
-    constructor(
-        private productService: ProductService,
-        private messageService: MessageService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

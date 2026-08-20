@@ -3,17 +3,17 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 
 @Component({
-    selector: 'horizontalscroll-doc',
+    selector: 'app-horizontalscroll-doc',
     standalone: true,
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>Horizontal scrollbar is displayed when table width exceeds the parent width.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
                     <ng-template #header>
@@ -57,17 +57,15 @@ import { TableModule } from 'primeng/table';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HorizontalScrollDoc {
-    customers!: Customer[];
+    private customerService = inject(CustomerService);
+    private cd = inject(ChangeDetectorRef);
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    customers!: Customer[];
 
     loadDemoData() {
         this.customerService.getCustomersMedium().then((data) => {

@@ -1,13 +1,13 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'designerapi-doc',
+    selector: 'app-designerapi-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, RouterModule, AppCode],
+    imports: [AppDocSectionText, RouterModule, AppCode],
     template: `<app-docsectiontext>
         <p>Theme Designer public endpoint is hosted at PrimeUI Store.</p>
         <app-code [code]="code1" hideToggleCode importCode hideStackBlitz />

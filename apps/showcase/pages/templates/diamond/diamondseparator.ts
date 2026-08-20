@@ -4,10 +4,10 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'diamond-separator',
+    selector: 'app-diamond-separator',
     imports: [TemplateSeparator],
     template: `
-        <template-separator>
+        <app-template-separator>
             <svg width="48" height="49" viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clipPath="url(#clip0_1004_106792)">
                     <path
@@ -21,7 +21,7 @@ import { Component, inject } from '@angular/core';
                     </clipPath>
                 </defs>
             </svg>
-        </template-separator>
+        </app-template-separator>
     `
 })
 export class DiamondSeparator {

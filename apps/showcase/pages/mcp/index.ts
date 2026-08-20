@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
 
 @Component({
-    selector: 'mcp-demo',
+    selector: 'app-mcp-demo',
     standalone: true,
     imports: [AppDoc],
     template: `

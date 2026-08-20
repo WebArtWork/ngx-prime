@@ -2,7 +2,7 @@ import { NodeService } from '@/service/nodeservice';
 import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
@@ -11,9 +11,9 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'app-templatedrivenforms-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TreeSelectModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, TreeSelectModule, ButtonModule, ToastModule, MessageModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />
@@ -32,13 +32,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     `
 })
 export class TemplateDrivenFormsDoc {
+    private nodeService = inject(NodeService);
+
     messageService = inject(MessageService);
 
     selectedNodes: any;
 
     nodes!: any[];
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 

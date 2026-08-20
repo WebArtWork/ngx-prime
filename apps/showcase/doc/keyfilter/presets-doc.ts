@@ -5,7 +5,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'presets-doc',
+    selector: 'app-presets-doc',
     standalone: true,
     imports: [InputTextModule, KeyFilterModule, AppCodeModule, AppDocSectionText],
     template: `

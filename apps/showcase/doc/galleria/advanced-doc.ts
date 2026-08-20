@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { Galleria, GalleriaModule } from 'primeng/galleria';
 
 @Component({
-    selector: 'advanced-doc',
+    selector: 'app-advanced-doc',
     standalone: true,
     imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
@@ -53,11 +53,13 @@ import { Galleria, GalleriaModule } from 'primeng/galleria';
                             (click)="toggleAutoSlide()"
                             class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
                         ></button>
-                        <span *ngIf="images()" class="flex items-center gap-4 ml-3">
-                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
-                            <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
-                            <span class="text-sm">{{ images()[activeIndex].alt }}</span>
-                        </span>
+                        @if (images()) {
+                            <span class="flex items-center gap-4 ml-3">
+                                <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                                <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
+                                <span class="text-sm">{{ images()[activeIndex].alt }}</span>
+                            </span>
+                        }
                         <button
                             type="button"
                             pButton

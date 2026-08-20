@@ -8,7 +8,6 @@ import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import { CommonModule } from '@angular/common';
 
 interface City {
     name: string;
@@ -16,9 +15,9 @@ interface City {
 }
 
 @Component({
-    selector: 'customfilter-doc',
+    selector: 'app-customfilter-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, AppCode, FormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule],
+    imports: [AppDocSectionText, AppCode, FormsModule, SelectModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule],
     template: `
         <app-docsectiontext>
             <p>Custom filter can be applied with the <i>filterTemplate</i>.</p>

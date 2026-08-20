@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'global-doc',
+    selector: 'app-global-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ButtonModule],
     template: `

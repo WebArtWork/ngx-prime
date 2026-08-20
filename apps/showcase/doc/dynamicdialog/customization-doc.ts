@@ -1,5 +1,5 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
 import { AppCode } from '@/components/doc/app.code';
@@ -7,7 +7,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'customization-doc',
+    selector: 'app-customization-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, RouterModule],
     template: `
@@ -19,9 +19,9 @@ import { RouterModule } from '@angular/router';
     providers: [DialogService]
 })
 export class CustomizationDoc {
-    ref: DynamicDialogRef | undefined;
+    dialogService = inject(DialogService);
 
-    constructor(public dialogService: DialogService) {}
+    ref: DynamicDialogRef | undefined;
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {

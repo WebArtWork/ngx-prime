@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
-    selector: 'waiaria-doc',
+    selector: 'app-waiaria-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, CheckboxModule],
     template: `

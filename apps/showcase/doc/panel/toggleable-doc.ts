@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
-    selector: 'toggleable-doc',
+    selector: 'app-toggleable-doc',
     standalone: true,
     imports: [PanelModule, AppCode, AppDocSectionText],
     template: `

@@ -1,14 +1,14 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, model, OnInit } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
-    selector: 'itemwithoutthumbnails-doc',
+    selector: 'app-itemwithoutthumbnails-doc',
     standalone: true,
-    imports: [CommonModule, GalleriaModule, AppCode, AppDocSectionText],
+    imports: [GalleriaModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Simple example with indicators only.</p>

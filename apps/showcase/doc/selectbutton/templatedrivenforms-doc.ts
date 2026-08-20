@@ -7,12 +7,11 @@ import { ButtonModule } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'app-templatedrivenforms-doc',
     standalone: true,
-    imports: [FormsModule, SelectButton, ToastModule, ButtonModule, MessageModule, AppDocSectionText, AppCode, CommonModule],
+    imports: [FormsModule, SelectButton, ToastModule, ButtonModule, MessageModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext> </app-docsectiontext>
         <p-toast />

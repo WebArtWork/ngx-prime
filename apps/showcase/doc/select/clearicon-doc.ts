@@ -10,7 +10,7 @@ interface City {
 }
 
 @Component({
-    selector: 'clearicon-doc',
+    selector: 'app-clearicon-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, FormsModule, Select],
     template: `

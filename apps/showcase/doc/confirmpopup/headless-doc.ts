@@ -1,16 +1,16 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, inject } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'headless-doc',
+    selector: 'app-headless-doc',
     standalone: true,
-    imports: [CommonModule, ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [ConfirmPopupModule, ToastModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
@@ -35,10 +35,8 @@ import { ToastModule } from 'primeng/toast';
     providers: [ConfirmationService, MessageService]
 })
 export class HeadlessDoc {
-    constructor(
-        private confirmationService: ConfirmationService,
-        private messageService: MessageService
-    ) {}
+    private confirmationService = inject(ConfirmationService);
+    private messageService = inject(MessageService);
 
     confirm(event: Event) {
         this.confirmationService.confirm({

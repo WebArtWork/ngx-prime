@@ -6,7 +6,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'reactive-doc',
+    selector: 'app-reactive-doc',
     standalone: true,
     imports: [FormsModule, KnobModule, ButtonModule, AppCodeModule, AppDocSectionText],
     template: `

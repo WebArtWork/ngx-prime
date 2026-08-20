@@ -1,15 +1,15 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
-import { CommonModule } from '@angular/common';
+
 import { Component, inject, model, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
-    selector: 'without-thumbnails-doc',
+    selector: 'app-without-thumbnails-doc',
     standalone: true,
-    imports: [CommonModule, GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
+    imports: [GalleriaModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Thumbnails can also be hidden in full screen mode.</p>

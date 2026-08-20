@@ -7,7 +7,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-    selector: 'linestyle-doc',
+    selector: 'app-linestyle-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, ChartModule],
     template: `
@@ -21,6 +21,8 @@ import { ChartModule } from 'primeng/chart';
     `
 })
 export class LineStyleDoc implements OnInit {
+    private cd = inject(ChangeDetectorRef);
+
     data: any;
 
     options: any;
@@ -30,8 +32,6 @@ export class LineStyleDoc implements OnInit {
     configService = inject(AppConfigService);
 
     designerService = inject(DesignerService);
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     themeEffect = effect(() => {
         if (this.configService.transitionComplete()) {

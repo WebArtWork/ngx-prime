@@ -7,7 +7,7 @@ import { IftaLabelModule } from 'primeng/iftalabel';
 import { TextareaModule } from 'primeng/textarea';
 
 @Component({
-    selector: 'iftalabel-doc',
+    selector: 'app-iftalabel-doc',
     standalone: true,
     imports: [FormsModule, RouterModule, AppCode, AppDocSectionText, IftaLabelModule, TextareaModule],
     template: `

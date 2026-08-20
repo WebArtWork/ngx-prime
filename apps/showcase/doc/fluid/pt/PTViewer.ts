@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { FluidModule } from 'primeng/fluid';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'fluid-pt-viewer',
+    selector: 'app-fluid-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, FluidModule, InputTextModule],
+    imports: [AppDocPtViewer, FluidModule, InputTextModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-fluid>

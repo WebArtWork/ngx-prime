@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'templates-doc',
+    selector: 'app-templates-doc',
     standalone: true,
     imports: [],
     template: `

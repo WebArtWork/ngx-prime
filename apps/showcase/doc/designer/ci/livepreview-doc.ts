@@ -1,12 +1,12 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-    selector: 'livepreview-doc',
+    selector: 'app-livepreview-doc',
     standalone: true,
-    imports: [CommonModule, AppDocSectionText, RouterModule],
+    imports: [AppDocSectionText, RouterModule],
     template: `<app-docsectiontext>
         <p>After your CI pipeline completes successfully, your theme also becomes available in the Prime UI Theme Designer.</p>
 

@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 
 @Component({
     standalone: true,
-    selector: 'diamond-logo',
+    selector: 'app-diamond-logo',
     template: `
         <svg width="190" height="40" viewBox="0 0 190 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_1048_115190)">

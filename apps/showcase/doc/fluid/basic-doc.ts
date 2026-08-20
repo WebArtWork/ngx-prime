@@ -5,7 +5,7 @@ import { Fluid } from 'primeng/fluid';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, Fluid, InputTextModule],
     template: `

@@ -2,7 +2,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'voltui-doc',
+    selector: 'app-voltui-doc',
     standalone: true,
     imports: [AppDocSectionText],
     template: `

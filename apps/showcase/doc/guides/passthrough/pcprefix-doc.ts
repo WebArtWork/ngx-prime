@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
-    selector: 'pcprefix-doc',
+    selector: 'app-pcprefix-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, PanelModule, ButtonModule],
     template: `

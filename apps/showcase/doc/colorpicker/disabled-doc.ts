@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'disabled-doc',
+    selector: 'app-disabled-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, ColorPickerModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, ColorPickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>

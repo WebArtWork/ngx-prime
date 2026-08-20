@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'accessibility-doc',
+    selector: 'app-accessibility-doc',
     standalone: true,
     imports: [RouterModule, AppDocSectionText],
     template: ` <div>

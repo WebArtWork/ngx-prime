@@ -6,7 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [BlockUIModule, ButtonModule, PanelModule, AppCode, AppDocSectionText],
     template: `

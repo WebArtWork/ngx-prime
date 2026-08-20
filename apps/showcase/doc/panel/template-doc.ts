@@ -7,7 +7,7 @@ import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
     imports: [PanelModule, AvatarModule, ButtonModule, MenuModule, AppCode, AppDocSectionText],
     template: `

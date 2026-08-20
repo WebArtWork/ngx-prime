@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ScrollTopModule } from 'primeng/scrolltop';
 
 @Component({
-    selector: 'scrolltop-pt-viewer',
+    selector: 'app-scrolltop-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, ScrollTopModule, ScrollPanelModule],
+    imports: [AppDocPtViewer, ScrollTopModule, ScrollPanelModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div [style]="{ width: '250px', height: '200px', overflow: 'auto' }">

@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -36,7 +36,7 @@ interface ExportColumn {
 }
 
 @Component({
-    selector: 'products-doc',
+    selector: 'app-products-doc',
     standalone: true,
     imports: [
         CommonModule,
@@ -64,7 +64,7 @@ interface ExportColumn {
     template: ` <app-docsectiontext>
             <p>CRUD implementation example with a Dialog.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-toast />
                 <p-toolbar class="mb-6">
@@ -171,11 +171,15 @@ interface ExportColumn {
                 <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
                     <ng-template #content>
                         <div class="flex flex-col gap-6">
-                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
+                            @if (product.image) {
+                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" />
+                            }
                             <div>
                                 <label for="name" class="block font-bold mb-3">Name</label>
                                 <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
-                                <small class="text-red-500" *ngIf="submitted && !product.name">Name is required.</small>
+                                @if (submitted && !product.name) {
+                                    <small class="text-red-500">Name is required.</small>
+                                }
                             </div>
                             <div>
                                 <label for="description" class="block font-bold mb-3">Description</label>
@@ -230,12 +234,17 @@ interface ExportColumn {
 
                 <p-confirmdialog [style]="{ width: '450px' }" />
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService, ConfirmationService]
 })
 export class ProductsDoc {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
+    private confirmationService = inject(ConfirmationService);
+    private cd = inject(ChangeDetectorRef);
+
     productDialog: boolean = false;
 
     products!: Product[];
@@ -253,13 +262,6 @@ export class ProductsDoc {
     cols!: Column[];
 
     exportColumns!: ExportColumn[];
-
-    constructor(
-        private productService: ProductService,
-        private messageService: MessageService,
-        private confirmationService: ConfirmationService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     exportCSV() {
         this.dt.exportCSV();

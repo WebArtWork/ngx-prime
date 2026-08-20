@@ -1,7 +1,7 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TreeNode } from 'primeng/api';
@@ -14,9 +14,9 @@ interface Column {
 }
 
 @Component({
-    selector: 'paginatortemplate-doc',
+    selector: 'app-paginatortemplate-doc',
     standalone: true,
-    imports: [CommonModule, TreeTableModule, ButtonModule, RouterModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [TreeTableModule, ButtonModule, RouterModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>
@@ -25,7 +25,7 @@ interface Column {
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
                         <tr>
@@ -60,7 +60,7 @@ interface Column {
                         <p-button icon="pi pi-download" text />
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `,

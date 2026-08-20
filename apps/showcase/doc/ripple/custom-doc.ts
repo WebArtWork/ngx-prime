@@ -4,7 +4,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'custom-doc',
+    selector: 'app-custom-doc',
     standalone: true,
     imports: [RippleModule, AppCode, AppDocSectionText],
     template: `

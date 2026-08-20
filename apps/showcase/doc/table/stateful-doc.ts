@@ -3,7 +3,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
@@ -11,7 +11,7 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
 @Component({
-    selector: 'stateful-doc',
+    selector: 'app-stateful-doc',
     standalone: true,
     imports: [TableModule, InputTextModule, TagModule, IconFieldModule, InputIconModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
@@ -21,7 +21,7 @@ import { TagModule } from 'primeng/tag';
                 browser is closed. Other alternative is <i>local</i> referring to <i>localStorage</i> for an extended lifetime.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table
                     #dt1
@@ -119,19 +119,17 @@ import { TagModule } from 'primeng/tag';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Customer']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StatefulDoc {
+    private customerService = inject(CustomerService);
+    private cd = inject(ChangeDetectorRef);
+
     customers!: Customer[];
 
     selectedCustomers!: Customer;
-
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     getSeverity(status: string) {
         switch (status) {

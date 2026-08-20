@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @Component({
-    selector: 'breadcrumb-pt-viewer',
+    selector: 'app-breadcrumb-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, BreadcrumbModule],
+    imports: [AppDocPtViewer, BreadcrumbModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-breadcrumb [model]="items" [home]="home" />

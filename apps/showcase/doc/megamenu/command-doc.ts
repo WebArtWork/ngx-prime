@@ -3,7 +3,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'command-doc',
+    selector: 'app-command-doc',
     standalone: true,
     imports: [AppCodeModule, AppDocSectionText],
     template: `

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -6,7 +6,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'icons-doc',
+    selector: 'app-icons-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText, SplitButtonModule, ToastModule],
     template: `
@@ -22,9 +22,11 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService]
 })
 export class IconsDoc {
+    private messageService = inject(MessageService);
+
     items: MenuItem[];
 
-    constructor(private messageService: MessageService) {
+    constructor() {
         this.items = [
             {
                 label: 'Update',

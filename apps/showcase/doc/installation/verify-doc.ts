@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'verify-doc',
+    selector: 'app-verify-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ButtonModule],
     template: `

@@ -9,7 +9,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'reactiveforms-doc',
+    selector: 'app-reactiveforms-doc',
     standalone: true,
     imports: [ReactiveFormsModule, InputOtpModule, ButtonModule, ToastModule, MessageModule, AppCodeModule, AppDocSectionText],
     template: ` <app-docsectiontext>
@@ -30,13 +30,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-code></app-code>`
 })
 export class ReactiveFormsDoc {
+    private fb = inject(FormBuilder);
+
     messageService = inject(MessageService);
 
     exampleForm: FormGroup | undefined;
 
     formSubmitted: boolean = false;
 
-    constructor(private fb: FormBuilder) {
+    constructor() {
         this.exampleForm = this.fb.group({
             value: ['', [Validators.required, Validators.minLength(4)]]
         });

@@ -1,12 +1,12 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { MegaMenuModule } from 'primeng/megamenu';
 
 @Component({
-    selector: 'megamenu-pt-viewer',
+    selector: 'app-megamenu-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, MegaMenuModule],
+    imports: [AppDocPtViewer, MegaMenuModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-megamenu [model]="items" />

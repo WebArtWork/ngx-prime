@@ -1,14 +1,14 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { TreeModule } from 'primeng/tree';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
-    selector: 'tree-pt-viewer',
+    selector: 'app-tree-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, TreeModule],
+    imports: [AppDocPtViewer, TreeModule],
     providers: [NodeService],
     template: `
         <app-docptviewer [docs]="docs">
@@ -17,6 +17,8 @@ import { NodeService } from '@/service/nodeservice';
     `
 })
 export class PTViewer implements OnInit {
+    private nodeService = inject(NodeService);
+
     nodes = signal<TreeNode[] | undefined>(undefined);
 
     selectedKey: any = null;
@@ -27,8 +29,6 @@ export class PTViewer implements OnInit {
             key: 'Tree'
         }
     ];
-
-    constructor(private nodeService: NodeService) {}
 
     ngOnInit() {
         this.nodeService.getTreeNodes().then((data) => this.nodes.set(data));

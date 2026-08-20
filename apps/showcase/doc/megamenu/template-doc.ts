@@ -9,7 +9,7 @@ import { MegaMenuModule } from 'primeng/megamenu';
 import { RippleModule } from 'primeng/ripple';
 
 @Component({
-    selector: 'template-doc',
+    selector: 'app-template-doc',
     standalone: true,
     imports: [CommonModule, MegaMenuModule, ButtonModule, AvatarModule, RippleModule, AppCodeModule, AppDocSectionText],
     template: `
@@ -50,24 +50,30 @@ import { RippleModule } from 'primeng/ripple';
                     </svg>
                 </ng-template>
                 <ng-template #item let-item>
-                    <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
-                        <i [ngClass]="item.icon"></i>
-                        <span class="ml-2">{{ item.label }}</span>
-                    </a>
-                    <a *ngIf="!item.root && !item.image" class="flex items-center p-4 cursor-pointer mb-2 gap-2">
-                        <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12">
-                            <i [ngClass]="item.icon + ' text-lg'"></i>
-                        </span>
-                        <span class="inline-flex flex-col gap-1">
-                            <span class="font-medium text-lg text-surface-900 dark:text-surface-0">{{ item.label }}</span>
-                            <span class="whitespace-nowrap">{{ item.subtext }}</span>
-                        </span>
-                    </a>
-                    <div *ngIf="item.image" class="flex flex-col items-start gap-4">
-                        <img [src]="item.image" alt="megamenu-demo" class="w-full" />
-                        <span>{{ item.subtext }}</span>
-                        <p-button [label]="item.label" [outlined]="true"></p-button>
-                    </div>
+                    @if (item.root) {
+                        <a pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
+                            <i [ngClass]="item.icon"></i>
+                            <span class="ml-2">{{ item.label }}</span>
+                        </a>
+                    }
+                    @if (!item.root && !item.image) {
+                        <a class="flex items-center p-4 cursor-pointer mb-2 gap-2">
+                            <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12">
+                                <i [ngClass]="item.icon + ' text-lg'"></i>
+                            </span>
+                            <span class="inline-flex flex-col gap-1">
+                                <span class="font-medium text-lg text-surface-900 dark:text-surface-0">{{ item.label }}</span>
+                                <span class="whitespace-nowrap">{{ item.subtext }}</span>
+                            </span>
+                        </a>
+                    }
+                    @if (item.image) {
+                        <div class="flex flex-col items-start gap-4">
+                            <img [src]="item.image" alt="megamenu-demo" class="w-full" />
+                            <span>{{ item.subtext }}</span>
+                            <p-button [label]="item.label" [outlined]="true"></p-button>
+                        </div>
+                    }
                 </ng-template>
                 <ng-template #end>
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />

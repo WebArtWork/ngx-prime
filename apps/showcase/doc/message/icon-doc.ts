@@ -5,7 +5,7 @@ import { AvatarModule } from 'primeng/avatar';
 import { MessageModule } from 'primeng/message';
 
 @Component({
-    selector: 'icon-doc',
+    selector: 'app-icon-doc',
     standalone: true,
     imports: [MessageModule, AvatarModule, AppCodeModule, AppDocSectionText],
     template: `

@@ -1,14 +1,14 @@
 import { PhotoService } from '@/service/photoservice';
 import { Component, inject, model, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { GalleriaModule } from 'primeng/galleria';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
-    imports: [CommonModule, GalleriaModule, AppCode, AppDocSectionText],
+    imports: [GalleriaModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Galleria requires a <i>value</i> as a collection of images, <i>item</i> template for the higher resolution image and <i>thumbnail</i> template to display as a thumbnail.</p>

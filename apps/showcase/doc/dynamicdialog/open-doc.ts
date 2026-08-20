@@ -1,12 +1,12 @@
 import { Code } from '@/domain/code';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'open-doc',
+    selector: 'app-open-doc',
     standalone: true,
     imports: [AppCode, AppDocSectionText],
     template: `
@@ -18,7 +18,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [DialogService]
 })
 export class OpenDoc {
-    constructor(public dialogService: DialogService) {}
+    dialogService = inject(DialogService);
 
     ref: DynamicDialogRef | undefined;
 

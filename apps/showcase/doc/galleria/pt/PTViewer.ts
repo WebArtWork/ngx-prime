@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { PhotoService } from '@/service/photoservice';
-import { CommonModule } from '@angular/common';
-import { Component, model, OnInit } from '@angular/core';
+
+import { Component, model, OnInit, inject } from '@angular/core';
 import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
-    selector: 'galleria-pt-viewer',
+    selector: 'app-galleria-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, GalleriaModule],
+    imports: [AppDocPtViewer, GalleriaModule],
     template: `
         <app-docptviewer [docs]="docs">
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
@@ -22,6 +22,8 @@ import { GalleriaModule } from 'primeng/galleria';
     `
 })
 export class PTViewer implements OnInit {
+    private photoService = inject(PhotoService);
+
     images = model([]);
 
     responsiveOptions: any[] = [
@@ -41,8 +43,6 @@ export class PTViewer implements OnInit {
             key: 'Galleria'
         }
     ];
-
-    constructor(private photoService: PhotoService) {}
 
     ngOnInit() {
         this.photoService.getImages().then((images) => this.images.set(images));

@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -16,7 +16,7 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'rowedit-doc',
+    selector: 'app-rowedit-doc',
     standalone: true,
     imports: [CommonModule, FormsModule, TableModule, ToastModule, InputTextModule, SelectModule, TagModule, ButtonModule, RippleModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
@@ -34,7 +34,7 @@ import { ToastModule } from 'primeng/toast';
                 whose key is the dataKey of the record where the value is any arbitrary number greater than zero.
             </p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-toast />
                 <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
@@ -100,23 +100,21 @@ import { ToastModule } from 'primeng/toast';
                     </ng-template>
                 </p-table>
             </div>
-        </p-deferred-demo>
+        </app-p-deferred-demo>
         <app-code [extFiles]="['Product']"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
 export class RowEditDoc {
+    private productService = inject(ProductService);
+    private messageService = inject(MessageService);
+    private cd = inject(ChangeDetectorRef);
+
     products!: Product[];
 
     statuses!: SelectItem[];
 
     clonedProducts: { [s: string]: Product } = {};
-
-    constructor(
-        private productService: ProductService,
-        private messageService: MessageService,
-        private cd: ChangeDetectorRef
-    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

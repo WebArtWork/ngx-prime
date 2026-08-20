@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'format-doc',
+    selector: 'app-format-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, ColorPickerModule, AppCode, AppDocSectionText],
+    imports: [FormsModule, ColorPickerModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Default color format to use in value binding is <i>hex</i> and other possible values can be <i>rgb</i> and <i>hsb</i> using the <i>format</i> property.</p>

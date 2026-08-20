@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'numberofstars-doc',
+    selector: 'app-numberofstars-doc',
     standalone: true,
     imports: [FormsModule, RatingModule, AppCode, AppDocSectionText],
     template: `

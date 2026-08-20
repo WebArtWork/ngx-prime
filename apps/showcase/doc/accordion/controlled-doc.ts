@@ -5,7 +5,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'controlled-doc',
+    selector: 'app-controlled-doc',
     standalone: true,
     imports: [AccordionModule, ButtonModule, AppCode, AppDocSectionText],
     template: `

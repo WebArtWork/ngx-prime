@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { InplaceModule } from 'primeng/inplace';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCodeModule, InplaceModule],
     template: `

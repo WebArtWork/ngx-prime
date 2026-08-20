@@ -9,7 +9,7 @@ interface City {
 }
 
 @Component({
-    selector: 'architecture-doc',
+    selector: 'app-architecture-doc',
     standalone: true,
     imports: [AppDocSectionText, SelectModule, FormsModule],
     template: `

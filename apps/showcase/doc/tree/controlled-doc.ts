@@ -1,13 +1,13 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TreeModule } from 'primeng/tree';
 
 @Component({
-    selector: 'controlled-doc',
+    selector: 'app-controlled-doc',
     standalone: true,
     imports: [TreeModule, ButtonModule, AppCode, AppDocSectionText],
     template: `
@@ -25,9 +25,9 @@ import { TreeModule } from 'primeng/tree';
     `
 })
 export class ControlledDoc implements OnInit {
-    files = signal<TreeNode[]>(undefined);
+    private nodeService = inject(NodeService);
 
-    constructor(private nodeService: NodeService) {}
+    files = signal<TreeNode[]>(undefined);
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => {

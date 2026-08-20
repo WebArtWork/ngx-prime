@@ -2,8 +2,8 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeNode } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -15,15 +15,15 @@ interface Column {
 }
 
 @Component({
-    selector: 'columntoggle-doc',
+    selector: 'app-columntoggle-doc',
     standalone: true,
-    imports: [CommonModule, FormsModule, TreeTableModule, MultiSelectModule, DeferredDemo, AppCode, AppDocSectionText],
+    imports: [FormsModule, TreeTableModule, MultiSelectModule, DeferredDemo, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
             <p>Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to manage the visible columns.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (load)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #caption>
                         <div style="text-align:left">
@@ -56,20 +56,20 @@ interface Column {
                         </tr>
                     </ng-template>
                 </p-treetable>
-            </p-deferred-demo>
+            </app-p-deferred-demo>
         </div>
         <app-code></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnToggleDoc {
+    private nodeService = inject(NodeService);
+
     files!: TreeNode[];
 
     cols!: Column[];
 
     selectedColumns!: Column[];
-
-    constructor(private nodeService: NodeService) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

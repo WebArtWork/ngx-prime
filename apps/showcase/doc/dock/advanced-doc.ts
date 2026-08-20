@@ -1,6 +1,6 @@
 import { NodeService } from '@/service/nodeservice';
 import { PhotoService } from '@/service/photoservice';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TerminalModule, TerminalService } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({
-    selector: 'advanced-doc',
+    selector: 'app-advanced-doc',
     standalone: true,
     imports: [Dock, DialogModule, GalleriaModule, MenubarModule, TerminalModule, ToastModule, TooltipModule, TreeModule, AppCode, AppDocSectionText],
     template: `
@@ -97,6 +97,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [MessageService, TerminalService, PhotoService, NodeService]
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
+    private galleriaService = inject(PhotoService);
+    private nodeService = inject(NodeService);
+    private messageService = inject(MessageService);
+    private terminalService = inject(TerminalService);
+
     displayTerminal: boolean | undefined;
 
     displayFinder: boolean | undefined;
@@ -114,13 +119,6 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     nodes: any[] | undefined;
 
     subscription: Subscription | undefined;
-
-    constructor(
-        private galleriaService: PhotoService,
-        private nodeService: NodeService,
-        private messageService: MessageService,
-        private terminalService: TerminalService
-    ) {}
 
     ngOnInit() {
         this.dockItems = [

@@ -1,12 +1,12 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
-    selector: 'multiple-doc',
+    selector: 'app-multiple-doc',
     standalone: true,
     imports: [TreeSelectModule, FormsModule, AppCode, AppDocSectionText],
     template: `
@@ -25,11 +25,13 @@ import { TreeSelectModule } from 'primeng/treeselect';
     `
 })
 export class MultipleDoc {
+    private nodeService = inject(NodeService);
+
     nodes!: any[];
 
     selectedNodes: any;
 
-    constructor(private nodeService: NodeService) {
+    constructor() {
         this.nodeService.getFiles().then((files) => (this.nodes = files));
     }
 

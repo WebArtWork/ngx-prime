@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
-    selector: 'badge-pt-viewer',
+    selector: 'app-badge-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, BadgeModule, OverlayBadgeModule],
+    imports: [AppDocPtViewer, BadgeModule, OverlayBadgeModule],
     template: `
         <app-docptviewer [docs]="docs">
             <div class="flex flex-wrap gap-8">

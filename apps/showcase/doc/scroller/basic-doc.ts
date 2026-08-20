@@ -5,7 +5,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [ScrollerModule, AppCode, AppDocSectionText, CommonModule],
     template: `

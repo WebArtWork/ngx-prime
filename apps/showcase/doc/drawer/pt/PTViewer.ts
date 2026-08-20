@@ -1,13 +1,13 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { DrawerModule } from 'primeng/drawer';
 import { TimesIcon } from 'primeng/icons';
 
 @Component({
-    selector: 'drawer-pt-viewer',
+    selector: 'app-drawer-pt-viewer',
     standalone: true,
-    imports: [CommonModule, AppDocPtViewer, DrawerModule, TimesIcon],
+    imports: [AppDocPtViewer, DrawerModule, TimesIcon],
     template: `
         <app-docptviewer [docs]="docs" class="!justify-start" #docref>
             <p-drawer [(visible)]="visible" styleClass="!relative !h-[450px] !w-80" header="Drawer" [appendTo]="docref?.nativeElement" [modal]="false">

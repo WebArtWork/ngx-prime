@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { PanelModule } from 'primeng/panel';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, PanelModule],
     template: `

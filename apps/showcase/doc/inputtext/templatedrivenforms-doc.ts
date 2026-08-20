@@ -8,7 +8,7 @@ import { MessageModule } from 'primeng/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 
 @Component({
-    selector: 'templatedrivenforms-doc',
+    selector: 'app-templatedrivenforms-doc',
     standalone: true,
     imports: [FormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, AppCodeModule],
     template: `

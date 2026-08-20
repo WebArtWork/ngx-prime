@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -6,7 +6,7 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'app-basic-doc',
     standalone: true,
     imports: [AppDocSectionText, AppCode, ToastModule, ButtonModule],
     template: `
@@ -25,7 +25,7 @@ import { ButtonModule } from 'primeng/button';
     providers: [MessageService]
 })
 export class BasicDoc {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     show() {
         this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
