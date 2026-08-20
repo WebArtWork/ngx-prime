@@ -173,25 +173,25 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
     active: boolean | undefined;
 
-    mouseEnterListener: Nullable<Function>;
+    mouseEnterListener: Nullable<(...args: any[]) => any>;
 
-    mouseLeaveListener: Nullable<Function>;
+    mouseLeaveListener: Nullable<(...args: any[]) => any>;
 
-    containerMouseleaveListener: Nullable<Function>;
+    containerMouseleaveListener: Nullable<(...args: any[]) => any>;
 
-    clickListener: Nullable<Function>;
+    clickListener: Nullable<(...args: any[]) => any>;
 
-    focusListener: Nullable<Function>;
+    focusListener: Nullable<(...args: any[]) => any>;
 
-    blurListener: Nullable<Function>;
+    blurListener: Nullable<(...args: any[]) => any>;
 
-    touchStartListener: Nullable<Function>;
+    touchStartListener: Nullable<(...args: any[]) => any>;
 
-    touchEndListener: Nullable<Function>;
+    touchEndListener: Nullable<(...args: any[]) => any>;
 
-    documentTouchListener: Nullable<Function>;
+    documentTouchListener: Nullable<(...args: any[]) => any>;
 
-    documentEscapeListener: Nullable<Function>;
+    documentEscapeListener: Nullable<(...args: any[]) => any>;
 
     scrollHandler: any;
 
@@ -376,7 +376,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         return this.getOption('autoHide');
     }
 
-    onMouseEnter(e: Event) {
+    onMouseEnter() {
         if (!this.container && !this.showTimeout) {
             this.activate();
         }
@@ -392,7 +392,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         }
     }
 
-    onTouchStart(e: TouchEvent) {
+    onTouchStart() {
         if (!this.container && !this.showTimeout) {
             this.activate();
 
@@ -402,7 +402,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         }
     }
 
-    onTouchEnd(e: TouchEvent) {
+    onTouchEnd() {
         if (this.isAutoHide()) {
             this.deactivate();
         }
@@ -426,15 +426,15 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         }
     }
 
-    onFocus(e: Event) {
+    onFocus() {
         this.activate();
     }
 
-    onBlur(e: Event) {
+    onBlur() {
         this.deactivate();
     }
 
-    onInputClick(e: Event) {
+    onInputClick() {
         this.deactivate();
     }
 
@@ -540,7 +540,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         if (!this.containerMouseleaveListener) {
             const targetEl: any = this.container ?? this.container.nativeElement;
 
-            this.containerMouseleaveListener = this.renderer.listen(targetEl, 'mouseleave', (e) => {
+            this.containerMouseleaveListener = this.renderer.listen(targetEl, 'mouseleave', () => {
                 this.deactivate();
             });
         }
@@ -749,7 +749,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         return targetLeft + width > viewport.width || targetLeft < 0 || targetTop < 0 || targetTop + height > viewport.height;
     }
 
-    onWindowResize(e: Event) {
+    onWindowResize() {
         this.hide();
     }
 

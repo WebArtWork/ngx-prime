@@ -106,5 +106,3 @@ export enum FileUploadClasses {
      */
     basicContent = 'p-fileupload-basic-content'
 }
-
-export interface FileUploadStyle extends BaseStyle {}

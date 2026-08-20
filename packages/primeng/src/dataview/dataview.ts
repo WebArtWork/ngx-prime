@@ -282,7 +282,7 @@ export class DataView extends BaseComponent<DataViewPassThrough> implements Bloc
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: (...args: any[]) => any = (index: number, item: any) => item;
     /**
      * Comma separated list of fields in the object graph to search against.
      * @group Props

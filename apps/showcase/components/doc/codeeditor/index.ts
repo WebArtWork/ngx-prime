@@ -23,7 +23,7 @@ const useCodeSandbox = (props: Props) => {
         body: JSON.stringify({ files: files, sourceFileName: 'components/layout/app.component.ts' })
     })
         .then((response) => response.json())
-        .then((data) => typeof window !== undefined && window.open(`https://codesandbox.io/s/${data.sandbox_id}`, '_blank'));
+        .then((data) => typeof window !== 'undefined' && window.open(`https://codesandbox.io/s/${data.sandbox_id}`, '_blank'));
 };
 
 const useStackBlitz = (props: Props) => {
@@ -35,7 +35,7 @@ const useStackBlitz = (props: Props) => {
 
     const project = {
         title: title,
-        template: 'node',
+        template: 'node' as const,
         description:
             'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.',
         files: _files
@@ -46,7 +46,6 @@ const useStackBlitz = (props: Props) => {
         openFile: `src/app/${props.selector}.ts`
     };
 
-    // @ts-ignore
     sdk.openProject(project, options);
 };
 

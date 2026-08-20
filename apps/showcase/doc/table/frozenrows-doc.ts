@@ -13,7 +13,7 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>Frozen rows are used to fix certain rows while scrolling, this data is defined with the <i>frozenValue</i> property.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="unlockedCustomers" [frozenValue]="lockedCustomers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #header>

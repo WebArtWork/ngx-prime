@@ -21,7 +21,7 @@ import { TagModule } from 'primeng/tag';
                 browser is closed. Other alternative is <i>local</i> referring to <i>localStorage</i> for an extended lifetime.
             </p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table
                     #dt1

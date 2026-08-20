@@ -96,7 +96,7 @@ class TestBasicTreeComponent {
     virtualScrollOptions: any;
     indentation: number = 1.5;
     _templateMap: any;
-    trackBy: Function = (index: number, item: any) => item;
+    trackBy: (...args: any[]) => any = (index: number, item: any) => item;
     highlightOnSelect: boolean = false;
 
     nodeSelectEvent: any;
@@ -2944,7 +2944,7 @@ class TestDynamicTreeComponent {
     ariaLabel: string | undefined;
     togglerAriaLabel: string | undefined;
     ariaLabelledBy: string | undefined;
-    trackBy: Function = (index: number, item: any) => item;
+    trackBy: (...args: any[]) => any = (index: number, item: any) => item;
     indentation: number = 1.5;
 
     updateValue(newValue: TreeNode[]) {
@@ -3006,7 +3006,7 @@ class TestDynamicTreeComponent {
         }, 500);
     }
 
-    updateTrackBy(trackBy: Function) {
+    updateTrackBy(trackBy: (...args: any[]) => any) {
         this.trackBy = trackBy;
     }
 

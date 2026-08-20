@@ -15,7 +15,7 @@ import { TreeTableModule } from 'primeng/treetable';
             <p>Enabling <i>showGridlines</i> displays grid lines.</p>
         </app-docsectiontext>
         <div class="card">
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>

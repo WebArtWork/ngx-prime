@@ -210,7 +210,7 @@ class TestSelectPTemplateComponent {
     filter = true;
     showClear = true;
 
-    onCustomFilter(event: any) {
+    onCustomFilter() {
         // Custom filter logic (console.log removed to avoid test output noise)
     }
 }
@@ -773,7 +773,7 @@ class TestComplexEdgeCasesComponent {
         this.circularOptions = [circularBase, circularChild];
     }
 
-    onRapidChange(event: any) {
+    onRapidChange() {
         this.rapidChangeCount++;
         // Rapid change logic (console.log removed to avoid test output noise)
     }
@@ -1250,7 +1250,7 @@ describe('Select', () => {
                     await new Promise((resolve) => setTimeout(resolve, 100));
                     await fixture.whenStable();
                     expect(selectInstance.overlayVisible).not.toBe(true);
-                } catch (error) {
+                } catch {
                     expect(true).toBe(true);
                 }
             }
@@ -2966,7 +2966,7 @@ describe('Select Complex Edge Cases', () => {
                 const selectInstance = edgeSelect.componentInstance;
 
                 expect(() => {
-                    selectInstance.options;
+                    void selectInstance.options;
                 }).not.toThrow();
             } else {
                 // If no select found, test component data directly

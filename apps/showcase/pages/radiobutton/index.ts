@@ -11,7 +11,6 @@ import { TemplateDrivenFormsDoc } from '@/doc/radiobutton/templatedrivenforms-do
 import { PTComponent } from '@/doc/radiobutton/pt/PTComponent';
 import { Component } from '@angular/core';
 import { AppDoc } from '@/components/doc/app.doc';
-import { AppDocService } from '@/components/doc/app.doc.service';
 @Component({
     template: `<app-doc
         docTitle="Angular RadioButton Component"

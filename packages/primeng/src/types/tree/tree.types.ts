@@ -131,7 +131,7 @@ export interface TreeNodeSelectEvent {
  * @extends {TreeNodeSelectEvent}
  * @group Events
  */
-export interface TreeNodeUnSelectEvent extends TreeNodeSelectEvent {}
+export type TreeNodeUnSelectEvent = TreeNodeSelectEvent;
 
 /**
  * Custom node expand event.
@@ -139,7 +139,7 @@ export interface TreeNodeUnSelectEvent extends TreeNodeSelectEvent {}
  * @extends {TreeNodeSelectEvent}
  * @group Events
  */
-export interface TreeNodeExpandEvent extends TreeNodeSelectEvent {}
+export type TreeNodeExpandEvent = TreeNodeSelectEvent;
 
 /**
  * Custom node collapse event.
@@ -147,7 +147,7 @@ export interface TreeNodeExpandEvent extends TreeNodeSelectEvent {}
  * @extends {TreeNodeSelectEvent}
  * @group Events
  */
-export interface TreeNodeCollapseEvent extends TreeNodeSelectEvent {}
+export type TreeNodeCollapseEvent = TreeNodeSelectEvent;
 
 /**
  * Custom context menu select event.
@@ -155,7 +155,7 @@ export interface TreeNodeCollapseEvent extends TreeNodeSelectEvent {}
  * @extends {TreeNodeSelectEvent}
  * @group Events
  */
-export interface TreeNodeContextMenuSelectEvent extends TreeNodeSelectEvent {}
+export type TreeNodeContextMenuSelectEvent = TreeNodeSelectEvent;
 
 /**
  * Custom node double click event.
@@ -163,7 +163,7 @@ export interface TreeNodeContextMenuSelectEvent extends TreeNodeSelectEvent {}
  * @extends {TreeNodeSelectEvent}
  * @group Events
  */
-export interface TreeNodeDoubleClickEvent extends TreeNodeSelectEvent {}
+export type TreeNodeDoubleClickEvent = TreeNodeSelectEvent;
 
 /**
  * Custom node drop event.
@@ -190,7 +190,7 @@ export interface TreeNodeDropEvent {
     /**
      * Callback to invoke on drop.
      */
-    accept?: Function;
+    accept?: (...args: any[]) => any;
 }
 
 /**
@@ -214,7 +214,7 @@ export interface TreeLazyLoadEvent {
  * @see {@link Tree.onScrollIndexChange}
  * @group Events
  */
-export interface TreeScrollIndexChangeEvent extends TreeLazyLoadEvent {}
+export type TreeScrollIndexChangeEvent = TreeLazyLoadEvent;
 
 /**
  * Custom scroll event.

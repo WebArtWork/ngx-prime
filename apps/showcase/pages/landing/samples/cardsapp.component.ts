@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -511,10 +511,8 @@ export class CardsApp implements OnInit {
 
     items: any;
 
-    constructor(
-        private config: PrimeNG,
-        private messageService: MessageService
-    ) {}
+    private config = inject(PrimeNG);
+    private messageService = inject(MessageService);
 
     ngOnInit() {
         this.priceRangePopularSpecs = [

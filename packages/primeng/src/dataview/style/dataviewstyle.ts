@@ -76,5 +76,3 @@ export enum DataViewClasses {
      */
     footer = 'p-dataview-footer'
 }
-
-export interface DataViewStyle extends BaseStyle {}

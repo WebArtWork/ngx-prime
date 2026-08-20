@@ -40,5 +40,3 @@ export enum InplaceClasses {
      */
     content = 'p-inplace-content'
 }
-
-export interface InplaceStyle extends BaseStyle {}

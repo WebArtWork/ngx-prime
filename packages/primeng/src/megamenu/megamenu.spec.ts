@@ -980,7 +980,7 @@ describe('MegaMenu', () => {
             const itemElements = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
 
             if (itemElements.length > 0) {
-                itemElements.forEach((item, index) => {
+                itemElements.forEach((item) => {
                     expect(item.nativeElement.getAttribute('role')).toBe('menuitem');
 
                     // Check if item has a label
@@ -1525,7 +1525,7 @@ describe('MegaMenu', () => {
                 component.disabled = true;
                 fixture.componentRef.setInput('disabled', true);
                 fixture.componentRef.setInput('pt', {
-                    root: ({ instance }: any) => ({
+                    root: () => ({
                         class: 'PT_FUNCTION_CLASS'
                     })
                 });
@@ -1713,7 +1713,7 @@ describe('MegaMenu', () => {
 
         describe('Case 8: Test hooks', () => {
             it('should accept PT hooks configuration without error', async () => {
-                let onAfterViewInitCalled = false;
+                void false;
 
                 fixture.componentRef.setInput('pt', {
                     root: 'MY-MEGAMENU',
@@ -1811,7 +1811,7 @@ describe('MegaMenu', () => {
                 fixture.detectChanges();
 
                 if (contextStates) {
-                    expect(contextStates.hasOwnProperty('active') || contextStates.hasOwnProperty('focused') || contextStates.hasOwnProperty('disabled')).toBe(true);
+                    expect(Object.prototype.hasOwnProperty.call(contextStates, 'active') || Object.prototype.hasOwnProperty.call(contextStates, 'focused') || Object.prototype.hasOwnProperty.call(contextStates, 'disabled')).toBe(true);
                 }
             });
         });

@@ -2,7 +2,6 @@ import { Component, DebugElement, NO_ERRORS_SCHEMA, provideZonelessChangeDetecti
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbItemClickEvent } from 'primeng/types/breadcrumb';
@@ -173,7 +172,6 @@ describe('Breadcrumb', () => {
     let fixture: ComponentFixture<TestBasicBreadcrumbComponent>;
     let breadcrumbElement: DebugElement;
     let breadcrumbInstance: Breadcrumb;
-    let router: Router;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -204,7 +202,6 @@ describe('Breadcrumb', () => {
         component = fixture.componentInstance;
         breadcrumbElement = fixture.debugElement.query(By.directive(Breadcrumb));
         breadcrumbInstance = breadcrumbElement.componentInstance;
-        router = TestBed.inject(Router);
         fixture.detectChanges();
     });
 

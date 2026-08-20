@@ -185,7 +185,6 @@ describe('Message', () => {
 
     describe('Public Methods', () => {
         let fixture: ComponentFixture<TestBasicMessageComponent>;
-        let component: TestBasicMessageComponent;
         let messageEl: DebugElement;
         let messageInstance: Message;
 
@@ -196,7 +195,6 @@ describe('Message', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicMessageComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
             messageEl = fixture.debugElement.query(By.css('p-message'));
             messageInstance = messageEl.componentInstance as Message;
@@ -229,7 +227,6 @@ describe('Message', () => {
     describe('Event Handling', () => {
         let fixture: ComponentFixture<TestBasicMessageComponent>;
         let component: TestBasicMessageComponent;
-        let messageEl: DebugElement;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -241,7 +238,6 @@ describe('Message', () => {
             component = fixture.componentInstance;
             component.closable = true;
             fixture.detectChanges();
-            messageEl = fixture.debugElement.query(By.css('p-message'));
         });
 
         it('should emit onClose event when close button is clicked', async () => {
@@ -484,7 +480,6 @@ describe('Message', () => {
 
     describe('Template Content Projection - #content approach', () => {
         let fixture: ComponentFixture<TestContainerTemplateComponent>;
-        let component: TestContainerTemplateComponent;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -493,7 +488,6 @@ describe('Message', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestContainerTemplateComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -532,7 +526,6 @@ describe('Message', () => {
 
     describe('Template Content Projection - Icon Templates', () => {
         let fixture: ComponentFixture<TestIconTemplatesComponent>;
-        let component: TestIconTemplatesComponent;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -541,7 +534,6 @@ describe('Message', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestIconTemplatesComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -562,7 +554,6 @@ describe('Message', () => {
 
     describe('Template Content Projection - pTemplate approach', () => {
         let fixture: ComponentFixture<TestPTemplateComponent>;
-        let component: TestPTemplateComponent;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -571,7 +562,6 @@ describe('Message', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestPTemplateComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -721,7 +711,6 @@ describe('Message', () => {
 
     describe('Keyboard Navigation and Accessibility', () => {
         let fixture: ComponentFixture<TestKeyboardNavigationComponent>;
-        let component: TestKeyboardNavigationComponent;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -730,7 +719,6 @@ describe('Message', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestKeyboardNavigationComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -901,7 +889,8 @@ describe('Message', () => {
             await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
-            const messageInstance = messageEl.componentInstance as Message;
+
+            void (messageEl.componentInstance as Message);
 
             // Destroy component before timeout
             fixture.destroy();

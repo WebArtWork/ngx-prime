@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
@@ -15,8 +14,6 @@ import {
     Input,
     NgModule,
     numberAttribute,
-    OnChanges,
-    OnInit,
     Output,
     SimpleChanges,
     TemplateRef,
@@ -84,7 +81,7 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
                         type="button"
                         [class]="cx('page', { pageLink })"
                         [attr.aria-label]="getPageAriaLabel(pageLink)"
-                        [attr.aria-current]="pageLink - 1 == getPage() ? 'page' : undefined"
+                        [attr.aria-current]="pageLink - 1 === getPage() ? 'page' : undefined"
                         (click)="onPageLinkClick($event, pageLink - 1)"
                         pRipple
                     >
@@ -596,7 +593,7 @@ export class Paginator extends BaseComponent<PaginatorPassThrough> {
         event.preventDefault();
     }
 
-    onRppChange(event: Event): void {
+    onRppChange(): void {
         this.changePage(this.getPage());
     }
 

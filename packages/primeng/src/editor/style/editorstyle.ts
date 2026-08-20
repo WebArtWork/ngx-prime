@@ -45,5 +45,3 @@ export enum EditorClasses {
      */
     content = 'p-editor-content'
 }
-
-export interface EditorStyle extends BaseStyle {}

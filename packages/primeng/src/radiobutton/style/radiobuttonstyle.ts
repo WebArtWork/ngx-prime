@@ -66,5 +66,3 @@ export enum RadioButtonClasses {
      */
     icon = 'p-radiobutton-icon'
 }
-
-export interface RadioButtonStyle extends BaseStyle {}

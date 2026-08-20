@@ -19,7 +19,7 @@ import { TreeTableModule } from 'primeng/treetable';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
                 <p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
                     <ng-template #content>

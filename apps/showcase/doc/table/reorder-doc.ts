@@ -26,7 +26,7 @@ interface Column {
                 reorder completes.
             </p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>

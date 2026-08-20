@@ -17,7 +17,7 @@ import { ToastModule } from 'primeng/toast';
     template: ` <app-docsectiontext>
             <p>Row selection with an element inside a column is implemented with templating.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-toast />
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">

@@ -63,7 +63,7 @@ const TREE_INSTANCE = new InjectionToken<Tree>('TREE_INSTANCE');
 const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
 
 @Component({
-    selector: 'p-treeNode',
+    selector: 'p-tree-node',
     standalone: true,
     imports: [CommonModule, Ripple, Checkbox, FormsModule, ChevronRightIcon, ChevronDownIcon, SpinnerIcon, SharedModule, BindModule],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -176,7 +176,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                 @if (!tree.virtualScroll && node.children && node.expanded) {
                     <ul [class]="cx('nodeChildren')" role="group" [pBind]="ptm('nodeChildren')">
                         @for (childNode of node.children; track tree.trackBy.bind(this)(index, childNode); let firstChild = $first; let lastChild = $last; let index = $index) {
-                            <p-treeNode
+                            <p-tree-node
                                 [node]="childNode"
                                 [parentNode]="node"
                                 [firstChild]="firstChild"
@@ -187,7 +187,7 @@ const TREENODE_INSTANCE = new InjectionToken<UITreeNode>('TREENODE_INSTANCE');
                                 [loadingMode]="loadingMode"
                                 [pt]="pt"
                                 [unstyled]="unstyled()"
-                            ></p-treeNode>
+                            ></p-tree-node>
                         }
                     </ul>
                 }
@@ -622,7 +622,8 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
             if (nodeElement?.parentElement?.nextElementSibling) {
                 this.focusRowChange(nodeElement, nodeElement.parentElement.nextElementSibling);
             } else {
-                let nextSiblingAncestor = this.findNextSiblingOfAncestor(nodeElement?.parentElement!);
+                let parentElement = nodeElement?.parentElement;
+                let nextSiblingAncestor = this.findNextSiblingOfAncestor(parentElement!);
 
                 if (nextSiblingAncestor) {
                     this.focusRowChange(nodeElement, nextSiblingAncestor);
@@ -659,7 +660,8 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
             return;
         }
 
-        let parentNodeElement = this.getParentNodeElement(nodeElement?.parentElement!);
+        let nodeParentElement = nodeElement?.parentElement;
+        let parentNodeElement = this.getParentNodeElement(nodeParentElement!);
 
         if (parentNodeElement) {
             this.focusRowChange(event.currentTarget, parentNodeElement);
@@ -848,7 +850,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                                 [pBind]="ptm('rootChildren')"
                             >
                                 @for (rowNode of items; track trackBy(index, rowNode); let firstChild = $first; let lastChild = $last; let index = $index) {
-                                    <p-treeNode
+                                    <p-tree-node
                                         #treeNode
                                         [level]="rowNode.level"
                                         [rowNode]="rowNode"
@@ -862,7 +864,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                                         [loadingMode]="loadingMode"
                                         [pt]="pt"
                                         [unstyled]="unstyled()"
-                                    ></p-treeNode>
+                                    ></p-tree-node>
                                 }
                             </ul>
                         }
@@ -879,7 +881,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
                     @if (getRootNode()) {
                         <ul #content [class]="cx('rootChildren')" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [pBind]="ptm('rootChildren')">
                             @for (node of getRootNode(); track trackBy.bind(this)(index, node); let firstChild = $first; let lastChild = $last; let index = $index) {
-                                <p-treeNode [node]="node" [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [level]="0" [loadingMode]="loadingMode" [pt]="pt" [unstyled]="unstyled()"></p-treeNode>
+                                <p-tree-node [node]="node" [firstChild]="firstChild" [lastChild]="lastChild" [index]="index" [level]="0" [loadingMode]="loadingMode" [pt]="pt" [unstyled]="unstyled()"></p-tree-node>
                             }
                         </ul>
                     }
@@ -1109,7 +1111,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      * Function to optimize the node list rendering, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: (...args: any[]) => any = (index: number, item: any) => item;
     /**
      * Highlights the node on select.
      * @group Props
@@ -1377,7 +1379,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
                 this.dragNodeScope = event.scope;
             });
 
-            this.dragStopSubscription = this.dragDropService!.dragStop$.subscribe((event) => {
+            this.dragStopSubscription = this.dragDropService!.dragStop$.subscribe(() => {
                 this.dragNodeTree = null;
                 this.dragNode = null;
                 this.dragNodeSubNodes = null;

@@ -26,7 +26,7 @@ interface Column {
         </app-docsectiontext>
         <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         <div class="card mt-4">
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
                         <tr>

@@ -53,5 +53,3 @@ export enum TabListClasses {
      */
     nextButton = 'p-tablist-next-button'
 }
-
-export interface TabListStyle extends BaseStyle {}

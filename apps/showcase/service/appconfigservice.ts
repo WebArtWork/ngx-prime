@@ -33,8 +33,10 @@ export class AppConfigService {
     constructor() {
         effect(() => {
             const isDarkMode = this.darkMode();
-            const currentPrimaryPalette = this.primaryPalette();
-            const currentSurfacePalette = this.surfacePalette();
+
+            // Read so the effect re-runs when these signals change.
+            void this.primaryPalette();
+            void this.surfacePalette();
 
             this.toggleDarkMode(isDarkMode);
             this.onTransitionEnd();

@@ -21,7 +21,7 @@ import { TableModule } from 'primeng/table';
                 property to "multiple" and use metakey when clicking on another column.
             </p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #header>

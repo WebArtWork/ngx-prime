@@ -53,5 +53,3 @@ export enum InputTextClasses {
      */
     root = 'p-inputtext'
 }
-
-export interface InputTextStyle extends BaseStyle {}

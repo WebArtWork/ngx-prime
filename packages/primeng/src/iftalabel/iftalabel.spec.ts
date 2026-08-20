@@ -139,7 +139,6 @@ describe('IftaLabel', () => {
 
 describe('IftaLabel PassThrough Tests', () => {
     let fixture: ComponentFixture<IftaLabel>;
-    let component: IftaLabel;
     let hostElement: HTMLElement;
 
     beforeEach(async () => {
@@ -149,7 +148,6 @@ describe('IftaLabel PassThrough Tests', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(IftaLabel);
-        component = fixture.componentInstance;
         hostElement = fixture.nativeElement;
     });
 

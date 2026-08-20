@@ -1,24 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ContentChild,
-    contentChild,
-    contentChildren,
-    Directive,
-    effect,
-    inject,
-    InjectionToken,
-    input,
-    Input,
-    NgModule,
-    numberAttribute,
-    output,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, Directive, effect, inject, InjectionToken, input, Input, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, findSingle, isEmpty } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -397,7 +378,6 @@ export class ButtonDirective extends BaseComponent {
         this._buttonProps = val;
 
         if (val && typeof val === 'object') {
-            //@ts-ignore
             Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
         }
     }

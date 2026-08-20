@@ -1,3 +1,4 @@
+import packageJson from '@/package.json';
 import { Code, ExtFile, RouteFile } from '@/domain/code';
 import { services } from './services';
 
@@ -10,7 +11,7 @@ export interface Props {
     routeFiles?: RouteFile[];
     selector?: string;
 }
-const version = require('package.json').version;
+const version = packageJson.version;
 
 const dependencies = {
     '@angular/cdk': '^21.0.0',
@@ -174,7 +175,7 @@ getTestBed().initTestEnvironment(
   platformBrowserDynamicTesting()
 );
 // Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
+const context = require.context('./', true, /.spec.ts$/);
 // And load the modules.
 context.keys().map(context);`;
 

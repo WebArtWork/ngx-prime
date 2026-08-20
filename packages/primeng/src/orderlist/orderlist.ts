@@ -282,7 +282,7 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: (...args: any[]) => any = (index: number, item: any) => item;
 
     /**
      * Height of the viewport, a scrollbar is defined if height of list exceeds this value.
@@ -965,7 +965,6 @@ export class OrderList extends BaseComponent<OrderListPassThrough> {
             if (this.styleElement) {
                 this.renderer.removeChild(this.document, this.styleElement);
                 this.styleElement = null;
-                ``;
             }
         }
     }

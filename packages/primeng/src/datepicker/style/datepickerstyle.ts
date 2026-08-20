@@ -290,5 +290,3 @@ export enum DatePickerClasses {
      */
     clearIcon = 'p-datepicker-clear-icon'
 }
-
-export interface DatePickerStyle extends BaseStyle {}

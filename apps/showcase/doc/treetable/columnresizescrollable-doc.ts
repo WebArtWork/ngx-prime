@@ -21,7 +21,7 @@ interface Column {
             <p>To utilize the column resize modes with a <i>scrollable</i> TreeTable, a <i>colgroup</i> template must be defined. The default value of scrollHeight is "flex," it can also be set as a string value.</p>
         </app-docsectiontext>
         <div class="card">
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
                     <ng-template #colgroup let-columns>
                         <colgroup>

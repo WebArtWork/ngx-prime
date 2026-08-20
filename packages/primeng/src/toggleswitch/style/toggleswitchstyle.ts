@@ -64,5 +64,3 @@ export enum ToggleSwitchClasses {
      */
     slider = 'p-toggleswitch-slider'
 }
-
-export interface ToggleSwitchStyle extends BaseStyle {}

@@ -132,4 +132,4 @@ export enum ListboxClasses {
     emptyMessage = 'p-listbox-empty-message'
 }
 
-export interface ListboxStyle extends BaseStyle {}
+export type ListboxStyle = BaseStyle;

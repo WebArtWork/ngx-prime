@@ -60,5 +60,3 @@ export enum TimelineClasses {
      */
     eventContent = 'p-timeline-event-content'
 }
-
-export interface TimelineStyle extends BaseStyle {}

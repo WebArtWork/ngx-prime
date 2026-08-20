@@ -61,11 +61,11 @@ class TestDrawerBasicComponent {
     hideCount = 0;
     visibleChangeCount = 0;
 
-    onShow(event: any) {
+    onShow() {
         this.showCount++;
     }
 
-    onHide(event: any) {
+    onHide() {
         this.hideCount++;
     }
 
@@ -545,7 +545,7 @@ describe('Drawer', () => {
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
-            const drawerContainer = testFixture.debugElement.query(By.css('[role="complementary"]'));
+            void testFixture.debugElement.query(By.css('[role="complementary"]'));
             // Call onKeyDown method directly
             const escapeEvent = new KeyboardEvent('keydown', { code: 'Escape' });
 

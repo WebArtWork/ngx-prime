@@ -45,6 +45,7 @@ export class BadgeDirective extends BaseComponent {
      * When specified, disables the component.
      * @group Props
      */
+    // eslint-disable-next-line @angular-eslint/no-input-rename -- `badgeDisabled` is published public API; renaming would break consumers.
     @Input('badgeDisabled') public disabled: boolean;
     /**
      * Size of the badge, valid options are "large" and "xlarge".

@@ -33,5 +33,3 @@ export enum TabPanelClasses {
      */
     root = 'p-tabpanel'
 }
-
-export interface TabPanelStyle extends BaseStyle {}

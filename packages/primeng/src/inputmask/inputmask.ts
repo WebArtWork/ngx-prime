@@ -132,6 +132,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
      * Callback to invoke when the mask is completed.
      * @group Emits
      */
+    // eslint-disable-next-line @angular-eslint/no-output-rename -- `onComplete` is published public API; renaming would break consumers.
     onCompleteEvent = output<void>({ alias: 'onComplete' });
 
     /**
@@ -204,12 +205,12 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
     onAfterViewInit() {
         if (isPlatformBrowser(this.platformId) && this.inputElement) {
             const events: [string, (e: Event) => void][] = [
-                ['focus', (e) => this.onInputFocus(e)],
-                ['blur', (e) => this.onInputBlur(e)],
+                ['focus', () => this.onInputFocus()],
+                ['blur', () => this.onInputBlur()],
                 ['keydown', (e) => this.onInputKeydown(e as KeyboardEvent)],
                 ['keypress', (e) => this.onKeyPress(e as KeyboardEvent)],
                 ['input', (e) => this.onInputChange(e)],
-                ['paste', (e) => this.onPaste(e)]
+                ['paste', () => this.onPaste()]
             ];
 
             events.forEach(([event, handler]) => {
@@ -277,7 +278,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         this.defaultBuffer = this.buffer.join('');
     }
 
-    onInputFocus(event: Event) {
+    onInputFocus() {
         if (this.inputElement.readOnly || !this.pInputMask()) {
             return;
         }
@@ -303,7 +304,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         }, 10);
     }
 
-    onInputBlur(e: Event) {
+    onInputBlur() {
         if (!this.pInputMask()) {
             return;
         }
@@ -365,7 +366,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
             e.preventDefault();
         } else if (k === 13) {
             // enter
-            this.onInputBlur(e);
+            this.onInputBlur();
         } else if (k === 27) {
             // escape
             this.inputElement.value = this.focusText as string;
@@ -445,16 +446,16 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
             return;
         }
 
-        if (this.androidChrome) this.handleAndroidInput(event);
-        else this.handleInputChange(event);
+        if (this.androidChrome) this.handleAndroidInput();
+        else this.handleInputChange();
     }
 
-    onPaste(event: Event) {
+    onPaste() {
         if (!this.pInputMask()) {
             return;
         }
 
-        this.handleInputChange(event);
+        this.handleInputChange();
     }
 
     // Helper methods
@@ -568,7 +569,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         }
     }
 
-    handleAndroidInput(e: Event) {
+    handleAndroidInput() {
         const curVal = this.inputElement.value;
         const pos = this.caret() as Caret;
 
@@ -604,7 +605,7 @@ export class InputMaskDirective extends BaseComponent<InputMaskPassThrough> {
         }
     }
 
-    handleInputChange(event: Event) {
+    handleInputChange() {
         if (this.inputElement.readOnly) {
             return;
         }
@@ -1105,8 +1106,6 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
     }
 
     isCompleted(): boolean {
-        let completed: boolean;
-
         for (let i = this.firstNonMaskPos as number; i <= (this.lastRequiredNonMaskPos as number); i++) {
             if (this.tests[i] && (this.buffer as string[])[i] === this.getPlaceholder(i)) {
                 return false;

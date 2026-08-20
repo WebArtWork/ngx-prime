@@ -19,7 +19,7 @@ interface Column {
     template: ` <app-docsectiontext>
             <p>Columns can be defined dynamically using the <i>*ngFor</i> directive.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>

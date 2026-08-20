@@ -1,6 +1,6 @@
 import { AppConfigService } from '@/service/appconfigservice';
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 @Component({
@@ -77,7 +77,7 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
     `
 })
 export class FeaturesSectionComponent {
-    constructor(private configService: AppConfigService) {}
+    private configService = inject(AppConfigService);
 
     get isDarkMode() {
         return this.configService.appState().darkTheme;

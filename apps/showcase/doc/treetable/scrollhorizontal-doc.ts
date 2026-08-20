@@ -21,7 +21,7 @@ interface Column {
             <p>Horizontal scrolling is enabled when the total width of columns exceeds table width.</p>
         </app-docsectiontext>
         <div class="card">
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #colgroup let-columns>
                         <colgroup>

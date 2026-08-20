@@ -127,208 +127,269 @@ export class FileContent extends BaseComponent {
     standalone: true,
     imports: [CommonModule, Button, ProgressBar, Message, PlusIcon, UploadIcon, TimesIcon, SharedModule, FileContent, Bind],
     template: `
-        <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" *ngIf="mode === 'advanced'" [pBind]="ptm('root')">
-            <input [attr.aria-label]="browseFilesLabel" #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [pBind]="ptm('input')" />
-            <div [class]="cx('header')" [pBind]="ptm('header')">
-                <ng-container *ngIf="!headerTemplate() && !_headerTemplate">
-                    <p-button
-                        [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
-                        [disabled]="disabled || isChooseDisabled()"
-                        (focus)="onFocus()"
-                        [label]="chooseButtonLabel"
-                        (blur)="onBlur()"
-                        (onClick)="choose()"
-                        (keydown.enter)="choose()"
-                        [buttonProps]="chooseButtonProps"
-                        [pt]="ptm('pcChooseButton')"
-                        [unstyled]="unstyled()"
-                    >
-                        <input
-                            [attr.aria-label]="browseFilesLabel"
-                            #advancedfileinput
-                            type="file"
-                            (change)="onFileSelect($event)"
-                            [multiple]="multiple"
-                            [accept]="accept"
+        @if (mode === 'advanced') {
+            <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [pBind]="ptm('root')">
+                <input [attr.aria-label]="browseFilesLabel" #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [pBind]="ptm('input')" />
+                <div [class]="cx('header')" [pBind]="ptm('header')">
+                    @if (!headerTemplate() && !_headerTemplate) {
+                        <p-button
+                            [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
                             [disabled]="disabled || isChooseDisabled()"
-                            [attr.title]="''"
-                            [pBind]="ptm('input')"
-                        />
-                        <ng-template #icon>
-                            <span *ngIf="chooseIcon" [class]="chooseIcon" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon"></span>
-                            <ng-container *ngIf="!chooseIcon">
-                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon" />
-                                <span *ngIf="chooseIconTemplate || _chooseIconTemplate" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon">
-                                    <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
-                                </span>
-                            </ng-container>
-                        </ng-template>
-                    </p-button>
+                            (focus)="onFocus()"
+                            [label]="chooseButtonLabel"
+                            (blur)="onBlur()"
+                            (onClick)="choose()"
+                            (keydown.enter)="choose()"
+                            [buttonProps]="chooseButtonProps"
+                            [pt]="ptm('pcChooseButton')"
+                            [unstyled]="unstyled()"
+                        >
+                            <input
+                                [attr.aria-label]="browseFilesLabel"
+                                #advancedfileinput
+                                type="file"
+                                (change)="onFileSelect($event)"
+                                [multiple]="multiple"
+                                [accept]="accept"
+                                [disabled]="disabled || isChooseDisabled()"
+                                [attr.title]="''"
+                                [pBind]="ptm('input')"
+                            />
+                            <ng-template #icon>
+                                @if (chooseIcon) {
+                                    <span [class]="chooseIcon" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                                }
+                                @if (!chooseIcon) {
+                                    <ng-container>
+                                        @if (!chooseIconTemplate && !_chooseIconTemplate) {
+                                            <svg data-p-icon="plus" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon" />
+                                        }
+                                        @if (chooseIconTemplate || _chooseIconTemplate) {
+                                            <span [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon">
+                                                <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
+                                            </span>
+                                        }
+                                    </ng-container>
+                                }
+                            </ng-template>
+                        </p-button>
 
-                    <p-button
-                        *ngIf="!auto && showUploadButton"
-                        [label]="uploadButtonLabel"
-                        (onClick)="upload()"
-                        [disabled]="!hasFiles() || isFileLimitExceeded()"
-                        [styleClass]="cn(cx('pcUploadButton'), uploadStyleClass)"
-                        [buttonProps]="uploadButtonProps"
-                        [pt]="ptm('pcUploadButton')"
-                        [unstyled]="unstyled()"
-                    >
-                        <ng-template #icon>
-                            <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon"></span>
-                            <ng-container *ngIf="!uploadIcon">
-                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [pBind]="ptm('pcUploadButton')?.icon" />
-                                <span *ngIf="uploadIconTemplate || _uploadIconTemplate" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon">
-                                    <ng-template *ngTemplateOutlet="uploadIconTemplate || _uploadIconTemplate"></ng-template>
-                                </span>
-                            </ng-container>
-                        </ng-template>
-                    </p-button>
-                    <p-button
-                        *ngIf="!auto && showCancelButton"
-                        [label]="cancelButtonLabel"
-                        (onClick)="clear()"
-                        [disabled]="!hasFiles() || uploading"
-                        [styleClass]="cn(cx('pcCancelButton'), cancelStyleClass)"
-                        [buttonProps]="cancelButtonProps"
-                        [pt]="ptm('pcCancelButton')"
-                        [unstyled]="unstyled()"
-                    >
-                        <ng-template #icon>
-                            <span *ngIf="cancelIcon" [ngClass]="cancelIcon"></span>
-                            <ng-container *ngIf="!cancelIcon">
-                                <svg data-p-icon="times" *ngIf="!cancelIconTemplate && !_cancelIconTemplate" [attr.aria-hidden]="true" />
-                                <span *ngIf="cancelIconTemplate || _cancelIconTemplate" [attr.aria-hidden]="true">
-                                    <ng-template *ngTemplateOutlet="cancelIconTemplate || _cancelIconTemplate"></ng-template>
-                                </span>
-                            </ng-container>
-                        </ng-template>
-                    </p-button>
-                </ng-container>
-                <ng-container
-                    *ngTemplateOutlet="
-                        headerTemplate() || _headerTemplate;
-                        context: {
-                            $implicit: files,
-                            uploadedFiles: uploadedFiles,
-                            chooseCallback: choose.bind(this),
-                            clearCallback: clear.bind(this),
-                            uploadCallback: upload.bind(this)
+                        @if (!auto && showUploadButton) {
+                            <p-button
+                                [label]="uploadButtonLabel"
+                                (onClick)="upload()"
+                                [disabled]="!hasFiles() || isFileLimitExceeded()"
+                                [styleClass]="cn(cx('pcUploadButton'), uploadStyleClass)"
+                                [buttonProps]="uploadButtonProps"
+                                [pt]="ptm('pcUploadButton')"
+                                [unstyled]="unstyled()"
+                            >
+                                <ng-template #icon>
+                                    @if (uploadIcon) {
+                                        <span [ngClass]="uploadIcon" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon"></span>
+                                    }
+                                    @if (!uploadIcon) {
+                                        <ng-container>
+                                            @if (!uploadIconTemplate && !_uploadIconTemplate) {
+                                                <svg data-p-icon="upload" [pBind]="ptm('pcUploadButton')?.icon" />
+                                            }
+                                            @if (uploadIconTemplate || _uploadIconTemplate) {
+                                                <span [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon">
+                                                    <ng-template *ngTemplateOutlet="uploadIconTemplate || _uploadIconTemplate"></ng-template>
+                                                </span>
+                                            }
+                                        </ng-container>
+                                    }
+                                </ng-template>
+                            </p-button>
                         }
-                    "
-                ></ng-container>
-                <ng-container *ngTemplateOutlet="toolbarTemplate() || _toolbarTemplate"></ng-container>
-            </div>
-            <div #content [class]="cx('content')" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [pBind]="ptm('content')">
-                @if (contentTemplate || _contentTemplate) {
+                        @if (!auto && showCancelButton) {
+                            <p-button
+                                [label]="cancelButtonLabel"
+                                (onClick)="clear()"
+                                [disabled]="!hasFiles() || uploading"
+                                [styleClass]="cn(cx('pcCancelButton'), cancelStyleClass)"
+                                [buttonProps]="cancelButtonProps"
+                                [pt]="ptm('pcCancelButton')"
+                                [unstyled]="unstyled()"
+                            >
+                                <ng-template #icon>
+                                    @if (cancelIcon) {
+                                        <span [ngClass]="cancelIcon"></span>
+                                    }
+                                    @if (!cancelIcon) {
+                                        <ng-container>
+                                            @if (!cancelIconTemplate && !_cancelIconTemplate) {
+                                                <svg data-p-icon="times" [attr.aria-hidden]="true" />
+                                            }
+                                            @if (cancelIconTemplate || _cancelIconTemplate) {
+                                                <span [attr.aria-hidden]="true">
+                                                    <ng-template *ngTemplateOutlet="cancelIconTemplate || _cancelIconTemplate"></ng-template>
+                                                </span>
+                                            }
+                                        </ng-container>
+                                    }
+                                </ng-template>
+                            </p-button>
+                        }
+                    }
                     <ng-container
                         *ngTemplateOutlet="
-                            contentTemplate || _contentTemplate;
+                            headerTemplate() || _headerTemplate;
                             context: {
                                 $implicit: files,
                                 uploadedFiles: uploadedFiles,
                                 chooseCallback: choose.bind(this),
                                 clearCallback: clear.bind(this),
-                                removeUploadedFileCallback: removeUploadedFile.bind(this),
-                                removeFileCallback: remove.bind(this),
-                                progress: progress,
-                                messages: msgs
+                                uploadCallback: upload.bind(this)
                             }
                         "
                     ></ng-container>
-                } @else {
-                    <p-progressbar [value]="progress" [showValue]="false" *ngIf="hasFiles()" [pt]="ptm('pcProgressBar')"></p-progressbar>
-                    @for (message of msgs; track message) {
-                        <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
-                    }
-
-                    @if (hasFiles()) {
-                        <div [class]="cx('fileList')" [pBind]="ptm('fileList')">
-                            <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate() || _fileTemplate"></ng-template>
-                            @if (!fileTemplate() && !_fileTemplate) {
-                                <div
-                                    pFileContent
-                                    [unstyled]="unstyled()"
-                                    [files]="files"
-                                    (onRemove)="onRemoveClick($event)"
-                                    [badgeValue]="pendingLabel"
-                                    [previewWidth]="previewWidth"
-                                    [fileRemoveIconTemplate]="cancelIconTemplate || _cancelIconTemplate"
-                                ></div>
-                            }
-                        </div>
-                    }
-                    @if (hasUploadedFiles()) {
-                        <div [class]="cx('fileList')" [pBind]="ptm('fileList')">
-                            <ng-template ngFor [ngForOf]="uploadedFiles" [ngForTemplate]="fileTemplate() || _fileTemplate"></ng-template>
-                            @if (!fileTemplate() && !_fileTemplate) {
-                                <div
-                                    pFileContent
-                                    [unstyled]="unstyled()"
-                                    [files]="uploadedFiles"
-                                    (onRemove)="onRemoveUploadedFileClick($event)"
-                                    [badgeValue]="completedLabel()"
-                                    badgeSeverity="success"
-                                    [previewWidth]="previewWidth"
-                                    [fileRemoveIconTemplate]="cancelIconTemplate || _cancelIconTemplate"
-                                ></div>
-                            }
-                        </div>
-                    }
-                }
-                @if ((emptyTemplate || _emptyTemplate) && !hasFiles() && !hasUploadedFiles()) {
-                    <ng-container *ngTemplateOutlet="emptyTemplate || _emptyTemplate" [pBind]="ptm('empty')"></ng-container>
-                }
-            </div>
-        </div>
-        <div [class]="cn(cx('root'), styleClass)" *ngIf="mode === 'basic'" [pBind]="ptm('root')">
-            @for (message of msgs; track message) {
-                <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
-            }
-
-            <div [class]="cx('basicContent')" [pBind]="ptm('basicContent')">
-                <p-button
-                    [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
-                    [disabled]="disabled"
-                    [label]="chooseButtonLabel"
-                    [style]="style"
-                    (onClick)="onBasicUploaderClick()"
-                    (keydown)="onBasicKeydown($event)"
-                    [buttonProps]="chooseButtonProps"
-                    [pt]="ptm('pcChooseButton')"
-                    [unstyled]="unstyled()"
-                >
-                    <ng-template #icon>
-                        @if (hasFiles() && !auto) {
-                            <span *ngIf="uploadIcon" class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
-                            <ng-container *ngIf="!uploadIcon">
-                                <svg data-p-icon="upload" *ngIf="!uploadIconTemplate && !_uploadIconTemplate" [class]="'p-button-icon p-button-icon-left'" [pBind]="ptm('pcChooseButton')?.icon" />
-                                <span *ngIf="_uploadIconTemplate || uploadIconTemplate" class="p-button-icon p-button-icon-left" [pBind]="ptm('pcChooseButton')?.icon">
-                                    <ng-template *ngTemplateOutlet="_uploadIconTemplate || uploadIconTemplate"></ng-template>
-                                </span>
-                            </ng-container>
-                        } @else {
-                            <span *ngIf="chooseIcon" class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
-                            <ng-container *ngIf="!chooseIcon">
-                                <svg data-p-icon="plus" *ngIf="!chooseIconTemplate && !_chooseIconTemplate" [pBind]="ptm('pcChooseButton')?.icon" />
-                                <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
-                            </ng-container>
-                        }
-                    </ng-template>
-                    <input [attr.aria-label]="browseFilesLabel" #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" (focus)="onFocus()" (blur)="onBlur()" [pBind]="ptm('input')" />
-                </p-button>
-                @if (!auto) {
-                    @if (!fileLabelTemplate() && !_fileLabelTemplate) {
-                        <span>
-                            {{ basicFileChosenLabel() }}
-                        </span>
+                    <ng-container *ngTemplateOutlet="toolbarTemplate() || _toolbarTemplate"></ng-container>
+                </div>
+                <div #content [class]="cx('content')" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [pBind]="ptm('content')">
+                    @if (contentTemplate || _contentTemplate) {
+                        <ng-container
+                            *ngTemplateOutlet="
+                                contentTemplate || _contentTemplate;
+                                context: {
+                                    $implicit: files,
+                                    uploadedFiles: uploadedFiles,
+                                    chooseCallback: choose.bind(this),
+                                    clearCallback: clear.bind(this),
+                                    removeUploadedFileCallback: removeUploadedFile.bind(this),
+                                    removeFileCallback: remove.bind(this),
+                                    progress: progress,
+                                    messages: msgs
+                                }
+                            "
+                        ></ng-container>
                     } @else {
-                        <ng-container *ngTemplateOutlet="fileLabelTemplate() || _fileLabelTemplate; context: { $implicit: files }"></ng-container>
+                        @if (hasFiles()) {
+                            <p-progressbar [value]="progress" [showValue]="false" [pt]="ptm('pcProgressBar')"></p-progressbar>
+                        }
+                        @for (message of msgs; track message) {
+                            <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
+                        }
+
+                        @if (hasFiles()) {
+                            <div [class]="cx('fileList')" [pBind]="ptm('fileList')">
+                                @for (file of files; track file) {
+                                    <ng-container *ngTemplateOutlet="fileTemplate() || _fileTemplate; context: { $implicit: file }"></ng-container>
+                                }
+                                @if (!fileTemplate() && !_fileTemplate) {
+                                    <div
+                                        pFileContent
+                                        [unstyled]="unstyled()"
+                                        [files]="files"
+                                        (onRemove)="onRemoveClick($event)"
+                                        [badgeValue]="pendingLabel"
+                                        [previewWidth]="previewWidth"
+                                        [fileRemoveIconTemplate]="cancelIconTemplate || _cancelIconTemplate"
+                                    ></div>
+                                }
+                            </div>
+                        }
+                        @if (hasUploadedFiles()) {
+                            <div [class]="cx('fileList')" [pBind]="ptm('fileList')">
+                                @for (file of uploadedFiles; track file) {
+                                    <ng-container *ngTemplateOutlet="fileTemplate() || _fileTemplate; context: { $implicit: file }"></ng-container>
+                                }
+                                @if (!fileTemplate() && !_fileTemplate) {
+                                    <div
+                                        pFileContent
+                                        [unstyled]="unstyled()"
+                                        [files]="uploadedFiles"
+                                        (onRemove)="onRemoveUploadedFileClick($event)"
+                                        [badgeValue]="completedLabel()"
+                                        badgeSeverity="success"
+                                        [previewWidth]="previewWidth"
+                                        [fileRemoveIconTemplate]="cancelIconTemplate || _cancelIconTemplate"
+                                    ></div>
+                                }
+                            </div>
+                        }
                     }
-                }
+                    @if ((emptyTemplate || _emptyTemplate) && !hasFiles() && !hasUploadedFiles()) {
+                        <ng-container *ngTemplateOutlet="emptyTemplate || _emptyTemplate" [pBind]="ptm('empty')"></ng-container>
+                    }
+                </div>
             </div>
-        </div>
+        }
+        @if (mode === 'basic') {
+            <div [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')">
+                @for (message of msgs; track message) {
+                    <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
+                }
+
+                <div [class]="cx('basicContent')" [pBind]="ptm('basicContent')">
+                    <p-button
+                        [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
+                        [disabled]="disabled"
+                        [label]="chooseButtonLabel"
+                        [style]="style"
+                        (onClick)="onBasicUploaderClick()"
+                        (keydown)="onBasicKeydown($event)"
+                        [buttonProps]="chooseButtonProps"
+                        [pt]="ptm('pcChooseButton')"
+                        [unstyled]="unstyled()"
+                    >
+                        <ng-template #icon>
+                            @if (hasFiles() && !auto) {
+                                @if (uploadIcon) {
+                                    <span class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                                }
+                                @if (!uploadIcon) {
+                                    <ng-container>
+                                        @if (!uploadIconTemplate && !_uploadIconTemplate) {
+                                            <svg data-p-icon="upload" [class]="'p-button-icon p-button-icon-left'" [pBind]="ptm('pcChooseButton')?.icon" />
+                                        }
+                                        @if (_uploadIconTemplate || uploadIconTemplate) {
+                                            <span class="p-button-icon p-button-icon-left" [pBind]="ptm('pcChooseButton')?.icon">
+                                                <ng-template *ngTemplateOutlet="_uploadIconTemplate || uploadIconTemplate"></ng-template>
+                                            </span>
+                                        }
+                                    </ng-container>
+                                }
+                            } @else {
+                                @if (chooseIcon) {
+                                    <span class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                                }
+                                @if (!chooseIcon) {
+                                    <ng-container>
+                                        @if (!chooseIconTemplate && !_chooseIconTemplate) {
+                                            <svg data-p-icon="plus" [pBind]="ptm('pcChooseButton')?.icon" />
+                                        }
+                                        <ng-template *ngTemplateOutlet="chooseIconTemplate || _chooseIconTemplate"></ng-template>
+                                    </ng-container>
+                                }
+                            }
+                        </ng-template>
+                        <input
+                            [attr.aria-label]="browseFilesLabel"
+                            #basicfileinput
+                            type="file"
+                            [accept]="accept"
+                            [multiple]="multiple"
+                            [disabled]="disabled"
+                            (change)="onFileSelect($event)"
+                            (focus)="onFocus()"
+                            (blur)="onBlur()"
+                            [pBind]="ptm('input')"
+                        />
+                    </p-button>
+                    @if (!auto) {
+                        @if (!fileLabelTemplate() && !_fileLabelTemplate) {
+                            <span>
+                                {{ basicFileChosenLabel() }}
+                            </span>
+                        } @else {
+                            <ng-container *ngTemplateOutlet="fileLabelTemplate() || _fileLabelTemplate; context: { $implicit: files }"></ng-container>
+                        }
+                    }
+                </div>
+            </div>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -1158,7 +1219,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         }
     }
 
-    onDragLeave(event: DragEvent) {
+    onDragLeave() {
         if (!this.disabled) {
             !this.$unstyled() && removeClass(this.content()?.nativeElement, 'p-fileupload-highlight');
             this.content()?.nativeElement.setAttribute('data-p-highlight', false);

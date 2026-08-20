@@ -49,7 +49,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             } @else {
                 <ng-container *ngTemplateOutlet="iconTemplate() || _iconTemplate; context: { $implicit: checked }"></ng-container>
             }
-            <span [class]="cx('label')" [pBind]="ptm('label')">{{ checked ? (hasOnLabel ? onLabel : ' ') : hasOffLabel ? offLabel : ' ' }}</span>
+            <span [class]="cx('label')" [pBind]="ptm('label')">{{ checked ? (hasOnLabel ? onLabel : nbsp) : hasOffLabel ? offLabel : nbsp }}</span>
         }
     </span>`,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle, { provide: TOGGLEBUTTON_INSTANCE, useExisting: ToggleButton }, { provide: PARENT_INSTANCE, useExisting: ToggleButton }],
@@ -57,6 +57,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 })
 export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
     componentName = 'ToggleButton';
+
+    readonly nbsp = String.fromCharCode(160);
 
     $pcToggleButton: ToggleButton | undefined = inject(TOGGLEBUTTON_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 

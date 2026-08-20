@@ -102,5 +102,3 @@ export enum ToastClasses {
      */
     closeIcon = 'p-toast-close-icon'
 }
-
-export interface ToastStyle extends BaseStyle {}

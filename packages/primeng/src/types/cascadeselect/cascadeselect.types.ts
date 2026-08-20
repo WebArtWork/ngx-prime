@@ -108,21 +108,21 @@ export interface CascadeSelectShowEvent {
  * @extends {CascadeSelectShowEvent}
  * @group Events
  */
-export interface CascadeSelectHideEvent extends CascadeSelectShowEvent {}
+export type CascadeSelectHideEvent = CascadeSelectShowEvent;
 /**
  * Custom panel show event emits right before the panel is shown.
  * @see {@link CascadeSelect.onBeforeShow}
  * @extends {CascadeSelectShowEvent}
  * @group Events
  */
-export interface CascadeSelectBeforeShowEvent extends CascadeSelectShowEvent {}
+export type CascadeSelectBeforeShowEvent = CascadeSelectShowEvent;
 /**
  * Custom panel hide event emits right before the panel is hidden.
  * @see {@link CascadeSelect.onBeforeHide}
  * @extends {CascadeSelectShowEvent}
  * @group Events
  */
-export interface CascadeSelectBeforeHideEvent extends CascadeSelectShowEvent {}
+export type CascadeSelectBeforeHideEvent = CascadeSelectShowEvent;
 /**
  * Custom panel change event emits when selection changed.
  * @see {@link CascadeSelect.onChange}

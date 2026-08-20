@@ -260,9 +260,6 @@ export class Dock extends BaseComponent<DockPassThrough> {
     onItemMouseEnter(index: number) {
         this.currentIndex = index;
 
-        if (index === 1) {
-        }
-
         this.cd.markForCheck();
     }
 

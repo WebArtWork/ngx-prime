@@ -56,7 +56,7 @@ export interface SplitterResizeStartEvent {
  * @extends {SplitterResizeStartEvent}
  * @group Events
  */
-export interface SplitterResizeEndEvent extends SplitterResizeStartEvent {}
+export type SplitterResizeEndEvent = SplitterResizeStartEvent;
 
 /**
  * Defines valid templates in Splitter.

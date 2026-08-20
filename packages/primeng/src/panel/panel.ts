@@ -27,7 +27,6 @@ import { Bind, BindModule } from 'primeng/bind';
 import { ButtonModule } from 'primeng/button';
 import { MinusIcon, PlusIcon } from 'primeng/icons';
 import { MotionModule } from 'primeng/motion';
-import { Nullable } from 'primeng/ts-helpers';
 import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from 'primeng/types/panel';
 import { PanelStyle } from './style/panelstyle';
 
@@ -150,6 +149,7 @@ export class Panel extends BaseComponent<PanelPassThrough> implements BlockableU
      * Header text of the panel.
      * @group Props
      */
+    // eslint-disable-next-line @angular-eslint/no-input-rename -- `header` is published public API; renaming would break consumers.
     @Input('header') _header: string | undefined;
 
     /**

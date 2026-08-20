@@ -275,12 +275,9 @@ describe('FileUpload', () => {
     });
 
     describe('Drag and Drop', () => {
-        let contentElement: HTMLElement;
-
         beforeEach(() => {
             component.mode = 'advanced';
             fixture.detectChanges();
-            contentElement = fixture.debugElement.query(By.css('[data-pc-section="content"]'))?.nativeElement;
         });
 
         it('should handle drag enter event', () => {
@@ -457,7 +454,7 @@ describe('FileUpload', () => {
             component.showUploadButton = true;
             fixture.detectChanges();
 
-            const uploadButton = fixture.debugElement.query(By.css('.p-fileupload-upload'));
+            void fixture.debugElement.query(By.css('.p-fileupload-upload'));
 
             // Button might not be visible without files, but component should handle this case
             expect(component.showUploadButton).toBe(true);
@@ -927,7 +924,7 @@ class TestPTemplateToolbarComponent {}
 class TestFileRemoveIconComponent {
     files = [new File(['test1'], 'test1.txt', { type: 'text/plain' }), new File(['test2'], 'test2.txt', { type: 'text/plain' })];
 
-    onRemove(event: any) {
+    onRemove() {
         // Handle remove
     }
 }

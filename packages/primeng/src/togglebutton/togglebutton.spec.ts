@@ -1225,8 +1225,8 @@ describe('ToggleButton', () => {
                 checked: boolean = false;
                 clickCount: number = 0;
                 pt = {
-                    content: ({ instance }: any) => ({
-                        onclick: (event: Event) => {
+                    content: () => ({
+                        onclick: () => {
                             this.clickCount++;
                         }
                     })

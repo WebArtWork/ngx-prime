@@ -412,12 +412,10 @@ describe('Fluid', () => {
 
     describe('Responsive Layout', () => {
         let fixture: ComponentFixture<TestFluidResponsiveComponent>;
-        let component: TestFluidResponsiveComponent;
         let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestFluidResponsiveComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
             element = fixture.debugElement.query(By.directive(Fluid)).nativeElement;
         });

@@ -90,5 +90,3 @@ export enum ContextMenuClasses {
      */
     separator = 'p-contextmenu-separator'
 }
-
-export interface ContextMenuStyle extends BaseStyle {}

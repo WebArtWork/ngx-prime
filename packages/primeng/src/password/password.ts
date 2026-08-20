@@ -142,6 +142,7 @@ export class PasswordDirective extends BaseEditableHolder {
      * @defaultValue undefined
      * @group Props
      */
+    // eslint-disable-next-line @angular-eslint/no-input-rename -- `pSize` is published public API; renaming would break consumers.
     size = input<'large' | 'small' | undefined>(undefined, { alias: 'pSize' });
 
     pcFluid: Fluid | null = inject(Fluid, { optional: true, host: true, skipSelf: true });
@@ -184,8 +185,8 @@ export class PasswordDirective extends BaseEditableHolder {
         });
     }
 
-    @HostListener('input', ['$event'])
-    onInput(e: Event) {
+    @HostListener('input')
+    onInput() {
         this.writeModelValue(this.el.nativeElement.value);
     }
 

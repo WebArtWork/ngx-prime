@@ -16,13 +16,6 @@ interface City {
     disabled?: boolean;
 }
 
-interface Country {
-    name: string;
-    code: string;
-    cities: City[];
-    disabled?: boolean;
-}
-
 // Basic test component
 @Component({
     template: `
@@ -370,9 +363,7 @@ class TestVirtualScrollMultiSelectComponent {
 
     onLazyLoad(event: any) {
         // Simulate lazy loading
-        const start = event.first;
-        const end = event.first + event.rows;
-        // Load items from start to end
+        void (event.first + event.rows);
     }
 }
 
@@ -1028,8 +1019,6 @@ describe('MultiSelect', () => {
         });
 
         it('should handle filter keydown events', async () => {
-            const filterInput = fixture.debugElement.query(By.css('.p-multiselect-filter input'));
-
             const enterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
 
             spyOn(enterEvent, 'preventDefault');
@@ -1189,13 +1178,7 @@ describe('MultiSelect', () => {
         });
 
         it('should handle rapid click events', async () => {
-            let clickCount = 0;
-
-            spyOn(multiSelect, 'onContainerClick').and.callFake(() => {
-                clickCount++;
-
-                return true;
-            });
+            spyOn(multiSelect, 'onContainerClick').and.callFake(() => true);
 
             const element = fixture.debugElement.query(By.css('p-multiselect')).nativeElement;
 
@@ -3307,7 +3290,7 @@ describe('MultiSelect Complex Edge Cases', () => {
         it('should handle malicious javascript URLs', () => {
             const javascriptOption = component.xssTestOptions.find((opt) => opt.code === 'XSS2');
 
-            expect(javascriptOption?.name).toBe('javascript:alert(\"xss\")');
+            expect(javascriptOption?.name).toBe('javascript:alert("xss")');
         });
 
         it('should handle malicious HTML attributes', () => {

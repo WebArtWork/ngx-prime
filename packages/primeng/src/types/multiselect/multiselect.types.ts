@@ -195,7 +195,7 @@ export interface MultiSelectFocusEvent {
  * @extends {MultiSelectFocusEvent}
  * @group Events
  */
-export interface MultiSelectBlurEvent extends MultiSelectFocusEvent {}
+export type MultiSelectBlurEvent = MultiSelectFocusEvent;
 
 /**
  * Custom lazy load event.

@@ -144,7 +144,8 @@ describe('ImageCompare', () => {
 
         it('should accept custom input values', () => {
             const testFixture = TestBed.createComponent(TestBasicImageCompareComponent);
-            const testComponent = testFixture.componentInstance;
+
+            void testFixture.componentInstance;
 
             testFixture.detectChanges();
 
@@ -392,7 +393,7 @@ describe('ImageCompare', () => {
 
             // Mock templates QueryList
             const mockTemplates = {
-                forEach: (callback: Function) => {
+                forEach: (callback: (...args: any[]) => any) => {
                     callback(mockTemplate1);
                     callback(mockTemplate2);
                 }
@@ -499,7 +500,7 @@ describe('ImageCompare', () => {
             expect(typeof imageCompareInstance.observeDirectionChanges).toBe('function');
 
             // Test that the component has a mutation observer property
-            expect(imageCompareInstance.hasOwnProperty('mutationObserver')).toBe(true);
+            expect(Object.prototype.hasOwnProperty.call(imageCompareInstance, 'mutationObserver')).toBe(true);
         });
     });
 
@@ -678,7 +679,7 @@ describe('ImageCompare', () => {
                 await testFixture.whenStable();
 
                 testComponent.pt = {
-                    root: ({ instance }) =>
+                    root: () =>
                         // PT functions can access instance and return dynamic values
                         ({
                             class: 'DYNAMIC_PT_CLASS'
@@ -785,7 +786,8 @@ describe('ImageCompare', () => {
             it('should support hooks structure in PT', () => {
                 const testFixture = TestBed.createComponent(TestPTImageCompareComponent);
                 const testComponent = testFixture.componentInstance;
-                let hookExecuted = false;
+
+                void false;
 
                 // Setting PT with hooks should not throw an error
                 expect(() => {

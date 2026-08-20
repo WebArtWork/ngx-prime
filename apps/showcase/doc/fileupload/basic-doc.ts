@@ -6,11 +6,6 @@ import { ButtonModule } from 'primeng/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
-interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
-}
-
 @Component({
     selector: 'app-basic-doc',
     standalone: true,
@@ -21,7 +16,7 @@ interface UploadEvent {
         </app-docsectiontext>
         <p-toast />
         <div class="card flex flex-wrap gap-6 items-center justify-between">
-            <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)" />
+            <p-fileupload #fu mode="basic" chooseLabel="Choose" chooseIcon="pi pi-upload" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload()" />
             <p-button label="Upload" (onClick)="fu.upload()" severity="secondary" />
         </div>
         <app-code></app-code>
@@ -31,7 +26,7 @@ interface UploadEvent {
 export class BasicDoc {
     private messageService = inject(MessageService);
 
-    onUpload(event: UploadEvent) {
+    onUpload() {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
     }
 }

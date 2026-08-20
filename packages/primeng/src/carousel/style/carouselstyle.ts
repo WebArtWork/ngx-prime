@@ -130,5 +130,3 @@ export enum CarouselClasses {
      */
     footer = 'p-carousel-footer'
 }
-
-export interface CarouselStyle extends BaseStyle {}

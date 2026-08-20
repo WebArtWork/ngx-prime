@@ -2105,18 +2105,10 @@ describe('CascadeSelect', () => {
             });
 
             it('should pass correct context properties to getPTOptions', async () => {
-                let capturedContext: any;
-
                 ptFixture.componentRef.setInput('pt', {
-                    option: ({ context }) => {
-                        if (context && context.option) {
-                            capturedContext = context;
-                        }
-
-                        return {
-                            class: 'OPTION_CONTEXT_CLASS'
-                        };
-                    }
+                    option: () => ({
+                        class: 'OPTION_CONTEXT_CLASS'
+                    })
                 });
                 await ptFixture.whenStable();
 

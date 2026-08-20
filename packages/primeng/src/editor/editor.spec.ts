@@ -152,7 +152,8 @@ describe('Editor', () => {
             root: any;
             clipboard: any;
 
-            on(event: string, handler: Function) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept to match the real Quill `on(event, handler)` mock shape.
+            on(event: string, handler: (...args: any[]) => any) {
                 // Store event handlers for testing
             }
 
@@ -164,11 +165,11 @@ describe('Editor', () => {
                 return { ops: [] };
             }
 
-            setContents(delta: any) {
+            setContents() {
                 // Mock implementation
             }
 
-            setText(text: string) {
+            setText() {
                 // Mock implementation
             }
 
@@ -239,12 +240,10 @@ describe('Editor', () => {
 
     describe('Public Methods', () => {
         let fixture: ComponentFixture<TestBasicEditorComponent>;
-        let component: TestBasicEditorComponent;
         let editorInstance: Editor;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
-            component = fixture.componentInstance;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -262,7 +261,7 @@ describe('Editor', () => {
         });
 
         it('should get quill instance', () => {
-            const quillInstance = editorInstance.getQuill();
+            void editorInstance.getQuill();
 
             // In test environment, quill might not be fully initialized
             expect(editorInstance.getQuill).toBeDefined();
@@ -384,11 +383,9 @@ describe('Editor', () => {
 
     describe('Template Content Projection - #header approach', () => {
         let fixture: ComponentFixture<TestCustomToolbarComponent>;
-        let component: TestCustomToolbarComponent;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestCustomToolbarComponent);
-            component = fixture.componentInstance;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
         });
@@ -414,11 +411,9 @@ describe('Editor', () => {
 
     describe('Template Content Projection - pTemplate approach', () => {
         let fixture: ComponentFixture<TestPTemplateComponent>;
-        let component: TestPTemplateComponent;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestPTemplateComponent);
-            component = fixture.componentInstance;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
         });
@@ -500,11 +495,9 @@ describe('Editor', () => {
 
     describe('Readonly Mode', () => {
         let fixture: ComponentFixture<TestReadonlyComponent>;
-        let component: TestReadonlyComponent;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestReadonlyComponent);
-            component = fixture.componentInstance;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
         });
@@ -534,11 +527,9 @@ describe('Editor', () => {
 
     describe('Custom Configuration', () => {
         let fixture: ComponentFixture<TestCustomConfigurationComponent>;
-        let component: TestCustomConfigurationComponent;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestCustomConfigurationComponent);
-            component = fixture.componentInstance;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
         });
@@ -583,7 +574,7 @@ describe('Editor', () => {
         });
 
         it('should update model when content changes', () => {
-            const initialValue = component.text;
+            void component.text;
             const newValue = '<div>Updated content</div>';
 
             editorInstance.writeControlValue(newValue);
@@ -602,11 +593,9 @@ describe('Editor', () => {
 
     describe('Accessibility', () => {
         let fixture: ComponentFixture<TestBasicEditorComponent>;
-        let component: TestBasicEditorComponent;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
-            component = fixture.componentInstance;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
         });
@@ -647,12 +636,10 @@ describe('Editor', () => {
 
     describe('Memory Management and Cleanup', () => {
         let fixture: ComponentFixture<TestBasicEditorComponent>;
-        let component: TestBasicEditorComponent;
         let editorInstance: Editor;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
-            component = fixture.componentInstance;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -1010,13 +997,13 @@ describe('Editor', () => {
                 text: string = '<div>Test</div>';
                 clickedElement: string = '';
                 pt = {
-                    bold: ({ instance }: any) => ({
-                        onclick: (event: Event) => {
+                    bold: () => ({
+                        onclick: () => {
                             this.clickedElement = 'bold';
                         }
                     }),
-                    italic: ({ instance }: any) => ({
-                        onclick: (event: Event) => {
+                    italic: () => ({
+                        onclick: () => {
                             this.clickedElement = 'italic';
                         }
                     })

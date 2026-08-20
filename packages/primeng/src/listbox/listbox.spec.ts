@@ -5,7 +5,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { providePrimeNG } from 'primeng/config';
-import { ListboxChangeEvent } from 'primeng/types/listbox';
 import { BehaviorSubject, Observable, delay, of } from 'rxjs';
 import { Listbox } from './listbox';
 
@@ -102,12 +101,12 @@ class TestListboxComponent {
         return typeof this.optionLabel === 'string' ? this.optionLabel : 'label';
     }
 
-    onSelectionChange(event: ListboxChangeEvent) {}
-    onFocus(event: any) {}
-    onBlur(event: any) {}
-    onFilter(event: any) {}
-    onDblClick(event: any) {}
-    onDropHandler(event: any) {}
+    onSelectionChange() {}
+    onFocus() {}
+    onBlur() {}
+    onFilter() {}
+    onDblClick() {}
+    onDropHandler() {}
 
     loadLateOptions() {
         setTimeout(() => {
@@ -1830,12 +1829,12 @@ class TestListboxViewChildComponent {
     optionDisabledFunction = (item: any) => !item.active;
 
     // Event handlers
-    onChangeHandler(event: any) {}
-    onFilterHandler(event: any) {}
-    onFocusHandler(event: any) {}
-    onBlurHandler(event: any) {}
-    onDblClickHandler(event: any) {}
-    onDropHandler(event: any) {}
+    onChangeHandler() {}
+    onFilterHandler() {}
+    onFocusHandler() {}
+    onBlurHandler() {}
+    onDblClickHandler() {}
+    onDropHandler() {}
 
     updateOptionsAsync() {
         setTimeout(() => {
@@ -1926,7 +1925,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const listboxComponent = listboxElement.componentInstance;
+            void listboxElement.componentInstance;
 
             expect(typeof component.optionValueFunction).toBe('function');
         });
@@ -2064,7 +2063,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                     fixture.changeDetectorRef.markForCheck();
                     await fixture.whenStable();
                     expect(component.onFilterHandler).toHaveBeenCalled();
-                } catch (e) {
+                } catch {
                     // Filter may fail due to scrollToIndex on virtual scroll - ignore for this test
                     expect(true).toBe(true);
                 }
@@ -2641,7 +2640,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             });
 
             it('should call PT hooks onInit', async () => {
-                let onInitCalled = false;
+                void false;
 
                 ptFixture.componentRef.setInput('pt', {
                     hooks: {

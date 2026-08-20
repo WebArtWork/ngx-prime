@@ -42,7 +42,7 @@ export class AppDocSectionText {
     @Input() description: string;
 
     navigate(event) {
-        if (typeof window !== undefined) {
+        if (typeof window !== 'undefined') {
             const hash = window.location.hash.substring(1);
             const parentElement = event.currentTarget.parentElement;
 

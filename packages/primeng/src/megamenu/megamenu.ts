@@ -438,7 +438,7 @@ export class MegaMenuSub extends BaseComponent<MegaMenuPassThrough> {
             (menuFocus)="onMenuFocus($event)"
             (menuBlur)="onMenuBlur($event)"
             (menuKeydown)="onKeyDown($event)"
-            (menuMouseDown)="onMenuMouseDown($event)"
+            (menuMouseDown)="onMenuMouseDown()"
             (itemMouseEnter)="onItemMouseEnter($event)"
             [queryMatches]="queryMatches()"
             [scrollHeight]="scrollHeight"
@@ -871,7 +871,7 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
         this.dirty = false;
     }
 
-    onMenuMouseDown(event: any) {
+    onMenuMouseDown() {
         this.dirty = true;
     }
 

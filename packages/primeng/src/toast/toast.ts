@@ -36,7 +36,7 @@ import { ToastStyle } from './style/toaststyle';
 const TOAST_INSTANCE = new InjectionToken<Toast>('TOAST_INSTANCE');
 
 @Component({
-    selector: 'p-toastItem',
+    selector: 'p-toast-item',
     standalone: true,
     imports: [CommonModule, CheckIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, TimesCircleIcon, SharedModule, Bind, MotionModule],
     template: `
@@ -261,7 +261,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
     imports: [CommonModule, ToastItem, SharedModule],
     template: `
         @for (msg of messages; track msg; let i = $index) {
-            <p-toastItem
+            <p-toast-item
                 [message]="msg"
                 [index]="i"
                 [life]="life"
@@ -274,7 +274,7 @@ export class ToastItem extends BaseComponent<ToastPassThrough> {
                 [pt]="pt"
                 [unstyled]="unstyled()"
                 [motionOptions]="computedMotionOptions()"
-            ></p-toastItem>
+            ></p-toast-item>
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -426,7 +426,7 @@ export class Toast extends BaseComponent<ToastPassThrough> {
 
     readonly templates = contentChildren(PrimeTemplate);
 
-    clearAllTrigger = signal<{} | null>(null);
+    clearAllTrigger = signal<object | null>(null);
 
     constructor() {
         super();

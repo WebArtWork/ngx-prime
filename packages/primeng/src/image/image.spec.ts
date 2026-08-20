@@ -182,7 +182,8 @@ describe('Image', () => {
 
         it('should accept custom input values', () => {
             const testFixture = TestBed.createComponent(TestBasicImageComponent);
-            const testComponent = testFixture.componentInstance;
+
+            void testFixture.componentInstance;
 
             testFixture.detectChanges();
 
@@ -214,12 +215,10 @@ describe('Image', () => {
 
     describe('Preview Functionality', () => {
         let testFixture: ComponentFixture<TestPreviewImageComponent>;
-        let testComponent: TestPreviewImageComponent;
         let imageInstance: Image;
 
         beforeEach(() => {
             testFixture = TestBed.createComponent(TestPreviewImageComponent);
-            testComponent = testFixture.componentInstance;
             testFixture.detectChanges();
             imageInstance = testFixture.debugElement.query(By.directive(Image)).componentInstance;
         });
@@ -369,12 +368,10 @@ describe('Image', () => {
 
     describe('Event Handling', () => {
         let testFixture: ComponentFixture<TestPreviewImageComponent>;
-        let testComponent: TestPreviewImageComponent;
         let imageInstance: Image;
 
         beforeEach(() => {
             testFixture = TestBed.createComponent(TestPreviewImageComponent);
-            testComponent = testFixture.componentInstance;
             testFixture.detectChanges();
             imageInstance = testFixture.debugElement.query(By.directive(Image)).componentInstance;
         });

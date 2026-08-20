@@ -57,5 +57,3 @@ export enum MessageClasses {
      */
     closeIcon = 'p-message-close-icon'
 }
-
-export interface MessageStyle extends BaseStyle {}

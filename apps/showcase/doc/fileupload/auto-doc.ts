@@ -5,11 +5,6 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 
-interface UploadEvent {
-    originalEvent: Event;
-    files: File[];
-}
-
 @Component({
     selector: 'app-auto-doc',
     standalone: true,
@@ -20,7 +15,7 @@ interface UploadEvent {
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
+            <p-fileupload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto()" [auto]="true" chooseLabel="Browse" />
         </div>
         <app-code></app-code>
     `,
@@ -29,7 +24,7 @@ interface UploadEvent {
 export class AutoDoc {
     private messageService = inject(MessageService);
 
-    onBasicUploadAuto(event: UploadEvent) {
+    onBasicUploadAuto() {
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Auto Mode' });
     }
 }

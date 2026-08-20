@@ -228,7 +228,6 @@ describe('FocusTrap', () => {
     describe('Focus Trap Disabled State', () => {
         let fixture: ComponentFixture<TestDisabledFocusTrapComponent>;
         let component: TestDisabledFocusTrapComponent;
-        let directive: FocusTrap;
         let element: HTMLElement;
 
         beforeEach(() => {
@@ -238,7 +237,6 @@ describe('FocusTrap', () => {
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(FocusTrap));
 
-            directive = directiveDebugElement.injector.get(FocusTrap);
             element = directiveDebugElement.nativeElement;
         });
 
@@ -288,7 +286,6 @@ describe('FocusTrap', () => {
     describe('Focus Trap Behavior - Browser Platform', () => {
         let fixture: ComponentFixture<TestBasicFocusTrapComponent>;
         let directive: FocusTrap;
-        let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicFocusTrapComponent);
@@ -297,7 +294,6 @@ describe('FocusTrap', () => {
             const directiveDebugElement = fixture.debugElement.query(By.directive(FocusTrap));
 
             directive = directiveDebugElement.injector.get(FocusTrap);
-            element = directiveDebugElement.nativeElement;
         });
 
         it('should focus first element when tabbing from last hidden element', () => {
@@ -507,7 +503,6 @@ describe('FocusTrap', () => {
         let fixture: ComponentFixture<TestNestedFocusTrapComponent>;
         let outerTrapDirective: FocusTrap;
         let innerTrapDirective: FocusTrap;
-        let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestNestedFocusTrapComponent);
@@ -517,7 +512,6 @@ describe('FocusTrap', () => {
 
             outerTrapDirective = trapDirectives[0].injector.get(FocusTrap);
             innerTrapDirective = trapDirectives[1].injector.get(FocusTrap);
-            element = fixture.debugElement.nativeElement;
         });
 
         it('should create separate hidden elements for each trap', () => {
@@ -564,7 +558,8 @@ describe('FocusTrap', () => {
 
         it('should handle disabled form elements', async () => {
             const textInput = element.querySelector('.text-input') as HTMLInputElement;
-            const selectElement = element.querySelector('.select-element') as HTMLSelectElement;
+
+            void (element.querySelector('.select-element') as HTMLSelectElement);
 
             // Disable input
             component.inputDisabled = true;
@@ -721,7 +716,7 @@ describe('FocusTrap', () => {
         });
 
         it('should handle elements being removed from DOM during focus', async () => {
-            const input = element.querySelector('.conditional-input') as HTMLElement;
+            void (element.querySelector('.conditional-input') as HTMLElement);
 
             // Remove elements
             component.showElements = false;

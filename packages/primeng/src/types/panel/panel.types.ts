@@ -88,7 +88,7 @@ export interface PanelBeforeToggleEvent {
  * @extends {PanelBeforeToggleEvent}
  * @group Interface
  */
-export interface PanelAfterToggleEvent extends PanelBeforeToggleEvent {}
+export type PanelAfterToggleEvent = PanelBeforeToggleEvent;
 
 /**
  * Toggle icon template context.

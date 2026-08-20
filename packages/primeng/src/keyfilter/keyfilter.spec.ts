@@ -16,7 +16,7 @@ class TestBasicKeyFilterComponent {
     pattern: RegExp | KeyFilterPattern | null | undefined = null as any;
     validateOnly: boolean = false;
 
-    onModelChange(event: any) {
+    onModelChange() {
         // Callback for testing
     }
 }

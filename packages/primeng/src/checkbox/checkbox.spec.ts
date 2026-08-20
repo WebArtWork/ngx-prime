@@ -664,11 +664,9 @@ describe('Checkbox', () => {
 
     describe('CSS Classes and Styling Tests', () => {
         let testFixture: ComponentFixture<TestStyledCheckboxComponent>;
-        let testComponent: TestStyledCheckboxComponent;
 
         beforeEach(async () => {
             testFixture = TestBed.createComponent(TestStyledCheckboxComponent);
-            testComponent = testFixture.componentInstance;
             await testFixture.whenStable();
         });
 
@@ -755,7 +753,8 @@ describe('Checkbox', () => {
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
-            const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
+
+            void testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
 
             expect(inputElement.nativeElement.hasAttribute('readonly')).toBe(true);
 

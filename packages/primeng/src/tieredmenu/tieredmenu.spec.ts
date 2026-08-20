@@ -181,7 +181,6 @@ class TestBreakpointTieredMenuComponent {
 describe('TieredMenu', () => {
     let fixture: ComponentFixture<TestBasicTieredMenuComponent>;
     let component: TestBasicTieredMenuComponent;
-    let tieredMenuElement: HTMLElement;
     let tieredMenu: TieredMenu;
 
     beforeEach(async () => {
@@ -206,7 +205,6 @@ describe('TieredMenu', () => {
 
         fixture = TestBed.createComponent(TestBasicTieredMenuComponent);
         component = fixture.componentInstance;
-        tieredMenuElement = fixture.debugElement.query(By.css('p-tieredmenu')).nativeElement;
         tieredMenu = fixture.debugElement.query(By.directive(TieredMenu)).componentInstance;
         fixture.detectChanges();
     });
@@ -903,7 +901,7 @@ describe('TieredMenu', () => {
         });
 
         it('should emit onShow event', async () => {
-            const showSpy = spyOn(popupTieredMenu.onShow, 'emit');
+            void spyOn(popupTieredMenu.onShow, 'emit');
             const mockEvent = { currentTarget: popupFixture.componentInstance.toggleButton().nativeElement };
 
             popupTieredMenu.show(mockEvent);
@@ -1359,7 +1357,7 @@ describe('TieredMenu', () => {
                     }
                 ];
                 pt = {
-                    itemLabel: ({ instance }: any) => ({
+                    itemLabel: () => ({
                         onclick: () => {
                             this.clickedValue = 'LABEL_CLICKED';
                         }

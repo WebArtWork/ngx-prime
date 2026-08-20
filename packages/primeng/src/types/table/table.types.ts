@@ -254,7 +254,7 @@ export interface TableRowSelectEvent<RowData = any> {
  * @extends {TableRowSelectEvent}
  * @group Events
  */
-export interface TableRowUnSelectEvent<RowData> extends TableRowSelectEvent<RowData> {}
+export type TableRowUnSelectEvent<RowData> = TableRowSelectEvent<RowData>;
 /**
  * Custom page event.
  * @see {@link Table.onPage}
@@ -321,7 +321,7 @@ export interface TableRowExpandEvent<RowData = any> {
  * @extends {TableRowExpandEvent}
  * @group Events
  */
-export interface TableRowCollapseEvent extends TableRowExpandEvent {}
+export type TableRowCollapseEvent = TableRowExpandEvent;
 /**
  * Custom context menu select event.
  * @see {@link Table.onContextMenuSelect}
@@ -446,7 +446,7 @@ export interface TableEditCancelEvent extends TableEditEvent {
  * @see {@link Table.onEditComplete}
  * @group Events
  */
-export interface TableEditCompleteEvent extends TableEditCancelEvent {}
+export type TableEditCompleteEvent = TableEditCancelEvent;
 /**
  * Custom checkbox toggle event.
  * @see {@link Table.onHeaderCheckboxToggle}

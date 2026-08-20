@@ -28,7 +28,7 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-toast [style]="{ marginTop: '80px' }" />
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header let-columns>
                         <tr>
@@ -86,8 +86,8 @@ export class ContextMenuDoc {
         ];
 
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedNode) },
-            { label: 'Toggle', icon: 'pi pi-sort', command: (event) => this.toggleFile(this.selectedNode) }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode) }
         ];
     }
 

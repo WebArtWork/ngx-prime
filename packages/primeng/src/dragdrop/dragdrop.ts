@@ -1,4 +1,4 @@
-import { AfterViewInit, booleanAttribute, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, inject } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, inject } from '@angular/core';
 import { addClass, removeClass } from '@primeuix/utils';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
@@ -145,7 +145,7 @@ export class Draggable implements AfterViewInit, OnDestroy {
         this.handle = event.target;
     }
 
-    mouseup(event: MouseEvent) {
+    mouseup() {
         this.handle = null;
     }
 

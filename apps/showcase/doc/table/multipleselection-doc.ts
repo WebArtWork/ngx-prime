@@ -20,7 +20,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch enabled devices, DataTable always ignores metaKey.
             </p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center items-center mb-6 gap-2">
                     <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />

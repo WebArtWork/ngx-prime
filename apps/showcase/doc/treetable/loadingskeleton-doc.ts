@@ -14,7 +14,7 @@ import { TreeTableModule } from 'primeng/treetable';
     template: ` <app-docsectiontext>
             <p>Skeleton component can be used as a placeholder during the loading process.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>

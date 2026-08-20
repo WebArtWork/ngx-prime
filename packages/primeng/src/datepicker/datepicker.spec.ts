@@ -4,7 +4,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import type { DatePickerMonthChangeEvent, DatePickerYearChangeEvent } from 'primeng/types/datepicker';
 import { DatePicker } from './datepicker';
 @Component({
     template: `
@@ -119,18 +118,18 @@ class TestDatePickerComponent {
     rangeSeparator: string = '-';
     keepInvalid: boolean = false;
 
-    onDateSelect(event: any) {}
-    onDateChange(event: any) {}
-    onDateBlur(event: Event) {}
-    onDateFocus(event: Event) {}
-    onDateClose(event: Event) {}
-    onDateShow(event: Event) {}
-    onDateClear(event: Event) {}
-    onDateInput(event: Event) {}
-    onDateTodayClick(event: Event) {}
-    onDateClearClick(event: Event) {}
-    onDateMonthChange(event: DatePickerMonthChangeEvent) {}
-    onDateYearChange(event: DatePickerYearChangeEvent) {}
+    onDateSelect() {}
+    onDateChange() {}
+    onDateBlur() {}
+    onDateFocus() {}
+    onDateClose() {}
+    onDateShow() {}
+    onDateClear() {}
+    onDateInput() {}
+    onDateTodayClick() {}
+    onDateClearClick() {}
+    onDateMonthChange() {}
+    onDateYearChange() {}
 }
 
 @Component({
@@ -1399,8 +1398,8 @@ describe('DatePicker', () => {
 
             // Verify component can access navigation template properties without errors
             expect(() => {
-                datePickerComponent.previousIconTemplate;
-                datePickerComponent.nextIconTemplate;
+                void datePickerComponent.previousIconTemplate;
+                void datePickerComponent.nextIconTemplate;
             }).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
@@ -1410,9 +1409,9 @@ describe('DatePicker', () => {
 
             // Verify component can access action template properties without errors
             expect(() => {
-                datePickerComponent.triggerIconTemplate;
-                datePickerComponent.clearIconTemplate;
-                datePickerComponent.inputIconTemplate;
+                void datePickerComponent.triggerIconTemplate;
+                void datePickerComponent.clearIconTemplate;
+                void datePickerComponent.inputIconTemplate;
             }).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
@@ -1422,8 +1421,8 @@ describe('DatePicker', () => {
 
             // Verify component can access time control template properties without errors
             expect(() => {
-                datePickerComponent.decrementIconTemplate;
-                datePickerComponent.incrementIconTemplate;
+                void datePickerComponent.decrementIconTemplate;
+                void datePickerComponent.incrementIconTemplate;
             }).not.toThrow();
             expect(datePickerComponent).toBeTruthy();
         });
@@ -1436,18 +1435,18 @@ describe('DatePicker', () => {
 
             // Test that we can access template-related properties without errors
             expect(() => {
-                datePickerComponent.dateTemplate;
-                datePickerComponent.headerTemplate;
-                datePickerComponent.footerTemplate;
-                datePickerComponent.disabledDateTemplate;
-                datePickerComponent.decadeTemplate;
-                datePickerComponent.previousIconTemplate;
-                datePickerComponent.nextIconTemplate;
-                datePickerComponent.triggerIconTemplate;
-                datePickerComponent.clearIconTemplate;
-                datePickerComponent.decrementIconTemplate;
-                datePickerComponent.incrementIconTemplate;
-                datePickerComponent.inputIconTemplate;
+                void datePickerComponent.dateTemplate;
+                void datePickerComponent.headerTemplate;
+                void datePickerComponent.footerTemplate;
+                void datePickerComponent.disabledDateTemplate;
+                void datePickerComponent.decadeTemplate;
+                void datePickerComponent.previousIconTemplate;
+                void datePickerComponent.nextIconTemplate;
+                void datePickerComponent.triggerIconTemplate;
+                void datePickerComponent.clearIconTemplate;
+                void datePickerComponent.decrementIconTemplate;
+                void datePickerComponent.incrementIconTemplate;
+                void datePickerComponent.inputIconTemplate;
             }).not.toThrow();
         });
 
@@ -1562,18 +1561,18 @@ describe('DatePicker', () => {
                 templatesFixture.changeDetectorRef.markForCheck();
 
                 // Test template property access
-                datePickerComponent.dateTemplate;
-                datePickerComponent.headerTemplate;
-                datePickerComponent.footerTemplate;
-                datePickerComponent.disabledDateTemplate;
-                datePickerComponent.decadeTemplate;
-                datePickerComponent.previousIconTemplate;
-                datePickerComponent.nextIconTemplate;
-                datePickerComponent.triggerIconTemplate;
-                datePickerComponent.clearIconTemplate;
-                datePickerComponent.decrementIconTemplate;
-                datePickerComponent.incrementIconTemplate;
-                datePickerComponent.inputIconTemplate;
+                void datePickerComponent.dateTemplate;
+                void datePickerComponent.headerTemplate;
+                void datePickerComponent.footerTemplate;
+                void datePickerComponent.disabledDateTemplate;
+                void datePickerComponent.decadeTemplate;
+                void datePickerComponent.previousIconTemplate;
+                void datePickerComponent.nextIconTemplate;
+                void datePickerComponent.triggerIconTemplate;
+                void datePickerComponent.clearIconTemplate;
+                void datePickerComponent.decrementIconTemplate;
+                void datePickerComponent.incrementIconTemplate;
+                void datePickerComponent.inputIconTemplate;
             }).not.toThrow();
 
             // Component should handle template processing

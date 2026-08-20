@@ -52,5 +52,3 @@ export enum RippleClasses {
      */
     root = 'p-ink'
 }
-
-export interface RippleStyle extends BaseStyle {}

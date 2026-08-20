@@ -94,6 +94,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
             }
         }
     `,
+    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     providers: [ScrollerStyle, { provide: SCROLLER_INSTANCE, useExisting: Scroller }, { provide: PARENT_INSTANCE, useExisting: Scroller }],
@@ -343,10 +344,10 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.
      * @group Props
      */
-    @Input() get trackBy(): Function {
+    @Input() get trackBy(): (...args: any[]) => any {
         return this._trackBy;
     }
-    set trackBy(val: Function) {
+    set trackBy(val: (...args: any[]) => any) {
         this._trackBy = val;
     }
     /**
@@ -748,7 +749,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
 
         if (valid) {
             const first = this.first;
-            const { scrollTop = 0, scrollLeft = 0 } = this.elementViewChild?.nativeElement;
+            const { scrollTop = 0, scrollLeft = 0 } = this.elementViewChild?.nativeElement ?? {};
             const { numToleratedItems } = this.calculateNumItems();
             const contentPos = this.getContentPosition();
             const itemSize = this.itemSize;
@@ -1200,7 +1201,6 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
     }
 
     handleEvents(name: string, params: any) {
-        //@ts-ignore
         return this.options && (<any>this.options)[name] ? (<any>this.options)[name](params) : this[name].emit(params);
     }
 

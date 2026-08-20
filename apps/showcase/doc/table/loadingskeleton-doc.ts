@@ -13,7 +13,7 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>Skeleton component can be used as a placeholder during the loading process.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>

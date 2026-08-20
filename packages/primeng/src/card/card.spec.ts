@@ -185,7 +185,6 @@ class TestFooterOnlyCardComponent {}
 
 describe('Card', () => {
     let fixture: ComponentFixture<TestBasicCardComponent>;
-    let component: TestBasicCardComponent;
     let cardEl: DebugElement;
     let card: Card;
 
@@ -209,7 +208,6 @@ describe('Card', () => {
         });
 
         fixture = TestBed.createComponent(TestBasicCardComponent);
-        component = fixture.componentInstance;
         await fixture.whenStable();
 
         cardEl = fixture.debugElement.query(By.directive(Card));

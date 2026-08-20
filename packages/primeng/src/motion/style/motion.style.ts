@@ -35,5 +35,3 @@ export enum MotionClasses {
      */
     root = 'p-motion'
 }
-
-export interface MotionStyle extends BaseStyle {}

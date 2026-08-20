@@ -80,5 +80,3 @@ export enum InputMaskClasses {
      */
     clearIcon = 'p-inputmask-clear-icon'
 }
-
-export interface InputMaskStyle extends BaseStyle {}

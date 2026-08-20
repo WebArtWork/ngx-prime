@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -22,7 +22,7 @@ import { ToastModule } from 'primeng/toast';
     providers: [MessageService]
 })
 export class CustomDoc {
-    constructor(private messageService: MessageService) {}
+    private messageService = inject(MessageService);
 
     async customUploader(event) {
         const file = event.files[0];
@@ -32,7 +32,7 @@ export class CustomDoc {
         reader.readAsDataURL(blob);
 
         reader.onloadend = function () {
-            const base64data = reader.result;
+            void reader.result;
         };
 
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });

@@ -1,4 +1,5 @@
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { providePrimeNG } from 'primeng/config';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -200,7 +201,6 @@ describe('Skeleton', () => {
         let fixture: ComponentFixture<TestSkeletonShapesComponent>;
         let component: TestSkeletonShapesComponent;
         let skeleton: Skeleton;
-        let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestSkeletonShapesComponent);
@@ -210,7 +210,6 @@ describe('Skeleton', () => {
             const debugElement = fixture.debugElement.query(By.directive(Skeleton));
 
             skeleton = debugElement.componentInstance;
-            element = debugElement.nativeElement;
         });
 
         it('should handle rectangle shape', async () => {
@@ -792,7 +791,7 @@ describe('Skeleton', () => {
 
             // Calculate styles multiple times
             for (let i = 0; i < 1000; i++) {
-                skeletonComponent.containerStyle;
+                void skeletonComponent.containerStyle;
             }
 
             const endTime = performance.now();
@@ -1298,8 +1297,6 @@ describe('Skeleton', () => {
 
     describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
         it('should apply global pt configuration from PrimeNGConfig', () => {
-            const { providePrimeNG } = require('primeng/config');
-
             @Component({
                 template: `
                     <p-skeleton></p-skeleton>
@@ -1341,8 +1338,6 @@ describe('Skeleton', () => {
         });
 
         it('should merge local pt with global pt configuration', () => {
-            const { providePrimeNG } = require('primeng/config');
-
             @Component({
                 template: ` <p-skeleton [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-skeleton> `,
                 imports: [SkeletonModule]

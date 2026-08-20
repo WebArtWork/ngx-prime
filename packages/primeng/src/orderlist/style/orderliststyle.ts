@@ -45,5 +45,3 @@ export enum OrderListClasses {
      */
     controls = 'p-orderlist-controls'
 }
-
-export interface OrderListStyle extends BaseStyle {}

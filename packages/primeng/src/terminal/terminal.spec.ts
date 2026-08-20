@@ -772,7 +772,7 @@ describe('Terminal', () => {
 
             styleFixture.detectChanges();
 
-            const styleTerminal = styleFixture.debugElement.query(By.directive(Terminal)).componentInstance;
+            void styleFixture.debugElement.query(By.directive(Terminal)).componentInstance;
             const rootElement = styleFixture.debugElement.query(By.directive(Terminal));
 
             expect(rootElement.nativeElement.classList.contains('custom-terminal')).toBe(true);

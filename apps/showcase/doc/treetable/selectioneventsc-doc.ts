@@ -28,7 +28,7 @@ interface NodeEvent {
         </app-docsectiontext>
         <div class="card">
             <p-toast />
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable
                     [value]="files"
                     [columns]="cols"

@@ -56,5 +56,3 @@ export enum SliderClasses {
      */
     handle = 'p-slider-handle'
 }
-
-export interface SliderStyle extends BaseStyle {}

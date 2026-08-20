@@ -232,7 +232,7 @@ export class StyleClass implements OnDestroy {
         if (!this.documentKeydownListener) {
             this.zone.runOutsideAngular(() => {
                 this.documentKeydownListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'keydown', (event) => {
-                    const { key, keyCode, which, type } = event;
+                    const { key, keyCode, which } = event;
 
                     if (!this.isVisible() || getComputedStyle(this.target as HTMLElement).getPropertyValue('position') === 'static') this.unbindDocumentKeydownListener();
                     if (this.isVisible() && key === 'Escape' && keyCode === 27 && which === 27) this.leave();

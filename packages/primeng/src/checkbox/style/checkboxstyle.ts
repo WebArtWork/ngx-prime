@@ -66,5 +66,3 @@ export enum CheckboxClasses {
      */
     icon = 'p-checkbox-icon'
 }
-
-export interface CheckboxStyle extends BaseStyle {}

@@ -97,7 +97,7 @@ class TestBasicOrderListComponent {
     filterPlaceholder = 'Search products';
     filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
     filterLocale: string | undefined;
-    trackBy: Function = (_index: number, item: any) => item.id;
+    trackBy: (...args: any[]) => any = (_index: number, item: any) => item.id;
     tabindex: number | undefined;
     ariaLabel = 'Product list';
     ariaLabelledBy: string | undefined;
@@ -484,7 +484,6 @@ describe('OrderList', () => {
         });
 
         it('should move selected items to top', async () => {
-            [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveTop();
@@ -497,7 +496,6 @@ describe('OrderList', () => {
         });
 
         it('should move selected items down', async () => {
-            [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveDown();
@@ -511,7 +509,6 @@ describe('OrderList', () => {
         });
 
         it('should move selected items to bottom', async () => {
-            [...component.products];
             spyOn(component, 'onReorder');
 
             orderList.moveBottom();

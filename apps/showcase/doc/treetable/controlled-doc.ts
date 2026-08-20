@@ -16,7 +16,7 @@ import { TreeTableModule } from 'primeng/treetable';
         </app-docsectiontext>
         <div class="card">
             <p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>

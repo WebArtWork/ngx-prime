@@ -168,5 +168,3 @@ export enum AutoCompleteClasses {
      */
     clearIcon = 'p-autocomplete-clear-icon'
 }
-
-export interface AutoCompleteStyle extends BaseStyle {}

@@ -3,9 +3,7 @@ import { AppConfigService } from '@/service/appconfigservice';
 
 import { afterNextRender, Component, computed, ElementRef, OnDestroy, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { AutoComplete } from 'primeng/autocomplete';
 import { DomHandler } from 'primeng/dom';
-import { StyleClass } from 'primeng/styleclass';
 import { Subscription } from 'rxjs';
 import { AppMenuItemComponent } from './app.menuitem.component';
 
@@ -23,7 +21,7 @@ export interface MenuItem {
         <nav>
             <ol class="layout-menu">
                 @for (item of menu; track item; let i = $index) {
-                    <li app-menuitem [item]="item" [root]="true"></li>
+                    <li appMenuitem [item]="item" [root]="true"></li>
                 }
             </ol>
         </nav>

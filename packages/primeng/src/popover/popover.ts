@@ -203,7 +203,7 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
 
     _contentTemplate: TemplateRef<PopoverContentTemplateContext> | undefined;
 
-    destroyCallback: Nullable<Function>;
+    destroyCallback: Nullable<(...args: any[]) => any>;
 
     overlayEventListener: Nullable<(event?: any) => void>;
 
@@ -426,8 +426,8 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
         event.preventDefault();
     }
 
-    @HostListener('document:keydown.escape', ['$event'])
-    onEscapeKeydown(_event: KeyboardEvent) {
+    @HostListener('document:keydown.escape')
+    onEscapeKeydown() {
         this.hide();
     }
 

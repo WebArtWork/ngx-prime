@@ -24,11 +24,11 @@ export interface Confirmation {
     /**
      * The callback function to be executed when the accept button is clicked.
      */
-    accept?: Function;
+    accept?: (...args: any[]) => any;
     /**
      * The callback function to be executed when the reject button is clicked.
      */
-    reject?: Function;
+    reject?: (...args: any[]) => any;
     /**
      * The label text for the accept button.
      */

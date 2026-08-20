@@ -45,5 +45,3 @@ export enum KnobClasses {
      */
     text = 'p-knob-text'
 }
-
-export interface KnobStyle extends BaseStyle {}

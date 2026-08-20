@@ -1193,7 +1193,8 @@ describe('Panel', () => {
             xit('should apply PT object with class, style and data attributes to root', () => {
                 // Skipped: PT style and attribute binding to host causes infinite loop with current implementation
                 const fixture = TestBed.createComponent(Panel);
-                const panel = fixture.componentInstance;
+
+                void fixture.componentInstance;
 
                 fixture.componentRef.setInput('pt', {
                     root: {

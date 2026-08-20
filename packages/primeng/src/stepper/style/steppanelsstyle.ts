@@ -27,5 +27,3 @@ export enum StepPanelsClasses {
      */
     root = 'p-steppanels'
 }
-
-export interface StepPanelsStyle extends BaseStyle {}

@@ -49,5 +49,3 @@ export enum StepperClasses {
      */
     separator = 'p-stepper-separator'
 }
-
-export interface StepperStyle extends BaseStyle {}

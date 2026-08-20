@@ -359,12 +359,10 @@ describe('Table', () => {
     });
 
     describe('Sorting Functionality', () => {
-        let testComponent: TestSortingTableComponent;
         let testFixture: ComponentFixture<TestSortingTableComponent>;
 
         beforeEach(async () => {
             testFixture = TestBed.createComponent(TestSortingTableComponent);
-            testComponent = testFixture.componentInstance;
             await testFixture.whenStable();
             testFixture.detectChanges();
         });
@@ -389,12 +387,10 @@ describe('Table', () => {
     });
 
     describe('Filtering Functionality', () => {
-        let testComponent: TestFilteringTableComponent;
         let testFixture: ComponentFixture<TestFilteringTableComponent>;
 
         beforeEach(async () => {
             testFixture = TestBed.createComponent(TestFilteringTableComponent);
-            testComponent = testFixture.componentInstance;
             await testFixture.whenStable();
             testFixture.detectChanges();
         });
@@ -473,12 +469,10 @@ describe('Table', () => {
     });
 
     describe('Templates Functionality', () => {
-        let testComponent: TestTemplatesTableComponent;
         let testFixture: ComponentFixture<TestTemplatesTableComponent>;
 
         beforeEach(async () => {
             testFixture = TestBed.createComponent(TestTemplatesTableComponent);
-            testComponent = testFixture.componentInstance;
             await testFixture.whenStable();
             testFixture.detectChanges();
         });

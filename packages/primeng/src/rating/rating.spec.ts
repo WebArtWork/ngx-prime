@@ -527,7 +527,8 @@ describe('Rating', () => {
 
             // Check if templates are processed by looking for template-generated content
             const allElements = fixture.debugElement.queryAll(By.css('*'));
-            const hasTemplateContent = allElements.some((el) => el.nativeElement.textContent && el.nativeElement.textContent.includes('★'));
+
+            void allElements.some((el) => el.nativeElement.textContent && el.nativeElement.textContent.includes('★'));
 
             // Templates might not be fully functional in test environment
             expect(fixture.componentInstance).toBeTruthy();
@@ -544,7 +545,8 @@ describe('Rating', () => {
 
             // Check if templates are processed by looking for template-generated content
             const allElements = fixture.debugElement.queryAll(By.css('*'));
-            const hasTemplateContent = allElements.some((el) => el.nativeElement.textContent && el.nativeElement.textContent.includes('☆'));
+
+            void allElements.some((el) => el.nativeElement.textContent && el.nativeElement.textContent.includes('☆'));
 
             // Templates might not be fully functional in test environment
             expect(fixture.componentInstance).toBeTruthy();
@@ -554,7 +556,6 @@ describe('Rating', () => {
     describe('Icon Customization Tests', () => {
         let component: TestBasicRatingComponent;
         let fixture: ComponentFixture<TestBasicRatingComponent>;
-        let ratingInstance: Rating;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -564,7 +565,6 @@ describe('Rating', () => {
 
             fixture = TestBed.createComponent(TestBasicRatingComponent);
             component = fixture.componentInstance;
-            ratingInstance = fixture.debugElement.query(By.directive(Rating)).componentInstance;
             fixture.detectChanges();
         });
 
@@ -683,7 +683,7 @@ describe('Rating', () => {
             component.autofocus = true;
             fixture.detectChanges();
 
-            const inputs = fixture.debugElement.queryAll(By.css('input[type="radio"]'));
+            void fixture.debugElement.queryAll(By.css('input[type="radio"]'));
 
             // Check that the pAutoFocus directive is applied - look for the attribute it adds
             expect(ratingInstance.autofocus).toBe(true);

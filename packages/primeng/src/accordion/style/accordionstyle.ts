@@ -86,5 +86,3 @@ export enum AccordionClasses {
      */
     panel = 'p-accordionpanel'
 }
-
-export interface AccordionStyle extends BaseStyle {}

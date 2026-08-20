@@ -500,7 +500,6 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     }
 
     enableModality() {
-        //@ts-ignore
         blockBodyScroll();
         this.cd.markForCheck();
 
@@ -510,7 +509,6 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
     }
 
     disableModality() {
-        //@ts-ignore
         unblockBodyScroll();
         this.cd.markForCheck();
 
@@ -602,7 +600,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         '[class]': "cn(cx('root'))"
     },
     hostDirectives: [Bind],
-    imports: [Bind, TimesIcon, NgTemplateOutlet, forwardRef(() => GalleriaItemSlot), forwardRef(() => GalleriaItem), forwardRef(() => GalleriaThumbnails), Galleria]
+    imports: [Bind, TimesIcon, NgTemplateOutlet, forwardRef(() => GalleriaItemSlot), forwardRef(() => GalleriaItem), forwardRef(() => GalleriaThumbnails)]
 })
 export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
     galleria = inject(Galleria);
@@ -658,8 +656,8 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
     }
 
     // For custom fullscreen
-    @HostListener('document:fullscreenchange', ['$event'])
-    handleFullscreenChange(event: Event) {
+    @HostListener('document:fullscreenchange')
+    handleFullscreenChange() {
         if (document?.fullscreenElement === this.el.nativeElement?.children[0]) {
             this.fullScreen = true;
         } else {
@@ -1202,7 +1200,7 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
         '[class]': 'cx("thumbnails")'
     },
     hostDirectives: [Bind],
-    imports: [Bind, Ripple, ChevronLeftIcon, ChevronUpIcon, NgTemplateOutlet, NgStyle, GalleriaItemSlot, ChevronRightIcon, ChevronDownIcon, Galleria]
+    imports: [Bind, Ripple, ChevronLeftIcon, ChevronUpIcon, NgTemplateOutlet, NgStyle, GalleriaItemSlot, ChevronRightIcon, ChevronDownIcon]
 })
 export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
     galleria = inject(Galleria);

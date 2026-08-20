@@ -23,7 +23,7 @@ interface Column {
             </p>
             <p>In this example, <b>10000</b> preloaded records are rendered by the Table.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
                     <ng-template #header let-columns>

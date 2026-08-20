@@ -318,12 +318,10 @@ describe('Galleria', () => {
 
     describe('Public Methods and Properties', () => {
         let fixture: ComponentFixture<TestBasicGalleriaComponent>;
-        let component: TestBasicGalleriaComponent;
         let galleriaInstance: Galleria;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicGalleriaComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
@@ -413,12 +411,10 @@ describe('Galleria', () => {
 
     describe('Full Screen Mode', () => {
         let fixture: ComponentFixture<TestFullScreenGalleriaComponent>;
-        let component: TestFullScreenGalleriaComponent;
         let galleriaInstance: Galleria;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestFullScreenGalleriaComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
@@ -447,12 +443,10 @@ describe('Galleria', () => {
 
     describe('Auto Play Functionality', () => {
         let fixture: ComponentFixture<TestAutoPlayGalleriaComponent>;
-        let component: TestAutoPlayGalleriaComponent;
         let galleriaInstance: Galleria;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestAutoPlayGalleriaComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
@@ -505,12 +499,10 @@ describe('Galleria', () => {
 
     describe('Indicators Mode', () => {
         let fixture: ComponentFixture<TestIndicatorsGalleriaComponent>;
-        let component: TestIndicatorsGalleriaComponent;
         let galleriaInstance: Galleria;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestIndicatorsGalleriaComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
@@ -531,11 +523,9 @@ describe('Galleria', () => {
 
     describe('Template Content Projection - #template approach', () => {
         let fixture: ComponentFixture<TestTemplateGalleriaComponent>;
-        let component: TestTemplateGalleriaComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestTemplateGalleriaComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -587,12 +577,10 @@ describe('Galleria', () => {
 
     describe('Template Content Projection - pTemplate approach', () => {
         let fixture: ComponentFixture<TestPTemplateGalleriaComponent>;
-        let component: TestPTemplateGalleriaComponent;
         let galleriaInstance: Galleria;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestPTemplateGalleriaComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const galleriaEl = fixture.debugElement.query(By.css('p-galleria'));
@@ -739,11 +727,9 @@ describe('Galleria', () => {
 
     describe('Accessibility', () => {
         let fixture: ComponentFixture<TestFullScreenGalleriaComponent>;
-        let component: TestFullScreenGalleriaComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestFullScreenGalleriaComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 

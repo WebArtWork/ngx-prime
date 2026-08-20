@@ -55,5 +55,3 @@ export class BaseIconStyle extends BaseStyle {
 export enum BaseIconClasses {
     root = 'p-icon'
 }
-
-export interface BaseIconStyle extends BaseStyle {}

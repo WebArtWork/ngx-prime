@@ -21,7 +21,7 @@ interface Column {
     template: ` <app-docsectiontext>
             <p>This demo uses a multiselect component to implement toggleable columns.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #caption>

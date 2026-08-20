@@ -343,7 +343,7 @@ describe('ScrollPanel', () => {
         it('should handle arrow key navigation in vertical orientation', async () => {
             scrollPanel.orientation = 'vertical';
 
-            const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
+            void fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
             const arrowDownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
             const arrowUpEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
@@ -815,7 +815,7 @@ describe('ScrollPanel', () => {
         });
 
         it('should update grabbed state data attributes', () => {
-            const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
+            void fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
             const mouseEvent = new MouseEvent('mousedown');
@@ -990,7 +990,7 @@ describe('ScrollPanel', () => {
                     class: instance?.initialized ? 'INITIALIZED' : 'NOT_INITIALIZED'
                 }),
                 barX: ({ instance }) => {
-                    const bgColor = instance?.orientation === 'horizontal' ? 'yellow' : 'blue';
+                    void (instance?.orientation === 'horizontal' ? 'yellow' : 'blue');
 
                     return {
                         class: 'INSTANCE_BAR',

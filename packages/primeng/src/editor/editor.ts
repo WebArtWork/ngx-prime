@@ -157,6 +157,7 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
      * @param {EditorInitEvent} event - custom event.
      * @group Emits
      */
+    // eslint-disable-next-line @angular-eslint/no-output-rename -- `onInit` is published public API; renaming would break consumers.
     @Output('onInit') onEditorInit: EventEmitter<EditorInitEvent> = new EventEmitter<EditorInitEvent>();
     /**
      * Callback to invoke when text of editor changes.
@@ -193,7 +194,7 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
 
     value: Nullable<string>;
 
-    delayedCommand: Function | null = null;
+    delayedCommand: (...args: any[]) => any | null = null;
 
     _readonly: boolean = false;
 

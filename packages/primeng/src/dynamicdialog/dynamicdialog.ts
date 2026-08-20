@@ -49,7 +49,7 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             [maximizeButtonProps]="{ severity: 'secondary', variant: 'text', rounded: true }"
             [style]="dialogStyle"
             [position]="position"
-            (onHide)="onDialogHide($event)"
+            (onHide)="onDialogHide()"
             (onMaximize)="onDialogMaximize($event)"
             (onResizeInit)="onDialogResizeInit($event)"
             (onResizeEnd)="onDialogResizeEnd($event)"
@@ -99,6 +99,7 @@ const DYNAMIC_DIALOG_INSTANCE = new InjectionToken<DynamicDialog>('DYNAMIC_DIALO
             }
         </p-dialog>
     `,
+    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     providers: [DynamicDialogStyle, { provide: DYNAMIC_DIALOG_INSTANCE, useExisting: DynamicDialog }, { provide: PARENT_INSTANCE, useExisting: DynamicDialog }],
@@ -296,7 +297,7 @@ export class DynamicDialog extends BaseComponent<DialogPassThrough> {
         this.dialogRef.onChildComponentLoaded.next(this.componentRef!.instance);
     }
 
-    onDialogHide(event: any) {
+    onDialogHide() {
         this.dialogRef.destroy();
     }
 

@@ -13,7 +13,7 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>Single selection can also be handled using radio buttons.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>

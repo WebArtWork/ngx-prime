@@ -94,7 +94,6 @@ class TestDynamicDividerComponent {
 
 describe('Divider', () => {
     let fixture: ComponentFixture<TestBasicDividerComponent>;
-    let component: TestBasicDividerComponent;
     let dividerEl: DebugElement;
     let divider: Divider;
 
@@ -105,7 +104,6 @@ describe('Divider', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicDividerComponent);
-        component = fixture.componentInstance;
         fixture.changeDetectorRef.markForCheck();
         await fixture.whenStable();
 

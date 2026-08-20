@@ -5,7 +5,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { providePrimeNG } from 'primeng/config';
-import type { InputNumberInputEvent } from 'primeng/types/inputnumber';
 import { InputNumber, InputNumberModule } from './inputnumber';
 
 // Test Components
@@ -93,10 +92,10 @@ class TestBasicInputNumberComponent {
     ariaDescribedBy: string | undefined = undefined as any;
     title: string | undefined = undefined as any;
 
-    onInputChange(_event: InputNumberInputEvent) {}
-    onFocusChange(_event: Event) {}
-    onBlurChange(_event: Event) {}
-    onKeyDownChange(_event: KeyboardEvent) {}
+    onInputChange() {}
+    onFocusChange() {}
+    onBlurChange() {}
+    onKeyDownChange() {}
     onClearChange() {}
 }
 
@@ -398,7 +397,7 @@ describe('InputNumber', () => {
         });
 
         it('should increment value on Arrow Up', async () => {
-            const _initialValue = testComponent.value || 0;
+            void (testComponent.value || 0);
 
             const keyEvent = new KeyboardEvent('keydown', { key: 'ArrowUp' });
 
@@ -481,7 +480,8 @@ describe('InputNumber', () => {
 
         it('should increment value on increment button click', async () => {
             const incrementBtn = testFixture.debugElement.query(By.css('[data-pc-section="incrementbutton"]'));
-            const _initialValue = testComponent.value;
+
+            void testComponent.value;
 
             incrementBtn.nativeElement.dispatchEvent(new MouseEvent('mousedown'));
             incrementBtn.nativeElement.dispatchEvent(new MouseEvent('mouseup'));
@@ -971,7 +971,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             expect(() => {
-                const _formatted = component.formatValue(1234.56);
+                void component.formatValue(1234.56);
             }).not.toThrow();
         });
 
@@ -1049,7 +1049,7 @@ describe('InputNumber', () => {
             await testFixture.whenStable();
 
             expect(() => {
-                const _formatted = component.formatValue(1234.56);
+                void component.formatValue(1234.56);
             }).not.toThrow();
         });
     });
@@ -1109,9 +1109,11 @@ describe('InputNumber', () => {
 
             // Check that all features work together
             const inputEl = testFixture.debugElement.query(By.css('input'));
-            const _clearIcon = testFixture.debugElement.query(By.css('[data-pc-section="clearIcon"]'));
+
+            void testFixture.debugElement.query(By.css('[data-pc-section="clearIcon"]'));
             const incrementBtn = testFixture.debugElement.query(By.css('[data-pc-section="incrementbutton"]'));
-            const _decrementBtn = testFixture.debugElement.query(By.css('[data-pc-section="decrementbutton"]'));
+
+            void testFixture.debugElement.query(By.css('[data-pc-section="decrementbutton"]'));
 
             expect(inputEl).toBeTruthy();
             // Only check for buttons since clear icon might not be visible initially

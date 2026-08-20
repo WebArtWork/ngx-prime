@@ -154,5 +154,3 @@ export enum DrawerClasses {
      */
     content = 'p-drawer-content'
 }
-
-export interface DrawerStyle extends BaseStyle {}

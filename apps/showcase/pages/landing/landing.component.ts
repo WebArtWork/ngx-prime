@@ -1,4 +1,3 @@
-import { AppNewsComponent } from '@/components/layout/news/app.news.component';
 import { AppTopBarComponent } from '@/components/layout/topbar/app.topbar.component';
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
@@ -14,7 +13,7 @@ import { ButtonModule } from 'primeng/button';
     selector: 'app-landing',
     standalone: true,
     templateUrl: './landing.component.html',
-    imports: [CommonModule, AppNewsComponent, AppTopBarComponent, ButtonModule, HeroSectionComponent, UsersSectionComponent, FooterSectionComponent]
+    imports: [CommonModule, AppTopBarComponent, ButtonModule, HeroSectionComponent, UsersSectionComponent, FooterSectionComponent]
 })
 export class LandingComponent implements OnInit {
     private configService = inject(AppConfigService);

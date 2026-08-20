@@ -143,5 +143,3 @@ export enum PasswordClasses {
      */
     clearIcon = 'p-password-clear-icon'
 }
-
-export interface PasswordStyle extends BaseStyle {}

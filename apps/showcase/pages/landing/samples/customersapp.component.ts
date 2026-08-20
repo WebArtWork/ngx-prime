@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -164,10 +164,8 @@ export class CustomersApp implements OnInit {
         }
     };
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private sanitizer: DomSanitizer
-    ) {}
+    private platformId = inject(PLATFORM_ID);
+    private sanitizer = inject(DomSanitizer);
 
     ngOnInit() {
         this.tableData = [

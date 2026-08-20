@@ -1,4 +1,5 @@
 import { Component, DebugElement, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
+import { providePrimeNG } from 'primeng/config';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -413,7 +414,7 @@ describe('ScrollTop', () => {
             // Mock the templates property to simulate template processing
             const mockTemplate = { getType: () => 'icon', template: {} };
 
-            scrollTop.templates = { first: () => mockTemplate, forEach: (fn: Function) => fn(mockTemplate) };
+            scrollTop.templates = { first: () => mockTemplate, forEach: (fn: (...args: any[]) => any) => fn(mockTemplate) };
 
             expect(() => scrollTop.ngAfterContentInit()).not.toThrow();
 
@@ -719,7 +720,7 @@ describe('ScrollTop', () => {
             spyOnProperty(scrollTop.document, 'defaultView').and.returnValue(null as any);
 
             // Mock onClick to safely handle null defaultView
-            const originalOnClick = scrollTop.onClick;
+            void scrollTop.onClick;
 
             spyOn(scrollTop, 'onClick').and.callFake(() => {
                 try {
@@ -728,7 +729,7 @@ describe('ScrollTop', () => {
                     if (defaultView) {
                         defaultView.scroll({ top: 0, behavior: scrollTop.behavior as ScrollBehavior });
                     }
-                } catch (error) {
+                } catch {
                     // Handle error gracefully
                 }
             });
@@ -937,7 +938,6 @@ describe('ScrollTop', () => {
 
         let fixture: ComponentFixture<TestScrollTopPtComponent>;
         let component: TestScrollTopPtComponent;
-        let scrollTop: ScrollTop;
 
         beforeEach(() => {
             TestBed.resetTestingModule();
@@ -949,7 +949,6 @@ describe('ScrollTop', () => {
             fixture = TestBed.createComponent(TestScrollTopPtComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
-            scrollTop = fixture.debugElement.query(By.directive(ScrollTop)).componentInstance;
         });
 
         it('should apply pt host class', async () => {
@@ -1261,8 +1260,6 @@ describe('ScrollTop', () => {
 
     describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
         it('should apply global pt configuration from PrimeNGConfig', () => {
-            const { providePrimeNG } = require('primeng/config');
-
             @Component({
                 template: `
                     <p-scrolltop [threshold]="100"></p-scrolltop>
@@ -1305,8 +1302,6 @@ describe('ScrollTop', () => {
         });
 
         it('should merge local pt with global pt configuration', () => {
-            const { providePrimeNG } = require('primeng/config');
-
             @Component({
                 template: ` <p-scrolltop [threshold]="100" [pt]="{ host: 'LOCAL_HOST_CLASS', root: 'LOCAL_ROOT_CLASS' }"></p-scrolltop> `,
                 imports: [ScrollTopModule]

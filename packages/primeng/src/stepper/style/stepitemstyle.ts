@@ -32,5 +32,3 @@ export enum StepItemClasses {
      */
     root = 'p-stepitem'
 }
-
-export interface StepItemStyle extends BaseStyle {}

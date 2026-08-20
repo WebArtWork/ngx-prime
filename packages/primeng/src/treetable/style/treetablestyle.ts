@@ -740,5 +740,3 @@ export enum TreeTableClasses {
      */
     sortableColumnIcon = 'p-sortable-column-icon'
 }
-
-export interface TreeTableStyle extends BaseStyle {}

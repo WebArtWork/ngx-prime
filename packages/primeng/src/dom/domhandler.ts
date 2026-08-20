@@ -505,8 +505,6 @@ export class DomHandler {
 
         if (trident > 0) {
             // IE 11 => return version number
-            let rv = ua.indexOf('rv:');
-
             return true;
         }
 
@@ -608,7 +606,7 @@ export class DomHandler {
         } else if (document['selection'] && document['selection'].empty) {
             try {
                 document['selection'].empty();
-            } catch (error) {
+            } catch {
                 //ignore IE bug
             }
         }
@@ -637,8 +635,7 @@ export class DomHandler {
 
     public static resolveUserAgent() {
         let ua = navigator.userAgent.toLowerCase();
-        let match =
-            /(chrome)[ \/]([\w.]+)/.exec(ua) || /(webkit)[ \/]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || (ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) || [];
+        let match = /(chrome)[ /]([\w.]+)/.exec(ua) || /(webkit)[ /]([\w.]+)/.exec(ua) || /(opera)(?:.*version|)[ /]([\w.]+)/.exec(ua) || /(msie) ([\w.]+)/.exec(ua) || (ua.indexOf('compatible') < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua)) || [];
 
         return {
             browser: match[1] || '',
@@ -771,12 +768,13 @@ export class DomHandler {
                 return el?.parentElement;
             case '@grandparent':
                 return el?.parentElement?.parentElement;
-            default:
+
+            default: {
                 const type = typeof target;
 
                 if (type === 'string') {
                     return document.querySelector(target);
-                } else if (type === 'object' && target.hasOwnProperty('nativeElement')) {
+                } else if (type === 'object' && Object.prototype.hasOwnProperty.call(target, 'nativeElement')) {
                     return this.isExist(target.nativeElement) ? target.nativeElement : undefined;
                 }
 
@@ -784,6 +782,7 @@ export class DomHandler {
                 const element = isFunction(target) ? target() : target;
 
                 return (element && element.nodeType === 9) || this.isExist(element) ? element : null;
+            }
         }
     }
 

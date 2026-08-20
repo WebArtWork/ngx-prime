@@ -535,11 +535,6 @@ describe('TreeTable', () => {
         });
 
         it('should handle column filter', async () => {
-            const filterMetadata = {
-                value: 'File',
-                matchMode: 'contains'
-            };
-
             treetable.filter('File', 'type', 'contains');
 
             await new Promise((resolve) => setTimeout(resolve, treetable.filterDelay + 10));
@@ -1527,7 +1522,7 @@ describe('TreeTable', () => {
                 ];
 
                 for (const prop of booleanProps) {
-                    if (component.hasOwnProperty(prop)) {
+                    if (Object.prototype.hasOwnProperty.call(component, prop)) {
                         component[prop] = true;
                         fixture.changeDetectorRef.markForCheck();
                         await fixture.whenStable();
@@ -1555,7 +1550,7 @@ describe('TreeTable', () => {
                 ];
 
                 for (const { prop, value } of numberProps) {
-                    if (component.hasOwnProperty(prop)) {
+                    if (Object.prototype.hasOwnProperty.call(component, prop)) {
                         component[prop] = value;
                         fixture.changeDetectorRef.markForCheck();
                         await fixture.whenStable();
@@ -1584,7 +1579,7 @@ describe('TreeTable', () => {
                 ];
 
                 for (const { prop, value } of stringProps) {
-                    if (component.hasOwnProperty(prop)) {
+                    if (Object.prototype.hasOwnProperty.call(component, prop)) {
                         component[prop] = value;
                         fixture.changeDetectorRef.markForCheck();
                         await fixture.whenStable();
@@ -2323,7 +2318,7 @@ describe('TreeTable', () => {
 
                     // Test each boolean property dynamically
                     for (const prop of booleanProperties) {
-                        if (dynamicTreetable.hasOwnProperty(prop)) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, prop)) {
                             // Test direct property assignment
                             dynamicTreetable[prop] = true;
                             dynamicFixture.changeDetectorRef.markForCheck();
@@ -2376,7 +2371,7 @@ describe('TreeTable', () => {
 
                     // Test pageLinks
                     [3, 5, 7, 10].forEach((links) => {
-                        if (dynamicTreetable.hasOwnProperty('pageLinks')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'pageLinks')) {
                             dynamicTreetable.pageLinks = links;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
@@ -2386,7 +2381,7 @@ describe('TreeTable', () => {
 
                     // Test filterDelay
                     [100, 300, 500, 1000].forEach((delay) => {
-                        if (dynamicTreetable.hasOwnProperty('filterDelay')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'filterDelay')) {
                             dynamicTreetable.filterDelay = delay;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
@@ -2396,7 +2391,7 @@ describe('TreeTable', () => {
 
                     // Test virtualScrollDelay
                     [50, 100, 150, 300].forEach((delay) => {
-                        if (dynamicTreetable.hasOwnProperty('virtualScrollDelay')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'virtualScrollDelay')) {
                             dynamicTreetable.virtualScrollDelay = delay;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
@@ -2412,7 +2407,7 @@ describe('TreeTable', () => {
                     const styleClasses = ['class1', 'class2 class3', 'dynamic-class', ''];
 
                     for (const styleClass of styleClasses) {
-                        if (dynamicTreetable.hasOwnProperty('styleClass')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'styleClass')) {
                             dynamicTreetable.styleClass = styleClass;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2424,7 +2419,7 @@ describe('TreeTable', () => {
 
                     // Test tableStyleClass
                     ['table-class', 'responsive-table', ''].forEach((tableClass) => {
-                        if (dynamicTreetable.hasOwnProperty('tableStyleClass')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'tableStyleClass')) {
                             dynamicTreetable.tableStyleClass = tableClass;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
@@ -2458,7 +2453,7 @@ describe('TreeTable', () => {
 
                     // Test columnResizeMode
                     ['fit', 'expand'].forEach((mode) => {
-                        if (dynamicTreetable.hasOwnProperty('columnResizeMode')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'columnResizeMode')) {
                             dynamicTreetable.columnResizeMode = mode;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
@@ -2468,7 +2463,7 @@ describe('TreeTable', () => {
 
                     // Test contextMenuSelectionMode
                     ['separate', 'joint'].forEach((mode) => {
-                        if (dynamicTreetable.hasOwnProperty('contextMenuSelectionMode')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'contextMenuSelectionMode')) {
                             dynamicTreetable.contextMenuSelectionMode = mode;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
@@ -2508,7 +2503,7 @@ describe('TreeTable', () => {
                     const styleObjects = [{ width: '100%' }, { width: '800px', height: '400px' }, { width: '100%', height: 'auto', border: '1px solid #ccc' }, null];
 
                     for (const style of styleObjects) {
-                        if (dynamicTreetable.hasOwnProperty('tableStyle')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'tableStyle')) {
                             dynamicTreetable.tableStyle = style;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2522,7 +2517,7 @@ describe('TreeTable', () => {
                     const rowOptions = [[5, 10, 20], [10, 25, 50, 100], [5, 10, 25, 50, 'All'], []];
 
                     for (const options of rowOptions) {
-                        if (dynamicTreetable.hasOwnProperty('rowsPerPageOptions')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'rowsPerPageOptions')) {
                             dynamicTreetable.rowsPerPageOptions = options;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2536,7 +2531,7 @@ describe('TreeTable', () => {
                     const filterFieldSets = [['name'], ['name', 'type'], ['name', 'type', 'size'], []];
 
                     for (const fields of filterFieldSets) {
-                        if (dynamicTreetable.hasOwnProperty('globalFilterFields')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'globalFilterFields')) {
                             dynamicTreetable.globalFilterFields = fields;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2557,7 +2552,7 @@ describe('TreeTable', () => {
                     ];
 
                     for (const filters of filterObjects) {
-                        if (dynamicTreetable.hasOwnProperty('filters')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'filters')) {
                             dynamicTreetable.filters = filters;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2593,7 +2588,7 @@ describe('TreeTable', () => {
                     dynamicFixture.detectChanges();
                     await dynamicFixture.whenStable();
 
-                    if (dynamicTreetable.hasOwnProperty('selection')) {
+                    if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'selection')) {
                         dynamicTreetable.selection = testData[0];
                         dynamicFixture.changeDetectorRef.markForCheck();
                         await dynamicFixture.whenStable();
@@ -2616,7 +2611,7 @@ describe('TreeTable', () => {
                     dynamicFixture.detectChanges();
                     await dynamicFixture.whenStable();
 
-                    if (dynamicTreetable.hasOwnProperty('selection')) {
+                    if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'selection')) {
                         dynamicTreetable.selection = [testData[0]];
                         dynamicFixture.changeDetectorRef.markForCheck();
                         await dynamicFixture.whenStable();
@@ -2643,7 +2638,7 @@ describe('TreeTable', () => {
                     const selectionKeySets = [{}, { '1': true }, { '1': true, '2': false }, { '1': true, '2': true, '3': false }];
 
                     for (const keys of selectionKeySets) {
-                        if (dynamicTreetable.hasOwnProperty('selectionKeys')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'selectionKeys')) {
                             dynamicTreetable.selectionKeys = keys;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2664,7 +2659,7 @@ describe('TreeTable', () => {
                     const sortFields = ['name', 'size', 'type', null];
 
                     for (const field of sortFields) {
-                        if (dynamicTreetable.hasOwnProperty('sortField')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'sortField')) {
                             dynamicTreetable.sortField = field;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2678,7 +2673,7 @@ describe('TreeTable', () => {
                     const sortOrders = [1, -1, 0];
 
                     for (const order of sortOrders) {
-                        if (dynamicTreetable.hasOwnProperty('sortOrder')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'sortOrder')) {
                             dynamicTreetable.sortOrder = order;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2704,7 +2699,7 @@ describe('TreeTable', () => {
                     ];
 
                     for (const sortMeta of multiSortSets) {
-                        if (dynamicTreetable.hasOwnProperty('multiSortMeta')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'multiSortMeta')) {
                             dynamicTreetable.multiSortMeta = sortMeta;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2716,7 +2711,7 @@ describe('TreeTable', () => {
 
                     // Test defaultSortOrder
                     [-1, 1].forEach((order) => {
-                        if (dynamicTreetable.hasOwnProperty('defaultSortOrder')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'defaultSortOrder')) {
                             dynamicTreetable.defaultSortOrder = order;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
@@ -2732,7 +2727,7 @@ describe('TreeTable', () => {
                     const itemSizes = [30, 40, 50, 60, 100];
 
                     for (const size of itemSizes) {
-                        if (dynamicTreetable.hasOwnProperty('virtualScrollItemSize')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'virtualScrollItemSize')) {
                             dynamicTreetable.virtualScrollItemSize = size;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2746,7 +2741,7 @@ describe('TreeTable', () => {
                     const scrollOptions = [null, { itemSize: 40 }, { itemSize: 50, numToleratedItems: 5 }, { itemSize: 60, numToleratedItems: 10, showSpacer: true }];
 
                     for (const options of scrollOptions) {
-                        if (dynamicTreetable.hasOwnProperty('virtualScrollOptions')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'virtualScrollOptions')) {
                             dynamicTreetable.virtualScrollOptions = options as any;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2760,7 +2755,7 @@ describe('TreeTable', () => {
                     const heights = ['200px', '400px', '100vh', 'auto'];
 
                     for (const height of heights) {
-                        if (dynamicTreetable.hasOwnProperty('scrollHeight')) {
+                        if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'scrollHeight')) {
                             dynamicTreetable.scrollHeight = height;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
@@ -2882,7 +2877,7 @@ describe('TreeTable', () => {
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
                             await dynamicFixture.whenStable();
-                        } catch (error) {
+                        } catch {
                             fail(`Should not throw for valid edge case: ${JSON.stringify(data)}`);
                         }
                     }
@@ -3143,7 +3138,7 @@ class TestBasicTreeTableComponent {
     columnResizeMode: string = 'fit';
     reorderableColumns: boolean | undefined;
     contextMenu: any;
-    rowTrackBy: Function = (index: number, item: any) => item;
+    rowTrackBy: (...args: any[]) => any = (index: number, item: any) => item;
     filters: any = {};
     globalFilterFields: string[] | undefined;
     filterDelay: number = 300;
@@ -3163,23 +3158,23 @@ class TestBasicTreeTableComponent {
     onContextMenuSelectionChange(event: any) {
         this.contextMenuSelection = event;
     }
-    onFilter(event: any) {}
-    onNodeExpand(event: any) {}
-    onNodeCollapse(event: any) {}
-    onPage(event: any) {}
-    onSort(event: any) {}
-    onLazyLoad(event: any) {}
-    onSortFunction(event: any) {}
-    onColResize(event: any) {}
-    onColReorder(event: any) {}
-    onNodeSelect(event: any) {}
-    onNodeUnselect(event: any) {}
-    onContextMenuSelect(event: any) {}
-    onHeaderCheckboxToggle(event: any) {}
-    onEditInit(event: any) {}
-    onEditComplete(event: any) {}
-    onEditCancel(event: any) {}
-    onSelectionKeysChange(event: any) {}
+    onFilter() {}
+    onNodeExpand() {}
+    onNodeCollapse() {}
+    onPage() {}
+    onSort() {}
+    onLazyLoad() {}
+    onSortFunction() {}
+    onColResize() {}
+    onColReorder() {}
+    onNodeSelect() {}
+    onNodeUnselect() {}
+    onContextMenuSelect() {}
+    onHeaderCheckboxToggle() {}
+    onEditInit() {}
+    onEditComplete() {}
+    onEditCancel() {}
+    onSelectionKeysChange() {}
 }
 
 @Component({
@@ -3197,7 +3192,7 @@ class TestBasicTreeTableComponent {
                 <tr [ttRow]="rowNode">
                     @for (col of columns; track col; let i = $index) {
                         <td [ttEditableColumn]="rowData" [ttEditableColumnField]="col.field">
-                            @if (i == 0) {
+                            @if (i === 0) {
                                 <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                             }
                             {{ rowData[col.field] }}

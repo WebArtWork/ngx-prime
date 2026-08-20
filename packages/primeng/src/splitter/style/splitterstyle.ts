@@ -47,5 +47,3 @@ export enum SplitterClasses {
      */
     gutterHandle = 'p-splitter-gutter-handle'
 }
-
-export interface SplitterStyle extends BaseStyle {}

@@ -36,4 +36,4 @@ export enum BlockUIClasses {
     root = 'p-blockui'
 }
 
-export interface BlockUIStyle extends BaseStyle {}
+export type BlockUIStyle = BaseStyle;

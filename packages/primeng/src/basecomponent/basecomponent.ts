@@ -150,6 +150,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
         // NOOP - to be implemented by subclasses
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept so subclass overrides (which do use `changes`) satisfy the base signature.
     onChanges(changes: SimpleChanges) {
         // NOOP - to be implemented by subclasses
     }
@@ -475,7 +476,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
             return (checkSameKey ? (_key !== _cKey ? computedValue?.[_key] : undefined) : computedValue?.[_key]) ?? computedValue;
         };
 
-        return pt?.hasOwnProperty('_usept')
+        return pt && Object.prototype.hasOwnProperty.call(pt, '_usept')
             ? {
                   _usept: pt['_usept'],
                   originalValue: getValue(pt.originalValue),
@@ -487,7 +488,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
     private _usePT(pt: any, callback: any, key: any, params?: any) {
         const fn = (value) => callback?.call(this, value, key, params);
 
-        if (pt?.hasOwnProperty('_usept')) {
+        if (pt && Object.prototype.hasOwnProperty.call(pt, '_usept')) {
             const { mergeSections = true, mergeProps: useMergeProps = false } = pt['_usept'] || this.config?.['ptOptions']() || {};
             const originalValue = fn(pt.originalValue);
             const value = fn(pt.value);

@@ -6,11 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
-interface City {
-    name: string;
-    code: string;
-}
-
 @Component({
     selector: 'app-example-doc',
     standalone: true,

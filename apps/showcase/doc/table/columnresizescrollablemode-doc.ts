@@ -10,7 +10,7 @@ import { TableModule } from 'primeng/table';
     selector: 'app-columnresizescrollablemode-doc',
     standalone: true,
     imports: [TableModule, AppCode, DeferredDemo],
-    template: ` <app-p-deferred-demo (load)="loadDemoData()">
+    template: ` <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="customers" showGridlines [scrollable]="true" scrollHeight="400px" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>

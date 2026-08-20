@@ -1,9 +1,9 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, inject, InjectionToken, Input, NgModule, numberAttribute, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
-import { blockBodyScroll, unblockBodyScroll } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
+import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
 import { BlockUIPassThrough } from 'primeng/types/blockui';
 import { ZIndexUtils } from 'primeng/utils';
 import { BlockUiStyle } from './style/blockuistyle';
@@ -133,7 +133,6 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
                 this.target.getBlockableElement().style.position = 'relative';
             } else {
                 this.renderer.appendChild(this.document.body, (this.el as ElementRef).nativeElement);
-                //@ts-ignore
                 blockBodyScroll();
             }
 
@@ -170,7 +169,6 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
 
             if (!this.target) {
                 this.document.body.removeChild(this.el.nativeElement);
-                //@ts-ignore
                 unblockBodyScroll();
             }
         }
@@ -195,7 +193,6 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
                 ZIndexUtils.clear(this.el.nativeElement);
 
                 if (!this.target) {
-                    //@ts-ignore
                     unblockBodyScroll();
                 }
             }

@@ -45,5 +45,3 @@ export enum ToolbarClasses {
      */
     end = 'p-toolbar-end'
 }
-
-export interface ToolbarStyle extends BaseStyle {}

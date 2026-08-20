@@ -5,7 +5,7 @@ import type { DialogPassThrough } from 'primeng/types/dialog';
  * Dialogs can be created dynamically with any component as the content using a DialogService.
  * @group Components
  */
-export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<string, any> = {}> {
+export class DynamicDialogConfig<DataType = any, InputValuesType extends Record<string, any> = Record<string, any>> {
     /**
      * An object to pass to the component loaded inside the Dialog.
      * @group Props

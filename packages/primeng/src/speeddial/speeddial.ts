@@ -80,8 +80,8 @@ const SPEED_DIAL_INSTANCE = new InjectionToken<SpeedDial>('SPEED_DIAL_INSTANCE')
                 [class]="cx('list')"
                 role="menu"
                 [id]="id + '_list'"
-                (focus)="onFocus($event)"
-                (focusout)="onBlur($event)"
+                (focus)="onFocus()"
+                (focusout)="onBlur()"
                 (keydown)="onKeyDown($event)"
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 [tabindex]="-1"
@@ -467,7 +467,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
                 break;
 
             case 'Escape':
-                this.onEscapeKey(event);
+                this.onEscapeKey();
                 break;
 
             case 'Home':
@@ -483,11 +483,11 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
         }
     }
 
-    onFocus(event) {
+    onFocus() {
         this.focused = true;
     }
 
-    onBlur(event) {
+    onBlur() {
         this.focused = false;
         asapScheduler.schedule(() => this.focusedOptionIndex.set(-1));
     }
@@ -560,14 +560,14 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
             this.onItemClick(event, this.model[itemIndex]);
         }
 
-        this.onBlur(event);
+        this.onBlur();
 
         const buttonEl = <any>findSingle(this.container?.nativeElement, 'button');
 
         buttonEl && focus(buttonEl);
     }
 
-    onEscapeKey(event: KeyboardEvent) {
+    onEscapeKey() {
         this.hide();
 
         const buttonEl = <any>findSingle(this.container?.nativeElement, 'button');
@@ -590,7 +590,7 @@ export class SpeedDial extends BaseComponent<SpeedDialPassThrough> {
                 break;
 
             case 'Escape':
-                this.onEscapeKey(event);
+                this.onEscapeKey();
 
                 break;
 

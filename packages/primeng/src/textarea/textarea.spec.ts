@@ -30,7 +30,7 @@ class TestAdvancedTextareaComponent {
     invalid: boolean | undefined = undefined as any;
     resizeEventCount: number = 0;
 
-    onResizeHandler(event: any) {
+    onResizeHandler() {
         this.resizeEventCount++;
     }
 }

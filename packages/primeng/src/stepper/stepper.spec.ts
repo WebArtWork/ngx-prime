@@ -293,7 +293,7 @@ describe('Stepper', () => {
         });
 
         it('should disable non-active steps in linear mode', () => {
-            const stepButtons = fixture.debugElement.queryAll(By.css('p-step button'));
+            void fixture.debugElement.queryAll(By.css('p-step button'));
             const steps = fixture.debugElement.queryAll(By.directive(Step));
 
             // In linear mode, non-active steps should be disabled
@@ -352,11 +352,9 @@ describe('Stepper', () => {
 
     describe('Vertical Stepper', () => {
         let verticalFixture: ComponentFixture<TestVerticalStepperComponent>;
-        let verticalComponent: TestVerticalStepperComponent;
 
         beforeEach(() => {
             verticalFixture = TestBed.createComponent(TestVerticalStepperComponent);
-            verticalComponent = verticalFixture.componentInstance;
             verticalFixture.detectChanges();
         });
 
@@ -528,7 +526,7 @@ describe('Stepper', () => {
 
     describe('Data Attributes', () => {
         it('should have correct data-pc-name attributes', () => {
-            const stepperElement = fixture.debugElement.query(By.css('p-stepper'));
+            void fixture.debugElement.query(By.css('p-stepper'));
             const steps = fixture.debugElement.queryAll(By.css('p-step'));
             const panels = fixture.debugElement.queryAll(By.css('p-step-panel'));
 
@@ -691,7 +689,6 @@ describe('Stepper', () => {
     describe('PassThrough', () => {
         let ptFixture: ComponentFixture<TestPTStepperComponent>;
         let ptComponent: TestPTStepperComponent;
-        let ptStepper: Stepper;
 
         beforeEach(() => {
             ptFixture = TestBed.createComponent(TestPTStepperComponent);
@@ -769,8 +766,6 @@ describe('Stepper', () => {
             ptFixture.detectChanges();
 
             const stepperEl = ptFixture.debugElement.query(By.css('p-stepper'));
-
-            ptStepper = ptFixture.debugElement.query(By.directive(Stepper)).componentInstance;
 
             expect(stepperEl.nativeElement.className).toContain('NON_LINEAR');
             expect(stepperEl.nativeElement.getAttribute('data-value')).toBe('1');

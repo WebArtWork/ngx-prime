@@ -100,7 +100,6 @@ describe('Tooltip', () => {
         let fixture: ComponentFixture<TestBasicTooltipComponent>;
         let component: TestBasicTooltipComponent;
         let tooltipDirective: Tooltip;
-        let inputElement: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicTooltipComponent);
@@ -110,7 +109,6 @@ describe('Tooltip', () => {
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
 
             tooltipDirective = debugElement.injector.get(Tooltip);
-            inputElement = component.inputElement().nativeElement;
         });
 
         it('should create the directive', () => {
@@ -224,19 +222,15 @@ describe('Tooltip', () => {
 
     describe('Event Handling', () => {
         let fixture: ComponentFixture<TestBasicTooltipComponent>;
-        let component: TestBasicTooltipComponent;
         let tooltipDirective: Tooltip;
-        let inputElement: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicTooltipComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
 
             tooltipDirective = debugElement.injector.get(Tooltip);
-            inputElement = component.inputElement().nativeElement;
         });
 
         it('should activate on mouse enter for hover event', () => {
@@ -334,12 +328,10 @@ describe('Tooltip', () => {
 
     describe('Delay and Life Timeout', () => {
         let fixture: ComponentFixture<TestBasicTooltipComponent>;
-        let component: TestBasicTooltipComponent;
         let tooltipDirective: Tooltip;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicTooltipComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
@@ -398,12 +390,10 @@ describe('Tooltip', () => {
 
     describe('Accessibility and Keyboard Navigation', () => {
         let fixture: ComponentFixture<TestBasicTooltipComponent>;
-        let component: TestBasicTooltipComponent;
         let tooltipDirective: Tooltip;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicTooltipComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
@@ -448,12 +438,10 @@ describe('Tooltip', () => {
 
     describe('Styling and Custom Options', () => {
         let fixture: ComponentFixture<TestBasicTooltipComponent>;
-        let component: TestBasicTooltipComponent;
         let tooltipDirective: Tooltip;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicTooltipComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
@@ -569,12 +557,10 @@ describe('Tooltip', () => {
 
     describe('Edge Cases and Cleanup', () => {
         let fixture: ComponentFixture<TestBasicTooltipComponent>;
-        let component: TestBasicTooltipComponent;
         let tooltipDirective: Tooltip;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicTooltipComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
@@ -672,7 +658,6 @@ describe('Tooltip', () => {
         let fixture: ComponentFixture<TestPTTooltipComponent>;
         let component: TestPTTooltipComponent;
         let tooltipDirective: Tooltip;
-        let inputEl: HTMLElement;
 
         beforeEach(async () => {
             await TestBed.configureTestingModule({
@@ -687,7 +672,6 @@ describe('Tooltip', () => {
             const debugElement = fixture.debugElement.query(By.directive(Tooltip));
 
             tooltipDirective = debugElement.injector.get(Tooltip);
-            inputEl = component.inputElement().nativeElement;
         });
 
         // Case 1: Simple string classes

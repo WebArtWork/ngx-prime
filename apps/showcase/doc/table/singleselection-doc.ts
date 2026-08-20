@@ -22,7 +22,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 setting it to false.
             </p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center items-center mb-6 gap-2">
                     <p-toggleswitch [(ngModel)]="metaKey" inputId="input-metakey" />

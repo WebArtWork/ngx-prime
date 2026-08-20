@@ -138,5 +138,3 @@ export enum PanelMenuClasses {
     submenu = 'p-panelmenu-submenu',
     separator = 'p-menuitem-separator'
 }
-
-export interface PanelMenuStyle extends BaseStyle {}

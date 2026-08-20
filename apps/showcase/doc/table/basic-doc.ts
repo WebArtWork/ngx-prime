@@ -13,7 +13,7 @@ import { Table, TableModule, TablePassThrough } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>DataTable requires a collection to display along with column components for the representation of the data.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>

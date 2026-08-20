@@ -475,10 +475,6 @@ export enum TableClasses {
      */
     resizableColumn = 'p-datatable-resizable-column',
     /**
-     * Class name of the row editor cancel element
-     */
-    rowEditorCancel = 'p-datatable-row-editor-cancel',
-    /**
      * Class name of the frozen column element
      */
     frozenColumn = 'p-datatable-frozen-column',

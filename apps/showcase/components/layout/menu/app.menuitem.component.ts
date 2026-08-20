@@ -6,7 +6,7 @@ import { Tag } from 'primeng/tag';
 import { MenuItem } from './app.menu.component';
 
 @Component({
-    selector: '[app-menuitem]',
+    selector: '[appMenuitem]',
     template: `
         @if (root && item.children) {
             <button pButton type="button" class="px-link" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-slidedown" leaveToClass="hidden" leaveActiveClass="animate-slideup">
@@ -55,7 +55,7 @@ import { MenuItem } from './app.menu.component';
             <div class="overflow-y-hidden transition-all duration-[400ms] ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
                 <ol>
                     @for (child of item.children; track child) {
-                        <li app-menuitem [root]="false" [item]="child"></li>
+                        <li appMenuitem [root]="false" [item]="child"></li>
                     }
                 </ol>
             </div>

@@ -563,7 +563,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
     constructParser() {
         const options = this.getOptions();
         // Remove any properties with undefined or invalid values to let Intl.NumberFormat use defaults
-        const cleanOptions = Object.fromEntries(Object.entries(options).filter(([_key, value]) => value !== undefined));
+        const cleanOptions = Object.fromEntries(Object.entries(options).filter(([, value]) => value !== undefined));
 
         this.numberFormat = new Intl.NumberFormat(this.locale, cleanOptions);
         const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();

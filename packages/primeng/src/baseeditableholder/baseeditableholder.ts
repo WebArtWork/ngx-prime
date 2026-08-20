@@ -33,14 +33,15 @@ export class BaseEditableHolder<PT = any> extends BaseModelHolder<PT> implements
 
     $disabled = computed(() => this.disabled() || this._disabled());
 
-    onModelChange: Function = () => {};
+    onModelChange: (...args: any[]) => any = () => {};
 
-    onModelTouched: Function = () => {};
+    onModelTouched: (...args: any[]) => any = () => {};
 
     writeDisabledState(value: boolean) {
         this._disabled.set(value);
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept so subclass overrides (which do use both params) satisfy the base signature.
     writeControlValue(value: any, setModelValue?: (value: any) => void) {
         // NOOP - this method should be overridden in the derived classes
     }
@@ -50,11 +51,11 @@ export class BaseEditableHolder<PT = any> extends BaseModelHolder<PT> implements
         this.writeControlValue(value, this.writeModelValue.bind(this));
     }
 
-    registerOnChange(fn: Function) {
+    registerOnChange(fn: (...args: any[]) => any) {
         this.onModelChange = fn;
     }
 
-    registerOnTouched(fn: Function) {
+    registerOnTouched(fn: (...args: any[]) => any) {
         this.onModelTouched = fn;
     }
 

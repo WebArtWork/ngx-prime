@@ -56,5 +56,3 @@ export enum PickListClasses {
      */
     targetControls = 'p-picklist-target-controls'
 }
-
-export interface PickListStyle extends BaseStyle {}

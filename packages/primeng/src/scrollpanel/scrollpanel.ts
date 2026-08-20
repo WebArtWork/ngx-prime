@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, QueryList, TemplateRef, ViewEncapsulation, viewChild, contentChild, contentChildren } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, InjectionToken, Input, NgModule, NgZone, numberAttribute, TemplateRef, ViewEncapsulation, viewChild, contentChild, contentChildren } from '@angular/core';
 import { addClass, getHeight, removeClass, uuid } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -355,8 +355,8 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
         }
 
         if (!this.documentMouseUpListener) {
-            this.documentMouseUpListener = (e) => {
-                this.onDocumentMouseUp(e);
+            this.documentMouseUpListener = () => {
+                this.onDocumentMouseUp();
             };
 
             this.document.addEventListener('mouseup', this.documentMouseUpListener);
@@ -464,7 +464,7 @@ export class ScrollPanel extends BaseComponent<ScrollPanelPassThrough> {
         }
     }
 
-    onDocumentMouseUp(e: Event) {
+    onDocumentMouseUp() {
         const yBarViewChild = this.yBarViewChild();
 
         yBarViewChild?.nativeElement?.setAttribute('data-p-scrollpanel-grabbed', 'false');

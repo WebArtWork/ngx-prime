@@ -111,7 +111,6 @@ describe('InputGroupAddon', () => {
 
 describe('InputGroupAddon PassThrough Tests', () => {
     let fixture: ComponentFixture<InputGroupAddon>;
-    let component: InputGroupAddon;
     let hostElement: HTMLElement;
 
     beforeEach(async () => {
@@ -121,7 +120,6 @@ describe('InputGroupAddon PassThrough Tests', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(InputGroupAddon);
-        component = fixture.componentInstance;
         hostElement = fixture.nativeElement;
     });
 

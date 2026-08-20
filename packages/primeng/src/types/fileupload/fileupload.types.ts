@@ -154,7 +154,7 @@ export interface FileSendEvent extends UploadEvent, FormDataEvent {}
  * @see {@link FileUpload.onBeforeUpload}
  * @group Events
  */
-export interface FileBeforeUploadEvent extends FormDataEvent {}
+export type FileBeforeUploadEvent = FormDataEvent;
 /**
  * Callback to invoke when file upload is complete.
  * @see {@link FileUpload.onUpload}

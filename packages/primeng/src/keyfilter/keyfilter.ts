@@ -34,11 +34,11 @@ type Keys = {
 const DEFAULT_MASKS: Record<KeyFilterPattern, RegExp> = {
     pint: /^[\d]*$/,
     int: /^[-]?[\d]*$/,
-    pnum: /^[\d\.]*$/,
-    money: /^[\d\.\s,]*$/,
-    num: /^[-]?[\d\.]*$/,
+    pnum: /^[\d.]*$/,
+    money: /^[\d.\s,]*$/,
+    num: /^[-]?[\d.]*$/,
     hex: /^[0-9a-f]*$/i,
-    email: /^[a-z0-9_\.\-@]*$/i,
+    email: /^[a-z0-9_.@-]*$/i,
     alpha: /^[a-z_]*$/i,
     alphanum: /^[a-z0-9_]*$/i
 };
@@ -175,8 +175,8 @@ export class KeyFilter implements Validator {
         return true;
     }
 
-    @HostListener('input', ['$event'])
-    onInput(e: KeyboardEvent) {
+    @HostListener('input')
+    onInput() {
         if (this.isAndroid && !this.pValidateOnly) {
             let val = this.el.nativeElement.value;
             let lastVal = this.lastValue || '';
@@ -253,6 +253,7 @@ export class KeyFilter implements Validator {
 
             if (windowClipboard) {
                 clipboardData = {
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept to match the native DataTransfer.getData(format) signature.
                     getData: (_format: string) => windowClipboard.getData('text')
                 } as DataTransfer;
             }
@@ -280,6 +281,7 @@ export class KeyFilter implements Validator {
         }
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept to satisfy the `Validator.validate` interface signature.
     validate(_c: AbstractControl): { [key: string]: any } | any {
         if (this.pValidateOnly) {
             let value = this.el.nativeElement.value;

@@ -63,7 +63,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
                         <div class="p-3 bg-green-100 text-green-950 dark:bg-green-500/30 dark:text-white font-medium mt-4 rounded-md leading-normal">Your theme is up to date.</div>
                     }
                 </div>
-            } @else if (status() === 'updated' && missingTokens().length == 0) {
+            } @else if (status() === 'updated' && missingTokens().length === 0) {
                 <div>
                     <div class="p-3 bg-green-100 text-green-950 dark:bg-green-500/30 dark:text-white font-medium mt-4 rounded-md leading-normal">Your theme is successfully updated.</div>
                 </div>

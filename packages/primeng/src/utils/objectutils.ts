@@ -93,8 +93,6 @@ export class ObjectUtils {
     }
 
     public static reorderArray(value: any[], from: number, to: number) {
-        let target: number;
-
         if (value && from !== to) {
             if (to >= value.length) {
                 to %= value.length;

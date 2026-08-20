@@ -105,5 +105,3 @@ export enum TieredMenuClasses {
      */
     end = 'p-tieredmenu-end'
 }
-
-export interface TieredMenuStyle extends BaseStyle {}

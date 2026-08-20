@@ -77,5 +77,3 @@ export enum ButtonClasses {
      */
     label = 'p-button-label'
 }
-
-export interface ButtonStyle extends BaseStyle {}

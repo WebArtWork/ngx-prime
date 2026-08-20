@@ -177,7 +177,7 @@ export interface ListboxClickEvent {
  * Custom change event.
  * @group Events
  */
-export interface ListboxDoubleClickEvent extends ListboxClickEvent {}
+export type ListboxDoubleClickEvent = ListboxClickEvent;
 /**
  * Custom item template context.
  * @group Interface

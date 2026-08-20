@@ -245,7 +245,7 @@ export interface TreeTableFilterEvent {
  * @see {@link TreeTable.onNodeExpand}
  * @group Events
  */
-export interface TreeTableNodeExpandEvent<T = any> extends TreeTableNodeCollapseEvent<T> {}
+export type TreeTableNodeExpandEvent<T = any> = TreeTableNodeCollapseEvent<T>;
 /**
  * Custom node collapse event.
  * @see {@link TreeTable.onNodeCollapse}
@@ -322,7 +322,7 @@ export interface TreeTableColResizeEvent {
  * @extends {TreeTableNode}
  * @group Events
  */
-export interface TreeTableNodeSelectEvent extends TreeTableNode {}
+export type TreeTableNodeSelectEvent = TreeTableNode;
 /**
  * Custom node unselect event.
  * @see {@link TreeTable.onNodeUnSelect}

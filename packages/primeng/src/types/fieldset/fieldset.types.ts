@@ -76,7 +76,7 @@ export interface FieldsetAfterToggleEvent {
  * @extends {FieldsetAfterToggleEvent}
  * @group Events
  */
-export interface FieldsetBeforeToggleEvent extends FieldsetAfterToggleEvent {}
+export type FieldsetBeforeToggleEvent = FieldsetAfterToggleEvent;
 
 /**
  * Defines valid templates in Fieldset.

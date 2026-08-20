@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser, NgTemplateOutlet, NgStyle, NgClass, NgIf, NgFor } from '@angular/common';
+import { CommonModule, isPlatformBrowser, NgTemplateOutlet, NgStyle, NgClass } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -395,6 +395,7 @@ export class TableService {
         }
     `,
     providers: [TableService, TableStyle, { provide: TABLE_INSTANCE, useExisting: Table }, { provide: PARENT_INSTANCE, useExisting: Table }],
+    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -562,7 +563,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() rowTrackBy: Function = (index: number, item: any) => item;
+    @Input() rowTrackBy: (...args: any[]) => any = (index: number, item: any) => item;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
@@ -717,7 +718,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
      * Export function.
      * @group Props
      */
-    @Input() exportFunction: Function | undefined;
+    @Input() exportFunction: (...args: any[]) => any | undefined;
     /**
      * Custom export header of the column to be exported as CSV.
      * @group Props
@@ -1941,7 +1942,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         this.rowTouched = false;
     }
 
-    handleRowTouchEnd(event: Event) {
+    handleRowTouchEnd() {
         this.rowTouched = true;
     }
 
@@ -2319,7 +2320,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                     let localFiltered = false;
 
                     for (let prop in this.filters) {
-                        if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
+                        if (Object.prototype.hasOwnProperty.call(this.filters, prop) && prop !== 'global') {
                             localFiltered = true;
                             let filterField = prop;
                             let filterMeta = this.filters[filterField];
@@ -2412,7 +2413,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         let empty = true;
 
         for (let prop in this.filters) {
-            if (this.filters.hasOwnProperty(prop)) {
+            if (Object.prototype.hasOwnProperty.call(this.filters, prop)) {
                 empty = false;
                 break;
             }
@@ -2806,10 +2807,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             let dropHeaderOffset = DomHandler.getOffset(dropHeader);
 
             if (this.draggedColumn != dropHeader) {
-                let dragIndex = DomHandler.indexWithinGroup(this.draggedColumn, 'preorderablecolumn');
-                let dropIndex = DomHandler.indexWithinGroup(dropHeader, 'preorderablecolumn');
                 let targetLeft = dropHeaderOffset.left - containerOffset.left;
-                let targetTop = containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
 
                 (<ElementRef>this.reorderIndicatorUpViewChild()).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
@@ -2960,7 +2958,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         !this.$unstyled() && DomHandler.removeClass(rowElement, 'p-datatable-dragpoint-top');
     }
 
-    onRowDragEnd(event: Event) {
+    onRowDragEnd() {
         this.rowDragging = false;
         this.draggedRowIndex = null;
         this.droppedRowIndex = null;
@@ -2985,7 +2983,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
         //cleanup
         this.onRowDragLeave(event, rowElement);
-        this.onRowDragEnd(event);
+        this.onRowDragEnd();
     }
 
     isEmpty() {
@@ -3504,12 +3502,13 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             <ng-container *ngTemplateOutlet="dataTable.emptyMessageTemplate || dataTable._emptyMessageTemplate(); context: { $implicit: columns, frozen: frozen }"></ng-container>
         }
     `,
+    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.data-p]': 'dataP'
     },
-    imports: [NgTemplateOutlet, Bind, Table]
+    imports: [NgTemplateOutlet]
 })
 export class TableBody extends BaseComponent {
     dataTable = inject(Table);
@@ -3592,7 +3591,7 @@ export class TableBody extends BaseComponent {
     }
 
     shouldRenderRowspan(value: any, rowData: any, i: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy!);
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy || '');
         let prevRowData = value[i - 1];
 
         if (prevRowData) {
@@ -3605,7 +3604,7 @@ export class TableBody extends BaseComponent {
     }
 
     calculateRowGroupSize(value: any, rowData: any, index: number) {
-        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy!);
+        let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dataTable?.groupRowsBy || '');
         let nextRowFieldData = currentRowFieldData;
         let groupRowSpan = 0;
 
@@ -3830,7 +3829,7 @@ export class SortableColumn extends BaseComponent {
         super();
 
         if (this.isEnabled()) {
-            this.subscription = this.dataTable.tableService.sortSource$.subscribe((sortMeta) => {
+            this.subscription = this.dataTable.tableService.sortSource$.subscribe(() => {
                 this.updateSortState();
             });
         }
@@ -3886,7 +3885,9 @@ export class SortableColumn extends BaseComponent {
     }
 
     isFilterElement(element: HTMLElement) {
-        return this.isFilterElementIconOrButton(element) || this.isFilterElementIconOrButton(element?.parentElement?.parentElement!);
+        const grandparent = element?.parentElement?.parentElement;
+
+        return this.isFilterElementIconOrButton(element) || this.isFilterElementIconOrButton(grandparent!);
     }
 
     private isFilterElementIconOrButton(element: HTMLElement) {
@@ -3901,7 +3902,7 @@ export class SortableColumn extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-sortIcon',
+    selector: 'p-sortIcon, p-sort-icon, p-sorticon',
     template: `
         @if (!(dataTable.sortIconTemplate || dataTable._sortIconTemplate)) {
             @if (sortOrder === 0) {
@@ -3942,7 +3943,7 @@ export class SortIcon extends BaseComponent {
 
     constructor() {
         super();
-        this.subscription = this.dataTable.tableService.sortSource$.subscribe((sortMeta) => {
+        this.subscription = this.dataTable.tableService.sortSource$.subscribe(() => {
             this.updateSortState();
         });
     }
@@ -4060,10 +4061,10 @@ export class SelectableRow extends BaseComponent {
         }
     }
 
-    @HostListener('touchend', ['$event'])
-    onTouchEnd(event: Event) {
+    @HostListener('touchend')
+    onTouchEnd() {
         if (this.isEnabled()) {
-            this.dataTable.handleRowTouchEnd(event);
+            this.dataTable.handleRowTouchEnd();
         }
     }
 
@@ -4280,6 +4281,7 @@ export class SelectableRowDblClick extends BaseComponent {
 
     @Input('pSelectableRowDblClick') data: any;
 
+    // eslint-disable-next-line @angular-eslint/no-input-rename -- `pSelectableRowIndex` is published public API; renaming would break consumers.
     @Input('pSelectableRowIndex') index: number | undefined;
 
     @Input({ transform: booleanAttribute }) pSelectableRowDisabled: boolean | undefined;
@@ -4501,12 +4503,12 @@ export class ResizableColumn extends BaseComponent {
         this.dataTable.onColumnResize(event);
     }
 
-    onDocumentMouseUp(event: MouseEvent) {
+    onDocumentMouseUp() {
         this.dataTable.onColumnResizeEnd();
         this.unbindDocumentEvents();
     }
 
-    onTouchEnd(event: TouchEvent) {
+    onTouchEnd() {
         this.dataTable.onColumnResizeEnd();
         this.unbindDocumentEvents();
     }
@@ -5057,7 +5059,7 @@ export class CancelEditableRow extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-cellEditor',
+    selector: 'p-cellEditor, p-cell-editor, p-celleditor',
     template: `
         @if (editing) {
             <ng-container *ngTemplateOutlet="inputTemplate || _inputTemplate()"></ng-container>
@@ -5107,7 +5109,7 @@ export class CellEditor extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-tableRadioButton',
+    selector: 'p-tableRadioButton, p-table-radio-button, p-tableradiobutton',
     template: `<p-radioButton #rb [(ngModel)]="checked" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [binary]="true" [value]="value" (onClick)="onClick($event)" [unstyled]="unstyled()" /> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -5170,7 +5172,7 @@ export class TableRadioButton extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-tableCheckbox',
+    selector: 'p-tableCheckbox, p-table-checkbox, p-tablecheckbox',
     template: `
         <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [required]="required()" [disabled]="disabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
             @if (dataTable.checkboxIconTemplate || dataTable._checkboxIconTemplate(); as template) {
@@ -5237,7 +5239,7 @@ export class TableCheckbox extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-tableHeaderCheckbox',
+    selector: 'p-tableHeaderCheckbox, p-table-header-checkbox, p-tableheadercheckbox',
     template: `
         <p-checkbox [pt]="ptm('pcCheckbox')" [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [inputId]="inputId()" [name]="name()" [ariaLabel]="ariaLabel" [unstyled]="unstyled()">
             @if (dataTable.headerCheckboxIconTemplate || dataTable._headerCheckboxIconTemplate(); as template) {
@@ -5460,8 +5462,8 @@ export class ReorderableRow extends BaseComponent {
         this.dataTable.onRowDragStart(event, <number>this.index);
     }
 
-    onDragEnd(event: DragEvent) {
-        this.dataTable.onRowDragEnd(event);
+    onDragEnd() {
+        this.dataTable.onRowDragEnd();
         this.el.nativeElement.draggable = false;
     }
 
@@ -5499,53 +5501,61 @@ export class ReorderableRow extends BaseComponent {
     selector: 'p-columnFilter, p-column-filter, p-columnfilter',
     template: `
         <div [class]="cx('filter')">
-            <p-columnFilterFormElement
-                *ngIf="display === 'row'"
-                class="p-fluid"
-                [type]="type"
-                [field]="field"
-                [ariaLabel]="ariaLabel"
-                [filterConstraint]="dataTable.filters[field]"
-                [filterTemplate]="filterTemplate() || _filterTemplate"
-                [placeholder]="placeholder"
-                [minFractionDigits]="minFractionDigits"
-                [maxFractionDigits]="maxFractionDigits"
-                [prefix]="prefix"
-                [suffix]="suffix"
-                [locale]="locale"
-                [localeMatcher]="localeMatcher"
-                [currency]="currency"
-                [currencyDisplay]="currencyDisplay"
-                [useGrouping]="useGrouping"
-                [showButtons]="showButtons"
-                [filterOn]="filterOn"
-                [pt]="pt()"
-                [unstyled]="unstyled()"
-            ></p-columnFilterFormElement>
-            <p-button
-                *ngIf="showMenuButton"
-                [styleClass]="cx('pcColumnFilterButton')"
-                [pt]="ptm('pcColumnFilterButton')"
-                [attr.aria-haspopup]="true"
-                [ariaLabel]="filterMenuButtonAriaLabel"
-                [attr.aria-controls]="overlayVisible ? overlayId : null"
-                [attr.aria-expanded]="overlayVisible ?? false"
-                (click)="toggleMenu($event)"
-                (keydown)="onToggleButtonKeyDown($event)"
-                [buttonProps]="filterButtonProps?.filter"
-                #menuButton
-                [unstyled]="unstyled()"
-            >
-                <ng-template #icon>
-                    <ng-container>
-                        <svg data-p-icon="filter" *ngIf="!filterIconTemplate && !_filterIconTemplate && !hasFilter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
-                        <svg data-p-icon="filter-fill" *ngIf="!filterIconTemplate && !_filterIconTemplate && hasFilter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
-                        <span *ngIf="filterIconTemplate || _filterIconTemplate" [pBind]="ptm('pcColumnFilterButton')['icon']" [attr.data-pc-section]="'columnfilterbuttonicon'">
-                            <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
-                        </span>
-                    </ng-container>
-                </ng-template>
-            </p-button>
+            @if (display === 'row') {
+                <p-columnFilterFormElement
+                    class="p-fluid"
+                    [type]="type"
+                    [field]="field"
+                    [ariaLabel]="ariaLabel"
+                    [filterConstraint]="dataTable.filters[field]"
+                    [filterTemplate]="filterTemplate() || _filterTemplate"
+                    [placeholder]="placeholder"
+                    [minFractionDigits]="minFractionDigits"
+                    [maxFractionDigits]="maxFractionDigits"
+                    [prefix]="prefix"
+                    [suffix]="suffix"
+                    [locale]="locale"
+                    [localeMatcher]="localeMatcher"
+                    [currency]="currency"
+                    [currencyDisplay]="currencyDisplay"
+                    [useGrouping]="useGrouping"
+                    [showButtons]="showButtons"
+                    [filterOn]="filterOn"
+                    [pt]="pt()"
+                    [unstyled]="unstyled()"
+                ></p-columnFilterFormElement>
+            }
+            @if (showMenuButton) {
+                <p-button
+                    [styleClass]="cx('pcColumnFilterButton')"
+                    [pt]="ptm('pcColumnFilterButton')"
+                    [attr.aria-haspopup]="true"
+                    [ariaLabel]="filterMenuButtonAriaLabel"
+                    [attr.aria-controls]="overlayVisible ? overlayId : null"
+                    [attr.aria-expanded]="overlayVisible ?? false"
+                    (click)="toggleMenu($event)"
+                    (keydown)="onToggleButtonKeyDown($event)"
+                    [buttonProps]="filterButtonProps?.filter"
+                    #menuButton
+                    [unstyled]="unstyled()"
+                >
+                    <ng-template #icon>
+                        <ng-container>
+                            @if (!filterIconTemplate && !_filterIconTemplate && !hasFilter) {
+                                <svg data-p-icon="filter" [pBind]="ptm('pcColumnFilterButton')['icon']" />
+                            }
+                            @if (!filterIconTemplate && !_filterIconTemplate && hasFilter) {
+                                <svg data-p-icon="filter-fill" [pBind]="ptm('pcColumnFilterButton')['icon']" />
+                            }
+                            @if (filterIconTemplate || _filterIconTemplate) {
+                                <span [pBind]="ptm('pcColumnFilterButton')['icon']" [attr.data-pc-section]="'columnfilterbuttonicon'">
+                                    <ng-template *ngTemplateOutlet="filterIconTemplate || _filterIconTemplate; context: { hasFilter: hasFilter }"></ng-template>
+                                </span>
+                            }
+                        </ng-container>
+                    </ng-template>
+                </p-button>
+            }
             @if (renderOverlay()) {
                 <div
                     [pMotion]="showMenu && overlayVisible"
@@ -5563,79 +5573,96 @@ export class ReorderableRow extends BaseComponent {
                     (keydown.escape)="onEscape()"
                 >
                     <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate; context: { $implicit: field }"></ng-container>
-                    <ul *ngIf="display === 'row'; else menu" [class]="cx('filterConstraintList')" [pBind]="ptm('filterConstraintList')">
-                        <li
-                            *ngFor="let matchMode of matchModes; let i = index"
-                            (click)="onRowMatchModeChange(matchMode.value)"
-                            (keydown)="onRowMatchModeKeyDown($event)"
-                            (keydown.enter)="onRowMatchModeChange(matchMode.value)"
-                            [class]="cx('filterConstraint')"
-                            [pBind]="ptm('filterConstraint', ptmFilterConstraintOptions(matchMode))"
-                            [class.p-datatable-filter-constraint-selected]="isRowMatchModeSelected(matchMode.value)"
-                            [attr.tabindex]="i === 0 ? '0' : null"
-                        >
-                            {{ matchMode.label }}
-                        </li>
-                        <li [class]="cx('filterConstraintSeparator')" [pBind]="ptm('filterConstraintSeparator', { context: { index: i } })"></li>
-                        <li [class]="cx('filterConstraint')" [pBind]="ptm('emtpyFilterLabel')" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">
-                            {{ noFilterLabel }}
-                        </li>
-                    </ul>
-                    <ng-template #menu>
-                        <div [class]="cx('filterOperator')" [pBind]="ptm('filterOperator')" *ngIf="isShowOperator">
-                            <p-select [options]="operatorOptions" [pt]="ptm('pcFilterOperatorDropdown')" [ngModel]="operator" (ngModelChange)="onOperatorChange($event)" [styleClass]="cx('pcFilterOperatorDropdown')" [unstyled]="unstyled()"></p-select>
-                        </div>
-                        <div [class]="cx('filterRuleList')" [pBind]="ptm('filterRuleList')">
-                            <div *ngFor="let fieldConstraint of fieldConstraints; let i = index" [ngClass]="cx('filterRule')" [pBind]="ptm('filterRule')">
+                    @if (display === 'row') {
+                        <ul [class]="cx('filterConstraintList')" [pBind]="ptm('filterConstraintList')">
+                            @for (matchMode of matchModes; track matchMode; let i = $index) {
+                                <li
+                                    (click)="onRowMatchModeChange(matchMode.value)"
+                                    (keydown)="onRowMatchModeKeyDown($event)"
+                                    (keydown.enter)="onRowMatchModeChange(matchMode.value)"
+                                    [class]="cx('filterConstraint')"
+                                    [pBind]="ptm('filterConstraint', ptmFilterConstraintOptions(matchMode))"
+                                    [class.p-datatable-filter-constraint-selected]="isRowMatchModeSelected(matchMode.value)"
+                                    [attr.tabindex]="i === 0 ? '0' : null"
+                                >
+                                    {{ matchMode.label }}
+                                </li>
+                            }
+                            <li [class]="cx('filterConstraintSeparator')" [pBind]="ptm('filterConstraintSeparator', { context: { index: i } })"></li>
+                            <li [class]="cx('filterConstraint')" [pBind]="ptm('emtpyFilterLabel')" (click)="onRowClearItemClick()" (keydown)="onRowMatchModeKeyDown($event)" (keydown.enter)="onRowClearItemClick()">
+                                {{ noFilterLabel }}
+                            </li>
+                        </ul>
+                    } @else {
+                        @if (isShowOperator) {
+                            <div [class]="cx('filterOperator')" [pBind]="ptm('filterOperator')">
                                 <p-select
-                                    *ngIf="showMatchModes && matchModes"
-                                    [options]="matchModes"
-                                    [ngModel]="fieldConstraint.matchMode"
-                                    (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)"
-                                    [styleClass]="cx('pcFilterConstraintDropdown')"
-                                    [pt]="ptm('pcFilterConstraintDropdown')"
+                                    [options]="operatorOptions"
+                                    [pt]="ptm('pcFilterOperatorDropdown')"
+                                    [ngModel]="operator"
+                                    (ngModelChange)="onOperatorChange($event)"
+                                    [styleClass]="cx('pcFilterOperatorDropdown')"
                                     [unstyled]="unstyled()"
                                 ></p-select>
-                                <p-columnFilterFormElement
-                                    [type]="type"
-                                    [field]="field"
-                                    [filterConstraint]="fieldConstraint"
-                                    [filterTemplate]="filterTemplate() || _filterTemplate"
-                                    [placeholder]="placeholder"
-                                    [minFractionDigits]="minFractionDigits"
-                                    [maxFractionDigits]="maxFractionDigits"
-                                    [prefix]="prefix"
-                                    [suffix]="suffix"
-                                    [locale]="locale"
-                                    [localeMatcher]="localeMatcher"
-                                    [currency]="currency"
-                                    [currencyDisplay]="currencyDisplay"
-                                    [useGrouping]="useGrouping"
-                                    [filterOn]="filterOn"
-                                    [pt]="pt()"
-                                    [unstyled]="unstyled()"
-                                ></p-columnFilterFormElement>
-                                <div>
-                                    <p-button
-                                        *ngIf="showRemoveIcon"
-                                        [styleClass]="cx('pcFilterRemoveRuleButton')"
-                                        [pt]="ptm('pcFilterRemoveRuleButton')"
-                                        [text]="true"
-                                        severity="danger"
-                                        size="small"
-                                        (onClick)="removeConstraint(fieldConstraint)"
-                                        [ariaLabel]="removeRuleButtonLabel"
-                                        [label]="removeRuleButtonLabel"
-                                        [buttonProps]="filterButtonProps?.popover?.removeRule"
-                                        [unstyled]="unstyled()"
-                                    >
-                                        <ng-template #icon>
-                                            <svg data-p-icon="trash" *ngIf="!removeRuleIconTemplate() && !_removeRuleIconTemplate" [pBind]="ptm('pcFilterRemoveRuleButton')['icon']" />
-                                            <ng-template *ngTemplateOutlet="removeRuleIconTemplate() || _removeRuleIconTemplate"></ng-template>
-                                        </ng-template>
-                                    </p-button>
-                                </div>
                             </div>
+                        }
+                        <div [class]="cx('filterRuleList')" [pBind]="ptm('filterRuleList')">
+                            @for (fieldConstraint of fieldConstraints; track fieldConstraint; let i = $index) {
+                                <div [ngClass]="cx('filterRule')" [pBind]="ptm('filterRule')">
+                                    @if (showMatchModes && matchModes) {
+                                        <p-select
+                                            [options]="matchModes"
+                                            [ngModel]="fieldConstraint.matchMode"
+                                            (ngModelChange)="onMenuMatchModeChange($event, fieldConstraint)"
+                                            [styleClass]="cx('pcFilterConstraintDropdown')"
+                                            [pt]="ptm('pcFilterConstraintDropdown')"
+                                            [unstyled]="unstyled()"
+                                        ></p-select>
+                                    }
+                                    <p-columnFilterFormElement
+                                        [type]="type"
+                                        [field]="field"
+                                        [filterConstraint]="fieldConstraint"
+                                        [filterTemplate]="filterTemplate() || _filterTemplate"
+                                        [placeholder]="placeholder"
+                                        [minFractionDigits]="minFractionDigits"
+                                        [maxFractionDigits]="maxFractionDigits"
+                                        [prefix]="prefix"
+                                        [suffix]="suffix"
+                                        [locale]="locale"
+                                        [localeMatcher]="localeMatcher"
+                                        [currency]="currency"
+                                        [currencyDisplay]="currencyDisplay"
+                                        [useGrouping]="useGrouping"
+                                        [filterOn]="filterOn"
+                                        [pt]="pt()"
+                                        [unstyled]="unstyled()"
+                                    ></p-columnFilterFormElement>
+                                    <div>
+                                        @if (showRemoveIcon) {
+                                            <p-button
+                                                [styleClass]="cx('pcFilterRemoveRuleButton')"
+                                                [pt]="ptm('pcFilterRemoveRuleButton')"
+                                                [text]="true"
+                                                severity="danger"
+                                                size="small"
+                                                (onClick)="removeConstraint(fieldConstraint)"
+                                                [ariaLabel]="removeRuleButtonLabel"
+                                                [label]="removeRuleButtonLabel"
+                                                [buttonProps]="filterButtonProps?.popover?.removeRule"
+                                                [unstyled]="unstyled()"
+                                            >
+                                                <ng-template #icon>
+                                                    @if (!removeRuleIconTemplate() && !_removeRuleIconTemplate) {
+                                                        <svg data-p-icon="trash" [pBind]="ptm('pcFilterRemoveRuleButton')['icon']" />
+                                                    }
+                                                    <ng-template *ngTemplateOutlet="removeRuleIconTemplate() || _removeRuleIconTemplate"></ng-template>
+                                                </ng-template>
+                                            </p-button>
+                                        }
+                                    </div>
+                                </div>
+                            }
                         </div>
                         @if (isShowAddConstraint) {
                             <p-button
@@ -5651,35 +5678,39 @@ export class ReorderableRow extends BaseComponent {
                                 [unstyled]="unstyled()"
                             >
                                 <ng-template #icon>
-                                    <svg data-p-icon="plus" *ngIf="!addRuleIconTemplate() && !_addRuleIconTemplate" [pBind]="ptm('pcAddRuleButtonLabel')['icon']" />
+                                    @if (!addRuleIconTemplate() && !_addRuleIconTemplate) {
+                                        <svg data-p-icon="plus" [pBind]="ptm('pcAddRuleButtonLabel')['icon']" />
+                                    }
                                     <ng-template *ngTemplateOutlet="addRuleIconTemplate() || _addRuleIconTemplate"></ng-template>
                                 </ng-template>
                             </p-button>
                         }
                         <div [class]="cx('filterButtonbar')" [pBind]="ptm('filterButtonBar')">
-                            <p-button
-                                #clearBtn
-                                *ngIf="showClearButton"
-                                [outlined]="true"
-                                (onClick)="clearFilter()"
-                                [attr.aria-label]="clearButtonLabel"
-                                [label]="clearButtonLabel"
-                                [buttonProps]="filterButtonProps?.popover?.clear"
-                                [pt]="ptm('pcFilterClearButton')"
-                                [unstyled]="unstyled()"
-                            />
-                            <p-button
-                                *ngIf="showApplyButton"
-                                (onClick)="applyFilter()"
-                                size="small"
-                                [label]="applyButtonLabel"
-                                [attr.aria-label]="applyButtonLabel"
-                                [buttonProps]="filterButtonProps?.popover?.apply"
-                                [pt]="ptm('pcFilterApplyButton')"
-                                [unstyled]="unstyled()"
-                            />
+                            @if (showClearButton) {
+                                <p-button
+                                    #clearBtn
+                                    [outlined]="true"
+                                    (onClick)="clearFilter()"
+                                    [attr.aria-label]="clearButtonLabel"
+                                    [label]="clearButtonLabel"
+                                    [buttonProps]="filterButtonProps?.popover?.clear"
+                                    [pt]="ptm('pcFilterClearButton')"
+                                    [unstyled]="unstyled()"
+                                />
+                            }
+                            @if (showApplyButton) {
+                                <p-button
+                                    (onClick)="applyFilter()"
+                                    size="small"
+                                    [label]="applyButtonLabel"
+                                    [attr.aria-label]="applyButtonLabel"
+                                    [buttonProps]="filterButtonProps?.popover?.apply"
+                                    [pt]="ptm('pcFilterApplyButton')"
+                                    [unstyled]="unstyled()"
+                                />
+                            }
                         </div>
-                    </ng-template>
+                    }
                     <ng-container *ngTemplateOutlet="footerTemplate() || _footerTemplate; context: { $implicit: field }"></ng-container>
                 </div>
             }
@@ -5688,7 +5719,7 @@ export class ReorderableRow extends BaseComponent {
     providers: [TableStyle],
     encapsulation: ViewEncapsulation.None,
     hostDirectives: [Bind],
-    imports: [NgIf, Bind, forwardRef(() => ColumnFilterFormElement), Button, FilterIcon, FilterFillIcon, NgTemplateOutlet, MotionDirective, NgFor, Select, FormsModule, NgClass, TrashIcon, PlusIcon]
+    imports: [forwardRef(() => ColumnFilterFormElement), Button, FilterIcon, FilterFillIcon, NgTemplateOutlet, MotionDirective, Select, FormsModule, NgClass, TrashIcon, PlusIcon]
 })
 export class ColumnFilter extends BaseComponent {
     hostName = 'Table';
@@ -6156,8 +6187,8 @@ export class ColumnFilter extends BaseComponent {
         let item = <HTMLLIElement>event.target;
 
         switch (event.key) {
-            case 'ArrowDown':
-                var nextItem = this.findNextItem(item);
+            case 'ArrowDown': {
+                let nextItem = this.findNextItem(item);
 
                 if (nextItem) {
                     item.removeAttribute('tabindex');
@@ -6167,9 +6198,10 @@ export class ColumnFilter extends BaseComponent {
 
                 event.preventDefault();
                 break;
+            }
 
-            case 'ArrowUp':
-                var prevItem = this.findPrevItem(item);
+            case 'ArrowUp': {
+                let prevItem = this.findPrevItem(item);
 
                 if (prevItem) {
                     item.removeAttribute('tabindex');
@@ -6179,6 +6211,7 @@ export class ColumnFilter extends BaseComponent {
 
                 event.preventDefault();
                 break;
+            }
         }
     }
 
@@ -6407,7 +6440,7 @@ export class ColumnFilter extends BaseComponent {
 
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
-            this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
+            this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'resize', () => {
                 if (this.overlayVisible && !DomHandler.isTouchDevice()) {
                     this.hide();
                 }
@@ -6485,7 +6518,7 @@ export class ColumnFilter extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-columnFilterFormElement',
+    selector: 'p-columnFilterFormElement, p-column-filter-form-element, p-columnfilterformelement',
     template: `
         @if (filterTemplate) {
             <ng-container

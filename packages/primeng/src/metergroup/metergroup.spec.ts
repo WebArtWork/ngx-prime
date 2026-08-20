@@ -118,7 +118,6 @@ describe('MeterGroup', () => {
         let fixture: ComponentFixture<TestBasicMeterGroupComponent>;
         let component: TestBasicMeterGroupComponent;
         let meterGroup: MeterGroup;
-        let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicMeterGroupComponent);
@@ -128,7 +127,6 @@ describe('MeterGroup', () => {
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
 
             meterGroup = meterGroupDebugElement.componentInstance;
-            element = meterGroupDebugElement.nativeElement;
         });
 
         it('should create the component', () => {
@@ -265,7 +263,6 @@ describe('MeterGroup', () => {
         let fixture: ComponentFixture<TestMeterGroupOrientationsComponent>;
         let component: TestMeterGroupOrientationsComponent;
         let meterGroup: MeterGroup;
-        let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestMeterGroupOrientationsComponent);
@@ -275,7 +272,6 @@ describe('MeterGroup', () => {
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
 
             meterGroup = meterGroupDebugElement.componentInstance;
-            element = meterGroupDebugElement.nativeElement;
         });
 
         it('should handle horizontal orientation', async () => {
@@ -369,13 +365,11 @@ describe('MeterGroup', () => {
 
     describe('Templates', () => {
         let fixture: ComponentFixture<TestMeterGroupTemplatesComponent>;
-        let component: TestMeterGroupTemplatesComponent;
         let meterGroup: MeterGroup;
         let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestMeterGroupTemplatesComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
@@ -446,12 +440,10 @@ describe('MeterGroup', () => {
 
     describe('MeterGroupLabel Component', () => {
         let fixture: ComponentFixture<TestBasicMeterGroupComponent>;
-        let component: TestBasicMeterGroupComponent;
         let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicMeterGroupComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
             element = fixture.debugElement.nativeElement;
         });
@@ -528,7 +520,7 @@ describe('MeterGroup', () => {
             const icons = element.querySelectorAll('.p-metergroup-label-icon');
 
             icons.forEach((icon) => {
-                const style = (icon as HTMLElement).style;
+                void (icon as HTMLElement).style;
 
                 // In test environment, inline styles might not be applied, so we test the component logic
                 expect(icon).toBeTruthy();
@@ -600,18 +592,14 @@ describe('MeterGroup', () => {
 
     describe('CSS Classes and Styling', () => {
         let fixture: ComponentFixture<TestMeterGroupDynamicComponent>;
-        let component: TestMeterGroupDynamicComponent;
-        let meterGroup: MeterGroup;
         let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestMeterGroupDynamicComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
 
-            meterGroup = meterGroupDebugElement.componentInstance;
             element = meterGroupDebugElement.nativeElement;
         });
 
@@ -721,7 +709,6 @@ describe('MeterGroup', () => {
         let fixture: ComponentFixture<TestMeterGroupEmptyComponent>;
         let component: TestMeterGroupEmptyComponent;
         let meterGroup: MeterGroup;
-        let element: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestMeterGroupEmptyComponent);
@@ -731,7 +718,6 @@ describe('MeterGroup', () => {
             const meterGroupDebugElement = fixture.debugElement.query(By.directive(MeterGroup));
 
             meterGroup = meterGroupDebugElement.componentInstance;
-            element = meterGroupDebugElement.nativeElement;
         });
 
         it('should handle empty value array', () => {

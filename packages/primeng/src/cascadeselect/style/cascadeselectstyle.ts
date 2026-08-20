@@ -150,5 +150,3 @@ export enum CascadeSelectClasses {
      */
     itemList = 'p-cascadeselect-item-list'
 }
-
-export interface CascadeSelectStyle extends BaseStyle {}

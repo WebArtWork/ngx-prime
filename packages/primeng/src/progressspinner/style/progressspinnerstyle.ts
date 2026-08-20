@@ -40,5 +40,3 @@ export enum ProgressSpinnerClasses {
      */
     circle = 'p-progressspinner-circle'
 }
-
-export interface ProgressSpinnerStyle extends BaseStyle {}

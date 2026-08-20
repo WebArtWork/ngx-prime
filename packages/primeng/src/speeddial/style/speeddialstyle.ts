@@ -86,5 +86,3 @@ export enum SpeedDialClasses {
      */
     mask = 'p-speeddial-mask'
 }
-
-export interface SpeedDialStyle extends BaseStyle {}

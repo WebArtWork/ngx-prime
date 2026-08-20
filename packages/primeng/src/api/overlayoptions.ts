@@ -90,19 +90,19 @@ export interface OverlayOnShowEvent {
  * @extends {OverlayOnShowEvent}
  * @group Events
  */
-export interface OverlayOnBeforeShowEvent extends OverlayOnShowEvent {}
+export type OverlayOnBeforeShowEvent = OverlayOnShowEvent;
 /**
  * Represents an event that occurs before an overlay is hidden.
  * @extends {OverlayOnBeforeShowEvent}
  * @group Events
  */
-export interface OverlayOnBeforeHideEvent extends OverlayOnBeforeShowEvent {}
+export type OverlayOnBeforeHideEvent = OverlayOnBeforeShowEvent;
 /**
  * Represents an event that occurs when an overlay is hidden.
  * @extends {OverlayOnShowEvent}
  * @group Events
  */
-export interface OverlayOnHideEvent extends OverlayOnShowEvent {}
+export type OverlayOnHideEvent = OverlayOnShowEvent;
 /**
  * Represents the options for an overlay.
  * @group Interface

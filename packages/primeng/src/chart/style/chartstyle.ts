@@ -33,5 +33,3 @@ export enum ChartClasses {
      */
     root = 'p-chart'
 }
-
-export interface ChartStyle extends BaseStyle {}

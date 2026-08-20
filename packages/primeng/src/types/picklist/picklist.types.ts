@@ -136,35 +136,35 @@ export interface PickListMoveToSourceEvent {
  * @extends {PickListMoveToSourceEvent}
  * @group Events
  */
-export interface PickListMoveAllToSourceEvent extends PickListMoveToSourceEvent {}
+export type PickListMoveAllToSourceEvent = PickListMoveToSourceEvent;
 /**
  * Custom move all to target event.
  * @see {@link PickList.onMoveAllToTarget}
  * @extends {PickListMoveToSourceEvent}
  * @group Events
  */
-export interface PickListMoveAllToTargetEvent extends PickListMoveToSourceEvent {}
+export type PickListMoveAllToTargetEvent = PickListMoveToSourceEvent;
 /**
  * Custom move to target event.
  * @see {@link PickList.onMoveToTarget}
  * @extends {PickListMoveToSourceEvent}
  * @group Events
  */
-export interface PickListMoveToTargetEvent extends PickListMoveToSourceEvent {}
+export type PickListMoveToTargetEvent = PickListMoveToSourceEvent;
 /**
  * Custom move source reorder event.
  * @see {@link PickList.onSourceReorder}
  * @extends {PickListMoveToSourceEvent}
  * @group Events
  */
-export interface PickListSourceReorderEvent extends PickListMoveToSourceEvent {}
+export type PickListSourceReorderEvent = PickListMoveToSourceEvent;
 /**
  * Custom move target reorder event.
  * @see {@link PickList.onTargetReorder}
  * @extends {PickListMoveToSourceEvent}
  * @group Events
  */
-export interface PickListTargetReorderEvent extends PickListMoveToSourceEvent {}
+export type PickListTargetReorderEvent = PickListMoveToSourceEvent;
 /**
  * Custom source select event.
  * @see {@link PickList.onSourceSelect}
@@ -186,7 +186,7 @@ export interface PickListSourceSelectEvent {
  * @extends {PickListSourceSelectEvent}
  * @group Events
  */
-export interface PickListTargetSelectEvent extends PickListSourceSelectEvent {}
+export type PickListTargetSelectEvent = PickListSourceSelectEvent;
 /**
  * Custom source filter event.
  * @see {@link PickList.onSourceFilter}
@@ -208,7 +208,7 @@ export interface PickListSourceFilterEvent {
  * @extends {PickListSourceFilterEvent}
  * @group Events
  */
-export interface PickListTargetFilterEvent extends PickListSourceFilterEvent {}
+export type PickListTargetFilterEvent = PickListSourceFilterEvent;
 /**
  * Custom item template context.
  * @group Interface

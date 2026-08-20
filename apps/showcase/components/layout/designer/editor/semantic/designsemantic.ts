@@ -109,7 +109,7 @@ export class DesignSemantic {
         if (!tokens) return result;
 
         for (const key in tokens) {
-            if (tokens.hasOwnProperty(key) && key !== 'colorScheme') {
+            if (Object.prototype.hasOwnProperty.call(tokens, key) && key !== 'colorScheme') {
                 result[key] = tokens[key];
             }
         }

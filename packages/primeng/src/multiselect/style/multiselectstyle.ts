@@ -165,5 +165,3 @@ export enum MultiSelectClasses {
      */
     clearIcon = 'p-autocomplete-clear-icon'
 }
-
-export interface MultiSelectStyle extends BaseStyle {}

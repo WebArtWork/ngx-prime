@@ -34,5 +34,3 @@ export enum TabClasses {
      */
     tab = 'p-tab'
 }
-
-export interface TabStyle extends BaseStyle {}

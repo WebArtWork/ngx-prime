@@ -66,7 +66,7 @@ class TestBasicScrollerComponent {
     numToleratedItems: any;
     loading: boolean | undefined;
     autoSize: boolean = false;
-    trackBy: Function;
+    trackBy: (...args: any[]) => any;
     options: any;
 
     // Event handlers
@@ -1378,7 +1378,6 @@ describe('Scroller', () => {
     });
 
     describe('Both Orientation Tests', () => {
-        let _component: TestBothOrientationComponent;
         let fixture: ComponentFixture<TestBothOrientationComponent>;
         let scroller: Scroller;
 
@@ -1389,7 +1388,6 @@ describe('Scroller', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBothOrientationComponent);
-            _component = fixture.componentInstance;
             scroller = fixture.debugElement.query(By.directive(Scroller)).componentInstance;
             fixture.detectChanges();
         });
@@ -2723,7 +2721,7 @@ describe('Scroller', () => {
             dynamicNumToleratedItems$ = new BehaviorSubject<number | undefined>(undefined);
             dynamicLoading$ = new BehaviorSubject<boolean | undefined>(false);
             dynamicAutoSize$ = new BehaviorSubject<boolean>(false);
-            dynamicTrackBy$ = new BehaviorSubject<Function>((i: number) => i);
+            dynamicTrackBy$ = new BehaviorSubject<(...args: any[]) => any>((i: number) => i);
             dynamicOptions$ = new BehaviorSubject<any>(undefined);
         }
 
@@ -4043,7 +4041,6 @@ describe('Scroller', () => {
         }
 
         let fixture: ComponentFixture<TestPTScrollerComponent>;
-        let component: TestPTScrollerComponent;
         let scrollerInstance: Scroller;
         let scrollerElement: DebugElement;
 
@@ -4054,7 +4051,6 @@ describe('Scroller', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestPTScrollerComponent);
-            component = fixture.componentInstance;
             scrollerElement = fixture.debugElement.query(By.css('p-scroller'));
             scrollerInstance = scrollerElement.componentInstance;
             fixture.detectChanges();

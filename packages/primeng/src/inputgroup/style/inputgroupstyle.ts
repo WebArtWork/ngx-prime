@@ -72,5 +72,3 @@ export enum InputGroupClasses {
      */
     root = 'p-inputgroup'
 }
-
-export interface InputGroupStyle extends BaseStyle {}

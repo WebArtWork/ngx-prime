@@ -426,7 +426,7 @@ describe('ProgressBar', () => {
 
             styleFixture.detectChanges();
 
-            styleFixture.debugElement.query(By.directive(ProgressBar)).componentInstance;
+            void styleFixture.debugElement.query(By.directive(ProgressBar)).componentInstance;
             const element = styleFixture.debugElement.query(By.directive(ProgressBar)).nativeElement;
 
             expect(styleComponent.style!).toEqual({ border: '2px solid red', padding: '10px' });

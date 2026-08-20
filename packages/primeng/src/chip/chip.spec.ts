@@ -76,7 +76,7 @@ class TestCustomRemoveIconChipComponent {
     removeIcon = 'pi pi-times';
     removed = false;
 
-    onRemove(event: MouseEvent) {
+    onRemove() {
         this.removed = true;
     }
 }
@@ -97,7 +97,7 @@ class TestTemplateChipComponent {
     removable = true;
     removed = false;
 
-    onRemove(event: MouseEvent) {
+    onRemove() {
         this.removed = true;
     }
 }
@@ -162,7 +162,7 @@ class TestDynamicChipComponent {
     removed = false;
     imageError: Event | null = null as any;
 
-    onRemove(event: MouseEvent) {
+    onRemove() {
         this.removed = true;
     }
 
@@ -872,12 +872,10 @@ describe('Chip', () => {
 
     describe('Event Handling', () => {
         let fixture: ComponentFixture<TestRemovableChipComponent>;
-        let component: TestRemovableChipComponent;
         let chipComponent: Chip;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestRemovableChipComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
 
             chipComponent = fixture.debugElement.query(By.directive(Chip)).componentInstance;
@@ -1337,12 +1335,10 @@ describe('Chip', () => {
 
         describe('Case 6: Test emitters', () => {
             let fixture: ComponentFixture<TestPTChipComponent>;
-            let chipComponent: Chip;
 
             beforeEach(async () => {
                 fixture = TestBed.createComponent(TestPTChipComponent);
                 await fixture.whenStable();
-                chipComponent = fixture.debugElement.query(By.directive(Chip)).componentInstance;
             });
 
             it('should access onRemove emitter through instance in pt', async () => {

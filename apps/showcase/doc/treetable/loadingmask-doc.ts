@@ -13,7 +13,7 @@ import { TreeTableModule } from 'primeng/treetable';
     template: ` <app-docsectiontext>
             <p>The <i>loading</i> property displays a mask layer to indicate busy state. Use the paginator to display the mask.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
                     <ng-template #header>

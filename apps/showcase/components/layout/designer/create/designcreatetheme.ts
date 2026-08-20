@@ -163,7 +163,7 @@ export class DesignCreateTheme {
             this.figmaData = e.target.result;
         };
 
-        reader.onerror = (e) => {
+        reader.onerror = () => {
             this.messageService.add({ key: 'designer', severity: 'error', summary: 'Error', detail: 'Unable to read file', life: 3000 });
         };
 

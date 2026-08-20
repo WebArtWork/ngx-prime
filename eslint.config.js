@@ -37,9 +37,15 @@ const commonTsRules = {
     '@typescript-eslint/member-ordering': 'off',
     'no-console': 'off',
     'prefer-const': 'off',
+    // Sharing a body across adjacent case labels (`case A:\ncase B: { ... }`) is used
+    // throughout this codebase's keydown handlers and is not an accidental fallthrough.
+    'no-fallthrough': ['error', { allowEmptyCase: true }],
     // `condition && doSomething()` is used pervasively in this codebase as a
     // guard idiom, not an accidentally-unused expression.
     '@typescript-eslint/no-unused-expressions': ['error', { allowShortCircuit: true, allowTernary: true }],
+    // Destructuring some properties out purely to exclude them from a `...rest`
+    // spread (e.g. bind.ts) is a legitimate idiom, not an accidental unused var.
+    '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
     // Several *Style classes intentionally merge a same-named `interface` into
     // the `class` to widen its instance type (e.g. accordionstyle.ts) — a
     // deliberate, repeated pattern here, not an accidental unsafe merge.
@@ -53,11 +59,14 @@ function selectorRules(prefix) {
     return {
         '@angular-eslint/component-selector': [
             'error',
-            {
-                type: 'element',
-                prefix,
-                style: 'kebab-case'
-            }
+            // Several internal sub-components (e.g. CascadeSelectSub, GalleriaContent,
+            // MenuItemContent) intentionally render via an attribute selector on their host
+            // element rather than as a standalone element, to avoid an extra wrapper — those
+            // follow the same camelCase convention as attribute directives.
+            [
+                { type: 'element', prefix, style: 'kebab-case' },
+                { type: 'attribute', prefix, style: 'camelCase' }
+            ]
         ],
         '@angular-eslint/directive-selector': [
             'error',
@@ -81,7 +90,9 @@ module.exports = tseslint.config(
         processor: angular.processInlineTemplates,
         rules: {
             ...commonTsRules,
-            ...selectorRules('p')
+            // `tt` is TreeTable's own established prefix for its attribute directives
+            // (e.g. [ttSortableColumn]), distinct from but alongside the library-wide `p-` prefix.
+            ...selectorRules(['p', 'tt'])
         }
     },
     {

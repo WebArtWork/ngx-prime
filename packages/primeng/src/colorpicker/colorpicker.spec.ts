@@ -585,7 +585,7 @@ describe('ColorPicker', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const colorPickerInstance = testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
+            void testFixture.debugElement.query(By.css('p-colorpicker')).componentInstance;
             const input = testFixture.debugElement.query(By.css('input[type="text"]'));
 
             // Rapid clicks
@@ -758,7 +758,8 @@ describe('ColorPicker', () => {
     describe('Performance Tests', () => {
         it('should handle multiple color pickers efficiently', async () => {
             const multipleTestComponent = TestBed.createComponent(TestFormatColorPickerComponent);
-            const component = multipleTestComponent.componentInstance;
+
+            void multipleTestComponent.componentInstance;
 
             const startTime = performance.now();
 
@@ -775,7 +776,8 @@ describe('ColorPicker', () => {
 
         it('should not create memory leaks on destroy', async () => {
             const testFixture = TestBed.createComponent(TestBasicColorPickerComponent);
-            const testComponent = testFixture.componentInstance;
+
+            void testFixture.componentInstance;
 
             await testFixture.whenStable();
 

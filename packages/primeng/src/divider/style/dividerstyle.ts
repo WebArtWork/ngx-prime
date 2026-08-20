@@ -55,5 +55,3 @@ export enum DividerClasses {
      */
     content = 'p-divider-content'
 }
-
-export interface DividerStyle extends BaseStyle {}

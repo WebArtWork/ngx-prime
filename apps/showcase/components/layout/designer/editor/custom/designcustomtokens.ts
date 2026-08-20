@@ -124,7 +124,7 @@ export class DesignCustomTokens implements OnInit {
 
     objectToDotNotation(obj, prefix = '', result = []) {
         for (const key in obj) {
-            if (obj.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(obj, key)) {
                 const path = prefix ? `${prefix}.${key}` : key;
 
                 if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {
@@ -144,7 +144,7 @@ export class DesignCustomTokens implements OnInit {
 
     mergeObjects(target, source) {
         for (const key in source) {
-            if (source.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(source, key)) {
                 if (typeof source[key] === 'object' && source[key] !== null && !Array.isArray(source[key])) {
                     target[key] = target[key] || {};
 

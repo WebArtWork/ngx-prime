@@ -1320,12 +1320,10 @@ describe('Avatar', () => {
 
         describe('Case 6: Test emitters', () => {
             let fixture: ComponentFixture<TestPTAvatarComponent>;
-            let avatarComponent: Avatar;
 
             beforeEach(async () => {
                 fixture = TestBed.createComponent(TestPTAvatarComponent);
                 await fixture.whenStable();
-                avatarComponent = fixture.debugElement.query(By.directive(Avatar)).componentInstance;
             });
 
             it('should access onImageError emitter through instance in pt', async () => {

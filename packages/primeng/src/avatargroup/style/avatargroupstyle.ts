@@ -24,5 +24,3 @@ export class AvatarGroupStyle extends BaseStyle {
 export enum AvatarGroupClasses {
     root = 'p-avatar-group'
 }
-
-export interface AvatarGroupStyle extends BaseStyle {}

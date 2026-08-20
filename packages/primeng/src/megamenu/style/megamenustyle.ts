@@ -169,5 +169,3 @@ export enum MegaMenuClasses {
      */
     end = 'p-megamenu-end'
 }
-
-export interface MegaMenuStyle extends BaseStyle {}

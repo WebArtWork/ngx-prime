@@ -81,13 +81,13 @@ export class Tab extends BaseComponent<TabPassThrough> {
 
     mutationObserver: MutationObserver | undefined;
 
-    @HostListener('focus', ['$event']) onFocus(event: FocusEvent) {
+    @HostListener('focus') onFocus() {
         if (!this.disabled()) {
             this.pcTabs.selectOnFocus() && this.changeActiveValue();
         }
     }
 
-    @HostListener('click', ['$event']) onClick(event: MouseEvent) {
+    @HostListener('click') onClick() {
         if (!this.disabled()) {
             this.changeActiveValue();
         }

@@ -630,7 +630,7 @@ describe('PanelMenu', () => {
             templateFixture.detectChanges();
             await templateFixture.whenStable();
 
-            const customItems = templateFixture.debugElement.queryAll(By.css('.custom-item'));
+            void templateFixture.debugElement.queryAll(By.css('.custom-item'));
 
             expect(templateFixture.componentInstance).toBeTruthy();
         });
@@ -648,7 +648,7 @@ describe('PanelMenu', () => {
             expect(() => panelMenuInstance.ngAfterContentInit()).not.toThrow();
             expect(panelMenuInstance.templates).toBeDefined();
 
-            const customHeaderIcons = iconTemplateFixture.debugElement.queryAll(By.css('.custom-header-icon'));
+            void iconTemplateFixture.debugElement.queryAll(By.css('.custom-header-icon'));
 
             // Template may not render if component structure differs, verify component exists
             expect(iconTemplateFixture.componentInstance).toBeTruthy();
@@ -669,7 +669,7 @@ describe('PanelMenu', () => {
             expect(() => panelMenuInstance.ngAfterContentInit()).not.toThrow();
             expect(panelMenuInstance.templates).toBeDefined();
 
-            const customSubmenuIcons = iconTemplateFixture.debugElement.queryAll(By.css('.custom-submenu-icon'));
+            void iconTemplateFixture.debugElement.queryAll(By.css('.custom-submenu-icon'));
 
             // Template may not render if component structure differs
             expect(iconTemplateFixture.componentInstance).toBeTruthy();
@@ -809,7 +809,7 @@ describe('PanelMenu', () => {
             try {
                 panelHeader.triggerEventHandler('keydown', keyEvent);
                 expect(panelHeader).toBeTruthy();
-            } catch (e) {
+            } catch {
                 // Expected to handle gracefully
                 expect(panelHeader).toBeTruthy();
             }
@@ -836,7 +836,7 @@ describe('PanelMenu', () => {
                 try {
                     secondHeader.triggerEventHandler('keydown', keyEvent);
                     expect(secondHeader).toBeTruthy();
-                } catch (e) {
+                } catch {
                     // Expected to handle gracefully
                     expect(secondHeader).toBeTruthy();
                 }
@@ -863,7 +863,7 @@ describe('PanelMenu', () => {
             try {
                 panelHeader.triggerEventHandler('keydown', keyEvent);
                 expect(panelHeader).toBeTruthy();
-            } catch (e) {
+            } catch {
                 // Expected to handle gracefully
                 expect(panelHeader).toBeTruthy();
             }
@@ -887,7 +887,7 @@ describe('PanelMenu', () => {
             try {
                 panelHeader.triggerEventHandler('keydown', keyEvent);
                 expect(panelHeader).toBeTruthy();
-            } catch (e) {
+            } catch {
                 // Expected to handle gracefully
                 expect(panelHeader).toBeTruthy();
             }
@@ -976,7 +976,7 @@ describe('PanelMenu', () => {
             routerComponent.model[0].expanded = true;
             routerFixture.detectChanges();
 
-            const routerPanelMenu = routerFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
+            void routerFixture.debugElement.query(By.directive(PanelMenu)).componentInstance;
 
             // Check if the model item has queryParams
             const hasQueryParams = routerComponent.model[0].items!.some((item) => item.queryParams);

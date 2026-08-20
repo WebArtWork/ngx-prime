@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, InjectionToken, Input, NgModule, Output, SimpleChanges, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, EventEmitter, inject, InjectionToken, Input, NgModule, Output, SimpleChanges, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind } from 'primeng/bind';
@@ -145,7 +145,6 @@ export class Chip extends BaseComponent<ChipPassThrough> {
         this._chipProps = val;
 
         if (val && typeof val === 'object') {
-            //@ts-ignore
             Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
         }
     }

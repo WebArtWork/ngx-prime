@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TreeTableModule } from 'primeng/treetable';
 import { InputTextModule } from 'primeng/inputtext';
@@ -23,7 +23,7 @@ interface Column {
             <p>Incell editing is enabled by defining input elements with <i>treeTableCellEditor</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
@@ -37,7 +37,7 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             @for (col of columns; track col; let i = $index) {
-                                <td ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
+                                <td ttEditableColumn [ttEditableColumnDisabled]="i === 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
                                     @if (i === 0) {
                                         <p-treeTableToggler [rowNode]="rowNode" />
                                     }
@@ -63,7 +63,7 @@ export class EditDoc {
 
     cols!: Column[];
 
-    constructor(private nodeService: NodeService) {}
+    private nodeService = inject(NodeService);
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));

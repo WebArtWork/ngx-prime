@@ -22,7 +22,7 @@ interface Column {
             <p>Custom content at <i>caption</i>, <i>header</i>, <i>body</i> and <i>summary</i> sections are supported via templating.</p>
         </app-docsectiontext>
         <div class="card">
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="files" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #caption><div class="text-xl font-bold">File Viewer</div> </ng-template>
                     <ng-template #header let-columns>

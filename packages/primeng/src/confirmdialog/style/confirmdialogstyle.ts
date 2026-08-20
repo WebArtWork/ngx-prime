@@ -50,5 +50,3 @@ export enum ConfirmDialogClasses {
      */
     pcAcceptButton = 'p-confirmdialog-accept-button'
 }
-
-export interface ConfirmDialogStyle extends BaseStyle {}

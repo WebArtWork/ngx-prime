@@ -111,7 +111,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             <span
                 #sliderHandleStart
                 [style.transition]="dragging ? 'none' : null"
-                [class]="cn(cx('handle'), handleIndex == 0 && 'p-slider-handle-active')"
+                [class]="cn(cx('handle'), handleIndex === 0 && 'p-slider-handle-active')"
                 [style]="sx('handle')"
                 [ngStyle]="{ 'inset-inline-start': rangeStartLeft, bottom: rangeStartBottom }"
                 (keydown)="onKeyDown($event, 0)"
@@ -137,7 +137,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             <span
                 #sliderHandleEnd
                 [style.transition]="dragging ? 'none' : null"
-                [class]="cn(cx('handle'), handleIndex == 1 && 'p-slider-handle-active')"
+                [class]="cn(cx('handle'), handleIndex === 1 && 'p-slider-handle-active')"
                 [ngStyle]="{ 'inset-inline-start': rangeEndLeft, bottom: rangeEndBottom }"
                 [style]="sx('handle')"
                 (keydown)="onKeyDown($event, 1)"
@@ -652,7 +652,7 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
         if (this.range) {
             let value = val;
 
-            if (this.handleIndex == 0) {
+            if (this.handleIndex === 0) {
                 if (value < this.min) {
                     value = this.min;
                     this.handleValues[0] = 0;

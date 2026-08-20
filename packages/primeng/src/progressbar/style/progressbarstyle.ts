@@ -46,5 +46,3 @@ export enum ProgressBarClasses {
      */
     label = 'p-progressbar-label'
 }
-
-export interface ProgressBarStyle extends BaseStyle {}

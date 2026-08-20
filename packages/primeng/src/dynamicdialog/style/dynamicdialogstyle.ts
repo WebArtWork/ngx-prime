@@ -53,5 +53,3 @@ export enum DynamicDialogClasses {
      */
     footer = 'p-dialog-footer'
 }
-
-export interface DynamicDialogStyle {}

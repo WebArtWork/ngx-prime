@@ -812,7 +812,8 @@ describe('ConfirmDialog', () => {
     describe('ConfirmationService Integration', () => {
         it('should work with ConfirmationService', async () => {
             const serviceFixture = TestBed.createComponent(TestConfirmationServiceComponent);
-            const serviceComponent = serviceFixture.componentInstance;
+
+            void serviceFixture.componentInstance;
 
             serviceFixture.changeDetectorRef.markForCheck();
             await serviceFixture.whenStable();

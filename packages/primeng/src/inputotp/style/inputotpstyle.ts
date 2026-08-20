@@ -36,5 +36,3 @@ export enum InputOtpClasses {
      */
     pcInputText = 'p-inputotp-input'
 }
-
-export interface InputOtpStyle extends BaseStyle {}

@@ -95,5 +95,3 @@ export enum ImageClasses {
      */
     original = 'p-image-original'
 }
-
-export interface ImageStyle extends BaseStyle {}

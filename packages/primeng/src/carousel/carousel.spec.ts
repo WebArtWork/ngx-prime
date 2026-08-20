@@ -275,12 +275,10 @@ describe('Carousel', () => {
 
     describe('Public Methods', () => {
         let fixture: ComponentFixture<TestBasicCarouselComponent>;
-        let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -402,12 +400,10 @@ describe('Carousel', () => {
 
     describe('Circular Mode', () => {
         let fixture: ComponentFixture<TestCircularCarouselComponent>;
-        let component: TestCircularCarouselComponent;
         let carouselInstance: Carousel;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestCircularCarouselComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -436,12 +432,10 @@ describe('Carousel', () => {
 
     describe('Vertical Orientation', () => {
         let fixture: ComponentFixture<TestVerticalCarouselComponent>;
-        let component: TestVerticalCarouselComponent;
         let carouselInstance: Carousel;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestVerticalCarouselComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -508,12 +502,10 @@ describe('Carousel', () => {
 
     describe('Autoplay Functionality', () => {
         let fixture: ComponentFixture<TestAutoplayCarouselComponent>;
-        let component: TestAutoplayCarouselComponent;
         let carouselInstance: Carousel;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestAutoplayCarouselComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -555,11 +547,9 @@ describe('Carousel', () => {
 
     describe('Template Content Projection - #template approach', () => {
         let fixture: ComponentFixture<TestTemplateCarouselComponent>;
-        let component: TestTemplateCarouselComponent;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestTemplateCarouselComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
         });
 
@@ -591,12 +581,10 @@ describe('Carousel', () => {
 
     describe('Template Content Projection - pTemplate approach', () => {
         let fixture: ComponentFixture<TestPTemplateCarouselComponent>;
-        let component: TestPTemplateCarouselComponent;
         let carouselInstance: Carousel;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestPTemplateCarouselComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -628,12 +616,10 @@ describe('Carousel', () => {
 
     describe('Touch Events', () => {
         let fixture: ComponentFixture<TestBasicCarouselComponent>;
-        let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -681,12 +667,10 @@ describe('Carousel', () => {
 
     describe('Keyboard Navigation', () => {
         let fixture: ComponentFixture<TestBasicCarouselComponent>;
-        let component: TestBasicCarouselComponent;
         let carouselInstance: Carousel;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -808,11 +792,9 @@ describe('Carousel', () => {
 
     describe('Accessibility', () => {
         let fixture: ComponentFixture<TestBasicCarouselComponent>;
-        let component: TestBasicCarouselComponent;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
         });
 
@@ -862,12 +844,10 @@ describe('Carousel', () => {
 
     describe('Memory Management and Cleanup', () => {
         let fixture: ComponentFixture<TestResponsiveCarouselComponent>;
-        let component: TestResponsiveCarouselComponent;
         let carouselInstance: Carousel;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestResponsiveCarouselComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -946,7 +926,7 @@ describe('Carousel', () => {
         });
 
         it('should handle page setter with invalid values', () => {
-            const initialPage = carouselInstance.page;
+            void carouselInstance.page;
 
             // Try to set page beyond bounds
             carouselInstance.page = 999;
@@ -1271,13 +1251,9 @@ describe('Carousel', () => {
             });
 
             it('should accept PT configuration with event handlers', () => {
-                let capturedPage: number | undefined;
-
                 fixture.componentRef.setInput('pt', {
-                    root: ({ instance }: any) => ({
-                        onclick: () => {
-                            capturedPage = instance?._page;
-                        }
+                    root: () => ({
+                        onclick: () => {}
                     })
                 });
                 carouselInstance._page = 2;
@@ -1347,7 +1323,7 @@ describe('Carousel', () => {
             });
 
             it('should call PT hooks during lifecycle', () => {
-                let afterViewInitCalled = false;
+                void false;
 
                 fixture.componentRef.setInput('pt', {
                     root: 'MY_CAROUSEL',

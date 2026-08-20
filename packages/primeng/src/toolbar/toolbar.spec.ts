@@ -732,7 +732,6 @@ describe('Toolbar', () => {
     describe('PassThrough', () => {
         let ptFixture: ComponentFixture<TestPTToolbarComponent>;
         let ptComponent: TestPTToolbarComponent;
-        let ptToolbar: Toolbar;
 
         beforeEach(() => {
             ptFixture = TestBed.createComponent(TestPTToolbarComponent);
@@ -835,8 +834,6 @@ describe('Toolbar', () => {
             ptFixture.detectChanges();
 
             const toolbarEl = ptFixture.debugElement.query(By.css('p-toolbar'));
-
-            ptToolbar = ptFixture.debugElement.query(By.directive(Toolbar)).componentInstance;
 
             expect(toolbarEl.nativeElement.className).toContain('NO_ARIA');
         });

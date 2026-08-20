@@ -21,7 +21,7 @@ export function app(): express.Express {
 
     // LLM Documentation Routes
     // Serve components.json
-    server.get('/components.json', (req, res, next) => {
+    server.get('/components.json', (req, res) => {
         const filePath = join(llmsFolder, 'components.json');
 
         if (!existsSync(filePath)) {

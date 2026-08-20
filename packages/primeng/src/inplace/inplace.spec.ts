@@ -1012,7 +1012,6 @@ describe('Inplace', () => {
     describe('Complex Content', () => {
         let fixture: ComponentFixture<TestInplaceComplexContentComponent>;
         let component: TestInplaceComplexContentComponent;
-        let inplaceComponent: Inplace;
         let element: HTMLElement;
 
         beforeEach(() => {
@@ -1022,7 +1021,6 @@ describe('Inplace', () => {
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
 
-            inplaceComponent = inplaceDebugElement.componentInstance;
             element = inplaceDebugElement.nativeElement;
         });
 

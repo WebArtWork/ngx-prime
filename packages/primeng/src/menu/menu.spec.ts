@@ -830,7 +830,7 @@ describe('Menu', () => {
             fixture.detectChanges();
 
             // Mock the DOM query results
-            const mockElement = { getAttribute: () => 'test_id' };
+            void { getAttribute: () => 'test_id' };
 
             spyOn(menuInstance, 'changeFocusedOptionIndex').and.callThrough();
 
@@ -853,7 +853,8 @@ describe('Menu', () => {
 
         it('should apply custom styles', () => {
             const styleFixture = TestBed.createComponent(TestStyledMenuComponent);
-            const styleComponent = styleFixture.componentInstance;
+
+            void styleFixture.componentInstance;
 
             styleFixture.detectChanges();
 

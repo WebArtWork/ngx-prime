@@ -48,5 +48,3 @@ export enum StepClasses {
      */
     title = 'p-step-title'
 }
-
-export interface StepStyle extends BaseStyle {}

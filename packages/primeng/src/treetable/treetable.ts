@@ -571,7 +571,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() rowTrackBy: Function = (index: number, item: any) => item;
+    @Input() rowTrackBy: (...args: any[]) => any = (index: number, item: any) => item;
     /**
      * An array of FilterMetadata objects to provide external filters.
      * @group Props
@@ -1659,7 +1659,6 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
             if (this.draggedColumn != dropHeader) {
                 let targetLeft = dropHeaderOffset.left - containerOffset.left;
-                let targetTop = containerOffset.top - dropHeaderOffset.top;
                 let columnCenter = dropHeaderOffset.left + dropHeader.offsetWidth / 2;
 
                 (<ElementRef>this.reorderIndicatorUpViewChild()).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top - (<number>this.reorderIconHeight - 1) + 'px';
@@ -1864,7 +1863,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         this.rowTouched = false;
     }
 
-    handleRowTouchEnd(event: Event) {
+    handleRowTouchEnd() {
         this.rowTouched = true;
     }
 
@@ -2067,7 +2066,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         // legacy selection support, will be removed in v18
         if (node && this.selection) {
             if (this.dataKey) {
-                if (node.hasOwnProperty('checked')) {
+                if (Object.prototype.hasOwnProperty.call(node, 'checked')) {
                     return node['checked'];
                 } else {
                     return this.selectedKeys[resolveFieldData(node.data, this.dataKey)] !== undefined;
@@ -2243,7 +2242,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
                     let paramsWithoutNode;
 
                     for (let prop in this.filters) {
-                        if (this.filters.hasOwnProperty(prop) && prop !== 'global') {
+                        if (Object.prototype.hasOwnProperty.call(this.filters, prop) && prop !== 'global') {
                             let filterMeta = <FilterMetadata>this.filters[prop];
                             let filterField = prop;
                             let filterValue = filterMeta.value;
@@ -2384,7 +2383,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         let empty = true;
 
         for (let prop in this.filters) {
-            if (this.filters.hasOwnProperty(prop)) {
+            if (Object.prototype.hasOwnProperty.call(this.filters, prop)) {
                 empty = false;
                 break;
             }
@@ -2427,7 +2426,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
     bindDocumentEditListener() {
         if (!this.documentEditListener) {
-            this.documentEditListener = this.renderer.listen(this.document, 'click', (event) => {
+            this.documentEditListener = this.renderer.listen(this.document, 'click', () => {
                 if (this.editingCell && !this.editingCellClick && this.isEditingCellValid()) {
                     !this.$unstyled() && removeClass(this.editingCell, 'p-cell-editing');
                     this.editingCell = null;
@@ -2493,7 +2492,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
     host: {
         '[attr.data-p]': 'dataP'
     },
-    imports: [NgTemplateOutlet, Bind, TreeTable]
+    imports: [NgTemplateOutlet]
 })
 export class TTBody extends BaseComponent {
     tt = inject(TreeTable);
@@ -2936,7 +2935,7 @@ export class TTSortableColumn extends BaseComponent {
         super();
 
         if (this.isEnabled()) {
-            this.subscription = this.tt.tableService.sortSource$.subscribe((sortMeta) => {
+            this.subscription = this.tt.tableService.sortSource$.subscribe(() => {
                 this.updateSortState();
             });
         }
@@ -3029,7 +3028,7 @@ export class TTSortIcon extends BaseComponent {
 
     constructor() {
         super();
-        this.subscription = this.tt.tableService.sortSource$.subscribe((sortMeta) => {
+        this.subscription = this.tt.tableService.sortSource$.subscribe(() => {
             this.updateSortState();
             this.cd.markForCheck();
         });
@@ -3325,10 +3324,10 @@ export class TTSelectableRow extends BaseComponent {
         }
     }
 
-    @HostListener('touchend', ['$event'])
-    onTouchEnd(event: Event) {
+    @HostListener('touchend')
+    onTouchEnd() {
         if (this.isEnabled()) {
-            this.tt.handleRowTouchEnd(event);
+            this.tt.handleRowTouchEnd();
         }
     }
 
@@ -3496,6 +3495,7 @@ export class TTCheckbox extends BaseComponent {
 
     @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
 
+    // eslint-disable-next-line @angular-eslint/no-input-rename -- `value` is published public API; renaming would break consumers.
     @Input('value') rowNode: any;
 
     checked: boolean | undefined;
@@ -3571,7 +3571,7 @@ export class TTCheckbox extends BaseComponent {
 }
 
 @Component({
-    selector: 'p-treeTableHeaderCheckbox',
+    selector: 'p-treeTableHeaderCheckbox, p-tree-table-header-checkbox, p-treetableheadercheckbox',
     template: `
         <p-checkbox [ngModel]="checked" [pt]="ptm('pcHeaderCheckbox')" (onChange)="onClick($event)" [binary]="true" [disabled]="!tt.value || tt.value.length === 0" [unstyled]="unstyled()">
             @if (tt.headerCheckboxIconTemplate || tt._headerCheckboxIconTemplate) {
@@ -3684,8 +3684,8 @@ export class TTEditableColumn extends BaseComponent {
         }
     }
 
-    @HostListener('click', ['$event'])
-    onClick(event: MouseEvent) {
+    @HostListener('click')
+    onClick() {
         if (this.isEnabled()) {
             this.tt.editingCellClick = true;
 
@@ -3786,11 +3786,10 @@ export class TTEditableColumn extends BaseComponent {
 
     moveToPreviousCell(event: KeyboardEvent) {
         let currentCell = this.findCell(event.target);
-        let row = currentCell.parentElement;
         let targetCell = this.findPreviousEditableColumn(currentCell);
 
         if (targetCell) {
-            // @ts-ignore
+            // @ts-expect-error invokeElementMethod's methodName is typed as keyof Element, but 'click' is an HTMLElement method.
             invokeElementMethod(targetCell as HTMLElement, 'click', undefined);
             event.preventDefault();
         }
@@ -3798,11 +3797,10 @@ export class TTEditableColumn extends BaseComponent {
 
     moveToNextCell(event: KeyboardEvent) {
         let currentCell = this.findCell(event.target);
-        let row = currentCell.parentElement;
         let targetCell = this.findNextEditableColumn(currentCell);
 
         if (targetCell) {
-            // @ts-ignore
+            // @ts-expect-error invokeElementMethod's methodName is typed as keyof Element, but 'click' is an HTMLElement method.
             invokeElementMethod(targetCell, 'click', undefined);
             event.preventDefault();
         }
@@ -3961,7 +3959,7 @@ export class TTRow extends BaseComponent {
                 break;
 
             case 'Tab':
-                this.onTabKey(event);
+                this.onTabKey();
                 break;
 
             case 'Home':
@@ -4042,7 +4040,7 @@ export class TTRow extends BaseComponent {
         event.preventDefault();
     }
 
-    onTabKey(event: KeyboardEvent) {
+    onTabKey() {
         const rows = this.el.nativeElement ? [...find(this.el.nativeElement.parentNode, 'tr')] : undefined;
 
         if (rows && isNotEmpty(rows)) {
@@ -4087,7 +4085,7 @@ export class TTRow extends BaseComponent {
         this.tt.onNodeCollapse.emit({ originalEvent: event, node: this.rowNode.node });
     }
 
-    focusRowChange(firstFocusableRow, currentFocusedRow, lastVisibleDescendant?) {
+    focusRowChange(firstFocusableRow, currentFocusedRow) {
         firstFocusableRow.tabIndex = '-1';
         currentFocusedRow.tabIndex = '0';
 

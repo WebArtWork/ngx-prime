@@ -67,5 +67,3 @@ export enum RatingClasses {
      */
     offIcon = 'p-rating-off-icon'
 }
-
-export interface RatingStyle extends BaseStyle {}

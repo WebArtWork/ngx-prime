@@ -247,7 +247,6 @@ describe('InputOtp', () => {
     });
 
     describe('Keyboard Navigation Tests', () => {
-        let component: TestBasicInputOtpComponent;
         let fixture: ComponentFixture<TestBasicInputOtpComponent>;
 
         beforeEach(async () => {
@@ -257,7 +256,6 @@ describe('InputOtp', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputOtpComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 

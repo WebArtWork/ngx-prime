@@ -16,7 +16,7 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center mb-4">
                     <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="value" />

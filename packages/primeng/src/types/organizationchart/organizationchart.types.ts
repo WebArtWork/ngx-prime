@@ -101,21 +101,21 @@ export interface OrganizationChartNodeSelectEvent {
  * @extends {OrganizationChartNodeSelectEvent}
  * @group Events
  */
-export interface OrganizationChartNodeUnSelectEvent extends OrganizationChartNodeSelectEvent {}
+export type OrganizationChartNodeUnSelectEvent = OrganizationChartNodeSelectEvent;
 /**
  * Custom node expand event.
  * @see {@link OrganizationChart.onNodeExpand}
  * @extends {OrganizationChartNodeSelectEvent}
  * @group Events
  */
-export interface OrganizationChartNodeExpandEvent extends OrganizationChartNodeSelectEvent {}
+export type OrganizationChartNodeExpandEvent = OrganizationChartNodeSelectEvent;
 /**
  * Custom node collapse event.
  * @see {@link OrganizationChart.onNodeCollapse}
  * @extends {OrganizationChartNodeSelectEvent}
  * @group Events
  */
-export interface OrganizationChartNodeCollapseEvent extends OrganizationChartNodeSelectEvent {}
+export type OrganizationChartNodeCollapseEvent = OrganizationChartNodeSelectEvent;
 /**
  * Defines valid templates in OrganizationChart.
  * @group Templates

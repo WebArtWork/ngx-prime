@@ -24,7 +24,7 @@ import { ToastModule } from 'primeng/toast';
                 toggle an expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle event for the element.
             </p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-toast />
                 <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
@@ -153,7 +153,11 @@ export class RowExpansionDoc {
     }
 
     expandAll() {
-        this.expandedRows = this.products.reduce((acc, p) => (acc[p.id] = true) && acc, {});
+        this.expandedRows = this.products.reduce((acc, p) => {
+            acc[p.id] = true;
+
+            return acc;
+        }, {});
     }
 
     collapseAll() {

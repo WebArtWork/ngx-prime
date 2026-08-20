@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 
 // Test Components
 @Component({
-    standalone: false,
+    imports: [InputMask, FormsModule],
     template: `
         <p-inputmask
             [(ngModel)]="value"
@@ -67,16 +67,16 @@ class TestBasicInputMaskComponent {
     autocomplete: string = '';
     type: string = 'text';
 
-    onMaskComplete(_event: any) {}
-    onInputFocus(_event: Event) {}
-    onInputBlur(_event: Event) {}
-    onInputChange(_event: Event) {}
-    onKeydownEvent(_event: Event) {}
+    onMaskComplete() {}
+    onInputFocus() {}
+    onInputBlur() {}
+    onInputChange() {}
+    onKeydownEvent() {}
     onClearEvent() {}
 }
 
 @Component({
-    standalone: false,
+    imports: [InputMask, ReactiveFormsModule],
     template: `
         <form [formGroup]="form">
             <p-inputmask [mask]="mask" formControlName="maskedValue" [unmask]="unmask"> </p-inputmask>
@@ -93,7 +93,7 @@ class TestFormInputMaskComponent {
 
 // Comprehensive template test component with clearicon ContentChild projection
 @Component({
-    standalone: false,
+    imports: [InputMask, FormsModule, SharedModule],
     template: `
         <p-inputmask [mask]="mask" [(ngModel)]="value" [showClear]="showClear" [placeholder]="placeholder" [autoClear]="autoClear" [unmask]="unmask">
             <!-- Clear icon template with both pTemplate and #template -->
@@ -113,7 +113,7 @@ class TestTemplateInputMaskComponent {
 }
 
 @Component({
-    standalone: false,
+    imports: [InputMask, FormsModule],
     template: `
         <div>
             <p-inputmask [mask]="phoneMask" [(ngModel)]="phoneValue" placeholder="Phone Number"> </p-inputmask>
@@ -938,7 +938,7 @@ describe('InputMask', () => {
 
             // Test that we can access template-related properties without errors
             expect(() => {
-                inputMaskComponent.clearIconTemplate;
+                void inputMaskComponent.clearIconTemplate;
             }).not.toThrow();
         });
 
@@ -1053,7 +1053,7 @@ describe('InputMask', () => {
                 templatesFixture.detectChanges();
 
                 // Test clearicon template property access
-                inputMaskComponent.clearIconTemplate;
+                void inputMaskComponent.clearIconTemplate;
             }).not.toThrow();
 
             // Component should handle clearicon template processing
@@ -1099,7 +1099,7 @@ describe('InputMask', () => {
                 // Component should handle clearicon template
                 expect(inputMaskComponent.showClear).toBe(true);
                 // Test that clearicon template property can be accessed
-                inputMaskComponent.clearIconTemplate;
+                void inputMaskComponent.clearIconTemplate;
             }).not.toThrow();
         });
 
@@ -1640,16 +1640,16 @@ class DirectiveFullFeaturedTestComponent {
     onComplete() {
         this.completeCalled = true;
     }
-    onFocus(_e: Event) {
+    onFocus() {
         this.focusCalled = true;
     }
-    onBlur(_e: Event) {
+    onBlur() {
         this.blurCalled = true;
     }
-    onInput(_e: Event) {
+    onInput() {
         this.inputCalled = true;
     }
-    onKeydown(_e: Event) {
+    onKeydown() {
         this.keydownCalled = true;
     }
 }

@@ -35,5 +35,3 @@ export enum ScrollTopClasses {
      */
     icon = 'p-scrolltop-icon'
 }
-
-export interface ScrollTopStyle extends BaseStyle {}

@@ -106,17 +106,17 @@ export interface ScrollerOptions {
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.
      */
-    trackBy?: Function;
+    trackBy?: (...args: any[]) => any;
     /**
      * Callback to invoke in lazy mode to load new data.
      */
-    onLazyLoad?: Function | undefined;
+    onLazyLoad?: (...args: any[]) => any | undefined;
     /**
      * Callback to invoke when scroll position changes.
      */
-    onScroll?: Function | undefined;
+    onScroll?: (...args: any[]) => any | undefined;
     /**
      * Callback to invoke when scroll position and item's range in view changes.
      */
-    onScrollIndexChange?: Function | undefined;
+    onScrollIndexChange?: (...args: any[]) => any | undefined;
 }

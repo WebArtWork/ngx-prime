@@ -138,7 +138,7 @@ export interface ScrollerLazyLoadEvent {
  * @extends {ScrollerLazyLoadEvent}
  * @group Events
  */
-export interface ScrollerScrollIndexChangeEvent extends ScrollerLazyLoadEvent {}
+export type ScrollerScrollIndexChangeEvent = ScrollerLazyLoadEvent;
 /**
  * Custom scroll event.
  * @see {@link Scroller.onScroll}

@@ -78,7 +78,7 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
      * @param {(Event | {})} event - Custom resize event.
      * @group Emits
      */
-    @Output() onResize: EventEmitter<Event | {}> = new EventEmitter<Event | {}>();
+    @Output() onResize: EventEmitter<Event | object> = new EventEmitter<Event | object>();
 
     ngControlSubscription: Subscription | undefined;
 

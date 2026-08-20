@@ -12,7 +12,7 @@ import { DeferredDemo } from '@/components/demo/deferreddemo';
     template: ` <app-docsectiontext>
             <p>Columns can be grouped using rowspan and <i>colspan</i> properties.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>

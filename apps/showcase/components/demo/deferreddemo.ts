@@ -28,7 +28,7 @@ export class DeferredDemo implements OnInit, OnDestroy {
 
     @Input() options: any;
 
-    @Output() load: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() demoLoad: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -39,7 +39,7 @@ export class DeferredDemo implements OnInit, OnDestroy {
                     this.timeout = setTimeout(() => {
                         this.visible = true;
                         this.observer.unobserve(this.el?.nativeElement);
-                        this.load.emit();
+                        this.demoLoad.emit();
                     }, 350);
                 }
             }, this.options);

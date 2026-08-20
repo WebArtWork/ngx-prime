@@ -16,7 +16,7 @@ import { TableModule } from 'primeng/table';
     template: ` <app-docsectiontext>
             <p>In-cell editing is enabled by adding <i>pEditableColumn</i> directive to an editable cell that has a <i>p-cellEditor</i> helper component to define the input-output templates for the edit and view modes respectively.</p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>

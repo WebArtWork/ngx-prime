@@ -22,7 +22,7 @@ export class FilterService {
         return filteredItems;
     }
 
-    public filters: { [rule: string]: Function } = {
+    public filters: { [rule: string]: (...args: any[]) => any } = {
         startsWith: (value: any, filter: any, filterLocale?: any): boolean => {
             if (filter === undefined || filter === null || filter.trim() === '') {
                 return true;
@@ -138,6 +138,7 @@ export class FilterService {
             else return filter[0] <= value && value <= filter[1];
         },
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for a consistent (value, filter, filterLocale) signature shared across all filter functions.
         lt: (value: any, filter: any, filterLocale?: any): boolean => {
             if (filter === undefined || filter === null) {
                 return true;
@@ -151,6 +152,7 @@ export class FilterService {
             else return value < filter;
         },
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for a consistent (value, filter, filterLocale) signature shared across all filter functions.
         lte: (value: any, filter: any, filterLocale?: any): boolean => {
             if (filter === undefined || filter === null) {
                 return true;
@@ -164,6 +166,7 @@ export class FilterService {
             else return value <= filter;
         },
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for a consistent (value, filter, filterLocale) signature shared across all filter functions.
         gt: (value: any, filter: any, filterLocale?: any): boolean => {
             if (filter === undefined || filter === null) {
                 return true;
@@ -177,6 +180,7 @@ export class FilterService {
             else return value > filter;
         },
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for a consistent (value, filter, filterLocale) signature shared across all filter functions.
         gte: (value: any, filter: any, filterLocale?: any): boolean => {
             if (filter === undefined || filter === null) {
                 return true;
@@ -249,7 +253,7 @@ export class FilterService {
         }
     };
 
-    register(rule: string, fn: Function) {
+    register(rule: string, fn: (...args: any[]) => any) {
         this.filters[rule] = fn;
     }
 }

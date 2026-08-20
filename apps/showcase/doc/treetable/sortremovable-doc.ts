@@ -1,5 +1,5 @@
 import { NodeService } from '@/service/nodeservice';
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
 import { SortEvent, TreeNode } from 'primeng/api';
 import { TreeTable, TreeTableModule } from 'primeng/treetable';
 
@@ -21,7 +21,7 @@ interface Column {
             <p>The removable sort can be implemented using the <i>customSort</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable
                     #tt
                     [value]="files"
@@ -79,7 +79,7 @@ export class SortRemovableDoc {
 
     isSorted: boolean = null;
 
-    constructor(private nodeService: NodeService) {}
+    private nodeService = inject(NodeService);
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => {

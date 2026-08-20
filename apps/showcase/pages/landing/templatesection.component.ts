@@ -1,6 +1,6 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
     selector: 'app-templates-section',
@@ -140,7 +140,7 @@ import { Component } from '@angular/core';
     `
 })
 export class TemplateSectionComponent {
-    constructor(private configService: AppConfigService) {}
+    private configService = inject(AppConfigService);
 
     get isDarkMode() {
         return this.configService.appState().darkTheme;

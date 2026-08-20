@@ -295,7 +295,7 @@ export class DesignerService {
                     document.body.removeChild(link);
                     window.URL.revokeObjectURL(blobUrl);
                 },
-                error: (err: any) => {
+                error: () => {
                     this.messageService.add({ key: 'designer', severity: 'error', summary: 'An Error Occurred', detail: 'Failed to download file', life: 3000 });
                 }
             });
@@ -344,7 +344,7 @@ export class DesignerService {
             document.body.style.fontFamily = `"${fontFamily}", sans-serif`;
 
             return loadedFont;
-        } catch (error) {
+        } catch {
             // silent fail as some fonts may have not all the font weights
         }
     }

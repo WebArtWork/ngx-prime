@@ -91,7 +91,7 @@ runPrimeMcpServer({
 
                 if (!version) {
                     // Return summary of all migrations
-                    const summary = Object.entries(migrationGuides).map(([key, guide]) => ({
+                    const summary = Object.entries(migrationGuides).map(([, guide]) => ({
                         migration: `${guide.from} → ${guide.version}`,
                         breaking_count: guide.breaking.length,
                         deprecations_count: guide.deprecations.length,

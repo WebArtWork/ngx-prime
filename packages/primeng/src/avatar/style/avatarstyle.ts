@@ -64,5 +64,3 @@ export enum AvatarClasses {
      */
     xlarge = 'p-avatar-xl'
 }
-
-export interface AvatarStyle extends BaseStyle {}

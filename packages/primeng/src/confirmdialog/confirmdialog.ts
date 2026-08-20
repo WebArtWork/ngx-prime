@@ -92,7 +92,9 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                     @if (iconTemplate || _iconTemplate) {
                         <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
                     } @else if (!iconTemplate && !_iconTemplate && !_messageTemplate && !messageTemplate) {
-                        <i [ngClass]="cx('icon')" [class]="option('icon')" [pBind]="ptm('icon')" *ngIf="option('icon')"></i>
+                        @if (option('icon')) {
+                            <i [ngClass]="cx('icon')" [class]="option('icon')" [pBind]="ptm('icon')"></i>
+                        }
                     }
                     @if (messageTemplate || _messageTemplate) {
                         <ng-template *ngTemplateOutlet="messageTemplate || _messageTemplate; context: { $implicit: confirmation }"></ng-template>
@@ -107,40 +109,46 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                     <ng-container *ngTemplateOutlet="footerTemplate || _footerTemplate"></ng-container>
                 }
                 @if (!footerTemplate && !_footerTemplate) {
-                    <p-button
-                        [pt]="ptm('pcRejectButton')"
-                        *ngIf="option('rejectVisible')"
-                        [label]="rejectButtonLabel"
-                        (onClick)="onReject()"
-                        [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
-                        [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
-                        [buttonProps]="getRejectButtonProps()"
-                        [unstyled]="unstyled()"
-                    >
-                        <ng-template #icon>
-                            @if (rejectIcon && !rejectIconTemplate() && !_rejectIconTemplate) {
-                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')" [pBind]="ptm('pcRejectButton')['icon']"></i>
-                            }
-                            <ng-template *ngTemplateOutlet="rejectIconTemplate() || _rejectIconTemplate"></ng-template>
-                        </ng-template>
-                    </p-button>
-                    <p-button
-                        [pt]="ptm('pcAcceptButton')"
-                        [label]="acceptButtonLabel"
-                        (onClick)="onAccept()"
-                        [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
-                        *ngIf="option('acceptVisible')"
-                        [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
-                        [buttonProps]="getAcceptButtonProps()"
-                        [unstyled]="unstyled()"
-                    >
-                        <ng-template #icon>
-                            @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate()) {
-                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')" [pBind]="ptm('pcAcceptButton')['icon']"></i>
-                            }
-                            <ng-template *ngTemplateOutlet="acceptIconTemplate() || _acceptIconTemplate"></ng-template>
-                        </ng-template>
-                    </p-button>
+                    @if (option('rejectVisible')) {
+                        <p-button
+                            [pt]="ptm('pcRejectButton')"
+                            [label]="rejectButtonLabel"
+                            (onClick)="onReject()"
+                            [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
+                            [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
+                            [buttonProps]="getRejectButtonProps()"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-template #icon>
+                                @if (rejectIcon && !rejectIconTemplate() && !_rejectIconTemplate) {
+                                    @if (option('rejectIcon')) {
+                                        <i [class]="option('rejectIcon')" [pBind]="ptm('pcRejectButton')['icon']"></i>
+                                    }
+                                }
+                                <ng-template *ngTemplateOutlet="rejectIconTemplate() || _rejectIconTemplate"></ng-template>
+                            </ng-template>
+                        </p-button>
+                    }
+                    @if (option('acceptVisible')) {
+                        <p-button
+                            [pt]="ptm('pcAcceptButton')"
+                            [label]="acceptButtonLabel"
+                            (onClick)="onAccept()"
+                            [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
+                            [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
+                            [buttonProps]="getAcceptButtonProps()"
+                            [unstyled]="unstyled()"
+                        >
+                            <ng-template #icon>
+                                @if (acceptIcon && !_acceptIconTemplate && !acceptIconTemplate()) {
+                                    @if (option('acceptIcon')) {
+                                        <i [class]="option('acceptIcon')" [pBind]="ptm('pcAcceptButton')['icon']"></i>
+                                    }
+                                }
+                                <ng-template *ngTemplateOutlet="acceptIconTemplate() || _acceptIconTemplate"></ng-template>
+                            </ng-template>
+                        </p-button>
+                    }
                 }
             </ng-template>
         </p-dialog>
@@ -534,9 +542,9 @@ export class ConfirmDialog extends BaseComponent<ConfirmDialogPassThrough> imple
     }
 
     option(name: string, k?: string) {
-        const source: { [key: string]: any } = this;
+        const source = this as unknown as { [key: string]: any };
 
-        if (source.hasOwnProperty(name)) {
+        if (Object.prototype.hasOwnProperty.call(source, name)) {
             const value = k ? source[k] : source[name];
 
             return typeof value === 'function' ? value() : value;

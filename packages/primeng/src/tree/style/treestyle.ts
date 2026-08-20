@@ -119,5 +119,3 @@ export enum TreeClasses {
      */
     dropPoint = 'p-tree-node-droppoint'
 }
-
-export interface TreeStyle extends BaseStyle {}

@@ -99,5 +99,3 @@ export enum MenuClasses {
      */
     itemLabel = 'p-menu-item-label'
 }
-
-export interface MenuStyle extends BaseStyle {}

@@ -89,7 +89,7 @@ class TestBasicDataViewComponent {
     emptyMessage = 'No products found';
     styleClass: string | undefined;
     gridStyleClass = '';
-    trackBy: Function = (index: number, item: any) => item;
+    trackBy: (...args: any[]) => any = (index: number, item: any) => item;
     filterBy = 'name,category';
     filterLocale: string | undefined;
     loading = false;
@@ -607,7 +607,7 @@ describe('DataView', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            const emptyMessage = fixture.debugElement.query(By.css('div'));
+            void fixture.debugElement.query(By.css('div'));
             const emptyMessageDiv = fixture.debugElement.queryAll(By.css('div')).find((div) => div.nativeElement.textContent && div.nativeElement.textContent.includes('No products found'));
 
             expect(emptyMessageDiv).toBeTruthy();

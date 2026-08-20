@@ -779,7 +779,6 @@ describe('Knob', () => {
     });
 
     describe('Performance Tests', () => {
-        let component: TestBasicKnobComponent;
         let fixture: ComponentFixture<TestBasicKnobComponent>;
         let knobInstance: Knob;
 
@@ -790,7 +789,6 @@ describe('Knob', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicKnobComponent);
-            component = fixture.componentInstance;
             knobInstance = fixture.debugElement.query(By.directive(Knob)).componentInstance;
             fixture.detectChanges();
         });

@@ -777,7 +777,7 @@ describe('Dock', () => {
         it('should have proper ARIA attributes on menu items', () => {
             const itemElements = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
 
-            itemElements.forEach((item, index) => {
+            itemElements.forEach((item) => {
                 expect(item.nativeElement.getAttribute('role')).toBe('menuitem');
 
                 // Check if item has a label (separators might not have labels)
@@ -1289,7 +1289,7 @@ describe('Dock', () => {
 
         it('should apply PT to itemIcon with context', async () => {
             ptFixture.componentRef.setInput('pt', {
-                itemIcon: ({ context }: any) => ({
+                itemIcon: () => ({
                     class: 'ICON_PT_CLASS'
                 })
             });
@@ -1323,7 +1323,7 @@ describe('Dock', () => {
 
         it('should apply PT to itemContent with context', async () => {
             ptFixture.componentRef.setInput('pt', {
-                itemContent: ({ context }: any) => ({
+                itemContent: () => ({
                     class: 'CONTENT_PT_CLASS'
                 })
             });
@@ -1441,7 +1441,8 @@ describe('Dock', () => {
 
                 // Global CSS may be injected as style tag or in head
                 const styleElements = document.querySelectorAll('style');
-                let hasGlobalCSS = false;
+
+                void false;
 
                 styleElements.forEach((style) => {
                     if (style.textContent?.includes('.p-dock') && style.textContent?.includes('border: 1px solid red')) {

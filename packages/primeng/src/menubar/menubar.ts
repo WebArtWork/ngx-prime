@@ -424,12 +424,12 @@ export class MenubarSub extends BaseComponent<MenubarPassThrough> {
             [submenuiconTemplate]="submenuIconTemplate() || _submenuIconTemplate"
             [activeItemPath]="activeItemPath()"
             (itemClick)="onItemClick($event)"
-            (mousedown)="onMenuMouseDown($event)"
+            (mousedown)="onMenuMouseDown()"
             (focus)="onMenuFocus($event)"
             (blur)="onMenuBlur($event)"
             (keydown)="onKeyDown($event)"
             (itemMouseEnter)="onItemMouseEnter($event)"
-            (mouseleave)="onMouseLeave($event)"
+            (mouseleave)="onMouseLeave()"
             [pt]="pt()"
             [pBind]="ptm('rootList')"
             [unstyled]="unstyled()"
@@ -801,7 +801,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
         }
     }
 
-    onMouseLeave(event: any) {
+    onMouseLeave() {
         const autoHideEnabled = this.menubarService.autoHide;
         const autoHideDelay = this.menubarService.autoHideDelay;
 
@@ -892,7 +892,7 @@ export class Menubar extends BaseComponent<MenubarPassThrough> {
         focus(this.rootmenu?.el.nativeElement);
     }
 
-    onMenuMouseDown(event: any) {
+    onMenuMouseDown() {
         this.dirty = true;
     }
 

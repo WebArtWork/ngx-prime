@@ -72,9 +72,9 @@ class TestBasicPasswordComponent {
     showTransitionOptions: string = '.12s cubic-bezier(0, 0, 0.2, 1)';
     hideTransitionOptions: string = '.1s linear';
 
-    onInputFocus(event: Event) {}
-    onInputBlur(event: Event) {}
-    onClearEvent(event: any) {}
+    onInputFocus() {}
+    onInputBlur() {}
+    onClearEvent() {}
 }
 
 @Component({
@@ -698,14 +698,6 @@ describe('Password', () => {
         });
 
         it('should handle updateOn blur strategy', async () => {
-            // Create a new form with updateOn blur for testing
-            const blurForm = new FormGroup({
-                password: new FormControl('', {
-                    validators: [Validators.required, Validators.minLength(8)],
-                    updateOn: 'blur'
-                })
-            });
-
             formTestFixture.detectChanges();
 
             const inputEl = formTestFixture.debugElement.query(By.css('input'));
@@ -753,7 +745,8 @@ describe('Password', () => {
 
         it('should handle rapid value changes', async () => {
             const passwordComponent = formTestFixture.debugElement.query(By.css('p-password')).componentInstance;
-            let changeCount = 0;
+
+            void 0;
 
             // Subscribe to value changes (if available)
             if (passwordComponent.onChange) {
@@ -867,12 +860,12 @@ describe('Password', () => {
 
             // Test that we can access template-related properties without errors
             expect(() => {
-                passwordComponent.headerTemplate;
-                passwordComponent.contentTemplate;
-                passwordComponent.footerTemplate;
-                passwordComponent.clearIconTemplate;
-                passwordComponent.hideIconTemplate;
-                passwordComponent.showIconTemplate;
+                void passwordComponent.headerTemplate;
+                void passwordComponent.contentTemplate;
+                void passwordComponent.footerTemplate;
+                void passwordComponent.clearIconTemplate;
+                void passwordComponent.hideIconTemplate;
+                void passwordComponent.showIconTemplate;
             }).not.toThrow();
         });
 
@@ -988,12 +981,12 @@ describe('Password', () => {
                 templatesFixture.detectChanges();
 
                 // Test template property access
-                passwordComponent.headerTemplate;
-                passwordComponent.contentTemplate;
-                passwordComponent.footerTemplate;
-                passwordComponent.clearIconTemplate;
-                passwordComponent.hideIconTemplate;
-                passwordComponent.showIconTemplate;
+                void passwordComponent.headerTemplate;
+                void passwordComponent.contentTemplate;
+                void passwordComponent.footerTemplate;
+                void passwordComponent.clearIconTemplate;
+                void passwordComponent.hideIconTemplate;
+                void passwordComponent.showIconTemplate;
             }).not.toThrow();
 
             // Component should handle template processing
@@ -1556,7 +1549,7 @@ describe('PasswordDirective', () => {
         describe('Case 4: Use variables from instance', () => {
             it('should support PT callback with instance parameter', async () => {
                 ptComponent.value = 'directivePassword';
-                let callbackExecuted = false;
+                void false;
 
                 ptComponent.pt = {
                     host: ({ instance }) => {
@@ -2117,7 +2110,7 @@ describe('Password PassThrough Tests', () => {
     describe('Case 4: Use variables from instance', () => {
         it('should access instance.value property in PT callback', async () => {
             component.value = 'testPassword';
-            let instanceAccessed = false;
+            void false;
 
             component.pt = {
                 root: ({ instance }) => {
@@ -2137,7 +2130,7 @@ describe('Password PassThrough Tests', () => {
 
         it('should access instance.feedback property in PT callback', async () => {
             component.feedback = true;
-            let feedbackAccessed = false;
+            void false;
 
             component.pt = {
                 root: ({ instance }) => {

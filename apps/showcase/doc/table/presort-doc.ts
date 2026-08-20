@@ -18,7 +18,7 @@ import { TableModule } from 'primeng/table';
                 <i>DataTableSortMeta</i> objects.
             </p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template #header>

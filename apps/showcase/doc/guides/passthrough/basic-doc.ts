@@ -29,6 +29,7 @@ import { PanelModule } from 'primeng/panel';
 export class BasicDoc {
     pt = {
         root: '!border !border-primary !rounded-xl p-4',
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars -- `options` illustrates the real pt callback signature for readers of this doc example.
         header: (options) => ({
             id: 'myPanelHeader',
             style: {

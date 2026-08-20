@@ -73,5 +73,3 @@ export enum CardClasses {
      */
     footer = 'p-card-footer'
 }
-
-export interface CardStyle extends BaseStyle {}

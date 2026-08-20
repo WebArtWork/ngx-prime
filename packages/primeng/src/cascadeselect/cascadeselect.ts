@@ -1489,7 +1489,7 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
     }
 
     onOptionClick(event) {
-        const { originalEvent, processedOption, isFocus, isHide, preventSelection } = event;
+        const { originalEvent, processedOption, isFocus, preventSelection } = event;
         const { index, key, level, parentKey } = processedOption;
         const grouped = this.isProccessedOptionGroup(processedOption);
         const selected = this.isSelected(processedOption);

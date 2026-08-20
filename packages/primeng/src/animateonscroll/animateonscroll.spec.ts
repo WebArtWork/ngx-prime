@@ -111,7 +111,6 @@ class TestDynamicConfigComponent {
 }
 
 describe('AnimateOnScroll', () => {
-    let mockIntersectionObserver: MockIntersectionObserver;
     let mockIntersectionObserverInstances: MockIntersectionObserver[] = [];
 
     beforeEach(() => {
@@ -124,7 +123,6 @@ describe('AnimateOnScroll', () => {
                 const instance = new MockIntersectionObserver(callback, options);
 
                 mockIntersectionObserverInstances.push(instance);
-                mockIntersectionObserver = instance;
 
                 return instance;
             }
@@ -143,13 +141,11 @@ describe('AnimateOnScroll', () => {
 
     describe('Component Initialization', () => {
         let fixture: ComponentFixture<TestBasicAnimateOnScrollComponent>;
-        let component: TestBasicAnimateOnScrollComponent;
         let directiveEl: DebugElement;
         let directive: AnimateOnScroll;
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicAnimateOnScrollComponent);
-            component = fixture.componentInstance;
             await fixture.whenStable();
 
             directiveEl = fixture.debugElement.query(By.directive(AnimateOnScroll));

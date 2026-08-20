@@ -100,5 +100,3 @@ export enum InputNumberClasses {
      */
     clearIcon = 'p-autocomplete-clear-icon'
 }
-
-export interface InputNumberStyle extends BaseStyle {}

@@ -221,7 +221,8 @@ describe('Timeline', () => {
 
         it('should handle ContentChild templates', () => {
             const templateFixture = TestBed.createComponent(TestTemplatesTimelineComponent);
-            const templateComponent = templateFixture.componentInstance;
+
+            void templateFixture.componentInstance;
 
             templateFixture.detectChanges();
 

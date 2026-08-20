@@ -123,7 +123,7 @@ export const getTokenOptions = (name: string): TokenOption[] => {
     if ((ComponentTokens as Record<string, any>)[name.toLowerCase()]) {
         const tokens = (ComponentTokens as Record<string, any>)[name.toLowerCase()].tokens;
 
-        for (const [_, value] of Object.entries(tokens) as [string, any][]) {
+        for (const [, value] of Object.entries(tokens) as [string, any][]) {
             data.push({
                 token: value.token,
                 /*property: value.name.split('.').slice(1).join('.'),*/

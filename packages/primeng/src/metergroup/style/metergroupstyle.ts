@@ -77,5 +77,3 @@ export enum MeterGroupClasses {
      */
     labelText = 'p-metergroup-label-text'
 }
-
-export interface MeterGroupStyle extends BaseStyle {}

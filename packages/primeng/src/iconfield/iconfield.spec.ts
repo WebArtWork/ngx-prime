@@ -371,21 +371,3 @@ describe('IconField PassThrough Tests', () => {
         });
     });
 });
-
-// Test components for inline PT tests
-@Component({
-    standalone: true,
-    imports: [IconField, FormsModule],
-    template: `<p-iconfield [pt]="{ root: 'INLINE_STRING' }"><input /></p-iconfield>`
-})
-class TestInlineStringPTComponent {}
-
-@Component({
-    standalone: true,
-    imports: [IconField, FormsModule],
-    template: `
-        <p-iconfield><input /></p-iconfield>
-        <p-iconfield><input /></p-iconfield>
-    `
-})
-class TestMultipleInstancesComponent {}

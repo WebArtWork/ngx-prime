@@ -90,6 +90,7 @@ export type TreeSelectPassThrough<I = unknown> = PassThrough<I, TreeSelectPassTh
 
 /**
  * Defines valid properties in TreeSelectNodeExpandEvent.
+ * @see {@link TreeSelect.onNodeExpand}
  * @group Interface
  */
 export interface TreeSelectNodeExpandEvent {
@@ -133,12 +134,6 @@ export interface TreeSelectNodeCollapseEvent {
      */
     node: TreeNode;
 }
-/**
- * Custom node expand event.
- * @see {@link TreeSelect.onNodeExpand}
- * @group Events
- */
-export interface TreeSelectNodeExpandEvent extends TreeSelectNodeCollapseEvent {}
 /**
  * Custom value template context.
  * @group Interface

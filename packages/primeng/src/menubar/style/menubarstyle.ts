@@ -110,4 +110,4 @@ export enum MenubarClasses {
     end = 'p-menubar-end'
 }
 
-export interface MenubarStyle extends BaseStyle {}
+export type MenubarStyle = BaseStyle;

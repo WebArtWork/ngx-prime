@@ -12,6 +12,6 @@ export interface LazyLoadMeta {
     filters?: { [s: string]: FilterMetadata | FilterMetadata[] | undefined };
     globalFilter?: string | string[] | undefined | null;
     multiSortMeta?: SortMeta[] | undefined | null;
-    forceUpdate?: Function;
+    forceUpdate?: (...args: any[]) => any;
     last?: number | undefined | null;
 }

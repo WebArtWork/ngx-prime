@@ -71,5 +71,3 @@ export enum BadgeClasses {
      */
     root = 'p-badge'
 }
-
-export interface BadgeStyle extends BaseStyle {}

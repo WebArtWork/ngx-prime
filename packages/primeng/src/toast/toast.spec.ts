@@ -298,11 +298,9 @@ describe('Toast', () => {
 
     describe('MessageService Integration', () => {
         let fixture: ComponentFixture<TestBasicToastComponent>;
-        let component: TestBasicToastComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestBasicToastComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -482,11 +480,9 @@ describe('Toast', () => {
 
     describe('Template Content Projection - #content approach', () => {
         let fixture: ComponentFixture<TestMessageTemplateComponent>;
-        let component: TestMessageTemplateComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestMessageTemplateComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -519,11 +515,9 @@ describe('Toast', () => {
 
     describe('Template Content Projection - Headless approach', () => {
         let fixture: ComponentFixture<TestHeadlessTemplateComponent>;
-        let component: TestHeadlessTemplateComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestHeadlessTemplateComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -591,11 +585,9 @@ describe('Toast', () => {
 
     describe('Template Content Projection - pTemplate approach', () => {
         let fixture: ComponentFixture<TestPTemplateComponent>;
-        let component: TestPTemplateComponent;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestPTemplateComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -687,7 +679,6 @@ describe('Toast', () => {
 
     describe('Animation and Lifecycle', () => {
         let fixture: ComponentFixture<TestBasicToastComponent>;
-        let component: TestBasicToastComponent;
 
         beforeEach(async () => {
             await TestBed.resetTestingModule();
@@ -698,7 +689,6 @@ describe('Toast', () => {
 
             messageService = TestBed.inject(MessageService);
             fixture = TestBed.createComponent(TestBasicToastComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -707,11 +697,6 @@ describe('Toast', () => {
             const toastInstance = toastEl.componentInstance as Toast;
 
             spyOn(toastInstance, 'onAnimationStart');
-
-            const mockAnimationEvent = {
-                fromState: 'void',
-                toState: 'visible'
-            } as any;
 
             toastInstance.onAnimationStart();
             expect(toastInstance.onAnimationStart).toHaveBeenCalledWith();
@@ -2105,14 +2090,14 @@ describe('ToastItem', () => {
     describe('PassThrough - Case 6: Inline test', () => {
         @Component({
             template: `
-                <p-toastItem
+                <p-toast-item
                     [message]="message"
                     [pt]="{ message: 'INLINE_MESSAGE_CLASS' }"
                     [showTransformOptions]="'translateY(100%)'"
                     [hideTransformOptions]="'translateY(-100%)'"
                     [showTransitionOptions]="'300ms'"
                     [hideTransitionOptions]="'250ms'"
-                ></p-toastItem>
+                ></p-toast-item>
             `,
             imports: [ToastItem]
         })
@@ -2122,14 +2107,14 @@ describe('ToastItem', () => {
 
         @Component({
             template: `
-                <p-toastItem
+                <p-toast-item
                     [message]="message"
                     [pt]="{ message: { class: 'INLINE_OBJECT_CLASS', style: { border: '1px solid green' } } }"
                     [showTransformOptions]="'translateY(100%)'"
                     [hideTransformOptions]="'translateY(-100%)'"
                     [showTransitionOptions]="'300ms'"
                     [hideTransitionOptions]="'250ms'"
-                ></p-toastItem>
+                ></p-toast-item>
             `,
             imports: [ToastItem]
         })

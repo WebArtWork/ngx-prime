@@ -48,7 +48,6 @@ class TestCustomStyledComponent {
 }
 
 describe('Ripple', () => {
-    let component: TestBasicRippleComponent;
     let fixture: ComponentFixture<TestBasicRippleComponent>;
     let rippleElement: DebugElement;
     let rippleInstance: Ripple;
@@ -60,7 +59,6 @@ describe('Ripple', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicRippleComponent);
-        component = fixture.componentInstance;
         rippleElement = fixture.debugElement.query(By.directive(Ripple));
         rippleInstance = rippleElement.injector.get(Ripple);
         fixture.detectChanges();

@@ -78,5 +78,3 @@ export enum OrganizationChartClasses {
      */
     nodeChildren = 'p-organizationchart-node-children'
 }
-
-export interface OrganizationChartStyle extends BaseStyle {}

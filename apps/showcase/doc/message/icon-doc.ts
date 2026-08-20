@@ -1,6 +1,6 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';
 import { MessageModule } from 'primeng/message';
 
@@ -24,6 +24,4 @@ import { MessageModule } from 'primeng/message';
         <app-code></app-code>
     `
 })
-export class IconDoc implements OnInit {
-    ngOnInit() {}
-}
+export class IconDoc {}

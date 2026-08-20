@@ -63,5 +63,3 @@ export enum ChipClasses {
      */
     removeIcon = 'p-chip-remove-icon'
 }
-
-export interface ChipStyle extends BaseStyle {}

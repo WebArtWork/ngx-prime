@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
     AfterViewChecked,
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -26,7 +25,6 @@ import { BaseEditableHolder } from 'primeng/baseeditableholder';
 import { PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
 import { InputText } from 'primeng/inputtext';
-import { Nullable } from 'primeng/ts-helpers';
 import { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpPassThrough } from 'primeng/types/inputotp';
 import { InputOtpStyle } from './style/inputotpstyle';
 
@@ -352,7 +350,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
 
                 break;
 
-            default:
+            default: {
                 const target = event.target;
                 const hasSelection = target.selectionStart !== target.selectionEnd;
                 const isAtMaxLength = this.tokens.join('').length >= this.length;
@@ -363,6 +361,7 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
                 }
 
                 break;
+            }
         }
     }
 

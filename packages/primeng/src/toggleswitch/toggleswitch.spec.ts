@@ -681,7 +681,7 @@ class TestBasicToggleSwitchComponent {
     ariaLabelledBy: string = '';
     tabindex: number = 0;
 
-    onToggleChange(_event: ToggleSwitchChangeEvent) {}
+    onToggleChange() {}
 }
 
 @Component({
@@ -1200,8 +1200,8 @@ describe('PassThrough (PT) Tests', () => {
             checked: boolean = false;
             clickCount: number = 0;
             pt = {
-                slider: ({ instance }: any) => ({
-                    onclick: (event: Event) => {
+                slider: () => ({
+                    onclick: () => {
                         this.clickCount++;
                     }
                 })

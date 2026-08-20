@@ -1,4 +1,4 @@
-import type { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import type { SimpleChanges } from '@angular/core';
 
 export interface Lifecycle {
     /**

@@ -35,4 +35,3 @@ export enum ImageCompareClasses {
      */
     slider = 'p-imagecompare-slider'
 }
-export interface ImageCompareStyle extends BaseStyle {}

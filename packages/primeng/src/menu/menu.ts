@@ -208,8 +208,8 @@ export class MenuItemContent extends BaseComponent {
                     (blur)="onListBlur($event)"
                     (keydown)="onListKeyDown($event)"
                 >
-                    @for (submenu of model; track submenu; let i = $index) {
-                        <ng-template let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
+                    @if (hasSubMenu()) {
+                        @for (submenu of model; track submenu; let i = $index) {
                             @if (submenu.separator && submenu.visible !== false) {
                                 <li [class]="cx('separator')" [pBind]="ptm('separator')" role="separator" [attr.data-pc-section]="'separator'"></li>
                             }
@@ -262,10 +262,10 @@ export class MenuItemContent extends BaseComponent {
                                     ></li>
                                 }
                             }
-                        </ng-template>
+                        }
                     }
-                    @for (item of model; track item; let i = $index) {
-                        <ng-template let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
+                    @if (!hasSubMenu()) {
+                        @for (item of model; track item; let i = $index) {
                             @if (item.separator && item.visible !== false) {
                                 <li [class]="cx('separator')" [pBind]="ptm('separator')" role="separator" [attr.data-pc-section]="'separator'"></li>
                             }
@@ -291,7 +291,7 @@ export class MenuItemContent extends BaseComponent {
                                     [attr.id]="menuitemId(item, id, i)"
                                 ></li>
                             }
-                        </ng-template>
+                        }
                     }
                 </ul>
                 @if (endTemplate ?? _endTemplate) {

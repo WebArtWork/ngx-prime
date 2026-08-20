@@ -930,8 +930,9 @@ describe('TreeSelect', () => {
 
             // Check for custom templates
             const customValue = testFixture.debugElement.query(By.css('[data-testid="template-value"]'));
-            const customHeader = testFixture.debugElement.query(By.css('[data-testid="template-header"]'));
-            const customFooter = testFixture.debugElement.query(By.css('[data-testid="template-footer"]'));
+
+            void testFixture.debugElement.query(By.css('[data-testid="template-header"]'));
+            void testFixture.debugElement.query(By.css('[data-testid="template-footer"]'));
 
             if (customValue) {
                 expect(customValue.nativeElement.textContent).toContain('Select a node');

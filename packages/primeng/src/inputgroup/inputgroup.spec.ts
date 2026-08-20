@@ -228,7 +228,6 @@ describe('InputGroup', () => {
     });
 
     describe('Edge Cases', () => {
-        let component: TestBasicInputGroupComponent;
         let fixture: ComponentFixture<TestBasicInputGroupComponent>;
 
         beforeEach(async () => {
@@ -238,7 +237,6 @@ describe('InputGroup', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestBasicInputGroupComponent);
-            component = fixture.componentInstance;
             fixture.detectChanges();
         });
 
@@ -282,7 +280,6 @@ describe('InputGroup', () => {
 
 describe('InputGroup PassThrough Tests', () => {
     let fixture: ComponentFixture<InputGroup>;
-    let component: InputGroup;
     let hostElement: HTMLElement;
 
     beforeEach(async () => {
@@ -292,7 +289,6 @@ describe('InputGroup PassThrough Tests', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(InputGroup);
-        component = fixture.componentInstance;
         hostElement = fixture.nativeElement;
     });
 

@@ -46,7 +46,7 @@ export interface CommonPassThrough {
 }
 
 type HTMLElementProps<T> = {
-    [K in keyof T as T[K] extends Function ? never : K]?: T[K];
+    [K in keyof T as T[K] extends (...args: any[]) => any ? never : K]?: T[K];
 };
 
 type OnGlobalEventHandlers = {

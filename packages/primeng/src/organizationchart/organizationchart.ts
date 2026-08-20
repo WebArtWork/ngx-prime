@@ -14,9 +14,10 @@ import {
     Output,
     TemplateRef,
     ViewEncapsulation,
-    contentChildren
+    contentChildren,
+    AfterViewChecked
 } from '@angular/core';
-import { hasClass, isAttributeEquals } from '@primeuix/utils';
+import { isAttributeEquals } from '@primeuix/utils';
 import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
 import { Bind, BindModule } from 'primeng/bind';
@@ -97,6 +98,7 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
         }
     `,
     encapsulation: ViewEncapsulation.None,
+    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
     changeDetection: ChangeDetectionStrategy.Default,
     providers: [OrganizationChartStyle, { provide: PARENT_INSTANCE, useExisting: OrganizationChartNode }]
 })
@@ -200,6 +202,7 @@ export class OrganizationChartNode extends BaseComponent {
             <table [class]="cx('table')" [collapsible]="collapsible" pOrganizationChartNode [pt]="pt" [unstyled]="unstyled()" [node]="root" [pBind]="ptm('table')"></table>
         }
     `,
+    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
     changeDetection: ChangeDetectionStrategy.Default,
     providers: [OrganizationChartStyle, { provide: ORGANIZATIONCHART_INSTANCE, useExisting: OrganizationChart }, { provide: PARENT_INSTANCE, useExisting: OrganizationChart }],
     host: {
@@ -207,7 +210,7 @@ export class OrganizationChartNode extends BaseComponent {
     },
     hostDirectives: [Bind]
 })
-export class OrganizationChart extends BaseComponent<OrganizationChartPassThrough> {
+export class OrganizationChart extends BaseComponent<OrganizationChartPassThrough> implements AfterViewChecked {
     el = inject(ElementRef);
     cd = inject(ChangeDetectorRef);
 

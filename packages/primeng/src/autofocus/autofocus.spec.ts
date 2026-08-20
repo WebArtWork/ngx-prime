@@ -258,7 +258,6 @@ describe('AutoFocus', () => {
     describe('Autofocus Attribute Management', () => {
         let fixture: ComponentFixture<TestAutofocusDynamicComponent>;
         let component: TestAutofocusDynamicComponent;
-        let directive: AutoFocus;
         let element: HTMLInputElement;
 
         beforeEach(async () => {
@@ -268,7 +267,6 @@ describe('AutoFocus', () => {
 
             const directiveDebugElement = fixture.debugElement.query(By.directive(AutoFocus));
 
-            directive = directiveDebugElement.injector.get(AutoFocus);
             element = directiveDebugElement.nativeElement;
         });
 

@@ -90,9 +90,11 @@ const mockItems = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
         </p-autocomplete>
 
         <!-- Reactive Forms test -->
-        <form [formGroup]="reactiveForm" *ngIf="showReactiveForm">
-            <p-autocomplete formControlName="selectedItems" [suggestions]="formSuggestions" [optionLabel]="'name'" [multiple]="true" (completeMethod)="onFormSearch($event)"> </p-autocomplete>
-        </form>
+        @if (showReactiveForm) {
+            <form [formGroup]="reactiveForm">
+                <p-autocomplete formControlName="selectedItems" [suggestions]="formSuggestions" [optionLabel]="'name'" [multiple]="true" (completeMethod)="onFormSearch($event)"> </p-autocomplete>
+            </form>
+        }
     `,
     imports: [AutoCompleteModule, SharedModule, FormsModule, ReactiveFormsModule]
 })
@@ -579,7 +581,7 @@ describe('AutoComplete', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const inputElement = testFixture.debugElement.query(By.css('input'));
+            void testFixture.debugElement.query(By.css('input'));
             const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
             expect(autocompleteInstance.modelValue()).toBe('test value');
@@ -829,7 +831,7 @@ describe('AutoComplete', () => {
             await testFixture.whenStable();
 
             // Wait for suggestions to appear
-            const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            void testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
             // Manually trigger select as options may not render
             if (testComponent.suggestions.length > 0) {
@@ -1615,7 +1617,7 @@ describe('AutoComplete', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            const autocompleteInstance = testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
+            void testFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
 
             // First, show the suggestions
             const inputElement = testFixture.debugElement.query(By.css('input'));

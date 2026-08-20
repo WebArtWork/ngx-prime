@@ -10,7 +10,7 @@ import { TreeTableModule } from 'primeng/treetable';
     imports: [TreeTableModule, DeferredDemo, AppCode],
     template: `
         <div class="card">
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template #header>
                         <tr>

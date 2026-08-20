@@ -578,11 +578,9 @@ describe('Tabs', () => {
 
     describe('Scrollable Tabs', () => {
         let scrollableFixture: ComponentFixture<TestScrollableTabsComponent>;
-        let scrollableComponent: TestScrollableTabsComponent;
 
         beforeEach(() => {
             scrollableFixture = TestBed.createComponent(TestScrollableTabsComponent);
-            scrollableComponent = scrollableFixture.componentInstance;
             scrollableFixture.detectChanges();
         });
 
@@ -724,11 +722,9 @@ describe('Tabs', () => {
 
         describe('ContentChild Navigation Icons (#previcon/#nexticon)', () => {
             let contentChildFixture: ComponentFixture<TestContentChildIconsTabsComponent>;
-            let contentChildComponent: TestContentChildIconsTabsComponent;
 
             beforeEach(() => {
                 contentChildFixture = TestBed.createComponent(TestContentChildIconsTabsComponent);
-                contentChildComponent = contentChildFixture.componentInstance;
                 contentChildFixture.detectChanges();
             });
 
@@ -1092,7 +1088,6 @@ describe('Tabs', () => {
     describe('PassThrough', () => {
         let ptFixture: ComponentFixture<TestPTTabsComponent>;
         let ptComponent: TestPTTabsComponent;
-        let ptTabs: Tabs;
 
         beforeEach(() => {
             ptFixture = TestBed.createComponent(TestPTTabsComponent);
@@ -1170,8 +1165,6 @@ describe('Tabs', () => {
             ptFixture.detectChanges();
 
             const tabsEl = ptFixture.debugElement.query(By.css('p-tabs'));
-
-            ptTabs = ptFixture.debugElement.query(By.directive(Tabs)).componentInstance;
 
             expect(tabsEl.nativeElement.className).toContain('NON_SCROLLABLE');
             expect(tabsEl.nativeElement.getAttribute('data-lazy')).toBe('false');

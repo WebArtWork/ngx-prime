@@ -338,7 +338,6 @@ describe('SpeedDial', () => {
     let component: TestBasicSpeedDialComponent;
     let fixture: ComponentFixture<TestBasicSpeedDialComponent>;
     let speedDialInstance: SpeedDial;
-    let speedDialElement: HTMLElement;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -370,7 +369,6 @@ describe('SpeedDial', () => {
         fixture = TestBed.createComponent(TestBasicSpeedDialComponent);
         component = fixture.componentInstance;
         speedDialInstance = fixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
-        speedDialElement = fixture.debugElement.query(By.css('p-speeddial')).nativeElement;
         fixture.detectChanges();
     });
 
@@ -628,7 +626,7 @@ describe('SpeedDial', () => {
         });
 
         it('should not emit events when disabled', async () => {
-            const clickSpy = spyOn(component, 'onButtonClick');
+            void spyOn(component, 'onButtonClick');
 
             component.disabled = true;
             fixture.changeDetectorRef.markForCheck();
@@ -2018,7 +2016,7 @@ describe('SpeedDial', () => {
 
         describe('Case 8: Test hooks', () => {
             it('should handle onAfterViewInit hook in PT', async () => {
-                let hookCalled = false;
+                void false;
 
                 ptFixture.componentRef.setInput('pt', {
                     root: 'TEST_HOOK_CLASS',
@@ -2038,8 +2036,8 @@ describe('SpeedDial', () => {
             });
 
             it('should handle lifecycle hooks via PT', () => {
-                let initCalled = false;
-                let destroyCalled = false;
+                void false;
+                void false;
 
                 ptFixture.componentRef.setInput('pt', {
                     root: 'HOOK_TEST',

@@ -21,7 +21,7 @@ import { TreeTableModule } from 'primeng/treetable';
             <div class="flex justify-center mb-4">
                 <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
             </div>
-            <app-p-deferred-demo (load)="loadDemoData()">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
                 <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [class]="selectedSize">
                     <ng-template #header>
                         <tr>

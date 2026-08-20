@@ -46,5 +46,3 @@ export enum SelectButtonClasses {
      */
     root = 'p-selectbutton'
 }
-
-export interface SelectButtonStyle extends BaseStyle {}

@@ -52,7 +52,7 @@ export interface AccordionTabOpenEvent {
  * @extends {AccordionTabOpenEvent}
  * @group Interface
  */
-export interface AccordionTabCloseEvent extends AccordionTabOpenEvent {}
+export type AccordionTabCloseEvent = AccordionTabOpenEvent;
 
 /**
  * Toggle icon template context.

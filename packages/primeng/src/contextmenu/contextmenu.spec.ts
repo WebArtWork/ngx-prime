@@ -504,7 +504,8 @@ describe('ContextMenu', () => {
     describe('Target and Global Context Menu Tests', () => {
         it('should work with target element', async () => {
             const targetFixture = TestBed.createComponent(TestTargetContextMenuComponent);
-            const targetComponent = targetFixture.componentInstance;
+
+            void targetFixture.componentInstance;
 
             const targetContextMenu = targetFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
 

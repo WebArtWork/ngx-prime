@@ -1,17 +1,16 @@
 import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
-import { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/types/slider';
 import { Slider, SliderModule } from './slider';
 
 // Test Components
 @Component({
-    standalone: false,
+    imports: [Slider, FormsModule],
     template: `
         <p-slider
             [(ngModel)]="value"
@@ -46,12 +45,12 @@ class TestBasicSliderComponent {
     ariaLabelledBy: string = '';
     tabindex: number = 0;
 
-    onSliderChange(_event: SliderChangeEvent) {}
-    onSlideEnd(_event: SliderSlideEndEvent) {}
+    onSliderChange() {}
+    onSlideEnd() {}
 }
 
 @Component({
-    standalone: false,
+    imports: [Slider, ReactiveFormsModule],
     template: `
         <form [formGroup]="form">
             <p-slider formControlName="sliderValue"></p-slider>
@@ -65,7 +64,7 @@ class TestFormSliderComponent {
 }
 
 @Component({
-    standalone: false,
+    imports: [Slider, ReactiveFormsModule],
     template: `
         <form [formGroup]="form">
             <p-slider [range]="true" formControlName="rangeValue"> </p-slider>
@@ -674,7 +673,7 @@ describe('Slider', () => {
         });
 
         it('should handle onChange listener', async () => {
-            testComponent.onSliderChange = (_event) => {
+            testComponent.onSliderChange = () => {
                 // Event handler for testing
             };
 
@@ -1376,8 +1375,8 @@ describe('Slider', () => {
                 value: number = 50;
                 clickCount: number = 0;
                 pt = {
-                    handle: ({ instance }: any) => ({
-                        onclick: (event: Event) => {
+                    handle: () => ({
+                        onclick: () => {
                             this.clickCount++;
                         }
                     })

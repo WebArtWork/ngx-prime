@@ -113,5 +113,3 @@ export enum DialogClasses {
      */
     footer = 'p-dialog-footer'
 }
-
-export interface DialogStyle extends BaseStyle {}

@@ -1,24 +1,4 @@
-import {
-    booleanAttribute,
-    ChangeDetectionStrategy,
-    Component,
-    computed,
-    ElementRef,
-    EventEmitter,
-    forwardRef,
-    inject,
-    Injectable,
-    InjectionToken,
-    Injector,
-    input,
-    Input,
-    NgModule,
-    numberAttribute,
-    OnDestroy,
-    OnInit,
-    Output,
-    viewChild
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, EventEmitter, forwardRef, inject, Injectable, InjectionToken, Injector, input, Input, NgModule, numberAttribute, Output, viewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';

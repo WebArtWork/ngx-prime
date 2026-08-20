@@ -195,9 +195,11 @@ const TREESELECT_INSTANCE = new InjectionToken<TreeSelect>('TREESELECT_INSTANCE'
                                     <ng-container *ngTemplateOutlet="itemTogglerIconTemplate || _itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
                                 </ng-template>
                             }
-                            <ng-template #checkboxicon let-selected let-partialSelected="partialSelected" *ngIf="itemCheckboxIconTemplate || _itemCheckboxIconTemplate">
-                                <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate || _itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
-                            </ng-template>
+                            @if (itemCheckboxIconTemplate || _itemCheckboxIconTemplate) {
+                                <ng-template #checkboxicon let-selected let-partialSelected="partialSelected">
+                                    <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate || _itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
+                                </ng-template>
+                            }
                             @if (itemLoadingIconTemplate || _itemLoadingIconTemplate) {
                                 <ng-template #loadingicon>
                                     <ng-container *ngTemplateOutlet="itemLoadingIconTemplate || _itemLoadingIconTemplate"></ng-container>
@@ -758,7 +760,8 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
             isNotEmpty(this.filterValue) && this.treeViewChild()?._filter(<any>this.filterValue);
             this.filterInputAutoFocus && this.filterViewChild()?.nativeElement.focus();
         } else {
-            let focusableElements = <any>getFocusableElements(this.panelEl()?.nativeElement!);
+            let panelNativeElement = this.panelEl()?.nativeElement;
+            let focusableElements = <any>getFocusableElements(panelNativeElement!);
 
             if (focusableElements && focusableElements.length > 0) {
                 focusableElements[0].focus();

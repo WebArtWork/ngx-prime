@@ -46,5 +46,3 @@ export enum FloatLabelClasses {
      */
     root = 'p-floatlabel'
 }
-
-export interface FloatLabelStyle extends BaseStyle {}

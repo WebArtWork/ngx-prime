@@ -24,12 +24,12 @@ export class DialogService {
      * @returns {DynamicDialogRef} DynamicDialog instance.
      * @group Method
      */
-    public open<T, DataType = any, InputValuesType extends Record<string, any> = {}>(componentType: Type<T>, config: DynamicDialogConfig<DataType, InputValuesType>): DynamicDialogRef<T> | null {
+    public open<T, DataType = any, InputValuesType extends Record<string, any> = Record<string, any>>(componentType: Type<T>, config: DynamicDialogConfig<DataType, InputValuesType>): DynamicDialogRef<T> | null {
         if (!this.duplicationPermission(componentType, config)) {
             return null;
         }
 
-        const dialogRef = this.appendDialogComponentToBody<T>(config, componentType);
+        const dialogRef = this.appendDialogComponentToBody<T>(config);
 
         const componentRefInstance = this.dialogComponentRefMap.get(dialogRef);
 
@@ -49,7 +49,7 @@ export class DialogService {
         return this.dialogComponentRefMap.get(ref)?.instance;
     }
 
-    private appendDialogComponentToBody<T>(config: DynamicDialogConfig, componentType: Type<T>): DynamicDialogRef<T> {
+    private appendDialogComponentToBody<T>(config: DynamicDialogConfig): DynamicDialogRef<T> {
         const map = new WeakMap();
 
         map.set(DynamicDialogConfig, config);
@@ -111,7 +111,7 @@ export class DialogService {
 
         let permission = true;
 
-        for (const [key, value] of this.dialogComponentRefMap) {
+        for (const [, value] of this.dialogComponentRefMap) {
             if (value.instance.childComponentType === componentType) {
                 permission = false;
                 break;

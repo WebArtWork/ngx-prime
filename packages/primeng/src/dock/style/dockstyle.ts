@@ -72,5 +72,3 @@ export enum DockClasses {
      */
     itemIcon = 'p-dock-item-icon'
 }
-
-export interface DockStyle extends BaseStyle {}

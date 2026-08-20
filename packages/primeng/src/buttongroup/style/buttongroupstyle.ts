@@ -59,5 +59,3 @@ export enum ButtonGroupClasses {
      */
     root = 'p-buttongroup'
 }
-
-export interface ButtonGroupStyle extends BaseStyle {}

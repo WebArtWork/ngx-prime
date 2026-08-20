@@ -18,7 +18,7 @@ import { TableModule } from 'primeng/table';
                 viewport adjusts itself according to the size changes.
             </p>
         </app-docsectiontext>
-        <app-p-deferred-demo (load)="loadDemoData()">
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-center">
                     <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="Show"></button>

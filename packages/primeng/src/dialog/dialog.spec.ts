@@ -887,10 +887,6 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             const dialogElement = fixture.debugElement.query(By.css('[role="dialog"]'));
-            const tabEvent = new KeyboardEvent('keydown', {
-                key: 'Tab',
-                code: 'Tab'
-            });
 
             expect(dialogElement).toBeTruthy();
 

@@ -39,5 +39,3 @@ export enum IftaLabelClasses {
      */
     root = 'p-iftalabel'
 }
-
-export interface IftaLabelStyle extends BaseStyle {}

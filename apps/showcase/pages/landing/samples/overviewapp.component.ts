@@ -221,7 +221,7 @@ export class OverviewApp implements OnInit {
 
     designerService = inject(DesignerService);
 
-    constructor(private cd: ChangeDetectorRef) {}
+    private cd = inject(ChangeDetectorRef);
 
     themeEffect = effect(() => {
         if (this.configService.transitionComplete()) {
@@ -444,7 +444,7 @@ export class OverviewApp implements OnInit {
                             const tooltipBody = document.createElement('div');
 
                             tooltipBody.classList.add('flex', 'flex-col', 'gap-4', 'px-3', 'py-3', 'min-w-[18rem]');
-                            tooltip.dataPoints.reverse().forEach((body, i) => {
+                            tooltip.dataPoints.reverse().forEach((body) => {
                                 const row = document.createElement('div');
 
                                 row.classList.add('flex', 'items-center', 'gap-2', 'w-full');
@@ -468,7 +468,7 @@ export class OverviewApp implements OnInit {
                             tooltipEl.appendChild(tooltipBody);
                         }
 
-                        const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+                        const { offsetLeft: positionX } = chart.canvas;
 
                         tooltipEl.style.opacity = 1;
                         tooltipEl.style.font = tooltip.options.bodyFont.string;
