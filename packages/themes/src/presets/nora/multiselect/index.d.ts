@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/multiselect';
-export { default } from '@primeuix/themes/nora/multiselect';
+export * from '@wawjs/css-prime-themes/nora/multiselect';
+export { default } from '@wawjs/css-prime-themes/nora/multiselect';

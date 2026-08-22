@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/stepper';
-export { default } from '@primeuix/themes/lara/stepper';
+export * from '@wawjs/css-prime-themes/lara/stepper';
+export { default } from '@wawjs/css-prime-themes/lara/stepper';

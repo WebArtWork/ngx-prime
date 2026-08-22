@@ -1,1 +1,1 @@
-export * from '@primeuix/themes/types';
+export * from '@wawjs/css-prime-themes/types';

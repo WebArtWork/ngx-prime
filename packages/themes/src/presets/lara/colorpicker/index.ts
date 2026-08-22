@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/colorpicker';
-export { default } from '@primeuix/themes/lara/colorpicker';
+export * from '@wawjs/css-prime-themes/lara/colorpicker';
+export { default } from '@wawjs/css-prime-themes/lara/colorpicker';

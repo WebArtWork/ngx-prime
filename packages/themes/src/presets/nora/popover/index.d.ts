@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/popover';
-export { default } from '@primeuix/themes/nora/popover';
+export * from '@wawjs/css-prime-themes/nora/popover';
+export { default } from '@wawjs/css-prime-themes/nora/popover';

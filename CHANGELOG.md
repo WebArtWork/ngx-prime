@@ -365,7 +365,7 @@ Enhancements via the PrimeUIX packages that PrimeNG utilizes internally.
 - p-columnFilter is not kebab-case (Should be p-column-filter or p-columnfilter) [#18659](https://github.com/primefaces/primeng/issues/18659)
 - ConfirmDialog: ignored acceptButtonProps [#18618](https://github.com/primefaces/primeng/issues/18618)
 - Listbox: Misaligned checkbox in multiselect mode with filter enabled (PrimeNG v20) [#18656](https://github.com/primefaces/primeng/issues/18656)
-- TS2344 Type Error in @primeuix/themes with Angular 20 + PrimeNG 20 [#18626](https://github.com/primefaces/primeng/issues/18626)
+- TS2344 Type Error in @wawjs/css-prime-themes with Angular 20 + PrimeNG 20 [#18626](https://github.com/primefaces/primeng/issues/18626)
 - Customizing color does no longer work as expected with PrimeNG 20 [#18649](https://github.com/primefaces/primeng/issues/18649)
 - Accordion - Content Panel doesn't disappear when collapsed [#18616](https://github.com/primefaces/primeng/issues/18616)
 
@@ -1204,7 +1204,7 @@ Enhancements via the PrimeUIX packages that PrimeNG utilizes internally.
 
 - Date filter on table v18 [\#16354](https://github.com/primefaces/primeng/issues/16354)
 - Fileupload | add fileLabelTemplate [\#16377](https://github.com/primefaces/primeng/issues/16377)
-- Cannot find module '@primeuix/styled' from 'node_modules/primeng/fesm2022/primeng-themes.mjs' [\#16353](https://github.com/primefaces/primeng/issues/16353)
+- Cannot find module '@wawjs/css-prime-styled' from 'node_modules/primeng/fesm2022/primeng-themes.mjs' [\#16353](https://github.com/primefaces/primeng/issues/16353)
 - Component: Select [primeng v18] [\#16351](https://github.com/primefaces/primeng/issues/16351)
 
 ## [17.18.10](https://github.com/primefaces/primeng/tree/17.18.10) (2024-09-11)

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/dialog';
-export { default } from '@primeuix/themes/nora/dialog';
+export * from '@wawjs/css-prime-themes/nora/dialog';
+export { default } from '@wawjs/css-prime-themes/nora/dialog';

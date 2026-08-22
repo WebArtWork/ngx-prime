@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/fieldset';
-export { default } from '@primeuix/themes/lara/fieldset';
+export * from '@wawjs/css-prime-themes/lara/fieldset';
+export { default } from '@wawjs/css-prime-themes/lara/fieldset';

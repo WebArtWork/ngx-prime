@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/tabview';
-export { default } from '@primeuix/themes/aura/tabview';
+export * from '@wawjs/css-prime-themes/aura/tabview';
+export { default } from '@wawjs/css-prime-themes/aura/tabview';

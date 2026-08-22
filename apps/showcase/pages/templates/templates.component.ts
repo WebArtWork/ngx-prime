@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { Bind } from '../../../../packages/primeng/src/bind/bind';
-import { ButtonDirective, ButtonLabel } from '../../../../packages/primeng/src/button/button';
+import { Bind } from '../../../../packages/ngx-prime/src/bind/bind';
+import { ButtonDirective, ButtonLabel } from '../../../../packages/ngx-prime/src/button/button';
 import { RouterLink } from '@angular/router';
 
 @Component({

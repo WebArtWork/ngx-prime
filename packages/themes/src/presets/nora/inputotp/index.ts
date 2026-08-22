@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/inputotp';
-export { default } from '@primeuix/themes/nora/inputotp';
+export * from '@wawjs/css-prime-themes/nora/inputotp';
+export { default } from '@wawjs/css-prime-themes/nora/inputotp';

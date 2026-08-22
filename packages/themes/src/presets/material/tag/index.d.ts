@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/tag';
-export { default } from '@primeuix/themes/material/tag';
+export * from '@wawjs/css-prime-themes/material/tag';
+export { default } from '@wawjs/css-prime-themes/material/tag';

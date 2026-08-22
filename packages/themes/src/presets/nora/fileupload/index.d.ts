@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/fileupload';
-export { default } from '@primeuix/themes/nora/fileupload';
+export * from '@wawjs/css-prime-themes/nora/fileupload';
+export { default } from '@wawjs/css-prime-themes/nora/fileupload';

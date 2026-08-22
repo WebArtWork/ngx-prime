@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "lib": ["dom", "dom.iterable", "ES2022"],
+        "experimentalDecorators": true,
+        "module": "ES2022",
+        "moduleResolution": "bundler",
+        "baseUrl": "../../",
+        "ignoreDeprecations": "6.0",
+        "paths": {
+            "primeng/types/*": ["./packages/ngx-prime/src/types/*/public_api"],
+            "primeng/*": ["./packages/ngx-prime/src/*/public_api"],
+            "@primeng/themes/*": ["./packages/themes/src/presets/*/index"],
+            "@primeng/themes": ["./packages/themes/src/index"]
+        },
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": false,
+        "strictNullChecks": true,
+        "skipLibCheck": true
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "angularCompilerOptions": {
+        "disableTypeScriptVersionCheck": true,
+        "fullTemplateTypeCheck": false,
+        "annotateForClosureCompiler": false,
+        "strictTemplates": false,
+        "strictMetadataEmit": true,
+        "skipTemplateCodegen": true,
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": true,
+        "strictInputAccessModifiers": true,
+        "flatModuleOutFile": "primeng.js",
+        "flatModuleId": "primeng",
+        "compilationMode": "partial"
+    }
+}

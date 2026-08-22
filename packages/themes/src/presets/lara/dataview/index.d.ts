@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/dataview';
-export { default } from '@primeuix/themes/lara/dataview';
+export * from '@wawjs/css-prime-themes/lara/dataview';
+export { default } from '@wawjs/css-prime-themes/lara/dataview';

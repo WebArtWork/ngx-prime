@@ -52,7 +52,7 @@ const commonTsRules = {
     '@typescript-eslint/no-unsafe-declaration-merging': 'off'
 };
 
-// The component library (packages/primeng) ships selectors under the `p-` prefix;
+// The component library (packages/ngx-prime) ships selectors under the `p-` prefix;
 // the showcase app is a standalone Angular app configured with its own `app` prefix
 // (see apps/showcase/angular.json), so the two need separate selector rules.
 function selectorRules(prefix) {
@@ -85,7 +85,7 @@ module.exports = tseslint.config(
     },
     {
         files: ['packages/**/*.ts'],
-        ignores: ['packages/**/*.spec.ts', 'packages/primeng/src/icons/**'],
+        ignores: ['packages/**/*.spec.ts', 'packages/ngx-prime/src/icons/**'],
         extends: [js.configs.recommended, ...tseslint.configs.recommended, ...angular.configs.tsRecommended, prettierRecommended],
         processor: angular.processInlineTemplates,
         rules: {
@@ -99,8 +99,8 @@ module.exports = tseslint.config(
         // Icon subcomponents use their own PascalCase, no-prefix selector
         // convention (e.g. AngleDownIcon) — internal building blocks, not part
         // of the library's p-* public component surface.
-        files: ['packages/primeng/src/icons/**/*.ts'],
-        ignores: ['packages/primeng/src/icons/**/*.spec.ts'],
+        files: ['packages/ngx-prime/src/icons/**/*.ts'],
+        ignores: ['packages/ngx-prime/src/icons/**/*.spec.ts'],
         extends: [js.configs.recommended, ...tseslint.configs.recommended, ...angular.configs.tsRecommended, prettierRecommended],
         processor: angular.processInlineTemplates,
         rules: commonTsRules

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/treetable';
-export { default } from '@primeuix/themes/material/treetable';
+export * from '@wawjs/css-prime-themes/material/treetable';
+export { default } from '@wawjs/css-prime-themes/material/treetable';

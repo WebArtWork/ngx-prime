@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/steps';
-export { default } from '@primeuix/themes/nora/steps';
+export * from '@wawjs/css-prime-themes/nora/steps';
+export { default } from '@wawjs/css-prime-themes/nora/steps';

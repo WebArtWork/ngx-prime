@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/treetable';
-export { default } from '@primeuix/themes/aura/treetable';
+export * from '@wawjs/css-prime-themes/aura/treetable';
+export { default } from '@wawjs/css-prime-themes/aura/treetable';

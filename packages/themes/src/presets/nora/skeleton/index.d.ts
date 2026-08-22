@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/skeleton';
-export { default } from '@primeuix/themes/nora/skeleton';
+export * from '@wawjs/css-prime-themes/nora/skeleton';
+export { default } from '@wawjs/css-prime-themes/nora/skeleton';

@@ -1,1 +1,1 @@
-export { default } from '@primeuix/themes/lara';
+export { default } from '@wawjs/css-prime-themes/lara';

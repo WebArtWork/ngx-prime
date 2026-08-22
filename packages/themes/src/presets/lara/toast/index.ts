@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/toast';
-export { default } from '@primeuix/themes/lara/toast';
+export * from '@wawjs/css-prime-themes/lara/toast';
+export { default } from '@wawjs/css-prime-themes/lara/toast';

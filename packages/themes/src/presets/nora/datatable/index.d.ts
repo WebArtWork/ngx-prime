@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/datatable';
-export { default } from '@primeuix/themes/nora/datatable';
+export * from '@wawjs/css-prime-themes/nora/datatable';
+export { default } from '@wawjs/css-prime-themes/nora/datatable';

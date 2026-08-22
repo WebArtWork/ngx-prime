@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/colorpicker';
-export { default } from '@primeuix/themes/aura/colorpicker';
+export * from '@wawjs/css-prime-themes/aura/colorpicker';
+export { default } from '@wawjs/css-prime-themes/aura/colorpicker';

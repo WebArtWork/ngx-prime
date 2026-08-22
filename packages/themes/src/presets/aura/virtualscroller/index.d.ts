@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/virtualscroller';
-export { default } from '@primeuix/themes/aura/virtualscroller';
+export * from '@wawjs/css-prime-themes/aura/virtualscroller';
+export { default } from '@wawjs/css-prime-themes/aura/virtualscroller';

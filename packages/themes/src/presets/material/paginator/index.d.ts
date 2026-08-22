@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/paginator';
-export { default } from '@primeuix/themes/material/paginator';
+export * from '@wawjs/css-prime-themes/material/paginator';
+export { default } from '@wawjs/css-prime-themes/material/paginator';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/floatlabel';
-export { default } from '@primeuix/themes/nora/floatlabel';
+export * from '@wawjs/css-prime-themes/nora/floatlabel';
+export { default } from '@wawjs/css-prime-themes/nora/floatlabel';

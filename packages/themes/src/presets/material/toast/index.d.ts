@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/toast';
-export { default } from '@primeuix/themes/material/toast';
+export * from '@wawjs/css-prime-themes/material/toast';
+export { default } from '@wawjs/css-prime-themes/material/toast';

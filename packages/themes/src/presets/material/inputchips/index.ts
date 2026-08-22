@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/inputchips';
-export { default } from '@primeuix/themes/material/inputchips';
+export * from '@wawjs/css-prime-themes/material/inputchips';
+export { default } from '@wawjs/css-prime-themes/material/inputchips';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/splitbutton';
-export { default } from '@primeuix/themes/lara/splitbutton';
+export * from '@wawjs/css-prime-themes/lara/splitbutton';
+export { default } from '@wawjs/css-prime-themes/lara/splitbutton';

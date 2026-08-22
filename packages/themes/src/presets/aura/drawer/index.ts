@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/drawer';
-export { default } from '@primeuix/themes/aura/drawer';
+export * from '@wawjs/css-prime-themes/aura/drawer';
+export { default } from '@wawjs/css-prime-themes/aura/drawer';

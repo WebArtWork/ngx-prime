@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/progressspinner';
-export { default } from '@primeuix/themes/lara/progressspinner';
+export * from '@wawjs/css-prime-themes/lara/progressspinner';
+export { default } from '@wawjs/css-prime-themes/lara/progressspinner';

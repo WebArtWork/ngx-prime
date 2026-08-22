@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/tieredmenu';
-export { default } from '@primeuix/themes/aura/tieredmenu';
+export * from '@wawjs/css-prime-themes/aura/tieredmenu';
+export { default } from '@wawjs/css-prime-themes/aura/tieredmenu';

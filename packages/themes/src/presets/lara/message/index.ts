@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/message';
-export { default } from '@primeuix/themes/lara/message';
+export * from '@wawjs/css-prime-themes/lara/message';
+export { default } from '@wawjs/css-prime-themes/lara/message';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/datepicker';
-export { default } from '@primeuix/themes/nora/datepicker';
+export * from '@wawjs/css-prime-themes/nora/datepicker';
+export { default } from '@wawjs/css-prime-themes/nora/datepicker';

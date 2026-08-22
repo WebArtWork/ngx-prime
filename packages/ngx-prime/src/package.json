@@ -1,0 +1,44 @@
+{
+    "name": "primeng",
+    "version": "22.0.0",
+    "author": "Web Art Work",
+    "description": "ngx-prime is an independent MIT-licensed Angular UI component library continuing from the PrimeNG v21.1.9 codebase.",
+    "homepage": "https://github.com/WebArtWork/ngx-prime",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/WebArtWork/ngx-prime.git",
+        "directory": "packages/ngx-prime"
+    },
+    "bugs": {
+        "url": "https://github.com/WebArtWork/ngx-prime/issues"
+    },
+    "keywords": [
+        "primeng",
+        "angular",
+        "ui library",
+        "component library",
+        "material",
+        "bootstrap",
+        "fluent",
+        "tailwind"
+    ],
+    "publishConfig": {
+        "access": "public"
+    },
+    "peerDependencies": {
+        "@angular/cdk": "catalog:angular22",
+        "@angular/common": "catalog:angular22",
+        "@angular/core": "catalog:angular22",
+        "@angular/forms": "catalog:angular22",
+        "@angular/router": "catalog:angular22",
+        "@angular/platform-browser": "catalog:angular22",
+        "rxjs": "^6.0.0 || ^7.8.1"
+    },
+    "dependencies": {
+        "@wawjs/css-prime-styled": "catalog:",
+        "@wawjs/css-prime-utils": "catalog:",
+        "@wawjs/css-prime-styles": "catalog:",
+        "@wawjs/css-prime-motion": "catalog:"
+    }
+}

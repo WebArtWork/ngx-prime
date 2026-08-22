@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/organizationchart';
-export { default } from '@primeuix/themes/nora/organizationchart';
+export * from '@wawjs/css-prime-themes/nora/organizationchart';
+export { default } from '@wawjs/css-prime-themes/nora/organizationchart';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/multiselect';
-export { default } from '@primeuix/themes/lara/multiselect';
+export * from '@wawjs/css-prime-themes/lara/multiselect';
+export { default } from '@wawjs/css-prime-themes/lara/multiselect';

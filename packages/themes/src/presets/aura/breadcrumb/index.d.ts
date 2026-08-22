@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/breadcrumb';
-export { default } from '@primeuix/themes/aura/breadcrumb';
+export * from '@wawjs/css-prime-themes/aura/breadcrumb';
+export { default } from '@wawjs/css-prime-themes/aura/breadcrumb';

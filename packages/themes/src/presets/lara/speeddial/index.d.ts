@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/speeddial';
-export { default } from '@primeuix/themes/lara/speeddial';
+export * from '@wawjs/css-prime-themes/lara/speeddial';
+export { default } from '@wawjs/css-prime-themes/lara/speeddial';

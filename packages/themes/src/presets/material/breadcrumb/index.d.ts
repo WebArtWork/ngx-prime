@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/breadcrumb';
-export { default } from '@primeuix/themes/material/breadcrumb';
+export * from '@wawjs/css-prime-themes/material/breadcrumb';
+export { default } from '@wawjs/css-prime-themes/material/breadcrumb';

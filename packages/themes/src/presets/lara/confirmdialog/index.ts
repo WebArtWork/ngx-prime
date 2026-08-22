@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/confirmdialog';
-export { default } from '@primeuix/themes/lara/confirmdialog';
+export * from '@wawjs/css-prime-themes/lara/confirmdialog';
+export { default } from '@wawjs/css-prime-themes/lara/confirmdialog';

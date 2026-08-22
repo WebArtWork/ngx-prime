@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/inputtext';
-export { default } from '@primeuix/themes/material/inputtext';
+export * from '@wawjs/css-prime-themes/material/inputtext';
+export { default } from '@wawjs/css-prime-themes/material/inputtext';

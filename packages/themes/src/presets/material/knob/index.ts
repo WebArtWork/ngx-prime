@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/knob';
-export { default } from '@primeuix/themes/material/knob';
+export * from '@wawjs/css-prime-themes/material/knob';
+export { default } from '@wawjs/css-prime-themes/material/knob';

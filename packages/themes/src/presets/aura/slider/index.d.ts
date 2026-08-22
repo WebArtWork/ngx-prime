@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/slider';
-export { default } from '@primeuix/themes/aura/slider';
+export * from '@wawjs/css-prime-themes/aura/slider';
+export { default } from '@wawjs/css-prime-themes/aura/slider';

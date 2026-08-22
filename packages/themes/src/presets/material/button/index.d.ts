@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/button';
-export { default } from '@primeuix/themes/material/button';
+export * from '@wawjs/css-prime-themes/material/button';
+export { default } from '@wawjs/css-prime-themes/material/button';

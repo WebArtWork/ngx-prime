@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/confirmpopup';
-export { default } from '@primeuix/themes/lara/confirmpopup';
+export * from '@wawjs/css-prime-themes/lara/confirmpopup';
+export { default } from '@wawjs/css-prime-themes/lara/confirmpopup';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/breadcrumb';
-export { default } from '@primeuix/themes/lara/breadcrumb';
+export * from '@wawjs/css-prime-themes/lara/breadcrumb';
+export { default } from '@wawjs/css-prime-themes/lara/breadcrumb';

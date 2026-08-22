@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/overlaybadge';
-export { default } from '@primeuix/themes/material/overlaybadge';
+export * from '@wawjs/css-prime-themes/material/overlaybadge';
+export { default } from '@wawjs/css-prime-themes/material/overlaybadge';

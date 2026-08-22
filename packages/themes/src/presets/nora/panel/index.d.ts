@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/panel';
-export { default } from '@primeuix/themes/nora/panel';
+export * from '@wawjs/css-prime-themes/nora/panel';
+export { default } from '@wawjs/css-prime-themes/nora/panel';

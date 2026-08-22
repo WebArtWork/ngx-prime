@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/paginator';
-export { default } from '@primeuix/themes/aura/paginator';
+export * from '@wawjs/css-prime-themes/aura/paginator';
+export { default } from '@wawjs/css-prime-themes/aura/paginator';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/button';
-export { default } from '@primeuix/themes/lara/button';
+export * from '@wawjs/css-prime-themes/lara/button';
+export { default } from '@wawjs/css-prime-themes/lara/button';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/multiselect';
-export { default } from '@primeuix/themes/material/multiselect';
+export * from '@wawjs/css-prime-themes/material/multiselect';
+export { default } from '@wawjs/css-prime-themes/material/multiselect';

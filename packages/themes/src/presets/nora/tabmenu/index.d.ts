@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/tabmenu';
-export { default } from '@primeuix/themes/nora/tabmenu';
+export * from '@wawjs/css-prime-themes/nora/tabmenu';
+export { default } from '@wawjs/css-prime-themes/nora/tabmenu';

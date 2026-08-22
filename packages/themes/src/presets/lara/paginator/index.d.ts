@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/paginator';
-export { default } from '@primeuix/themes/lara/paginator';
+export * from '@wawjs/css-prime-themes/lara/paginator';
+export { default } from '@wawjs/css-prime-themes/lara/paginator';

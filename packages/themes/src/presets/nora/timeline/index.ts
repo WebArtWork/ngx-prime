@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/timeline';
-export { default } from '@primeuix/themes/nora/timeline';
+export * from '@wawjs/css-prime-themes/nora/timeline';
+export { default } from '@wawjs/css-prime-themes/nora/timeline';

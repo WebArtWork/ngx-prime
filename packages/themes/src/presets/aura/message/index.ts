@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/message';
-export { default } from '@primeuix/themes/aura/message';
+export * from '@wawjs/css-prime-themes/aura/message';
+export { default } from '@wawjs/css-prime-themes/aura/message';

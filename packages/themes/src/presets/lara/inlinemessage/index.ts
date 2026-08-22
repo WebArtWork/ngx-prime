@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/inlinemessage';
-export { default } from '@primeuix/themes/lara/inlinemessage';
+export * from '@wawjs/css-prime-themes/lara/inlinemessage';
+export { default } from '@wawjs/css-prime-themes/lara/inlinemessage';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/inputtext';
-export { default } from '@primeuix/themes/aura/inputtext';
+export * from '@wawjs/css-prime-themes/aura/inputtext';
+export { default } from '@wawjs/css-prime-themes/aura/inputtext';

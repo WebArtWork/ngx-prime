@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/ripple';
-export { default } from '@primeuix/themes/material/ripple';
+export * from '@wawjs/css-prime-themes/material/ripple';
+export { default } from '@wawjs/css-prime-themes/material/ripple';

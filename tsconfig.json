@@ -31,8 +31,8 @@
         "baseUrl": "./",                                     /* (UPDATED) Specify the base directory to resolve non-relative module names. */
         "ignoreDeprecations": "6.0",                         /* Required while retaining baseUrl-backed workspace path mappings on TypeScript 6. */
         "paths": {                                           /* (UPDATED) Specify a set of entries that re-map imports to additional lookup locations. */
-            "primeng/types/*": ["./packages/primeng/src/types/*/public_api"],
-            "primeng/*": ["./packages/primeng/src/*/public_api"],
+            "primeng/types/*": ["./packages/ngx-prime/src/types/*/public_api"],
+            "primeng/*": ["./packages/ngx-prime/src/*/public_api"],
             "@primeng/themes/*": ["./packages/themes/src/presets/*/index"],
             "@primeng/themes": ["./packages/themes/src/index"]
         },

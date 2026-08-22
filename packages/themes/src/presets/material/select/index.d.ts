@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/select';
-export { default } from '@primeuix/themes/material/select';
+export * from '@wawjs/css-prime-themes/material/select';
+export { default } from '@wawjs/css-prime-themes/material/select';

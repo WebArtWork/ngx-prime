@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/carousel';
-export { default } from '@primeuix/themes/aura/carousel';
+export * from '@wawjs/css-prime-themes/aura/carousel';
+export { default } from '@wawjs/css-prime-themes/aura/carousel';

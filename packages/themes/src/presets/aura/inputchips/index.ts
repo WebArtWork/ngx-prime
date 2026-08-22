@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/inputchips';
-export { default } from '@primeuix/themes/aura/inputchips';
+export * from '@wawjs/css-prime-themes/aura/inputchips';
+export { default } from '@wawjs/css-prime-themes/aura/inputchips';

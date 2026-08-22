@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/tieredmenu';
-export { default } from '@primeuix/themes/lara/tieredmenu';
+export * from '@wawjs/css-prime-themes/lara/tieredmenu';
+export { default } from '@wawjs/css-prime-themes/lara/tieredmenu';

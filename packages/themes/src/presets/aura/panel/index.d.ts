@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/panel';
-export { default } from '@primeuix/themes/aura/panel';
+export * from '@wawjs/css-prime-themes/aura/panel';
+export { default } from '@wawjs/css-prime-themes/aura/panel';

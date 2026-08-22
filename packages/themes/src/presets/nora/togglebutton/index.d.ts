@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/togglebutton';
-export { default } from '@primeuix/themes/nora/togglebutton';
+export * from '@wawjs/css-prime-themes/nora/togglebutton';
+export { default } from '@wawjs/css-prime-themes/nora/togglebutton';

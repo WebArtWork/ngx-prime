@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/treeselect';
-export { default } from '@primeuix/themes/lara/treeselect';
+export * from '@wawjs/css-prime-themes/lara/treeselect';
+export { default } from '@wawjs/css-prime-themes/lara/treeselect';

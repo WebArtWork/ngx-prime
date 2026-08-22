@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/contextmenu';
-export { default } from '@primeuix/themes/aura/contextmenu';
+export * from '@wawjs/css-prime-themes/aura/contextmenu';
+export { default } from '@wawjs/css-prime-themes/aura/contextmenu';

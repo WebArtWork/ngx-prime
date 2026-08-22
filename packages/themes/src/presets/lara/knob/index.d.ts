@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/knob';
-export { default } from '@primeuix/themes/lara/knob';
+export * from '@wawjs/css-prime-themes/lara/knob';
+export { default } from '@wawjs/css-prime-themes/lara/knob';

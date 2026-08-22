@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/timeline';
-export { default } from '@primeuix/themes/aura/timeline';
+export * from '@wawjs/css-prime-themes/aura/timeline';
+export { default } from '@wawjs/css-prime-themes/aura/timeline';

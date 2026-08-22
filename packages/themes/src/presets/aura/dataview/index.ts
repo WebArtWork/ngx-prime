@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/dataview';
-export { default } from '@primeuix/themes/aura/dataview';
+export * from '@wawjs/css-prime-themes/aura/dataview';
+export { default } from '@wawjs/css-prime-themes/aura/dataview';

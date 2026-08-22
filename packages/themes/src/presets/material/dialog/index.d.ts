@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/dialog';
-export { default } from '@primeuix/themes/material/dialog';
+export * from '@wawjs/css-prime-themes/material/dialog';
+export { default } from '@wawjs/css-prime-themes/material/dialog';

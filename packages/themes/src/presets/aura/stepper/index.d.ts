@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/stepper';
-export { default } from '@primeuix/themes/aura/stepper';
+export * from '@wawjs/css-prime-themes/aura/stepper';
+export { default } from '@wawjs/css-prime-themes/aura/stepper';

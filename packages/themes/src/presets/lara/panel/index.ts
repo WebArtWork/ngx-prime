@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/panel';
-export { default } from '@primeuix/themes/lara/panel';
+export * from '@wawjs/css-prime-themes/lara/panel';
+export { default } from '@wawjs/css-prime-themes/lara/panel';

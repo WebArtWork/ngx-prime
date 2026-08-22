@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/menu';
-export { default } from '@primeuix/themes/lara/menu';
+export * from '@wawjs/css-prime-themes/lara/menu';
+export { default } from '@wawjs/css-prime-themes/lara/menu';

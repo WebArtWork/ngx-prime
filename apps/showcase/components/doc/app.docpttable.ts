@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, input, viewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { addClass, find, removeClass } from '@primeuix/utils/dom';
+import { addClass, find, removeClass } from '@wawjs/css-prime-utils/dom';
 import { AppConfigService } from '../../service/appconfigservice';
 import { AppDocSectionText } from './app.docsectiontext';
 

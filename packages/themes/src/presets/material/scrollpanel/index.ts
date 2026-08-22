@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/scrollpanel';
-export { default } from '@primeuix/themes/material/scrollpanel';
+export * from '@wawjs/css-prime-themes/material/scrollpanel';
+export { default } from '@wawjs/css-prime-themes/material/scrollpanel';

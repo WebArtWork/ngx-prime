@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/stepper';
-export { default } from '@primeuix/themes/nora/stepper';
+export * from '@wawjs/css-prime-themes/nora/stepper';
+export { default } from '@wawjs/css-prime-themes/nora/stepper';

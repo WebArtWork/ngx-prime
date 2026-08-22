@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/fileupload';
-export { default } from '@primeuix/themes/aura/fileupload';
+export * from '@wawjs/css-prime-themes/aura/fileupload';
+export { default } from '@wawjs/css-prime-themes/aura/fileupload';

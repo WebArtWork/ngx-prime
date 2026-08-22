@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/splitter';
-export { default } from '@primeuix/themes/aura/splitter';
+export * from '@wawjs/css-prime-themes/aura/splitter';
+export { default } from '@wawjs/css-prime-themes/aura/splitter';

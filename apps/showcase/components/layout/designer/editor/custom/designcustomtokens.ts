@@ -2,7 +2,7 @@ import { DesignerService } from '@/service/designerservice';
 
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { usePreset } from '@primeuix/styled';
+import { usePreset } from '@wawjs/css-prime-styled';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 

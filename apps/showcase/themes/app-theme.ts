@@ -1,5 +1,5 @@
-import { definePreset } from '@primeuix/themes';
-import Aura from '@primeuix/themes/aura';
+import { definePreset } from '@wawjs/css-prime-themes';
+import Aura from '@wawjs/css-prime-themes/aura';
 
 const Noir = definePreset(Aura, {
     semantic: {

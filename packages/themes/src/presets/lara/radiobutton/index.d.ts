@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/radiobutton';
-export { default } from '@primeuix/themes/lara/radiobutton';
+export * from '@wawjs/css-prime-themes/lara/radiobutton';
+export { default } from '@wawjs/css-prime-themes/lara/radiobutton';

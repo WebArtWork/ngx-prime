@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/toast';
-export { default } from '@primeuix/themes/nora/toast';
+export * from '@wawjs/css-prime-themes/nora/toast';
+export { default } from '@wawjs/css-prime-themes/nora/toast';

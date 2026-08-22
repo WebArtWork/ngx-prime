@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/skeleton';
-export { default } from '@primeuix/themes/lara/skeleton';
+export * from '@wawjs/css-prime-themes/lara/skeleton';
+export { default } from '@wawjs/css-prime-themes/lara/skeleton';

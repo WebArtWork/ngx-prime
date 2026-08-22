@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/iconfield';
-export { default } from '@primeuix/themes/aura/iconfield';
+export * from '@wawjs/css-prime-themes/aura/iconfield';
+export { default } from '@wawjs/css-prime-themes/aura/iconfield';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/toggleswitch';
-export { default } from '@primeuix/themes/material/toggleswitch';
+export * from '@wawjs/css-prime-themes/material/toggleswitch';
+export { default } from '@wawjs/css-prime-themes/material/toggleswitch';

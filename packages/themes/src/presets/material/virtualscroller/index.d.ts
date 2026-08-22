@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/virtualscroller';
-export { default } from '@primeuix/themes/material/virtualscroller';
+export * from '@wawjs/css-prime-themes/material/virtualscroller';
+export { default } from '@wawjs/css-prime-themes/material/virtualscroller';

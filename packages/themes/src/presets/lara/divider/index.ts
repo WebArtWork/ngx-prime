@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/divider';
-export { default } from '@primeuix/themes/lara/divider';
+export * from '@wawjs/css-prime-themes/lara/divider';
+export { default } from '@wawjs/css-prime-themes/lara/divider';

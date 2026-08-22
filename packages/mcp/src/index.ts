@@ -1,4 +1,4 @@
-import { ComponentsData, runPrimeMcpServer } from '@primeuix/mcp';
+import { ComponentsData, runPrimeMcpServer } from '@wawjs/css-prime-mcp';
 import ComponentJson from '../data/components.json';
 import pkg from '../package.json';
 

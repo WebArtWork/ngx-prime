@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/badge';
-export { default } from '@primeuix/themes/aura/badge';
+export * from '@wawjs/css-prime-themes/aura/badge';
+export { default } from '@wawjs/css-prime-themes/aura/badge';

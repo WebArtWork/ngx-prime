@@ -1,1 +1,1 @@
-export * from '@primeuix/styled';
+export * from '@wawjs/css-prime-styled';

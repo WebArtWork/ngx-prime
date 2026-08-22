@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/ripple';
-export { default } from '@primeuix/themes/aura/ripple';
+export * from '@wawjs/css-prime-themes/aura/ripple';
+export { default } from '@wawjs/css-prime-themes/aura/ripple';

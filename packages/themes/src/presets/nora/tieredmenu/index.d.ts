@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/tieredmenu';
-export { default } from '@primeuix/themes/nora/tieredmenu';
+export * from '@wawjs/css-prime-themes/nora/tieredmenu';
+export { default } from '@wawjs/css-prime-themes/nora/tieredmenu';

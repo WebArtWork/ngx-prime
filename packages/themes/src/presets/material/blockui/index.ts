@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/blockui';
-export { default } from '@primeuix/themes/material/blockui';
+export * from '@wawjs/css-prime-themes/material/blockui';
+export { default } from '@wawjs/css-prime-themes/material/blockui';

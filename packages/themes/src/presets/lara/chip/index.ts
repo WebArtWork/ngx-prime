@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/chip';
-export { default } from '@primeuix/themes/lara/chip';
+export * from '@wawjs/css-prime-themes/lara/chip';
+export { default } from '@wawjs/css-prime-themes/lara/chip';

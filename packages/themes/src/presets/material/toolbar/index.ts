@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/toolbar';
-export { default } from '@primeuix/themes/material/toolbar';
+export * from '@wawjs/css-prime-themes/material/toolbar';
+export { default } from '@wawjs/css-prime-themes/material/toolbar';

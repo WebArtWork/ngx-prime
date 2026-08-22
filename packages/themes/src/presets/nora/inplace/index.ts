@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/inplace';
-export { default } from '@primeuix/themes/nora/inplace';
+export * from '@wawjs/css-prime-themes/nora/inplace';
+export { default } from '@wawjs/css-prime-themes/nora/inplace';

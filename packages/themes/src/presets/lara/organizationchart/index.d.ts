@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/organizationchart';
-export { default } from '@primeuix/themes/lara/organizationchart';
+export * from '@wawjs/css-prime-themes/lara/organizationchart';
+export { default } from '@wawjs/css-prime-themes/lara/organizationchart';

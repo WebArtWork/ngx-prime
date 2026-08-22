@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/checkbox';
-export { default } from '@primeuix/themes/lara/checkbox';
+export * from '@wawjs/css-prime-themes/lara/checkbox';
+export { default } from '@wawjs/css-prime-themes/lara/checkbox';

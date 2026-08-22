@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/metergroup';
-export { default } from '@primeuix/themes/material/metergroup';
+export * from '@wawjs/css-prime-themes/material/metergroup';
+export { default } from '@wawjs/css-prime-themes/material/metergroup';

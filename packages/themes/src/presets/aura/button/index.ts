@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/button';
-export { default } from '@primeuix/themes/aura/button';
+export * from '@wawjs/css-prime-themes/aura/button';
+export { default } from '@wawjs/css-prime-themes/aura/button';

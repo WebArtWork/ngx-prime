@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/treetable';
-export { default } from '@primeuix/themes/nora/treetable';
+export * from '@wawjs/css-prime-themes/nora/treetable';
+export { default } from '@wawjs/css-prime-themes/nora/treetable';

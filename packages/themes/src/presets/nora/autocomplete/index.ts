@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/autocomplete';
-export { default } from '@primeuix/themes/nora/autocomplete';
+export * from '@wawjs/css-prime-themes/nora/autocomplete';
+export { default } from '@wawjs/css-prime-themes/nora/autocomplete';

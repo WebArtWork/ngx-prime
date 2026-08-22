@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/popover';
-export { default } from '@primeuix/themes/aura/popover';
+export * from '@wawjs/css-prime-themes/aura/popover';
+export { default } from '@wawjs/css-prime-themes/aura/popover';

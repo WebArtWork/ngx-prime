@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/floatlabel';
-export { default } from '@primeuix/themes/aura/floatlabel';
+export * from '@wawjs/css-prime-themes/aura/floatlabel';
+export { default } from '@wawjs/css-prime-themes/aura/floatlabel';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/radiobutton';
-export { default } from '@primeuix/themes/material/radiobutton';
+export * from '@wawjs/css-prime-themes/material/radiobutton';
+export { default } from '@wawjs/css-prime-themes/material/radiobutton';

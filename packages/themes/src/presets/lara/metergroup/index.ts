@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/metergroup';
-export { default } from '@primeuix/themes/lara/metergroup';
+export * from '@wawjs/css-prime-themes/lara/metergroup';
+export { default } from '@wawjs/css-prime-themes/lara/metergroup';

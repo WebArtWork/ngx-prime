@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/iftalabel';
-export { default } from '@primeuix/themes/lara/iftalabel';
+export * from '@wawjs/css-prime-themes/lara/iftalabel';
+export { default } from '@wawjs/css-prime-themes/lara/iftalabel';

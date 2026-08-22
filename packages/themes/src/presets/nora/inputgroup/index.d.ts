@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/inputgroup';
-export { default } from '@primeuix/themes/nora/inputgroup';
+export * from '@wawjs/css-prime-themes/nora/inputgroup';
+export { default } from '@wawjs/css-prime-themes/nora/inputgroup';

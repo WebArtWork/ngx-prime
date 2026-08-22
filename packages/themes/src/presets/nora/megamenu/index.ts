@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/megamenu';
-export { default } from '@primeuix/themes/nora/megamenu';
+export * from '@wawjs/css-prime-themes/nora/megamenu';
+export { default } from '@wawjs/css-prime-themes/nora/megamenu';

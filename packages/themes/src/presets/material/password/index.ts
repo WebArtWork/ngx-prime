@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/password';
-export { default } from '@primeuix/themes/material/password';
+export * from '@wawjs/css-prime-themes/material/password';
+export { default } from '@wawjs/css-prime-themes/material/password';

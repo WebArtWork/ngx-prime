@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/dataview';
-export { default } from '@primeuix/themes/nora/dataview';
+export * from '@wawjs/css-prime-themes/nora/dataview';
+export { default } from '@wawjs/css-prime-themes/nora/dataview';

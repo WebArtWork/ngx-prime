@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/togglebutton';
-export { default } from '@primeuix/themes/aura/togglebutton';
+export * from '@wawjs/css-prime-themes/aura/togglebutton';
+export { default } from '@wawjs/css-prime-themes/aura/togglebutton';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/inputchips';
-export { default } from '@primeuix/themes/lara/inputchips';
+export * from '@wawjs/css-prime-themes/lara/inputchips';
+export { default } from '@wawjs/css-prime-themes/lara/inputchips';

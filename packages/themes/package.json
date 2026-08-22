@@ -49,7 +49,7 @@
         "dev:link": "pnpm link --global && npm link"
     },
     "dependencies": {
-        "@primeuix/styled": "catalog:",
-        "@primeuix/themes": "catalog:"
+        "@wawjs/css-prime-styled": "catalog:",
+        "@wawjs/css-prime-themes": "catalog:"
     }
 }

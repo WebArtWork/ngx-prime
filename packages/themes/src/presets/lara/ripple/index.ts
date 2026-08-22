@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/ripple';
-export { default } from '@primeuix/themes/lara/ripple';
+export * from '@wawjs/css-prime-themes/lara/ripple';
+export { default } from '@wawjs/css-prime-themes/lara/ripple';

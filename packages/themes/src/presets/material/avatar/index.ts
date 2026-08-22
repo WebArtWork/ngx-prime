@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/avatar';
-export { default } from '@primeuix/themes/material/avatar';
+export * from '@wawjs/css-prime-themes/material/avatar';
+export { default } from '@wawjs/css-prime-themes/material/avatar';

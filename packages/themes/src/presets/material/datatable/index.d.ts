@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/datatable';
-export { default } from '@primeuix/themes/material/datatable';
+export * from '@wawjs/css-prime-themes/material/datatable';
+export { default } from '@wawjs/css-prime-themes/material/datatable';

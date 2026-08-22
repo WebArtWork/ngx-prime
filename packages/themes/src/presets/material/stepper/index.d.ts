@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/stepper';
-export { default } from '@primeuix/themes/material/stepper';
+export * from '@wawjs/css-prime-themes/material/stepper';
+export { default } from '@wawjs/css-prime-themes/material/stepper';

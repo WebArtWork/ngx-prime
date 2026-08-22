@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/confirmpopup';
-export { default } from '@primeuix/themes/material/confirmpopup';
+export * from '@wawjs/css-prime-themes/material/confirmpopup';
+export { default } from '@wawjs/css-prime-themes/material/confirmpopup';

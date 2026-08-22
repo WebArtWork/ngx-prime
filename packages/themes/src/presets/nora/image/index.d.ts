@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/image';
-export { default } from '@primeuix/themes/nora/image';
+export * from '@wawjs/css-prime-themes/nora/image';
+export { default } from '@wawjs/css-prime-themes/nora/image';

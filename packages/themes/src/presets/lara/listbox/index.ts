@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/listbox';
-export { default } from '@primeuix/themes/lara/listbox';
+export * from '@wawjs/css-prime-themes/lara/listbox';
+export { default } from '@wawjs/css-prime-themes/lara/listbox';

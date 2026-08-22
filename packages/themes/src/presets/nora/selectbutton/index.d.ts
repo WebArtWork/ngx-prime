@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/selectbutton';
-export { default } from '@primeuix/themes/nora/selectbutton';
+export * from '@wawjs/css-prime-themes/nora/selectbutton';
+export { default } from '@wawjs/css-prime-themes/nora/selectbutton';

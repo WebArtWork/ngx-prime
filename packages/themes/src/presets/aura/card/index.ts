@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/card';
-export { default } from '@primeuix/themes/aura/card';
+export * from '@wawjs/css-prime-themes/aura/card';
+export { default } from '@wawjs/css-prime-themes/aura/card';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/inputotp';
-export { default } from '@primeuix/themes/lara/inputotp';
+export * from '@wawjs/css-prime-themes/lara/inputotp';
+export { default } from '@wawjs/css-prime-themes/lara/inputotp';

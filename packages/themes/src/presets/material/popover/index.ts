@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/popover';
-export { default } from '@primeuix/themes/material/popover';
+export * from '@wawjs/css-prime-themes/material/popover';
+export { default } from '@wawjs/css-prime-themes/material/popover';

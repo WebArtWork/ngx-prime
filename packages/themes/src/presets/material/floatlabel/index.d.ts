@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/floatlabel';
-export { default } from '@primeuix/themes/material/floatlabel';
+export * from '@wawjs/css-prime-themes/material/floatlabel';
+export { default } from '@wawjs/css-prime-themes/material/floatlabel';

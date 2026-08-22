@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/overlaybadge';
-export { default } from '@primeuix/themes/lara/overlaybadge';
+export * from '@wawjs/css-prime-themes/lara/overlaybadge';
+export { default } from '@wawjs/css-prime-themes/lara/overlaybadge';

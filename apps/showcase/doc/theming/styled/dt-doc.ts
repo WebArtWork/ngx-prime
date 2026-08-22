@@ -16,7 +16,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 })
 export class DtDoc {
     code1 = {
-        typescript: `import { $dt } from '@primeuix/themes';`
+        typescript: `import { $dt } from '@wawjs/css-prime-themes';`
     };
 
     code2 = {

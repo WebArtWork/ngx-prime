@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/password';
-export { default } from '@primeuix/themes/aura/password';
+export * from '@wawjs/css-prime-themes/aura/password';
+export { default } from '@wawjs/css-prime-themes/aura/password';

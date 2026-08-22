@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/organizationchart';
-export { default } from '@primeuix/themes/aura/organizationchart';
+export * from '@wawjs/css-prime-themes/aura/organizationchart';
+export { default } from '@wawjs/css-prime-themes/aura/organizationchart';

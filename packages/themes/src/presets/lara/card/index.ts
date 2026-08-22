@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/card';
-export { default } from '@primeuix/themes/lara/card';
+export * from '@wawjs/css-prime-themes/lara/card';
+export { default } from '@wawjs/css-prime-themes/lara/card';

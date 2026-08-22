@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/listbox';
-export { default } from '@primeuix/themes/aura/listbox';
+export * from '@wawjs/css-prime-themes/aura/listbox';
+export { default } from '@wawjs/css-prime-themes/aura/listbox';

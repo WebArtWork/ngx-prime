@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/toggleswitch';
-export { default } from '@primeuix/themes/lara/toggleswitch';
+export * from '@wawjs/css-prime-themes/lara/toggleswitch';
+export { default } from '@wawjs/css-prime-themes/lara/toggleswitch';

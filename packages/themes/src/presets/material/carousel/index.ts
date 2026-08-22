@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/carousel';
-export { default } from '@primeuix/themes/material/carousel';
+export * from '@wawjs/css-prime-themes/material/carousel';
+export { default } from '@wawjs/css-prime-themes/material/carousel';

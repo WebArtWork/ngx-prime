@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/chip';
-export { default } from '@primeuix/themes/nora/chip';
+export * from '@wawjs/css-prime-themes/nora/chip';
+export { default } from '@wawjs/css-prime-themes/nora/chip';

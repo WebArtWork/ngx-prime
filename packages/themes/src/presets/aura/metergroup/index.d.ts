@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/metergroup';
-export { default } from '@primeuix/themes/aura/metergroup';
+export * from '@wawjs/css-prime-themes/aura/metergroup';
+export { default } from '@wawjs/css-prime-themes/aura/metergroup';

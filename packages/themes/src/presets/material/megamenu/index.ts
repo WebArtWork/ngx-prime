@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/megamenu';
-export { default } from '@primeuix/themes/material/megamenu';
+export * from '@wawjs/css-prime-themes/material/megamenu';
+export { default } from '@wawjs/css-prime-themes/material/megamenu';

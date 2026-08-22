@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/scrollpanel';
-export { default } from '@primeuix/themes/aura/scrollpanel';
+export * from '@wawjs/css-prime-themes/aura/scrollpanel';
+export { default } from '@wawjs/css-prime-themes/aura/scrollpanel';

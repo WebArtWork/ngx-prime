@@ -17,12 +17,12 @@ import { AppCode } from '@/components/doc/app.code';
 export class DownloadDoc {
     code: Code = {
         command: `# Using npm
-npm install primeng @primeuix/themes
+npm install primeng @wawjs/css-prime-themes
 
 # Using yarn
-yarn add primeng @primeuix/themes
+yarn add primeng @wawjs/css-prime-themes
 
 # Using pnpm
-pnpm add primeng @primeuix/themes`
+pnpm add primeng @wawjs/css-prime-themes`
     };
 }

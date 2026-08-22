@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/cascadeselect';
-export { default } from '@primeuix/themes/aura/cascadeselect';
+export * from '@wawjs/css-prime-themes/aura/cascadeselect';
+export { default } from '@wawjs/css-prime-themes/aura/cascadeselect';

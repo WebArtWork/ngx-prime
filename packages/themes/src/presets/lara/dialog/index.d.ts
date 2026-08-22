@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/dialog';
-export { default } from '@primeuix/themes/lara/dialog';
+export * from '@wawjs/css-prime-themes/lara/dialog';
+export { default } from '@wawjs/css-prime-themes/lara/dialog';

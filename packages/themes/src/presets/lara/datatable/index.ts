@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/datatable';
-export { default } from '@primeuix/themes/lara/datatable';
+export * from '@wawjs/css-prime-themes/lara/datatable';
+export { default } from '@wawjs/css-prime-themes/lara/datatable';

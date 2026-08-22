@@ -3,7 +3,7 @@ import { DesignerService } from '@/service/designerservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { palette } from '@primeuix/themes';
+import { palette } from '@wawjs/css-prime-themes';
 import { FieldsetModule } from 'primeng/fieldset';
 
 @Component({

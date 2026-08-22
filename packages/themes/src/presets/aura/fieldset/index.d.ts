@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/fieldset';
-export { default } from '@primeuix/themes/aura/fieldset';
+export * from '@wawjs/css-prime-themes/aura/fieldset';
+export { default } from '@wawjs/css-prime-themes/aura/fieldset';

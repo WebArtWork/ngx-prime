@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/progressbar';
-export { default } from '@primeuix/themes/nora/progressbar';
+export * from '@wawjs/css-prime-themes/nora/progressbar';
+export { default } from '@wawjs/css-prime-themes/nora/progressbar';

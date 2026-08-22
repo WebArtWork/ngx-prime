@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/imagecompare';
-export { default } from '@primeuix/themes/aura/imagecompare';
+export * from '@wawjs/css-prime-themes/aura/imagecompare';
+export { default } from '@wawjs/css-prime-themes/aura/imagecompare';

@@ -2,7 +2,7 @@ import { DesignerService } from '@/service/designerservice';
 
 import { ChangeDetectionStrategy, Component, computed, inject, input, Input, model, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { $dt } from '@primeuix/themes';
+import { $dt } from '@wawjs/css-prime-themes';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { TooltipModule } from 'primeng/tooltip';
 import { UniqueComponentId } from 'primeng/utils';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/virtualscroller';
-export { default } from '@primeuix/themes/lara/virtualscroller';
+export * from '@wawjs/css-prime-themes/lara/virtualscroller';
+export { default } from '@wawjs/css-prime-themes/lara/virtualscroller';

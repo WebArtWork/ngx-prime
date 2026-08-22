@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import ComponentTokens from '@primeuix/themes/tokens';
+import ComponentTokens from '@wawjs/css-prime-themes/tokens';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -668,7 +668,7 @@ function getStyleClassesFromApi(apiDocs, componentName) {
 }
 
 /**
- * Get Design Tokens from @primeuix/themes
+ * Get Design Tokens from @wawjs/css-prime-themes
  */
 function getTokensFromApi(componentName) {
     const tokens = [];

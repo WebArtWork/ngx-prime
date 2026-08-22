@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/multiselect';
-export { default } from '@primeuix/themes/aura/multiselect';
+export * from '@wawjs/css-prime-themes/aura/multiselect';
+export { default } from '@wawjs/css-prime-themes/aura/multiselect';

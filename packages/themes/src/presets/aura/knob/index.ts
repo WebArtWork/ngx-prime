@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/knob';
-export { default } from '@primeuix/themes/aura/knob';
+export * from '@wawjs/css-prime-themes/aura/knob';
+export { default } from '@wawjs/css-prime-themes/aura/knob';

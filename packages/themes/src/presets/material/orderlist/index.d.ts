@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/orderlist';
-export { default } from '@primeuix/themes/material/orderlist';
+export * from '@wawjs/css-prime-themes/material/orderlist';
+export { default } from '@wawjs/css-prime-themes/material/orderlist';

@@ -1,5 +1,5 @@
 import APIDocs from '@/doc/apidoc/index.json';
-import ComponentTokens from '@primeuix/themes/tokens';
+import ComponentTokens from '@wawjs/css-prime-themes/tokens';
 
 interface PropInfo {
     name: string;

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/inputnumber';
-export { default } from '@primeuix/themes/nora/inputnumber';
+export * from '@wawjs/css-prime-themes/nora/inputnumber';
+export { default } from '@wawjs/css-prime-themes/nora/inputnumber';

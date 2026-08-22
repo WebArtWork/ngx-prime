@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/progressbar';
-export { default } from '@primeuix/themes/aura/progressbar';
+export * from '@wawjs/css-prime-themes/aura/progressbar';
+export { default } from '@wawjs/css-prime-themes/aura/progressbar';

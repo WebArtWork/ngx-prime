@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/textarea';
-export { default } from '@primeuix/themes/lara/textarea';
+export * from '@wawjs/css-prime-themes/lara/textarea';
+export { default } from '@wawjs/css-prime-themes/lara/textarea';

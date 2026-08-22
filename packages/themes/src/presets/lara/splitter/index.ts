@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/splitter';
-export { default } from '@primeuix/themes/lara/splitter';
+export * from '@wawjs/css-prime-themes/lara/splitter';
+export { default } from '@wawjs/css-prime-themes/lara/splitter';

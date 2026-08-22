@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/menubar';
-export { default } from '@primeuix/themes/aura/menubar';
+export * from '@wawjs/css-prime-themes/aura/menubar';
+export { default } from '@wawjs/css-prime-themes/aura/menubar';

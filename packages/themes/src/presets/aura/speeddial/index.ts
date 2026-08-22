@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/speeddial';
-export { default } from '@primeuix/themes/aura/speeddial';
+export * from '@wawjs/css-prime-themes/aura/speeddial';
+export { default } from '@wawjs/css-prime-themes/aura/speeddial';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/organizationchart';
-export { default } from '@primeuix/themes/material/organizationchart';
+export * from '@wawjs/css-prime-themes/material/organizationchart';
+export { default } from '@wawjs/css-prime-themes/material/organizationchart';

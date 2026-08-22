@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/slider';
-export { default } from '@primeuix/themes/nora/slider';
+export * from '@wawjs/css-prime-themes/nora/slider';
+export { default } from '@wawjs/css-prime-themes/nora/slider';

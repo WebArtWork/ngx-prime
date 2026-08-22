@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/treeselect';
-export { default } from '@primeuix/themes/nora/treeselect';
+export * from '@wawjs/css-prime-themes/nora/treeselect';
+export { default } from '@wawjs/css-prime-themes/nora/treeselect';

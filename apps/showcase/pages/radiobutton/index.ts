@@ -5,6 +5,7 @@ import { FilledDoc } from '@/doc/radiobutton/filled-doc';
 import { GroupDoc } from '@/doc/radiobutton/group-doc';
 import { ImportDoc } from '@/doc/radiobutton/import-doc';
 import { InvalidDoc } from '@/doc/radiobutton/invalid-doc';
+import { NativeDoc } from '@/doc/radiobutton/native-doc';
 import { ReactiveFormsDoc } from '@/doc/radiobutton/reactiveforms-doc';
 import { SizesDoc } from '@/doc/radiobutton/sizes-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/radiobutton/templatedrivenforms-doc';
@@ -31,6 +32,11 @@ export class RadioButtonDemo {
             id: 'import',
             label: 'Import',
             component: ImportDoc
+        },
+        {
+            id: 'native',
+            label: 'Native Input',
+            component: NativeDoc
         },
         {
             id: 'group',

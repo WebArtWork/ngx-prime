@@ -51,7 +51,7 @@
         "dev:link": "pnpm link --global && npm link"
     },
     "dependencies": {
-        "@primeuix/mcp": "catalog:"
+        "@wawjs/css-prime-mcp": "catalog:"
     },
     "devDependencies": {
         "tsup": "^8.1.0"

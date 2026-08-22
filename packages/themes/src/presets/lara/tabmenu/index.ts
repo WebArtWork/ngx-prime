@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/tabmenu';
-export { default } from '@primeuix/themes/lara/tabmenu';
+export * from '@wawjs/css-prime-themes/lara/tabmenu';
+export { default } from '@wawjs/css-prime-themes/lara/tabmenu';

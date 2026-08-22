@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/fileupload';
-export { default } from '@primeuix/themes/lara/fileupload';
+export * from '@wawjs/css-prime-themes/lara/fileupload';
+export { default } from '@wawjs/css-prime-themes/lara/fileupload';

@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/inplace';
-export { default } from '@primeuix/themes/material/inplace';
+export * from '@wawjs/css-prime-themes/material/inplace';
+export { default } from '@wawjs/css-prime-themes/material/inplace';

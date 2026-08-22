@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/badge';
-export { default } from '@primeuix/themes/lara/badge';
+export * from '@wawjs/css-prime-themes/lara/badge';
+export { default } from '@wawjs/css-prime-themes/lara/badge';

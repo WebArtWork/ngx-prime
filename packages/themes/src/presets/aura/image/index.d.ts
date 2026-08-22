@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/image';
-export { default } from '@primeuix/themes/aura/image';
+export * from '@wawjs/css-prime-themes/aura/image';
+export { default } from '@wawjs/css-prime-themes/aura/image';

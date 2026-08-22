@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/imagecompare';
-export { default } from '@primeuix/themes/lara/imagecompare';
+export * from '@wawjs/css-prime-themes/lara/imagecompare';
+export { default } from '@wawjs/css-prime-themes/lara/imagecompare';

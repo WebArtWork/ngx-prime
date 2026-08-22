@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/ripple';
-export { default } from '@primeuix/themes/nora/ripple';
+export * from '@wawjs/css-prime-themes/nora/ripple';
+export { default } from '@wawjs/css-prime-themes/nora/ripple';

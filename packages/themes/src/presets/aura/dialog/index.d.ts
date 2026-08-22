@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/aura/dialog';
-export { default } from '@primeuix/themes/aura/dialog';
+export * from '@wawjs/css-prime-themes/aura/dialog';
+export { default } from '@wawjs/css-prime-themes/aura/dialog';

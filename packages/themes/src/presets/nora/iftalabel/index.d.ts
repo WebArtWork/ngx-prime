@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/iftalabel';
-export { default } from '@primeuix/themes/nora/iftalabel';
+export * from '@wawjs/css-prime-themes/nora/iftalabel';
+export { default } from '@wawjs/css-prime-themes/nora/iftalabel';

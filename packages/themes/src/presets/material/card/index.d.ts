@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/material/card';
-export { default } from '@primeuix/themes/material/card';
+export * from '@wawjs/css-prime-themes/material/card';
+export { default } from '@wawjs/css-prime-themes/material/card';

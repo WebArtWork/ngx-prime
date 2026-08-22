@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/button';
-export { default } from '@primeuix/themes/nora/button';
+export * from '@wawjs/css-prime-themes/nora/button';
+export { default } from '@wawjs/css-prime-themes/nora/button';

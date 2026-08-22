@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/lara/editor';
-export { default } from '@primeuix/themes/lara/editor';
+export * from '@wawjs/css-prime-themes/lara/editor';
+export { default } from '@wawjs/css-prime-themes/lara/editor';

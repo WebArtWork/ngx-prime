@@ -1,2 +1,2 @@
-export * from '@primeuix/themes/nora/card';
-export { default } from '@primeuix/themes/nora/card';
+export * from '@wawjs/css-prime-themes/nora/card';
+export { default } from '@wawjs/css-prime-themes/nora/card';
