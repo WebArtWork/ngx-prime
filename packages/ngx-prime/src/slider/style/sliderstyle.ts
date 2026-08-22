@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/slider';
 import { BaseStyle } from 'primeng/base';
 
+const nativeStyle = `
+input[pRange] { inline-size: 100%; accent-color: dt('primary.color'); cursor: pointer; }
+input[pRange]:focus-visible { outline: 2px solid dt('inputtext.focus.border.color'); outline-offset: 3px; }
+input[pRange].p-invalid { accent-color: dt('inputtext.invalid.border.color'); }
+input[pRange]:disabled { cursor: default; opacity: .6; }
+input[pRange][aria-orientation='vertical'] { block-size: 100%; inline-size: auto; writing-mode: vertical-lr; direction: rtl; }
+`;
+
 const inlineStyles = {
     handle: { position: 'absolute' },
     range: { position: 'absolute' }
@@ -26,7 +34,7 @@ const classes = {
 export class SliderStyle extends BaseStyle {
     name = 'slider';
 
-    style = style;
+    style = `${style}\n${nativeStyle}`;
 
     classes = classes;
 

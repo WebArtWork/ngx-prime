@@ -15,11 +15,13 @@ const style = /*css*/ `
     }
 `;
 
+const isChecked = (instance: any) => (typeof instance.checked === 'function' ? instance.checked() : instance.checked);
+
 const classes = {
     root: ({ instance }) => [
         'p-togglebutton p-component',
         {
-            'p-togglebutton-checked': instance.checked,
+            'p-togglebutton-checked': isChecked(instance),
             'p-invalid': instance.invalid(),
             'p-disabled': instance.$disabled(),
             'p-togglebutton-sm p-inputfield-sm': instance.size() === 'small',

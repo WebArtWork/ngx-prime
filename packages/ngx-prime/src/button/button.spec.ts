@@ -1572,7 +1572,7 @@ describe('ButtonDirective', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(buttonDirective.severity).toBe('success');
+            expect(buttonDirective.severity()).toBe('success');
             expect(buttonElement.classList.contains('p-button-success')).toBe(true);
         });
 
@@ -1582,7 +1582,7 @@ describe('ButtonDirective', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(buttonDirective.loading).toBe(true);
+            expect(buttonDirective.loading()).toBe(true);
             expect(buttonElement.classList.contains('p-button-loading')).toBe(true);
         });
 
@@ -1629,8 +1629,9 @@ describe('ButtonDirective', () => {
 
         it('should update styles when properties change', () => {
             // Test that severity property can be set
-            buttonDirective.severity = 'danger';
-            expect(buttonDirective.severity).toBe('danger');
+            component.severity = 'danger';
+            fixture.detectChanges();
+            expect(buttonDirective.severity()).toBe('danger');
 
             // Test that raised property can be changed
             buttonDirective.raised = true;

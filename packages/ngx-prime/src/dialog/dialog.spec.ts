@@ -300,7 +300,7 @@ describe('Dialog', () => {
         });
 
         it('should have default values', () => {
-            expect(dialogInstance.visible).toBe(false);
+            expect(dialogInstance.visible()).toBe(false);
             expect(dialogInstance.modal()).toBe(true);
             expect(dialogInstance.draggable()).toBe(true);
             expect(dialogInstance.resizable()).toBe(true);
@@ -364,14 +364,14 @@ describe('Dialog', () => {
         });
 
         it('should show dialog programmatically via visible property', async () => {
-            expect(dialogInstance.visible).toBe(false);
+            expect(dialogInstance.visible()).toBe(false);
 
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
             expect(dialogInstance.maskVisible).toBe(true);
         });
 
@@ -381,14 +381,14 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             component.visible = false;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(false);
+            expect(dialogInstance.visible()).toBe(false);
         });
 
         it('should close dialog programmatically', async () => {
@@ -397,7 +397,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             spyOn(component, 'onVisibleChangeEvent');
             dialogInstance.close(new MouseEvent('click'));
@@ -487,16 +487,16 @@ describe('Dialog', () => {
         });
 
         it('should emit visibleChange event when close method is called', async () => {
-            spyOn(dialogInstance.visibleChange, 'emit');
-
             component.visible = true;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             dialogInstance.close(new MouseEvent('click'));
+            fixture.changeDetectorRef.markForCheck();
+            await fixture.whenStable();
 
-            expect(dialogInstance.visibleChange.emit).toHaveBeenCalledWith(false);
+            expect(component.visibleChangeEvent).toBe(false);
         });
 
         it('should emit onMaximize event when maximize button is clicked', async () => {
@@ -559,7 +559,7 @@ describe('Dialog', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                expect(dialogInstance.visible).toBe(false);
+                expect(dialogInstance.visible()).toBe(false);
             }
         });
 
@@ -571,7 +571,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             // Wait for wrapper to be created
             await new Promise((resolve) => setTimeout(resolve, 200));
@@ -580,8 +580,6 @@ describe('Dialog', () => {
             if (dialogInstance.enableModality && dialogInstance.wrapper) {
                 dialogInstance.enableModality();
                 await new Promise((resolve) => setTimeout(resolve, 50));
-
-                spyOn(dialogInstance.visibleChange, 'emit');
 
                 // Simulate mousedown on wrapper (which is what the mask click listener listens to)
                 const mouseDownEvent = new MouseEvent('mousedown', { bubbles: true });
@@ -596,7 +594,7 @@ describe('Dialog', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
 
-                expect(dialogInstance.visibleChange.emit).toHaveBeenCalledWith(false);
+                expect(component.visibleChangeEvent).toBe(false);
             } else {
                 // If no wrapper, just test that dismissableMask property is set correctly
                 expect(dialogInstance.dismissableMask()).toBe(true);
@@ -794,7 +792,7 @@ describe('Dialog', () => {
             // Wait for animation to complete and escape listener to be bound
             await new Promise((resolve) => setTimeout(resolve, 300));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             const escapeEvent = new KeyboardEvent('keydown', {
                 key: 'Escape',
@@ -807,7 +805,7 @@ describe('Dialog', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             // Dialog should be closed after escape key
-            expect(dialogInstance.visible).toBe(false);
+            expect(dialogInstance.visible()).toBe(false);
         });
 
         it('should not close dialog on Escape key when closeOnEscape is false', async () => {
@@ -820,7 +818,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible).toBe(true);
+            expect(dialogInstance.visible()).toBe(true);
 
             const escapeEvent = new KeyboardEvent('keydown', {
                 key: 'Escape',
@@ -1219,7 +1217,7 @@ describe('Dialog', () => {
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.style).toEqual({ backgroundColor: 'red', width: '500px' });
+            expect(dialogInstance._style).toEqual({ backgroundColor: 'red', width: '500px' });
         });
 
         it('should apply content styles', async () => {

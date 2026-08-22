@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, input, NgModule, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@wawjs/css-prime-utils';
 import { SharedModule } from 'primeng/api';
 import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
@@ -110,35 +110,51 @@ export class BadgeDirective extends BaseComponent {
                 console.log('size property is deprecated and will removed in v18, use badgeSize instead.');
             }
         });
-    }
 
-    onChanges(changes: SimpleChanges): void {
-        const { value, size, severity, disabled, badgeStyle, badgeStyleClass } = changes;
+        effect(() => {
+            this.disabled();
 
-        if (disabled) {
             this.toggleDisableState();
-        }
+        });
 
-        if (!this.canUpdateBadge) {
-            return;
-        }
+        effect(() => {
+            const severity = this.severity();
 
-        if (severity) {
-            this.setSeverity(severity.previousValue);
-        }
+            if (this.canUpdateBadge) {
+                this.setSeverity(this.prevSeverity);
+            }
 
-        if (size) {
-            this.setSizeClasses();
-        }
+            this.prevSeverity = severity;
+        });
 
-        if (value) {
-            this.setValue();
-        }
+        effect(() => {
+            this.size();
+            this.badgeSize();
 
-        if (badgeStyle || badgeStyleClass) {
-            this.applyStyles();
-        }
+            if (this.canUpdateBadge) {
+                this.setSizeClasses();
+            }
+        });
+
+        effect(() => {
+            this.value();
+
+            if (this.canUpdateBadge) {
+                this.setValue();
+            }
+        });
+
+        effect(() => {
+            this.badgeStyle();
+            this.badgeStyleClass();
+
+            if (this.canUpdateBadge) {
+                this.applyStyles();
+            }
+        });
     }
+
+    private prevSeverity?: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null;
 
     onAfterViewInit(): void {
         this.id = uuid('pn_id_') + '_badge';
@@ -242,7 +258,7 @@ export class BadgeDirective extends BaseComponent {
         }
     }
 
-    private setSeverity(oldSeverity?: 'success' | 'info' | 'warn' | 'danger' | null, element?: HTMLElement): void {
+    private setSeverity(oldSeverity?: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null, element?: HTMLElement): void {
         const badge = element ?? this.document.getElementById(this.id);
 
         if (!badge) {

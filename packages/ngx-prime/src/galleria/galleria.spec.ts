@@ -256,7 +256,7 @@ describe('Galleria', () => {
         });
 
         it('should have default values', () => {
-            expect(galleriaInstance.activeIndex).toBe(0);
+            expect(galleriaInstance.activeIndex()).toBe(0);
             expect(galleriaInstance.fullScreen()).toBe(false);
             expect(galleriaInstance.numVisible()).toBe(3);
             expect(galleriaInstance.showItemNavigators()).toBe(false);
@@ -274,7 +274,7 @@ describe('Galleria', () => {
             expect(galleriaInstance.showIndicatorsOnItem()).toBe(false);
             expect(galleriaInstance.indicatorsPosition()).toBe('bottom');
             expect(galleriaInstance.baseZIndex()).toBe(0);
-            expect(galleriaInstance.visible).toBe(false);
+            expect(galleriaInstance.visible()).toBe(false);
         });
 
         it('should accept input values', async () => {
@@ -290,7 +290,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.activeIndex).toBe(2);
+            expect(galleriaInstance.activeIndex()).toBe(2);
             expect(galleriaInstance.fullScreen()).toBe(true);
             expect(galleriaInstance.numVisible()).toBe(5);
             expect(galleriaInstance.showItemNavigators()).toBe(true);
@@ -330,20 +330,20 @@ describe('Galleria', () => {
         });
 
         it('should handle activeIndex getter and setter', () => {
-            galleriaInstance.activeIndex = 3;
-            expect(galleriaInstance.activeIndex).toBe(3);
+            galleriaInstance.activeIndex.set(3);
+            expect(galleriaInstance.activeIndex()).toBe(3);
         });
 
         it('should handle visible getter and setter', () => {
-            galleriaInstance.visible = true;
-            expect(galleriaInstance.visible).toBe(true);
+            galleriaInstance.visible.set(true);
+            expect(galleriaInstance.visible()).toBe(true);
             expect(galleriaInstance.maskVisible).toBe(true);
         });
 
         it('should handle mask visibility correctly', () => {
             expect(galleriaInstance.maskVisible).toBe(false);
 
-            galleriaInstance.visible = true;
+            galleriaInstance.visible.set(true);
             expect(galleriaInstance.maskVisible).toBe(true);
         });
     });
@@ -369,16 +369,16 @@ describe('Galleria', () => {
             galleriaInstance.onActiveItemChange(2);
 
             expect(component.onActiveIndexChange).toHaveBeenCalledWith(2);
-            expect(galleriaInstance.activeIndex).toBe(2);
+            expect(galleriaInstance.activeIndex()).toBe(2);
         });
 
         it('should not emit activeIndexChange if index is same', () => {
-            spyOn(galleriaInstance.activeIndexChange, 'emit');
+            galleriaInstance.activeIndex.set(1);
+            component.activeIndexChangeEvent = undefined;
 
-            galleriaInstance.activeIndex = 1;
             galleriaInstance.onActiveItemChange(1);
 
-            expect(galleriaInstance.activeIndexChange.emit).not.toHaveBeenCalled();
+            expect(component.activeIndexChangeEvent).toBeUndefined();
         });
 
         it('should emit visibleChange event', () => {
@@ -387,7 +387,7 @@ describe('Galleria', () => {
             galleriaInstance.onMaskHide();
 
             expect(component.onVisibleChange).toHaveBeenCalledWith(false);
-            expect(galleriaInstance.visible).toBe(false);
+            expect(galleriaInstance.visible()).toBe(false);
         });
 
         it('should handle onMaskHide with event target check', () => {
@@ -396,16 +396,16 @@ describe('Galleria', () => {
                 currentTarget: document.createElement('div')
             } as any;
 
-            spyOn(galleriaInstance.visibleChange, 'emit');
+            component.visibleChangeEvent = undefined;
 
             // Different target and currentTarget - should not hide
             galleriaInstance.onMaskHide(mockEvent);
-            expect(galleriaInstance.visibleChange.emit).not.toHaveBeenCalled();
+            expect(component.visibleChangeEvent).toBeUndefined();
 
             // Same target and currentTarget - should hide
             mockEvent.target = mockEvent.currentTarget;
             galleriaInstance.onMaskHide(mockEvent);
-            expect(galleriaInstance.visibleChange.emit).toHaveBeenCalledWith(false);
+            expect(component.visibleChangeEvent).toBe(false);
         });
     });
 
@@ -427,7 +427,7 @@ describe('Galleria', () => {
         });
 
         it('should show mask when in fullScreen and visible', () => {
-            expect(galleriaInstance.visible).toBe(true);
+            expect(galleriaInstance.visible()).toBe(true);
             expect(galleriaInstance.maskVisible).toBe(true);
         });
 
@@ -829,13 +829,13 @@ describe('Galleria', () => {
         });
 
         it('should handle activeIndex beyond bounds', () => {
-            galleriaInstance.activeIndex = 999;
-            expect(galleriaInstance.activeIndex).toBe(999); // Component should accept any value
+            galleriaInstance.activeIndex.set(999);
+            expect(galleriaInstance.activeIndex()).toBe(999); // Component should accept any value
         });
 
         it('should handle negative activeIndex', () => {
-            galleriaInstance.activeIndex = -1;
-            expect(galleriaInstance.activeIndex).toBe(-1);
+            galleriaInstance.activeIndex.set(-1);
+            expect(galleriaInstance.activeIndex()).toBe(-1);
         });
 
         it('should handle undefined id', () => {
@@ -866,11 +866,11 @@ describe('Galleria', () => {
         });
 
         it('should handle mask hide without event', () => {
-            spyOn(galleriaInstance.visibleChange, 'emit');
+            component.visibleChangeEvent = undefined;
 
             galleriaInstance.onMaskHide();
 
-            expect(galleriaInstance.visibleChange.emit).toHaveBeenCalledWith(false);
+            expect(component.visibleChangeEvent).toBe(false);
         });
     });
 

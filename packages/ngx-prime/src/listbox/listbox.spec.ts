@@ -667,12 +667,8 @@ describe('Listbox', () => {
         });
 
         it('should work with getters', () => {
-            testFixture.detectChanges();
-
-            const listboxComponent = testFixture.debugElement.query(By.css('p-listbox')).componentInstance;
-
-            listboxComponent.options = testComponent.getterOptions;
-            listboxComponent.optionLabel = testComponent.getterOptionLabel;
+            testComponent.options = testComponent.getterOptions;
+            testComponent.optionLabel = testComponent.getterOptionLabel;
             testFixture.detectChanges();
 
             const listItems = testFixture.debugElement.queryAll(By.css('.p-listbox-option'));
@@ -1901,9 +1897,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
     describe('Function-based Properties', () => {
         it('should handle optionLabel as function', async () => {
             // Manually set options since async may not load in test
-            const listboxComponent = listboxElement.componentInstance;
-
-            listboxComponent.options = [
+            component.options = [
                 { name: 'Test Item 1', id: 'test1', active: true },
                 { name: 'Test Item 2', id: 'test2', active: false }
             ];
@@ -1932,9 +1926,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
         it('should handle optionDisabled as function', async () => {
             // Manually set options since async may not load in test
-            const listboxComponent = listboxElement.componentInstance;
-
-            listboxComponent.options = [
+            component.options = [
                 { name: 'Test Item 1', id: 'test1', active: true },
                 { name: 'Test Item 2', id: 'test2', active: false }
             ];
@@ -1992,9 +1984,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
         it('should handle async options updates', async () => {
             // Set initial options manually
-            const listboxComponent = listboxElement.componentInstance;
-
-            listboxComponent.options = [
+            component.options = [
                 { name: 'Initial 1', id: 'init1', active: true },
                 { name: 'Initial 2', id: 'init2', active: true }
             ];
@@ -2009,7 +1999,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             expect(initialCount).toBeGreaterThan(0);
 
             // Update options manually to simulate async update
-            listboxComponent.options = [
+            component.options = [
                 { name: 'Updated 1', id: 'upd1', active: true },
                 { name: 'Updated 2', id: 'upd2', active: true }
             ];
@@ -2032,9 +2022,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             spyOn(component, 'onDblClickHandler');
 
             // Set options manually since async may not load in test
-            const listboxComponent = listboxElement.componentInstance;
-
-            listboxComponent.options = [
+            component.options = [
                 { name: 'Event Test 1', id: 'evt1', active: true },
                 { name: 'Event Test 2', id: 'evt2', active: true }
             ];
@@ -2165,11 +2153,11 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
             ptFixture = TestBed.createComponent(Listbox);
             listbox = ptFixture.componentInstance;
-            listbox.options = [
+            ptFixture.componentRef.setInput('options', [
                 { label: 'Option 1', value: 'opt1' },
                 { label: 'Option 2', value: 'opt2' },
                 { label: 'Option 3', value: 'opt3' }
-            ];
+            ]);
         });
 
         describe('Case 1: Simple string classes', () => {
@@ -2680,7 +2668,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 await ptFixture.whenStable();
 
                 // Verify getPTOptions is being called
-                const ptOptions = listbox.getPTOptions(listbox.options[0], {}, 0, 'option');
+                const ptOptions = listbox.getPTOptions(listbox.options()[0], {}, 0, 'option');
 
                 expect(ptOptions).toBeDefined();
             });
@@ -2692,7 +2680,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 await ptFixture.whenStable();
 
                 // Get PT options for selected option
-                const ptOptionsForSelected = listbox.getPTOptions(listbox.options[0], {}, 0, 'option');
+                const ptOptionsForSelected = listbox.getPTOptions(listbox.options()[0], {}, 0, 'option');
 
                 expect(ptOptionsForSelected).toBeDefined();
 
@@ -2703,7 +2691,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 }
 
                 // Get PT options for non-selected option
-                const ptOptionsForNonSelected = listbox.getPTOptions(listbox.options[1], {}, 1, 'option');
+                const ptOptionsForNonSelected = listbox.getPTOptions(listbox.options()[1], {}, 1, 'option');
 
                 if (ptOptionsForNonSelected.context) {
                     expect(ptOptionsForNonSelected.context.selected).toBe(false);
@@ -2712,17 +2700,17 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
             it('should export correct context via getPTOptions for disabled option', async () => {
                 // Add disabled option
-                listbox.options = [
+                ptFixture.componentRef.setInput('options', [
                     { label: 'Option 1', value: 'opt1' },
                     { label: 'Option 2', value: 'opt2', disabled: true },
                     { label: 'Option 3', value: 'opt3' }
-                ];
+                ]);
                 listbox.optionDisabled = 'disabled';
                 ptFixture.changeDetectorRef.markForCheck();
                 await ptFixture.whenStable();
 
                 // Get PT options for disabled option
-                const ptOptionsForDisabled = listbox.getPTOptions(listbox.options[1], {}, 1, 'option');
+                const ptOptionsForDisabled = listbox.getPTOptions(listbox.options()[1], {}, 1, 'option');
 
                 expect(ptOptionsForDisabled).toBeDefined();
 
@@ -2732,7 +2720,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 }
 
                 // Get PT options for enabled option
-                const ptOptionsForEnabled = listbox.getPTOptions(listbox.options[0], {}, 0, 'option');
+                const ptOptionsForEnabled = listbox.getPTOptions(listbox.options()[0], {}, 0, 'option');
 
                 if (ptOptionsForEnabled.context) {
                     expect(ptOptionsForEnabled.context.disabled).toBe(false);
@@ -2749,7 +2737,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 await ptFixture.whenStable();
 
                 // Get PT options for focused option
-                const ptOptionsForFocused = listbox.getPTOptions(listbox.options[1], {}, 1, 'option');
+                const ptOptionsForFocused = listbox.getPTOptions(listbox.options()[1], {}, 1, 'option');
 
                 expect(ptOptionsForFocused).toBeDefined();
 
@@ -2759,7 +2747,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 }
 
                 // Get PT options for non-focused option
-                const ptOptionsForNonFocused = listbox.getPTOptions(listbox.options[0], {}, 0, 'option');
+                const ptOptionsForNonFocused = listbox.getPTOptions(listbox.options()[0], {}, 0, 'option');
 
                 if (ptOptionsForNonFocused.context) {
                     expect(ptOptionsForNonFocused.context.focused).toBe(false);
@@ -2768,11 +2756,11 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
             it('should export combined context states via getPTOptions', async () => {
                 // Setup: select first option, disable second, focus third
-                listbox.options = [
+                ptFixture.componentRef.setInput('options', [
                     { label: 'Option 1', value: 'opt1' },
                     { label: 'Option 2', value: 'opt2', disabled: true },
                     { label: 'Option 3', value: 'opt3' }
-                ];
+                ]);
                 listbox.optionDisabled = 'disabled';
                 listbox.value = 'opt1';
                 listbox.focusedOptionIndex.set(2);
@@ -2780,7 +2768,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 await ptFixture.whenStable();
 
                 // Check selected option
-                const ptSelected = listbox.getPTOptions(listbox.options[0], {}, 0, 'option');
+                const ptSelected = listbox.getPTOptions(listbox.options()[0], {}, 0, 'option');
 
                 expect(ptSelected).toBeDefined();
 
@@ -2794,7 +2782,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 }
 
                 // Check disabled option
-                const ptDisabled = listbox.getPTOptions(listbox.options[1], {}, 1, 'option');
+                const ptDisabled = listbox.getPTOptions(listbox.options()[1], {}, 1, 'option');
 
                 expect(ptDisabled).toBeDefined();
 
@@ -2807,7 +2795,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 }
 
                 // Check focused option
-                const ptFocused = listbox.getPTOptions(listbox.options[2], {}, 2, 'option');
+                const ptFocused = listbox.getPTOptions(listbox.options()[2], {}, 2, 'option');
 
                 expect(ptFocused).toBeDefined();
 
@@ -2822,7 +2810,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
             it('should apply PT to optionGroup when using grouped options', async () => {
                 listbox.group = true;
-                listbox.options = [
+                ptFixture.componentRef.setInput('options', [
                     {
                         label: 'Group 1',
                         value: 'g1',
@@ -2831,7 +2819,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                             { label: 'Item 1.2', value: 'i1_2' }
                         ]
                     }
-                ];
+                ]);
                 ptFixture.componentRef.setInput('pt', {
                     optionGroup: 'OPTION_GROUP_CLASS'
                 });
@@ -2891,7 +2879,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             });
 
             it('should apply PT to emptyMessage', async () => {
-                listbox.options = [];
+                ptFixture.componentRef.setInput('options', []);
                 ptFixture.componentRef.setInput('pt', {
                     emptyMessage: 'EMPTY_MESSAGE_CLASS'
                 });
@@ -2980,7 +2968,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             });
 
             it('should apply PT to hiddenEmptyMessage', async () => {
-                listbox.options = [];
+                ptFixture.componentRef.setInput('options', []);
                 ptFixture.componentRef.setInput('pt', {
                     hiddenEmptyMessage: 'EMPTY_HIDDEN_CLASS'
                 });

@@ -4,12 +4,11 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChild,
+    effect,
     ElementRef,
-    EventEmitter,
     InjectionToken,
-    Input,
     NgModule,
-    Output,
+    output,
     TemplateRef,
     ViewEncapsulation,
     booleanAttribute,
@@ -215,7 +214,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <ng-template #buildInItems let-items let-scrollerOptions="options">
                     <ul
                         #list
-                        [id]="id() + '_list'"
+                        [id]="resolvedId + '_list'"
                         [class]="cx('list')"
                         role="listbox"
                         [tabindex]="-1"
@@ -233,7 +232,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         @for (option of items; track option; let i = $index) {
                             @if (isOptionGroup(option)) {
                                 <li
-                                    [attr.id]="id() + '_' + getOptionIndex(i, scrollerOptions)"
+                                    [attr.id]="resolvedId + '_' + getOptionIndex(i, scrollerOptions)"
                                     [class]="cx('optionGroup')"
                                     [pBind]="getPTOptions(option.optionGroup, scrollerOptions, i, 'optionGroup')"
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
@@ -255,7 +254,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     pRipple
                                     [class]="cx('option', { option, i, scrollerOptions })"
                                     role="option"
-                                    [attr.id]="id() + '_' + getOptionIndex(i, scrollerOptions)"
+                                    [attr.id]="resolvedId + '_' + getOptionIndex(i, scrollerOptions)"
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
                                     [attr.aria-label]="getOptionLabel(option)"
                                     [attr.aria-selected]="isSelected(option)"
@@ -371,7 +370,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.id]': 'id()',
+        '[attr.id]': 'resolvedId',
         '[class]': "cn(cx('root'), styleClass())",
         '[attr.data-p]': 'containerDataP',
         '(focusout)': 'onHostFocusOut($event)'
@@ -398,6 +397,12 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @group Props
      */
     readonly id = input<string>();
+
+    private _generatedId: string | undefined;
+
+    get resolvedId(): string {
+        return this.id() || (this._generatedId ??= uuid('pn_id_'));
+    }
     /**
      * Text to display when the search is active. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -603,38 +608,17 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * An array of selectitems to display as the available options.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get options(): any[] {
-        return this._options();
-    }
-    set options(val: any[]) {
-        this._options.set(val);
-    }
+    readonly options = input<any[]>();
     /**
      * When specified, filter displays with this value.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get filterValue(): string {
-        return this._filterValue() || '';
-    }
-    set filterValue(val: string) {
-        this._filterValue.set(val);
-    }
+    readonly filterValue = input<string>();
     /**
      * Whether all data is selected.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get selectAll(): boolean | undefined | null {
-        return this._selectAll;
-    }
-    set selectAll(value: boolean | undefined | null) {
-        this._selectAll = value;
-    }
+    readonly selectAll = input<boolean | undefined | null>();
     /**
      * Whether to displays rows with alternating colors.
      * @group Props
@@ -679,55 +663,55 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<ListboxChangeEvent> = new EventEmitter<ListboxChangeEvent>();
+    onChange = output<ListboxChangeEvent>();
     /**
      * Callback to invoke when option is clicked.
      * @param {ListboxClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<ListboxClickEvent> = new EventEmitter<ListboxClickEvent>();
+    onClick = output<ListboxClickEvent>();
     /**
      * Callback to invoke when option is double clicked.
      * @param {ListboxDoubleClickEvent} event - Custom double click event.
      * @group Emits
      */
-    @Output() onDblClick: EventEmitter<ListboxDoubleClickEvent> = new EventEmitter<ListboxDoubleClickEvent>();
+    onDblClick = output<ListboxDoubleClickEvent>();
     /**
      * Callback to invoke when data is filtered.
      * @param {ListboxFilterEvent} event - Custom filter event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<ListboxFilterEvent> = new EventEmitter<ListboxFilterEvent>();
+    onFilter = output<ListboxFilterEvent>();
     /**
      * Callback to invoke when component receives focus.
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onFocus = output<FocusEvent>();
     /**
      * Callback to invoke when component loses focus.
      * @param {FocusEvent} event - Blur event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onBlur = output<FocusEvent>();
     /**
      * Callback to invoke when all data is selected.
      * @param {ListboxSelectAllChangeEvent} event - Custom select event.
      * @group Emits
      */
-    @Output() onSelectAllChange: EventEmitter<ListboxSelectAllChangeEvent> = new EventEmitter<ListboxSelectAllChangeEvent>();
+    onSelectAllChange = output<ListboxSelectAllChangeEvent>();
     /**
      * Emits on lazy load.
      * @param {ScrollerLazyLoadEvent} event - Scroller lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<ScrollerLazyLoadEvent> = new EventEmitter<ScrollerLazyLoadEvent>();
+    onLazyLoad = output<ScrollerLazyLoadEvent>();
     /**
      * Emits on item is dropped.
      * @param {CdkDragDrop<string[]>} event - Scroller lazy load event.
      * @group Emits
      */
-    @Output() onDrop: EventEmitter<CdkDragDrop<string[]>> = new EventEmitter<CdkDragDrop<string[]>>();
+    onDrop = output<CdkDragDrop<string[]>>();
 
     readonly headerCheckboxViewChild = viewChild<Nullable<ElementRef>>('headerchkbox');
 
@@ -878,7 +862,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     _componentStyle = inject(ListBoxStyle);
 
     get focusedOptionId() {
-        return this.focusedOptionIndex() !== -1 ? `${this.id()}_${this.focusedOptionIndex()}` : null;
+        return this.focusedOptionIndex() !== -1 ? `${this.resolvedId}_${this.focusedOptionIndex()}` : null;
     }
 
     get filterResultMessageText() {
@@ -929,8 +913,6 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     searchTimeout: any;
 
-    _selectAll: boolean | undefined | null = null;
-
     _options = signal<any>(null);
 
     startRangeIndex = signal<number>(-1);
@@ -949,8 +931,19 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
         return this._filterValue() ? this.filterService.filter(options, this.searchFields, this._filterValue(), this.filterMatchMode(), this.filterLocale()) : options;
     });
 
+    constructor() {
+        super();
+
+        effect(() => {
+            this._options.set(this.options());
+        });
+
+        effect(() => {
+            this._filterValue.set(this.filterValue());
+        });
+    }
+
     onInit() {
-        this.id = this.id() || uuid('pn_id_');
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.cd.markForCheck();
         });
@@ -1138,7 +1131,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
         focus(this.headerCheckboxViewChild()?.nativeElement);
 
-        if (this.selectAll !== null) {
+        if (this.selectAll() !== null) {
             this.onSelectAllChange.emit({
                 originalEvent: event,
                 checked: !this.allSelected()
@@ -1156,7 +1149,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     allSelected() {
-        return this.selectAll !== null ? this.selectAll : isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
+        return this.selectAll() !== null ? this.selectAll() : isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
     }
 
     onOptionTouchEnd() {
@@ -1603,7 +1596,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     }
 
     scrollInView(index = -1) {
-        const id = index !== -1 ? `${this.id()}_${index}` : this.focusedOptionId;
+        const id = index !== -1 ? `${this.resolvedId}_${index}` : this.focusedOptionId;
         const element = findSingle(this.listViewChild()?.nativeElement, `li[id="${id}"]`);
 
         if (element) {

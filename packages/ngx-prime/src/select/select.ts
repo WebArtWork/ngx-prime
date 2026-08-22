@@ -9,17 +9,14 @@ import {
     ContentChild,
     effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     InjectionToken,
     input,
-    Input,
     NgModule,
     NgZone,
     numberAttribute,
-    Output,
-    Signal,
+    output,
     signal,
     TemplateRef,
     ViewEncapsulation,
@@ -143,9 +140,9 @@ export class SelectItem extends BaseComponent {
 
     readonly scrollerOptions = input<any>();
 
-    @Output() onClick: EventEmitter<any> = new EventEmitter();
+    onClick = output<any>();
 
-    @Output() onMouseEnter: EventEmitter<any> = new EventEmitter();
+    onMouseEnter = output<any>();
 
     _componentStyle = inject(SelectStyle);
 
@@ -468,7 +465,7 @@ export class SelectItem extends BaseComponent {
     `,
     host: {
         '[class]': "cn(cx('root'), styleClass())",
-        '[attr.id]': 'id()',
+        '[attr.id]': 'resolvedId',
         '[attr.data-p]': 'containerDataP',
         '(click)': 'onContainerClick($event)'
     },
@@ -489,6 +486,12 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * @group Props
      */
     readonly id = input<string>();
+
+    private _generatedId: string | undefined;
+
+    get resolvedId(): string {
+        return this.id() || (this._generatedId ??= uuid('pn_id_'));
+    }
     /**
      * Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
@@ -536,14 +539,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * Default text to display when no option is selected.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() set placeholder(val: string | undefined) {
-        this._placeholder.set(val);
-    }
-    get placeholder(): Signal<string | undefined> {
-        return this._placeholder.asReadonly();
-    }
+    readonly placeholder = input<string | undefined>();
     /**
      * Icon to display in loading state.
      * @group Props
@@ -738,32 +734,12 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * When specified, filter displays with this value.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get filterValue(): string | undefined | null {
-        return this._filterValue();
-    }
-    set filterValue(val: string | undefined | null) {
-        setTimeout(() => {
-            this._filterValue.set(val);
-        });
-    }
+    readonly filterValue = input<string | undefined | null>();
     /**
      * An array of objects to display as the available options.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get options(): any[] | null | undefined {
-        const options = this._options();
-
-        return options;
-    }
-    set options(val: any[] | null | undefined) {
-        if (!deepEquals(val, this._options())) {
-            this._options.set(val);
-        }
-    }
+    readonly options = input<any[] | null | undefined>();
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
@@ -780,55 +756,55 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
      * @param {SelectChangeEvent} event - custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<SelectChangeEvent> = new EventEmitter<SelectChangeEvent>();
+    onChange = output<SelectChangeEvent>();
     /**
      * Callback to invoke when data is filtered.
      * @param {SelectFilterEvent} event - custom filter event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<SelectFilterEvent> = new EventEmitter<SelectFilterEvent>();
+    onFilter = output<SelectFilterEvent>();
     /**
      * Callback to invoke when select gets focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    onFocus = output<Event>();
     /**
      * Callback to invoke when select loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    onBlur = output<Event>();
     /**
      * Callback to invoke when component is clicked.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    onClick = output<MouseEvent>();
     /**
      * Callback to invoke when select overlay gets visible.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    onShow = output<AnimationEvent>();
     /**
      * Callback to invoke when select overlay gets hidden.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    onHide = output<AnimationEvent>();
     /**
      * Callback to invoke when select clears the value.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<Event> = new EventEmitter<Event>();
+    onClear = output<Event>();
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {SelectLazyLoadEvent} event - Lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<SelectLazyLoadEvent> = new EventEmitter<SelectLazyLoadEvent>();
+    onLazyLoad = output<SelectLazyLoadEvent>();
 
     _componentStyle = inject(SelectStyle);
 
@@ -1045,7 +1021,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     get focusedOptionId() {
-        return this.focusedOptionIndex() !== -1 ? `${this.id()}_${this.focusedOptionIndex()}` : null;
+        return this.focusedOptionIndex() !== -1 ? `${this.resolvedId}_${this.focusedOptionIndex()}` : null;
     }
 
     visibleOptions = computed(() => {
@@ -1056,7 +1032,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
             const filteredOptions =
                 !_filterBy && !this.filterFields() && !this.optionValue()
-                    ? this.options?.filter((option) => {
+                    ? this._options()?.filter((option) => {
                           if (option.label) {
                               return option.label.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                           }
@@ -1066,7 +1042,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
                     : this.filterService.filter(options, this.searchFields(), this._filterValue().trim(), this.filterMatchMode(), this.filterLocale());
 
             if (this.group()) {
-                const optionGroups = this.options || [];
+                const optionGroups = this._options() || [];
                 const filtered: any[] = [];
 
                 optionGroups.forEach((group) => {
@@ -1149,6 +1125,26 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
             this.cd.markForCheck();
         });
+
+        effect(() => {
+            const val = this.filterValue();
+
+            setTimeout(() => {
+                this._filterValue.set(val);
+            });
+        });
+
+        effect(() => {
+            const val = this.options();
+
+            if (!deepEquals(val, this._options())) {
+                this._options.set(val);
+            }
+        });
+
+        effect(() => {
+            this._placeholder.set(this.placeholder());
+        });
     }
 
     private isModelValueNotSet(): boolean {
@@ -1156,11 +1152,10 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     private getAllVisibleAndNonVisibleOptions() {
-        return this.group() ? this.flatOptions(this.options) : this.options || [];
+        return this.group() ? this.flatOptions(this._options()) : this._options() || [];
     }
 
     onInit() {
-        this.id = this.id() || uuid('pn_id_');
         this.autoUpdateModel();
 
         if (this.filterBy()) {
@@ -1326,7 +1321,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     allowModelChange() {
-        return !!this.modelValue() && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable() && this.options && this.options.length;
+        return !!this.modelValue() && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable() && this._options() && this._options().length;
     }
 
     isSelected(option) {
@@ -1513,7 +1508,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.itemsWrapper = <any>findSingle(this.overlayViewChild()?.overlayViewChild()?.nativeElement, this.virtualScroll() ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]');
         this.virtualScroll() && this.scroller()?.setContentEl(this.itemsViewChild()?.nativeElement);
 
-        if (this.options && this.options.length) {
+        if (this._options() && this._options().length) {
             if (this.virtualScroll()) {
                 const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
 
@@ -1772,7 +1767,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     scrollInView(index = -1) {
-        const id = index !== -1 ? `${this.id()}_${index}` : this.focusedOptionId;
+        const id = index !== -1 ? `${this.resolvedId}_${index}` : this.focusedOptionId;
 
         const itemsViewChild = this.itemsViewChild();
 
@@ -2117,7 +2112,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     get labelDataP() {
         return this.cn({
-            placeholder: this.label === this.placeholder,
+            placeholder: this.label() === this.placeholder(),
             clearable: this.showClear(),
             disabled: this.$disabled(),
             [this.size() as string]: this.size(),

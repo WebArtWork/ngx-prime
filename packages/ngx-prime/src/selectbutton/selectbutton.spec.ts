@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
+import { SelectButtonDirective, SelectButtonOptionDirective } from './nativeselectbutton';
 import { SelectButton, SelectButtonModule } from './selectbutton';
 
 describe('SelectButton', () => {
@@ -1224,3 +1225,100 @@ class TestMultipleInstancesComponent {
     options1 = ['A', 'B'];
     options2 = ['X', 'Y'];
 }
+
+@Component({
+    template: `<div pSelectButton [(value)]="value" [allowEmpty]="allowEmpty" [pt]="pt" aria-label="Trip type">
+        <button pSelectButtonOption value="one-way">One-Way</button>
+        <button pSelectButtonOption value="return" [disabled]="returnDisabled">Return</button>
+    </div>`,
+    imports: [SelectButtonDirective, SelectButtonOptionDirective]
+})
+class NativeSelectButtonTestComponent {
+    value: string | null = 'one-way';
+    allowEmpty = true;
+    returnDisabled = false;
+    pt = { group: { class: 'native-group-pt' }, option: { 'data-native-option': 'true' } };
+}
+
+@Component({
+    template: `<div pSelectButton multiple [formControl]="control"><button pSelectButtonOption value="a">A</button><button pSelectButtonOption value="b">B</button></div>`,
+    imports: [SelectButtonDirective, SelectButtonOptionDirective, ReactiveFormsModule]
+})
+class NativeMultipleSelectButtonReactiveTestComponent {
+    control = new FormControl<string[]>(['a']);
+}
+
+describe('native pSelectButton', () => {
+    async function createFixture() {
+        await TestBed.configureTestingModule({ imports: [NativeSelectButtonTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeSelectButtonTestComponent);
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        return fixture;
+    }
+
+    it('uses radio semantics and a safe button type for single selection', async () => {
+        const fixture = await createFixture();
+        const group = fixture.nativeElement.querySelector('[pSelectButton]') as HTMLElement;
+        const buttons = fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>;
+
+        expect(group.getAttribute('role')).toBe('radiogroup');
+        expect(group.classList).toContain('native-group-pt');
+        expect(buttons[0].type).toBe('button');
+        expect(buttons[0].getAttribute('role')).toBe('radio');
+        expect(buttons[0].getAttribute('aria-checked')).toBe('true');
+        expect(buttons[0].getAttribute('data-native-option')).toBe('true');
+        expect(buttons[1].getAttribute('tabindex')).toBe('-1');
+
+        buttons[1].click();
+        await fixture.whenStable();
+        expect(fixture.componentInstance.value).toBe('return');
+        expect(buttons[1].getAttribute('aria-checked')).toBe('true');
+    });
+
+    it('moves and selects a single option with arrow keys', async () => {
+        const fixture = await createFixture();
+        const buttons = fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>;
+
+        buttons[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+        await fixture.whenStable();
+
+        expect(fixture.componentInstance.value).toBe('return');
+        expect(document.activeElement).toBe(buttons[1]);
+    });
+
+    it('prevents clearing a selected option when allowEmpty is false', async () => {
+        const fixture = await createFixture();
+        const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+
+        fixture.componentInstance.allowEmpty = false;
+        fixture.detectChanges();
+        button.click();
+        await fixture.whenStable();
+
+        expect(fixture.componentInstance.value).toBe('one-way');
+    });
+
+    it('uses toggle semantics and synchronizes multiple reactive-form values', async () => {
+        await TestBed.configureTestingModule({ imports: [NativeMultipleSelectButtonReactiveTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeMultipleSelectButtonReactiveTestComponent);
+
+        fixture.detectChanges();
+        const group = fixture.nativeElement.querySelector('[pSelectButton]') as HTMLElement;
+        const buttons = fixture.nativeElement.querySelectorAll('button') as NodeListOf<HTMLButtonElement>;
+
+        expect(group.getAttribute('role')).toBe('group');
+        expect(buttons[0].getAttribute('aria-pressed')).toBe('true');
+
+        buttons[1].click();
+        await fixture.whenStable();
+        expect(fixture.componentInstance.control.value).toEqual(['a', 'b']);
+
+        fixture.componentInstance.control.setValue(['b']);
+        fixture.detectChanges();
+        expect(buttons[0].getAttribute('aria-pressed')).toBe('false');
+        expect(buttons[1].getAttribute('aria-pressed')).toBe('true');
+    });
+});

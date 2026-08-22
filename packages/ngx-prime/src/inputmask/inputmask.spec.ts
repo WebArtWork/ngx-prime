@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { FormsModule, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Field, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { InputMask, InputMaskModule, InputMaskDirective } from './inputmask';
 import { SharedModule } from 'primeng/api';
@@ -1654,6 +1655,16 @@ class DirectiveFullFeaturedTestComponent {
     }
 }
 
+@Component({
+    standalone: true,
+    imports: [Field, InputMaskDirective],
+    template: `<input pInputMask="99-999" [field]="maskedForm.value" />`
+})
+class DirectiveSignalFormTestComponent {
+    model = signal({ value: '' });
+    maskedForm = form(this.model);
+}
+
 describe('InputMaskDirective', () => {
     describe('Directive Initialization', () => {
         it('should create directive on input element', async () => {
@@ -1872,6 +1883,27 @@ describe('InputMaskDirective', () => {
             const inputEl: HTMLInputElement = fixture.nativeElement.querySelector('input');
 
             expect(inputEl.value).toBe('(123) 456-7890');
+        });
+    });
+
+    describe('Form Integration - Signal Forms', () => {
+        it('should update a signal-form field from a native input event', async () => {
+            await TestBed.configureTestingModule({
+                imports: [DirectiveSignalFormTestComponent],
+                providers: [provideZonelessChangeDetection()]
+            }).compileComponents();
+
+            const fixture = TestBed.createComponent(DirectiveSignalFormTestComponent);
+
+            fixture.detectChanges();
+
+            const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+            input.value = '12-345';
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+            await fixture.whenStable();
+
+            expect(fixture.componentInstance.model().value).toBe('12-345');
         });
     });
 

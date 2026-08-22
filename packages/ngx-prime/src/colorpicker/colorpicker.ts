@@ -26,6 +26,10 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
 
 /**
  * ColorPicker groups a collection of contents in tabs.
+ *
+ * @deprecated Use a native `<input type="color" pColorPicker>` instead.
+ * Browser-native picker appearance is platform controlled. This component
+ * remains available for compatibility and is planned for removal in v23.
  * @group Components
  */
 @Component({

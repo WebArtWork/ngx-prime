@@ -10,6 +10,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [FormsModule, ToggleButtonModule, AppCode, AppDocSectionText],
     template: `
         <app-docsectiontext>
+            <p>
+                <i>p-togglebutton</i>, <i>p-toggleButton</i>, and <i>p-toggle-button</i> are deprecated. Use native <i>button pToggleButton</i> for new controls; the legacy component remains available through v22 for compatibility and wrapper
+                templates.
+            </p>
             <p>Two-way binding to a boolean property is defined using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">

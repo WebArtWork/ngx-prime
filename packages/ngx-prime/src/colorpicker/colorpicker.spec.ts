@@ -1,10 +1,11 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { providePrimeNG } from 'primeng/config';
 import { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
-import { ColorPicker } from './colorpicker';
+import { ColorPicker, ColorPickerClearDirective, ColorPickerDirective } from './colorpicker';
 
 @Component({
     template: `
@@ -1847,5 +1848,85 @@ describe('ColorPicker', () => {
 
             expect(hue?.style.opacity).toBe('1');
         });
+    });
+});
+
+@Component({
+    template: `<input type="color" pColorPicker #picker="pColorPicker" [(ngModel)]="value" [invalid]="invalid" (onInput)="event = $event" /><button [pColorPickerClear]="picker"></button>`,
+    imports: [ColorPickerDirective, ColorPickerClearDirective, FormsModule]
+})
+class NativeColorPickerTestComponent {
+    value = '#112233';
+    invalid = false;
+    event: ColorPickerChangeEvent | undefined;
+}
+
+@Component({ template: `<input type="color" pColorPicker [formControl]="control" />`, imports: [ColorPickerDirective, ReactiveFormsModule] })
+class NativeColorPickerReactiveTestComponent {
+    control = new FormControl('#112233');
+}
+
+@Component({ template: `<input type="color" pColorPicker [formField]="colorForm.value" />`, imports: [ColorPickerDirective, FormField] })
+class NativeColorPickerSignalTestComponent {
+    readonly model = signal({ value: '#112233' });
+    readonly colorForm = form(this.model);
+}
+
+describe('native ColorPicker', () => {
+    it('normalizes events and resets a template-driven value', async () => {
+        await TestBed.configureTestingModule({ imports: [NativeColorPickerTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeColorPickerTestComponent);
+
+        fixture.detectChanges();
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        input.value = '#abcdef';
+        input.dispatchEvent(new Event('input'));
+        await fixture.whenStable();
+        expect(fixture.componentInstance.event?.value).toBe('#ABCDEF');
+        (fixture.nativeElement.querySelector('button') as HTMLButtonElement).click();
+        await fixture.whenStable();
+        expect(fixture.componentInstance.value).toBe('#000000');
+    });
+
+    it('works with reactive and Signal Forms', async () => {
+        await TestBed.resetTestingModule();
+        await TestBed.configureTestingModule({ imports: [NativeColorPickerReactiveTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const reactive = TestBed.createComponent(NativeColorPickerReactiveTestComponent);
+
+        reactive.detectChanges();
+        const input = reactive.nativeElement.querySelector('input') as HTMLInputElement;
+
+        input.value = '#abcdef';
+        input.dispatchEvent(new Event('input'));
+        await reactive.whenStable();
+        expect(reactive.componentInstance.control.value).toBe('#abcdef');
+        await TestBed.resetTestingModule();
+        await TestBed.configureTestingModule({ imports: [NativeColorPickerSignalTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const signalFixture = TestBed.createComponent(NativeColorPickerSignalTestComponent);
+
+        signalFixture.detectChanges();
+        const signalInput = signalFixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        signalInput.value = '#abcdef';
+        signalInput.dispatchEvent(new Event('input'));
+        await signalFixture.whenStable();
+        expect(signalFixture.componentInstance.model().value).toBe('#abcdef');
+    });
+
+    it('applies native state and accessibility attributes', async () => {
+        await TestBed.resetTestingModule();
+        await TestBed.configureTestingModule({ imports: [NativeColorPickerTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeColorPickerTestComponent);
+
+        fixture.componentInstance.invalid = true;
+        fixture.detectChanges();
+
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        expect(input.classList).toContain('p-invalid');
+        expect(input.getAttribute('data-p-invalid')).toBe('true');
+        input.dispatchEvent(new Event('blur'));
+        await fixture.whenStable();
     });
 });

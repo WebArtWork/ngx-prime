@@ -11,7 +11,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import type { SliderChangeEvent, SliderSlideEndEvent } from 'primeng/types/slider';
 import { SliderPassThrough } from 'primeng/types/slider';
 import { SliderStyle } from './style/sliderstyle';
-import { SliderDirective } from './nativeslider';
+import { RangeDirective } from './nativeslider';
 
 const SLIDER_INSTANCE = new InjectionToken<Slider>('SLIDER_INSTANCE');
 
@@ -21,11 +21,12 @@ export const SLIDER_VALUE_ACCESSOR: any = {
     multi: true
 };
 /**
- * Slider is a component to provide input with a drag handle.
+ * Legacy slider component, available through v22 under the `p-slider` and `p-range` selectors.
+ * @deprecated since v22, use `<input type="range" pRange>` for single-value sliders. Both legacy selectors will be removed in v23; use a dedicated range strategy where two thumbs are required.
  * @group Components
  */
 @Component({
-    selector: 'p-slider',
+    selector: 'p-slider, p-range',
     standalone: true,
     imports: [CommonModule, AutoFocus, SharedModule, BindModule],
     template: `
@@ -748,7 +749,7 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
 }
 
 @NgModule({
-    imports: [Slider, SliderDirective, SharedModule],
-    exports: [Slider, SliderDirective, SharedModule]
+    imports: [Slider, RangeDirective, SharedModule],
+    exports: [Slider, RangeDirective, SharedModule]
 })
 export class SliderModule {}

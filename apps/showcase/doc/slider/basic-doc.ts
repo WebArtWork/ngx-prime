@@ -10,6 +10,7 @@ import { AppCode } from '@/components/doc/app.code';
     imports: [FormsModule, SliderModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
+            <p><i>p-slider</i> and <i>p-range</i> are deprecated. Use native <i>input type="range" pRange</i> for new single-value sliders; this legacy component remains available through v22 for compatibility and two-handle ranges.</p>
             <p>Two-way binding is defined using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">

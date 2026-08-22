@@ -20,7 +20,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     multi: true
 };
 /**
- * ToggleButton is used to select a boolean value using a button.
+ * Legacy ToggleButton component.
+ * @deprecated since v22, use `<button pToggleButton>` for native toggle buttons. The legacy component selectors will be removed in v23.
  * @group Components
  */
 @Component({

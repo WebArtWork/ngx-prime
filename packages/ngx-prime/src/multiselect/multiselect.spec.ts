@@ -59,6 +59,7 @@ interface City {
             [selectOnFocus]="selectOnFocus"
             [autoOptionFocus]="autoOptionFocus"
             [highlightOnSelect]="highlightOnSelect"
+            [selectAll]="selectAll"
             (onChange)="onSelectionChange($event)"
             (onFilter)="onFilter($event)"
             (onFocus)="onFocus($event)"
@@ -93,6 +94,7 @@ class TestBasicMultiSelectComponent {
     maxSelectedLabels = 3;
     selectionLimit: number | undefined;
     displaySelectedLabel = true;
+    selectAll: boolean | undefined | null = null;
     display: 'comma' | 'chip' = 'comma';
     showClear = true;
     optionLabel = 'name';
@@ -420,8 +422,8 @@ describe('MultiSelect', () => {
             expect(multiSelect.selectOnFocus()).toBe(false);
             expect(multiSelect.focusOnHover()).toBe(true);
             expect(multiSelect.highlightOnSelect()).toBe(true);
-            expect(multiSelect.displaySelectedLabel).toBe(true);
-            expect(multiSelect.maxSelectedLabels).toBe(3);
+            expect(multiSelect.displaySelectedLabel()).toBe(true);
+            expect(multiSelect.maxSelectedLabels()).toBe(3);
             expect(multiSelect.showHeader()).toBe(true);
             expect(multiSelect.optionGroupLabel()).toBe('label');
             expect(multiSelect.optionGroupChildren()).toBe('items');
@@ -447,23 +449,23 @@ describe('MultiSelect', () => {
             expect(multiSelect.placeholder()).toBe('Custom Placeholder');
             expect(multiSelect.filter()).toBe(false);
             expect(multiSelect.showToggleAll()).toBe(false);
-            expect(multiSelect.maxSelectedLabels).toBe(5);
+            expect(multiSelect.maxSelectedLabels()).toBe(5);
             expect(multiSelect.display()).toBe('chip');
             expect(multiSelect.showClear()).toBe(false);
             expect(multiSelect.scrollHeight()).toBe('300px');
         });
 
         it('should initialize with options', () => {
-            expect(multiSelect.options).toBeDefined();
-            expect(multiSelect.options!.length).toBe(6);
-            expect(multiSelect.options![0]).toEqual({ name: 'New York', code: 'NY', country: 'USA' });
+            expect(multiSelect.options()).toBeDefined();
+            expect(multiSelect.options()!.length).toBe(6);
+            expect(multiSelect.options()![0]).toEqual({ name: 'New York', code: 'NY', country: 'USA' });
         });
 
         it('should handle empty options', () => {
             component.options = [];
             fixture.detectChanges();
 
-            expect(multiSelect.options!.length).toBe(0);
+            expect(multiSelect.options()!.length).toBe(0);
             expect(multiSelect.isEmpty()).toBe(true);
         });
 
@@ -614,7 +616,8 @@ describe('MultiSelect', () => {
 
         it('should emit onSelectAllChange event', () => {
             spyOn(component, 'onSelectAllChange');
-            multiSelect.selectAll = true;
+            component.selectAll = true;
+            fixture.detectChanges();
 
             multiSelect.onToggleAll({
                 originalEvent: { preventDefault: () => {}, stopPropagation: () => {} },
@@ -926,7 +929,6 @@ describe('MultiSelect', () => {
                 filterInput.nativeElement.dispatchEvent(new Event('input'));
             } else {
                 // If no filter input, use component method directly
-                multiSelect.filterValue = 'New';
                 multiSelect.onFilterInputChange({ target: { value: 'New' } } as any);
             }
 
@@ -957,7 +959,6 @@ describe('MultiSelect', () => {
                 fixture.detectChanges();
             } else {
                 // If no filter input, set filter value directly
-                multiSelect.filterValue = 'NY';
                 multiSelect.onFilterInputChange({ target: { value: 'NY' } } as any);
                 await fixture.whenStable();
                 fixture.detectChanges();
@@ -986,7 +987,6 @@ describe('MultiSelect', () => {
                 filterInput.nativeElement.dispatchEvent(new Event('input'));
             } else {
                 // Use component method if no filter input found
-                multiSelect.filterValue = 'test';
                 multiSelect.onFilterInputChange({ target: { value: 'test' } } as any);
             }
 
@@ -1218,7 +1218,7 @@ describe('MultiSelect', () => {
                 fixture.detectChanges();
             }).not.toThrow();
 
-            expect(multiSelect.options![0].name).toContain('<script>');
+            expect(multiSelect.options()![0].name).toContain('<script>');
         });
 
         it('should handle invalid option data', () => {
@@ -1603,7 +1603,6 @@ describe('MultiSelect Content Child Templates', () => {
             expect(customEmptyFilter.nativeElement.textContent).toBe('No filter results');
         } else {
             // If no filter input, just check that empty filter template renders when needed
-            multiSelect.filterValue = 'nonexistent';
             multiSelect.onFilterInputChange({ target: { value: 'nonexistent' } } as any);
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();

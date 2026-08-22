@@ -101,6 +101,19 @@ export interface FileUploadPassThroughOptions<I = unknown> {
 }
 
 /**
+ * Validation failure emitted by a native `pFileUpload` input.
+ * @group Events
+ */
+export interface NativeFileUploadValidationErrorEvent {
+    /** Browser change event. */
+    originalEvent: Event;
+    /** Files that were rejected. */
+    files: File[];
+    /** Reason the selection was rejected. */
+    reason: 'duplicate' | 'fileLimit' | 'maxFileSize';
+}
+
+/**
  * Defines valid pass-through options in FileUpload.
  * @see {@link FileUploadPassThroughOptions}
  *

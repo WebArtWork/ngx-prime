@@ -7,18 +7,15 @@ import {
     ContentChild,
     effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     InjectionToken,
     input,
-    Input,
     model,
     NgModule,
     NgZone,
     numberAttribute,
-    Output,
-    Signal,
+    output,
     signal,
     TemplateRef,
     ViewEncapsulation,
@@ -155,9 +152,9 @@ export class MultiSelectItem extends BaseComponent {
 
     readonly highlightOnSelect = input<boolean, unknown>(undefined, { transform: booleanAttribute });
 
-    @Output() onClick: EventEmitter<any> = new EventEmitter();
+    onClick = output<any>();
 
-    @Output() onMouseEnter: EventEmitter<any> = new EventEmitter();
+    onMouseEnter = output<any>();
 
     _componentStyle = inject(MultiSelectStyle);
 
@@ -538,7 +535,7 @@ export class MultiSelectItem extends BaseComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        '[attr.id]': 'id()',
+        '[attr.id]': 'resolvedId',
         '[attr.data-p]': 'containerDataP',
         '(click)': 'onContainerClick($event)',
         '[class]': "cn(cx('root'), styleClass())",
@@ -557,6 +554,12 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @group Props
      */
     readonly id = input<string>();
+
+    private _generatedId: string | undefined;
+
+    get resolvedId(): string {
+        return this.id() || (this._generatedId ??= uuid('pn_id_'));
+    }
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -633,27 +636,13 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @group Props
      * @defaultValue true
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() set displaySelectedLabel(val: boolean) {
-        this._displaySelectedLabel = val;
-    }
-    get displaySelectedLabel(): boolean {
-        return this._displaySelectedLabel;
-    }
+    readonly displaySelectedLabel = input<boolean>(true);
     /**
      * Decides how many selected item labels to show at most.
      * @group Props
      * @defaultValue 3
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() set maxSelectedLabels(val: number | null | undefined) {
-        this._maxSelectedLabels = val;
-    }
-    get maxSelectedLabels(): number | null | undefined {
-        return this._maxSelectedLabels;
-    }
+    readonly maxSelectedLabels = input<number | null | undefined>(3);
     /**
      * Maximum number of selectable items.
      * @group Props
@@ -828,52 +817,22 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * Label to display when there are no selections.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() set placeholder(val: string | undefined) {
-        this._placeholder.set(val);
-    }
-    get placeholder(): Signal<string | undefined> {
-        return this._placeholder.asReadonly();
-    }
+    readonly placeholder = input<string | undefined>();
     /**
      * An array of objects to display as the available options.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get options(): any[] | undefined {
-        return this._options();
-    }
-    set options(val: any[] | undefined) {
-        if (!deepEquals(this._options(), val)) {
-            this._options.set(val || []);
-        }
-    }
+    readonly options = input<any[] | undefined>();
     /**
      * When specified, filter displays with this value.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get filterValue(): string | undefined | null {
-        return this._filterValue();
-    }
-    set filterValue(val: string | undefined | null) {
-        this._filterValue.set(val);
-    }
+    readonly filterValue = input<string | undefined | null>();
     /**
      * Whether all data is selected.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get selectAll(): boolean | undefined | null {
-        return this._selectAll;
-    }
-    set selectAll(value: boolean | undefined | null) {
-        this._selectAll = value;
-    }
+    readonly selectAll = input<boolean | undefined | null>();
     /**
      * Indicates whether to focus on options when hovering over them, defaults to optionLabel.
      * @group Props
@@ -933,66 +892,66 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @param {MultiSelectChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<MultiSelectChangeEvent> = new EventEmitter<MultiSelectChangeEvent>();
+    onChange = output<MultiSelectChangeEvent>();
     /**
      * Callback to invoke when data is filtered.
      * @param {MultiSelectFilterEvent} event - Custom filter event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<MultiSelectFilterEvent> = new EventEmitter<MultiSelectFilterEvent>();
+    onFilter = output<MultiSelectFilterEvent>();
     /**
      * Callback to invoke when multiselect receives focus.
      * @param {MultiSelectFocusEvent} event - Custom focus event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<MultiSelectFocusEvent> = new EventEmitter<MultiSelectFocusEvent>();
+    onFocus = output<MultiSelectFocusEvent>();
     /**
      * Callback to invoke when multiselect loses focus.
      * @param {MultiSelectBlurEvent} event - Custom blur event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<MultiSelectBlurEvent> = new EventEmitter<MultiSelectBlurEvent>();
+    onBlur = output<MultiSelectBlurEvent>();
     /**
      * Callback to invoke when component is clicked.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onClick: EventEmitter<Event> = new EventEmitter<Event>();
+    onClick = output<Event>();
     /**
      * Callback to invoke when input field is cleared.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
+    onClear = output<void>();
     /**
      * Callback to invoke when overlay panel becomes visible.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onPanelShow: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    onPanelShow = output<AnimationEvent>();
     /**
      * Callback to invoke when overlay panel becomes hidden.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
-    @Output() onPanelHide: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
+    onPanelHide = output<AnimationEvent>();
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {MultiSelectLazyLoadEvent} event - Lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<MultiSelectLazyLoadEvent> = new EventEmitter<MultiSelectLazyLoadEvent>();
+    onLazyLoad = output<MultiSelectLazyLoadEvent>();
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {MultiSelectRemoveEvent} event - Remove event.
      * @group Emits
      */
-    @Output() onRemove: EventEmitter<MultiSelectRemoveEvent> = new EventEmitter<MultiSelectRemoveEvent>();
+    onRemove = output<MultiSelectRemoveEvent>();
     /**
      * Callback to invoke when all data is selected.
      * @param {MultiSelectSelectAllChangeEvent} event - Custom select event.
      * @group Emits
      */
-    @Output() onSelectAllChange: EventEmitter<MultiSelectSelectAllChangeEvent> = new EventEmitter<MultiSelectSelectAllChangeEvent>();
+    onSelectAllChange = output<MultiSelectSelectAllChangeEvent>();
 
     readonly overlayViewChild = viewChild<Nullable<Overlay>>('overlay');
 
@@ -1331,7 +1290,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
             }
 
             if (this.group()) {
-                const optionGroups = this.options || [];
+                const optionGroups = this._options() || [];
                 const filtered: any[] = [];
 
                 optionGroups.forEach((group) => {
@@ -1360,8 +1319,8 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         let label;
         const modelValue = this.modelValue();
 
-        if (modelValue && modelValue?.length && this.displaySelectedLabel) {
-            if (isNotEmpty(this.maxSelectedLabels) && modelValue?.length > (this.maxSelectedLabels || 0)) {
+        if (modelValue && modelValue?.length && this.displaySelectedLabel()) {
+            if (isNotEmpty(this.maxSelectedLabels()) && modelValue?.length > (this.maxSelectedLabels() || 0)) {
                 return this.getSelectedItemsLabel();
             } else {
                 label = '';
@@ -1381,7 +1340,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         return label;
     });
 
-    chipSelectedItems = computed(() => (isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue()?.length > (this.maxSelectedLabels || 0) ? this.modelValue()?.slice(0, this.maxSelectedLabels) : this.modelValue()));
+    chipSelectedItems = computed(() => (isNotEmpty(this.maxSelectedLabels()) && this.modelValue() && this.modelValue()?.length > (this.maxSelectedLabels() || 0) ? this.modelValue()?.slice(0, this.maxSelectedLabels()) : this.modelValue()));
 
     constructor() {
         super();
@@ -1400,10 +1359,25 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
                 this.cd.markForCheck();
             }
         });
+
+        effect(() => {
+            this._placeholder.set(this.placeholder());
+        });
+
+        effect(() => {
+            const val = this.options();
+
+            if (!deepEquals(this._options(), val)) {
+                this._options.set(val || []);
+            }
+        });
+
+        effect(() => {
+            this._filterValue.set(this.filterValue());
+        });
     }
 
     onInit() {
-        this.id = this.id() || uuid('pn_id_');
         this.autoUpdateModel();
 
         if (this.filterBy()) {
@@ -2036,7 +2010,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
             return;
         }
 
-        if (this.selectAll != null) {
+        if (this.selectAll() != null) {
             this.onSelectAllChange.emit({
                 originalEvent: event,
                 checked: !this.allSelected()
@@ -2094,7 +2068,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     scrollInView(index = -1) {
-        const id = index !== -1 ? `${this.id()}_${index}` : this.focusedOptionId;
+        const id = index !== -1 ? `${this.resolvedId}_${index}` : this.focusedOptionId;
 
         const itemsViewChild = this.itemsViewChild();
 
@@ -2112,7 +2086,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     get focusedOptionId() {
-        return this.focusedOptionIndex() !== -1 ? `${this.id()}_${this.focusedOptionIndex()}` : null;
+        return this.focusedOptionIndex() !== -1 ? `${this.resolvedId}_${this.focusedOptionIndex()}` : null;
     }
 
     allSelected() {
@@ -2120,7 +2094,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     partialSelected() {
-        return this.selectedOptions && this.selectedOptions.length > 0 && this.selectedOptions.length < (this.options?.length || 0);
+        return this.selectedOptions && this.selectedOptions.length > 0 && this.selectedOptions.length < (this._options()?.length || 0);
     }
 
     /**
@@ -2128,7 +2102,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @group Method
      */
     public show(isFocus?) {
-        this.overlayVisible = true;
+        this.overlayVisible.set(true);
 
         const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus() ? this.findFirstFocusedOptionIndex() : this.findSelectedOptionIndex();
 
@@ -2146,7 +2120,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * @group Method
      */
     public hide(isFocus?) {
-        this.overlayVisible = false;
+        this.overlayVisible.set(false);
         this.focusedOptionIndex.set(-1);
 
         if (this.filter() && this.resetFilterOnHide()) {
@@ -2165,7 +2139,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         this.itemsWrapper = <any>findSingle(this.overlayViewChild()?.overlayViewChild()?.nativeElement, this.virtualScroll() ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]');
         this.virtualScroll() && this.scroller()?.setContentEl(this.itemsViewChild()?.nativeElement);
 
-        if (this.options && this.options.length) {
+        if (this._options() && this._options().length) {
             if (this.virtualScroll()) {
                 const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
 
@@ -2354,12 +2328,12 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     get labelDataP() {
         return this.cn({
-            placeholder: this.label === this.placeholder,
+            placeholder: this.label() === this.placeholder(),
             clearable: this.showClear(),
             disabled: this.disabled,
             [this.size() as string]: this.size(),
-            'has-chip': this.display() === 'chip' && this.value && this.value.length && (this.maxSelectedLabels ? this.value.length <= this.maxSelectedLabels : true),
-            empty: !this.placeholder && !this.$filled
+            'has-chip': this.display() === 'chip' && this.value && this.value.length && (this.maxSelectedLabels() ? this.value.length <= this.maxSelectedLabels() : true),
+            empty: !this.placeholder() && !this.$filled
         });
     }
 

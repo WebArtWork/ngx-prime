@@ -1,12 +1,13 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
-import { MapperPipe, Password, PasswordDirective, PasswordModule } from './password';
+import { MapperPipe, Password, PasswordClearDirective, PasswordDirective, PasswordModule, PasswordToggleMaskDirective } from './password';
 
 // Test Components
 @Component({
@@ -1281,6 +1282,110 @@ describe('Password', () => {
     });
 });
 
+@Component({
+    template: `
+        <input type="password" pPassword #password="pPassword" [(ngModel)]="value" [feedback]="feedback" [mediumRegex]="mediumRegex" [strongRegex]="strongRegex" (onMaskChange)="visible = $event" />
+        <button [pPasswordToggleMask]="password">Toggle</button>
+        <button [pPasswordClear]="password">Clear</button>
+    `,
+    imports: [PasswordDirective, PasswordToggleMaskDirective, PasswordClearDirective, FormsModule]
+})
+class TestNativePasswordCompositionComponent {
+    value = '';
+    feedback = true;
+    mediumRegex = '^medium$';
+    strongRegex = '^strong$';
+    visible = false;
+}
+
+@Component({
+    template: `<input type="password" pPassword [formField]="passwordForm.value" autocomplete="new-password" />`,
+    imports: [PasswordDirective, FormField]
+})
+class TestNativePasswordSignalFormComponent {
+    readonly model = signal({ value: '' });
+    readonly passwordForm = form(this.model);
+}
+
+describe('native Password composition', () => {
+    it('toggles visibility with an accessible adjacent button and preserves focus', async () => {
+        await TestBed.resetTestingModule();
+        await TestBed.configureTestingModule({
+            imports: [TestNativePasswordCompositionComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+
+        const fixture = TestBed.createComponent(TestNativePasswordCompositionComponent);
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+        const toggle = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+
+        input.focus();
+        toggle.click();
+        await fixture.whenStable();
+
+        expect(input.type).toBe('text');
+        expect(toggle.getAttribute('aria-pressed')).toBe('true');
+        expect(toggle.getAttribute('aria-label')).toBe('Hide password');
+        expect(document.activeElement).toBe(input);
+        expect(fixture.componentInstance.visible).toBe(true);
+    });
+
+    it('uses configured strength regexes and clear keeps the native form value in sync', async () => {
+        await TestBed.resetTestingModule();
+        await TestBed.configureTestingModule({
+            imports: [TestNativePasswordCompositionComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+
+        const fixture = TestBed.createComponent(TestNativePasswordCompositionComponent);
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+        const directive = fixture.debugElement.query(By.directive(PasswordDirective)).injector.get(PasswordDirective);
+        const clear = fixture.nativeElement.querySelectorAll('button')[1] as HTMLButtonElement;
+
+        input.value = 'medium';
+        input.dispatchEvent(new Event('input'));
+        expect(directive.testStrength(input.value)).toBe(50);
+
+        input.value = 'strong';
+        input.dispatchEvent(new Event('input'));
+        expect(directive.testStrength(input.value)).toBe(100);
+
+        clear.click();
+        await fixture.whenStable();
+        expect(input.value).toBe('');
+        expect(fixture.componentInstance.value).toBe('');
+    });
+
+    it('works with Angular Signal Forms on a native password input', async () => {
+        await TestBed.resetTestingModule();
+        await TestBed.configureTestingModule({
+            imports: [TestNativePasswordSignalFormComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+
+        const fixture = TestBed.createComponent(TestNativePasswordSignalFormComponent);
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        input.value = 'safe-password';
+        input.dispatchEvent(new Event('input'));
+        await fixture.whenStable();
+
+        expect(fixture.componentInstance.model().value).toBe('safe-password');
+    });
+});
+
 describe('PasswordDirective', () => {
     let directive: PasswordDirective;
     let fixture: ComponentFixture<TestPasswordDirectiveComponent>;
@@ -1349,7 +1454,7 @@ describe('PasswordDirective', () => {
             fixture.detectChanges();
 
             spyOn(directive, 'showOverlay');
-            directive.onFocus();
+            directive.handleFocus();
             await fixture.whenStable();
 
             expect(directive.showOverlay).toHaveBeenCalled();
@@ -1360,7 +1465,7 @@ describe('PasswordDirective', () => {
             fixture.detectChanges();
 
             spyOn(directive, 'hideOverlay');
-            directive.onBlur();
+            directive.handleBlur();
             await fixture.whenStable();
 
             expect(directive.hideOverlay).toHaveBeenCalled();

@@ -17,6 +17,7 @@ const classes = {
         'p-selectbutton p-component',
         {
             'p-invalid': instance.invalid(),
+            'p-disabled': instance.$disabled(),
             'p-selectbutton-fluid': instance.fluid()
         }
     ]

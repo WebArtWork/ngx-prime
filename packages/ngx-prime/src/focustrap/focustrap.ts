@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, Directive, inject, input, NgModule, PLATFORM_ID, SimpleChanges } from '@angular/core';
+import { booleanAttribute, Directive, effect, inject, input, NgModule, PLATFORM_ID } from '@angular/core';
 import { createElement, focus, getFirstFocusableElement, getLastFocusableElement } from '@wawjs/css-prime-utils';
 import { BaseComponent } from 'primeng/basecomponent';
 
@@ -26,19 +26,25 @@ export class FocusTrap extends BaseComponent {
 
     lastHiddenFocusableElement!: HTMLElement;
 
+    constructor() {
+        super();
+
+        effect(() => {
+            const disabled = this.pFocusTrapDisabled();
+
+            if (isPlatformBrowser(this.platformId)) {
+                if (disabled) {
+                    this.removeHiddenFocusableElements();
+                } else {
+                    this.createHiddenFocusableElements();
+                }
+            }
+        });
+    }
+
     onInit() {
         if (isPlatformBrowser(this.platformId) && !this.pFocusTrapDisabled()) {
             !this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement && this.createHiddenFocusableElements();
-        }
-    }
-
-    onChanges(changes: SimpleChanges) {
-        if (changes.pFocusTrapDisabled && isPlatformBrowser(this.platformId)) {
-            if (changes.pFocusTrapDisabled.currentValue) {
-                this.removeHiddenFocusableElements();
-            } else {
-                this.createHiddenFocusableElements();
-            }
         }
     }
 

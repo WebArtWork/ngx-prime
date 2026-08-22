@@ -10,6 +10,10 @@ import { AppCode } from '@/components/doc/app.code';
     imports: [FormsModule, SelectButtonModule, AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
+            <p>
+                <i>p-selectbutton</i>, <i>p-selectButton</i>, and <i>p-select-button</i> are deprecated. Use native <i>pSelectButton</i> and <i>pSelectButtonOption</i> for new groups; the legacy component remains available through v22 for its options
+                renderer and templates.
+            </p>
             <p>SelectButton requires a value to bind and a collection of options.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">

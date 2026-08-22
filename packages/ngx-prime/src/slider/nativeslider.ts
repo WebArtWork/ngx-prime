@@ -1,39 +1,51 @@
 import { booleanAttribute, computed, Directive, ElementRef, inject, input, numberAttribute, output } from '@angular/core';
 import { BaseModelHolder } from 'primeng/basemodelholder';
+import { Bind } from 'primeng/bind';
 import type { SliderChangeEvent, SliderPassThrough, SliderSlideEndEvent } from 'primeng/types/slider';
 import { SliderStyle } from './style/sliderstyle';
 
-/** Adds Prime state attributes to a native range input. */
+/** Adds Prime behavior to a native range input. */
 @Directive({
-    selector: "input[type='range'][pSlider]",
+    selector: "input[type='range'][pRange]",
     standalone: true,
+    exportAs: 'pRange',
     host: {
         '[class]': "cx('root')",
         '[attr.data-pc-name]': "'slider'",
         '[attr.data-pc-section]': "'input'",
+        '[class.p-invalid]': 'invalid()',
         '[attr.data-p-invalid]': 'invalid() || null',
         '[attr.aria-label]': 'ariaLabel() || null',
         '[attr.aria-labelledby]': 'ariaLabelledBy() || null',
+        '[attr.aria-describedby]': 'ariaDescribedBy() || null',
         '[attr.aria-orientation]': 'resolvedOrientation()',
+        '[attr.aria-readonly]': 'readonly() || null',
         '[attr.tabindex]': 'tabindex() ?? null',
+        '[disabled]': '$disabled()',
         '[autofocus]': 'autofocus()',
         '[min]': 'min()',
         '[max]': 'max()',
         '[step]': 'step() ?? "any"',
-        '(input)': 'onInput($event)',
+        '(input)': 'handleInput($event)',
         '(change)': 'onNativeChange($event)',
-        '(blur)': 'touch.emit()'
+        '(focus)': 'onFocus.emit($event)',
+        '(blur)': 'onNativeBlur($event)'
     },
-    providers: [SliderStyle]
+    providers: [SliderStyle],
+    hostDirectives: [Bind]
 })
-export class SliderDirective extends BaseModelHolder<SliderPassThrough> {
+export class RangeDirective extends BaseModelHolder<SliderPassThrough> {
     componentName = 'Slider';
 
     private readonly element = inject<ElementRef<HTMLInputElement>>(ElementRef);
 
+    private readonly bindDirectiveInstance = inject(Bind, { self: true });
+
     _componentStyle = inject(SliderStyle);
 
     invalid = input(false, { transform: booleanAttribute });
+    disabled = input(false, { transform: booleanAttribute });
+    readonly = input(false, { transform: booleanAttribute });
     vertical = input(false, { transform: booleanAttribute });
     orientation = input<'horizontal' | 'vertical'>('horizontal');
     animate = input(false, { transform: booleanAttribute });
@@ -44,17 +56,26 @@ export class SliderDirective extends BaseModelHolder<SliderPassThrough> {
     autofocus = input(false, { transform: booleanAttribute });
     ariaLabel = input<string>();
     ariaLabelledBy = input<string>();
+    ariaDescribedBy = input<string>();
 
     onChange = output<SliderChangeEvent>();
     onSlideEnd = output<SliderSlideEndEvent>();
+    onInput = output<SliderChangeEvent>();
+    onFocus = output<Event>();
+    onBlur = output<Event>();
     touch = output<void>();
 
     resolvedOrientation = computed(() => (this.vertical() ? 'vertical' : this.orientation()));
 
-    onInput(event: Event) {
+    onAfterViewChecked() {
+        this.bindDirectiveInstance.setAttrs(this.ptms(['input', 'root']));
+    }
+
+    handleInput(event: Event) {
         const value = (event.target as HTMLInputElement).valueAsNumber;
 
         this.writeModelValue(value);
+        this.onInput.emit({ event, value });
         this.onChange.emit({ event, value });
     }
 
@@ -66,6 +87,17 @@ export class SliderDirective extends BaseModelHolder<SliderPassThrough> {
     }
 
     $disabled() {
-        return this.element.nativeElement.disabled;
+        // Native range inputs do not support `readonly`; disabled is the
+        // accessible native equivalent for a non-editable range control.
+        return this.disabled() || this.readonly();
+    }
+
+    onNativeBlur(event: Event) {
+        this.touch.emit();
+        this.onBlur.emit(event);
+    }
+
+    focus(options?: FocusOptions) {
+        this.element.nativeElement.focus(options);
     }
 }

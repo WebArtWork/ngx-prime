@@ -6,18 +6,18 @@ import {
     Component,
     computed,
     ContentChild,
+    effect,
     ElementRef,
-    EventEmitter,
     inject,
     InjectionToken,
     input,
-    Input,
+    model,
     NgModule,
     NgZone,
     numberAttribute,
     OnDestroy,
     OnInit,
-    Output,
+    output,
     signal,
     TemplateRef,
     ViewEncapsulation,
@@ -72,11 +72,11 @@ const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');
                         #container
                         [class]="cn(cx('root'), styleClass())"
                         [style]="sx('root')"
-                        [ngStyle]="style"
+                        [ngStyle]="_style"
                         [pBind]="ptm('root')"
                         pFocusTrap
                         [pFocusTrapDisabled]="focusTrap() === false"
-                        [pMotion]="visible"
+                        [pMotion]="visible()"
                         [pMotionAppear]="true"
                         [pMotionName]="'p-dialog'"
                         [pMotionOptions]="computedMotionOptions()"
@@ -404,35 +404,12 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * Specifies the visibility of the dialog.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get visible(): boolean {
-        return this._visible;
-    }
-    set visible(value: boolean) {
-        this._visible = value;
-
-        if (this._visible && !this.maskVisible) {
-            this.maskVisible = true;
-            this.renderMask.set(true);
-            this.renderDialog.set(true);
-        }
-    }
+    readonly visible = model<boolean>(false);
     /**
      * Inline style of the component.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get style(): any {
-        return this._style;
-    }
-    set style(value: any) {
-        if (value) {
-            this._style = { ...value };
-            this.originalStyle = value;
-        }
-    }
+    style = input<any>();
     /**
      * Position of the dialog.
      * @group Props
@@ -453,41 +430,35 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
      * Callback to invoke when dialog is shown.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<any> = new EventEmitter<any>();
+    onShow = output<any>();
     /**
      * Callback to invoke when dialog is hidden.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<any> = new EventEmitter<any>();
-    /**
-     * This EventEmitter is used to notify changes in the visibility state of a component.
-     * @param {boolean} value - New value.
-     * @group Emits
-     */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    onHide = output<any>();
     /**
      * Callback to invoke when dialog resizing is initiated.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onResizeInit: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    onResizeInit = output<MouseEvent>();
     /**
      * Callback to invoke when dialog resizing is completed.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
-    @Output() onResizeEnd: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    onResizeEnd = output<MouseEvent>();
     /**
      * Callback to invoke when dialog dragging is completed.
      * @param {DragEvent} event - Drag event.
      * @group Emits
      */
-    @Output() onDragEnd: EventEmitter<DragEvent> = new EventEmitter<DragEvent>();
+    onDragEnd = output<DragEvent>();
     /**
      * Callback to invoke when dialog maximized or unmaximized.
      * @group Emits
      */
-    @Output() onMaximize: EventEmitter<any> = new EventEmitter<any>();
+    onMaximize = output<any>();
 
     readonly headerViewChild = viewChild<Nullable<ElementRef>>('titlebar');
 
@@ -674,6 +645,29 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         };
     }
 
+    constructor() {
+        super();
+
+        effect(() => {
+            this._visible = this.visible();
+
+            if (this._visible && !this.maskVisible) {
+                this.maskVisible = true;
+                this.renderMask.set(true);
+                this.renderDialog.set(true);
+            }
+        });
+
+        effect(() => {
+            const value = this.style();
+
+            if (value) {
+                this._style = { ...value };
+                this.originalStyle = value;
+            }
+        });
+    }
+
     onInit() {
         if (this.breakpoints()) {
             this.createStyle();
@@ -781,8 +775,7 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
 
     close(event: Event) {
-        this.visible = false;
-        this.visibleChange.emit(this.visible);
+        this.visible.set(false);
         event.preventDefault();
     }
 

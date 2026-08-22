@@ -11,6 +11,7 @@ import { ImportDoc } from '@/doc/inputnumber/import-doc';
 import { InvalidDoc } from '@/doc/inputnumber/invalid-doc';
 import { LocaleDoc } from '@/doc/inputnumber/locale-doc';
 import { NumeralsDoc } from '@/doc/inputnumber/numerals-doc';
+import { NativeDoc } from '@/doc/inputnumber/native-doc';
 import { PrefixSuffixDoc } from '@/doc/inputnumber/prefixsuffix-doc';
 import { PTComponent } from '@/doc/inputnumber/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/inputnumber/reactiveforms-doc';
@@ -39,6 +40,11 @@ export class InputNumberDemo {
             id: 'import',
             label: 'Import',
             component: ImportDoc
+        },
+        {
+            id: 'native',
+            label: 'Native Input',
+            component: NativeDoc
         },
         {
             id: 'numerals',

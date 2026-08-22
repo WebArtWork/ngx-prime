@@ -19,7 +19,8 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     multi: true
 };
 /**
- * SelectButton is used to choose single or multiple items from a list using buttons.
+ * Legacy SelectButton component.
+ * @deprecated since v22, use native `pSelectButton` and `pSelectButtonOption` directives. The legacy component selectors will be removed in v23.
  * @group Components
  */
 @Component({

@@ -9,15 +9,15 @@ import { InputNumberDirective } from '../inputnumber/nativeinputnumber';
 import { PasswordDirective } from '../password/password';
 import { RatingDirective } from '../rating/nativerating';
 import { SelectButtonDirective, SelectButtonOptionDirective } from '../selectbutton/nativeselectbutton';
-import { SliderDirective } from '../slider/nativeslider';
+import { RangeDirective } from '../slider/nativeslider';
 import { ToggleButtonDirective } from '../togglebutton/nativetogglebutton';
 import { ToggleSwitchDirective } from '../toggleswitch/nativetoggleswitch';
 
 @Component({
-    imports: [Field, ToggleSwitchDirective, SliderDirective, InputNumberDirective],
+    imports: [Field, ToggleSwitchDirective, RangeDirective, InputNumberDirective],
     template: `
         <input type="checkbox" pToggleSwitch [field]="nativeForm.enabled" />
-        <input type="range" pSlider [field]="nativeForm.level" min="0" max="10" />
+        <input type="range" pRange [field]="nativeForm.level" min="0" max="10" />
         <input type="number" pInputNumber [field]="nativeForm.quantity" />
     `
 })

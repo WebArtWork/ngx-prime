@@ -4,6 +4,7 @@ import { CustomizedDoc } from '@/doc/togglebutton/customized-doc';
 import { DisabledDoc } from '@/doc/togglebutton/disabled-doc';
 import { ImportDoc } from '@/doc/togglebutton/import-doc';
 import { InvalidDoc } from '@/doc/togglebutton/invalid-doc';
+import { NativeDoc } from '@/doc/togglebutton/native-doc';
 import { ReactiveFormsDoc } from '@/doc/togglebutton/reactiveforms-doc';
 import { SizesDoc } from '@/doc/togglebutton/sizes-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/togglebutton/templatedrivenforms-doc';
@@ -16,7 +17,7 @@ import { AppDoc } from '@/components/doc/app.doc';
     template: `<app-doc
         docTitle="Angular ToggleButton Component"
         header="ToggleButton"
-        description="ToggleButton is used to select a boolean value using a button."
+        description="Use the native pToggleButton directive to select a boolean value with a button. The legacy ToggleButton component is deprecated and remains available through v22."
         [docs]="docs"
         [apiDocs]="['ToggleButton']"
         [ptDocs]="ptComponent"
@@ -37,6 +38,11 @@ export class ToggleButtonDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'native',
+            label: 'Native Button',
+            component: NativeDoc
         },
         {
             id: 'customized',

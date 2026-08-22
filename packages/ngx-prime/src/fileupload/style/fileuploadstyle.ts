@@ -2,8 +2,15 @@ import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/fileupload';
 import { BaseStyle } from 'primeng/base';
 
+const nativeStyle = `
+input[pFileUpload] { cursor: pointer; }
+input[pFileUpload].p-invalid { outline: 1px solid dt('fileupload.invalid.border.color'); outline-offset: 2px; }
+input[pFileUpload]:disabled { cursor: default; opacity: .6; }
+`;
+
 const classes = {
-    root: ({ instance }) => `p-fileupload p-fileupload-${instance.mode} p-component`,
+    input: 'p-fileupload-input p-component',
+    root: ({ instance }) => `p-fileupload p-fileupload-${instance.mode()} p-component`,
     header: 'p-fileupload-header',
     pcChooseButton: 'p-fileupload-choose-button',
     pcUploadButton: 'p-fileupload-upload-button',
@@ -25,7 +32,7 @@ const classes = {
 export class FileUploadStyle extends BaseStyle {
     name = 'fileupload';
 
-    style = style;
+    style = `${style}\n${nativeStyle}`;
 
     classes = classes;
 }

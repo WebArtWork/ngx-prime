@@ -8,6 +8,7 @@ import { ImportDoc } from '@/doc/password/import-doc';
 import { InvalidDoc } from '@/doc/password/invalid-doc';
 import { LocaleDoc } from '@/doc/password/locale-doc';
 import { MeterDoc } from '@/doc/password/meter-doc';
+import { NativeDoc } from '@/doc/password/native-doc';
 import { ReactiveFormsDoc } from '@/doc/password/reactiveforms-doc';
 import { SizesDoc } from '@/doc/password/sizes-doc';
 import { TemplateDoc } from '@/doc/password/template-doc';
@@ -39,6 +40,11 @@ export class PasswordDemo {
             id: 'import',
             label: 'Import',
             component: ImportDoc
+        },
+        {
+            id: 'native',
+            label: 'Native Input',
+            component: NativeDoc
         },
         {
             id: 'basic',

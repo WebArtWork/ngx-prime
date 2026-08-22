@@ -49,7 +49,7 @@ import {
 } from 'primeng/types/fileupload';
 import { Subscription } from 'rxjs';
 import { FileUploadStyle } from './style/fileuploadstyle';
-import { FileUploadDirective } from './nativefileupload';
+import { FileUploadCancelDirective, FileUploadChooseDirective, FileUploadClearDirective, FileUploadDirective, FileUploadDropZoneDirective, FileUploadQueueDirective, FileUploadUploadDirective } from './nativefileupload';
 
 const FILEUPLOAD_INSTANCE = new InjectionToken<FileUpload>('FILEUPLOAD_INSTANCE');
 
@@ -119,6 +119,8 @@ export class FileContent extends BaseComponent {
 }
 /**
  * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
+ *
+ * @deprecated since v22. Compose `pFileUpload`, `pFileUploadQueue`, and its companion directives instead. This component remains available through v22 for compatibility.
  * @group Components
  */
 @Component({
@@ -126,20 +128,30 @@ export class FileContent extends BaseComponent {
     standalone: true,
     imports: [CommonModule, Button, ProgressBar, Message, PlusIcon, UploadIcon, TimesIcon, SharedModule, FileContent, Bind],
     template: `
-        @if (mode === 'advanced') {
-            <div [class]="cn(cx('root'), styleClass)" [ngStyle]="style" [pBind]="ptm('root')">
-                <input [attr.aria-label]="browseFilesLabel" #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [pBind]="ptm('input')" />
+        @if (mode() === 'advanced') {
+            <div [class]="cn(cx('root'), styleClass())" [ngStyle]="style()" [pBind]="ptm('root')">
+                <input
+                    [attr.aria-label]="browseFilesLabel"
+                    #advancedfileinput
+                    type="file"
+                    (change)="onFileSelect($event)"
+                    [multiple]="multiple()"
+                    [accept]="accept()"
+                    [disabled]="disabled() || isChooseDisabled()"
+                    [attr.title]="''"
+                    [pBind]="ptm('input')"
+                />
                 <div [class]="cx('header')" [pBind]="ptm('header')">
                     @if (!headerTemplate() && !_headerTemplate) {
                         <p-button
-                            [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
-                            [disabled]="disabled || isChooseDisabled()"
+                            [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass())"
+                            [disabled]="disabled() || isChooseDisabled()"
                             (focus)="onFocus()"
                             [label]="chooseButtonLabel"
                             (blur)="onBlur()"
                             (onClick)="choose()"
                             (keydown.enter)="choose()"
-                            [buttonProps]="chooseButtonProps"
+                            [buttonProps]="chooseButtonProps()"
                             [pt]="ptm('pcChooseButton')"
                             [unstyled]="unstyled()"
                         >
@@ -148,17 +160,17 @@ export class FileContent extends BaseComponent {
                                 #advancedfileinput
                                 type="file"
                                 (change)="onFileSelect($event)"
-                                [multiple]="multiple"
-                                [accept]="accept"
-                                [disabled]="disabled || isChooseDisabled()"
+                                [multiple]="multiple()"
+                                [accept]="accept()"
+                                [disabled]="disabled() || isChooseDisabled()"
                                 [attr.title]="''"
                                 [pBind]="ptm('input')"
                             />
                             <ng-template #icon>
-                                @if (chooseIcon) {
-                                    <span [class]="chooseIcon" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                                @if (chooseIcon()) {
+                                    <span [class]="chooseIcon()" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon"></span>
                                 }
-                                @if (!chooseIcon) {
+                                @if (!chooseIcon()) {
                                     <ng-container>
                                         @if (!chooseIconTemplate && !_chooseIconTemplate) {
                                             <svg data-p-icon="plus" [attr.aria-label]="true" [pBind]="ptm('pcChooseButton')?.icon" />
@@ -173,21 +185,21 @@ export class FileContent extends BaseComponent {
                             </ng-template>
                         </p-button>
 
-                        @if (!auto && showUploadButton) {
+                        @if (!auto() && showUploadButton()) {
                             <p-button
                                 [label]="uploadButtonLabel"
                                 (onClick)="upload()"
                                 [disabled]="!hasFiles() || isFileLimitExceeded()"
-                                [styleClass]="cn(cx('pcUploadButton'), uploadStyleClass)"
-                                [buttonProps]="uploadButtonProps"
+                                [styleClass]="cn(cx('pcUploadButton'), uploadStyleClass())"
+                                [buttonProps]="uploadButtonProps()"
                                 [pt]="ptm('pcUploadButton')"
                                 [unstyled]="unstyled()"
                             >
                                 <ng-template #icon>
-                                    @if (uploadIcon) {
-                                        <span [ngClass]="uploadIcon" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon"></span>
+                                    @if (uploadIcon()) {
+                                        <span [ngClass]="uploadIcon()" [attr.aria-hidden]="true" [pBind]="ptm('pcUploadButton')?.icon"></span>
                                     }
-                                    @if (!uploadIcon) {
+                                    @if (!uploadIcon()) {
                                         <ng-container>
                                             @if (!uploadIconTemplate && !_uploadIconTemplate) {
                                                 <svg data-p-icon="upload" [pBind]="ptm('pcUploadButton')?.icon" />
@@ -202,21 +214,21 @@ export class FileContent extends BaseComponent {
                                 </ng-template>
                             </p-button>
                         }
-                        @if (!auto && showCancelButton) {
+                        @if (!auto() && showCancelButton()) {
                             <p-button
                                 [label]="cancelButtonLabel"
                                 (onClick)="clear()"
                                 [disabled]="!hasFiles() || uploading"
-                                [styleClass]="cn(cx('pcCancelButton'), cancelStyleClass)"
-                                [buttonProps]="cancelButtonProps"
+                                [styleClass]="cn(cx('pcCancelButton'), cancelStyleClass())"
+                                [buttonProps]="cancelButtonProps()"
                                 [pt]="ptm('pcCancelButton')"
                                 [unstyled]="unstyled()"
                             >
                                 <ng-template #icon>
-                                    @if (cancelIcon) {
-                                        <span [ngClass]="cancelIcon"></span>
+                                    @if (cancelIcon()) {
+                                        <span [ngClass]="cancelIcon()"></span>
                                     }
-                                    @if (!cancelIcon) {
+                                    @if (!cancelIcon()) {
                                         <ng-container>
                                             @if (!cancelIconTemplate && !_cancelIconTemplate) {
                                                 <svg data-p-icon="times" [attr.aria-hidden]="true" />
@@ -283,7 +295,7 @@ export class FileContent extends BaseComponent {
                                         [files]="files"
                                         (onRemove)="onRemoveClick($event)"
                                         [badgeValue]="pendingLabel"
-                                        [previewWidth]="previewWidth"
+                                        [previewWidth]="previewWidth()"
                                         [fileRemoveIconTemplate]="cancelIconTemplate || _cancelIconTemplate"
                                     ></div>
                                 }
@@ -302,7 +314,7 @@ export class FileContent extends BaseComponent {
                                         (onRemove)="onRemoveUploadedFileClick($event)"
                                         [badgeValue]="completedLabel()"
                                         badgeSeverity="success"
-                                        [previewWidth]="previewWidth"
+                                        [previewWidth]="previewWidth()"
                                         [fileRemoveIconTemplate]="cancelIconTemplate || _cancelIconTemplate"
                                     ></div>
                                 }
@@ -315,30 +327,30 @@ export class FileContent extends BaseComponent {
                 </div>
             </div>
         }
-        @if (mode === 'basic') {
-            <div [class]="cn(cx('root'), styleClass)" [pBind]="ptm('root')">
+        @if (mode() === 'basic') {
+            <div [class]="cn(cx('root'), styleClass())" [pBind]="ptm('root')">
                 @for (message of msgs; track message) {
                     <p-message [severity]="message.severity" [text]="message.text" [pt]="ptm('pcMessage')" [unstyled]="unstyled()"></p-message>
                 }
 
                 <div [class]="cx('basicContent')" [pBind]="ptm('basicContent')">
                     <p-button
-                        [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass)"
-                        [disabled]="disabled"
+                        [styleClass]="cn(cx('pcChooseButton'), chooseStyleClass())"
+                        [disabled]="disabled()"
                         [label]="chooseButtonLabel"
-                        [style]="style"
+                        [style]="style()"
                         (onClick)="onBasicUploaderClick()"
                         (keydown)="onBasicKeydown($event)"
-                        [buttonProps]="chooseButtonProps"
+                        [buttonProps]="chooseButtonProps()"
                         [pt]="ptm('pcChooseButton')"
                         [unstyled]="unstyled()"
                     >
                         <ng-template #icon>
-                            @if (hasFiles() && !auto) {
-                                @if (uploadIcon) {
-                                    <span class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                            @if (hasFiles() && !auto()) {
+                                @if (uploadIcon()) {
+                                    <span class="p-button-icon p-button-icon-left" [ngClass]="uploadIcon()" [pBind]="ptm('pcChooseButton')?.icon"></span>
                                 }
-                                @if (!uploadIcon) {
+                                @if (!uploadIcon()) {
                                     <ng-container>
                                         @if (!uploadIconTemplate && !_uploadIconTemplate) {
                                             <svg data-p-icon="upload" [class]="'p-button-icon p-button-icon-left'" [pBind]="ptm('pcChooseButton')?.icon" />
@@ -351,10 +363,10 @@ export class FileContent extends BaseComponent {
                                     </ng-container>
                                 }
                             } @else {
-                                @if (chooseIcon) {
-                                    <span class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon" [pBind]="ptm('pcChooseButton')?.icon"></span>
+                                @if (chooseIcon()) {
+                                    <span class="p-button-icon p-button-icon-left pi" [ngClass]="chooseIcon()" [pBind]="ptm('pcChooseButton')?.icon"></span>
                                 }
-                                @if (!chooseIcon) {
+                                @if (!chooseIcon()) {
                                     <ng-container>
                                         @if (!chooseIconTemplate && !_chooseIconTemplate) {
                                             <svg data-p-icon="plus" [pBind]="ptm('pcChooseButton')?.icon" />
@@ -368,16 +380,16 @@ export class FileContent extends BaseComponent {
                             [attr.aria-label]="browseFilesLabel"
                             #basicfileinput
                             type="file"
-                            [accept]="accept"
-                            [multiple]="multiple"
-                            [disabled]="disabled"
+                            [accept]="accept()"
+                            [multiple]="multiple()"
+                            [disabled]="disabled()"
                             (change)="onFileSelect($event)"
                             (focus)="onFocus()"
                             (blur)="onBlur()"
                             [pBind]="ptm('input')"
                         />
                     </p-button>
-                    @if (!auto) {
+                    @if (!auto()) {
                         @if (!fileLabelTemplate() && !_fileLabelTemplate) {
                             <span>
                                 {{ basicFileChosenLabel() }}
@@ -757,11 +769,11 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     }
 
     public get basicButtonLabel(): string {
-        if (this.auto || !this.hasFiles()) {
-            return this.chooseLabel as string;
+        if (this.auto() || !this.hasFiles()) {
+            return this.chooseLabel() as string;
         }
 
-        return this.uploadLabel ?? this.files[0].name;
+        return this.uploadLabel() ?? this.files[0].name;
     }
 
     public _files: File[] = [];
@@ -802,7 +814,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
     onAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
-            if (this.mode === 'advanced') {
+            if (this.mode() === 'advanced') {
                 this.zone.runOutsideAngular(() => {
                     const content = this.content();
 
@@ -881,7 +893,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     }
 
     basicFileChosenLabel() {
-        if (this.auto) return this.chooseButtonLabel;
+        if (this.auto()) return this.chooseButtonLabel;
         else if (this.hasFiles()) {
             if (this.files && this.files.length === 1) return this.files[0].name;
 
@@ -910,7 +922,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
             return;
         }
 
-        if (!this.multiple) {
+        if (!this.multiple()) {
             this.files = [];
         }
 
@@ -937,7 +949,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         // this will check the fileLimit with the uploaded files
         this.checkFileLimit(files);
 
-        if (this.hasFiles() && this.auto && (this.mode !== 'advanced' || !this.isFileLimitExceeded())) {
+        if (this.hasFiles() && this.auto() && (this.mode() !== 'advanced' || !this.isFileLimitExceeded())) {
             this.upload();
         }
 
@@ -967,8 +979,8 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     validate(file: File): boolean {
         this.msgs = this.msgs || [];
 
-        if (this.accept && !this.isFileTypeValid(file)) {
-            const text = `${this.invalidFileTypeMessageSummary.replace('{0}', file.name)} ${this.invalidFileTypeMessageDetail.replace('{0}', this.accept)}`;
+        if (this.accept() && !this.isFileTypeValid(file)) {
+            const text = `${this.invalidFileTypeMessageSummary().replace('{0}', file.name)} ${this.invalidFileTypeMessageDetail().replace('{0}', this.accept())}`;
 
             this.msgs.push({
                 severity: 'error',
@@ -978,8 +990,8 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
             return false;
         }
 
-        if (this.maxFileSize && file.size > this.maxFileSize) {
-            const text = `${this.invalidFileSizeMessageSummary.replace('{0}', file.name)} ${this.invalidFileSizeMessageDetail.replace('{0}', this.formatSize(this.maxFileSize))}`;
+        if (this.maxFileSize() && file.size > this.maxFileSize()) {
+            const text = `${this.invalidFileSizeMessageSummary().replace('{0}', file.name)} ${this.invalidFileSizeMessageDetail().replace('{0}', this.formatSize(this.maxFileSize()))}`;
 
             this.msgs.push({
                 severity: 'error',
@@ -993,7 +1005,9 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     }
 
     private isFileTypeValid(file: File): boolean {
-        let acceptableTypes = this.accept?.split(',').map((type) => type.trim());
+        let acceptableTypes = this.accept()
+            ?.split(',')
+            .map((type) => type.trim());
 
         for (let type of acceptableTypes!) {
             let acceptable = this.isWildcard(type) ? this.getTypeClass(file.type) === this.getTypeClass(type) : file.type == type || this.getFileExtension(file).toLowerCase() === type.toLowerCase();
@@ -1030,8 +1044,8 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
      * @group Method
      */
     uploader() {
-        if (this.customUpload) {
-            if (this.fileLimit) {
+        if (this.customUpload()) {
+            if (this.fileLimit()) {
                 this.uploadedFileCount += this.files.length;
             }
 
@@ -1050,16 +1064,16 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
             });
 
             for (let i = 0; i < this.files.length; i++) {
-                formData.append(this.name!, this.files[i], this.files[i].name);
+                formData.append(this.name()!, this.files[i], this.files[i].name);
             }
 
             this.http
-                .request(<string>this.method, this.url as string, {
+                .request(<string>this.method(), this.url() as string, {
                     body: formData,
-                    headers: this.headers,
+                    headers: this.headers(),
                     reportProgress: true,
                     observe: 'events',
-                    withCredentials: this.withCredentials
+                    withCredentials: this.withCredentials()
                 })
                 .subscribe(
                     (event: HttpEvent<any>) => {
@@ -1075,7 +1089,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
                                 this.progress = 0;
 
                                 if (event['status'] >= 200 && event['status'] < 300) {
-                                    if (this.fileLimit) {
+                                    if (this.fileLimit()) {
                                         this.uploadedFileCount += this.files.length;
                                     }
 
@@ -1127,7 +1141,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
      */
     clear() {
         this.files = [];
-        this.onClear.emit();
+        this.onClear.emit(undefined);
         this.clearInputElement();
         this.msgs = [];
         this.cd.markForCheck();
@@ -1157,37 +1171,37 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     }
 
     isFileLimitExceeded() {
-        const isAutoMode = this.auto;
+        const isAutoMode = this.auto();
         const totalFileCount = isAutoMode ? this.files.length : this.files.length + this.uploadedFileCount;
 
-        if (this.fileLimit && this.fileLimit <= totalFileCount && this.focus) {
+        if (this.fileLimit() && this.fileLimit() <= totalFileCount && this.focus) {
             this.focus = false;
         }
 
-        return this.fileLimit && this.fileLimit < totalFileCount;
+        return this.fileLimit() && this.fileLimit() < totalFileCount;
     }
 
     isChooseDisabled() {
-        if (this.auto) {
-            return this.fileLimit && this.fileLimit <= this.files.length;
+        if (this.auto()) {
+            return this.fileLimit() && this.fileLimit() <= this.files.length;
         } else {
-            return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+            return this.fileLimit() && this.fileLimit() <= this.files.length + this.uploadedFileCount;
         }
     }
 
     checkFileLimit(files: File[]) {
         this.msgs ??= [];
-        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit && this.fileLimit < files.length;
+        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit() && this.fileLimit() < files.length;
 
         if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
-            const text = `${this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString())} ${this.invalidFileLimitMessageDetail.replace('{0}', (this.fileLimit as number).toString())}`;
+            const text = `${this.invalidFileLimitMessageSummary().replace('{0}', (this.fileLimit() as number).toString())} ${this.invalidFileLimitMessageDetail().replace('{0}', (this.fileLimit() as number).toString())}`;
 
             this.msgs.push({
                 severity: 'error',
                 text: text
             });
         } else {
-            this.msgs = this.msgs.filter((msg) => !msg.text.includes(this.invalidFileLimitMessageSummary));
+            this.msgs = this.msgs.filter((msg) => !msg.text.includes(this.invalidFileLimitMessageSummary()));
         }
     }
 
@@ -1219,14 +1233,14 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     }
 
     onDragEnter(e: DragEvent) {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             e.stopPropagation();
             e.preventDefault();
         }
     }
 
     onDragOver(e: DragEvent) {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             !this.$unstyled() && addClass(this.content()?.nativeElement, 'p-fileupload-highlight');
             this.content()?.nativeElement.setAttribute('data-p-highlight', true);
             this.dragHighlight = true;
@@ -1236,21 +1250,21 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     }
 
     onDragLeave() {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             !this.$unstyled() && removeClass(this.content()?.nativeElement, 'p-fileupload-highlight');
             this.content()?.nativeElement.setAttribute('data-p-highlight', false);
         }
     }
 
     onDrop(event: any) {
-        if (!this.disabled) {
+        if (!this.disabled()) {
             !this.$unstyled() && removeClass(this.content()?.nativeElement, 'p-fileupload-highlight');
             this.content()?.nativeElement.setAttribute('data-p-highlight', false);
             event.stopPropagation();
             event.preventDefault();
 
             let files = event.dataTransfer ? event.dataTransfer.files : event.target.files;
-            let allowDrop = this.multiple || (files && files.length === 1);
+            let allowDrop = this.multiple() || (files && files.length === 1);
 
             if (allowDrop) {
                 this.onFileSelect(event);
@@ -1309,15 +1323,15 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     }
 
     get chooseButtonLabel(): string {
-        return this.chooseLabel || this.config.getTranslation(TranslationKeys.CHOOSE);
+        return this.chooseLabel() || this.config.getTranslation(TranslationKeys.CHOOSE);
     }
 
     get uploadButtonLabel(): string {
-        return this.uploadLabel || this.config.getTranslation(TranslationKeys.UPLOAD);
+        return this.uploadLabel() || this.config.getTranslation(TranslationKeys.UPLOAD);
     }
 
     get cancelButtonLabel(): string {
-        return this.cancelLabel || this.config.getTranslation(TranslationKeys.CANCEL);
+        return this.cancelLabel() || this.config.getTranslation(TranslationKeys.CANCEL);
     }
 
     get browseFilesLabel(): string {
@@ -1345,7 +1359,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 }
 
 @NgModule({
-    imports: [FileUpload, FileUploadDirective, SharedModule],
-    exports: [FileUpload, FileUploadDirective, SharedModule]
+    imports: [FileUpload, FileUploadDirective, FileUploadClearDirective, FileUploadQueueDirective, FileUploadChooseDirective, FileUploadUploadDirective, FileUploadCancelDirective, FileUploadDropZoneDirective, SharedModule],
+    exports: [FileUpload, FileUploadDirective, FileUploadClearDirective, FileUploadQueueDirective, FileUploadChooseDirective, FileUploadUploadDirective, FileUploadCancelDirective, FileUploadDropZoneDirective, SharedModule]
 })
 export class FileUploadModule {}

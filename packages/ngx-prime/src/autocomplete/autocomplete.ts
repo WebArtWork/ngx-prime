@@ -5,17 +5,16 @@ import {
     Component,
     computed,
     ContentChild,
+    effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     InjectionToken,
     input,
-    Input,
     NgModule,
     NgZone,
     numberAttribute,
-    Output,
+    output,
     signal,
     TemplateRef,
     ViewEncapsulation,
@@ -614,16 +613,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      * An array of suggestions to display.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get suggestions(): any[] {
-        return this._suggestions();
-    }
-
-    set suggestions(value: any[]) {
-        this._suggestions.set(value);
-        this.handleSuggestionsChange();
-    }
+    readonly suggestions = input<any[]>();
 
     /**
      * Property name or getter function to use as the label of an option.
@@ -640,6 +630,12 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      * @group Props
      */
     readonly id = input<string>();
+
+    private _generatedId: string | undefined;
+
+    get resolvedId(): string {
+        return this.id() || (this._generatedId ??= uuid('pn_id_'));
+    }
     /**
      * Text to display when the search is active. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -716,79 +712,79 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
      * @group Emits
      */
-    @Output() completeMethod: EventEmitter<AutoCompleteCompleteEvent> = new EventEmitter<AutoCompleteCompleteEvent>();
+    completeMethod = output<AutoCompleteCompleteEvent>();
     /**
      * Callback to invoke when a suggestion is selected.
      * @param {AutoCompleteSelectEvent} event - custom select event.
      * @group Emits
      */
-    @Output() onSelect: EventEmitter<AutoCompleteSelectEvent> = new EventEmitter<AutoCompleteSelectEvent>();
+    onSelect = output<AutoCompleteSelectEvent>();
     /**
      * Callback to invoke when a selected value is removed.
      * @param {AutoCompleteUnselectEvent} event - custom unselect event.
      * @group Emits
      */
-    @Output() onUnselect: EventEmitter<AutoCompleteUnselectEvent> = new EventEmitter<AutoCompleteUnselectEvent>();
+    onUnselect = output<AutoCompleteUnselectEvent>();
     /**
      * Callback to invoke when an item is added via addOnBlur or separator features.
      * @param {AutoCompleteAddEvent} event - Custom add event.
      * @group Emits
      */
-    @Output() onAdd: EventEmitter<AutoCompleteAddEvent> = new EventEmitter<AutoCompleteAddEvent>();
+    onAdd = output<AutoCompleteAddEvent>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter();
+    onFocus = output<Event>();
     /**
      * Callback to invoke when the component loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter();
+    onBlur = output<Event>();
     /**
      * Callback to invoke to when dropdown button is clicked.
      * @param {AutoCompleteDropdownClickEvent} event - custom dropdown click event.
      * @group Emits
      */
-    @Output() onDropdownClick: EventEmitter<AutoCompleteDropdownClickEvent> = new EventEmitter<AutoCompleteDropdownClickEvent>();
+    onDropdownClick = output<AutoCompleteDropdownClickEvent>();
     /**
      * Callback to invoke when clear button is clicked.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<Event | undefined> = new EventEmitter<Event | undefined>();
+    onClear = output<Event | undefined>();
     /**
      * Callback to invoke on input key down.
      * @param {KeyboardEvent} event - Keyboard event.
      * @group Emits
      */
-    @Output() onInputKeydown: EventEmitter<KeyboardEvent> = new EventEmitter<KeyboardEvent>();
+    onInputKeydown = output<KeyboardEvent>();
     /**
      * Callback to invoke on input key up.
      * @param {KeyboardEvent} event - Keyboard event.
      * @group Emits
      */
-    @Output() onKeyUp: EventEmitter<KeyboardEvent> = new EventEmitter();
+    onKeyUp = output<KeyboardEvent>();
     /**
      * Callback to invoke on overlay is shown.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<Event> = new EventEmitter<Event>();
+    onShow = output<Event | undefined>();
     /**
      * Callback to invoke on overlay is hidden.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<Event> = new EventEmitter<Event>();
+    onHide = output<Event | undefined>();
     /**
      * Callback to invoke on lazy load data.
      * @param {AutoCompleteLazyLoadEvent} event - Lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<AutoCompleteLazyLoadEvent> = new EventEmitter<AutoCompleteLazyLoadEvent>();
+    onLazyLoad = output<AutoCompleteLazyLoadEvent>();
 
     readonly inputEL = viewChild<Nullable<ElementRef>>('focusInput');
 
@@ -936,7 +932,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((option: any) => equals(option, modelValue, this.equalityKey())) : modelValue;
+        const selectedOption = this.optionValueSelected ? (this._suggestions() || []).find((option: any) => equals(option, modelValue, this.equalityKey())) : modelValue;
 
         if (isNotEmpty(modelValue)) {
             if (typeof modelValue === 'object' || this.optionValueSelected) {
@@ -952,11 +948,11 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     });
 
     get focusedMultipleOptionId() {
-        return this.focusedMultipleOptionIndex() !== -1 ? `${this.id()}_multiple_option_${this.focusedMultipleOptionIndex()}` : null;
+        return this.focusedMultipleOptionIndex() !== -1 ? `${this.resolvedId}_multiple_option_${this.focusedMultipleOptionIndex()}` : null;
     }
 
     get focusedOptionId() {
-        return this.focusedOptionIndex() !== -1 ? `${this.id()}_${this.focusedOptionIndex()}` : null;
+        return this.focusedOptionIndex() !== -1 ? `${this.resolvedId}_${this.focusedOptionIndex()}` : null;
     }
 
     get searchResultMessageText() {
@@ -1003,8 +999,17 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         return this._componentStyle.classes.chipItem({ instance: this, i: index });
     }
 
+    constructor() {
+        super();
+
+        effect(() => {
+            this._suggestions.set(this.suggestions());
+
+            this.handleSuggestionsChange();
+        });
+    }
+
     onInit() {
-        this.id = this.id() || uuid('pn_id_');
         this.cd.detectChanges();
     }
 
@@ -1248,7 +1253,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             }
 
             if (query.length === 0 && !multiple) {
-                this.onClear.emit();
+                this.onClear.emit(undefined);
 
                 setTimeout(() => {
                     this.hide();
@@ -1810,7 +1815,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
     }
 
     scrollInView(index = -1) {
-        const id = index !== -1 ? `${this.id()}_${index}` : this.focusedOptionId;
+        const id = index !== -1 ? `${this.resolvedId}_${index}` : this.focusedOptionId;
         const itemsViewChild = this.itemsViewChild();
 
         if (itemsViewChild && itemsViewChild.nativeElement) {
@@ -1849,7 +1854,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             focus(this.inputEL()?.nativeElement);
         }
 
-        this.onShow.emit();
+        this.onShow.emit(undefined);
         this.cd.markForCheck();
     }
 
@@ -1859,7 +1864,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             this.overlayVisible = false;
             this.focusedOptionIndex.set(-1);
             isFocus && focus(this.inputEL()?.nativeElement);
-            this.onHide.emit();
+            this.onHide.emit(undefined);
             this.updateInputWithForceSelection(null);
             this.cd.markForCheck();
         };
@@ -1874,7 +1879,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         const inputEL = this.inputEL();
 
         inputEL?.nativeElement && (inputEL.nativeElement.value = '');
-        this.onClear.emit();
+        this.onClear.emit(undefined);
     }
 
     hasSelectedOption() {

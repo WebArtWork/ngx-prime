@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { providePrimeNG } from 'primeng/config';
 import { InputNumber, InputNumberModule } from './inputnumber';
+import { InputNumberDirective } from './nativeinputnumber';
 
 // Test Components
 @Component({
@@ -1564,5 +1566,127 @@ describe('InputNumber', () => {
                 }
             });
         });
+    });
+});
+
+@Component({
+    template: `
+        <input
+            type="number"
+            pInputNumber
+            [min]="min"
+            [max]="max"
+            [step]="step"
+            [invalid]="invalid"
+            [required]="required"
+            [readonly]="readonly"
+            [disabled]="disabled"
+            [ariaLabel]="'Quantity'"
+            (onInput)="inputEvent = $event"
+            (onFocus)="focused = true"
+            (onBlur)="blurred = true"
+        />
+    `,
+    imports: [InputNumberDirective]
+})
+class TestNativeInputNumberDirectiveComponent {
+    min = 0;
+    max = 10;
+    step = 0.5;
+    invalid = false;
+    required = false;
+    readonly = false;
+    disabled = false;
+    inputEvent: unknown;
+    focused = false;
+    blurred = false;
+}
+
+@Component({
+    template: `<input type="number" pInputNumber [formField]="numberForm.amount" />`,
+    imports: [InputNumberDirective, FormField]
+})
+class TestNativeInputNumberSignalFormComponent {
+    readonly model = signal({ amount: 0 });
+    readonly numberForm = form(this.model);
+}
+
+describe('InputNumberDirective', () => {
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestNativeInputNumberDirectiveComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+    });
+
+    it('applies native number constraints and emits typed input values', async () => {
+        const fixture = TestBed.createComponent(TestNativeInputNumberDirectiveComponent);
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        input.value = '2.5';
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('focus'));
+        input.dispatchEvent(new Event('blur'));
+        await fixture.whenStable();
+
+        expect(input.min).toBe('0');
+        expect(input.max).toBe('10');
+        expect(input.step).toBe('0.5');
+        expect(input.getAttribute('aria-label')).toBe('Quantity');
+        expect(fixture.componentInstance.inputEvent).toEqual(jasmine.objectContaining({ value: 2.5, formattedValue: '2.5' }));
+        expect(fixture.componentInstance.focused).toBe(true);
+        expect(fixture.componentInstance.blurred).toBe(true);
+    });
+
+    it('uses the browser step API and honours readonly and disabled states', async () => {
+        const fixture = TestBed.createComponent(TestNativeInputNumberDirectiveComponent);
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+        const directive = fixture.debugElement.query(By.directive(InputNumberDirective)).injector.get(InputNumberDirective);
+
+        input.value = '1';
+        directive.increment();
+        expect(input.value).toBe('1.5');
+        directive.decrement();
+        expect(input.value).toBe('1');
+
+        fixture.componentInstance.readonly = true;
+        fixture.detectChanges();
+        directive.increment();
+        expect(input.value).toBe('1');
+
+        fixture.componentInstance.readonly = false;
+        fixture.componentInstance.disabled = true;
+        fixture.detectChanges();
+        directive.increment();
+        expect(input.value).toBe('1');
+    });
+
+    it('works with Signal Forms on a native number input', async () => {
+        await TestBed.resetTestingModule();
+        await TestBed.configureTestingModule({
+            imports: [TestNativeInputNumberSignalFormComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+
+        const fixture = TestBed.createComponent(TestNativeInputNumberSignalFormComponent);
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        input.value = '7';
+        input.dispatchEvent(new Event('input'));
+        await fixture.whenStable();
+
+        expect(fixture.componentInstance.model().amount).toBe(7);
     });
 });

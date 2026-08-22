@@ -4,6 +4,7 @@ import { DisabledDoc } from '@/doc/colorpicker/disabled-doc';
 import { FormatDoc } from '@/doc/colorpicker/format-doc';
 import { ImportDoc } from '@/doc/colorpicker/import-doc';
 import { InlineDoc } from '@/doc/colorpicker/inline-doc';
+import { NativeDoc } from '@/doc/colorpicker/native-doc';
 import { PTComponent } from '@/doc/colorpicker/pt/PTComponent';
 import { ReactiveFormsDoc } from '@/doc/colorpicker/reactiveforms-doc';
 import { TemplateDrivenFormsDoc } from '@/doc/colorpicker/templatedrivenforms-doc';
@@ -30,6 +31,7 @@ export class ColorPickerDemo {
             label: 'Import',
             component: ImportDoc
         },
+        { id: 'native', label: 'Native Input', component: NativeDoc },
         {
             id: 'basic',
             label: 'Basic',

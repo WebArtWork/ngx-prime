@@ -43,6 +43,11 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 };
 /**
  * InputNumber is an input component to provide numerical input.
+ *
+ * @deprecated Use a native `<input type="number" pInputNumber>` instead.
+ * Locale/currency formatting, prefixes/suffixes, and custom spinner/template
+ * UI are wrapper-only features. This component remains available for
+ * compatibility and is planned for removal in v23.
  * @group Components
  */
 @Component({

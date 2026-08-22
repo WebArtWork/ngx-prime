@@ -5,17 +5,16 @@ import {
     Component,
     computed,
     ContentChild,
+    effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     InjectionToken,
     model,
     NgModule,
     numberAttribute,
-    Output,
+    output,
     signal,
-    SimpleChanges,
     TemplateRef,
     ViewEncapsulation,
     contentChild,
@@ -289,7 +288,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
     get subNodes(): TreeNode[] | undefined {
         const node = this.node();
 
-        return node?.parent ? node.parent.children : this.tree.value();
+        return node?.parent ? node.parent.children : this.tree._valueBacking;
     }
 
     getPTOptions(key: string) {
@@ -317,7 +316,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
         if (parentNode && !pDialogWrapper) {
             this.setAllNodesTabIndexes();
-            this.tree.syncNodeOption(<TreeNode>this.node(), <TreeNode<any>[]>this.tree.value(), 'parent', this.tree.getNodeWithKey(<string>parentNode.key, <TreeNode<any>[]>this.tree.value()));
+            this.tree.syncNodeOption(<TreeNode>this.node(), <TreeNode<any>[]>this.tree._valueBacking, 'parent', this.tree.getNodeWithKey(<string>parentNode.key, <TreeNode<any>[]>this.tree._valueBacking));
         }
     }
 
@@ -804,7 +803,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         }
         <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate"></ng-container>
         @if (filterTemplate || _filterTemplate) {
-            <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: filterOptions() }"></ng-container>
+            <ng-container *ngTemplateOutlet="filterTemplate || _filterTemplate; context: { $implicit: _filterOptionsBacking }"></ng-container>
         } @else {
             @if (filter()) {
                 <p-iconfield [class]="cx('pcFilterContainer')" [pt]="ptm('pcFilterContainer')" [unstyled]="unstyled()">
@@ -1143,67 +1142,67 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      * @param {TreeNodeSelectEvent} event - Node select event.
      * @group Emits
      */
-    @Output() onNodeSelect: EventEmitter<TreeNodeSelectEvent> = new EventEmitter<TreeNodeSelectEvent>();
+    onNodeSelect = output<TreeNodeSelectEvent>();
     /**
      * Callback to invoke when a node is unselected.
      * @param {TreeNodeUnSelectEvent} event - Node unselect event.
      * @group Emits
      */
-    @Output() onNodeUnselect: EventEmitter<TreeNodeUnSelectEvent> = new EventEmitter<TreeNodeUnSelectEvent>();
+    onNodeUnselect = output<TreeNodeUnSelectEvent>();
     /**
      * Callback to invoke when a node is expanded.
      * @param {TreeNodeExpandEvent} event - Node expand event.
      * @group Emits
      */
-    @Output() onNodeExpand: EventEmitter<TreeNodeExpandEvent> = new EventEmitter<TreeNodeExpandEvent>();
+    onNodeExpand = output<TreeNodeExpandEvent>();
     /**
      * Callback to invoke when a node is collapsed.
      * @param {TreeNodeCollapseEvent} event - Node collapse event.
      * @group Emits
      */
-    @Output() onNodeCollapse: EventEmitter<TreeNodeCollapseEvent> = new EventEmitter<TreeNodeCollapseEvent>();
+    onNodeCollapse = output<TreeNodeCollapseEvent>();
     /**
      * Callback to invoke when a node is selected with right click.
      * @param {onNodeContextMenuSelect} event - Node context menu select event.
      * @group Emits
      */
-    @Output() onNodeContextMenuSelect: EventEmitter<TreeNodeContextMenuSelectEvent> = new EventEmitter<TreeNodeContextMenuSelectEvent>();
+    onNodeContextMenuSelect = output<TreeNodeContextMenuSelectEvent>();
     /**
      * Callback to invoke when a node is double clicked.
      * @param {TreeNodeDoubleClickEvent} event - Node double click event.
      * @group Emits
      */
-    @Output() onNodeDoubleClick: EventEmitter<TreeNodeDoubleClickEvent> = new EventEmitter<TreeNodeDoubleClickEvent>();
+    onNodeDoubleClick = output<TreeNodeDoubleClickEvent>();
     /**
      * Callback to invoke when a node is dropped.
      * @param {TreeNodeDropEvent} event - Node drop event.
      * @group Emits
      */
-    @Output() onNodeDrop: EventEmitter<TreeNodeDropEvent> = new EventEmitter<TreeNodeDropEvent>();
+    onNodeDrop = output<TreeNodeDropEvent>();
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {TreeLazyLoadEvent} event - Custom lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<TreeLazyLoadEvent> = new EventEmitter<TreeLazyLoadEvent>();
+    onLazyLoad = output<TreeLazyLoadEvent>();
     /**
      * Callback to invoke in virtual scroll mode when scroll position changes.
      * @param {TreeScrollEvent} event - Custom scroll event.
      * @group Emits
      */
-    @Output() onScroll: EventEmitter<TreeScrollEvent> = new EventEmitter<TreeScrollEvent>();
+    onScroll = output<TreeScrollEvent>();
     /**
      * Callback to invoke in virtual scroll mode when scroll position and item's range in view changes.
      * @param {TreeScrollIndexChangeEvent} event - Scroll index change event.
      * @group Emits
      */
-    @Output() onScrollIndexChange: EventEmitter<TreeScrollIndexChangeEvent> = new EventEmitter<TreeScrollIndexChangeEvent>();
+    onScrollIndexChange = output<TreeScrollIndexChangeEvent>();
     /**
      * Callback to invoke when data is filtered.
      * @param {TreeFilterEvent} event - Custom filter event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<TreeFilterEvent> = new EventEmitter<TreeFilterEvent>();
+    onFilter = output<TreeFilterEvent>();
     /**
      * Custom filter template.
      * @param {TreeFilterTemplateContext} context - filter context.
@@ -1293,7 +1292,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
     onAfterContentInit() {
         if (this.templates().length) {
-            this._templateMap = {};
+            this._templateMapBacking = {};
         }
 
         this.templates().forEach((item) => {
@@ -1335,7 +1334,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
                     break;
 
                 default:
-                    this._templateMap()[<any>item.name()] = item.template;
+                    this._templateMapBacking[<any>item.name()] = item.template;
                     break;
             }
         });
@@ -1379,9 +1378,47 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
         this.onDragLeave(event);
     }
 
+    _templateMapBacking: any;
+
+    _filterOptionsBacking: any;
+
+    _filteredNodesBacking: TreeNode<any>[] | null | undefined;
+
+    _valueBacking: TreeNode<any> | TreeNode<any>[] | any[] | any;
+
+    constructor() {
+        super();
+
+        effect(() => {
+            this._valueBacking = this.value();
+        });
+
+        effect(() => {
+            this._templateMapBacking = this._templateMap();
+        });
+
+        effect(() => {
+            this._filterOptionsBacking = this.filterOptions();
+        });
+
+        effect(() => {
+            this._filteredNodesBacking = this.filteredNodes();
+        });
+
+        effect(() => {
+            this.value();
+
+            this.updateSerializedValue();
+
+            if (this.hasFilterActive()) {
+                this._filter(this.filterViewChild()?.nativeElement?.value);
+            }
+        });
+    }
+
     onInit() {
         if (this.filterBy()) {
-            this.filterOptions = {
+            this._filterOptionsBacking = {
                 filter: (value) => this._filter(value),
                 reset: () => this.resetFilter()
             };
@@ -1404,16 +1441,6 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
                 this.dragNodeScope = null;
                 this.dragHover = false;
             });
-        }
-    }
-
-    onChanges(simpleChange: SimpleChanges) {
-        if (simpleChange.value) {
-            this.updateSerializedValue();
-
-            if (this.hasFilterActive()) {
-                this._filter(this.filterViewChild()?.nativeElement?.value);
-            }
         }
     }
 
@@ -1466,7 +1493,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
             }
 
             if (this.hasFilteredNodes()) {
-                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.filteredNodes()) as TreeNode;
+                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this._filteredNodesBacking) as TreeNode;
 
                 if (!node) {
                     return;
@@ -1641,7 +1668,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
     }
 
     hasFilteredNodes() {
-        const filteredNodes = this.filteredNodes();
+        const filteredNodes = this._filteredNodesBacking;
 
         return this.filter() && filteredNodes && filteredNodes.length;
     }
@@ -1697,7 +1724,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
                 else node.partialSelected = false;
             }
 
-            this.syncNodeOption(node, <TreeNode<any>[]>this.filteredNodes(), 'partialSelected');
+            this.syncNodeOption(node, <TreeNode<any>[]>this._filteredNodesBacking, 'partialSelected');
         }
 
         let parent = node.parent;
@@ -1719,7 +1746,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
         node.partialSelected = false;
 
-        this.syncNodeOption(node, <TreeNode<any>[]>this.filteredNodes(), 'partialSelected');
+        this.syncNodeOption(node, <TreeNode<any>[]>this._filteredNodesBacking, 'partialSelected');
 
         if (node.children && node.children.length) {
             for (let child of node.children) {
@@ -1755,13 +1782,13 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
     }
 
     getRootNode() {
-        const filteredNodes = this.filteredNodes();
+        const filteredNodes = this._filteredNodesBacking;
 
-        return filteredNodes ? filteredNodes : this.value();
+        return filteredNodes ? filteredNodes : this._valueBacking;
     }
 
     getTemplateForNode(node: TreeNode): TemplateRef<any> | null {
-        const _templateMap = this._templateMap();
+        const _templateMap = this._templateMapBacking;
 
         if (_templateMap) return node.type ? _templateMap[node.type] : _templateMap['default'];
         else return null;
@@ -1786,7 +1813,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
             if (this.allowDrop(dragNode, null, this.dragNodeScope)) {
                 let dragNodeIndex = <number>this.dragNodeIndex;
 
-                this.value = this.value() || [];
+                this._valueBacking = this._valueBacking || [];
 
                 if (this.validateDrop()) {
                     this.onNodeDrop.emit({
@@ -1814,7 +1841,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
     processTreeDrop(dragNode: TreeNode, dragNodeIndex: number) {
         (<TreeNode<any>[]>this.dragNodeSubNodes).splice(dragNodeIndex, 1);
-        (this.value() as TreeNode<any>[]).push(dragNode);
+        (this._valueBacking as TreeNode<any>[]).push(dragNode);
         this.dragDropService!.stopDrag({
             node: dragNode
         });
@@ -1905,14 +1932,14 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
         let filterValue = value;
 
         if (filterValue === '') {
-            this.filteredNodes = null;
+            this._filteredNodesBacking = null;
         } else {
-            this.filteredNodes = [];
+            this._filteredNodesBacking = [];
             const searchFields: string[] = this.filterBy().split(',');
             const filterText = removeAccents(filterValue).toLocaleLowerCase(this.filterLocale());
             const isStrictMode = this.filterMode() === 'strict';
 
-            for (let node of <TreeNode<any>[]>this.value()) {
+            for (let node of <TreeNode<any>[]>this._valueBacking) {
                 let copyNode = { ...node };
                 let paramsWithoutNode = { searchFields, filterText, isStrictMode };
 
@@ -1920,7 +1947,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
                     (isStrictMode && (this.findFilteredNodes(copyNode, paramsWithoutNode) || this.isFilterMatched(copyNode, paramsWithoutNode))) ||
                     (!isStrictMode && (this.isFilterMatched(copyNode, paramsWithoutNode) || this.findFilteredNodes(copyNode, paramsWithoutNode)))
                 ) {
-                    this.filteredNodes().push(copyNode);
+                    this._filteredNodesBacking!.push(copyNode);
                 }
             }
         }
@@ -1928,7 +1955,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
         this.updateSerializedValue();
         this.onFilter.emit({
             filter: filterValue,
-            filteredValue: this.filteredNodes()
+            filteredValue: this._filteredNodesBacking
         });
     }
 
@@ -1937,7 +1964,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
      * @group Method
      */
     public resetFilter() {
-        this.filteredNodes = null;
+        this._filteredNodesBacking = null;
 
         const filterViewChild = this.filterViewChild();
 

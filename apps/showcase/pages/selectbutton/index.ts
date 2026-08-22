@@ -4,6 +4,7 @@ import { DisabledDoc } from '@/doc/selectbutton/disabled-doc';
 import { ImportDoc } from '@/doc/selectbutton/import-doc';
 import { InvalidDoc } from '@/doc/selectbutton/invalid-doc';
 import { MultipleDoc } from '@/doc/selectbutton/multiple-doc';
+import { NativeDoc } from '@/doc/selectbutton/native-doc';
 import { ReactiveFormsDoc } from '@/doc/selectbutton/reactiveforms-doc';
 import { SizesDoc } from '@/doc/selectbutton/sizes-doc';
 import { TemplateDoc } from '@/doc/selectbutton/template-doc';
@@ -17,7 +18,7 @@ import { Component } from '@angular/core';
     template: `<app-doc
         docTitle="Angular SelectButton Component"
         header="SelectButton"
-        description="SelectButton is used to choose single or multiple items from a list using buttons."
+        description="Use native pSelectButton directives to choose single or multiple values with buttons. The legacy SelectButton component is deprecated and remains available through v22."
         [docs]="docs"
         [apiDocs]="['SelectButton']"
         [ptDocs]="ptComponent"
@@ -39,6 +40,11 @@ export class SelectButtonDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'native',
+            label: 'Native Buttons',
+            component: NativeDoc
         },
         {
             id: 'multiple',

@@ -11,13 +11,21 @@ import type { ToggleButtonPassThrough } from 'primeng/types/togglebutton';
  */
 export interface SelectButtonPassThroughOptions<I = unknown> {
     /**
+     * Used to pass attributes to a native element enhanced with `pSelectButton`.
+     */
+    group?: PassThroughOption<HTMLElement, I>;
+    /**
+     * Used to pass attributes to a native button enhanced with `pSelectButtonOption`.
+     */
+    option?: PassThroughOption<HTMLButtonElement, I>;
+    /**
      * Used to pass attributes to the host's DOM element.
      */
     host?: PassThroughOption<HTMLElement, I>;
     /**
      * Used to pass attributes to the root's DOM element.
      */
-    root?: PassThroughOption<HTMLDivElement, I>;
+    root?: PassThroughOption<HTMLElement, I>;
     /**
      * Used to pass attributes to the ToggleButton component.
      * @see {@link ToggleButtonPassThrough}

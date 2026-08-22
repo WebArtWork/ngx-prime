@@ -53,16 +53,20 @@ type Meter = {
     width: string;
 };
 /**
- * Password directive.
+ * Adds password feedback and form integration to a native input.
  * @group Components
  */
 @Directive({
-    selector: '[pPassword]',
+    selector: 'input[pPassword]',
     standalone: true,
+    exportAs: 'pPassword',
     host: {
         '[class]': "cx('rootDirective')",
-        '(input)': 'onInput()',
-        '(blur)': 'touch.emit()'
+        '(input)': 'onInput($event)',
+        '(focus)': 'handleFocus($event)',
+        '(blur)': 'handleBlur($event)',
+        '(keyup)': 'onKeyup($event)',
+        '(keydown.escape)': 'hideOverlay()'
     },
     providers: [PasswordStyle, { provide: PASSWORD_DIRECTIVE_INSTANCE, useExisting: PasswordDirective }, { provide: PARENT_INSTANCE, useExisting: PasswordDirective }],
     hostDirectives: [Bind]
@@ -90,6 +94,18 @@ export class PasswordDirective extends BaseEditableHolder {
     /** Signals that a Signal Forms field has been touched. */
     touch = output<void>();
 
+    /** Emits when the native input receives focus. */
+    onFocus = output<Event>();
+
+    /** Emits when the native input loses focus. */
+    onBlur = output<Event>();
+
+    /** Emits whenever the password visibility changes. */
+    onMaskChange = output<boolean>();
+
+    /** Emits after a native password input has been cleared. */
+    onClear = output<void>();
+
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
@@ -113,6 +129,12 @@ export class PasswordDirective extends BaseEditableHolder {
      * @group Props
      */
     strongLabel = input('Strong');
+
+    /** Regex used to classify medium-strength passwords. */
+    mediumRegex = input('^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})');
+
+    /** Regex used to classify strong passwords. */
+    strongRegex = input('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
     /**
      * Whether to show the strength indicator or not.
      * @group Props
@@ -125,6 +147,9 @@ export class PasswordDirective extends BaseEditableHolder {
      * @group Props
      */
     showPassword = input(false, { transform: booleanAttribute });
+
+    /** Whether the native input is currently shown as plain text. */
+    readonly visible = signal(false);
     /**
      * Specifies the input variant of the component.
      * @defaultValue 'outlined'
@@ -185,12 +210,15 @@ export class PasswordDirective extends BaseEditableHolder {
         });
 
         effect(() => {
-            this.el.nativeElement.type = this.showPassword() ? 'text' : 'password';
+            this.setVisible(this.showPassword(), false);
         });
     }
 
-    onInput() {
-        this.writeModelValue(this.el.nativeElement.value);
+    onInput(event?: Event) {
+        const input = (event?.target as HTMLInputElement | undefined) ?? this.el.nativeElement;
+
+        this.writeModelValue(input.value);
+        this.updateFeedback();
     }
 
     createPanel() {
@@ -198,6 +226,8 @@ export class PasswordDirective extends BaseEditableHolder {
             this.panel = this.renderer.createElement('div');
             this.renderer.addClass(this.panel, 'p-password-overlay');
             this.renderer.addClass(this.panel, 'p-component');
+            this.renderer.setAttribute(this.panel, 'role', 'status');
+            this.renderer.setAttribute(this.panel, 'aria-live', 'polite');
 
             this.content = this.renderer.createElement('div');
             this.renderer.addClass(this.content, 'p-password-content');
@@ -256,12 +286,15 @@ export class PasswordDirective extends BaseEditableHolder {
         }
     }
 
-    onFocus() {
+    handleFocus(event?: Event) {
         this.showOverlay();
+        this.onFocus.emit(event!);
     }
 
-    onBlur() {
+    handleBlur(event?: Event) {
         this.hideOverlay();
+        this.touch.emit();
+        this.onBlur.emit(event!);
     }
 
     labelSignal = signal('');
@@ -276,7 +309,7 @@ export class PasswordDirective extends BaseEditableHolder {
                 label = this.promptLabel();
                 meterPos = '0px 0px';
             } else {
-                let score = this.testStrength(value);
+                const score = this.testStrength(value);
 
                 if (score < 30) {
                     label = this.weakLabel();
@@ -319,6 +352,40 @@ export class PasswordDirective extends BaseEditableHolder {
         }
     }
 
+    /** Toggles between password and plain-text display while preserving focus. */
+    toggleMask() {
+        this.setVisible(!this.visible());
+        this.focus();
+    }
+
+    focus(options?: FocusOptions) {
+        this.el.nativeElement.focus(options);
+    }
+
+    clear() {
+        this.el.nativeElement.value = '';
+        this.writeModelValue('');
+        this.updateFeedback();
+        this.el.nativeElement.dispatchEvent(new Event('input', { bubbles: true }));
+        this.onClear.emit();
+        this.focus();
+    }
+
+    private setVisible(visible: boolean, emit = true) {
+        this.visible.set(visible);
+        this.el.nativeElement.type = visible ? 'text' : 'password';
+
+        if (emit) {
+            this.onMaskChange.emit(visible);
+        }
+    }
+
+    private updateFeedback() {
+        if (this.feedback()) {
+            this.onKeyup({ target: this.el.nativeElement } as Event);
+        }
+    }
+
     getWidth(label: string) {
         return label === 'weak' ? '33.33%' : label === 'medium' ? '66.66%' : label === 'strong' ? '100%' : '';
     }
@@ -330,6 +397,9 @@ export class PasswordDirective extends BaseEditableHolder {
     testStrength(str: string) {
         let grade: number = 0;
         let val: Nullable<RegExpMatchArray>;
+
+        if (new RegExp(this.strongRegex()).test(str)) return 100;
+        if (new RegExp(this.mediumRegex()).test(str)) return 50;
 
         val = str.match('[0-9]');
         grade += this.normalize(val ? val.length : 1 / 4, 1) * 25;
@@ -413,6 +483,64 @@ export class PasswordDirective extends BaseEditableHolder {
     }
 }
 
+/**
+ * Attaches an accessible visibility toggle to a native `pPassword` input.
+ *
+ * @example
+ * ```html
+ * <input pPassword #password="pPassword" />
+ * <button type="button" [pPasswordToggleMask]="password">Show password</button>
+ * ```
+ */
+@Directive({
+    selector: 'button[pPasswordToggleMask]',
+    standalone: true,
+    host: {
+        type: 'button',
+        class: 'p-password-toggle-mask-icon',
+        '[attr.aria-pressed]': 'password().visible()',
+        '[attr.aria-label]': 'ariaLabel()',
+        '[disabled]': 'password().el.nativeElement.disabled',
+        '(click)': 'toggle()'
+    }
+})
+export class PasswordToggleMaskDirective {
+    password = input.required<PasswordDirective>({ alias: 'pPasswordToggleMask' });
+    showLabel = input('Show password');
+    hideLabel = input('Hide password');
+
+    ariaLabel = computed(() => (this.password().visible() ? this.hideLabel() : this.showLabel()));
+
+    toggle() {
+        if (!this.password().el.nativeElement.disabled && !this.password().el.nativeElement.readOnly) {
+            this.password().toggleMask();
+        }
+    }
+}
+
+/** Clears a native `pPassword` input while retaining normal form semantics. */
+@Directive({
+    selector: 'button[pPasswordClear]',
+    standalone: true,
+    host: {
+        type: 'button',
+        class: 'p-password-clear-icon',
+        '[attr.aria-label]': 'ariaLabel()',
+        '[disabled]': 'password().el.nativeElement.disabled',
+        '(click)': 'clear()'
+    }
+})
+export class PasswordClearDirective {
+    password = input.required<PasswordDirective>({ alias: 'pPasswordClear' });
+    ariaLabel = input('Clear password');
+
+    clear() {
+        if (!this.password().el.nativeElement.disabled && !this.password().el.nativeElement.readOnly) {
+            this.password().clear();
+        }
+    }
+}
+
 type Mapper<T, G> = (item: T, ...args: any[]) => G;
 
 @Pipe({
@@ -433,6 +561,11 @@ export const Password_VALUE_ACCESSOR: any = {
 };
 /**
  * Password displays strength indicator for password fields.
+ *
+ * @deprecated Use a native `<input type="password" pPassword>` instead.
+ * Compose optional visibility and clear controls with `pPasswordToggleMask`
+ * and `pPasswordClear`. This component remains available for compatibility
+ * and is planned for removal in v23.
  * @group Components
  */
 @Component({
@@ -1003,7 +1136,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
 }
 
 @NgModule({
-    imports: [Password, PasswordDirective, SharedModule, BindModule],
-    exports: [PasswordDirective, Password, SharedModule, BindModule]
+    imports: [Password, PasswordDirective, PasswordToggleMaskDirective, PasswordClearDirective, SharedModule, BindModule],
+    exports: [PasswordDirective, PasswordToggleMaskDirective, PasswordClearDirective, Password, SharedModule, BindModule]
 })
 export class PasswordModule {}

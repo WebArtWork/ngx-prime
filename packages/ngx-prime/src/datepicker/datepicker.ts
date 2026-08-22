@@ -5,17 +5,16 @@ import {
     Component,
     computed,
     ContentChild,
+    effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     InjectionToken,
     input,
-    Input,
     NgModule,
     NgZone,
     numberAttribute,
-    Output,
+    output,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -710,19 +709,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * Format of the date which can also be defined at locale settings.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    get dateFormat(): string | undefined {
-        return this._dateFormat;
-    }
-    set dateFormat(value: string | undefined) {
-        this._dateFormat = value;
-
-        if (this.initialized) {
-            this.updateInputfield();
-        }
-    }
+    readonly dateFormat = input<string | undefined>();
     /**
      * Separator for multiple selection mode.
      * @group Props
@@ -772,19 +759,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * Specifies 12 or 24 hour format.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    get hourFormat(): string {
-        return this._hourFormat;
-    }
-    set hourFormat(value: string) {
-        this._hourFormat = value;
-
-        if (this.initialized) {
-            this.updateInputfield();
-        }
-    }
+    readonly hourFormat = input<string>('24');
     /**
      * Whether to display timepicker only.
      * @group Props
@@ -931,162 +906,52 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * The minimum selectable date.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get minDate(): Date | undefined | null {
-        return this._minDate;
-    }
-    set minDate(date: Date | undefined | null) {
-        this._minDate = date;
-
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
+    readonly minDate = input<Date | undefined | null>();
     /**
      * The maximum selectable date.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get maxDate(): Date | undefined | null {
-        return this._maxDate;
-    }
-    set maxDate(date: Date | undefined | null) {
-        this._maxDate = date;
-
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
+    readonly maxDate = input<Date | undefined | null>();
     /**
      * Array with dates that should be disabled (not selectable).
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get disabledDates(): Date[] {
-        return this._disabledDates;
-    }
-    set disabledDates(disabledDates: Date[]) {
-        this._disabledDates = disabledDates;
-
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
+    readonly disabledDates = input<Date[]>();
     /**
      * Array with weekday numbers that should be disabled (not selectable).
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get disabledDays(): number[] {
-        return this._disabledDays;
-    }
-    set disabledDays(disabledDays: number[]) {
-        this._disabledDays = disabledDays;
-
-        if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
+    readonly disabledDays = input<number[]>();
     /**
      * Whether to display timepicker.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get showTime(): boolean {
-        return this._showTime;
-    }
-    set showTime(showTime: boolean) {
-        this._showTime = showTime;
-
-        if (this.currentHour === undefined) {
-            this.initTime(this.value || new Date());
-        }
-
-        this.updateInputfield();
-    }
+    readonly showTime = input<boolean>();
     /**
      * An array of options for responsive design.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get responsiveOptions(): DatePickerResponsiveOptions[] {
-        return this._responsiveOptions;
-    }
-    set responsiveOptions(responsiveOptions: DatePickerResponsiveOptions[]) {
-        this._responsiveOptions = responsiveOptions;
-
-        this.destroyResponsiveStyleElement();
-        this.createResponsiveStyle();
-    }
+    readonly responsiveOptions = input<DatePickerResponsiveOptions[]>();
     /**
      * Number of months to display.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get numberOfMonths(): number {
-        return this._numberOfMonths;
-    }
-    set numberOfMonths(numberOfMonths: number) {
-        this._numberOfMonths = numberOfMonths;
-
-        this.destroyResponsiveStyleElement();
-        this.createResponsiveStyle();
-    }
+    readonly numberOfMonths = input<number>(1);
     /**
      * Defines the first of the week for various date calculations.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get firstDayOfWeek(): number {
-        return this._firstDayOfWeek;
-    }
-    set firstDayOfWeek(firstDayOfWeek: number) {
-        this._firstDayOfWeek = firstDayOfWeek;
-
-        this.createWeekDays();
-    }
+    readonly firstDayOfWeek = input<number>();
     /**
      * Type of view to display, valid values are "date" for datepicker and "month" for month picker.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get view(): DatePickerTypeView {
-        return this._view;
-    }
-    set view(view: DatePickerTypeView) {
-        this._view = view;
-        this.currentView = this._view;
-    }
+    readonly view = input<DatePickerTypeView>('date');
     /**
      * Set the date to highlight on first opening if the field is blank.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get defaultDate(): Date | null {
-        return this._defaultDate;
-    }
-    set defaultDate(defaultDate: Date | null) {
-        this._defaultDate = defaultDate!;
-
-        if (this.initialized) {
-            const date = defaultDate || new Date();
-
-            this.currentMonth = date.getMonth();
-            this.currentYear = date.getFullYear();
-            this.initTime(date);
-            this.createMonths(this.currentMonth, this.currentYear);
-        }
-    }
+    readonly defaultDate = input<Date | null>();
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @defaultValue 'self'
@@ -1108,71 +973,71 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
      * @param {Event} event - browser event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    onFocus = output<Event>();
     /**
      * Callback to invoke on blur of input field.
      * @param {Event} event - browser event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
+    onBlur = output<Event>();
     /**
      * Callback to invoke when date panel closed.
      * @param {HTMLDivElement} element - The element being transitioned/animated.
      * @group Emits
      */
-    @Output() onClose: EventEmitter<HTMLElement> = new EventEmitter<HTMLElement>();
+    onClose = output<HTMLElement>();
     /**
      * Callback to invoke on date select.
      * @param {Date} date - date value.
      * @group Emits
      */
-    @Output() onSelect: EventEmitter<Date> = new EventEmitter<Date>();
+    onSelect = output<Date>();
     /**
      * Callback to invoke when input field cleared.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter<any>();
+    onClear = output<any>();
     /**
      * Callback to invoke when input field is being typed.
      * @param {Event} event - browser event
      * @group Emits
      */
-    @Output() onInput: EventEmitter<any> = new EventEmitter<any>();
+    onInput = output<any>();
     /**
      * Callback to invoke when today button is clicked.
      * @param {Date} date - today as a date instance.
      * @group Emits
      */
-    @Output() onTodayClick: EventEmitter<Date> = new EventEmitter<Date>();
+    onTodayClick = output<Date>();
     /**
      * Callback to invoke when clear button is clicked.
      * @param {Event} event - browser event.
      * @group Emits
      */
-    @Output() onClearClick: EventEmitter<any> = new EventEmitter<any>();
+    onClearClick = output<any>();
     /**
      * Callback to invoke when a month is changed using the navigators.
      * @param {DatePickerMonthChangeEvent} event - custom month change event.
      * @group Emits
      */
-    @Output() onMonthChange: EventEmitter<DatePickerMonthChangeEvent> = new EventEmitter<DatePickerMonthChangeEvent>();
+    onMonthChange = output<DatePickerMonthChangeEvent>();
     /**
      * Callback to invoke when a year is changed using the navigators.
      * @param {DatePickerYearChangeEvent} event - custom year change event.
      * @group Emits
      */
-    @Output() onYearChange: EventEmitter<DatePickerYearChangeEvent> = new EventEmitter<DatePickerYearChangeEvent>();
+    onYearChange = output<DatePickerYearChangeEvent>();
     /**
      * Callback to invoke when clicked outside of the date panel.
      * @group Emits
      */
-    @Output() onClickOutside: EventEmitter<any> = new EventEmitter<any>();
+    onClickOutside = output<any>();
     /**
      * Callback to invoke when datepicker panel is shown.
      * @param {HTMLDivElement} element - The element being transitioned/animated.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<HTMLElement> = new EventEmitter<HTMLElement>();
+    onShow = output<HTMLElement>();
 
     readonly inputfieldViewChild = viewChild<Nullable<ElementRef>>('inputfield');
 
@@ -1439,20 +1304,118 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     constructor() {
         super();
         this.window = this.document.defaultView as Window;
+
+        effect(() => {
+            this._dateFormat = this.dateFormat();
+
+            if (this.initialized) {
+                this.updateInputfield();
+            }
+        });
+
+        effect(() => {
+            this._hourFormat = this.hourFormat();
+
+            if (this.initialized) {
+                this.updateInputfield();
+            }
+        });
+
+        effect(() => {
+            this._minDate = this.minDate();
+
+            if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+                this.createMonths(this.currentMonth, this.currentYear);
+            }
+        });
+
+        effect(() => {
+            this._maxDate = this.maxDate();
+
+            if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+                this.createMonths(this.currentMonth, this.currentYear);
+            }
+        });
+
+        effect(() => {
+            this._disabledDates = this.disabledDates() as Date[];
+
+            if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+                this.createMonths(this.currentMonth, this.currentYear);
+            }
+        });
+
+        effect(() => {
+            this._disabledDays = this.disabledDays() as number[];
+
+            if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
+                this.createMonths(this.currentMonth, this.currentYear);
+            }
+        });
+
+        effect(() => {
+            this._showTime = this.showTime() as boolean;
+
+            if (this.currentHour === undefined) {
+                this.initTime(this.value || new Date());
+            }
+
+            this.updateInputfield();
+        });
+
+        effect(() => {
+            this._responsiveOptions = this.responsiveOptions() as DatePickerResponsiveOptions[];
+
+            this.destroyResponsiveStyleElement();
+            this.createResponsiveStyle();
+        });
+
+        effect(() => {
+            this._numberOfMonths = this.numberOfMonths();
+
+            this.destroyResponsiveStyleElement();
+            this.createResponsiveStyle();
+        });
+
+        effect(() => {
+            this._firstDayOfWeek = this.firstDayOfWeek() as number;
+
+            this.createWeekDays();
+        });
+
+        effect(() => {
+            this._view = this.view();
+            this.currentView = this._view;
+        });
+
+        effect(() => {
+            const defaultDate = this.defaultDate();
+
+            this._defaultDate = defaultDate!;
+
+            if (this.initialized) {
+                const date = defaultDate || new Date();
+
+                this.currentMonth = date.getMonth();
+                this.currentYear = date.getFullYear();
+                this.initTime(date);
+                this.createMonths(this.currentMonth, this.currentYear);
+            }
+        });
     }
 
     onInit() {
         this.attributeSelector = uuid('pn_id_');
         this.panelId = this.attributeSelector + '_panel';
-        const date = this.defaultDate || new Date();
+        const date = this._defaultDate || new Date();
 
         this.createResponsiveStyle();
         this.currentMonth = date.getMonth();
         this.currentYear = date.getFullYear();
         this.yearOptions = [];
-        this.currentView = this.view;
+        this.currentView = this._view;
 
-        if (this.view === 'date') {
+        if (this._view === 'date') {
             this.createWeekDays();
             this.initTime(date);
             this.createMonths(this.currentMonth, this.currentYear);
@@ -1474,7 +1437,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             if (!this.$disabled() && this.overlay) {
                 this.initFocusableCell();
 
-                if (this.numberOfMonths === 1) {
+                if (this._numberOfMonths === 1) {
                     if (this.contentViewChild && this.contentViewChild.nativeElement) {
                         this.contentViewChild.nativeElement.style.width = getOuterWidth(this.el?.nativeElement) + 'px';
                     }
@@ -1598,7 +1561,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     createMonths(month: number, year: number) {
         this.months = this.months = [];
 
-        for (let i = 0; i < this.numberOfMonths; i++) {
+        for (let i = 0; i < this._numberOfMonths; i++) {
             let m = month + i;
             let y = year;
 
@@ -1714,7 +1677,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     initTime(date: Date) {
         this.pm = date.getHours() > 11;
 
-        if (this.showTime) {
+        if (this._showTime) {
             this.currentMinute = date.getMinutes();
             this.currentSecond = this.showSeconds() ? date.getSeconds() : 0;
             this.setCurrentHourPM(date.getHours());
@@ -1873,7 +1836,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     onMonthSelect(event: Event, index: number) {
-        if (this.view === 'month') {
+        if (this._view === 'month') {
             this.onDateSelect(event, { year: this.currentYear, month: index, day: 1, selectable: true });
         } else {
             this.currentMonth = index;
@@ -1884,7 +1847,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     onYearSelect(event: Event, year: number) {
-        if (this.view === 'year') {
+        if (this._view === 'year') {
             this.onDateSelect(event, { year: year, month: 0, day: 1, selectable: true });
         } else {
             this.currentYear = year;
@@ -1946,7 +1909,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             } else {
                 formattedValue = this.formatDate(date, this.getDateFormat());
 
-                if (this.showTime) {
+                if (this._showTime) {
                     formattedValue += ' ' + this.formatTime(date);
                 }
             }
@@ -1968,7 +1931,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     setCurrentHourPM(hours: number) {
-        if (this.hourFormat == '12') {
+        if (this._hourFormat == '12') {
             this.pm = hours > 11;
 
             if (hours >= 12) {
@@ -1990,8 +1953,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     selectDate(dateMeta: any) {
         let date = this.formatDateMetaToDate(dateMeta);
 
-        if (this.showTime) {
-            if (this.hourFormat == '12') {
+        if (this._showTime) {
+            if (this._hourFormat == '12') {
                 if (this.currentHour === 12) date.setHours(this.pm ? 12 : 0);
                 else date.setHours(this.pm ? <number>this.currentHour + 12 : <number>this.currentHour);
             } else {
@@ -2002,15 +1965,15 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             date.setSeconds(<number>this.currentSecond);
         }
 
-        if (this.minDate && this.minDate > date) {
-            date = this.minDate;
+        if (this._minDate && this._minDate > date) {
+            date = this._minDate;
             this.setCurrentHourPM(date.getHours());
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
         }
 
-        if (this.maxDate && this.maxDate < date) {
-            date = this.maxDate;
+        if (this._maxDate && this._maxDate < date) {
+            date = this._maxDate;
             this.setCurrentHourPM(date.getHours());
             this.currentMinute = date.getMinutes();
             this.currentSecond = date.getSeconds();
@@ -2241,39 +2204,39 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             return false;
         }
 
-        if (this.minDate) {
-            if (this.minDate.getFullYear() > year) {
+        if (this._minDate) {
+            if (this._minDate.getFullYear() > year) {
                 validMin = false;
-            } else if (this.minDate.getFullYear() === year && this.currentView != 'year') {
-                if (this.minDate.getMonth() > month) {
+            } else if (this._minDate.getFullYear() === year && this.currentView != 'year') {
+                if (this._minDate.getMonth() > month) {
                     validMin = false;
-                } else if (this.minDate.getMonth() === month) {
-                    if (this.minDate.getDate() > day) {
+                } else if (this._minDate.getMonth() === month) {
+                    if (this._minDate.getDate() > day) {
                         validMin = false;
                     }
                 }
             }
         }
 
-        if (this.maxDate) {
-            if (this.maxDate.getFullYear() < year) {
+        if (this._maxDate) {
+            if (this._maxDate.getFullYear() < year) {
                 validMax = false;
-            } else if (this.maxDate.getFullYear() === year) {
-                if (this.maxDate.getMonth() < month) {
+            } else if (this._maxDate.getFullYear() === year) {
+                if (this._maxDate.getMonth() < month) {
                     validMax = false;
-                } else if (this.maxDate.getMonth() === month) {
-                    if (this.maxDate.getDate() < day) {
+                } else if (this._maxDate.getMonth() === month) {
+                    if (this._maxDate.getDate() < day) {
                         validMax = false;
                     }
                 }
             }
         }
 
-        if (this.disabledDates) {
+        if (this._disabledDates) {
             validDate = !this.isDateDisabled(day, month, year);
         }
 
-        if (this.disabledDays) {
+        if (this._disabledDays) {
             validDay = !this.isDayDisabled(day, month, year);
         }
 
@@ -2281,8 +2244,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     isDateDisabled(day: number, month: number, year: number): boolean {
-        if (this.disabledDates) {
-            for (let disabledDate of this.disabledDates) {
+        if (this._disabledDates) {
+            for (let disabledDate of this._disabledDates) {
                 if (disabledDate.getFullYear() === year && disabledDate.getMonth() === month && disabledDate.getDate() === day) {
                     return true;
                 }
@@ -2293,11 +2256,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     isDayDisabled(day: number, month: number, year: number): boolean {
-        if (this.disabledDays) {
+        if (this._disabledDays) {
             let weekday = new Date(year, month, day);
             let weekdayNumber = weekday.getDay();
 
-            return this.disabledDays.indexOf(weekdayNumber) !== -1;
+            return this._disabledDays.indexOf(weekdayNumber) !== -1;
         }
 
         return false;
@@ -2349,7 +2312,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.writeModelValue(this.value);
         this.onModelChange(this.value);
         this.updateInputfield();
-        this.onClear.emit();
+        this.onClear.emit(undefined);
     }
 
     onOverlayClick(event: Event) {
@@ -2368,7 +2331,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     switchViewButtonDisabled() {
-        return this.numberOfMonths > 1 || this.$disabled();
+        return this._numberOfMonths > 1 || this.$disabled();
     }
 
     onPrevButtonClick(event: Event) {
@@ -2808,7 +2771,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     navigateToMonth(prev: boolean, groupIndex: number, focusKey?: string) {
         if (prev) {
-            if (this.numberOfMonths === 1 || groupIndex === 0) {
+            if (this._numberOfMonths === 1 || groupIndex === 0) {
                 this.navigationState = { backward: true };
                 this._focusKey = focusKey;
                 this.navBackward(event);
@@ -2829,7 +2792,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 }
             }
         } else {
-            if (this.numberOfMonths === 1 || groupIndex === this.numberOfMonths - 1) {
+            if (this._numberOfMonths === 1 || groupIndex === this._numberOfMonths - 1) {
                 this.navigationState = { backward: false };
                 this._focusKey = focusKey;
                 this.navForward(event);
@@ -3012,7 +2975,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     convertTo24Hour(hours: number, pm: boolean) {
-        if (this.hourFormat == '12') {
+        if (this._hourFormat == '12') {
             if (hours === 12) {
                 return pm ? 12 : 0;
             } else {
@@ -3047,11 +3010,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
 
         const valueDateString = value && isDate(value) ? value.toDateString() : null;
-        let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
-        let isMaxDate = this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString;
+        let isMinDate = this._minDate && valueDateString && this._minDate.toDateString() === valueDateString;
+        let isMaxDate = this._maxDate && valueDateString && this._maxDate.toDateString() === valueDateString;
 
         if (isMinDate) {
-            minHoursExceeds12 = this.minDate!.getHours() >= 12;
+            minHoursExceeds12 = this._minDate!.getHours() >= 12;
         }
 
         // Below replicates the previous `switch (true) { ... intentional fall through ... }` construct.
@@ -3060,38 +3023,38 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         // were unreachable except via fallthrough from the group above them, so they're collapsed here
         // into a single `else if` per distinct condition (in original top-to-bottom order) with the
         // fallthrough's cascading corrective steps kept in its body.
-        if (isMinDate && minHoursExceeds12 && this.minDate!.getHours() === 12 && this.minDate!.getHours() > convertedHour) {
+        if (isMinDate && minHoursExceeds12 && this._minDate!.getHours() === 12 && this._minDate!.getHours() > convertedHour) {
             returnTimeTriple[0] = 11;
-            returnTimeTriple[1] = this.minDate!.getMinutes();
-            returnTimeTriple[2] = this.minDate!.getSeconds();
-        } else if (isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() > minute) {
-            returnTimeTriple[1] = this.minDate!.getMinutes();
-            returnTimeTriple[2] = this.minDate!.getSeconds();
-        } else if (isMinDate && this.minDate!.getHours() === convertedHour && this.minDate!.getMinutes() === minute && this.minDate!.getSeconds() > second) {
-            returnTimeTriple[2] = this.minDate!.getSeconds();
-        } else if (isMinDate && !minHoursExceeds12 && this.minDate!.getHours() - 1 === convertedHour && this.minDate!.getHours() > convertedHour) {
+            returnTimeTriple[1] = this._minDate!.getMinutes();
+            returnTimeTriple[2] = this._minDate!.getSeconds();
+        } else if (isMinDate && this._minDate!.getHours() === convertedHour && this._minDate!.getMinutes() > minute) {
+            returnTimeTriple[1] = this._minDate!.getMinutes();
+            returnTimeTriple[2] = this._minDate!.getSeconds();
+        } else if (isMinDate && this._minDate!.getHours() === convertedHour && this._minDate!.getMinutes() === minute && this._minDate!.getSeconds() > second) {
+            returnTimeTriple[2] = this._minDate!.getSeconds();
+        } else if (isMinDate && !minHoursExceeds12 && this._minDate!.getHours() - 1 === convertedHour && this._minDate!.getHours() > convertedHour) {
             returnTimeTriple[0] = 11;
             this.pm = true;
-            returnTimeTriple[1] = this.minDate!.getMinutes();
-            returnTimeTriple[2] = this.minDate!.getSeconds();
-        } else if (isMinDate && minHoursExceeds12 && this.minDate!.getHours() > convertedHour && convertedHour !== 12) {
-            this.setCurrentHourPM(this.minDate!.getHours());
+            returnTimeTriple[1] = this._minDate!.getMinutes();
+            returnTimeTriple[2] = this._minDate!.getSeconds();
+        } else if (isMinDate && minHoursExceeds12 && this._minDate!.getHours() > convertedHour && convertedHour !== 12) {
+            this.setCurrentHourPM(this._minDate!.getHours());
             returnTimeTriple[0] = this.currentHour || 0;
-            returnTimeTriple[1] = this.minDate!.getMinutes();
-            returnTimeTriple[2] = this.minDate!.getSeconds();
-        } else if (isMinDate && this.minDate!.getHours() > convertedHour) {
-            returnTimeTriple[0] = this.minDate!.getHours();
-            returnTimeTriple[1] = this.minDate!.getMinutes();
-            returnTimeTriple[2] = this.minDate!.getSeconds();
-        } else if (isMaxDate && this.maxDate!.getHours() < convertedHour) {
-            returnTimeTriple[0] = this.maxDate!.getHours();
-            returnTimeTriple[1] = this.maxDate!.getMinutes();
-            returnTimeTriple[2] = this.maxDate!.getSeconds();
-        } else if (isMaxDate && this.maxDate!.getHours() === convertedHour && this.maxDate!.getMinutes() < minute) {
-            returnTimeTriple[1] = this.maxDate!.getMinutes();
-            returnTimeTriple[2] = this.maxDate!.getSeconds();
-        } else if (isMaxDate && this.maxDate!.getHours() === convertedHour && this.maxDate!.getMinutes() === minute && this.maxDate!.getSeconds() < second) {
-            returnTimeTriple[2] = this.maxDate!.getSeconds();
+            returnTimeTriple[1] = this._minDate!.getMinutes();
+            returnTimeTriple[2] = this._minDate!.getSeconds();
+        } else if (isMinDate && this._minDate!.getHours() > convertedHour) {
+            returnTimeTriple[0] = this._minDate!.getHours();
+            returnTimeTriple[1] = this._minDate!.getMinutes();
+            returnTimeTriple[2] = this._minDate!.getSeconds();
+        } else if (isMaxDate && this._maxDate!.getHours() < convertedHour) {
+            returnTimeTriple[0] = this._maxDate!.getHours();
+            returnTimeTriple[1] = this._maxDate!.getMinutes();
+            returnTimeTriple[2] = this._maxDate!.getSeconds();
+        } else if (isMaxDate && this._maxDate!.getHours() === convertedHour && this._maxDate!.getMinutes() < minute) {
+            returnTimeTriple[1] = this._maxDate!.getMinutes();
+            returnTimeTriple[2] = this._maxDate!.getSeconds();
+        } else if (isMaxDate && this._maxDate!.getHours() === convertedHour && this._maxDate!.getMinutes() === minute && this._maxDate!.getSeconds() < second) {
+            returnTimeTriple[2] = this._maxDate!.getSeconds();
         }
 
         return returnTimeTriple;
@@ -3102,8 +3065,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         let newHour = (this.currentHour ?? 0) + this.stepHour();
         let newPM = this.pm;
 
-        if (this.hourFormat == '24') newHour = newHour >= 24 ? newHour - 24 : newHour;
-        else if (this.hourFormat == '12') {
+        if (this._hourFormat == '24') newHour = newHour >= 24 ? newHour - 24 : newHour;
+        else if (this._hourFormat == '12') {
             // Before the AM/PM break, now after
             if (prevHour < 12 && newHour > 11) {
                 newPM = !this.pm;
@@ -3120,9 +3083,9 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     toggleAMPMIfNotMinDate(newPM: boolean) {
         let value = this.value;
         const valueDateString = value && isDate(value) ? value.toDateString() : null;
-        let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
+        let isMinDate = this._minDate && valueDateString && this._minDate.toDateString() === valueDateString;
 
-        if (isMinDate && this.minDate!.getHours() >= 12) {
+        if (isMinDate && this._minDate!.getHours() >= 12) {
             this.pm = true;
         } else {
             this.pm = newPM;
@@ -3190,8 +3153,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         let newHour = (this.currentHour ?? 0) - this.stepHour();
         let newPM = this.pm;
 
-        if (this.hourFormat == '24') newHour = newHour < 0 ? 24 + newHour : newHour;
-        else if (this.hourFormat == '12') {
+        if (this._hourFormat == '24') newHour = newHour < 0 ? 24 + newHour : newHour;
+        else if (this._hourFormat == '12') {
             // If we were at noon/midnight, then switch
             if (this.currentHour === 12) {
                 newPM = !this.pm;
@@ -3250,7 +3213,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
         value = value && isDate(value) ? new Date(value.getTime()) : new Date();
 
-        if (this.hourFormat == '12') {
+        if (this._hourFormat == '12') {
             if (this.currentHour === 12) value.setHours(this.pm ? 12 : 0);
             else value.setHours(this.pm ? <number>this.currentHour + 12 : this.currentHour);
         } else {
@@ -3367,8 +3330,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         } else {
             const dateFormat = this.getDateFormat();
 
-            if (this.showTime) {
-                let ampm = this.hourFormat == '12' ? parts.pop() : null;
+            if (this._showTime) {
+                let ampm = this._hourFormat == '12' ? parts.pop() : null;
                 let timeString = parts.pop();
 
                 date = this.parseDate(parts.join(' '), dateFormat);
@@ -3382,7 +3345,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     populateTime(value: any, timeString: any, ampm: any) {
-        if (this.hourFormat == '12' && !ampm) {
+        if (this._hourFormat == '12' && !ampm) {
             throw 'Invalid Time';
         }
 
@@ -3405,13 +3368,13 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             propValue = propValue.length === 2 ? propValue[1] : propValue[0];
         }
 
-        let val = this.defaultDate && this.isValidDate(this.defaultDate) && !this.value ? this.defaultDate : propValue && this.isValidDate(propValue) ? propValue : new Date();
+        let val = this._defaultDate && this.isValidDate(this._defaultDate) && !this.value ? this._defaultDate : propValue && this.isValidDate(propValue) ? propValue : new Date();
 
         this.currentMonth = val.getMonth();
         this.currentYear = val.getFullYear();
         this.createMonths(this.currentMonth, this.currentYear);
 
-        if (this.showTime || this.timeOnly()) {
+        if (this._showTime || this.timeOnly()) {
             this.setCurrentHourPM(val.getHours());
             this.currentMinute = val.getMinutes();
             this.currentSecond = this.showSeconds() ? val.getSeconds() : 0;
@@ -3586,7 +3549,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     getDateFormat() {
-        return this.dateFormat || this.getTranslation('dateFormat');
+        return this._dateFormat || this.getTranslation('dateFormat');
     }
 
     getFirstDateOfWeek() {
@@ -3688,11 +3651,11 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         let minutes = date.getMinutes();
         let seconds = date.getSeconds();
 
-        if (this.hourFormat == '12' && hours > 11 && hours != 12) {
+        if (this._hourFormat == '12' && hours > 11 && hours != 12) {
             hours -= 12;
         }
 
-        if (this.hourFormat == '12') {
+        if (this._hourFormat == '12') {
             output += hours === 0 ? 12 : hours < 10 ? '0' + hours : hours;
         } else {
             output += hours < 10 ? '0' + hours : hours;
@@ -3706,7 +3669,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             output += seconds < 10 ? '0' + seconds : seconds;
         }
 
-        if (this.hourFormat == '12') {
+        if (this._hourFormat == '12') {
             output += date.getHours() > 11 ? ' PM' : ' AM';
         }
 
@@ -3725,10 +3688,10 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         let m = parseInt(tokens[1]);
         let s = this.showSeconds() ? parseInt(tokens[2]) : null;
 
-        if (isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this.hourFormat == '12' && h > 12) || (this.showSeconds() && (isNaN(<any>s) || <any>s > 59))) {
+        if (isNaN(h) || isNaN(m) || h > 23 || m > 59 || (this._hourFormat == '12' && h > 12) || (this.showSeconds() && (isNaN(<any>s) || <any>s > 59))) {
             throw 'Invalid time';
         } else {
-            if (this.hourFormat == '12') {
+            if (this._hourFormat == '12') {
                 if (h !== 12 && this.pm) {
                     h += 12;
                 } else if (!this.pm && h === 12) {
@@ -3824,7 +3787,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                 iValue++;
             };
 
-        if (this.view === 'month') {
+        if (this._view === 'month') {
             day = 1;
         }
 
@@ -3911,7 +3874,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             }
         }
 
-        if (this.view === 'year') {
+        if (this._view === 'year') {
             month = month === -1 ? 1 : month;
             day = day === -1 ? 1 : day;
         }
@@ -3940,7 +3903,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
             return true; // If we are keeping invalid dates, we don't need to check for time constraints
         }
 
-        return (!this.minDate || selectedDate >= this.minDate) && (!this.maxDate || selectedDate <= this.maxDate);
+        return (!this._minDate || selectedDate >= this._minDate) && (!this._maxDate || selectedDate <= this._maxDate);
     }
 
     onTodayButtonClick(event: any) {
@@ -3967,7 +3930,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     createResponsiveStyle() {
-        if (this.numberOfMonths > 1 && this.responsiveOptions) {
+        if (this._numberOfMonths > 1 && this._responsiveOptions) {
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 (<HTMLStyleElement>this.responsiveStyleElement).type = 'text/css';
@@ -3977,8 +3940,8 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
             let innerHTML = '';
 
-            if (this.responsiveOptions) {
-                let responsiveOptions = [...this.responsiveOptions].filter((o) => !!(o.breakpoint && o.numMonths)).sort((o1: any, o2: any) => -1 * o1.breakpoint.localeCompare(o2.breakpoint, undefined, { numeric: true }));
+            if (this._responsiveOptions) {
+                let responsiveOptions = [...this._responsiveOptions].filter((o) => !!(o.breakpoint && o.numMonths)).sort((o1: any, o2: any) => -1 * o1.breakpoint.localeCompare(o2.breakpoint, undefined, { numeric: true }));
 
                 for (let i = 0; i < responsiveOptions.length; i++) {
                     let { breakpoint, numMonths } = responsiveOptions[i];
@@ -3988,7 +3951,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
                         }
                     `;
 
-                    for (let j: number = <number>numMonths; j < this.numberOfMonths; j++) {
+                    for (let j: number = <number>numMonths; j < this._numberOfMonths; j++) {
                         styles += `
                             .p-datepicker[${this.attributeSelector}] .p-datepicker-group:nth-child(${j + 1}) {
                                 display: none !important;
@@ -4088,7 +4051,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
     }
 
     onOverlayHide() {
-        this.currentView = this.view;
+        this.currentView = this._view;
 
         if (this.mask) {
             this.destroyMask();

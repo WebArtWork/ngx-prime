@@ -67,7 +67,7 @@ describe('TreeTable', () => {
             expect(treetable.filterDelay()).toBe(300);
             expect(treetable.filterMode()).toBe('lenient');
             expect(treetable.showGridlines()).toBe(false);
-            expect(treetable.sortOrder).toBe(1);
+            expect(treetable.sortOrder()).toBe(1);
         });
 
         it('should accept custom values', async () => {
@@ -96,7 +96,7 @@ describe('TreeTable', () => {
             fixture.detectChanges();
 
             expect(treetable.columns()).toEqual(component.columns);
-            expect(treetable.value).toEqual(component.value);
+            expect(treetable.value()).toEqual(component.value);
             expect(treetable.autoLayout()).toBe(true);
             expect(treetable.paginator()).toBe(true);
             expect(treetable.rows()).toBe(10);
@@ -130,8 +130,8 @@ describe('TreeTable', () => {
             expect(tableElement).toBeTruthy();
 
             // Check if data is set properly
-            expect(treetable.value).toEqual(basicTreeData);
-            expect(treetable.value?.length).toBeGreaterThan(0);
+            expect(treetable.value()).toEqual(basicTreeData);
+            expect(treetable.value()?.length).toBeGreaterThan(0);
         });
     });
 
@@ -154,12 +154,12 @@ describe('TreeTable', () => {
             treetable.reset();
 
             expect(treetable.first()).toBe(0);
-            expect(treetable.sortField).toBeNull();
-            expect(treetable.sortOrder).toBe(1);
+            expect(treetable.sortField()).toBeNull();
+            expect(treetable.sortOrder()).toBe(1);
         });
 
         it('should get total records', async () => {
-            const totalRecords = treetable.totalRecords;
+            const totalRecords = treetable.totalRecords();
 
             expect(totalRecords).toBeGreaterThanOrEqual(0);
         });
@@ -189,16 +189,17 @@ describe('TreeTable', () => {
         });
 
         it('should reset component state', async () => {
-            treetable.first = 10;
-            treetable.sortField = 'name';
-            treetable.sortOrder = -1;
-            treetable.filters = { name: { value: 'test', matchMode: 'contains' } };
+            component.first = 10;
+            component.sortField = 'name';
+            component.sortOrder = -1;
+            component.filters = { name: { value: 'test', matchMode: 'contains' } };
+            fixture.detectChanges();
 
             treetable.reset();
 
             expect(treetable.first()).toBe(0);
-            expect(treetable.sortField).toBeNull();
-            expect(treetable.sortOrder).toBe(1);
+            expect(treetable.sortField()).toBeNull();
+            expect(treetable.sortOrder()).toBe(1);
             expect(Object.keys(treetable.filters()).length).toBe(0);
         });
     });
@@ -280,8 +281,8 @@ describe('TreeTable', () => {
 
             treetable.sort(sortEvent);
 
-            expect(treetable.sortField).toBe('name');
-            expect(treetable.sortOrder).toBe(1);
+            expect(treetable.sortField()).toBe('name');
+            expect(treetable.sortOrder()).toBe(1);
         });
 
         it('should handle multiple column sort', async () => {
@@ -296,7 +297,7 @@ describe('TreeTable', () => {
 
             treetable.sortMultiple();
 
-            expect(treetable.multiSortMeta).toBeDefined();
+            expect(treetable.multiSortMeta()).toBeDefined();
             expect(treetable.sortMode()).toBe('multiple');
         });
 
@@ -843,7 +844,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.value).toEqual(testData);
+                expect(treetable.value()).toEqual(testData);
             });
 
             it('should accept empty value array', async () => {
@@ -852,7 +853,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.value).toEqual([]);
+                expect(treetable.value()).toEqual([]);
             });
 
             it('should handle dataKey property', async () => {
@@ -980,7 +981,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.totalRecords).toBe(100);
+                expect(treetable.totalRecords()).toBe(100);
             });
 
             it('should handle pageLinks property', async () => {
@@ -1128,7 +1129,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.sortField).toBe('name');
+                expect(treetable.sortField()).toBe('name');
             });
 
             it('should handle sortOrder property', async () => {
@@ -1137,7 +1138,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.sortOrder).toBe(-1);
+                expect(treetable.sortOrder()).toBe(-1);
             });
 
             it('should handle multiSortMeta property', async () => {
@@ -1151,7 +1152,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.multiSortMeta).toEqual(multiSortMeta);
+                expect(treetable.multiSortMeta()).toEqual(multiSortMeta);
             });
         });
 
@@ -1180,7 +1181,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.selection).toEqual(selection);
+                expect(treetable.selection()).toEqual(selection);
             });
 
             it('should handle contextMenuSelection property', async () => {
@@ -1229,7 +1230,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.selectionKeys).toEqual(keys);
+                expect(treetable.selectionKeys()).toEqual(keys);
             });
         });
 
@@ -1494,7 +1495,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.totalRecords).toBe(150);
+                expect(treetable.totalRecords()).toBe(150);
             });
 
             it('should handle all boolean transform properties', async () => {
@@ -1650,7 +1651,7 @@ describe('TreeTable', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 fixture.detectChanges();
-                expect(treetable.selection).toEqual(testSelection);
+                expect(treetable.selection()).toEqual(testSelection);
 
                 // Test selection keys
                 const testSelectionKeys = { '1': true, '2': false };
@@ -1659,7 +1660,7 @@ describe('TreeTable', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 fixture.detectChanges();
-                expect(treetable.selectionKeys).toEqual(testSelectionKeys);
+                expect(treetable.selectionKeys()).toEqual(testSelectionKeys);
 
                 // Test context menu selection
                 const contextSelection = basicTreeData[1];
@@ -1684,14 +1685,14 @@ describe('TreeTable', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 fixture.detectChanges();
-                expect(treetable.sortField).toBe('name');
+                expect(treetable.sortField()).toBe('name');
 
                 // Test sortOrder
                 component.sortOrder = -1;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 fixture.detectChanges();
-                expect(treetable.sortOrder).toBe(-1);
+                expect(treetable.sortOrder()).toBe(-1);
 
                 // Test multiSortMeta
                 const multiSort = [
@@ -1703,7 +1704,7 @@ describe('TreeTable', () => {
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
                 fixture.detectChanges();
-                expect(treetable.multiSortMeta).toEqual(multiSort);
+                expect(treetable.multiSortMeta()).toEqual(multiSort);
             });
 
             it('should handle filter related properties', async () => {
@@ -1750,7 +1751,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.value).toEqual([]);
+                expect(treetable.value()).toEqual([]);
                 expect(treetable.columns()).toEqual([]);
                 expect(treetable.filters()).toEqual({});
             });
@@ -1803,7 +1804,7 @@ describe('TreeTable', () => {
                 await fixture.whenStable();
                 fixture.detectChanges();
 
-                expect(treetable.value).toEqual(complexTreeData);
+                expect(treetable.value()).toEqual(complexTreeData);
                 expect(treetable.dataKey()).toBe('id');
             });
         });
@@ -2372,7 +2373,7 @@ describe('TreeTable', () => {
                     // Test pageLinks
                     [3, 5, 7, 10].forEach((links) => {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'pageLinks')) {
-                            dynamicTreetable.pageLinks = links;
+                            dynamicComponent.pageLinks = links;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
                             expect(dynamicTreetable.pageLinks()).toBe(links);
@@ -2382,7 +2383,7 @@ describe('TreeTable', () => {
                     // Test filterDelay
                     [100, 300, 500, 1000].forEach((delay) => {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'filterDelay')) {
-                            dynamicTreetable.filterDelay = delay;
+                            dynamicComponent.filterDelay = delay;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
                             expect(dynamicTreetable.filterDelay()).toBe(delay);
@@ -2392,7 +2393,7 @@ describe('TreeTable', () => {
                     // Test virtualScrollDelay
                     [50, 100, 150, 300].forEach((delay) => {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'virtualScrollDelay')) {
-                            dynamicTreetable.virtualScrollDelay = delay;
+                            dynamicComponent.virtualScrollDelay = delay;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
                             expect(dynamicTreetable.virtualScrollDelay()).toBe(delay);
@@ -2408,7 +2409,7 @@ describe('TreeTable', () => {
 
                     for (const styleClass of styleClasses) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'styleClass')) {
-                            dynamicTreetable.styleClass = styleClass;
+                            dynamicComponent.styleClass = styleClass;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
@@ -2420,7 +2421,7 @@ describe('TreeTable', () => {
                     // Test tableStyleClass
                     ['table-class', 'responsive-table', ''].forEach((tableClass) => {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'tableStyleClass')) {
-                            dynamicTreetable.tableStyleClass = tableClass;
+                            dynamicComponent.tableStyleClass = tableClass;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
                             expect(dynamicTreetable.tableStyleClass()).toBe(tableClass);
@@ -2454,7 +2455,7 @@ describe('TreeTable', () => {
                     // Test columnResizeMode
                     ['fit', 'expand'].forEach((mode) => {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'columnResizeMode')) {
-                            dynamicTreetable.columnResizeMode = mode;
+                            dynamicComponent.columnResizeMode = mode;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
                             expect(dynamicTreetable.columnResizeMode()).toBe(mode);
@@ -2464,7 +2465,7 @@ describe('TreeTable', () => {
                     // Test contextMenuSelectionMode
                     ['separate', 'joint'].forEach((mode) => {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'contextMenuSelectionMode')) {
-                            dynamicTreetable.contextMenuSelectionMode = mode;
+                            dynamicComponent.contextMenuSelectionMode = mode;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
                             expect(dynamicTreetable.contextMenuSelectionMode()).toBe(mode);
@@ -2504,7 +2505,7 @@ describe('TreeTable', () => {
 
                     for (const style of styleObjects) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'tableStyle')) {
-                            dynamicTreetable.tableStyle = style;
+                            dynamicComponent.tableStyle = style;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
@@ -2518,7 +2519,7 @@ describe('TreeTable', () => {
 
                     for (const options of rowOptions) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'rowsPerPageOptions')) {
-                            dynamicTreetable.rowsPerPageOptions = options;
+                            dynamicComponent.rowsPerPageOptions = options;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
@@ -2532,7 +2533,7 @@ describe('TreeTable', () => {
 
                     for (const fields of filterFieldSets) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'globalFilterFields')) {
-                            dynamicTreetable.globalFilterFields = fields;
+                            dynamicComponent.globalFilterFields = fields;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
@@ -2553,7 +2554,7 @@ describe('TreeTable', () => {
 
                     for (const filters of filterObjects) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'filters')) {
-                            dynamicTreetable.filters = filters;
+                            dynamicComponent.filters = filters;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
@@ -2589,19 +2590,19 @@ describe('TreeTable', () => {
                     await dynamicFixture.whenStable();
 
                     if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'selection')) {
-                        dynamicTreetable.selection = testData[0];
+                        dynamicComponent.selection = testData[0];
                         dynamicFixture.changeDetectorRef.markForCheck();
                         await dynamicFixture.whenStable();
                         dynamicFixture.detectChanges();
                         await dynamicFixture.whenStable();
-                        expect(dynamicTreetable.selection).toEqual(testData[0]);
+                        expect(dynamicTreetable.selection()).toEqual(testData[0]);
 
-                        dynamicTreetable.selection = null as any;
+                        dynamicComponent.selection = null as any;
                         dynamicFixture.changeDetectorRef.markForCheck();
                         await dynamicFixture.whenStable();
                         dynamicFixture.detectChanges();
                         await dynamicFixture.whenStable();
-                        expect(dynamicTreetable.selection).toBeNull();
+                        expect(dynamicTreetable.selection()).toBeNull();
                     }
 
                     // Test multiple selection
@@ -2612,26 +2613,26 @@ describe('TreeTable', () => {
                     await dynamicFixture.whenStable();
 
                     if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'selection')) {
-                        dynamicTreetable.selection = [testData[0]];
+                        dynamicComponent.selection = [testData[0]];
                         dynamicFixture.changeDetectorRef.markForCheck();
                         await dynamicFixture.whenStable();
                         dynamicFixture.detectChanges();
                         await dynamicFixture.whenStable();
-                        expect(dynamicTreetable.selection).toEqual([testData[0]]);
+                        expect(dynamicTreetable.selection()).toEqual([testData[0]]);
 
-                        dynamicTreetable.selection = testData;
+                        dynamicComponent.selection = testData;
                         dynamicFixture.changeDetectorRef.markForCheck();
                         await dynamicFixture.whenStable();
                         dynamicFixture.detectChanges();
                         await dynamicFixture.whenStable();
-                        expect(dynamicTreetable.selection).toEqual(testData);
+                        expect(dynamicTreetable.selection()).toEqual(testData);
 
-                        dynamicTreetable.selection = [];
+                        dynamicComponent.selection = [];
                         dynamicFixture.changeDetectorRef.markForCheck();
                         await dynamicFixture.whenStable();
                         dynamicFixture.detectChanges();
                         await dynamicFixture.whenStable();
-                        expect(dynamicTreetable.selection).toEqual([]);
+                        expect(dynamicTreetable.selection()).toEqual([]);
                     }
 
                     // Test selectionKeys
@@ -2639,12 +2640,12 @@ describe('TreeTable', () => {
 
                     for (const keys of selectionKeySets) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'selectionKeys')) {
-                            dynamicTreetable.selectionKeys = keys;
+                            dynamicComponent.selectionKeys = keys;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
                             await dynamicFixture.whenStable();
-                            expect(dynamicTreetable.selectionKeys).toEqual(keys);
+                            expect(dynamicTreetable.selectionKeys()).toEqual(keys);
                         }
                     }
 
@@ -2660,12 +2661,12 @@ describe('TreeTable', () => {
 
                     for (const field of sortFields) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'sortField')) {
-                            dynamicTreetable.sortField = field;
+                            dynamicComponent.sortField = field;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
                             await dynamicFixture.whenStable();
-                            expect(dynamicTreetable.sortField).toBe(field);
+                            expect(dynamicTreetable.sortField()).toBe(field);
                         }
                     }
 
@@ -2674,12 +2675,12 @@ describe('TreeTable', () => {
 
                     for (const order of sortOrders) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'sortOrder')) {
-                            dynamicTreetable.sortOrder = order;
+                            dynamicComponent.sortOrder = order;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
                             await dynamicFixture.whenStable();
-                            expect(dynamicTreetable.sortOrder).toBe(order);
+                            expect(dynamicTreetable.sortOrder()).toBe(order);
                         }
                     }
 
@@ -2700,19 +2701,19 @@ describe('TreeTable', () => {
 
                     for (const sortMeta of multiSortSets) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'multiSortMeta')) {
-                            dynamicTreetable.multiSortMeta = sortMeta;
+                            dynamicComponent.multiSortMeta = sortMeta;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
                             await dynamicFixture.whenStable();
-                            expect(dynamicTreetable.multiSortMeta).toEqual(sortMeta);
+                            expect(dynamicTreetable.multiSortMeta()).toEqual(sortMeta);
                         }
                     }
 
                     // Test defaultSortOrder
                     [-1, 1].forEach((order) => {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'defaultSortOrder')) {
-                            dynamicTreetable.defaultSortOrder = order;
+                            dynamicComponent.defaultSortOrder = order;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             dynamicFixture.detectChanges();
                             expect(dynamicTreetable.defaultSortOrder()).toBe(order);
@@ -2728,7 +2729,7 @@ describe('TreeTable', () => {
 
                     for (const size of itemSizes) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'virtualScrollItemSize')) {
-                            dynamicTreetable.virtualScrollItemSize = size;
+                            dynamicComponent.virtualScrollItemSize = size;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
@@ -2742,7 +2743,7 @@ describe('TreeTable', () => {
 
                     for (const options of scrollOptions) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'virtualScrollOptions')) {
-                            dynamicTreetable.virtualScrollOptions = options as any;
+                            dynamicComponent.virtualScrollOptions = options as any;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
@@ -2756,7 +2757,7 @@ describe('TreeTable', () => {
 
                     for (const height of heights) {
                         if (Object.prototype.hasOwnProperty.call(dynamicTreetable, 'scrollHeight')) {
-                            dynamicTreetable.scrollHeight = height;
+                            dynamicComponent.scrollHeight = height;
                             dynamicFixture.changeDetectorRef.markForCheck();
                             await dynamicFixture.whenStable();
                             dynamicFixture.detectChanges();
@@ -3223,7 +3224,46 @@ class TestTemplatesTreeTableComponent {
 }
 
 @Component({
-    template: ` <p-treetable #treetable [value]="value" [columns]="columns"> </p-treetable> `,
+    template: `
+        <p-treetable
+            #treetable
+            [value]="value"
+            [columns]="columns"
+            [autoLayout]="autoLayout"
+            [paginator]="paginator"
+            [rows]="rows"
+            [first]="first"
+            [lazy]="lazy"
+            [loading]="loading"
+            [scrollable]="scrollable"
+            [virtualScroll]="virtualScroll"
+            [selectionMode]="selectionMode"
+            [sortMode]="sortMode"
+            [filterMode]="filterMode"
+            [showGridlines]="showGridlines"
+            [pageLinks]="pageLinks"
+            [filterDelay]="filterDelay"
+            [virtualScrollDelay]="virtualScrollDelay"
+            [styleClass]="styleClass"
+            [tableStyleClass]="tableStyleClass"
+            [columnResizeMode]="columnResizeMode"
+            [contextMenuSelectionMode]="contextMenuSelectionMode"
+            [tableStyle]="tableStyle"
+            [rowsPerPageOptions]="rowsPerPageOptions"
+            [globalFilterFields]="globalFilterFields"
+            [filters]="filters"
+            [selection]="selection"
+            [selectionKeys]="selectionKeys"
+            [sortField]="sortField"
+            [sortOrder]="sortOrder"
+            [multiSortMeta]="multiSortMeta"
+            [defaultSortOrder]="defaultSortOrder"
+            [virtualScrollItemSize]="virtualScrollItemSize"
+            [virtualScrollOptions]="virtualScrollOptions"
+            [scrollHeight]="scrollHeight"
+        >
+        </p-treetable>
+    `,
     imports: [FormsModule, TreeTableModule]
 })
 class TestDynamicTreeTableComponent {
@@ -3242,6 +3282,39 @@ class TestDynamicTreeTableComponent {
         { field: 'type', header: 'Type' }
     ];
 
+    autoLayout: boolean | undefined;
+    paginator: boolean | undefined;
+    rows: number | undefined;
+    first: number | undefined;
+    lazy: boolean | undefined;
+    loading: boolean | undefined;
+    scrollable: boolean | undefined;
+    virtualScroll: boolean | undefined;
+    selectionMode: string | undefined;
+    sortMode: 'single' | 'multiple' | undefined;
+    filterMode: string | undefined;
+    showGridlines: boolean | undefined;
+    pageLinks: number | undefined;
+    filterDelay: number | undefined;
+    virtualScrollDelay: number | undefined;
+    styleClass: string | undefined;
+    tableStyleClass: string | undefined;
+    columnResizeMode: string | undefined;
+    contextMenuSelectionMode: string | undefined;
+    tableStyle: any;
+    rowsPerPageOptions: any[] | undefined;
+    globalFilterFields: string[] | undefined;
+    filters: { [key: string]: any } | undefined;
+    selection: any;
+    selectionKeys: any;
+    sortField: string | null | undefined;
+    sortOrder: number | undefined;
+    multiSortMeta: any[] | undefined;
+    defaultSortOrder: number | undefined;
+    virtualScrollItemSize: number | undefined;
+    virtualScrollOptions: any;
+    scrollHeight: string | undefined;
+
     updateValue(newValue: TreeNode[]) {
         this.value = newValue;
     }
@@ -3251,51 +3324,51 @@ class TestDynamicTreeTableComponent {
     }
 
     updateAutoLayout(enabled: boolean) {
-        this.treetable().autoLayout = enabled;
+        this.autoLayout = enabled;
     }
 
     updatePaginator(enabled: boolean) {
-        this.treetable().paginator = enabled;
+        this.paginator = enabled;
     }
 
     updateRows(rows: number) {
-        this.treetable().rows = rows;
+        this.rows = rows;
     }
 
     updateFirst(first: number) {
-        this.treetable().first = first;
+        this.first = first;
     }
 
     updateLazy(enabled: boolean) {
-        this.treetable().lazy = enabled;
+        this.lazy = enabled;
     }
 
     updateLoading(loading: boolean) {
-        this.treetable().loading = loading;
+        this.loading = loading;
     }
 
     updateScrollable(enabled: boolean) {
-        this.treetable().scrollable = enabled;
+        this.scrollable = enabled;
     }
 
     updateVirtualScroll(enabled: boolean) {
-        this.treetable().virtualScroll = enabled;
+        this.virtualScroll = enabled;
     }
 
     updateSelectionMode(mode: string) {
-        this.treetable().selectionMode = mode;
+        this.selectionMode = mode;
     }
 
     updateSortMode(mode: 'single' | 'multiple') {
-        this.treetable().sortMode = mode;
+        this.sortMode = mode;
     }
 
     updateFilterMode(mode: string) {
-        this.treetable().filterMode = mode;
+        this.filterMode = mode;
     }
 
     updateShowGridlines(show: boolean) {
-        this.treetable().showGridlines = show;
+        this.showGridlines = show;
     }
 }
 describe('TreeTable PT', () => {

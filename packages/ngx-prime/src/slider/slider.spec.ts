@@ -1,12 +1,14 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { Slider, SliderModule } from './slider';
+import { RangeDirective } from './nativeslider';
 
 // Test Components
 @Component({
@@ -1567,5 +1569,162 @@ describe('Slider', () => {
                 expect(hookCalls).toContain('onDestroy');
             });
         });
+    });
+});
+
+@Component({ template: `<input type="range" pRange [(ngModel)]="value" min="0" max="10" step="1" />`, imports: [RangeDirective, FormsModule] })
+class NativeRangeTestComponent {
+    value = 2;
+}
+
+@Component({ template: `<input type="range" pRange [formControl]="control" />`, imports: [RangeDirective, ReactiveFormsModule] })
+class NativeRangeReactiveTestComponent {
+    control = new FormControl(2);
+}
+
+@Component({ template: `<input type="range" pRange [formField]="rangeForm.value" />`, imports: [RangeDirective, FormField] })
+class NativeRangeSignalTestComponent {
+    readonly model = signal({ value: 2 });
+    readonly rangeForm = form(this.model);
+}
+
+@Component({
+    template: `<input
+        type="range"
+        pRange
+        [(ngModel)]="value"
+        [disabled]="disabled"
+        [readonly]="readonly"
+        [invalid]="invalid"
+        [ariaDescribedBy]="describedBy"
+        [orientation]="orientation"
+        [pt]="pt"
+        (onInput)="inputEvents.push($event)"
+        (onChange)="changeEvents.push($event)"
+        (onSlideEnd)="slideEndEvents.push($event)"
+        (onFocus)="focusEvents.push($event)"
+        (onBlur)="blurEvents.push($event)"
+        (touch)="incrementTouches()"
+    />`,
+    imports: [RangeDirective, FormsModule]
+})
+class NativeRangeContractTestComponent {
+    value = 2;
+    disabled = false;
+    readonly = false;
+    invalid = false;
+    describedBy = 'range-help';
+    orientation: 'horizontal' | 'vertical' = 'horizontal';
+    pt = { input: { class: 'native-range-pt', 'data-test-id': 'range' } };
+    inputEvents: any[] = [];
+    changeEvents: any[] = [];
+    slideEndEvents: any[] = [];
+    focusEvents: Event[] = [];
+    blurEvents: Event[] = [];
+    touches = 0;
+
+    incrementTouches() {
+        this.touches++;
+    }
+}
+
+describe('native pRange', () => {
+    it('updates template-driven forms with numeric values', async () => {
+        await TestBed.configureTestingModule({ imports: [NativeRangeTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeRangeTestComponent);
+
+        fixture.detectChanges();
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        input.value = '7';
+        input.dispatchEvent(new Event('input'));
+        await fixture.whenStable();
+        expect(fixture.componentInstance.value).toBe(7);
+    });
+
+    it('works with reactive forms and keeps numeric values', async () => {
+        await TestBed.configureTestingModule({ imports: [NativeRangeReactiveTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeRangeReactiveTestComponent);
+
+        fixture.detectChanges();
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        expect(input.value).toBe('2');
+
+        input.value = '8';
+        input.dispatchEvent(new Event('input'));
+        await fixture.whenStable();
+        expect(fixture.componentInstance.control.value).toBe(8);
+
+        fixture.componentInstance.control.setValue(4);
+        fixture.detectChanges();
+        expect(input.value).toBe('4');
+    });
+
+    it('works with Signal Forms', async () => {
+        await TestBed.configureTestingModule({ imports: [NativeRangeSignalTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeRangeSignalTestComponent);
+
+        fixture.detectChanges();
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        input.value = '6';
+        input.dispatchEvent(new Event('input'));
+        await fixture.whenStable();
+
+        expect(fixture.componentInstance.model().value).toBe(6);
+    });
+
+    it('applies accessibility, state, PT, and native orientation attributes', async () => {
+        await TestBed.configureTestingModule({ imports: [NativeRangeContractTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeRangeContractTestComponent);
+
+        fixture.componentInstance.invalid = true;
+        fixture.componentInstance.orientation = 'vertical';
+        fixture.detectChanges();
+        await fixture.whenStable();
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        expect(input.getAttribute('aria-describedby')).toBe('range-help');
+        expect(input.getAttribute('aria-orientation')).toBe('vertical');
+        expect(input.classList).toContain('p-invalid');
+        expect(input.classList).toContain('native-range-pt');
+        expect(input.getAttribute('data-test-id')).toBe('range');
+    });
+
+    it('treats readonly as disabled because native ranges have no readonly state', async () => {
+        await TestBed.configureTestingModule({ imports: [NativeRangeContractTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeRangeContractTestComponent);
+
+        fixture.componentInstance.readonly = true;
+        fixture.detectChanges();
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        expect(input.disabled).toBeTrue();
+        expect(input.getAttribute('aria-readonly')).toBe('true');
+    });
+
+    it('emits input, commit, focus, blur, and touch events', async () => {
+        await TestBed.configureTestingModule({ imports: [NativeRangeContractTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeRangeContractTestComponent);
+
+        fixture.detectChanges();
+        const input = fixture.nativeElement.querySelector('input') as HTMLInputElement;
+
+        input.dispatchEvent(new Event('focus'));
+        input.value = '9';
+        input.dispatchEvent(new Event('input'));
+        input.dispatchEvent(new Event('change'));
+        input.dispatchEvent(new Event('blur'));
+        await fixture.whenStable();
+
+        const instance = fixture.componentInstance;
+
+        expect(instance.inputEvents[0].value).toBe(9);
+        expect(instance.changeEvents[0].value).toBe(9);
+        expect(instance.slideEndEvents[0].value).toBe(9);
+        expect(instance.focusEvents).toHaveSize(1);
+        expect(instance.blurEvents).toHaveSize(1);
+        expect(instance.touches).toBe(1);
     });
 });

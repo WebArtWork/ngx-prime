@@ -874,16 +874,16 @@ describe('Select', () => {
 
     describe('Options and Data', () => {
         it('should display options correctly', () => {
-            expect(selectInstance.options).toBeDefined();
-            expect(selectInstance.options!.length).toBe(3);
-            expect(selectInstance.options![0].name).toBe('Option 1');
+            expect(selectInstance.options()).toBeDefined();
+            expect(selectInstance.options()!.length).toBe(3);
+            expect(selectInstance.options()![0].name).toBe('Option 1');
         });
 
         it('should handle empty options array', () => {
             component.options = [];
             fixture.detectChanges();
 
-            expect(selectInstance.options!.length).toBe(0);
+            expect(selectInstance.options()!.length).toBe(0);
             expect(selectInstance.isEmpty()).toBe(true);
         });
 
@@ -891,7 +891,7 @@ describe('Select', () => {
             component.options = null as any;
             fixture.detectChanges();
 
-            expect(selectInstance.options).toBe(null);
+            expect(selectInstance.options()).toBe(null);
             expect(selectInstance.isEmpty()).toBe(true);
         });
 
@@ -899,7 +899,7 @@ describe('Select', () => {
             component.options = undefined as any;
             fixture.detectChanges();
 
-            expect(selectInstance.options).toBeUndefined();
+            expect(selectInstance.options()).toBeUndefined();
             expect(selectInstance.isEmpty()).toBe(true);
         });
     });
@@ -999,7 +999,8 @@ describe('Select', () => {
 
             // Create a new select instance with grouped options
             selectInstance.group = true;
-            selectInstance.options = groupedOptions;
+            component.options = groupedOptions;
+            fixture.detectChanges();
             selectInstance.optionGroupChildren = 'items';
             selectInstance.optionLabel = 'label';
             selectInstance.optionValue = 'value';
@@ -1453,9 +1454,9 @@ describe('Select', () => {
             ];
             fixture.detectChanges();
 
-            expect(selectInstance.options![0].name).toContain('"quotes"');
-            expect(selectInstance.options![1].name).toContain('<tags>');
-            expect(selectInstance.options![2].name).toContain('& ampersand');
+            expect(selectInstance.options()![0].name).toContain('"quotes"');
+            expect(selectInstance.options()![1].name).toContain('<tags>');
+            expect(selectInstance.options()![2].name).toContain('& ampersand');
         });
     });
 
@@ -1586,8 +1587,8 @@ describe('Select - Grouped Options', () => {
 
     it('should handle grouped options', () => {
         expect(selectInstance.group()).toBe(true);
-        expect(selectInstance.options!.length).toBe(2);
-        expect(selectInstance.options![0].items.length).toBe(2);
+        expect(selectInstance.options()!.length).toBe(2);
+        expect(selectInstance.options()![0].items.length).toBe(2);
     });
 
     it('should get option group label', () => {
@@ -2051,9 +2052,9 @@ describe('Select - Dynamic and Signal-based Properties', () => {
     });
 
     it('should handle dynamic signal-based options', () => {
-        expect(selectInstance.options).toBeDefined();
-        expect(selectInstance.options!.length).toBe(2);
-        expect(selectInstance.options![0].label).toBe('Dynamic 1');
+        expect(selectInstance.options()).toBeDefined();
+        expect(selectInstance.options()!.length).toBe(2);
+        expect(selectInstance.options()![0].label).toBe('Dynamic 1');
     });
 
     it('should update when signal-based options change', async () => {
@@ -2068,8 +2069,8 @@ describe('Select - Dynamic and Signal-based Properties', () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
 
-        expect(selectInstance.options!.length).toBe(3);
-        expect(selectInstance.options![0].label).toBe('Updated 1');
+        expect(selectInstance.options()!.length).toBe(3);
+        expect(selectInstance.options()![0].label).toBe('Updated 1');
     });
 
     it('should handle dynamic placeholder changes', async () => {
@@ -2131,8 +2132,8 @@ describe('Select - Dynamic and Signal-based Properties', () => {
         await new Promise((resolve) => setTimeout(resolve, 150));
         await fixture.whenStable();
 
-        expect(selectInstance.options!.length).toBe(2);
-        expect(selectInstance.options![0].label).toBe('Async 1');
+        expect(selectInstance.options()!.length).toBe(2);
+        expect(selectInstance.options()![0].label).toBe('Async 1');
     });
 
     it('should handle undefined/null dynamic values', async () => {
@@ -2141,7 +2142,7 @@ describe('Select - Dynamic and Signal-based Properties', () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
 
-        expect(selectInstance.options).toBe(null);
+        expect(selectInstance.options()).toBe(null);
         expect(() => fixture.detectChanges()).not.toThrow();
 
         component.updateOptions(undefined as any);
@@ -2149,7 +2150,7 @@ describe('Select - Dynamic and Signal-based Properties', () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
 
-        expect(selectInstance.options).toBeUndefined();
+        expect(selectInstance.options()).toBeUndefined();
         expect(() => fixture.detectChanges()).not.toThrow();
     });
 });
@@ -2189,7 +2190,7 @@ describe('Select - Performance and Large Datasets', () => {
         const endTime = performance.now();
 
         expect(endTime - startTime).toBeLessThan(2000); // Should render in less than 2 seconds
-        expect(selectInstance.options!.length).toBe(1000);
+        expect(selectInstance.options()!.length).toBe(1000);
     });
 
     it('should handle rapid selection changes without errors', async () => {
@@ -2966,7 +2967,7 @@ describe('Select Complex Edge Cases', () => {
                 const selectInstance = edgeSelect.componentInstance;
 
                 expect(() => {
-                    void selectInstance.options;
+                    void selectInstance.options();
                 }).not.toThrow();
             } else {
                 // If no select found, test component data directly
@@ -3208,7 +3209,7 @@ describe('Select Advanced Accessibility', () => {
 
             selectInstance.onKeyDown(endEvent);
 
-            const lastIndex = selectInstance.options!.length - 1;
+            const lastIndex = selectInstance.options()!.length - 1;
 
             expect(selectInstance.focusedOptionIndex()).toBe(lastIndex);
 

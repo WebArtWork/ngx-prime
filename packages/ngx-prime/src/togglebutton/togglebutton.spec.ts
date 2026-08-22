@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { SharedModule } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
+import { ToggleButtonDirective } from './nativetogglebutton';
 import { ToggleButton } from './togglebutton';
 
 @Component({
@@ -1417,5 +1418,142 @@ describe('ToggleButton', () => {
                 expect(hookCalls).toContain('onDestroy');
             });
         });
+    });
+});
+
+@Component({
+    template: `<button
+        pToggleButton
+        [(pressed)]="pressed"
+        [allowEmpty]="allowEmpty"
+        [disabled]="disabled"
+        [invalid]="invalid"
+        [ariaDescribedBy]="describedBy"
+        [pt]="pt"
+        (onChange)="changes.push($event)"
+        (onFocus)="incrementFocuses()"
+        (onBlur)="incrementBlurs()"
+        (touch)="incrementTouches()"
+    >
+        {{ pressed ? 'Pinned' : 'Pin' }}
+    </button>`,
+    imports: [ToggleButtonDirective]
+})
+class NativeToggleButtonTestComponent {
+    pressed = false;
+    allowEmpty = true;
+    disabled = false;
+    invalid = false;
+    describedBy = 'pin-help';
+    pt = { button: { class: 'native-toggle-pt', 'data-test-id': 'pin' } };
+    changes: ToggleButtonChangeEvent[] = [];
+    focuses = 0;
+    blurs = 0;
+    touches = 0;
+
+    incrementFocuses() {
+        this.focuses++;
+    }
+
+    incrementBlurs() {
+        this.blurs++;
+    }
+
+    incrementTouches() {
+        this.touches++;
+    }
+}
+
+@Component({ template: `<button pToggleButton [formControl]="control">Pin</button>`, imports: [ToggleButtonDirective, ReactiveFormsModule] })
+class NativeToggleButtonReactiveTestComponent {
+    control = new FormControl(false);
+}
+
+describe('native pToggleButton', () => {
+    async function createContractFixture() {
+        await TestBed.configureTestingModule({ imports: [NativeToggleButtonTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeToggleButtonTestComponent);
+
+        fixture.detectChanges();
+        await fixture.whenStable();
+
+        return fixture;
+    }
+
+    it('uses a safe native button type and synchronizes its pressed model', async () => {
+        const fixture = await createContractFixture();
+        const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+
+        expect(button.type).toBe('button');
+        expect(button.getAttribute('aria-pressed')).toBe('false');
+        expect(button.classList).not.toContain('p-togglebutton-checked');
+
+        button.click();
+        await fixture.whenStable();
+
+        expect(fixture.componentInstance.pressed).toBeTrue();
+        expect(button.getAttribute('aria-pressed')).toBe('true');
+        expect(button.classList).toContain('p-togglebutton-checked');
+        expect(fixture.componentInstance.changes[0].checked).toBeTrue();
+    });
+
+    it('honors allowEmpty and disabled state', async () => {
+        const fixture = await createContractFixture();
+        const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+
+        fixture.componentInstance.pressed = true;
+        fixture.componentInstance.allowEmpty = false;
+        fixture.detectChanges();
+        button.click();
+        await fixture.whenStable();
+        expect(fixture.componentInstance.pressed).toBeTrue();
+
+        fixture.componentInstance.disabled = true;
+        fixture.detectChanges();
+        expect(button.disabled).toBeTrue();
+        expect(button.getAttribute('aria-disabled')).toBe('true');
+    });
+
+    it('applies accessibility, invalid state, and native-button PT', async () => {
+        const fixture = await createContractFixture();
+
+        fixture.componentInstance.invalid = true;
+        fixture.detectChanges();
+        await fixture.whenStable();
+        const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+
+        expect(button.getAttribute('aria-describedby')).toBe('pin-help');
+        expect(button.classList).toContain('p-invalid');
+        expect(button.classList).toContain('native-toggle-pt');
+        expect(button.getAttribute('data-test-id')).toBe('pin');
+    });
+
+    it('emits focus, blur, and touch notifications', async () => {
+        const fixture = await createContractFixture();
+        const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+
+        button.dispatchEvent(new Event('focus'));
+        button.dispatchEvent(new Event('blur'));
+        await fixture.whenStable();
+
+        expect(fixture.componentInstance.focuses).toBe(1);
+        expect(fixture.componentInstance.blurs).toBe(1);
+        expect(fixture.componentInstance.touches).toBe(1);
+    });
+
+    it('synchronizes with reactive forms in both directions', async () => {
+        await TestBed.configureTestingModule({ imports: [NativeToggleButtonReactiveTestComponent], providers: [provideZonelessChangeDetection()] }).compileComponents();
+        const fixture = TestBed.createComponent(NativeToggleButtonReactiveTestComponent);
+
+        fixture.detectChanges();
+        const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+
+        button.click();
+        await fixture.whenStable();
+        expect(fixture.componentInstance.control.value).toBeTrue();
+
+        fixture.componentInstance.control.setValue(false);
+        fixture.detectChanges();
+        expect(button.getAttribute('aria-pressed')).toBe('false');
     });
 });

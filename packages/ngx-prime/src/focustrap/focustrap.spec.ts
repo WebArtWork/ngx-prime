@@ -826,38 +826,37 @@ describe('FocusTrap', () => {
             expect(directive.createHiddenFocusableElements).toHaveBeenCalled();
         });
 
-        it('should handle ngOnChanges for pFocusTrapDisabled', () => {
-            const changes = {
-                pFocusTrapDisabled: {
-                    currentValue: true,
-                    previousValue: false,
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            };
+        it('should remove hidden elements when pFocusTrapDisabled becomes true', () => {
+            const disabledFixture = TestBed.createComponent(TestDisabledFocusTrapComponent);
+            const disabledComponent = disabledFixture.componentInstance;
 
-            spyOn(directive, 'removeHiddenFocusableElements');
+            disabledFixture.detectChanges();
 
-            directive.ngOnChanges(changes);
+            const disabledDirective = disabledFixture.debugElement.query(By.directive(FocusTrap)).injector.get(FocusTrap);
 
-            expect(directive.removeHiddenFocusableElements).toHaveBeenCalled();
+            spyOn(disabledDirective, 'removeHiddenFocusableElements');
+
+            disabledComponent.disabled = true;
+            disabledFixture.detectChanges();
+
+            expect(disabledDirective.removeHiddenFocusableElements).toHaveBeenCalled();
         });
 
-        it('should handle ngOnChanges when enabling focus trap', () => {
-            const changes = {
-                pFocusTrapDisabled: {
-                    currentValue: false,
-                    previousValue: true,
-                    firstChange: false,
-                    isFirstChange: () => false
-                }
-            };
+        it('should create hidden elements when enabling focus trap', () => {
+            const disabledFixture = TestBed.createComponent(TestDisabledFocusTrapComponent);
+            const disabledComponent = disabledFixture.componentInstance;
 
-            spyOn(directive, 'createHiddenFocusableElements');
+            disabledComponent.disabled = true;
+            disabledFixture.detectChanges();
 
-            directive.ngOnChanges(changes);
+            const disabledDirective = disabledFixture.debugElement.query(By.directive(FocusTrap)).injector.get(FocusTrap);
 
-            expect(directive.createHiddenFocusableElements).toHaveBeenCalled();
+            spyOn(disabledDirective, 'createHiddenFocusableElements');
+
+            disabledComponent.disabled = false;
+            disabledFixture.detectChanges();
+
+            expect(disabledDirective.createHiddenFocusableElements).toHaveBeenCalled();
         });
     });
 

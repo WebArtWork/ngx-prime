@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, Directive, effect, inject, InjectionToken, input, Input, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, Directive, effect, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, findSingle, isEmpty } from '@wawjs/css-prime-utils';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocus } from 'primeng/autofocus';
@@ -206,6 +206,52 @@ export class ButtonDirective extends BaseComponent {
                 this.setStyleClass();
             }
         });
+
+        effect(() => {
+            this._label = this.label();
+
+            if (this.initialized) {
+                this.updateLabel();
+                this.updateIcon();
+                this.setStyleClass();
+            }
+        });
+
+        effect(() => {
+            this._icon = this.icon();
+
+            if (this.initialized) {
+                this.updateIcon();
+                this.setStyleClass();
+            }
+        });
+
+        effect(() => {
+            this._loading = this.loading();
+
+            if (this.initialized) {
+                this.updateIcon();
+                this.setStyleClass();
+            }
+        });
+
+        effect(() => {
+            this._severity = this.severity() as ButtonSeverity;
+
+            if (this.initialized) {
+                this.setStyleClass();
+            }
+        });
+
+        effect(() => {
+            const val = this.buttonProps();
+
+            this._buttonProps = val as ButtonProps;
+
+            if (val && typeof val === 'object') {
+                Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
+            }
+        });
     }
 
     /**
@@ -300,118 +346,33 @@ export class ButtonDirective extends BaseComponent {
      * @deprecated use pButtonLabel directive instead.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get label(): string | undefined {
-        return this._label as string;
-    }
-
-    set label(val: string) {
-        this._label = val;
-
-        if (this.initialized) {
-            this.updateLabel();
-            this.updateIcon();
-            this.setStyleClass();
-        }
-    }
+    readonly label = input<string>();
 
     /**
      * Name of the icon.
      * @deprecated use pButtonIcon directive instead
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get icon(): string {
-        return this._icon as string;
-    }
-
-    set icon(val: string) {
-        this._icon = val;
-
-        if (this.initialized) {
-            this.updateIcon();
-            this.setStyleClass();
-        }
-    }
+    readonly icon = input<string>();
 
     /**
      * Whether the button is in loading state.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get loading(): boolean {
-        return this._loading;
-    }
-
-    set loading(val: boolean) {
-        this._loading = val;
-
-        if (this.initialized) {
-            this.updateIcon();
-            this.setStyleClass();
-        }
-    }
+    readonly loading = input<boolean>(false);
 
     /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @deprecated assign props directly to the button element.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get buttonProps(): ButtonProps {
-        return this._buttonProps;
-    }
-
-    set buttonProps(val: ButtonProps) {
-        this._buttonProps = val;
-
-        if (val && typeof val === 'object') {
-            Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
-        }
-    }
+    readonly buttonProps = input<ButtonProps>();
 
     /**
      * Defines the style of the button.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input()
-    get severity(): ButtonSeverity {
-        return this._severity;
-    }
-
-    set severity(value: ButtonSeverity) {
-        this._severity = value;
-
-        if (this.initialized) {
-            this.setStyleClass();
-        }
-    }
+    readonly severity = input<ButtonSeverity>();
 
     spinnerIcon = `<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" class="p-icon-spin">
         <g clip-path="url(#clip0_417_21408)">
@@ -440,18 +401,18 @@ export class ButtonDirective extends BaseComponent {
     getStyleClass(): string[] {
         const styleClass: string[] = [INTERNAL_BUTTON_CLASSES.button, INTERNAL_BUTTON_CLASSES.component];
 
-        if (this.icon && !this.label && isEmpty(this.htmlElement.textContent)) {
+        if (this._icon && !this._label && isEmpty(this.htmlElement.textContent)) {
             styleClass.push(INTERNAL_BUTTON_CLASSES.iconOnly);
         }
 
-        if (this.loading) {
+        if (this._loading) {
             styleClass.push(INTERNAL_BUTTON_CLASSES.disabled, INTERNAL_BUTTON_CLASSES.loading);
 
-            if (!this.icon && this.label) {
+            if (!this._icon && this._label) {
                 styleClass.push(INTERNAL_BUTTON_CLASSES.labelOnly);
             }
 
-            if (this.icon && !this.label && !isEmpty(this.htmlElement.textContent)) {
+            if (this._icon && !this._label && !isEmpty(this.htmlElement.textContent)) {
                 styleClass.push(INTERNAL_BUTTON_CLASSES.iconOnly);
             }
         }
@@ -460,8 +421,8 @@ export class ButtonDirective extends BaseComponent {
             styleClass.push('p-button-text');
         }
 
-        if (this.severity) {
-            styleClass.push(`p-button-${this.severity}`);
+        if (this._severity) {
+            styleClass.push(`p-button-${this._severity}`);
         }
 
         if (this.plain()) {
@@ -526,10 +487,10 @@ export class ButtonDirective extends BaseComponent {
     createLabel() {
         const created = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
 
-        if (!created && this.label) {
-            let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('buttonlabel'), 'aria-hidden': this.icon && !this.label ? 'true' : null });
+        if (!created && this._label) {
+            let labelElement = <HTMLElement>createElement('span', { class: this.cx('label'), 'p-bind': this.ptm('buttonlabel'), 'aria-hidden': this._icon && !this._label ? 'true' : null });
 
-            labelElement.appendChild(this.document.createTextNode(this.label));
+            labelElement.appendChild(this.document.createTextNode(this._label));
             this.htmlElement.appendChild(labelElement);
         }
     }
@@ -537,12 +498,12 @@ export class ButtonDirective extends BaseComponent {
     createIcon() {
         const created = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]');
 
-        if (!created && (this.icon || this.loading)) {
-            let iconPosClass = this.label && !this.$unstyled() ? 'p-button-icon-' + this.iconPos() : null;
+        if (!created && (this._icon || this._loading)) {
+            let iconPosClass = this._label && !this.$unstyled() ? 'p-button-icon-' + this.iconPos() : null;
             let iconClass = !this.$unstyled() && this.getIconClass();
             let iconElement: HTMLElement = <HTMLElement>createElement('span', { class: this.cn(this.cx('icon'), iconPosClass, iconClass), 'aria-hidden': 'true', 'p-bind': this.ptm('buttonicon') });
 
-            if (!this.loadingIcon() && this.loading) {
+            if (!this.loadingIcon() && this._loading) {
                 iconElement.innerHTML = this.spinnerIcon;
             }
 
@@ -553,20 +514,20 @@ export class ButtonDirective extends BaseComponent {
     updateLabel() {
         let labelElement = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
 
-        if (!this.label) {
+        if (!this._label) {
             labelElement && this.htmlElement.removeChild(labelElement);
 
             return;
         }
 
-        labelElement ? (labelElement.textContent = this.label) : this.createLabel();
+        labelElement ? (labelElement.textContent = this._label) : this.createLabel();
     }
 
     updateIcon() {
         let iconElement = findSingle(this.htmlElement, '[data-pc-section="buttonicon"]');
         let labelElement = findSingle(this.htmlElement, '[data-pc-section="buttonlabel"]');
 
-        if (this.loading && !this.loadingIcon() && iconElement) {
+        if (this._loading && !this.loadingIcon() && iconElement) {
             iconElement.innerHTML = this.spinnerIcon;
         } else if (iconElement?.innerHTML) {
             iconElement.innerHTML = '';
@@ -588,7 +549,7 @@ export class ButtonDirective extends BaseComponent {
     getIconClass() {
         const loadingIcon = this.loadingIcon();
 
-        return this.loading ? 'p-button-loading-icon ' + (loadingIcon ? loadingIcon : 'p-icon') : this.icon || 'p-hidden';
+        return this._loading ? 'p-button-loading-icon ' + (loadingIcon ? loadingIcon : 'p-icon') : this._icon || 'p-hidden';
     }
 
     onDestroy() {

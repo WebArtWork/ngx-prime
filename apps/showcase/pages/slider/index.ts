@@ -3,6 +3,7 @@ import { BasicDoc } from '@/doc/slider/basic-doc';
 import { FilterDoc } from '@/doc/slider/filter-doc';
 import { ImportDoc } from '@/doc/slider/import-doc';
 import { InputDoc } from '@/doc/slider/input-doc';
+import { NativeDoc } from '@/doc/slider/native-doc';
 import { PTComponent } from '@/doc/slider/pt/PTComponent';
 import { RangeDoc } from '@/doc/slider/range-doc';
 import { ReactiveFormsDoc } from '@/doc/slider/reactiveforms-doc';
@@ -29,6 +30,11 @@ export class SliderDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'native',
+            label: 'Native Input',
+            component: NativeDoc
         },
         {
             id: 'input',

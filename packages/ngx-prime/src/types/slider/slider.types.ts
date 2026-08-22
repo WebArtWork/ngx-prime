@@ -9,6 +9,10 @@ import { PassThrough, PassThroughOption } from 'primeng/api';
  */
 export interface SliderPassThroughOptions<I = unknown> {
     /**
+     * Used to pass attributes to a native range input enhanced with `pRange`.
+     */
+    input?: PassThroughOption<HTMLInputElement, I>;
+    /**
      * Used to pass attributes to the root's DOM element.
      */
     root?: PassThroughOption<HTMLDivElement, I>;

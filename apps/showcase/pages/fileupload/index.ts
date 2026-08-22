@@ -3,6 +3,7 @@ import { AdvancedDoc } from '@/doc/fileupload/advanced-doc';
 import { AutoDoc } from '@/doc/fileupload/auto-doc';
 import { BasicDoc } from '@/doc/fileupload/basic-doc';
 import { ImportDoc } from '@/doc/fileupload/import-doc';
+import { NativeDoc } from '@/doc/fileupload/native-doc';
 import { PTComponent } from '@/doc/fileupload/pt/PTComponent';
 import { TemplateDoc } from '@/doc/fileupload/template-doc';
 import { Component } from '@angular/core';
@@ -14,7 +15,7 @@ import { AppDoc } from '@/components/doc/app.doc';
     template: ` <app-doc
         docTitle="Angular FileUpload Component"
         header="FileUpload"
-        description="FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations."
+        description="Use the native file input directive for selection, or the FileUpload component for its advanced upload workflow."
         [docs]="docs"
         [apiDocs]="['FileUpload']"
         [ptDocs]="ptComponent"
@@ -32,6 +33,11 @@ export class FileUploadDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'native',
+            label: 'Native Input',
+            component: NativeDoc
         },
         {
             id: 'auto',

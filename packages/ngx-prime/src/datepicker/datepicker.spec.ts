@@ -388,7 +388,7 @@ describe('DatePicker', () => {
         it('should initialize with default values', async () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
-            expect(component.dateFormat).toBeUndefined(); // Default is undefined, not 'mm/dd/yy'
+            expect(component.dateFormat()).toBeUndefined(); // Default is undefined, not 'mm/dd/yy'
             expect(component.multipleSeparator()).toBe(',');
             expect(component.rangeSeparator()).toBe('-');
             expect(component.inline()).toBe(false);
@@ -397,7 +397,7 @@ describe('DatePicker', () => {
             expect(component.stepMinute()).toBe(1);
             expect(component.stepSecond()).toBe(1);
             expect(component.showSeconds()).toBe(false);
-            expect(component.hourFormat).toBe('24');
+            expect(component.hourFormat()).toBe('24');
         });
 
         it('should accept custom values', async () => {

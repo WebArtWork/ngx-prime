@@ -7,16 +7,14 @@ import {
     ContentChild,
     effect,
     ElementRef,
-    EventEmitter,
     forwardRef,
     inject,
     InjectionToken,
     input,
     NgModule,
     numberAttribute,
-    Output,
+    output,
     signal,
-    SimpleChanges,
     TemplateRef,
     ViewEncapsulation,
     viewChild,
@@ -157,11 +155,11 @@ export class CascadeSelectSub extends BaseComponent {
 
     readonly root = input<boolean, unknown>(undefined, { transform: booleanAttribute });
 
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
+    onChange = output<any>();
 
-    @Output() onFocusChange: EventEmitter<any> = new EventEmitter();
+    onFocusChange = output<any>();
 
-    @Output() onFocusEnterChange: EventEmitter<any> = new EventEmitter();
+    onFocusEnterChange = output<any>();
 
     _componentStyle = inject(CascadeSelectStyle);
 
@@ -369,7 +367,7 @@ export class CascadeSelectSub extends BaseComponent {
                             pCascadeSelectSub
                             [class]="cx('list')"
                             [options]="processedOptions"
-                            [selectId]="id()"
+                            [selectId]="resolvedId"
                             [focusedOptionId]="focused ? focusedOptionId : undefined"
                             [activeOptionPath]="activeOptionPath()"
                             [optionLabel]="optionLabel()"
@@ -429,6 +427,12 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
      * @group Props
      */
     readonly id = input<string>();
+
+    private _generatedId: string | undefined;
+
+    get resolvedId(): string {
+        return this.id() || (this._generatedId ??= uuid('pn_id_'));
+    }
     /**
      * Text to display when the search is active. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -630,54 +634,54 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
      * @param {CascadeSelectChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<CascadeSelectChangeEvent> = new EventEmitter<CascadeSelectChangeEvent>();
+    onChange = output<CascadeSelectChangeEvent>();
     /**
      * Callback to invoke when a group changes.
      * @param {Event} event - Browser event.
      * @group Emits
      */
-    @Output() onGroupChange: EventEmitter<Event> = new EventEmitter<Event>();
+    onGroupChange = output<Event>();
     /**
      * Callback to invoke when the overlay is shown.
      * @param {CascadeSelectShowEvent} event - Custom overlay show event.
      * @group Emits
      */
-    @Output() onShow: EventEmitter<CascadeSelectShowEvent> = new EventEmitter<CascadeSelectShowEvent>();
+    onShow = output<CascadeSelectShowEvent>();
     /**
      * Callback to invoke when the overlay is hidden.
      * @param {CascadeSelectHideEvent} event - Custom overlay hide event.
      * @group Emits
      */
-    @Output() onHide: EventEmitter<CascadeSelectHideEvent> = new EventEmitter<CascadeSelectHideEvent>();
+    onHide = output<CascadeSelectHideEvent>();
     /**
      * Callback to invoke when the clear token is clicked.
      * @group Emits
      */
-    @Output() onClear: EventEmitter<any> = new EventEmitter();
+    onClear = output<any>();
     /**
      * Callback to invoke before overlay is shown.
      * @param {CascadeSelectBeforeShowEvent} event - Custom overlay show event.
      * @group Emits
      */
-    @Output() onBeforeShow: EventEmitter<CascadeSelectBeforeShowEvent> = new EventEmitter<CascadeSelectBeforeShowEvent>();
+    onBeforeShow = output<CascadeSelectBeforeShowEvent>();
     /**
      * Callback to invoke before overlay is hidden.
      * @param {CascadeSelectBeforeHideEvent} event - Custom overlay hide event.
      * @group Emits
      */
-    @Output() onBeforeHide: EventEmitter<CascadeSelectBeforeHideEvent> = new EventEmitter<CascadeSelectBeforeHideEvent>();
+    onBeforeHide = output<CascadeSelectBeforeHideEvent>();
     /**
      * Callback to invoke when input receives focus.
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onFocus = output<FocusEvent>();
     /**
      * Callback to invoke when input loses focus.
      * @param {FocusEvent} event - Focus event.
      * @group Emits
      */
-    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    onBlur = output<FocusEvent>();
 
     readonly focusInputViewChild = viewChild<Nullable<ElementRef>>('focusInput');
 
@@ -791,7 +795,7 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
     }
 
     get focusedOptionId() {
-        return this.focusedOptionInfo().index !== -1 ? `${this.id()}${isNotEmpty(this.focusedOptionInfo().parentKey) ? '_' + this.focusedOptionInfo().parentKey : ''}_${this.focusedOptionInfo().index}` : null;
+        return this.focusedOptionInfo().index !== -1 ? `${this.resolvedId}${isNotEmpty(this.focusedOptionInfo().parentKey) ? '_' + this.focusedOptionInfo().parentKey : ''}_${this.focusedOptionInfo().index}` : null;
     }
 
     get searchResultMessageText() {
@@ -892,13 +896,6 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
                     break;
             }
         });
-    }
-
-    onChanges(changes: SimpleChanges): void {
-        if (changes.options) {
-            this.processedOptions = this.createProcessedOptions(changes.options.currentValue || []);
-            this.updateModel(null);
-        }
     }
 
     hasSelectedOption() {
@@ -1160,7 +1157,6 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
     }
 
     updateModel(value, event?) {
-        this.value = value;
         this.onModelChange(value);
         this.writeModelValue(value);
 
@@ -1186,7 +1182,7 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
     }
 
     scrollInView(index = -1) {
-        const id = index !== -1 ? `${this.id()}_${index}` : this.focusedOptionId;
+        const id = index !== -1 ? `${this.resolvedId}_${index}` : this.focusedOptionId;
         const element = findSingle(this.panelViewChild()?.nativeElement, `li[id="${id}"]`);
 
         if (element) {
@@ -1477,6 +1473,12 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
                 this.overlayViewChild()?.alignOverlay();
             }
         });
+        effect(() => {
+            const options = this.options();
+
+            this.processedOptions = this.createProcessedOptions(options || []);
+            this.updateModel(null);
+        });
     }
     query: any;
     queryMatches = signal<boolean>(false);
@@ -1553,7 +1555,6 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
     }
 
     onInit() {
-        this.id = this.id() || uuid('pn_id_');
         this.autoUpdateModel();
         this.bindMatchMediaListener();
     }
@@ -1600,7 +1601,6 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
      * Writes the value to the control.
      */
     writeControlValue(value: any, setModelValue: (value: any) => void): void {
-        this.value = value;
         setModelValue(value);
         this.cd.markForCheck();
     }

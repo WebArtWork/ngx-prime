@@ -7,6 +7,7 @@ import { IftaLabelDoc } from '@/doc/inputmask/iftalabel-doc';
 import { ImportDoc } from '@/doc/inputmask/import-doc';
 import { InvalidDoc } from '@/doc/inputmask/invalid-doc';
 import { MaskDoc } from '@/doc/inputmask/mask-doc';
+import { NativeDoc } from '@/doc/inputmask/native-doc';
 import { OptionalDoc } from '@/doc/inputmask/optional-doc';
 import { ReactiveFormsDoc } from '@/doc/inputmask/reactiveforms-doc';
 import { SizesDoc } from '@/doc/inputmask/sizes-doc';
@@ -38,6 +39,11 @@ export class InputMaskDemo {
             id: 'import',
             label: 'Import',
             component: ImportDoc
+        },
+        {
+            id: 'native',
+            label: 'Native Input',
+            component: NativeDoc
         },
         {
             id: 'basic',

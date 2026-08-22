@@ -5,19 +5,18 @@ import {
     Component,
     computed,
     ContentChildren,
+    effect,
     ElementRef,
-    EventEmitter,
     inject,
     InjectionToken,
     input,
-    Input,
     KeyValueDiffers,
+    model,
     NgModule,
     numberAttribute,
-    Output,
+    output,
     QueryList,
     signal,
-    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -69,7 +68,7 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                         @if (renderContent()) {
                             <div
                                 pGalleriaContent
-                                [pMotion]="visible"
+                                [pMotion]="visible()"
                                 [pMotionAppear]="true"
                                 [pMotionName]="'p-galleria'"
                                 [pMotionOptions]="computedMotionOptions()"
@@ -77,7 +76,7 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                                 (pMotionOnBeforeLeave)="onBeforeLeave()"
                                 (pMotionOnAfterLeave)="onAfterLeave()"
                                 [value]="value()"
-                                [activeIndex]="activeIndex"
+                                [activeIndex]="activeIndex()"
                                 [numVisible]="numVisibleLimit || numVisible()"
                                 (maskHide)="onMaskHide()"
                                 (activeItemChange)="onActiveItemChange($event)"
@@ -93,7 +92,7 @@ const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');
                 }
             </div>
         } @else {
-            <div pGalleriaContent [pt]="pt()" [unstyled]="unstyled()" [value]="value()" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible()" (activeItemChange)="onActiveItemChange($event)"></div>
+            <div pGalleriaContent [pt]="pt()" [unstyled]="unstyled()" [value]="value()" [activeIndex]="activeIndex()" [numVisible]="numVisibleLimit || numVisible()" (activeItemChange)="onActiveItemChange($event)"></div>
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -118,14 +117,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
      * Index of the first item.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get activeIndex(): number {
-        return this._activeIndex;
-    }
-    set activeIndex(activeIndex) {
-        this._activeIndex = activeIndex;
-    }
+    readonly activeIndex = model<number>(0);
     /**
      * Whether to display the component on fullscreen.
      * @group Props
@@ -280,43 +272,12 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
      * Specifies the visibility of the mask on fullscreen mode.
      * @group Props
      */
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get visible(): boolean {
-        return this._visible;
-    }
-    set visible(visible: boolean) {
-        this._visible = visible;
-
-        if (this._visible && !this.maskVisible) {
-            this.maskVisible = true;
-            this.renderMask.set(true);
-            this.renderContent.set(true);
-        } else if (!this._visible && this.maskVisible) {
-            this.maskVisible = false;
-        }
-    }
+    readonly visible = model<boolean>(false);
 
     renderMask = signal<boolean>(false);
     renderContent = signal<boolean>(false);
-    /**
-     * Callback to invoke on active index change.
-     * @param {number} number - Active index.
-     * @group Emits
-     */
-    @Output() activeIndexChange: EventEmitter<number> = new EventEmitter<number>();
-    /**
-     * Callback to invoke on visiblity change.
-     * @param {boolean} boolean - Visible value.
-     * @group Emits
-     */
-    @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ViewChild('container') container: ElementRef | undefined;
-
-    _visible: boolean = false;
-
-    _activeIndex: number = 0;
 
     /**
      * Custom header template.
@@ -405,6 +366,32 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
+    constructor() {
+        super();
+
+        effect(() => {
+            const visible = this.visible();
+
+            if (visible && !this.maskVisible) {
+                this.maskVisible = true;
+                this.renderMask.set(true);
+                this.renderContent.set(true);
+            } else if (!visible && this.maskVisible) {
+                this.maskVisible = false;
+            }
+        });
+
+        effect(() => {
+            const value = this.value();
+
+            if (value && value.length < this.numVisible()) {
+                this.numVisibleLimit = value.length;
+            } else {
+                this.numVisibleLimit = 0;
+            }
+        });
+    }
+
     onAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -455,25 +442,15 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
         });
     }
 
-    onChanges(simpleChanges: SimpleChanges) {
-        if (simpleChanges.value && simpleChanges.value.currentValue?.length < this.numVisible()) {
-            this.numVisibleLimit = simpleChanges.value.currentValue.length;
-        } else {
-            this.numVisibleLimit = 0;
-        }
-    }
-
     onMaskHide(event?: MouseEvent) {
         if (!event || event.target === event.currentTarget) {
-            this.visible = false;
-            this.visibleChange.emit(false);
+            this.visible.set(false);
         }
     }
 
     onActiveItemChange(index: number) {
-        if (this.activeIndex !== index) {
-            this.activeIndex = index;
-            this.activeIndexChange.emit(index);
+        if (this.activeIndex() !== index) {
+            this.activeIndex.set(index);
         }
     }
 
@@ -553,7 +530,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                     pGalleriaItem
                     [id]="id"
                     [value]="value()"
-                    [activeIndex]="activeIndex"
+                    [activeIndex]="_activeIndexBacking"
                     [circular]="galleria.circular()"
                     [templates]="galleria.templates"
                     (onActiveIndexChange)="onActiveIndexChange($event)"
@@ -576,7 +553,7 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                         [containerId]="id"
                         [value]="value()"
                         (onActiveIndexChange)="onActiveIndexChange($event)"
-                        [activeIndex]="activeIndex"
+                        [activeIndex]="_activeIndexBacking"
                         [templates]="galleria.templates"
                         [numVisible]="numVisible()"
                         [responsiveOptions]="galleria.responsiveOptions()"
@@ -620,14 +597,9 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
         this.bindDirectiveInstance.setAttrs(this.getPTOptions('root'));
     }
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get activeIndex(): number {
-        return this._activeIndex;
-    }
-    set activeIndex(activeIndex: number) {
-        this._activeIndex = activeIndex;
-    }
+    readonly activeIndex = input<number>(0);
+
+    _activeIndexBacking: number = 0;
 
     readonly value = input<any[]>([]);
 
@@ -635,9 +607,11 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
 
     readonly fullScreen = input<boolean, unknown>(undefined!, { transform: booleanAttribute });
 
-    @Output() maskHide: EventEmitter<boolean> = new EventEmitter();
+    _fullScreenBacking: boolean = false;
 
-    @Output() activeItemChange: EventEmitter<number> = new EventEmitter();
+    maskHide = output<boolean>();
+
+    activeItemChange = output<number>();
 
     readonly closeButton = viewChild<ElementRef>('closeButton');
 
@@ -646,8 +620,6 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
     $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     id: string;
-
-    _activeIndex: number = 0;
 
     slideShowActive: boolean = true;
 
@@ -661,14 +633,22 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
         super();
         this.id = this.galleria.id() || uuid('pn_id_');
         this.differ = this.differs.find(this.galleria).create();
+
+        effect(() => {
+            this._activeIndexBacking = this.activeIndex();
+        });
+
+        effect(() => {
+            this._fullScreenBacking = this.fullScreen();
+        });
     }
 
     // For custom fullscreen
     handleFullscreenChange() {
         if (document?.fullscreenElement === this.el.nativeElement?.children[0]) {
-            this.fullScreen = true;
+            this._fullScreenBacking = true;
         } else {
-            this.fullScreen = false;
+            this._fullScreenBacking = false;
         }
     }
 
@@ -693,10 +673,9 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
     startSlideShow() {
         if (isPlatformBrowser(this.galleria.platformId)) {
             this.interval = setInterval(() => {
-                let activeIndex = this.galleria.circular() && this.value().length - 1 === this.activeIndex ? 0 : this.activeIndex + 1;
+                let activeIndex = this.galleria.circular() && this.value().length - 1 === this._activeIndexBacking ? 0 : this._activeIndexBacking + 1;
 
                 this.onActiveIndexChange(activeIndex);
-                this.activeIndex = activeIndex;
             }, this.galleria.transitionInterval());
 
             this.slideShowActive = true;
@@ -729,9 +708,9 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
     }
 
     onActiveIndexChange(index: number) {
-        if (this.activeIndex !== index) {
-            this.activeIndex = index;
-            this.activeItemChange.emit(this.activeIndex);
+        if (this._activeIndexBacking !== index) {
+            this._activeIndexBacking = index;
+            this.activeItemChange.emit(this._activeIndexBacking);
         }
     }
 
@@ -766,10 +745,39 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
 
     readonly index = input<number, unknown>(undefined, { transform: numberAttribute });
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get item(): any {
-        return this._item;
+    readonly item = input<any>();
+
+    constructor() {
+        super();
+
+        effect(() => {
+            this.item();
+
+            const templates = this.templates();
+
+            if (templates && templates?.toArray().length > 0) {
+                templates.forEach((item) => {
+                    const type = this.type();
+
+                    if (item.getType() === type) {
+                        switch (type) {
+                            case 'item':
+                            case 'caption':
+                            case 'thumbnail':
+                                this.context = { $implicit: this.item() };
+                                this.contentTemplate = item.template;
+                                break;
+                            case 'footer':
+                                this.context = { $implicit: this.item() };
+                                this.contentTemplate = item.template;
+                                break;
+                        }
+                    }
+                });
+            } else {
+                this.getContentTemplate();
+            }
+        });
     }
 
     shouldRender() {
@@ -792,35 +800,6 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
 
     $pcGalleria: Galleria | undefined = inject(GALLERIA_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
-    set item(item: any) {
-        this._item = item;
-
-        const templates = this.templates();
-
-        if (templates && templates?.toArray().length > 0) {
-            templates.forEach((item) => {
-                const type = this.type();
-
-                if (item.getType() === type) {
-                    switch (type) {
-                        case 'item':
-                        case 'caption':
-                        case 'thumbnail':
-                            this.context = { $implicit: this.item };
-                            this.contentTemplate = item.template;
-                            break;
-                        case 'footer':
-                            this.context = { $implicit: this.item };
-                            this.contentTemplate = item.template;
-                            break;
-                    }
-                }
-            });
-        } else {
-            this.getContentTemplate();
-        }
-    }
-
     getTemplateFromQueryList(type: string): TemplateRef<any> | undefined {
         return this.galleria.templates?.find((item) => item.getType() === type)?.template;
     }
@@ -828,15 +807,15 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
     getContentTemplate() {
         switch (this.type()) {
             case 'item':
-                this.context = { $implicit: this.item };
+                this.context = { $implicit: this.item() };
                 this.contentTemplate = this.galleria._itemTemplate() || this.getTemplateFromQueryList('item');
                 break;
             case 'caption':
-                this.context = { $implicit: this.item };
+                this.context = { $implicit: this.item() };
                 this.contentTemplate = this.galleria.captionTemplate() || this.getTemplateFromQueryList('caption');
                 break;
             case 'thumbnail':
-                this.context = { $implicit: this.item };
+                this.context = { $implicit: this.item() };
                 this.contentTemplate = this.galleria._thumbnailTemplate() || this.getTemplateFromQueryList('thumbnail');
                 break;
             case 'indicator':
@@ -844,11 +823,11 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
                 this.contentTemplate = this.galleria.indicatorTemplate() || this.getTemplateFromQueryList('indicator');
                 break;
             case 'footer':
-                this.context = { $implicit: this.item };
+                this.context = { $implicit: this.item() };
                 this.contentTemplate = this.galleria.footerTemplate() || this.getTemplateFromQueryList('footer');
                 break;
             default:
-                this.context = { $implicit: this.item };
+                this.context = { $implicit: this.item() };
                 this.contentTemplate = this.galleria._itemTemplate() || this.getTemplateFromQueryList('item');
         }
     }
@@ -858,8 +837,6 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
     contentTemplate: TemplateRef<any> | undefined;
 
     context: any;
-
-    _item: any;
 
     onAfterContentInit() {
         const templates = this.templates();
@@ -873,7 +850,7 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
                         case 'item':
                         case 'caption':
                         case 'thumbnail':
-                            this.context = { $implicit: this.item };
+                            this.context = { $implicit: this.item() };
                             this.contentTemplate = item.template;
                             break;
 
@@ -883,12 +860,12 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
                             break;
 
                         case 'footer':
-                            this.context = { $implicit: this.item };
+                            this.context = { $implicit: this.item() };
                             this.contentTemplate = item.template;
                             break;
 
                         default:
-                            this.context = { $implicit: this.item };
+                            this.context = { $implicit: this.item() };
                             this.contentTemplate = item.template;
                             break;
                     }
@@ -919,10 +896,10 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
                 [class]="cx('item')"
                 [item]="activeItem"
                 [templates]="templates()"
-                [id]="id() + '_item_' + activeIndex"
+                [id]="id() + '_item_' + activeIndex()"
                 role="group"
                 [class]="cx('item')"
-                [attr.aria-label]="ariaSlideNumber(activeIndex + 1)"
+                [attr.aria-label]="ariaSlideNumber(activeIndex() + 1)"
                 [attr.aria-roledescription]="ariaSlideLabel()"
             ></div>
             @if (showItemNavigators()) {
@@ -948,7 +925,7 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
                         (keydown)="onIndicatorKeyDown($event, index)"
                         [class]="cx('indicator', { index })"
                         [attr.aria-label]="ariaPageLabel(index + 1)"
-                        [attr.aria-selected]="activeIndex === index"
+                        [attr.aria-selected]="activeIndex() === index"
                         [attr.aria-controls]="id() + '_item_' + index"
                         [pBind]="ptm('indicator', getIndicatorPTOptions(index))"
                         [attr.data-p-active]="isIndicatorItemActive(index)"
@@ -1002,64 +979,58 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
 
     readonly captionFacet = input<any>();
 
-    @Output() startSlideShow: EventEmitter<Event> = new EventEmitter();
+    startSlideShow = output<Event | undefined>();
 
-    @Output() stopSlideShow: EventEmitter<Event> = new EventEmitter();
+    stopSlideShow = output<Event | undefined>();
 
-    @Output() onActiveIndexChange: EventEmitter<number> = new EventEmitter();
+    onActiveIndexChange = output<number>();
 
     _componentStyle = inject(GalleriaStyle);
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get activeIndex(): number {
-        return this._activeIndex;
-    }
-
-    set activeIndex(activeIndex) {
-        this._activeIndex = activeIndex;
-    }
+    readonly activeIndex = input<number>(0);
 
     get activeItem() {
         const value = this.value();
 
-        return value && value[this._activeIndex];
+        return value && value[this.activeIndex()];
     }
-
-    _activeIndex: number = 0;
 
     leftButtonFocused: boolean = false;
 
     rightButtonFocused: boolean = false;
 
-    getIndicatorPTOptions(index: number) {
-        return this.ptm('indicator', {
-            context: {
-                highlighted: this.activeIndex === index
+    constructor() {
+        super();
+
+        effect(() => {
+            const autoPlay = this.autoPlay();
+
+            if (autoPlay) {
+                this.startSlideShow.emit(undefined);
+            } else {
+                this.stopTheSlideShow();
             }
         });
     }
 
-    onChanges({ autoPlay }: SimpleChanges): void {
-        if (autoPlay?.currentValue) {
-            this.startSlideShow.emit();
-        }
-
-        if (autoPlay && autoPlay.currentValue === false) {
-            this.stopTheSlideShow();
-        }
+    getIndicatorPTOptions(index: number) {
+        return this.ptm('indicator', {
+            context: {
+                highlighted: this.activeIndex() === index
+            }
+        });
     }
 
     next() {
-        let nextItemIndex = this.activeIndex + 1;
-        let activeIndex = this.circular() && (<any[]>this.value()).length - 1 === this.activeIndex ? 0 : nextItemIndex;
+        let nextItemIndex = this.activeIndex() + 1;
+        let activeIndex = this.circular() && (<any[]>this.value()).length - 1 === this.activeIndex() ? 0 : nextItemIndex;
 
         this.onActiveIndexChange.emit(activeIndex);
     }
 
     prev() {
-        let prevItemIndex = this.activeIndex !== 0 ? this.activeIndex - 1 : 0;
-        let activeIndex = this.circular() && this.activeIndex === 0 ? (<any[]>this.value()).length - 1 : prevItemIndex;
+        let prevItemIndex = this.activeIndex() !== 0 ? this.activeIndex() - 1 : 0;
+        let activeIndex = this.circular() && this.activeIndex() === 0 ? (<any[]>this.value()).length - 1 : prevItemIndex;
 
         this.onActiveIndexChange.emit(activeIndex);
     }
@@ -1078,7 +1049,7 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
 
     stopTheSlideShow() {
         if (this.slideShowActive() && this.stopSlideShow) {
-            this.stopSlideShow.emit();
+            this.stopSlideShow.emit(undefined);
         }
     }
 
@@ -1134,15 +1105,15 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
     }
 
     isNavForwardDisabled() {
-        return !this.circular() && this.activeIndex === (<any[]>this.value()).length - 1;
+        return !this.circular() && this.activeIndex() === (<any[]>this.value()).length - 1;
     }
 
     isNavBackwardDisabled() {
-        return !this.circular() && this.activeIndex === 0;
+        return !this.circular() && this.activeIndex() === 0;
     }
 
     isIndicatorItemActive(index: number) {
-        return this.activeIndex === index;
+        return this.activeIndex() === index;
     }
 
     ariaSlideLabel() {
@@ -1180,17 +1151,17 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
                     @for (item of value(); track item; let index = $index) {
                         <div
                             [pBind]="ptm('thumbnailItem')"
-                            [class]="cx('thumbnailItem', { index, activeIndex })"
-                            [attr.aria-selected]="activeIndex === index"
+                            [class]="cx('thumbnailItem', { index, activeIndex: _activeIndex })"
+                            [attr.aria-selected]="_activeIndex === index"
                             [attr.aria-controls]="containerId() + '_item_' + index"
                             (keydown)="onThumbnailKeydown($event, index)"
-                            [attr.data-p-active]="activeIndex === index"
+                            [attr.data-p-active]="_activeIndex === index"
                         >
                             <div
                                 [pBind]="ptm('thumbnail')"
                                 [class]="cx('thumbnail')"
-                                [attr.tabindex]="activeIndex === index ? 0 : -1"
-                                [attr.aria-current]="activeIndex === index ? 'page' : undefined"
+                                [attr.tabindex]="_activeIndex === index ? 0 : -1"
+                                [attr.aria-current]="_activeIndex === index ? 'page' : undefined"
                                 [attr.aria-label]="ariaPageLabel(index + 1)"
                                 (click)="onItemClick(index)"
                                 (touchend)="onItemClick(index)"
@@ -1254,33 +1225,33 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 
     readonly templates = input<QueryList<PrimeTemplate>>();
 
-    @Output() onActiveIndexChange: EventEmitter<number> = new EventEmitter();
+    onActiveIndexChange = output<number>();
 
-    @Output() stopSlideShow: EventEmitter<Event> = new EventEmitter();
+    stopSlideShow = output<Event | undefined>();
 
     readonly itemsContainer = viewChild<ElementRef>('itemsContainer');
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get numVisible(): number {
-        return this._numVisible;
-    }
+    readonly numVisible = input<number>(0);
 
-    set numVisible(numVisible) {
-        this._numVisible = numVisible;
-        this._oldNumVisible = this.d_numVisible;
-        this.d_numVisible = numVisible;
-    }
+    readonly activeIndex = input<number>(0);
 
-    // TODO: Skipped for migration because:
-    //  Accessor inputs cannot be migrated as they are too complex.
-    @Input() get activeIndex(): number {
-        return this._activeIndex;
-    }
+    constructor() {
+        super();
 
-    set activeIndex(activeIndex) {
-        this._oldactiveIndex = this._activeIndex;
-        this._activeIndex = activeIndex;
+        effect(() => {
+            const numVisible = this.numVisible();
+
+            this._numVisible = numVisible;
+            this._oldNumVisible = this.d_numVisible;
+            this.d_numVisible = numVisible;
+        });
+
+        effect(() => {
+            const activeIndex = this.activeIndex();
+
+            this._oldactiveIndex = this._activeIndex;
+            this._activeIndex = activeIndex;
+        });
     }
 
     index: number | undefined;
@@ -1500,8 +1471,9 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
                 }
             }
 
-            this.activeIndex = selectedItemIndex;
-            this.onActiveIndexChange.emit(this.activeIndex);
+            this._oldactiveIndex = this._activeIndex;
+            this._activeIndex = selectedItemIndex;
+            this.onActiveIndexChange.emit(this._activeIndex);
         }
     }
 
@@ -1632,7 +1604,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 
     stopTheSlideShow() {
         if (this.slideShowActive() && this.stopSlideShow) {
-            this.stopSlideShow.emit();
+            this.stopSlideShow.emit(undefined);
         }
     }
 

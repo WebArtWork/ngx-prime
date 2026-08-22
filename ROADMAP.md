@@ -65,7 +65,9 @@ packages/primeng/src` now returns nothing.
 
 ### 3. `@Input()` / `@Output()` → `input()` / `output()` / `model()` (high priority — the big one)
 
-- **Where:** 104 files. **In progress (started 2026-08-21).**
+- **Where:** 104 files. **Complete (started 2026-08-21, finished 2026-08-22)** —
+  a repo-wide `grep -rl "@Input(\|@Output(" packages/ngx-prime/src --include="*.ts"`
+  (excluding `.spec.ts`) now returns zero matches.
 - **Why it needs its own scoping pass:** `@Input()` properties are plain
   class fields that other code in the library reads *and writes* directly,
   not just through Angular's binding system. `input()` signals are read-only
@@ -1495,16 +1497,590 @@ packages/primeng/src` now returns nothing.
   `treeselectstyle.ts` (already partially converted by the concurrent pass;
   this was the one remaining bare spot). Spec file needed no changes — audit
   found zero bare reads and zero direct writes on any of the 34 fields.
-- **Remaining:** ~24 files, including all remaining `hostName`-bearing components
-  not yet converted (`dialog.ts`, `listbox.ts`, `inputtext.ts`,
-  `picklist.ts` — now safe to convert given the `$hostName` fix above;
-  `overlay.ts` and `scroller.ts` are now done/partially-done, see above).
+- **`fileupload.ts`** — `FileContent` (no hazards, was already converted) +
+  `FileUpload` (34 `@Input()`s and 11 `@Output()`s converted). Hazard: `files`
+  get/set is not a simple passthrough — the setter runs real validation
+  (`validate()`/`isImage()`/object-URL creation) per file and is also mutated
+  extensively in-place elsewhere in the class (`.push()`, `.splice()`,
+  reassignment to `[]`); kept `files` as a genuine getter/setter backed by
+  `_files` (unchanged from before this session) and added a private aliased
+  `inputFiles = input(undefined, { alias: 'files' })` + constructor `effect()`
+  that forwards a bound external array through the existing setter, with
+  `// eslint-disable-next-line @angular-eslint/no-input-rename` justified in
+  a doc comment (unlike `tieredmenu.ts`'s `id`, this field's read/write API
+  genuinely needs to stay a get/set pair, so the alias suppression is
+  legitimate here rather than a workaround). `onClear` widened to
+  `output<Event | undefined>()` for its zero-arg `.emit()` call site. Found
+  that `tsc --noEmit` does **not** type-check bindings inside inline template
+  string literals at all (they're just strings to the compiler) — so the
+  component's large second template (`mode === 'advanced'` / `'basic'`
+  blocks, ~260 lines) had dozens of bare non-`this.`-prefixed field reads
+  that a clean `tsc` run completely missed; caught only by manually
+  re-reading the template and cross-checking against the field list. One
+  external `instance.mode` bare read fixed in `fileuploadstyle.ts`. Spec
+  file (`fileupload.spec.ts`, 3207 lines) had ~158 direct `component.field =`
+  writes and ~140 bare `component.field` reads across nearly every input —
+  fixed via a scripted pass converting writes to
+  `fixture.componentRef.setInput('field', value)` and reads to
+  `component.field()`, plus one hand-fixed bare `instance?.disabled` read
+  inside a PT (passthrough) callback test case. `component.files =` writes
+  correctly left untouched (still a genuine setter, not a signal).
+- **`dialog.ts`** — Almost all fields were already `input()`/`output()` from
+  an earlier pass; only `visible`, `style`, and 6 outputs remained. `visible`
+  get/set (side effect setting `maskVisible`/`renderMask`/`renderDialog`,
+  dual-emitted via manual `visibleChange.emit()` in `close()`) → tenth
+  `model()` this session; `close()` simplified to `this.visible.set(false)`.
+  `style` get/set (merge-style hazard: spreads the bound value into `_style`
+  and separately tracks `originalStyle`, with `_style` also mutated in place
+  by drag/resize handlers) → plain `input()` + constructor `effect()`
+  replicating the exact old setter body, keeping `_style` as the internal
+  backing field the template (`[ngStyle]="_style"`) and drag/resize code
+  already relied on. Two external `instance.position`/`instance.modal` bare
+  reads (plus one `instance.maximizable`, `maximizable` also already a
+  converted input) fixed in `dialogstyle.ts`. Consumers `confirmdialog.ts`
+  (one-way `[visible]="visible()"` + separate `(visibleChange)` listener)
+  and `dynamicdialog.ts` (`[(visible)]="visible"` bound to ITS OWN plain
+  field) needed no changes — Angular's two-way-binding sugar works
+  identically whether the child's own property is a `model()` or not.
+  Spec fixes: the wrapper wired the child via `[(visible)]="visible"` on its
+  own plain field, so `component.visible = true` writes stayed correct
+  as-is; only the directly-queried `dialogInstance.visible` reads (~11 sites)
+  needed `()`, one `dialogInstance.style` read needed to become
+  `dialogInstance._style` (the merged/positioned value, since the public
+  `style` getter no longer exists), and two `spyOn(dialogInstance
+  .visibleChange, 'emit')`/`.visibleChange.emit` assertions — `visibleChange`
+  has no instance property under `model()` — were rewritten to assert on the
+  wrapper's own `component.visibleChangeEvent` (already populated by its
+  `(visibleChange)="onVisibleChangeEvent($event)"` handler), reusing the
+  established "no separate `.xChange` property, subscribe/observe the model
+  effects instead" pattern from `orderlist.ts`.
+- **`listbox.ts`** — Most fields were already `input()`/`output()`; only
+  `options`, `filterValue`, `selectAll` (3 get/set accessors) and 9
+  `@Output()`s remained. `options`/`filterValue` get/set were trivial
+  passthroughs to internal WRITABLE signals (`_options`/`_filterValue`) that
+  are ALSO mutated in place elsewhere (drag-drop reorder, filter typing,
+  `resetFilter()`) — converted both to plain `input()`s plus two constructor
+  `effect()`s syncing the backing signals, keeping `_options`/`_filterValue`
+  as the internal mutation targets everywhere else in the class unchanged.
+  `selectAll` get/set was a genuine no-hazard passthrough (no internal
+  mutation beyond the accessor itself, confirmed by grep) → converted to a
+  plain `input()` directly, deleting the now-redundant `_selectAll` field
+  and switching its two internal bare reads to `this.selectAll()`. Self-
+  mutating `id = id || uuid(...)` (in `onInit()`) → `resolvedId` pattern,
+  applied to 2 internal reads, 3 template/host `id` bindings, and one
+  `'[attr.id]'` host binding. Two external `instance.striped`/
+  `instance.highlightOnSelect` bare reads fixed in `listboxstyle.ts`.
+  Consumers `orderlist.ts`/`picklist.ts` only call methods on their queried
+  `Listbox` instances (`.cd.markForCheck()`), no field reads — no changes
+  needed; their own unrelated `filterValue` fields are OrderList's/PickList's
+  own, not proxied from Listbox. Spec file (`listbox.spec.ts`, ~3000 lines)
+  needed the most care: distinguished FOUR different `component`/`listbox`
+  variable shapes across describe blocks — (1) a top-level `component:
+  Listbox` direct instance (no field-level writes on the 3 converted fields,
+  so no changes needed there), (2) several wrapper-pattern describe blocks
+  where `testComponent`/`component` are the WRAPPER's own plain fields
+  bound via `[options]="options"` (left as-is — direct wrapper writes stay
+  correct regardless of the child's signal conversion), (3) ~7 sites where a
+  test bypassed the wrapper entirely and wrote straight to a queried
+  `listboxComponent.options = [...]` — routed through the wrapper's own
+  `component.options` field instead since the wrapper's template already
+  binds `options` straight through, and (4) a standalone `PassThrough
+  Tests` describe block creating `Listbox` directly via `TestBed
+  .createComponent(Listbox)` with no wrapper at all — its ~9
+  `listbox.options = [...]`/`listbox.options[N]` sites fixed via
+  `ptFixture.componentRef.setInput('options', ...)` and `listbox.options()
+  [N]`, matching the file's own already-established `pt`-input pattern used
+  elsewhere in that same describe block. Left alone (pre-existing, not
+  introduced today, confirmed via grep that these fields were already
+  `input()` before this session): bare/direct-write bugs on `listbox
+  .optionLabel`, `listbox.optionDisabled`, `listbox.filter`, `listbox
+  .group`, `listbox.emptyMessage`, `listbox.emptyFilterMessage` scattered
+  through the same describe blocks — flagged for a future pass alongside
+  `badge.spec.ts`'s equivalent pre-existing issue.
+- **`inputtext.ts`** — Already fully converted (0 `@Input`/`@Output`/
+  `ngOnChanges` found), verified clean via `tsc` and a template-corruption
+  scan; no changes needed.
+- **`picklist.ts`** — All fields were already `input()`/`output()` except
+  `breakpoint` (1 get/set accessor) and 11 `@Output()`s. `breakpoint` had a
+  real side effect (`destroyMedia()`+`initMedia()` on change, unconditional
+  on `isPlatformBrowser`, independent of the `responsive()` input) → plain
+  `input('960px')` + constructor `effect()` replicating the exact setter
+  body; two more bare `this.breakpoint` reads (inside `initMedia()`'s
+  `matchMedia()` call and `createStyle()`'s injected `<style>` media-query
+  text) found and fixed only by grepping after the initial `tsc`-clean pass,
+  since neither is inside the template (a reminder that `tsc` on a `.ts`
+  file only validates `.ts`-side code, not just template literals — plain
+  string interpolations inside methods are just as invisible to type-
+  checking as template bindings are). The 4 `moveUp`/`moveTop`/`moveDown`/
+  `moveBottom` helper methods took a `callback: EventEmitter<any>` param
+  that template call sites pass `onSourceReorder`/`onTargetReorder`
+  (now `OutputEmitterRef`) into — retyped to `OutputEmitterRef<any>` for
+  correctness even though the template bindings themselves aren't
+  type-checked. No external consumers, no `pickliststyle.ts` hazards, no
+  spec-file hazards (audited, zero bare reads/writes on `breakpoint` or any
+  of the 11 outputs).
+- **`tree.ts`** — All `@Input`s were already converted; only 11 `@Output()`s
+  remained (trivial). Also found and fixed a `ngOnChanges`-equivalent
+  `onChanges(simpleChange: SimpleChanges)` hazard on `value` that the
+  earlier pass had missed (single-branch, → constructor `effect()`
+  replicating `updateSerializedValue()` + conditional `_filter()` call).
+  Bigger discovery: THREE fields (`filterOptions`, `filteredNodes`,
+  `_templateMap` — the latter a genuinely public, if oddly-named, `@Input`
+  consumed by `treeselect.ts`) had already been converted to plain
+  `input()`s in an earlier pass WITHOUT the backing-field pattern, even
+  though all three are reassigned internally (`this.filteredNodes = null`,
+  `this._templateMap = {}`, etc.) — this was silently broken (a read-only-
+  property `tsc` error) and unrelated to today's `@Output` work, but sat in
+  the same file so was fixed as part of finishing it properly. Added
+  `_templateMapBacking`/`_filterOptionsBacking`/`_filteredNodesBacking` (a
+  fourth, `_valueBacking`, was also needed once `value` turned up with its
+  own single reassignment site in `onDrop()`'s `this.value = this.value() ||
+  []` null-coalescing pattern) — each synced from its input via a
+  constructor `effect()`, with every internal read/write site switched to
+  the backing field. `treeselect.ts` reads `treeViewChild?.filteredNodes`
+  in two places to get the tree's live filter results — both switched to
+  `treeViewChild?._filteredNodesBacking` since the plain `filteredNodes()`
+  input no longer reflects `Tree`'s own internal `_filter()` output once the
+  reassignment moved to the backing field. Spec fixes: one direct
+  `tree._templateMap = {...}` write on the queried `Tree` instance (as
+  opposed to the wrapper's own bound field, used everywhere else in the
+  file) routed through the wrapper's `component._templateMap` instead, plus
+  its paired assertions switched from `tree._templateMap()[...]` to
+  `tree._templateMapBacking[...]`.
+- **`cascadeselect.ts`** — `CascadeSelectSub` (no hazards, 3 outputs) +
+  `CascadeSelect` (9 outputs, all trivial). Found and fixed a missed
+  `onChanges(changes: SimpleChanges)` hazard on `options` (single branch,
+  → constructor `effect()`). Self-mutating `id = id || uuid(...)` →
+  `resolvedId` pattern (2 internal reads + 1 nested `[selectId]="id()"`
+  binding switched). Genuine `value` reassignment hazard in `updateModel()`
+  and `writeControlValue()` (`this.value = value;`) turned out to be DEAD
+  CODE once traced: `value` is never read anywhere else in the file, and
+  the actual live selection state is `modelValue` (a `WritableSignal`
+  inherited from `BaseModelHolder`, already updated in both call sites via
+  `onModelChange`/`setModelValue`) — deleted both dead assignment lines
+  rather than adding an unneeded backing field, confirmed no external
+  consumers or spec assertions ever read `this.value` either. Three bare
+  `instance.showClear`/`instance.placeholder`/`instance.value` reads fixed
+  in `cascadeselectstyle.ts`, the last one corrected to `instance
+  .modelValue()` (not `instance.value()`) to match the same "value is dead,
+  modelValue is truth" finding. No external consumers, no spec hazards
+  (audited: zero bare reads/writes on `id` or any of the 12 outputs).
+- **`galleria.ts`** — Five components in one file (`Galleria`, `GalleriaContent`,
+  `GalleriaItemSlot`, `GalleriaItem`, `GalleriaThumbnails`), the busiest
+  hazard file this session. `Galleria`: `activeIndex`/`activeIndexChange` and
+  `visible`/`visibleChange` (side-effect setter driving `maskVisible`/
+  `renderMask`/`renderContent`) → 11th/12th `model()`s; also found and fixed
+  a missed `onChanges(simpleChanges: SimpleChanges)` hazard on `value`
+  (recomputing `numVisibleLimit`, → constructor effect). `GalleriaContent`:
+  its OWN `activeIndex` (reassigned, paired with a differently-named
+  `activeItemChange` output — not `activeIndexChange`, so ineligible for
+  `model()`'s `[(x)]` sugar) and `fullScreen` (reassigned in
+  `handleFullscreenChange()`) both → plain `input()` + backing field
+  (`_activeIndexBacking`/`_fullScreenBacking`) synced via constructor
+  effects, all internal reads/writes and 2 template bindings switched.
+  `GalleriaItemSlot`: `item` get/set (real side effect populating
+  `context`/`contentTemplate` from content-child templates) → plain
+  `input()` + constructor effect replicating the setter body exactly,
+  ~10 bare `this.item` reads switched to `this.item()`. `GalleriaItem`:
+  `activeIndex` was a genuine no-hazard passthrough (only ever read, never
+  reassigned — the class only emits `onActiveIndexChange`, never writes its
+  own input) → straightforward `input()`; separately found and fixed an
+  `onChanges({ autoPlay }: SimpleChanges)` hazard (→ constructor effect,
+  matching original no-`firstChange`-guard semantics: fires on init too).
+  `GalleriaThumbnails`: `numVisible` and `activeIndex` both had real
+  side effects tracking previous values (`_oldNumVisible`/`_oldactiveIndex`)
+  → plain `input()`s + backing fields (`_numVisible`/`_activeIndex`
+  retained as the actual mutable state, `d_numVisible` tracking preserved
+  verbatim), one direct reassignment site and 5 template bindings switched
+  to the backing field. Multiple zero-arg `.emit()` fixes across
+  `startSlideShow`/`stopSlideShow` (widened to `Event | undefined`).
+  Five bare `instance.galleria.<field>` reads fixed in `galleriastyle.ts`.
+  No external consumers. Spec fixes: `galleriaInstance.activeIndex`/`.visible`
+  direct writes → `.set(...)`, reads → `()`; three `spyOn(galleriaInstance
+  .activeIndexChange, 'emit')`/`.visibleChange` sites (no instance property
+  under `model()`) rewritten to assert on the wrapper's own tracked
+  `component.activeIndexChangeEvent`/`visibleChangeEvent` fields, reusing
+  the by-now-established pattern from `orderlist.ts`/`dialog.ts`.
+- **`button.ts`** — `ButtonLabel`/`ButtonIcon`/`Button` already fully
+  converted; only `ButtonDirective` had 5 hazards left (`label`, `icon`,
+  `loading`, `severity`, `buttonProps` — all get/set accessors with
+  `if (this.initialized) { updateX(); setStyleClass(); }` side effects,
+  guarded the same way `initialized` gates everything else in this class).
+  All 5 → plain `input()`s + constructor `effect()`s writing into the SAME
+  `_label`/`_icon`/`_loading`/`_severity`/`_buttonProps` backing fields the
+  getters used to read from, preserving the internal API every other method
+  in the class already relied on (`updateLabel()`/`updateIcon()`/
+  `getStyleClass()`/etc. all read `this._label` etc., unchanged) — ~15 bare
+  `this.label`/`this.icon`/`this.loading`/`this.severity` reads across the
+  class switched to the backing-field names via a scripted regex pass.
+  `buttonProps`'s dynamic `Object.entries(val).forEach(([k,v]) => this
+  [`_${k}`] = v)` reflection preserved verbatim in its own effect (still
+  targets plain instance properties, unaffected by the input conversion).
+  ~15 bare `instance.<field>` reads fixed in `buttonstyle.ts`, shared
+  between `ButtonDirective` and `Button` — verified the `root` classes
+  callback (referencing `link`/`variant`/`badge`/`hasFluid`, none of which
+  exist on `ButtonDirective`) is never actually invoked for a
+  `ButtonDirective` instance (it only ever calls `cx('label')`/`cx('icon')`,
+  never `cx('root')`), so the added `()` calls can't crash there. Spec
+  fixes: `buttonDirective.severity`/`.loading` bare reads → `()`; one
+  `buttonDirective.severity = 'danger'` direct write routed through the
+  wrapper's own `component.severity` field + `fixture.detectChanges()`.
+  Left two adjacent pre-existing bugs alone (not introduced today, confirmed
+  these fields were already signals before this session): `buttonDirective
+  .rounded()()` double-call and `buttonDirective.raised = true` direct
+  write.
+- **`focustrap.ts`** — Single `onChanges(changes: SimpleChanges)` hazard on
+  `pFocusTrapDisabled` (already an `input()`) → constructor `effect()`.
+  Spec had two tests directly invoking `directive.ngOnChanges(fakeChanges)`
+  with hand-built `SimpleChange` objects — `ngOnChanges` on the base class
+  only forwards to `onChanges`, which no longer exists, so these would
+  silently no-op post-conversion; rewrote both to toggle a real reactive
+  `[pFocusTrapDisabled]="disabled"` binding on the existing
+  `TestDisabledFocusTrapComponent` wrapper and call `fixture.detectChanges()`,
+  letting the constructor effect fire for real rather than faking the
+  lifecycle hook.
+- **`badge.ts`** — `Badge` component already fully converted (its own
+  spec has a pre-existing unrelated direct-write problem, unchanged, still
+  flagged for a future pass). `BadgeDirective`'s multi-branch
+  `onChanges(changes: SimpleChanges)` (keyed on which of `value`/`size`/
+  `severity`/`disabled`/`badgeStyle`/`badgeStyleClass` changed, all gated
+  behind `canUpdateBadge` except `disabled`, with `severity` specifically
+  needing the OLD value to remove its old CSS class before adding the new
+  one) → five separate constructor `effect()`s, one per concern, matching
+  each original `if (someChanges) { ... }` branch; added a `prevSeverity`
+  field manually tracking the previous value across effect runs (Angular
+  effects don't expose a previous-value diff the way `SimpleChanges` did,
+  so this has to be tracked by hand) — captured and updated inside the
+  `severity` effect immediately after calling `setSeverity(this
+  .prevSeverity)`, matching the original `severity.previousValue` semantics.
+  No spec fixes needed — nothing called `ngOnChanges`/`onChanges` directly
+  on `BadgeDirective`.
+- **`autocomplete.ts`** — 12 of 13 hazards were already `input()`/`output()`;
+  `suggestions` get/set (backed by a writable `_suggestions` signal,
+  side-effect calling `handleSuggestionsChange()`) → plain `input()` +
+  constructor `effect()` doing `this._suggestions.set(this.suggestions())`
+  then `handleSuggestionsChange()`, keeping `_suggestions` as the reactive
+  backing signal `visibleOptions` already depended on — one bare
+  `this.suggestions` read inside `inputValue`'s `computed()` switched to
+  `this._suggestions()` for consistency. Self-mutating `id = id ||
+  uuid(...)` → `resolvedId` pattern (3 internal reads). 11 outputs
+  converted; `onClear`/`onShow`/`onHide` zero-arg `.emit()` sites widened to
+  `Event | undefined`. No hazards in `autocompletestyle.ts`, no external
+  consumers. Spec fixes: `autocompleteInstance.suggestions` (4 bare reads,
+  one direct write) — the write routed through the wrapper's own
+  `pTemplateComponent.suggestions` field since it's already bound via
+  `[suggestions]="suggestions"`, reads got `()`.
+- **`select.ts`** — `SelectItem` sub-component: 2 trivial outputs. `Select`:
+  `placeholder` get/set (trivially backed by writable `_placeholder`
+  signal, `.asReadonly()` getter — an unusual return-a-Signal pattern) →
+  plain `input()` + constructor effect syncing `_placeholder`.
+  `filterValue` get/set (setter wraps the write in a `setTimeout()`) and
+  `options` get/set (setter guards with `deepEquals` before writing) both
+  → plain `input()`s + constructor effects replicating the exact original
+  setter bodies verbatim (including the `setTimeout` deferral), keeping
+  `_filterValue`/`_options` as the backing signals every other method
+  already read from — ~10 bare `this.options`/`this.filterValue` reads
+  across the class switched to `this._options()`/`this._filterValue()`.
+  Self-mutating `id = id || uuid(...)` → `resolvedId` pattern (1 internal
+  read, 1 host `'[attr.id]'` binding). One `this.label === this.placeholder`
+  comparison (comparing function REFERENCES, not values — a real bug)
+  found and fixed to `this.label() === this.placeholder()`. 9 outputs
+  converted. `selectstyle.ts` already correct (no hazards). No hazards on
+  the `primeng/select` consumers `paginator.ts`/`table.ts` (paginator has
+  no relevant field reads; table.ts not yet converted, to be handled in its
+  own pass). Spec fixes: ~25 bare `selectInstance.options` reads (many with
+  `!` non-null assertions) across the file scripted to `selectInstance
+  .options()`; one direct `selectInstance.options = groupedOptions` write
+  routed through the wrapper's own bound `component.options` field.
+- **`multiselect.ts`** — `MultiSelectItem`: 2 trivial outputs. `MultiSelect`:
+  6 accessor hazards — `displaySelectedLabel`/`maxSelectedLabels`/
+  `selectAll` were genuine no-hazard passthroughs (no internal mutation
+  beyond the accessor) → plain `input()`s directly, deleting the redundant
+  `_displaySelectedLabel`/`_maxSelectedLabels`/`_selectAll` fields;
+  `placeholder` (same `.asReadonly()`-signal-return pattern as `select.ts`),
+  `filterValue`, and `options` (deepEquals-guarded write) all → plain
+  `input()`s + constructor effects replicating their setters verbatim,
+  keeping `_placeholder`/`_filterValue`/`_options` as backing signals.
+  ~12 bare reads across the class fixed (switched to the backing-signal
+  calls for `options`/`filterValue`/`placeholder`, to `field()` for the
+  three no-hazard ones). Self-mutating `id = id || uuid(...)` →
+  `resolvedId` pattern. Also found and fixed two PRE-EXISTING (not
+  introduced today, `overlayVisible` was already a `model()` from an
+  earlier pass) direct reassignments `this.overlayVisible = true/false` in
+  `show()`/`hide()` → `.set(...)`, since they were blocking `tsc`
+  entirely — left in place would have made it impossible to verify this
+  file compiled at all. 9 outputs converted. No hazards in
+  `multiselectstyle.ts`, no external consumers. Spec fixes: `selectAll`
+  wasn't bound in the wrapper template at all (unlike the other 5 hazard
+  fields, which all had existing bindings) — added `[selectAll]="selectAll"`
+  plus a matching wrapper field rather than reaching for a `ComponentRef`
+  workaround; ~4 redundant `multiSelect.filterValue = 'x'` writes deleted
+  outright after confirming `onFilterInputChange()` (called on the very
+  next line in every case) already sets the true backing signal itself,
+  making the direct writes dead code even before today's conversion; ~10
+  bare `multiSelect.options`/`.displaySelectedLabel`/`.maxSelectedLabels`
+  reads switched to `()`.
+- **`datepicker.ts`** — Largest hazard count of the session: 12 accessor
+  pairs, all `if (sideEffect) { recomputeSomething(); }` on write, all
+  converted to plain `input()`s + a matching constructor `effect()` per
+  field, keeping every `_dateFormat`/`_hourFormat`/`_minDate`/`_maxDate`/
+  `_disabledDates`/`_disabledDays`/`_showTime`/`_responsiveOptions`/
+  `_numberOfMonths`/`_firstDayOfWeek`/`_view`/`_defaultDate` backing field
+  exactly as before (all were already read internally throughout the file,
+  this is the same "keep the backing field as the true internal read
+  target" pattern used in every other multi-field hazard file this
+  session) — a single scripted pass then rewrote every bare `this.<field>`
+  reference across the ~3000-line file to `this._<field>`, catching ~80
+  call sites (`getMonth()`/`getFullYear()`/comparisons/etc. on what would
+  otherwise have been raw `InputSignal` objects). 12 outputs converted;
+  `onClear`'s zero-arg `.emit()` fixed with an explicit `undefined`. No
+  hazards in `datepickerstyle.ts`; the one external consumer (`table.ts`,
+  not yet converted) only uses `DatePicker` as a template element, no
+  field reads. Spec fixes: 2 bare `component.dateFormat`/`.hourFormat`
+  reads on the direct instance; no direct writes found.
+- **`scroller.ts`** — Previously deliberately left almost entirely
+  unconverted (see earlier entry) due to `options`'s fully-open-ended
+  reflection hazard. Revisited and found it WAS safely convertible after
+  all: all 24 accessor pairs turned out to be UNIFORMLY trivial
+  (`return this._x` / `this._x = val`, zero exceptions, confirmed by
+  reading every single one) — the thing that made `options` look
+  dangerous was its SECOND reflection pass (`Object.entries(val).forEach(
+  ([k,v]) => this[`${k}`] = v)`), which calls each field's own setter by
+  name; since every one of those setters is now proven to do nothing but
+  `this._x = val`, that second pass is functionally IDENTICAL to the first
+  pass (`this[`_${k}`] = v`) and was dropped as redundant rather than kept
+  as a hazard. All 24 fields → plain `input()`s, each still backed by its
+  original `_x` field, synced via one consolidated constructor `effect()`.
+  The multi-branch `onChanges(simpleChanges: SimpleChanges)` (tracking
+  `loading`/`orientation`/`numToleratedItems`/`options.loading`/
+  `options.numToleratedItems`/`items.length`/`itemSize`/`scrollHeight`/
+  `scrollWidth`, several needing OLD-value comparison, all coordinating one
+  shared `isLoadingChanged` flag) → a SINGLE consolidated effect reading
+  every relevant signal with hand-tracked `_prevX` fields standing in for
+  `SimpleChanges.previousValue` (each starting `undefined`, which naturally
+  reproduces `ngOnChanges`' first-fire-with-undefined-previousValue
+  behavior without needing a separate "is this the first run" guard —
+  tried adding one, then removed it once it became clear the natural
+  `undefined !== value` comparison already covered that case correctly).
+  Deliberately used ONE big effect rather than one-per-field specifically
+  to preserve `SimpleChanges`' "all fields that changed together arrive in
+  one batch" semantics, which per-field effects would have lost — this is
+  the one clear place this session where multiple small effects would have
+  been the wrong shape. Found and fixed 3 of my own bare-read bugs while
+  writing the new effects (`this.lazy`/`this.itemSize` used instead of
+  `this._lazy`/`this._itemSize`) before they ever reached `tsc`. One bare
+  `instance.inline` fixed to `instance._inline` in `scrollerstyle.ts`
+  (`instance.both`/`.horizontal` already correct, computed getters).
+  Template audit found and fixed 4 more bare reads `tsc` couldn't see
+  (`styleClass`, `tabindex`, `items`, `loaderDisabled`) despite the file
+  otherwise looking template-clean already from a prior partial pass. Spec
+  file: 201 bare `scroller.<field>` reads, zero direct writes, across ~15
+  separate `describe` blocks — all fixed with one scripted pass.
+- **`treetable.ts`** — Large file, several classes. `TreeTable` itself: 9
+  hazards → plain `input()`s + backing fields: `totalRecords` (`_totalRecords`,
+  side effect `tableService.onTotalRecordsChange`), `sortField`/`sortOrder`/
+  `multiSortMeta`/`value` (all backed, extensive internal mutation),
+  `virtualRowHeight` (`_virtualRowHeight`, console.log deprecation),
+  `selectionKeys` (`_selectionKeys`, `selectionKeysChange.emit()` side
+  effect). `selection` deliberately kept as plain `input()` + `output()` +
+  backing field rather than `model()` despite matching the classic
+  paired-input/output shape: it's heavily mutated in place
+  (`propagateSelectionDown`/`propagateSelectionUp`) then re-emitted via
+  `this.selectionChange.emit(this.selection)` without reassigning the
+  reference — `model().set(sameRef)` is a no-op under `Object.is`, so a
+  `model()` conversion would have silently dropped these re-emissions.
+  Replaced the big `onChanges(SimpleChanges)` with ONE consolidated
+  constructor `effect()` reading `value()`/`sortField()`/`sortOrder()`/
+  `multiSortMeta()`/`selection()` together, using hand-tracked
+  `_prevValue`/`_prevSortField`/`_prevSortOrder`/`_prevMultiSortMeta`/
+  `_prevSelection` fields standing in for `SimpleChanges.previousValue`
+  (same pattern as `scroller.ts` above), replicating every original branch
+  (sortSingle/sortMultiple/filter calls, `tableService.onUIUpdate`/
+  `onSelectionChange`, the `lazy`/`initialized` guards) verbatim. Also
+  found and fixed 4 MORE pre-existing broken hazards blocking `tsc`, left
+  half-converted by an earlier pass (already plain `input()` but with
+  unaddressed internal reassignment: `this.first = ...`, `this.rows = ...`,
+  `this.filters = {}`, `this.contextMenuSelection = node`) — added
+  `_first`/`_rows`/`_filters`/`_contextMenuSelection` backing fields plus 4
+  more constructor sync effects, since leaving them broken would have made
+  it impossible to verify the file compiled at all. All 20 `@Output()`s on
+  `TreeTable` converted; `contextMenuSelectionChange`'s zero-arg `.emit()`
+  fixed with `null as any`. Separately, `TTScrollableView`'s own
+  `scrollHeight` get/set (console.log deprecation) → plain `input()` + a
+  new constructor `effect()` on that class. `treetablestyle.ts`: ~9 bare
+  `instance.<field>` reads fixed (`showGridlines`, `rowHover`,
+  `selectionMode`, `autoLayout`, `resizableColumns`, `columnResizeMode`,
+  `scrollable`, `paginatorPosition`, `paginatorStyleClass`, `scrollHeight`);
+  `instance.sorted`/`.selected` confirmed genuinely-plain fields on
+  `TTSortableColumn`/`TTSelectableRow` and correctly left bare. Template
+  audit found and fixed several more bare reads in `treetable.ts` itself:
+  two `[totalRecords]="totalRecords"` bindings, `TTScrollableView`'s own
+  `scrollHeight` bindings, and — found only via a final full `tsc` pass,
+  not the template audit — 4 bare `this.tt.selectionKeys`/`tt.value`
+  reads on `TTCheckbox`/`TTHeaderCheckbox` (both consumers of `TreeTable`'s
+  now-signal fields) that only surfaced once the file fully recompiled. No
+  external consumers of `primeng/treetable` elsewhere in the repo. Two
+  script-corruption incidents caught and fixed mid-conversion: a
+  sync-effect-fix script overwrote its own freshly-written RHS
+  (`this._first = this.first()` → `this._first = this._first`, a
+  self-referential no-op); a separate scoped bulk-fix corrupted a LOCAL
+  variable `let rowNode = event.rowNode` inside `TreeTable`'s own handler
+  methods into `this.rowNode().node`, because an unrelated sibling class
+  further down the file (`TreeTableToggler`) has its own genuine `rowNode`
+  input field with the same name — caught via 16 `tsc` "Property 'rowNode'
+  does not exist on type 'TreeTable'" errors and reverted for `TreeTable`
+  while correctly keeping the fix for `TreeTableToggler.expand()`/
+  `collapse()`, which needed it all along. Spec fixes (`treetable.spec.ts`):
+  the "TreeTable PT" describe block (direct `TestBed.createComponent
+  (TreeTable)`) was already correctly using `fixture.componentRef
+  .setInput(...)` throughout, no changes needed. The `TestBasicTreeTableComponent`
+  wrapper block: one write-cluster ("should reset component state") routed
+  through `component.<field> = X; fixture.detectChanges();`, plus a
+  scripted pass adding `()` to 26 bare `treetable.<field>` reads. The
+  `TestDynamicTreeTableComponent` block was a much bigger pre-existing
+  problem than today's 13-field scope: its template only ever bound
+  `[value]`/`[columns]`, with ~30 OTHER fields (including many
+  already-signal fields from earlier sessions — `autoLayout`, `paginator`,
+  `lazy`, `loading`, `scrollable`, `virtualScroll`, `selectionMode`,
+  `sortMode`, `filterMode`, `showGridlines` — plus today's `filters`,
+  `selection`, `selectionKeys`, `sortField`, `sortOrder`, `multiSortMeta`,
+  `scrollHeight`, and others) set via direct mutation on the child
+  instance (`this.treetable().first = first`, guarded
+  `dynamicTreetable.filters = filters` blocks, etc.) — none of which could
+  compile once the underlying fields became signals, so this was
+  `tsc`-blocking for the whole spec file, not just an out-of-scope
+  correctness nit. Fixed uniformly rather than only for today's 13 fields:
+  added all ~30 as bound wrapper properties on `TestDynamicTreeTableComponent`
+  with matching template bindings, rewrote every `updateX()` method (and
+  every ad-hoc guarded direct-write block) to set the wrapper's own field
+  instead of reaching into the child, so the existing `detectChanges()`
+  calls already present in each test propagate the value normally — no
+  test call sites needed to change. ~9 bare reads on the resulting
+  now-signal fields (`selection`, `selectionKeys`, `sortField`,
+  `sortOrder`, `multiSortMeta`) also fixed. `tsc --noEmit` and `eslint`
+  both clean on `treetable.ts`/`treetable.spec.ts`/`treetablestyle.ts`
+  after all fixes.
+- **`table.ts`** — Largest file yet (~6900 lines), several sub-component
+  classes, sibling of `treetable.ts` with nearly the same shape. `Table`
+  itself: 9 accessor hazards → plain `input()`s + backing fields: `value`
+  (`_value`), `columns` (`_columns`), `first` (`_first`), `rows` (`_rows`),
+  `sortField` (`_sortField`), `sortOrder` (`_sortOrder`), `multiSortMeta`
+  (`_multiSortMeta`), `selectAll` (`_selectAll`), plus `selection`
+  (`_selection`) deliberately kept as plain `input()` + `output()` +
+  backing field rather than `model()` for the same reason as
+  `treetable.ts`: sibling directives (`SelectableRow`) mutate
+  `dataTable._selection` in place and it gets re-emitted via
+  `selectionChange.emit(this._selection)` without a fresh reference —
+  `model().set(sameRef)` would silently drop those. Found and fixed a
+  real copy-paste bug in the pre-conversion `selectAll` get/set: both
+  accessors read/wrote `this._selection` instead of `this._selectAll`
+  (a second, genuinely separate backing field already used elsewhere in
+  the class) — corrected to target `_selectAll`, which is the only
+  sensible reading given `_selectAll`'s established independent use.
+  Replaced the big `onChanges(SimpleChanges)` with ONE consolidated
+  constructor `effect()` over `value()`/`columns()`/`sortField()`/
+  `sortOrder()`/`multiSortMeta()`/`selection()`/`selectAll()`, using
+  hand-tracked `_prevValue`/`_prevColumns`/`_prevSortField`/
+  `_prevSortOrder`/`_prevMultiSortMeta`/`_prevSelection`/`_prevSelectAll`
+  fields, replicating every original branch (sortSingle/sortMultiple/
+  filter, `tableService.onValueChange`/`onColumnsChange`/
+  `onSelectionChange`, `restoreState`, `saveState`, the `lazy`/
+  `initialized` guards) verbatim; dropped the `groupRowsBy`/
+  `groupRowsByOrder` trigger branches from the old method since those
+  read `simpleChange.groupRowsBy`/`.groupRowsByOrder` — fields already
+  converted to `input()` in an earlier session, meaning those branches
+  were already permanently dead (signal inputs never populate
+  `SimpleChanges`) before this session touched the file; removing
+  already-inert code isn't a behavior change. `totalRecords` had the
+  same pre-existing half-converted hazard as `treetable.ts` (already
+  `input()`, blocked by internal `this.totalRecords = ...` writes in 3
+  places) plus an unusual `firstChange`-only sync semantic in the
+  original `onChanges` (only pulls from the input on the very first
+  change, never again) — reproduced exactly with a one-shot
+  `_totalRecordsSynced` boolean guard inside its own effect, since the
+  generic "value changed" `_prev` trick fires on every change, not just
+  the first. `contextMenuSelection` had the classic hazard-#10
+  half-converted shape (already `input()`, blocked by 3 internal
+  `this.contextMenuSelection = ...` writes) — added `_contextMenuSelection`
+  backing field and constructor effect. Two more same-shaped
+  half-converted hazards found only via `tsc`, unrelated to the assigned
+  list: `filters` and `expandedRowKeys` (both already `input()` with
+  object defaults, both blocked by a `this.x = wholeNewObject` reset/
+  restore site) — added `_filters`/`_expandedRowKeys` backing fields plus
+  effects, and redirected every internal read (`this.filters()` →
+  `this._filters`, ~9 call sites) and every external read from sibling
+  filter-UI classes (`dataTable.filters()` → `dataTable._filters`, 12
+  call sites) to the backing field so a `restoreState()`-driven object
+  swap stays visible everywhere, exactly reproducing the original
+  single-accessor read consistency. All 24 `@Output()`s on `Table`
+  converted (`contextMenuSelectionChange`, `selectAllChange`,
+  `selectionChange`, and 21 more); no zero-arg `.emit()` calls found.
+  Sibling classes: `TableBody`'s own `value` get/set (side effects
+  `updateFrozenRowStickyPosition`/`updateFrozenRowGroupHeaderStickyPosition`)
+  → plain `input()` + constructor effect. `FrozenColumn`'s own `frozen`
+  get/set (side effect `updateStickyPosition()` via a resolved promise)
+  → plain `input()` + constructor effect (this directive had no
+  constructor at all before; added one). `ColumnFilterFormElement`-area's
+  `onShow`/`onHide` outputs converted directly, no complications. Found
+  and fixed 3 more same-shaped bugs while chasing `tsc` errors, all
+  isolated to their own classes: `ColumnFilter`'s `operator` (already
+  `input()`, blocked by one `this.operator = value` write in
+  `onOperatorChange`) → `_operator` backing field + constructor effect,
+  with the 2 other internal reads of `this.operator()` also redirected
+  to `_operator` for the same read-consistency reason as `filters`
+  above; and `ariaLabel` independently duplicated across THREE sibling
+  classes (`TableRadioButton`, `TableCheckbox`, `TableHeaderCheckbox`),
+  each with its own `this.ariaLabel = this.ariaLabel() || <fallback
+  translation>` self-reassignment inside a `tableService` subscription
+  callback — each got its own `_ariaLabel` field, constructor effect,
+  and the class's own template rewritten from `[ariaLabel]="ariaLabel()"`
+  to `[ariaLabel]="_ariaLabel"` so the fallback value actually reaches
+  the DOM. Template audit on `Table`'s own template found 5 more bare
+  reads needing the backing field (not the raw signal, to keep
+  reflecting internal pagination/sort mutations): `[rows]`/`[first]` on
+  both paginators and the scroller's `[step]`, `[columns]` on the
+  scroller, and the `context: { columns }` shorthand feeding
+  `buildInTable` — all pointed at `_rows`/`_first`/`_columns` rather than
+  `rows()`/`first()`/`columns()`, since the raw input signals don't
+  reflect the `_first = 0` / `_rows` resets that happen after sort,
+  filter, and page-size changes. `tablestyle.ts`: 13 bare `instance.<field>`
+  reads fixed across `classes`/`inlineStyles` (`rowHover`, `selectionMode`,
+  `resizableColumns`, `columnResizeMode`, `scrollable`, `scrollHeight`,
+  `stripedRows`, `showGridlines`, `size`, `paginatorPosition`,
+  `frozenValue`, `virtualScroll`, `frozen`, `display`); `instance.sorted`/
+  `.selected`/`.columnProp(...)`/`.getFrozenRowGroupHeaderStickyPosition`
+  confirmed genuinely-plain and correctly left bare. No external
+  consumers of `primeng/table` elsewhere in the repo. `table.spec.ts`
+  needed zero changes — every test already drives the component through
+  wrapper components with template bindings or wrapper-property
+  mutation, never direct `component.<hazardField> = x` on the signal
+  fields touched today; `tsc --noEmit` was clean on it before and after.
+  `tsc --noEmit` and `eslint` both clean on `table.ts`/`table.spec.ts`/
+  `tablestyle.ts` after all fixes.
+- **Remaining:** None — item complete. `overlay.ts` and `table.ts` (the
+  last two of concern) are both fully done (see above).
   Note `Badge`'s own `.spec.ts`
   (`badge.spec.ts`) has the same direct-write problem on the
   already-converted `Badge` class from before this session — pre-existing,
   not introduced today, left as-is since fixing it is outside
   `BadgeDirective`'s scope. Worth a pass when picking up `badge.spec.ts`
   again.
+- **Post-completion housekeeping note (2026-08-22):** a full
+  `npx tsc --noEmit -p packages/ngx-prime/tsconfig.spec.json` after
+  `table.ts` landed shows ~10 files with pre-existing spec-file errors
+  unrelated to today's work — `speeddial.spec.ts` (undefined test-scope
+  vars `hookCalled`/`initCalled`/`destroyCalled`, one direct `visible =`
+  write on an already-`model()`-converted field), `splitbutton.spec.ts`,
+  `splitter.spec.ts`/`stepper.spec.ts`/`tabs.spec.ts`/`toolbar.spec.ts`
+  (all the same `Cannot assign to 'pt'` read-only-property pattern),
+  `tieredmenu.spec.ts`, `togglebutton.spec.ts`/`toggleswitch.spec.ts`
+  (`used before its declaration` class-ordering issues plus a couple of
+  zero-vs-one-arg callback mismatches), `tooltip.spec.ts` (zero-vs-one-arg
+  callback mismatches). All of these are in components that were converted
+  to signals in *earlier* sessions, not today's — none of them block
+  `treetable.ts`/`table.ts`, and none were introduced by today's work.
+  Left as-is per the established scope rule (fix only what blocks the file
+  currently being converted); worth a dedicated cleanup pass later.
 
 ### 4. Change-detection audit on the 6 forced-`Default` components (high priority)
 
@@ -1552,7 +2128,7 @@ than introducing a new custom element — mirrors the existing pattern of
 - `pInputNumber` — native `<input>`
 - `pDatePicker` — native `<input>`
 - `pColorPicker` — native `<input>`
-- `pSlider` — native range/slider element
+- `pRange` — native `<input type="range">` element
 - `pToggleSwitch` — native checkbox/switch
 - `pToggleButton` — native `<button>`
 - `pSelectButton` — native button group
@@ -1587,16 +2163,16 @@ removed only in v23.
 | `Checkbox` | `<input type="checkbox" pCheckbox>` | **Deprecated.** Use `pCheckboxContainer` + `pCheckboxIcon` only when a custom visual icon is required. |
 | `RadioButton` | `<input type="radio" pRadioButton>` | **Deprecated.** Native grouping, Forms, Signal Forms, PT, and showcase migration are covered. |
 | `ToggleSwitch` | `<input type="checkbox" pToggleSwitch>` | **Deprecated.** Native checkbox provides the switch role and browser interaction; custom handle templates are a documented migration difference. |
-| `InputMask` | `<input pInputMask>` | Audit masking, Forms/Signal Forms, accessibility, and a migration showcase; then deprecate. |
-| `InputNumber` | `<input type="number" pInputNumber>` | Add locale/currency formatting, min/max/step, buttons, validation, Forms/Signal Forms, and docs; then deprecate. |
-| `Password` | `<input type="password" pPassword>` | Complete native password visibility/feedback parity, Forms/Signal Forms, accessibility, and docs; then deprecate. |
-| `DatePicker` | `<input type="date" pDatePicker>` | Decide and document the native-date limitation versus the calendar overlay; complete Forms/Signal Forms, invalid state, and docs before deprecation. |
-| `ColorPicker` | `<input type="color" pColorPicker>` | Decide and document the native-color limitation versus the palette; complete Forms/Signal Forms, events, and docs before deprecation. |
-| `Slider` | `<input type="range" pSlider>` | Complete min/max/step/orientation, keyboard/accessibility, Forms/Signal Forms, and a separate multi-handle range strategy before deprecation. |
-| `ToggleButton` | `<button pToggleButton>` | Complete pressed state, labels/icons/loading state, Forms/Signal Forms, keyboard/ARIA, and migration docs; then deprecate. |
-| `SelectButton` | native `<button pSelectButtonOption>` group | Complete single/multiple selection, disabled options, ARIA grouping, Forms/Signal Forms, templates, and docs; then deprecate. |
+| `InputMask` | `<input pInputMask>` | **Deprecated.** Native masking, Forms/Signal Forms, accessibility, and a migration showcase are covered; native attributes replace wrapper-only presentation and clear-icon APIs. |
+| `InputNumber` | `<input type="number" pInputNumber>` | **Deprecated.** Native min/max/step, validation, browser stepping, typed events, Forms/Signal Forms, accessibility, and migration docs are covered. Locale/currency formatting, prefixes/suffixes, and custom spinners remain documented wrapper-only features through v22. |
+| `Password` | `<input type="password" pPassword>` | **Deprecated.** Native Forms/Signal Forms, strength feedback, visibility and clear controls, accessibility, and migration docs are covered. Use `pPasswordToggleMask` and `pPasswordClear` beside the input for optional controls; projected wrapper templates are replaced by native composition. |
+| `DatePicker` | `<input pDatePicker>` | **Not a deprecation target.** Build a parity directive on a native text input by extracting and sharing the calendar/overlay engine with `<p-datepicker>`; do not use browser `type="date"` as the primary replacement. The wrapper remains supported after the directive ships. |
+| `ColorPicker` | `<input type="color" pColorPicker>` | **Deprecated.** Native hex values, Forms/Signal Forms, typed events, reset composition, accessibility, styling, and migration docs are covered. Browser picker appearance and legacy palette/RGB/HSB/template APIs are documented migration differences. |
+| `Slider` | `<input type="range" pRange>` | **Deprecated.** Native min/max/step, orientation, browser keyboard/accessibility, Forms/Signal Forms, PT, and migration docs are covered. A native range is single-value; legacy `p-slider` and `p-range` remain only through v22 for two-handle ranges. |
+| `ToggleButton` | `<button pToggleButton>` | **Deprecated.** Native pressed state, Forms/Signal Forms, keyboard/ARIA, PT, and migration docs are covered. Compose labels, icons, and loading content directly from `pressed`; legacy `p-togglebutton` selectors remain only through v22 for wrapper templates. |
+| `SelectButton` | native `<button pSelectButtonOption>` group | **Deprecated.** Native single/multiple selection, disabled options, ARIA semantics, keyboard navigation, Forms/Signal Forms, PT, and migration docs are covered. Compose explicit native buttons; legacy `p-selectbutton` selectors remain only through v22 for dynamic options and templates. |
 | `Rating` | native radio inputs with `pRating` | Complete star display, keyboard/ARIA grouping, clearing, Forms/Signal Forms, and docs; then deprecate. |
-| `FileUpload` | `<input type="file" pFileUpload>` | Complete accept/multiple policy, selection events, queue/templates, validation, Forms/Signal Forms, and docs; then deprecate. |
+| `FileUpload` | `<input type="file" pFileUpload>` | **Deprecated.** Compose `pFileUploadQueue` with native input, action, and drop-zone directives for queues and XMLHttpRequest transport. File-list markup and previews are application composition; compatibility component remains through v22. |
 
 `AutoComplete` is deliberately not a deprecation target: HTML's
 `autocomplete` attribute controls browser autofill and does not replace the

@@ -854,7 +854,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         treeViewChild?._filter(this.filterValue);
         this.onFilter.emit({
             filter: this.filterValue,
-            filteredValue: treeViewChild?.filteredNodes
+            filteredValue: treeViewChild?._filteredNodesBacking
         });
         setTimeout(() => {
             this.overlayViewChild()?.alignOverlay();
@@ -935,7 +935,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
         if (this.filter() && !this.resetFilterOnHide()) {
             const treeViewChild = this.treeViewChild();
 
-            this.filteredNodes = treeViewChild?.filteredNodes;
+            this.filteredNodes = treeViewChild?._filteredNodesBacking;
             treeViewChild?.resetFilter();
         } else {
             this.filterValue = null;
