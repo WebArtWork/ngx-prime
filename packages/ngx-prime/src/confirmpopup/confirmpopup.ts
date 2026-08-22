@@ -399,6 +399,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     handleFocus() {
         const defaultFocus = this.defaultFocus();
+
         if (defaultFocus && (this.acceptButtonViewChild() || this.rejectButtonViewChild())) {
             const focusEl = <HTMLButtonElement>(defaultFocus === 'accept' ? findSingle(this.acceptButtonViewChild()?.nativeElement, '[data-pc-section="root"]') : findSingle(this.rejectButtonViewChild()?.nativeElement, '[data-pc-section="root"]'));
 

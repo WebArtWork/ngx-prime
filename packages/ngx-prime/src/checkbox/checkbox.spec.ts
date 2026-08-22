@@ -1653,6 +1653,7 @@ describe('CheckboxDirective Signal Forms', () => {
         }).compileComponents();
 
         const fixture = TestBed.createComponent(TestSignalFormCheckboxDirectiveComponent);
+
         fixture.detectChanges();
 
         (fixture.nativeElement.querySelector('input') as HTMLInputElement).click();
@@ -1670,6 +1671,7 @@ describe('Checkbox native icon directives', () => {
         }).compileComponents();
 
         const fixture = TestBed.createComponent(TestNativeCheckboxIconComponent);
+
         fixture.detectChanges();
 
         const label = fixture.nativeElement.querySelector('label') as HTMLLabelElement;

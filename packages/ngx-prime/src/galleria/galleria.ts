@@ -724,6 +724,7 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
 
     isVertical() {
         const thumbnailsPosition = this.galleria.thumbnailsPosition();
+
         return thumbnailsPosition === 'left' || thumbnailsPosition === 'right';
     }
 
@@ -795,9 +796,11 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
         this._item = item;
 
         const templates = this.templates();
+
         if (templates && templates?.toArray().length > 0) {
             templates.forEach((item) => {
                 const type = this.type();
+
                 if (item.getType() === type) {
                     switch (type) {
                         case 'item':
@@ -860,9 +863,11 @@ export class GalleriaItemSlot extends BaseComponent<GalleriaPassThrough> {
 
     onAfterContentInit() {
         const templates = this.templates();
+
         if (templates && templates.toArray().length > 0) {
             templates?.forEach((item) => {
                 const type = this.type();
+
                 if (item.getType() === type) {
                     switch (type) {
                         case 'item':
@@ -1017,6 +1022,7 @@ export class GalleriaItem extends BaseComponent<GalleriaPassThrough> {
 
     get activeItem() {
         const value = this.value();
+
         return value && value[this._activeIndex];
     }
 
@@ -1368,6 +1374,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
         `;
 
         const responsiveOptions = this.responsiveOptions();
+
         if (responsiveOptions && !this.$unstyled()) {
             this.sortedResponsiveOptions = [...responsiveOptions];
             this.sortedResponsiveOptions.sort((data1, data2) => {
@@ -1435,6 +1442,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
         let nextItemIndex = this._activeIndex + 1;
 
         const circular = this.circular();
+
         if (nextItemIndex + this.totalShiftedItems > this.getMedianItemIndex() && (-1 * this.totalShiftedItems < this.getTotalPageNumber() - 1 || circular)) {
             this.step(-1);
         }
@@ -1455,6 +1463,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
         let diff = prevItemIndex + this.totalShiftedItems;
 
         const circular = this.circular();
+
         if (this.d_numVisible - diff - 1 > this.getMedianItemIndex() && (-1 * this.totalShiftedItems !== 0 || circular)) {
             this.step(1);
         }
@@ -1601,6 +1610,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 
         if (this.circular()) {
             const value = this.value();
+
             if (dir < 0 && (<any[]>value).length - 1 === this._activeIndex) {
                 totalShiftedItems = 0;
             } else if (dir > 0 && this._activeIndex === 0) {
@@ -1687,6 +1697,7 @@ export class GalleriaThumbnails extends BaseComponent<GalleriaPassThrough> {
 
     isNavForwardDisabled() {
         const value = this.value();
+
         return (!this.circular() && this._activeIndex === (<any[]>value).length - 1) || (<any[]>value).length <= this.d_numVisible;
     }
 

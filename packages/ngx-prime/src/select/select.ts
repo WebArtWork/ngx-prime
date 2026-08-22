@@ -159,6 +159,7 @@ export class SelectItem extends BaseComponent {
 
     getPTOptions() {
         const option = this.option();
+
         return (
             this.$pcSelect?.getPTItemOptions?.(option, this.scrollerOptions(), this.index() ?? 0, 'option') ??
             this.$pcSelect?.ptm('option', {
@@ -1073,6 +1074,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
                     const filteredItems = groupChildren.filter((item) => filteredOptions?.includes(item));
 
                     const optionGroupChildren = this.optionGroupChildren();
+
                     if (filteredItems.length > 0)
                         filtered.push({
                             ...group,
@@ -1120,6 +1122,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
             const visibleOptions = this.visibleOptions();
 
             const editable = this.editable();
+
             if (visibleOptions && isNotEmpty(visibleOptions)) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
 
@@ -1378,11 +1381,13 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     getOptionLabel(option: any) {
         const optionLabel = this.optionLabel();
+
         return optionLabel !== undefined && optionLabel !== null ? resolveFieldData(option, optionLabel) : option && option.label !== undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
         const optionValue = this.optionValue();
+
         return optionValue && optionValue !== null ? resolveFieldData(option, optionValue) : !this.optionLabel() && option && option.value !== undefined ? option.value : option;
     }
 
@@ -1404,16 +1409,19 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     isOptionDisabled(option: any) {
         const optionDisabled = this.optionDisabled();
+
         return optionDisabled ? resolveFieldData(option, optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
     }
 
     getOptionGroupLabel(optionGroup: any) {
         const optionGroupLabel = this.optionGroupLabel();
+
         return optionGroupLabel !== undefined && optionGroupLabel !== null ? resolveFieldData(optionGroup, optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
         const optionGroupChildren = this.optionGroupChildren();
+
         return optionGroupChildren !== undefined && optionGroupChildren !== null ? resolveFieldData(optionGroup, optionGroupChildren) : optionGroup.items;
     }
 
@@ -1840,6 +1848,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     isOptionGroup(option) {
         const optionGroupLabel = this.optionGroupLabel();
+
         return optionGroupLabel !== undefined && optionGroupLabel !== null && option.optionGroup !== undefined && option.optionGroup !== null && option.group;
     }
 

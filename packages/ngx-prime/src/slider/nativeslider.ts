@@ -14,7 +14,7 @@ import { SliderStyle } from './style/sliderstyle';
         '[attr.data-p-invalid]': 'invalid() || null',
         '[attr.aria-label]': 'ariaLabel() || null',
         '[attr.aria-labelledby]': 'ariaLabelledBy() || null',
-        '[attr.aria-orientation]': 'orientation()',
+        '[attr.aria-orientation]': 'resolvedOrientation()',
         '[attr.tabindex]': 'tabindex() ?? null',
         '[autofocus]': 'autofocus()',
         '[min]': 'min()',
@@ -35,7 +35,7 @@ export class SliderDirective extends BaseModelHolder<SliderPassThrough> {
 
     invalid = input(false, { transform: booleanAttribute });
     vertical = input(false, { transform: booleanAttribute });
-    orientationInput = input<'horizontal' | 'vertical'>('horizontal', { alias: 'orientation' });
+    orientation = input<'horizontal' | 'vertical'>('horizontal');
     animate = input(false, { transform: booleanAttribute });
     min = input(0, { transform: numberAttribute });
     max = input(100, { transform: numberAttribute });
@@ -49,7 +49,7 @@ export class SliderDirective extends BaseModelHolder<SliderPassThrough> {
     onSlideEnd = output<SliderSlideEndEvent>();
     touch = output<void>();
 
-    orientation = computed(() => (this.vertical() ? 'vertical' : this.orientationInput()));
+    resolvedOrientation = computed(() => (this.vertical() ? 'vertical' : this.orientation()));
 
     onInput(event: Event) {
         const value = (event.target as HTMLInputElement).valueAsNumber;

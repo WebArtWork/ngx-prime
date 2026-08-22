@@ -751,6 +751,7 @@ describe('MultiSelect', () => {
             // Tab key should close the overlay (or at least not cause errors)
             // overlayVisible might still be true depending on implementation
             const overlayVisible = multiSelect.overlayVisible();
+
             expect(overlayVisible === false || overlayVisible === true).toBe(true);
         });
 
@@ -2296,6 +2297,7 @@ class TestViewChildMultiSelectComponent {
         const mainMultiSelect = this.mainMultiSelect();
 
         const selectionLimit = mainMultiSelect.selectionLimit();
+
         return mainMultiSelect.maxSelectionLimitReached?.() ?? (selectionLimit && mainMultiSelect.modelValue() && mainMultiSelect.modelValue().length >= selectionLimit);
     }
 

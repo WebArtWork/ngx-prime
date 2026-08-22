@@ -1428,6 +1428,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         }
 
         const lazy = this.lazy();
+
         if (simpleChange.value) {
             if (this.isStateful() && !this.stateRestored && isPlatformBrowser(this.platformId)) {
                 this.restoreState();
@@ -1440,6 +1441,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
                 const sortMode = this.sortMode();
                 const groupRowsBy = this.groupRowsBy();
+
                 if (sortMode == 'single' && (this.sortField || groupRowsBy)) this.sortSingle();
                 else if (sortMode == 'multiple' && (this.multiSortMeta || groupRowsBy)) this.sortMultiple();
                 else if (this.hasFilter())
@@ -1464,6 +1466,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         }
 
         const sortMode = this.sortMode();
+
         if (simpleChange.sortField) {
             this._sortField = simpleChange.sortField.currentValue;
 
@@ -1559,6 +1562,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     updateSelectionKeys() {
         const dataKey = this.dataKey();
+
         if (dataKey && this._selection) {
             this.selectionKeys = {};
 
@@ -1605,6 +1609,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
         const sortMode = this.sortMode();
         const resetPageOnSort = this.resetPageOnSort();
+
         if (sortMode === 'single') {
             this._sortOrder = this.sortField === event.field ? this.sortOrder * -1 : this.defaultSortOrder();
             this._sortField = event.field;
@@ -1676,6 +1681,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         let order = this.sortField ? this.sortOrder : this.groupRowsByOrder();
 
         const groupRowsBy = this.groupRowsBy();
+
         if (groupRowsBy && this.sortField && groupRowsBy !== this.sortField) {
             this._multiSortMeta = [this.getGroupRowsMeta(), { field: this.sortField, order: this.sortOrder }];
             this.sortMultiple();
@@ -1733,6 +1739,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     sortMultiple() {
         const groupRowsBy = this.groupRowsBy();
+
         if (groupRowsBy) {
             if (!this._multiSortMeta) this._multiSortMeta = [this.getGroupRowsMeta()];
             else if ((<SortMeta[]>this.multiSortMeta)[0].field !== groupRowsBy) this._multiSortMeta = [this.getGroupRowsMeta(), ...this._multiSortMeta];
@@ -1795,6 +1802,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     isSorted(field: string) {
         const sortMode = this.sortMode();
+
         if (sortMode === 'single') {
             return this.sortField && this.sortField === field;
         } else if (sortMode === 'multiple') {
@@ -1823,6 +1831,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         }
 
         const selectionMode = this.selectionMode();
+
         if (selectionMode) {
             let rowData = event.rowData;
             let rowIndex = event.rowIndex;
@@ -1999,6 +2008,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             };
 
             const contextMenuSelectionMode = this.contextMenuSelectionMode();
+
             if (contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = rowData;
                 this.contextMenuSelectionChange.emit(rowData);
@@ -2141,6 +2151,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     isSelected(rowData: any) {
         if (rowData && this.selection) {
             const dataKey = this.dataKey();
+
             if (dataKey) {
                 return this.selectionKeys[ObjectUtils.resolveFieldData(rowData, dataKey)] !== undefined;
             } else {
@@ -2169,6 +2180,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     isRowSelectable(data: any, index: number) {
         const rowSelectable = this.rowSelectable();
+
         if (rowSelectable && !rowSelectable({ data, index })) {
             return false;
         }
@@ -2194,6 +2206,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             });
 
             const dataKey = this.dataKey();
+
             if (dataKey) {
                 this.selectionKeys = {};
                 this.selectionKeys[String(ObjectUtils.resolveFieldData(rowData, dataKey))] = 1;
@@ -2274,6 +2287,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
             if (check) {
                 const frozenValue = this.frozenValue();
+
                 selection = frozenValue ? [...selection, ...frozenValue, ...data] : [...selection, ...data];
                 selection = this.rowSelectable() ? selection.filter((data: any, index: number) => this.rowSelectable()({ data, index })) : selection;
             }
@@ -2305,6 +2319,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         }
 
         const filters = this.filters();
+
         if (!this.isFilterBlank(value)) {
             this.filters()[field] = { value: value, matchMode: matchMode };
         } else if (filters[field]) {
@@ -2355,8 +2370,10 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
                 let globalFilterFieldsArray;
 
                 const filters = this.filters();
+
                 if (filters['global']) {
                     const globalFilterFields = this.globalFilterFields();
+
                     if (!this.columns && !globalFilterFields) throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
                     else globalFilterFieldsArray = globalFilterFields || this.columns;
                 }
@@ -2473,6 +2490,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     createLazyLoadMetadata(): any {
         const filters = this.filters();
+
         return {
             first: this.first,
             rows: this.rows,
@@ -2542,6 +2560,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             data = this.filteredValue || this.value;
 
             const frozenValue = this.frozenValue();
+
             if (frozenValue) {
                 data = data ? [...frozenValue, ...data] : frozenValue;
             }
@@ -2561,6 +2580,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
                         if (cellData != null) {
                             const exportFunction = this.exportFunction();
+
                             if (exportFunction) {
                                 cellData = exportFunction({
                                     data: cellData,
@@ -2716,6 +2736,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     toggleRow(rowData: any, event?: Event) {
         const groupRowsBy = this.groupRowsBy();
         const dataKey = this.dataKey();
+
         if (!dataKey && !groupRowsBy) {
             throw new Error('dataKey or groupRowsBy must be defined to use row expansion');
         }
@@ -2723,6 +2744,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         let dataKeyValue = groupRowsBy ? String(ObjectUtils.resolveFieldData(rowData, groupRowsBy)) : String(ObjectUtils.resolveFieldData(rowData, dataKey));
 
         const expandedRowKeys = this.expandedRowKeys();
+
         if (expandedRowKeys[dataKeyValue] != null) {
             delete expandedRowKeys[dataKeyValue];
             this.onRowCollapse.emit({
@@ -2752,6 +2774,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
     isRowExpanded(rowData: any): boolean {
         const groupRowsBy = this.groupRowsBy();
+
         return groupRowsBy ? this.expandedRowKeys()[String(ObjectUtils.resolveFieldData(rowData, groupRowsBy))] === true : this.expandedRowKeys()[String(ObjectUtils.resolveFieldData(rowData, this.dataKey()))] === true;
     }
 
@@ -2811,6 +2834,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
 
         if (newColumnWidth >= minWidth) {
             const columnResizeMode = this.columnResizeMode();
+
             if (columnResizeMode === 'fit') {
                 const nextColumn = this.resizeColumnElement.nextElementSibling as HTMLElement;
                 const nextColumnWidth = nextColumn.offsetWidth - delta;
@@ -3056,6 +3080,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
     getStorage() {
         if (isPlatformBrowser(this.platformId)) {
             const stateStorage = this.stateStorage();
+
             switch (stateStorage) {
                 case 'local':
                     return window.localStorage;
@@ -3121,6 +3146,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
         const storage = this.getStorage();
 
         const stateKey = this.stateKey();
+
         if (stateKey) {
             storage.removeItem(stateKey);
         }
@@ -3912,6 +3938,7 @@ export class SortableColumn extends BaseComponent {
         let sortOrder = 0;
 
         const sortMode = this.dataTable.sortMode();
+
         if (sortMode === 'single') {
             sorted = this.dataTable.isSorted(<string>this.field()) as boolean;
             sortOrder = this.dataTable.sortOrder;
@@ -4022,6 +4049,7 @@ export class SortIcon extends BaseComponent {
 
     updateSortState() {
         const sortMode = this.dataTable.sortMode();
+
         if (sortMode === 'single') {
             this.sortOrder = this.dataTable.isSorted(<string>this.field()) ? this.dataTable.sortOrder : 0;
         } else if (sortMode === 'multiple') {
@@ -4042,6 +4070,7 @@ export class SortIcon extends BaseComponent {
                 let meta = multiSortMeta[i];
 
                 const field = this.field();
+
                 if (meta.field === field || meta.field === field) {
                     index = i;
                     break;
@@ -4109,6 +4138,7 @@ export class SelectableRow extends BaseComponent {
 
     setRowTabIndex() {
         const selectionMode = this.dataTable.selectionMode();
+
         if (selectionMode === 'single' || selectionMode === 'multiple') {
             return !this.dataTable.selection ? 0 : this.dataTable.anchorRowIndex === this.index() ? 0 : -1;
         }
@@ -4277,6 +4307,7 @@ export class SelectableRow extends BaseComponent {
 
                 this.dataTable.anchorRowIndex = index || 0;
                 const indexValue = this.index();
+
                 this.dataTable.selection = index !== indexValue ? data.slice(Math.min(index || 0, indexValue || 0), Math.max(index || 0, indexValue || 0) + 1) : [this.data()];
                 this.dataTable.selectRange(event, this.index() || 0);
             }
@@ -4778,6 +4809,7 @@ export class EditableColumn extends BaseComponent {
         const data = this.data();
         const field = this.field();
         const rowIndex = this.rowIndex();
+
         this.dataTable.updateEditingCell(this.el.nativeElement, data, field, <number>rowIndex);
         !this.$unstyled() && DomHandler.addClass(this.el.nativeElement, 'p-cell-editing');
         setAttribute(this.el.nativeElement, 'data-p-cell-editing', 'true');
@@ -6085,6 +6117,7 @@ export class ColumnFilter extends BaseComponent {
 
     get fieldConstraints(): FilterMetadata[] | undefined | null {
         const filters = this.dataTable.filters();
+
         return filters ? <FilterMetadata[]>filters[<string>this.field()] : null;
     }
 
@@ -6444,10 +6477,12 @@ export class ColumnFilter extends BaseComponent {
 
     getDefaultMatchMode(): string {
         const matchMode = this.matchMode();
+
         if (matchMode) {
             return matchMode;
         } else {
             const type = this.type();
+
             if (type === 'text') return FilterMatchMode.STARTS_WITH;
             else if (type === 'numeric') return FilterMatchMode.EQUALS;
             else if (type === 'date') return FilterMatchMode.DATE_IS;
@@ -6457,6 +6492,7 @@ export class ColumnFilter extends BaseComponent {
 
     getDefaultOperator(): string | undefined {
         const filters = this.dataTable.filters();
+
         return filters ? (<FilterMetadata[]>filters[<string>(<string>this.field())])[0].operator : this.operator();
     }
 
@@ -6745,6 +6781,7 @@ export class ColumnFilterFormElement extends BaseComponent<ColumnFilterPassThrou
         (<any>this.filterConstraint()).value = value;
 
         const type = this.type();
+
         if (type === 'date' || type === 'boolean' || ((type === 'text' || type === 'numeric') && this.filterOn() === 'input') || !value) {
             this.dataTable._filter();
         }

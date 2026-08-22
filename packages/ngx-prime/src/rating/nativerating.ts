@@ -48,6 +48,7 @@ export class RatingDirective extends BaseEditableHolder<RatingPassThrough> {
     onInputClick(event: MouseEvent) {
         if (this.readonly()) {
             event.preventDefault();
+
             return;
         }
 

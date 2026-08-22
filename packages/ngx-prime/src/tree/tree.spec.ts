@@ -2300,6 +2300,7 @@ describe('Tree', () => {
 
         it('should handle dynamic value changes', async () => {
             const value = dynamicTree.value();
+
             expect(value?.length).toBe(2);
 
             // Change value dynamically
@@ -2487,6 +2488,7 @@ describe('Tree', () => {
             await dynamicFixture.whenStable();
 
             const value = dynamicTree.value();
+
             expect(value?.length).toBe(0);
 
             // Add data

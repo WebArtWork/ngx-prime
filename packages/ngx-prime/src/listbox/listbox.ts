@@ -1488,16 +1488,19 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     getOptionGroupChildren(optionGroup) {
         const optionGroupChildren = this.optionGroupChildren();
+
         return optionGroupChildren ? resolveFieldData(optionGroup, optionGroupChildren) : optionGroup.items;
     }
 
     getOptionGroupLabel(optionGroup: any) {
         const optionGroupLabel = this.optionGroupLabel();
+
         return optionGroupLabel ? resolveFieldData(optionGroup, optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionLabel(option) {
         const optionLabel = this.optionLabel();
+
         return optionLabel ? resolveFieldData(option, optionLabel) : option.label != undefined ? option.label : option;
     }
 
@@ -1507,6 +1510,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     getOptionValue(option: any) {
         const optionValue = this.optionValue();
+
         return optionValue ? resolveFieldData(option, optionValue) : !this.optionLabel() && option && option.value !== undefined ? option.value : option;
     }
 
@@ -1714,6 +1718,7 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
 
     isOptionDisabled(option: any) {
         const optionDisabled = this.optionDisabled();
+
         if (isFunction(optionDisabled)) {
             return optionDisabled(option);
         }

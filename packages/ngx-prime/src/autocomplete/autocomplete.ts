@@ -1165,6 +1165,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     isOptionDisabled(option) {
         const optionDisabled = this.optionDisabled();
+
         return optionDisabled ? resolveFieldData(option, optionDisabled) : false;
     }
 
@@ -1218,6 +1219,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             query = inputEL?.nativeElement?.value as string;
 
             const dropdownMode = this.dropdownMode();
+
             if (dropdownMode === 'blank') this.search(event, '', 'dropdown');
             else if (dropdownMode === 'current') this.search(event, query, 'dropdown');
         }
@@ -1240,6 +1242,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
             }
 
             const multiple = this.multiple();
+
             if (!multiple && !this.forceSelection()) {
                 this.updateModel(query);
             }
@@ -1353,6 +1356,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     onInputPaste(event) {
         const separator = this.separator();
+
         if (separator && this.multiple() && !this.typeahead()) {
             const pastedData = (event.clipboardData || (window as any)['clipboardData'])?.getData('Text');
 
@@ -1468,6 +1472,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     handleSeparatorKey(event) {
         const separator = this.separator();
+
         if (separator && this.multiple() && !this.typeahead()) {
             if (separator === event.key || (typeof separator === 'string' && event.key === separator) || (separator instanceof RegExp && event.key.match(separator))) {
                 const inputValue = (this.multiInputEl()?.nativeElement?.value || event.target.value || '').trim();
@@ -1889,11 +1894,13 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     getOptionLabel(option: any) {
         const optionLabel = this.optionLabel();
+
         return optionLabel ? resolveFieldData(option, optionLabel) : option && option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option) {
         const optionValue = this.optionValue();
+
         return optionValue ? resolveFieldData(option, optionValue) : option && option.value != undefined ? option.value : option;
     }
 
@@ -1903,11 +1910,13 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
 
     getOptionGroupLabel(optionGroup: any) {
         const optionGroupLabel = this.optionGroupLabel();
+
         return optionGroupLabel ? resolveFieldData(optionGroup, optionGroupLabel) : optionGroup && optionGroup.label != undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
         const optionGroupChildren = this.optionGroupChildren();
+
         return optionGroupChildren ? resolveFieldData(optionGroup, optionGroupChildren) : optionGroup.items;
     }
 
@@ -1929,6 +1938,7 @@ export class AutoComplete extends BaseInput<AutoCompletePassThrough> {
         const scroller = this.scroller();
 
         const virtualScroll = this.virtualScroll();
+
         if (virtualScroll) {
             scroller?.setContentEl(this.itemsViewChild()?.nativeElement);
             scroller?.viewInit();

@@ -882,41 +882,49 @@ export class PickList extends BaseComponent {
 
     get moveUpAriaLabel() {
         const upButtonAriaLabel = this.upButtonAriaLabel();
+
         return upButtonAriaLabel ? upButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveUp : undefined;
     }
 
     get moveTopAriaLabel() {
         const topButtonAriaLabel = this.topButtonAriaLabel();
+
         return topButtonAriaLabel ? topButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveTop : undefined;
     }
 
     get moveDownAriaLabel() {
         const downButtonAriaLabel = this.downButtonAriaLabel();
+
         return downButtonAriaLabel ? downButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveDown : undefined;
     }
 
     get moveBottomAriaLabel() {
         const bottomButtonAriaLabel = this.bottomButtonAriaLabel();
+
         return bottomButtonAriaLabel ? bottomButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveDown : undefined;
     }
 
     get moveToTargetAriaLabel() {
         const rightButtonAriaLabel = this.rightButtonAriaLabel();
+
         return rightButtonAriaLabel ? rightButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToTarget : undefined;
     }
 
     get moveAllToTargetAriaLabel() {
         const allRightButtonAriaLabel = this.allRightButtonAriaLabel();
+
         return allRightButtonAriaLabel ? allRightButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveAllToTarget : undefined;
     }
 
     get moveToSourceAriaLabel() {
         const leftButtonAriaLabel = this.leftButtonAriaLabel();
+
         return leftButtonAriaLabel ? leftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToSource : undefined;
     }
 
     get moveAllToSourceAriaLabel() {
         const allLeftButtonAriaLabel = this.allLeftButtonAriaLabel();
+
         return allLeftButtonAriaLabel ? allLeftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveAllToSource : undefined;
     }
 

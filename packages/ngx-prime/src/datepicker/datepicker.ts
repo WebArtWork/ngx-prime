@@ -1424,6 +1424,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     get iconButtonAriaLabel() {
         const iconAriaLabel = this.iconAriaLabel();
+
         return iconAriaLabel ? iconAriaLabel : this.getTranslation('chooseDate');
     }
 
@@ -2044,6 +2045,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         this.value = value;
 
         const dataType = this.dataType();
+
         if (dataType == 'date') {
             this.writeModelValue(this.value);
             this.onModelChange(this.value);
@@ -2381,6 +2383,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
 
     onContainerButtonKeydown(event: KeyboardEvent) {
         const inline = this.inline();
+
         switch (event.which) {
             //tab
             case 9:
@@ -3750,6 +3753,7 @@ export class DatePicker extends BaseInput<DatePickerPassThrough> {
         }
 
         const shortYearCutoffValue = this.shortYearCutoff();
+
         let iFormat!: any,
             dim,
             extra,

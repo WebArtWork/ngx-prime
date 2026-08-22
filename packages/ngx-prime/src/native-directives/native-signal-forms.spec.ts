@@ -76,6 +76,7 @@ describe('Native directives with Signal Forms', () => {
         }).compileComponents();
 
         const fixture = TestBed.createComponent(component);
+
         fixture.detectChanges();
 
         return fixture;

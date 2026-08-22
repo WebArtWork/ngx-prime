@@ -1110,6 +1110,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
                 this.totalRecords = this._value ? this._value.length : 0;
 
                 const sortMode = this.sortMode();
+
                 if (sortMode == 'single' && this.sortField) this.sortSingle();
                 else if (sortMode == 'multiple' && this.multiSortMeta) this.sortMultiple();
                 else if (this.hasFilter())
@@ -1123,6 +1124,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
         const lazy = this.lazy();
         const sortMode = this.sortMode();
+
         if (simpleChange.sortField) {
             this._sortField = simpleChange.sortField.currentValue;
 
@@ -1219,6 +1221,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
     updateselectedKeys() {
         const dataKey = this.dataKey();
+
         if (dataKey && this._selection) {
             this.selectedKeys = {};
 
@@ -1257,6 +1260,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         const sortMode = this.sortMode();
         const scrollable = this.scrollable();
         const resetPageOnSort = this.resetPageOnSort();
+
         if (sortMode === 'single') {
             this._sortOrder = this.sortField === event.field ? this.sortOrder * -1 : this.defaultSortOrder();
             this._sortField = event.field;
@@ -1435,6 +1439,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
     isSorted(field: string) {
         const sortMode = this.sortMode();
+
         if (sortMode === 'single') {
             return this.sortField && this.sortField === field;
         } else if (sortMode === 'multiple') {
@@ -1455,6 +1460,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
     createLazyLoadMetadata(): any {
         const filters = this.filters();
+
         return {
             first: this.first(),
             rows: this.rows(),
@@ -1552,6 +1558,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
         if (columnWidth + delta > parseInt(minWidth)) {
             const columnResizeMode = this.columnResizeMode();
+
             if (columnResizeMode === 'fit') {
                 let nextColumn = column.nextElementSibling;
 
@@ -1744,6 +1751,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
             if (allowDrop) {
                 const columns = this.columns();
+
                 reorderArray(<any[]>columns, dragIndex, dropIndex);
 
                 this.onColReorder.emit({
@@ -1769,6 +1777,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         }
 
         const selectionMode = this.selectionMode();
+
         if (selectionMode) {
             this.preventSelectionSetterPropagation = true;
             let rowNode = event.rowNode;
@@ -1917,6 +1926,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
             };
 
             const contextMenuSelectionMode = this.contextMenuSelectionMode();
+
             if (contextMenuSelectionMode === 'separate') {
                 this.contextMenuSelection = node;
                 this.contextMenuSelectionChange.emit(node);
@@ -2105,6 +2115,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         // legacy selection support, will be removed in v18
         if (node && this.selection) {
             const dataKey = this.dataKey();
+
             if (dataKey) {
                 if (Object.prototype.hasOwnProperty.call(node, 'checked')) {
                     return node['checked'];
@@ -2130,6 +2141,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
 
     nodeKey(node) {
         const dataKey = this.dataKey();
+
         return resolveFieldData(node, dataKey) || resolveFieldData(node?.data, dataKey);
     }
 
@@ -2226,6 +2238,7 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
         }
 
         const filters = this.filters();
+
         if (!this.isFilterBlank(value)) {
             this.filters()[field] = { value: value, matchMode: matchMode };
         } else if (filters[field]) {
@@ -2269,9 +2282,11 @@ export class TreeTable extends BaseComponent<TreeTablePassThrough> implements Bl
                 let globalFilterFieldsArray;
 
                 const filters = this.filters();
+
                 if (filters['global']) {
                     const columns = this.columns();
                     const globalFilterFields = this.globalFilterFields();
+
                     if (!columns && !globalFilterFields) throw new Error('Global filtering requires dynamic columns or globalFilterFields to be defined.');
                     else globalFilterFieldsArray = globalFilterFields || columns;
                 }
@@ -3098,6 +3113,7 @@ export class TTSortIcon extends BaseComponent {
                 let meta = multiSortMeta[i];
 
                 const field = this.field();
+
                 if (meta.field === field || meta.field === field) {
                     index = i;
                     break;
@@ -3110,6 +3126,7 @@ export class TTSortIcon extends BaseComponent {
 
     updateSortState() {
         const sortMode = this.tt.sortMode();
+
         if (sortMode === 'single') {
             this.sortOrder = this.tt.isSorted(<string>this.field()) ? this.tt.sortOrder : 0;
         } else if (sortMode === 'multiple') {
@@ -3765,6 +3782,7 @@ export class TTEditableColumn extends BaseComponent {
     openCell() {
         const data = this.data();
         const field = this.field();
+
         this.tt.updateEditingCell(this.el.nativeElement, data, field);
         !this.$unstyled() && addClass(this.el.nativeElement, 'p-cell-editing');
         this.el?.nativeElement.setAttribute('data-p-cell-editing', 'true');

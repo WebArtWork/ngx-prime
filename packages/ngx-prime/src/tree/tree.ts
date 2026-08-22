@@ -260,6 +260,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         const selection = this.tree.contextMenuSelection();
 
         const node = this.node();
+
         if (!selection || !node) {
             return false;
         }
@@ -269,6 +270,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     get selected() {
         const selectionMode = this.tree.selectionMode();
+
         return selectionMode === 'single' || selectionMode === 'multiple' ? this._selected() : undefined;
     }
 
@@ -286,11 +288,13 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     get subNodes(): TreeNode[] | undefined {
         const node = this.node();
+
         return node?.parent ? node.parent.children : this.tree.value();
     }
 
     getPTOptions(key: string) {
         const node = this.node();
+
         return this.ptm(key, {
             context: {
                 node: this.node(),
@@ -310,6 +314,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         const pDialogWrapper = nativeElement.closest('p-dialog');
 
         const parentNode = this.parentNode();
+
         if (parentNode && !pDialogWrapper) {
             this.setAllNodesTabIndexes();
             this.tree.syncNodeOption(<TreeNode>this.node(), <TreeNode<any>[]>this.tree.value(), 'parent', this.tree.getNodeWithKey(<string>parentNode.key, <TreeNode<any>[]>this.tree.value()));
@@ -412,6 +417,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         const { dragNode, dragNodeIndex, dragNodeSubNodes } = this.tree;
 
         const node = this.node();
+
         if (!node || dragNodeIndex == null || !dragNode || !dragNodeSubNodes) {
             return;
         }
@@ -560,6 +566,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     onKeyDown(event: KeyboardEvent) {
         const contextMenu = this.tree.contextMenu();
+
         if (!this.isSameNode(event) || (contextMenu && contextMenu.containerViewChild?.nativeElement.style.display === 'block')) {
             return;
         }
@@ -642,6 +649,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
 
     onArrowRight(event: KeyboardEvent) {
         const node = this.node();
+
         if (!node?.expanded && !this.tree.isNodeLeaf(<TreeNode>node)) {
             this.expand(event);
             (<HTMLDivElement>event.currentTarget).tabIndex = -1;
@@ -658,6 +666,7 @@ export class UITreeNode extends BaseComponent<TreePassThrough> {
         const nodeElement = (<HTMLDivElement>event.target).getAttribute('data-pc-section') === 'nodetogglebutton' ? (<HTMLDivElement>event.target).closest('[role="treeitem"]') : <HTMLDivElement>event.target;
 
         const node = this.node();
+
         if (this.level() === 0 && !node?.expanded) {
             return false;
         }
@@ -1569,6 +1578,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
             };
 
             const contextMenuSelectionMode = this.contextMenuSelectionMode();
+
             if (contextMenuSelectionMode === 'separate') {
                 // In 'separate' mode: Update contextMenuSelection with clicked node, don't modify selection
                 this.contextMenuSelection.set(node);
@@ -1632,6 +1642,7 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
     hasFilteredNodes() {
         const filteredNodes = this.filteredNodes();
+
         return this.filter() && filteredNodes && filteredNodes.length;
     }
 
@@ -1723,16 +1734,19 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
     isSingleSelectionMode() {
         const selectionMode = this.selectionMode();
+
         return selectionMode && selectionMode == 'single';
     }
 
     isMultipleSelectionMode() {
         const selectionMode = this.selectionMode();
+
         return selectionMode && selectionMode == 'multiple';
     }
 
     isCheckboxSelectionMode() {
         const selectionMode = this.selectionMode();
+
         return selectionMode && selectionMode == 'checkbox';
     }
 
@@ -1742,11 +1756,13 @@ export class Tree extends BaseComponent<TreePassThrough> implements BlockableUI 
 
     getRootNode() {
         const filteredNodes = this.filteredNodes();
+
         return filteredNodes ? filteredNodes : this.value();
     }
 
     getTemplateForNode(node: TreeNode): TemplateRef<any> | null {
         const _templateMap = this._templateMap();
+
         if (_templateMap) return node.type ? _templateMap[node.type] : _templateMap['default'];
         else return null;
     }

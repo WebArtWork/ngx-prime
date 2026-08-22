@@ -13,6 +13,7 @@ import {
     InjectionToken,
     input,
     Input,
+    model,
     NgModule,
     NgZone,
     numberAttribute,
@@ -325,7 +326,8 @@ export class MultiSelectItem extends BaseComponent {
         <p-overlay
             #overlay
             [hostAttrSelector]="$attrSelector"
-            [(visible)]="overlayVisible()"
+            [visible]="overlayVisible()"
+            (visibleChange)="overlayVisible.set($event)"
             [options]="overlayOptions()"
             [target]="'@parent'"
             [appendTo]="$appendTo()"
@@ -610,7 +612,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
      * Specifies the visibility of the options panel.
      * @group Props
      */
-    readonly overlayVisible = input<boolean | undefined, unknown>(false, { transform: booleanAttribute });
+    readonly overlayVisible = model<boolean | undefined>(false);
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -1337,6 +1339,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
                     const filteredItems = groupChildren.filter((item) => filteredOptions.includes(item));
 
                     const optionGroupChildren = this.optionGroupChildren();
+
                     if (filteredItems.length > 0)
                         filtered.push({
                             ...group,
@@ -1413,6 +1416,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     maxSelectionLimitReached() {
         const selectionLimit = this.selectionLimit();
+
         return selectionLimit && this.modelValue() && this.modelValue().length === selectionLimit;
     }
 
@@ -1598,6 +1602,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
         }
 
         const optionDisabled = this.optionDisabled();
+
         return optionDisabled ? resolveFieldData(option, optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
     }
 
@@ -1655,21 +1660,25 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
 
     getOptionLabel(option: any) {
         const optionLabel = this.optionLabel();
+
         return optionLabel ? resolveFieldData(option, optionLabel) : option && option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
         const optionValue = this.optionValue();
+
         return optionValue ? resolveFieldData(option, optionValue) : !this.optionLabel() && option && option.value !== undefined ? option.value : option;
     }
 
     getOptionGroupLabel(optionGroup: any) {
         const optionGroupLabel = this.optionGroupLabel();
+
         return optionGroupLabel ? resolveFieldData(optionGroup, optionGroupLabel) : optionGroup && optionGroup.label != undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
         const optionGroupChildren = this.optionGroupChildren();
+
         return optionGroup ? (optionGroupChildren ? resolveFieldData(optionGroup, optionGroupChildren) : optionGroup.items) : [];
     }
 
@@ -1914,6 +1923,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             const overlayVisible = this.overlayVisible();
+
             if (overlayVisible && this.hasFocusableElements()) {
                 focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay()?.nativeElement : this.firstHiddenFocusableElementOnOverlay()?.nativeElement);
 
@@ -2035,6 +2045,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
             // pre-selected disabled options should always be selected.
             const selectedDisabledOptions = this.getAllVisibleAndNonVisibleOptions().filter((option) => {
                 const optionDisabled = this.optionDisabled();
+
                 return this.isSelected(option) && (optionDisabled ? resolveFieldData(option, optionDisabled) : option && option.disabled !== undefined ? option.disabled : false);
             });
 

@@ -207,11 +207,13 @@ export class CascadeSelectSub extends BaseComponent {
 
     getOptionLabel(processedOption) {
         const optionLabel = this.optionLabel();
+
         return optionLabel ? resolveFieldData(processedOption.option, optionLabel) : processedOption.option;
     }
 
     getOptionValue(processedOption) {
         const optionValue = this.optionValue();
+
         return optionValue ? resolveFieldData(processedOption.option, optionValue) : processedOption.option;
     }
 
@@ -221,11 +223,13 @@ export class CascadeSelectSub extends BaseComponent {
 
     isOptionDisabled(processedOption) {
         const optionDisabled = this.optionDisabled();
+
         return optionDisabled ? resolveFieldData(processedOption.option, optionDisabled) : false;
     }
 
     getOptionGroupLabel(processedOption) {
         const optionGroupLabel = this.optionGroupLabel();
+
         return optionGroupLabel ? resolveFieldData(processedOption.option, optionGroupLabel) : null;
     }
 
@@ -1250,6 +1254,7 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
 
     isOptionDisabled(option) {
         const optionDisabled = this.optionDisabled();
+
         return optionDisabled ? resolveFieldData(option, optionDisabled) : false;
     }
 
@@ -1429,16 +1434,19 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
 
     getOptionLabel(option) {
         const optionLabel = this.optionLabel();
+
         return optionLabel ? resolveFieldData(option, optionLabel) : option;
     }
 
     getOptionValue(option) {
         const optionValue = this.optionValue();
+
         return optionValue ? resolveFieldData(option, optionValue) : option;
     }
 
     getOptionGroupLabel(optionGroup) {
         const optionGroupLabel = this.optionGroupLabel();
+
         return optionGroupLabel ? resolveFieldData(optionGroup, optionGroupLabel) : null;
     }
 
