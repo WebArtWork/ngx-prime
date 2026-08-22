@@ -376,7 +376,7 @@ describe('SplitButton', () => {
             const newModel = [{ label: 'New Action', command: () => {} }];
 
             component.model = newModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -388,7 +388,7 @@ describe('SplitButton', () => {
 
         it('should update label property', async () => {
             component.label = 'Updated Label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -398,7 +398,7 @@ describe('SplitButton', () => {
 
         it('should update icon property', async () => {
             component.icon = 'pi pi-star';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -407,7 +407,7 @@ describe('SplitButton', () => {
 
         it('should update iconPos property', async () => {
             component.iconPos = 'right';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -416,7 +416,7 @@ describe('SplitButton', () => {
 
         it('should update severity property', async () => {
             component.severity = 'success';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -425,7 +425,7 @@ describe('SplitButton', () => {
 
         it('should update disabled property', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -436,7 +436,7 @@ describe('SplitButton', () => {
 
         it('should update buttonDisabled property independently', async () => {
             component.buttonDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -446,7 +446,7 @@ describe('SplitButton', () => {
 
         it('should update menuButtonDisabled property independently', async () => {
             component.menuButtonDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -456,7 +456,7 @@ describe('SplitButton', () => {
 
         it('should update styleClass property', async () => {
             component.styleClass = 'custom-splitbutton';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -467,7 +467,7 @@ describe('SplitButton', () => {
             const customMenuStyle = { width: '300px', height: '200px' };
 
             component.menuStyle = customMenuStyle;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -476,7 +476,7 @@ describe('SplitButton', () => {
 
         it('should update menuStyleClass property', async () => {
             component.menuStyleClass = 'custom-menu';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -485,7 +485,7 @@ describe('SplitButton', () => {
 
         it('should update dropdownIcon property', async () => {
             component.dropdownIcon = 'pi pi-angle-double-down';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -494,7 +494,7 @@ describe('SplitButton', () => {
 
         it('should update tabindex property', async () => {
             component.tabindex = 5;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -503,7 +503,7 @@ describe('SplitButton', () => {
 
         it('should update autofocus property', async () => {
             component.autofocus = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -513,7 +513,7 @@ describe('SplitButton', () => {
         it('should update tooltip properties', async () => {
             component.tooltip = 'Custom tooltip';
             component.tooltipOptions = { tooltipPosition: 'bottom' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -524,7 +524,7 @@ describe('SplitButton', () => {
         it('should update transition options', async () => {
             component.showTransitionOptions = '.15s ease-in';
             component.hideTransitionOptions = '.1s ease-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -612,7 +612,7 @@ describe('SplitButton', () => {
             const dropdownClickSpy = spyOn(component, 'onDropdownClick');
 
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -675,7 +675,7 @@ describe('SplitButton', () => {
     describe('Button Variants', () => {
         it('should apply raised styling', async () => {
             component.raised = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -684,7 +684,7 @@ describe('SplitButton', () => {
 
         it('should apply rounded styling', async () => {
             component.rounded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -693,7 +693,7 @@ describe('SplitButton', () => {
 
         it('should apply text styling', async () => {
             component.text = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -702,7 +702,7 @@ describe('SplitButton', () => {
 
         it('should apply outlined styling', async () => {
             component.outlined = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -711,7 +711,7 @@ describe('SplitButton', () => {
 
         it('should apply plain styling', async () => {
             component.plain = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -721,7 +721,7 @@ describe('SplitButton', () => {
         it('should apply size variations', async () => {
             // Small size
             component.size = 'small';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -729,7 +729,7 @@ describe('SplitButton', () => {
 
             // Large size
             component.size = 'large';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -740,7 +740,7 @@ describe('SplitButton', () => {
     describe('Button Severities', () => {
         it('should apply primary severity', async () => {
             component.severity = 'primary';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -749,7 +749,7 @@ describe('SplitButton', () => {
 
         it('should apply secondary severity', async () => {
             component.severity = 'secondary';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -758,7 +758,7 @@ describe('SplitButton', () => {
 
         it('should apply success severity', async () => {
             component.severity = 'success';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -767,7 +767,7 @@ describe('SplitButton', () => {
 
         it('should apply info severity', async () => {
             component.severity = 'info';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -776,7 +776,7 @@ describe('SplitButton', () => {
 
         it('should apply warn severity', async () => {
             component.severity = 'warn';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -785,7 +785,7 @@ describe('SplitButton', () => {
 
         it('should apply danger severity', async () => {
             component.severity = 'danger';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -794,7 +794,7 @@ describe('SplitButton', () => {
 
         it('should apply help severity', async () => {
             component.severity = 'help';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -803,7 +803,7 @@ describe('SplitButton', () => {
 
         it('should apply contrast severity', async () => {
             component.severity = 'contrast';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -814,7 +814,7 @@ describe('SplitButton', () => {
     describe('Icon Functionality', () => {
         it('should display icon when provided', async () => {
             component.icon = 'pi pi-save';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -827,14 +827,14 @@ describe('SplitButton', () => {
 
             // Left position
             component.iconPos = 'left';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(splitButtonInstance.iconPos()).toBe('left');
 
             // Right position
             component.iconPos = 'right';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(splitButtonInstance.iconPos()).toBe('right');
@@ -891,7 +891,7 @@ describe('SplitButton', () => {
 
         it('should append menu to specified target', async () => {
             component.appendTo = document.body;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1094,7 +1094,7 @@ describe('SplitButton', () => {
     describe('Accessibility Tests', () => {
         it('should have proper ARIA attributes on default button', async () => {
             component.label = 'Save Document';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1121,7 +1121,7 @@ describe('SplitButton', () => {
 
         it('should handle expandAriaLabel', async () => {
             component.expandAriaLabel = 'Show additional actions';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1130,7 +1130,7 @@ describe('SplitButton', () => {
 
         it('should handle tabindex correctly', async () => {
             component.tabindex = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1139,7 +1139,7 @@ describe('SplitButton', () => {
 
         it('should be focusable when not disabled', async () => {
             component.disabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1149,7 +1149,7 @@ describe('SplitButton', () => {
 
         it('should not be focusable when disabled', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1165,7 +1165,7 @@ describe('SplitButton', () => {
 
         it('should apply custom styleClass', async () => {
             component.styleClass = 'my-custom-splitbutton';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1174,7 +1174,7 @@ describe('SplitButton', () => {
 
         it('should apply menuStyleClass', async () => {
             component.menuStyleClass = 'custom-menu-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1185,7 +1185,7 @@ describe('SplitButton', () => {
     describe('Edge Cases and Error Handling', () => {
         it('should handle empty model gracefully', async () => {
             component.model = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1195,7 +1195,7 @@ describe('SplitButton', () => {
 
         it('should handle undefined model', async () => {
             component.model = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1205,7 +1205,7 @@ describe('SplitButton', () => {
 
         it('should handle empty label gracefully', async () => {
             component.label = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1215,7 +1215,7 @@ describe('SplitButton', () => {
 
         it('should handle undefined label', async () => {
             component.label = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1225,7 +1225,7 @@ describe('SplitButton', () => {
 
         it('should handle invalid icon gracefully', async () => {
             component.icon = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1298,7 +1298,7 @@ describe('SplitButton', () => {
                 ariaLabel: 'Custom aria label',
                 style: { color: 'red' }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1311,7 +1311,7 @@ describe('SplitButton', () => {
                 ariaLabel: 'Menu button',
                 ariaHasPopup: 'menu'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 

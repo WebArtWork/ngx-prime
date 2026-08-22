@@ -235,11 +235,11 @@ describe('MeterGroup', () => {
         });
 
         it('should handle zero values', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.value = [{ label: 'Zero', value: 0, color: '#ff0000' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const percent = meterGroup.percent(0);
@@ -276,11 +276,11 @@ describe('MeterGroup', () => {
         });
 
         it('should handle horizontal orientation', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.orientation = 'horizontal';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(meterGroup.orientation()).toBe('horizontal');
@@ -288,11 +288,11 @@ describe('MeterGroup', () => {
         });
 
         it('should handle vertical orientation', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.orientation = 'vertical';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(meterGroup.orientation()).toBe('vertical');
@@ -300,11 +300,11 @@ describe('MeterGroup', () => {
         });
 
         it('should handle label position start', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.labelPosition = 'start';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.directive(MeterGroupLabel));
@@ -314,11 +314,11 @@ describe('MeterGroup', () => {
         });
 
         it('should handle label position end', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.labelPosition = 'end';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.directive(MeterGroupLabel));
@@ -328,22 +328,22 @@ describe('MeterGroup', () => {
         });
 
         it('should handle horizontal label orientation', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.labelOrientation = 'horizontal';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(meterGroup.labelOrientation()).toBe('horizontal');
         });
 
         it('should handle vertical label orientation', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.labelOrientation = 'vertical';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(meterGroup.labelOrientation()).toBe('vertical');
@@ -351,12 +351,12 @@ describe('MeterGroup', () => {
 
         it('should apply height for vertical orientation', async () => {
             component.orientation = 'vertical';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // After view init, vertical orientation should set height
             meterGroup.ngAfterViewInit();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Height should be set on the element for vertical orientation
@@ -529,11 +529,11 @@ describe('MeterGroup', () => {
         });
 
         it('should render markers when no icon provided', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.value = [{ label: 'No Icon', value: 30, color: '#123456' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const markers = element.querySelectorAll('.p-metergroup-label-marker');
@@ -578,11 +578,11 @@ describe('MeterGroup', () => {
         });
 
         it('should update aria-valuenow when value changes', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.value = [{ label: 'New', value: 50, color: '#ff0000' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const newTotalPercent = meterGroup.totalPercent();
@@ -639,14 +639,14 @@ describe('MeterGroup', () => {
         });
 
         it('should update when value changes', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.value = [
                 { label: 'Updated 1', value: 40, color: '#00ff00' },
                 { label: 'Updated 2', value: 30, color: '#0000ff' }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(meterGroup.value()!.length).toBe(2);
@@ -654,12 +654,12 @@ describe('MeterGroup', () => {
         });
 
         it('should update when min/max changes', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.min = 10;
             component.max = 50;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const percent = meterGroup.percent(30);
@@ -671,12 +671,12 @@ describe('MeterGroup', () => {
             // Initial state has 1 item
             expect(component.value.length).toBe(1);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Create a new array with the additional item (to trigger change detection)
             component.value = [...component.value, { label: 'New Item', value: 20, color: '#ff00ff' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check the component's value array
@@ -692,11 +692,11 @@ describe('MeterGroup', () => {
         });
 
         it('should remove meter items dynamically', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.value = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(meterGroup.value()!.length).toBe(0);
@@ -737,11 +737,11 @@ describe('MeterGroup', () => {
         });
 
         it('should handle meter items with missing properties', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.value = [{ label: 'Incomplete', value: 30 } as MeterItem];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const meterStyle = meterGroup.meterStyle(component.value[0]);
@@ -752,15 +752,15 @@ describe('MeterGroup', () => {
 
         it('should handle rapid value updates', async () => {
             component.value = [{ label: 'Test 1', value: 10, color: '#ff0000' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.value = [{ label: 'Test 2', value: 20, color: '#00ff00' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.value = [{ label: 'Test 3', value: 30, color: '#0000ff' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(meterGroup.value()![0].value).toBe(30);
@@ -872,7 +872,7 @@ describe('MeterGroup', () => {
             fixture.detectChanges();
 
             await expect(async () => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }).not.toThrow();
 
@@ -917,14 +917,14 @@ describe('MeterGroup', () => {
             ];
 
             for (const combo of combinations) {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 component.orientation = combo.orientation as 'horizontal' | 'vertical';
                 component.labelPosition = combo.labelPosition as 'start' | 'end';
                 component.labelOrientation = combo.labelOrientation as 'horizontal' | 'vertical';
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }
 

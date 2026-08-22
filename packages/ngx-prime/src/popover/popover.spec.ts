@@ -178,7 +178,7 @@ describe('Popover', () => {
             component.ariaLabel = 'Custom popover';
             component.styleClass = 'custom-class';
             component.style = { width: '300px', height: '200px' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(popoverInstance.dismissable()).toBe(false);
@@ -433,7 +433,7 @@ describe('Popover', () => {
 
             (popoverInstance as any).ariaLabel = () => 'Test popover';
             (popoverInstance as any).ariaLabelledBy = () => 'test-label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             popoverInstance.show(mockEvent, target);
@@ -509,7 +509,7 @@ describe('Popover', () => {
 
         it('should apply styleClass correctly', async () => {
             component.styleClass = 'custom-popover-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const mockEvent = new MouseEvent('click');
@@ -531,7 +531,7 @@ describe('Popover', () => {
 
         it('should apply custom styles', async () => {
             component.style = { border: '2px solid red', padding: '10px' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(popoverInstance.style()).toEqual({ border: '2px solid red', padding: '10px' });

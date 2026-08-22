@@ -37,7 +37,7 @@ describe('Overlay', () => {
         describe('Case 1: Simple string classes', () => {
             it('should apply string class to host section', async () => {
                 fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(overlayElement.nativeElement.classList.contains('HOST_CLASS')).toBe(true);
@@ -45,7 +45,7 @@ describe('Overlay', () => {
 
             it('should apply string class to root section', async () => {
                 fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
@@ -55,7 +55,7 @@ describe('Overlay', () => {
 
             it('should apply string class to content section', async () => {
                 fixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
@@ -67,7 +67,7 @@ describe('Overlay', () => {
         describe('Case 2: Objects (class, style, data, aria)', () => {
             it('should apply object with class to host section', async () => {
                 fixture.componentRef.setInput('pt', { host: { class: 'HOST_OBJ_CLASS' } });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(overlayElement.nativeElement.classList.contains('HOST_OBJ_CLASS')).toBe(true);
@@ -75,7 +75,7 @@ describe('Overlay', () => {
 
             it('should apply object with class to root section', async () => {
                 fixture.componentRef.setInput('pt', { root: { class: 'ROOT_OBJ_CLASS' } });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
@@ -85,7 +85,7 @@ describe('Overlay', () => {
 
             it('should apply object with style to root section', async () => {
                 fixture.componentRef.setInput('pt', { root: { style: { color: 'red', fontSize: '20px' } } });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
@@ -96,7 +96,7 @@ describe('Overlay', () => {
 
             it('should apply object with data attributes to root section', async () => {
                 fixture.componentRef.setInput('pt', { root: { 'data-test-id': 'root-test' } });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
@@ -106,7 +106,7 @@ describe('Overlay', () => {
 
             it('should apply object with aria attributes to root section', async () => {
                 fixture.componentRef.setInput('pt', { root: { 'aria-label': 'Overlay Test' } });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
@@ -122,7 +122,7 @@ describe('Overlay', () => {
                         'data-section': 'content'
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
@@ -141,7 +141,7 @@ describe('Overlay', () => {
                         style: { margin: '5px' }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
@@ -157,7 +157,7 @@ describe('Overlay', () => {
                         style: { padding: '10px' }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
@@ -170,7 +170,7 @@ describe('Overlay', () => {
         describe('Case 4: Use variables from instance', () => {
             it('should access visible property from instance in pt', async () => {
                 fixture.componentRef.setInput('visible', true);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
@@ -178,7 +178,7 @@ describe('Overlay', () => {
                         class: instance?.visible?.() ? 'VISIBLE_CLASS' : 'HIDDEN_CLASS'
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
@@ -189,7 +189,7 @@ describe('Overlay', () => {
             it('should access modal property from instance in pt', async () => {
                 fixture.componentRef.setInput('mode', 'modal');
                 fixture.componentRef.setInput('visible', true);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
@@ -197,7 +197,7 @@ describe('Overlay', () => {
                         class: instance?.modal ? 'MODAL_CLASS' : 'OVERLAY_CLASS'
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
@@ -217,7 +217,7 @@ describe('Overlay', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
@@ -236,7 +236,7 @@ describe('Overlay', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');
@@ -259,7 +259,7 @@ describe('Overlay', () => {
                         return {};
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(emitterAccessed).toBe(true);
@@ -277,7 +277,7 @@ describe('Overlay', () => {
                         return {};
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(emitterAccessed).toBe(true);
@@ -295,7 +295,7 @@ describe('Overlay', () => {
                         return {};
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(emitterAccessed).toBe(true);
@@ -310,7 +310,7 @@ describe('Overlay', () => {
                         style: { display: 'block', padding: '15px' }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const rootElement = overlayElement.nativeElement.querySelector('[data-pc-section="root"]');
@@ -327,7 +327,7 @@ describe('Overlay', () => {
                         style: { width: '100%' }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const contentElement = overlayElement.nativeElement.querySelector('[data-pc-section="content"]');

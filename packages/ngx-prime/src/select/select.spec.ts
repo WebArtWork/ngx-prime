@@ -948,13 +948,13 @@ describe('Select', () => {
             const disabledOption = { name: 'Disabled Option', code: 'disabled1', disabled: true };
 
             component.options = [disabledOption, { name: 'Option 2', code: 'opt2' }, { name: 'Option 3', code: 'opt3' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             // Set disabled option as initial value
             component.selectedValue = 'disabled1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1325,7 +1325,7 @@ describe('Select', () => {
 
         it('should reset filter on hide', async () => {
             component.resetFilterOnHide = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             selectInstance._filterValue.set('test');
@@ -1334,7 +1334,7 @@ describe('Select', () => {
             await fixture.whenStable();
 
             selectInstance.hide();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             fixture.detectChanges();
@@ -3474,7 +3474,7 @@ describe('Select PT (PassThrough)', () => {
                     class: instance?.modelValue() ? 'HAS_VALUE' : 'NO_VALUE'
                 })
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -3485,7 +3485,7 @@ describe('Select PT (PassThrough)', () => {
             expect(label.nativeElement.classList.contains('NO_VALUE')).toBeTruthy();
 
             component.selectedValue = 'opt1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -3505,7 +3505,7 @@ describe('Select PT (PassThrough)', () => {
                     }
                 })
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -3743,13 +3743,13 @@ describe('Select PT (PassThrough)', () => {
                     return {};
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             // Select first option
             component.selectedValue = 'opt1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3912,7 +3912,7 @@ describe('Select PT (PassThrough)', () => {
 
             // Select opt2
             component.selectedValue = 'opt2';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -4003,7 +4003,7 @@ describe('Select PT (PassThrough)', () => {
     describe('Complete PT Coverage: All untested sections', () => {
         it('should apply PT to clearIcon when showClear is enabled', async () => {
             component.showClear = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -4013,7 +4013,7 @@ describe('Select PT (PassThrough)', () => {
             component.pt = {
                 clearIcon: { class: 'CUSTOM_CLEAR_ICON', 'data-test': 'clear-icon' }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));

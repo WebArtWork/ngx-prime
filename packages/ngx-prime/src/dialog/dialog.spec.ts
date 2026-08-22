@@ -326,7 +326,7 @@ describe('Dialog', () => {
             component.draggable = false;
             component.maximizable = true;
             component.position = 'top';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dialogInstance.header()).toBe('Custom Header');
@@ -367,7 +367,7 @@ describe('Dialog', () => {
             expect(dialogInstance.visible()).toBe(false);
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -377,14 +377,14 @@ describe('Dialog', () => {
 
         it('should hide dialog programmatically via visible property', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.visible()).toBe(true);
 
             component.visible = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -393,7 +393,7 @@ describe('Dialog', () => {
 
         it('should close dialog programmatically', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -402,7 +402,7 @@ describe('Dialog', () => {
             spyOn(component, 'onVisibleChangeEvent');
             dialogInstance.close(new MouseEvent('click'));
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.onVisibleChangeEvent).toHaveBeenCalledWith(false);
@@ -411,7 +411,7 @@ describe('Dialog', () => {
         it('should maximize dialog when maximizable is true', async () => {
             component.maximizable = true;
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -419,7 +419,7 @@ describe('Dialog', () => {
 
             dialogInstance.maximize();
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dialogInstance.maximized).toBe(true);
@@ -428,14 +428,14 @@ describe('Dialog', () => {
         it('should restore dialog from maximized state', async () => {
             component.maximizable = true;
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             // First maximize
             dialogInstance.maximize();
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dialogInstance.maximized).toBe(true);
@@ -443,7 +443,7 @@ describe('Dialog', () => {
             // Then restore
             dialogInstance.maximize();
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dialogInstance.maximized).toBe(false);
@@ -457,7 +457,7 @@ describe('Dialog', () => {
 
             // Set visible and trigger change detection
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
 
             // Wait for animation to complete and onAfterEnter to be called
             await new Promise((resolve) => setTimeout(resolve, 600));
@@ -468,7 +468,7 @@ describe('Dialog', () => {
         it('should emit onHide event when dialog is hidden', async () => {
             // First show the dialog
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 300));
 
@@ -477,7 +477,7 @@ describe('Dialog', () => {
 
             // Now hide the dialog
             component.visible = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Wait for animation to complete and onAfterLeave to be called
@@ -488,12 +488,12 @@ describe('Dialog', () => {
 
         it('should emit visibleChange event when close method is called', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             dialogInstance.close(new MouseEvent('click'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.visibleChangeEvent).toBe(false);
@@ -503,13 +503,13 @@ describe('Dialog', () => {
             spyOn(component, 'onMaximizeEvent');
             component.maximizable = true;
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             dialogInstance.maximize();
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.onMaximizeEvent).toHaveBeenCalled();
@@ -519,7 +519,7 @@ describe('Dialog', () => {
             spyOn(component, 'onResizeInitEvent');
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -534,7 +534,7 @@ describe('Dialog', () => {
             spyOn(component, 'onDragEndEvent');
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -547,7 +547,7 @@ describe('Dialog', () => {
 
         it('should close dialog when close button is clicked', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -556,7 +556,7 @@ describe('Dialog', () => {
             if (closeButton) {
                 closeButton.nativeElement.click();
                 await new Promise((resolve) => setTimeout(resolve, 0));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(dialogInstance.visible()).toBe(false);
@@ -567,7 +567,7 @@ describe('Dialog', () => {
             component.dismissableMask = true;
             component.closable = true;
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -591,7 +591,7 @@ describe('Dialog', () => {
 
                 dialogInstance.wrapper.dispatchEvent(mouseDownEvent);
                 await new Promise((resolve) => setTimeout(resolve, 50));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(component.visibleChangeEvent).toBe(false);
@@ -606,49 +606,49 @@ describe('Dialog', () => {
         it('should handle multiple rapid show/hide calls', async () => {
             // Rapid calls
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
             component.visible = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
             component.visible = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             }).not.toThrow();
         });
 
         it('should handle null/undefined header gracefully', async () => {
             component.header = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             }).not.toThrow();
             expect(dialogInstance.header()).toBeUndefined();
         });
 
         it('should handle invalid position values', async () => {
             component.position = 'invalid-position';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             }).not.toThrow();
         });
 
@@ -656,21 +656,21 @@ describe('Dialog', () => {
             component.style = {};
             component.contentStyle = {};
             component.maskStyle = {};
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             }).not.toThrow();
         });
 
         it('should handle disabled focus trap', async () => {
             component.focusTrap = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -679,11 +679,11 @@ describe('Dialog', () => {
 
         it('should handle maximizing when not maximizable', async () => {
             component.maximizable = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -714,7 +714,7 @@ describe('Dialog', () => {
 
         it('should have focus trap enabled by default', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -725,11 +725,11 @@ describe('Dialog', () => {
 
         it('should support custom close ARIA label', async () => {
             component.closeAriaLabel = 'Custom Close Label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -738,11 +738,11 @@ describe('Dialog', () => {
 
         it('should manage focus properly on show', async () => {
             component.focusOnShow = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -751,11 +751,11 @@ describe('Dialog', () => {
 
         it('should handle custom role attribute', async () => {
             component.role = 'alertdialog';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -766,11 +766,11 @@ describe('Dialog', () => {
 
         it('should have proper tabindex for close button', async () => {
             component.closeTabindex = '1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -782,11 +782,11 @@ describe('Dialog', () => {
         it('should close dialog on Escape key when closeOnEscape is true', async () => {
             component.closeOnEscape = true;
             component.closable = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Wait for animation to complete and escape listener to be bound
@@ -800,7 +800,7 @@ describe('Dialog', () => {
             });
 
             document.dispatchEvent(escapeEvent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -810,11 +810,11 @@ describe('Dialog', () => {
 
         it('should not close dialog on Escape key when closeOnEscape is false', async () => {
             component.closeOnEscape = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -834,7 +834,7 @@ describe('Dialog', () => {
 
         it('should handle Enter key on close button', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -855,11 +855,11 @@ describe('Dialog', () => {
 
         it('should handle Enter key on maximize button', async () => {
             component.maximizable = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -880,7 +880,7 @@ describe('Dialog', () => {
 
         it('should handle Tab key navigation within dialog', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1077,18 +1077,18 @@ describe('Dialog', () => {
         describe('Template Fallback Behavior', () => {
             it('should handle missing templates gracefully', async () => {
                 component.visible = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
                 expect(() => {
-                    fixture.changeDetectorRef.markForCheck();
+                    fixture.detectChanges();
                 }).not.toThrow();
             });
 
             it('should use fallback content when no templates are provided', async () => {
                 component.visible = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1183,11 +1183,11 @@ describe('Dialog', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply custom styleClass', async () => {
             component.styleClass = 'my-custom-dialog';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1196,11 +1196,11 @@ describe('Dialog', () => {
 
         it('should apply custom maskStyleClass', async () => {
             component.maskStyleClass = 'my-custom-mask';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1209,11 +1209,11 @@ describe('Dialog', () => {
 
         it('should apply inline styles', async () => {
             component.style = { backgroundColor: 'red', width: '500px' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1223,11 +1223,11 @@ describe('Dialog', () => {
         it('should apply content styles', async () => {
             component.contentStyle = { padding: '20px' };
             component.contentStyleClass = 'custom-content-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1237,11 +1237,11 @@ describe('Dialog', () => {
 
         it('should apply mask styles', async () => {
             component.maskStyle = { backgroundColor: 'rgba(0,0,0,0.8)' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1289,11 +1289,11 @@ describe('Dialog', () => {
     describe('Drag and Resize', () => {
         it('should handle drag initialization', async () => {
             component.draggable = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1311,11 +1311,11 @@ describe('Dialog', () => {
 
         it('should handle resize initialization', async () => {
             component.resizable = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 

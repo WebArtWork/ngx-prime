@@ -240,7 +240,7 @@ describe('Toolbar', () => {
     describe('Accessibility', () => {
         it('should bind ariaLabelledBy attribute', async () => {
             component.ariaLabelledBy = 'my-toolbar-label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -249,7 +249,7 @@ describe('Toolbar', () => {
 
         it('should handle undefined ariaLabelledBy', async () => {
             component.ariaLabelledBy = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -258,13 +258,13 @@ describe('Toolbar', () => {
 
         it('should update ariaLabelledBy dynamically', async () => {
             component.ariaLabelledBy = 'label-1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(toolbarEl.nativeElement.getAttribute('aria-labelledby')).toBe('label-1');
 
             component.ariaLabelledBy = 'label-2';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(toolbarEl.nativeElement.getAttribute('aria-labelledby')).toBe('label-2');

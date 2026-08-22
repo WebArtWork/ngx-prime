@@ -33,7 +33,7 @@ describe('TreeTable', () => {
         fixture = TestBed.createComponent(TestBasicTreeTableComponent);
         component = fixture.componentInstance;
         treetable = fixture.debugElement.query(By.directive(TreeTable)).componentInstance;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
     });
@@ -91,7 +91,7 @@ describe('TreeTable', () => {
             component.selectionMode = 'multiple';
             component.filterMode = 'strict';
             component.rowHover = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -120,7 +120,7 @@ describe('TreeTable', () => {
                 { field: 'size', header: 'Size' },
                 { field: 'type', header: 'Type' }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -138,7 +138,7 @@ describe('TreeTable', () => {
     describe('Public Methods', () => {
         beforeEach(async () => {
             component.value = basicTreeData;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -147,7 +147,7 @@ describe('TreeTable', () => {
             component.first = 10;
             component.sortField = 'name';
             component.sortOrder = -1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -166,14 +166,14 @@ describe('TreeTable', () => {
 
         it('should check if data is empty', async () => {
             component.value = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(treetable.isEmpty()).toBe(true);
 
             component.value = basicTreeData;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -210,7 +210,7 @@ describe('TreeTable', () => {
             component.paginator = true;
             component.rows = 1;
             component.totalRecords = 4;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -243,7 +243,7 @@ describe('TreeTable', () => {
 
         it('should handle lazy loading on page change', async () => {
             component.lazy = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -267,7 +267,7 @@ describe('TreeTable', () => {
                 { field: 'name', header: 'Name', sortable: true },
                 { field: 'size', header: 'Size', sortable: true }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -291,7 +291,7 @@ describe('TreeTable', () => {
                 { field: 'name', order: 1 },
                 { field: 'size', order: -1 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -319,7 +319,7 @@ describe('TreeTable', () => {
             component.paginator = true;
             component.resetPageOnSort = true;
             component.first = 10;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -334,7 +334,7 @@ describe('TreeTable', () => {
         beforeEach(async () => {
             component.value = basicTreeData;
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -361,7 +361,7 @@ describe('TreeTable', () => {
 
         it('should handle multiple selection', async () => {
             component.selectionMode = 'multiple';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -439,7 +439,7 @@ describe('TreeTable', () => {
     describe('Node Expansion/Collapse', () => {
         beforeEach(async () => {
             component.value = basicTreeData;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -479,14 +479,14 @@ describe('TreeTable', () => {
 
             nodeData[0].expanded = true;
             component.value = nodeData;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(nodeData[0].expanded).toBe(true);
 
             nodeData[0].expanded = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -498,7 +498,7 @@ describe('TreeTable', () => {
         beforeEach(async () => {
             component.value = basicTreeData;
             component.globalFilterFields = ['name', 'type'];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -554,7 +554,7 @@ describe('TreeTable', () => {
         it('should show loading indicator when loading is true', async () => {
             component.loading = true;
             component.showLoader = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -565,7 +565,7 @@ describe('TreeTable', () => {
 
         it('should hide loading indicator when loading is false', async () => {
             component.loading = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -578,7 +578,7 @@ describe('TreeTable', () => {
             component.loading = true;
             component.showLoader = true;
             component.loadingIcon = 'pi pi-spin pi-spinner';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -594,7 +594,7 @@ describe('TreeTable', () => {
             component.scrollable = true;
             component.virtualScroll = true;
             component.virtualScrollItemSize = 50;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -606,7 +606,7 @@ describe('TreeTable', () => {
 
         it('should handle virtual scroll delay', async () => {
             component.virtualScrollDelay = 200;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -619,7 +619,7 @@ describe('TreeTable', () => {
             component.lazy = true;
             component.totalRecords = 100;
             component.rows = 10;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -657,7 +657,7 @@ describe('TreeTable', () => {
         it('should handle null/undefined values', async () => {
             component.value = undefined as any;
             component.columns = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -666,7 +666,7 @@ describe('TreeTable', () => {
 
         it('should handle empty data', async () => {
             component.value = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -681,7 +681,7 @@ describe('TreeTable', () => {
             component.pageLinks = -3;
             component.filterDelay = -100;
             component.virtualScrollDelay = -50;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -693,7 +693,7 @@ describe('TreeTable', () => {
 
         it('should handle invalid sort field', async () => {
             component.sortField = 'invalidField';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -704,7 +704,7 @@ describe('TreeTable', () => {
 
         it('should handle selection with invalid nodes', async () => {
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -729,7 +729,7 @@ describe('TreeTable', () => {
     describe('Accessibility', () => {
         beforeEach(async () => {
             component.value = basicTreeData;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -744,7 +744,7 @@ describe('TreeTable', () => {
 
         it('should apply aria attributes for selection', async () => {
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -764,7 +764,7 @@ describe('TreeTable', () => {
     describe('Styling', () => {
         it('should apply custom style class', async () => {
             component.styleClass = 'custom-treetable';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -776,7 +776,7 @@ describe('TreeTable', () => {
         it('should apply table style and class', async () => {
             component.tableStyle = { width: '100%' };
             component.tableStyleClass = 'custom-table';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -790,7 +790,7 @@ describe('TreeTable', () => {
 
         it('should show grid lines when enabled', async () => {
             component.showGridlines = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -802,7 +802,7 @@ describe('TreeTable', () => {
 
         it('should apply row hover effect', async () => {
             component.rowHover = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -815,7 +815,7 @@ describe('TreeTable', () => {
     describe('Input Properties Tests', () => {
         beforeEach(async () => {
             component.value = basicTreeData;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -829,7 +829,7 @@ describe('TreeTable', () => {
                 ];
 
                 component.columns = columns;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -840,7 +840,7 @@ describe('TreeTable', () => {
                 const testData = [...basicTreeData];
 
                 component.value = testData;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -849,7 +849,7 @@ describe('TreeTable', () => {
 
             it('should accept empty value array', async () => {
                 component.value = [];
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -858,7 +858,7 @@ describe('TreeTable', () => {
 
             it('should handle dataKey property', async () => {
                 component.dataKey = 'id';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -869,7 +869,7 @@ describe('TreeTable', () => {
                 const trackByFn = (index: number, item: any) => item.id;
 
                 component.rowTrackBy = trackByFn;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -880,14 +880,14 @@ describe('TreeTable', () => {
         describe('Layout Properties', () => {
             it('should handle autoLayout property', async () => {
                 component.autoLayout = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
                 expect(treetable.autoLayout()).toBe(true);
 
                 component.autoLayout = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -896,7 +896,7 @@ describe('TreeTable', () => {
 
             it('should accept styleClass property', async () => {
                 component.styleClass = 'my-custom-class';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -907,7 +907,7 @@ describe('TreeTable', () => {
                 const style = { width: '500px', height: '400px' };
 
                 component.tableStyle = style;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -916,7 +916,7 @@ describe('TreeTable', () => {
 
             it('should accept tableStyleClass property', async () => {
                 component.tableStyleClass = 'custom-table-class';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -925,14 +925,14 @@ describe('TreeTable', () => {
 
             it('should handle showGridlines property', async () => {
                 component.showGridlines = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
                 expect(treetable.showGridlines()).toBe(true);
 
                 component.showGridlines = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -943,14 +943,14 @@ describe('TreeTable', () => {
         describe('Pagination Properties', () => {
             it('should handle paginator property', async () => {
                 component.paginator = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
                 expect(treetable.paginator()).toBe(true);
 
                 component.paginator = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -959,7 +959,7 @@ describe('TreeTable', () => {
 
             it('should handle rows property', async () => {
                 component.rows = 25;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -968,7 +968,7 @@ describe('TreeTable', () => {
 
             it('should handle first property', async () => {
                 component.first = 10;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -977,7 +977,7 @@ describe('TreeTable', () => {
 
             it('should handle totalRecords property', async () => {
                 component.totalRecords = 100;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -986,7 +986,7 @@ describe('TreeTable', () => {
 
             it('should handle pageLinks property', async () => {
                 component.pageLinks = 7;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -997,7 +997,7 @@ describe('TreeTable', () => {
                 const options = [10, 20, 50];
 
                 component.rowsPerPageOptions = options;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1006,7 +1006,7 @@ describe('TreeTable', () => {
 
             it('should handle alwaysShowPaginator property', async () => {
                 component.alwaysShowPaginator = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1015,14 +1015,14 @@ describe('TreeTable', () => {
 
             it('should handle paginatorPosition property', async () => {
                 component.paginatorPosition = 'top';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
                 expect(treetable.paginatorPosition()).toBe('top');
 
                 component.paginatorPosition = 'both';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1031,7 +1031,7 @@ describe('TreeTable', () => {
 
             it('should handle paginatorStyleClass property', async () => {
                 component.paginatorStyleClass = 'custom-paginator';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1042,7 +1042,7 @@ describe('TreeTable', () => {
                 const template = '{currentPage} / {totalPages}';
 
                 component.currentPageReportTemplate = template;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1051,7 +1051,7 @@ describe('TreeTable', () => {
 
             it('should handle showCurrentPageReport property', async () => {
                 component.showCurrentPageReport = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1060,7 +1060,7 @@ describe('TreeTable', () => {
 
             it('should handle showJumpToPageDropdown property', async () => {
                 component.showJumpToPageDropdown = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1069,7 +1069,7 @@ describe('TreeTable', () => {
 
             it('should handle showFirstLastIcon property', async () => {
                 component.showFirstLastIcon = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1078,7 +1078,7 @@ describe('TreeTable', () => {
 
             it('should handle showPageLinks property', async () => {
                 component.showPageLinks = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1089,7 +1089,7 @@ describe('TreeTable', () => {
         describe('Sorting Properties', () => {
             it('should handle sortMode property', async () => {
                 component.sortMode = 'multiple';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1098,7 +1098,7 @@ describe('TreeTable', () => {
 
             it('should handle defaultSortOrder property', async () => {
                 component.defaultSortOrder = -1;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1107,7 +1107,7 @@ describe('TreeTable', () => {
 
             it('should handle resetPageOnSort property', async () => {
                 component.resetPageOnSort = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1116,7 +1116,7 @@ describe('TreeTable', () => {
 
             it('should handle customSort property', async () => {
                 component.customSort = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1125,7 +1125,7 @@ describe('TreeTable', () => {
 
             it('should handle sortField property', async () => {
                 component.sortField = 'name';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1134,7 +1134,7 @@ describe('TreeTable', () => {
 
             it('should handle sortOrder property', async () => {
                 component.sortOrder = -1;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1148,7 +1148,7 @@ describe('TreeTable', () => {
                 ];
 
                 component.multiSortMeta = multiSortMeta;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1159,14 +1159,14 @@ describe('TreeTable', () => {
         describe('Selection Properties', () => {
             it('should handle selectionMode property', async () => {
                 component.selectionMode = 'single';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
                 expect(treetable.selectionMode()).toBe('single');
 
                 component.selectionMode = 'multiple';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1177,7 +1177,7 @@ describe('TreeTable', () => {
                 const selection = basicTreeData[0];
 
                 component.selection = selection;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1188,7 +1188,7 @@ describe('TreeTable', () => {
                 const selection = basicTreeData[0];
 
                 component.contextMenuSelection = selection;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1197,7 +1197,7 @@ describe('TreeTable', () => {
 
             it('should handle contextMenuSelectionMode property', async () => {
                 component.contextMenuSelectionMode = 'joint';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1206,7 +1206,7 @@ describe('TreeTable', () => {
 
             it('should handle metaKeySelection property', async () => {
                 component.metaKeySelection = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1215,7 +1215,7 @@ describe('TreeTable', () => {
 
             it('should handle compareSelectionBy property', async () => {
                 component.compareSelectionBy = 'equals';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1226,7 +1226,7 @@ describe('TreeTable', () => {
                 const keys = { '0': true, '1': false };
 
                 component.selectionKeys = keys;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1237,7 +1237,7 @@ describe('TreeTable', () => {
         describe('Loading and State Properties', () => {
             it('should handle lazy property', async () => {
                 component.lazy = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1246,7 +1246,7 @@ describe('TreeTable', () => {
 
             it('should handle lazyLoadOnInit property', async () => {
                 component.lazyLoadOnInit = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1255,7 +1255,7 @@ describe('TreeTable', () => {
 
             it('should handle loading property', async () => {
                 component.loading = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1264,7 +1264,7 @@ describe('TreeTable', () => {
 
             it('should handle loadingIcon property', async () => {
                 component.loadingIcon = 'pi pi-spin pi-spinner';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1273,7 +1273,7 @@ describe('TreeTable', () => {
 
             it('should handle showLoader property', async () => {
                 component.showLoader = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1282,7 +1282,7 @@ describe('TreeTable', () => {
 
             it('should handle rowHover property', async () => {
                 component.rowHover = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1293,7 +1293,7 @@ describe('TreeTable', () => {
         describe('Scrolling Properties', () => {
             it('should handle scrollable property', async () => {
                 component.scrollable = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1302,7 +1302,7 @@ describe('TreeTable', () => {
 
             it('should handle scrollHeight property', async () => {
                 component.scrollHeight = '400px';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1311,7 +1311,7 @@ describe('TreeTable', () => {
 
             it('should handle virtualScroll property', async () => {
                 component.virtualScroll = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1320,7 +1320,7 @@ describe('TreeTable', () => {
 
             it('should handle virtualScrollItemSize property', async () => {
                 component.virtualScrollItemSize = 50;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1329,7 +1329,7 @@ describe('TreeTable', () => {
 
             it('should handle virtualScrollDelay property', async () => {
                 component.virtualScrollDelay = 200;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1340,7 +1340,7 @@ describe('TreeTable', () => {
                 const options = { itemSize: 50, numToleratedItems: 10 };
 
                 component.virtualScrollOptions = options;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1353,7 +1353,7 @@ describe('TreeTable', () => {
                 const frozenCols = [{ field: 'name', header: 'Name' }];
 
                 component.frozenColumns = frozenCols;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1362,7 +1362,7 @@ describe('TreeTable', () => {
 
             it('should handle frozenWidth property', async () => {
                 component.frozenWidth = '200px';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1371,7 +1371,7 @@ describe('TreeTable', () => {
 
             it('should handle resizableColumns property', async () => {
                 component.resizableColumns = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1380,7 +1380,7 @@ describe('TreeTable', () => {
 
             it('should handle columnResizeMode property', async () => {
                 component.columnResizeMode = 'expand';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1389,7 +1389,7 @@ describe('TreeTable', () => {
 
             it('should handle reorderableColumns property', async () => {
                 component.reorderableColumns = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1405,7 +1405,7 @@ describe('TreeTable', () => {
                 };
 
                 component.filters = filters;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1416,7 +1416,7 @@ describe('TreeTable', () => {
                 const fields = ['name', 'type', 'size'];
 
                 component.globalFilterFields = fields;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1425,7 +1425,7 @@ describe('TreeTable', () => {
 
             it('should handle filterDelay property', async () => {
                 component.filterDelay = 500;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1434,7 +1434,7 @@ describe('TreeTable', () => {
 
             it('should handle filterMode property', async () => {
                 component.filterMode = 'strict';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1443,7 +1443,7 @@ describe('TreeTable', () => {
 
             it('should handle filterLocale property', async () => {
                 component.filterLocale = 'en-US';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1458,7 +1458,7 @@ describe('TreeTable', () => {
                 };
 
                 component.contextMenu = contextMenu;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1469,7 +1469,7 @@ describe('TreeTable', () => {
         describe('Locale Properties', () => {
             it('should handle paginatorLocale property', async () => {
                 component.paginatorLocale = 'tr';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1480,7 +1480,7 @@ describe('TreeTable', () => {
         describe('Dropdown Properties', () => {
             it('should handle paginatorDropdownAppendTo property', async () => {
                 component.paginatorDropdownAppendTo = 'body';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1491,7 +1491,7 @@ describe('TreeTable', () => {
         describe('Additional Input Properties', () => {
             it('should handle totalRecords property', async () => {
                 component.totalRecords = 150;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1525,13 +1525,13 @@ describe('TreeTable', () => {
                 for (const prop of booleanProps) {
                     if (Object.prototype.hasOwnProperty.call(component, prop)) {
                         component[prop] = true;
-                        fixture.changeDetectorRef.markForCheck();
+                        fixture.detectChanges();
                         await fixture.whenStable();
                         fixture.detectChanges();
                         expect(treetable[prop]).toBe(true);
 
                         component[prop] = false;
-                        fixture.changeDetectorRef.markForCheck();
+                        fixture.detectChanges();
                         await fixture.whenStable();
                         fixture.detectChanges();
                         expect(treetable[prop]).toBe(false);
@@ -1553,7 +1553,7 @@ describe('TreeTable', () => {
                 for (const { prop, value } of numberProps) {
                     if (Object.prototype.hasOwnProperty.call(component, prop)) {
                         component[prop] = value;
-                        fixture.changeDetectorRef.markForCheck();
+                        fixture.detectChanges();
                         await fixture.whenStable();
                         fixture.detectChanges();
                         expect(treetable[prop]).toBe(value);
@@ -1582,7 +1582,7 @@ describe('TreeTable', () => {
                 for (const { prop, value } of stringProps) {
                     if (Object.prototype.hasOwnProperty.call(component, prop)) {
                         component[prop] = value;
-                        fixture.changeDetectorRef.markForCheck();
+                        fixture.detectChanges();
                         await fixture.whenStable();
                         fixture.detectChanges();
                         expect(treetable[prop]).toBe(value);
@@ -1594,7 +1594,7 @@ describe('TreeTable', () => {
                 const testStyle = { width: '100%', height: '400px' };
 
                 component.tableStyle = testStyle;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.tableStyle()).toEqual(testStyle);
@@ -1602,7 +1602,7 @@ describe('TreeTable', () => {
                 const testFrozenColumns = [{ field: 'name', header: 'Name' }];
 
                 component.frozenColumns = testFrozenColumns;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.frozenColumns()).toEqual(testFrozenColumns);
@@ -1610,7 +1610,7 @@ describe('TreeTable', () => {
                 const testRowsPerPageOptions = [5, 10, 25, 50];
 
                 component.rowsPerPageOptions = testRowsPerPageOptions;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.rowsPerPageOptions()).toEqual(testRowsPerPageOptions);
@@ -1618,7 +1618,7 @@ describe('TreeTable', () => {
                 const testGlobalFilterFields = ['name', 'type', 'size'];
 
                 component.globalFilterFields = testGlobalFilterFields;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.globalFilterFields()).toEqual(testGlobalFilterFields);
@@ -1626,7 +1626,7 @@ describe('TreeTable', () => {
                 const testVirtualScrollOptions = { itemSize: 50, numToleratedItems: 10 };
 
                 component.virtualScrollOptions = testVirtualScrollOptions;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.virtualScrollOptions()).toEqual(testVirtualScrollOptions);
@@ -1638,7 +1638,7 @@ describe('TreeTable', () => {
 
                 for (const mode of selectionModes) {
                     component.selectionMode = mode;
-                    fixture.changeDetectorRef.markForCheck();
+                    fixture.detectChanges();
                     await fixture.whenStable();
                     fixture.detectChanges();
                     expect(treetable.selectionMode()).toBe(mode);
@@ -1648,7 +1648,7 @@ describe('TreeTable', () => {
                 const testSelection = basicTreeData[0];
 
                 component.selection = testSelection;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.selection()).toEqual(testSelection);
@@ -1657,7 +1657,7 @@ describe('TreeTable', () => {
                 const testSelectionKeys = { '1': true, '2': false };
 
                 component.selectionKeys = testSelectionKeys;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.selectionKeys()).toEqual(testSelectionKeys);
@@ -1666,7 +1666,7 @@ describe('TreeTable', () => {
                 const contextSelection = basicTreeData[1];
 
                 component.contextMenuSelection = contextSelection;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.contextMenuSelection()).toEqual(contextSelection);
@@ -1675,21 +1675,21 @@ describe('TreeTable', () => {
             it('should handle sorting related properties', async () => {
                 // Test sortMode
                 component.sortMode = 'multiple';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.sortMode()).toBe('multiple');
 
                 // Test sortField
                 component.sortField = 'name';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.sortField()).toBe('name');
 
                 // Test sortOrder
                 component.sortOrder = -1;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.sortOrder()).toBe(-1);
@@ -1701,7 +1701,7 @@ describe('TreeTable', () => {
                 ];
 
                 component.multiSortMeta = multiSort;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.multiSortMeta()).toEqual(multiSort);
@@ -1714,7 +1714,7 @@ describe('TreeTable', () => {
                 };
 
                 component.filters = testFilters;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.filters()).toEqual(testFilters);
@@ -1725,7 +1725,7 @@ describe('TreeTable', () => {
                 component.styleClass = undefined as any;
                 component.dataKey = undefined as any;
                 component.loadingIcon = undefined as any;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1736,7 +1736,7 @@ describe('TreeTable', () => {
                 // Test null values
                 component.tableStyle = null as any;
                 component.frozenColumns = null as any;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1747,7 +1747,7 @@ describe('TreeTable', () => {
                 component.value = [];
                 component.columns = [];
                 component.filters = {};
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1761,7 +1761,7 @@ describe('TreeTable', () => {
 
                 for (const position of positions) {
                     component.paginatorPosition = position;
-                    fixture.changeDetectorRef.markForCheck();
+                    fixture.detectChanges();
                     await fixture.whenStable();
                     fixture.detectChanges();
                     expect(treetable.paginatorPosition()).toBe(position);
@@ -1772,7 +1772,7 @@ describe('TreeTable', () => {
                 const customTrackBy = (index: number, item: any) => `custom-${item.id}`;
 
                 component.rowTrackBy = customTrackBy;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 expect(treetable.rowTrackBy()).toBe(customTrackBy);
@@ -1800,7 +1800,7 @@ describe('TreeTable', () => {
 
                 component.value = complexTreeData;
                 component.dataKey = 'id';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -3397,7 +3397,7 @@ describe('TreeTable PT', () => {
         ];
 
         fixture.componentRef.setInput('value', testNodes);
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
     });
@@ -3406,7 +3406,7 @@ describe('TreeTable PT', () => {
     describe('Case 1: Simple string classes', () => {
         it('should apply string class to host', async () => {
             fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3419,7 +3419,7 @@ describe('TreeTable PT', () => {
             fixture.componentRef.setInput('scrollable', true);
             fixture.componentRef.setInput('scrollHeight', '200px');
             fixture.componentRef.setInput('pt', { scrollableWrapper: 'WRAPPER_CLASS' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3430,7 +3430,7 @@ describe('TreeTable PT', () => {
 
         it('should apply string class to table', async () => {
             fixture.componentRef.setInput('pt', { table: 'TABLE_CLASS' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3441,7 +3441,7 @@ describe('TreeTable PT', () => {
 
         it('should apply string class to thead', async () => {
             fixture.componentRef.setInput('pt', { thead: 'THEAD_CLASS' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3452,7 +3452,7 @@ describe('TreeTable PT', () => {
 
         it('should apply string class to tbody', async () => {
             fixture.componentRef.setInput('pt', { tbody: 'TBODY_CLASS' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3463,7 +3463,7 @@ describe('TreeTable PT', () => {
 
         it('should apply string class to tfoot', async () => {
             fixture.componentRef.setInput('pt', { tfoot: 'TFOOT_CLASS' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3492,7 +3492,7 @@ describe('TreeTable PT', () => {
                 createEmbeddedView: () => mockViewRef as any,
                 elementRef: null
             } as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3521,7 +3521,7 @@ describe('TreeTable PT', () => {
                 createEmbeddedView: () => mockViewRef as any,
                 elementRef: null
             } as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3542,7 +3542,7 @@ describe('TreeTable PT', () => {
                     'aria-label': 'TEST_ARIA_LABEL'
                 }
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3564,7 +3564,7 @@ describe('TreeTable PT', () => {
                     'data-testid': 'wrapper-test'
                 }
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3582,7 +3582,7 @@ describe('TreeTable PT', () => {
                     'data-table': 'true'
                 }
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3607,7 +3607,7 @@ describe('TreeTable PT', () => {
                     style: { width: '100%' }
                 }
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3691,7 +3691,7 @@ describe('TreeTable PT', () => {
                     }
                 }
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3712,7 +3712,7 @@ describe('TreeTable PT', () => {
                     }
                 }
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3731,7 +3731,7 @@ describe('TreeTable PT', () => {
             fixture.componentRef.setInput('pt', {
                 mask: 'MASK_CLASS'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3751,7 +3751,7 @@ describe('TreeTable PT', () => {
                 scrollableHeader: 'SCROLLABLE_HEADER_CLASS',
                 scrollableBody: 'SCROLLABLE_BODY_CLASS'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3774,7 +3774,7 @@ describe('TreeTable PT', () => {
                 scrollableHeaderTable: 'SCROLLABLE_HEADER_TABLE_CLASS',
                 scrollableHeaderBox: 'SCROLLABLE_HEADER_BOX_CLASS'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3812,7 +3812,7 @@ describe('TreeTable PT', () => {
                 scrollableFooterBox: 'SCROLLABLE_FOOTER_BOX_CLASS',
                 scrollableFooterTable: 'SCROLLABLE_FOOTER_TABLE_CLASS'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3837,7 +3837,7 @@ describe('TreeTable PT', () => {
             fixture.componentRef.setInput('pt', {
                 columnResizerHelper: 'RESIZER_HELPER_CLASS'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3855,7 +3855,7 @@ describe('TreeTable PT', () => {
                 reorderIndicatorUp: 'REORDER_UP_CLASS',
                 reorderIndicatorDown: 'REORDER_DOWN_CLASS'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3881,7 +3881,7 @@ describe('TreeTable PT', () => {
                     }
                 }
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -3916,7 +3916,7 @@ describe('TreeTable Global PT', () => {
         fixture.componentRef.setInput('value', [{ data: { name: 'Test', size: '10kb', type: 'File' } }]);
         fixture.componentRef.setInput('scrollable', true);
         fixture.componentRef.setInput('scrollHeight', '200px');
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
     });
@@ -3934,7 +3934,7 @@ describe('TreeTable Global PT', () => {
             host: 'LOCAL_HOST_CLASS',
             scrollableWrapper: 'LOCAL_WRAPPER_CLASS'
         });
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
 
@@ -3981,7 +3981,7 @@ describe('TreeTable Inline PT', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(InlineTestComponent);
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
     });
@@ -3996,7 +3996,7 @@ describe('TreeTable Inline PT', () => {
 
     it('should apply inline PT with object notation', async () => {
         fixture.componentInstance.nodes = [{ data: { name: 'Updated' } }];
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
 

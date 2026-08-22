@@ -513,7 +513,7 @@ describe('MultiSelect', () => {
 
         it('should clear selection', async () => {
             component.selectedCities = [component.options[0]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             multiSelect.clear(new Event('click'));
@@ -537,7 +537,7 @@ describe('MultiSelect', () => {
 
         it('should handle maxSelectionLimitReached', async () => {
             component.selectionLimit = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             multiSelect.updateModel([component.options[0], component.options[1]]);
@@ -650,7 +650,7 @@ describe('MultiSelect', () => {
         it('should remove option when chip is clicked', async () => {
             component.display = 'chip';
             component.selectedCities = [component.options[0], component.options[1]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(component, 'onRemove');
@@ -898,7 +898,7 @@ describe('MultiSelect', () => {
             expect(hiddenInput.nativeElement.tabIndex).toBe(0);
 
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(hiddenInput.nativeElement.tabIndex).toBe(-1);
@@ -943,7 +943,7 @@ describe('MultiSelect', () => {
 
         it('should filter options by custom field', async () => {
             component.filterBy = 'code';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             multiSelect.show();
@@ -972,7 +972,7 @@ describe('MultiSelect', () => {
 
         it('should reset filter when hiding panel', async () => {
             component.resetFilterOnHide = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // First open dropdown to access filter input
@@ -1290,7 +1290,7 @@ describe('MultiSelect Form Integration', () => {
         const selectedCities = [component.options[0], component.options[1]];
 
         component.form.get('selectedCities')?.setValue(selectedCities);
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         expect(multiSelect.modelValue()).toEqual(selectedCities);
@@ -1300,7 +1300,7 @@ describe('MultiSelect Form Integration', () => {
         const selectedCities = [component.options[2]];
 
         component.form.patchValue({ selectedCities });
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         expect(multiSelect.modelValue()).toEqual(selectedCities);
@@ -1311,7 +1311,7 @@ describe('MultiSelect Form Integration', () => {
         await fixture.whenStable();
 
         component.form.reset();
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         expect(multiSelect.modelValue()).toBeNull();
@@ -1320,13 +1320,13 @@ describe('MultiSelect Form Integration', () => {
 
     it('should handle disabled state through form control', async () => {
         component.form.get('selectedCities')?.disable();
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         expect(multiSelect.$disabled()).toBe(true);
 
         component.form.get('selectedCities')?.enable();
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         expect(multiSelect.$disabled()).toBe(false);
@@ -1341,7 +1341,7 @@ describe('MultiSelect Form Integration', () => {
         control?.setValue([component.options[0]]);
         control?.markAsTouched();
         control?.markAsDirty(); // Explicitly mark as dirty
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         expect(control?.dirty).toBe(true);
@@ -1449,7 +1449,7 @@ describe('MultiSelect Templates', () => {
         if (filterInput) {
             filterInput.nativeElement.value = 'xyz';
             filterInput.nativeElement.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1531,7 +1531,7 @@ describe('MultiSelect Content Child Templates', () => {
 
     it('should render content child selected items template', async () => {
         component.selectedCities = [component.options[0]];
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
 
@@ -1593,7 +1593,7 @@ describe('MultiSelect Content Child Templates', () => {
         if (filterInput?.nativeElement) {
             filterInput.nativeElement.value = 'nonexistent';
             filterInput.nativeElement.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1604,7 +1604,7 @@ describe('MultiSelect Content Child Templates', () => {
         } else {
             // If no filter input, just check that empty filter template renders when needed
             multiSelect.onFilterInputChange({ target: { value: 'nonexistent' } } as any);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1683,7 +1683,7 @@ describe('MultiSelect Grouped Options', () => {
         if (filterInput?.nativeElement) {
             filterInput.nativeElement.value = 'New';
             filterInput.nativeElement.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2550,7 +2550,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
 
             // Test signal updates
             component.updateSignalData();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.signalMultiSelect().options!.length).toBe(2);
@@ -2561,7 +2561,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             expect(component.signalMultiSelect().placeholder()).toBe('Select from signal');
 
             component.updatePlaceholder();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.signalMultiSelect().placeholder()).toBe('Updated placeholder');
@@ -2571,7 +2571,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             expect(component.signalMultiSelect().$disabled()).toBe(false);
 
             component.toggleDisabled();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.signalMultiSelect().$disabled()).toBe(true);
@@ -2581,7 +2581,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             expect(component.signalMultiSelect().filter()).toBe(true);
 
             component.toggleFilter();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.signalMultiSelect().filter()).toBe(false);
@@ -2591,7 +2591,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             const initialCount = component.signalMultiSelect().options!.length;
 
             component.addToSignal();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.signalMultiSelect().options!.length).toBe(initialCount + 1);
@@ -2607,7 +2607,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             expect(computedOptions[0].displayName).toBe('Signal City 1 (SC1)');
 
             component.updateSignalData();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const updatedComputedOptions = component.computedOptions();
@@ -2622,7 +2622,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             expect(computedPlaceholder).toBe('Select from 3 computed options');
 
             component.updateSignalData();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const updatedPlaceholder = component.computedPlaceholder();
@@ -2636,7 +2636,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             expect(computedMaxLabels).toBe(3);
 
             component.updateSignalData(); // Changes to 2 items
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const updatedMaxLabels = component.computedMaxLabels();
@@ -2648,7 +2648,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
     describe('Observable and Async Pipe Data Sources', () => {
         it('should work with observable options via async pipe', async () => {
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const asyncMultiSelect = component.asyncMultiSelect();
@@ -2660,11 +2660,11 @@ describe('MultiSelect Dynamic Data Sources', () => {
 
         it('should update when observable data changes', async () => {
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.updateObservableData();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const asyncMultiSelect = component.asyncMultiSelect();
@@ -2676,7 +2676,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
 
         it('should work with observable placeholder via async pipe', async () => {
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const placeholder = component.asyncMultiSelect().placeholder();
@@ -2697,7 +2697,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             expect(component.getterMultiSelect().options![0].name).toBe('Getter City 1');
 
             component.updateGetterData();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.getterMultiSelect().options![0].name).toBe('Updated Getter 1');
@@ -2711,7 +2711,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             expect(component.getterMultiSelect().$disabled()).toBe(false);
 
             component.toggleGetterDisabled();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.getterMultiSelect().$disabled()).toBe(true);
@@ -2759,7 +2759,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
 
             // Wait for the setTimeout to complete and trigger change detection
             await new Promise((resolve) => setTimeout(resolve, 150));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.lateLoadMultiSelect().options!.length).toBe(3);
@@ -2797,7 +2797,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             const cities = [component.allCities[0], component.allCities[1]];
 
             component.setReactiveValue(cities);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.reactiveMultiSelect().modelValue()).toEqual(cities);
@@ -2808,7 +2808,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             const cities = [component.allCities[2]];
 
             component.patchReactiveValue(cities);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.reactiveMultiSelect().modelValue()).toEqual(cities);
@@ -2819,7 +2819,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             await fixture.whenStable();
 
             component.resetReactiveForm();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.reactiveMultiSelect().modelValue()).toBeNull();
@@ -2830,13 +2830,13 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             expect(component.reactiveMultiSelect().$disabled()).toBe(false);
 
             component.disableReactiveControl();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.reactiveMultiSelect().$disabled()).toBe(true);
 
             component.enableReactiveControl();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.reactiveMultiSelect().$disabled()).toBe(false);
@@ -2927,7 +2927,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
             // Set value through form control instead of component directly
             validatedControl?.setValue([component.allCities[0]]);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Value should be updated
@@ -2940,14 +2940,14 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             expect(component.ngModelMultiSelect().modelValue()).toEqual([]);
 
             component.ngModelValue = [component.allCities[0]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.ngModelMultiSelect().modelValue()).toEqual([component.allCities[0]]);
         });
 
         it('should work with NgModel validation', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should be invalid initially due to required
@@ -2959,14 +2959,14 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
             // Add a value
             component.ngModelValue = [component.allCities[0]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(citiesModel?.valid).toBe(true);
         });
 
         it('should work with NgModel required validation', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const citiesModel = component.citiesModel();
@@ -2975,14 +2975,14 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             expect(citiesModel?.hasError('required')).toBe(true);
 
             component.ngModelValue = [component.allCities[0]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(citiesModel?.hasError('required')).toBe(false);
         });
 
         it('should track form validity through template form', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Initially should be invalid due to required fields
@@ -2994,11 +2994,11 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             // Set both required fields
             component.ngModelValue = [component.allCities[0]];
             component.ngModelValidatedValue = [component.allCities[1]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Template form validation can be async, wait more
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check if valid or at least not still false due to async validation
@@ -3040,7 +3040,7 @@ describe('MultiSelect ViewChild Properties', () => {
         // Show overlay to ensure ViewChild elements are rendered
         component.callShowMethod();
         await fixture.whenStable();
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         // Test ViewChild properties
@@ -3193,7 +3193,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
             component.largeDataMultiSelect().show();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should only render visible items due to virtual scrolling
@@ -3207,7 +3207,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
             // Wait for the setInterval (100 iterations * 10ms = 1000ms) to complete
             await new Promise((resolve) => setTimeout(resolve, 1100));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should not crash or cause performance issues
@@ -3221,7 +3221,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
             // Wait for all setTimeout calls (100 iterations * 10ms = 1000ms) to complete
             await new Promise((resolve) => setTimeout(resolve, 1100));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should not accumulate infinite memory
@@ -3243,7 +3243,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
             component.unicodeMultiSelect().show();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should render Unicode characters without issues
@@ -3306,7 +3306,7 @@ describe('MultiSelect Complex Edge Cases', () => {
         it('should render XSS content safely in the DOM', async () => {
             component.xssMultiSelect().show();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should not execute any scripts
@@ -3325,7 +3325,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).not.toThrow();
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -3361,7 +3361,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).not.toThrow();
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -3372,7 +3372,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 component.selectedCircular = [circularOption];
             }).not.toThrow();
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
     });
@@ -3410,7 +3410,7 @@ describe('MultiSelect Complex Edge Cases', () => {
 
             // Wait for the setTimeout (100ms) in handleLazyLoad to complete
             await new Promise((resolve) => setTimeout(resolve, 150));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.memoryTestOptions.length).toBeGreaterThan(initialLength);

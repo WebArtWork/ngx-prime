@@ -187,7 +187,7 @@ describe('Knob', () => {
 
         it('should update model value', async () => {
             component.value = 75;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(knobInstance.value()).toBe(75);
@@ -197,7 +197,7 @@ describe('Knob', () => {
         it('should update displayed value', async () => {
             component.value = 60;
             knobInstance.writeControlValue(60, () => {});
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const textElement = fixture.debugElement.query(By.css('text'));
@@ -226,7 +226,7 @@ describe('Knob', () => {
             spyOn(knobInstance.onChange, 'emit');
 
             knobInstance.updateModelValue(80);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(knobInstance.onChange.emit).toHaveBeenCalledWith(80);
@@ -538,7 +538,7 @@ describe('Knob', () => {
 
         it('should emit onChange events', async () => {
             knobInstance.updateModelValue(80);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.changeEvents.length).toBe(1);
@@ -567,7 +567,7 @@ describe('Knob', () => {
             expect(knobInstance.value()).toBe(50);
 
             component.knobControl.setValue(75);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(knobInstance.value()).toBe(75);
@@ -576,7 +576,7 @@ describe('Knob', () => {
         it('should validate min/max values', async () => {
             // Test value below minimum
             component.knobControl.setValue(20);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.knobControl.valid).toBe(false);
@@ -584,7 +584,7 @@ describe('Knob', () => {
 
             // Test value above maximum
             component.knobControl.setValue(80);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.knobControl.valid).toBe(false);
@@ -592,7 +592,7 @@ describe('Knob', () => {
 
             // Test valid value
             component.knobControl.setValue(50);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.knobControl.valid).toBe(true);
@@ -601,7 +601,7 @@ describe('Knob', () => {
 
         it('should update form control on user interaction', async () => {
             knobInstance.updateModelValue(60);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.knobControl.value).toBe(60);
@@ -641,7 +641,7 @@ describe('Knob', () => {
         it('should update template when value changes', async () => {
             component.temperature = 30;
             knobInstance.writeControlValue(30, () => {});
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(knobInstance.valueToDisplay()).toBe('30Â°C');
@@ -671,13 +671,13 @@ describe('Knob', () => {
 
         it('should handle null/undefined values', async () => {
             component.value = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(knobInstance._value).toBe(0); // Should default to min value
 
             component.value = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(knobInstance._value).toBe(0);
@@ -797,7 +797,7 @@ describe('Knob', () => {
             // Rapid value changes simulation
             for (let i = 0; i < 100; i++) {
                 knobInstance.updateModelValue(i);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }
 
@@ -809,7 +809,7 @@ describe('Knob', () => {
 
             for (let i = 0; i < 50; i++) {
                 knobInstance.updateModelValue(Math.random() * 100);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }
 

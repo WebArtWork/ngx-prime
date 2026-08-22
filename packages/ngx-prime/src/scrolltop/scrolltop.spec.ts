@@ -162,7 +162,7 @@ describe('ScrollTop', () => {
 
         it('should initialize with parent target', async () => {
             component.target = 'parent';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -580,7 +580,7 @@ describe('ScrollTop', () => {
 
         it('should update threshold dynamically', async () => {
             component.dynamicThreshold = 300;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -593,7 +593,7 @@ describe('ScrollTop', () => {
 
         it('should handle content height changes', async () => {
             component.contentHeight = 2000;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -608,7 +608,7 @@ describe('ScrollTop', () => {
             const initialLength = component.items.length;
 
             component.items.push('New Item');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -764,7 +764,7 @@ describe('ScrollTop', () => {
 
         it('should set and get icon property', async () => {
             fixture.componentInstance.icon = 'pi pi-chevron-up';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(scrollTop.icon()).toBe('pi pi-chevron-up');
             expect(scrollTop._icon).toBe('pi pi-chevron-up');
@@ -772,7 +772,7 @@ describe('ScrollTop', () => {
 
         it('should handle undefined icon', async () => {
             fixture.componentInstance.icon = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(scrollTop.icon()).toBeUndefined();
             expect(scrollTop._icon).toBeUndefined();
@@ -842,12 +842,12 @@ describe('ScrollTop', () => {
 
         it('should handle undefined aria-label', async () => {
             component.buttonAriaLabel = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             scrollTop.visible.set(true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -960,7 +960,7 @@ describe('ScrollTop', () => {
 
         it('should apply pt host class', async () => {
             component.pt = { host: 'HOST_CLASS' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             fixture.detectChanges(); // Trigger ngAfterViewChecked
@@ -972,7 +972,7 @@ describe('ScrollTop', () => {
 
         it('should apply pt root class', async () => {
             component.pt = { root: 'ROOT_CLASS' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             fixture.detectChanges();

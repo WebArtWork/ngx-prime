@@ -206,7 +206,7 @@ describe('Dock', () => {
         component = fixture.componentInstance;
         dockElement = fixture.debugElement.query(By.directive(Dock));
         dockInstance = dockElement.componentInstance;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
     });
 
@@ -246,7 +246,7 @@ describe('Dock', () => {
             component.styleClass = 'custom-dock';
             component.ariaLabel = 'Custom Dock';
             component.breakpoint = '768px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dockInstance.model()).toBe(testModel);
@@ -278,7 +278,7 @@ describe('Dock', () => {
             const newModel = [{ label: 'New Item' }];
 
             component.model = newModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dockInstance.model()).toBe(newModel);
@@ -286,7 +286,7 @@ describe('Dock', () => {
 
         it('should update position input', async () => {
             component.position = 'left';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dockInstance.position()).toBe('left');
@@ -294,7 +294,7 @@ describe('Dock', () => {
 
         it('should update styleClass input', async () => {
             component.styleClass = 'test-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dockInstance.styleClass()).toBe('test-class');
@@ -303,7 +303,7 @@ describe('Dock', () => {
         it('should update ariaLabel and ariaLabelledBy inputs', async () => {
             component.ariaLabel = 'Test Dock';
             component.ariaLabelledBy = 'dock-label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dockInstance.ariaLabel()).toBe('Test Dock');
@@ -312,14 +312,14 @@ describe('Dock', () => {
 
         it('should update breakpoint input', async () => {
             component.breakpoint = '768px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(dockInstance.breakpoint()).toBe('768px');
         });
 
         it('should update id input', async () => {
             component.id = 'custom-dock-id';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(dockInstance.id()).toBe('custom-dock-id');
         });
@@ -353,7 +353,7 @@ describe('Dock', () => {
                 { label: 'Hidden Item', visible: false },
                 { label: 'Default Item' } // visible undefined = true
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
@@ -363,7 +363,7 @@ describe('Dock', () => {
 
         it('should handle empty model', async () => {
             component.model = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
@@ -373,7 +373,7 @@ describe('Dock', () => {
 
         it('should handle null model', async () => {
             component.model = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
@@ -572,7 +572,7 @@ describe('Dock', () => {
 
         it('should handle arrow right key for horizontal positions', async () => {
             component.position = 'bottom';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowRight' });
@@ -588,7 +588,7 @@ describe('Dock', () => {
 
         it('should handle arrow left key for horizontal positions', async () => {
             component.position = 'top';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowLeft' });
@@ -604,7 +604,7 @@ describe('Dock', () => {
 
         it('should handle arrow down key for vertical positions', async () => {
             component.position = 'left';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
@@ -620,7 +620,7 @@ describe('Dock', () => {
 
         it('should handle arrow up key for vertical positions', async () => {
             component.position = 'right';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
@@ -803,7 +803,7 @@ describe('Dock', () => {
             // Force change detection
             dockInstance.cd.markForCheck();
             dockInstance.cd.detectChanges();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
@@ -815,7 +815,7 @@ describe('Dock', () => {
 
         it('should not set aria-activedescendant when not focused', async () => {
             dockInstance.focused = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
@@ -825,7 +825,7 @@ describe('Dock', () => {
 
         it('should set aria-label when provided', async () => {
             component.ariaLabel = 'Main Navigation Dock';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
@@ -835,7 +835,7 @@ describe('Dock', () => {
 
         it('should set aria-labelledby when provided', async () => {
             component.ariaLabelledBy = 'dock-heading';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
@@ -964,11 +964,11 @@ describe('Dock', () => {
         it('should handle null/undefined values gracefully', async () => {
             component.model = undefined as any;
             component.ariaLabel = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(async () => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }).not.toThrow();
             expect(dockInstance.model()).toBeUndefined();
@@ -976,7 +976,7 @@ describe('Dock', () => {
 
         it('should handle items without icons', async () => {
             component.model = [{ label: 'No Icon Item' }, { label: 'Icon Item', icon: 'pi pi-check' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const iconElements = fixture.debugElement.queryAll(By.css('span[class*="pi-"]'));
@@ -986,7 +986,7 @@ describe('Dock', () => {
 
         it('should handle items with custom styleClass', async () => {
             component.model = [{ label: 'Custom Style', styleClass: 'custom-item-class' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const itemElement = fixture.debugElement.query(By.css('li[role="menuitem"]'));

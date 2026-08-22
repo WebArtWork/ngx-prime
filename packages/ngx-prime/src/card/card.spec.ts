@@ -226,7 +226,7 @@ describe('Card', () => {
         });
 
         it('should have correct host attributes', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(cardEl.nativeElement.getAttribute('data-pc-name')).toBe('card');
         });
@@ -1783,7 +1783,7 @@ describe('Card', () => {
                 expect(cardEl.nativeElement.className).toContain('INITIAL_CLASS');
 
                 component.pt = { root: 'UPDATED_CLASS' };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(cardEl.nativeElement.className).toContain('UPDATED_CLASS');

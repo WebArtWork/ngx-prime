@@ -135,7 +135,7 @@ describe('Tooltip', () => {
             component.life = 2000;
             component.autoHide = false;
             component.tooltipStyleClass = 'custom-tooltip';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -151,7 +151,7 @@ describe('Tooltip', () => {
 
         it('should disable tooltip when disabled is true', async () => {
             component.tooltipDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -195,7 +195,7 @@ describe('Tooltip', () => {
 
         it('should not show tooltip when disabled', async () => {
             component.tooltipDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -208,7 +208,7 @@ describe('Tooltip', () => {
 
         it('should not show tooltip when content is empty', async () => {
             tooltipDirective.setOption({ tooltipLabel: '' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -299,7 +299,7 @@ describe('Tooltip', () => {
 
         it('should handle position changes', async () => {
             component.tooltipPosition = 'left';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -341,7 +341,7 @@ describe('Tooltip', () => {
 
         it('should show tooltip after show delay', async () => {
             tooltipDirective.setOption({ showDelay: 500 });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -359,7 +359,7 @@ describe('Tooltip', () => {
 
         it('should hide tooltip after hide delay', async () => {
             tooltipDirective.setOption({ hideDelay: 300 });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -404,7 +404,7 @@ describe('Tooltip', () => {
         it('should handle escape key when hideOnEscape is true', async () => {
             spyOn(tooltipDirective, 'deactivate');
             tooltipDirective.setOption({ hideOnEscape: true });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -451,13 +451,13 @@ describe('Tooltip', () => {
 
         it('should handle autoHide option correctly', async () => {
             tooltipDirective.setOption({ autoHide: false });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(tooltipDirective.isAutoHide()).toBe(false);
 
             tooltipDirective.setOption({ autoHide: true });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(tooltipDirective.isAutoHide()).toBe(true);
@@ -466,14 +466,14 @@ describe('Tooltip', () => {
         it('should update text content correctly', async () => {
             tooltipDirective.tooltipText = document.createElement('div');
             tooltipDirective.setOption({ escape: true });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             spyOn(document, 'createTextNode').and.callThrough();
 
             tooltipDirective.setOption({ tooltipLabel: 'Test content' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -486,7 +486,7 @@ describe('Tooltip', () => {
             tooltipDirective.tooltipText = document.createElement('div');
             tooltipDirective.setOption({ escape: false });
             tooltipDirective.setOption({ tooltipLabel: '<strong>Bold</strong>' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -546,7 +546,7 @@ describe('Tooltip', () => {
                 tooltipLabel: 'Updated tooltip',
                 tooltipPosition: 'bottom'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -635,7 +635,7 @@ describe('Tooltip', () => {
             const initialOptions = { ...tooltipDirective._tooltipOptions };
 
             tooltipDirective.setOption({ tooltipLabel: 'New label' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -679,7 +679,7 @@ describe('Tooltip', () => {
             component.pt = {
                 root: 'ROOT_CLASS'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -700,7 +700,7 @@ describe('Tooltip', () => {
                 arrow: 'ARROW_CLASS',
                 text: 'TEXT_CLASS'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -729,7 +729,7 @@ describe('Tooltip', () => {
                     'aria-label': 'Host Aria Label'
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -759,7 +759,7 @@ describe('Tooltip', () => {
                     'aria-label': 'Tooltip Text'
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -787,7 +787,7 @@ describe('Tooltip', () => {
                     class: 'OBJECT_ARROW_CLASS'
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -815,7 +815,7 @@ describe('Tooltip', () => {
                     }
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -838,7 +838,7 @@ describe('Tooltip', () => {
                 arrow: 'ARROW_PT',
                 text: 'TEXT_PT'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -868,7 +868,7 @@ describe('Tooltip', () => {
                     'data-test': null
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));

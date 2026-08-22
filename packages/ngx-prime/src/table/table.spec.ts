@@ -798,7 +798,7 @@ describe('Table', () => {
             const component = fixture.componentInstance;
 
             component.isLoading = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -818,7 +818,7 @@ describe('Table', () => {
             const component = fixture.componentInstance;
 
             component.isLoading = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -886,7 +886,7 @@ describe('Table', () => {
             const component = fixture.componentInstance;
 
             component.useVirtualScroll = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -954,7 +954,7 @@ describe('Table', () => {
             const component = fixture.componentInstance;
 
             component.useVirtualScroll = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 

@@ -97,7 +97,7 @@ describe('InputIcon', () => {
 
         it('should update styleClass dynamically', async () => {
             component.customClass = 'new-icon-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputIconInstance.styleClass()).toBe('new-icon-class');

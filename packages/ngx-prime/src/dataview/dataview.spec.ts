@@ -258,7 +258,7 @@ describe('DataView', () => {
             component.paginatorPosition = 'top';
             component.layout = 'grid';
             component.emptyMessage = 'Custom empty message';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.paginator()).toBe(true);
@@ -282,7 +282,7 @@ describe('DataView', () => {
     describe('Public Methods', () => {
         it('should paginate programmatically', async () => {
             component.paginator = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const paginatorState = {
@@ -306,7 +306,7 @@ describe('DataView', () => {
         it('should sort data', async () => {
             component.sortField = 'price';
             component.sortOrder = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(dataview.onSort, 'emit');
@@ -327,7 +327,7 @@ describe('DataView', () => {
         it('should sort data in descending order', async () => {
             component.sortField = 'price';
             component.sortOrder = -1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.sort();
@@ -347,7 +347,7 @@ describe('DataView', () => {
             ] as any;
             component.sortField = 'price';
             component.sortOrder = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.sort();
@@ -364,7 +364,7 @@ describe('DataView', () => {
             expect(dataview.isEmpty()).toBe(false);
 
             component.products = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.isEmpty()).toBe(true);
@@ -372,7 +372,7 @@ describe('DataView', () => {
 
         it('should filter data', async () => {
             component.filterBy = 'name,category';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.filter('Product 1');
@@ -384,7 +384,7 @@ describe('DataView', () => {
 
         it('should filter with different match modes', async () => {
             component.filterBy = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.filter('Product', 'contains');
@@ -394,7 +394,7 @@ describe('DataView', () => {
 
         it('should reset filteredValue when filter matches all items', async () => {
             component.filterBy = 'category';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.filter('Category');
@@ -404,7 +404,7 @@ describe('DataView', () => {
 
         it('should check if filter is active', async () => {
             component.filterBy = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Test hasFilter with valid filter value
@@ -487,7 +487,7 @@ describe('DataView', () => {
 
         it('should emit onPage event when paginating', async () => {
             component.paginator = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(component, 'onPageEvent');
@@ -503,7 +503,7 @@ describe('DataView', () => {
         it('should emit onSort event when sorting', async () => {
             component.sortField = 'name';
             component.sortOrder = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(component, 'onSortEvent');
@@ -520,7 +520,7 @@ describe('DataView', () => {
             spyOn(component, 'onChangeLayoutEvent');
 
             component.layout = 'grid';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -532,7 +532,7 @@ describe('DataView', () => {
         it('should emit onLazyLoad when paginating in lazy mode', async () => {
             component.lazy = true;
             component.paginator = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(component, 'onLazyLoadEvent');
@@ -545,7 +545,7 @@ describe('DataView', () => {
         it('should emit onLazyLoad when sorting in lazy mode', async () => {
             component.lazy = true;
             component.sortField = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(component, 'onLazyLoadEvent');
@@ -566,7 +566,7 @@ describe('DataView', () => {
 
         it('should render grid template when layout is grid', async () => {
             component.layout = 'grid';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const gridItems = fixture.debugElement.queryAll(By.css('.grid-item'));
@@ -605,7 +605,7 @@ describe('DataView', () => {
 
         it('should render empty message when no data', async () => {
             component.products = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             void fixture.debugElement.query(By.css('div'));
@@ -674,7 +674,7 @@ describe('DataView', () => {
         beforeEach(async () => {
             component.paginator = true;
             component.rows = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -693,7 +693,7 @@ describe('DataView', () => {
 
         it('should render paginator at top when position is top', async () => {
             component.paginatorPosition = 'top';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const content = fixture.debugElement.query(By.css('[class*="content"]'));
@@ -704,7 +704,7 @@ describe('DataView', () => {
 
         it('should render paginator at both positions when position is both', async () => {
             component.paginatorPosition = 'both';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const paginators = fixture.debugElement.queryAll(By.css('p-paginator'));
@@ -722,7 +722,7 @@ describe('DataView', () => {
 
         it('should update displayed data when page changes', async () => {
             dataview.paginate({ first: 2, rows: 2, page: 1, pageCount: 3 });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -737,7 +737,7 @@ describe('DataView', () => {
             component.rowsPerPageOptions = [2, 5, 10];
             component.showCurrentPageReport = true;
             component.currentPageReportTemplate = 'Page {currentPage} of {totalPages}';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const paginator = fixture.debugElement.query(By.css('p-paginator')).componentInstance;
@@ -773,7 +773,7 @@ describe('DataView', () => {
         it('should sort string fields correctly', async () => {
             component.sortField = 'name';
             component.sortOrder = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.sort();
@@ -787,7 +787,7 @@ describe('DataView', () => {
         it('should sort number fields correctly', async () => {
             component.sortField = 'price';
             component.sortOrder = -1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.sort();
@@ -800,7 +800,7 @@ describe('DataView', () => {
 
         it('should filter across multiple fields', async () => {
             component.filterBy = 'name,category';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.filter('Category A');
@@ -812,7 +812,7 @@ describe('DataView', () => {
         it('should update totalRecords when filtering with pagination', async () => {
             component.paginator = true;
             component.filterBy = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.filter('Product 1');
@@ -824,7 +824,7 @@ describe('DataView', () => {
         it('should reset first index when sorting', async () => {
             component.first = 2;
             component.sortField = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.sort();
@@ -836,7 +836,7 @@ describe('DataView', () => {
             component.sortField = 'price';
             component.sortOrder = 1;
             component.filterBy = 'category';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.sort();
@@ -852,7 +852,7 @@ describe('DataView', () => {
     describe('Loading State', () => {
         it('should show loading indicator when loading is true', async () => {
             component.loading = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const loadingDiv = fixture.debugElement.query(By.css('[class*="loading"]'));
@@ -863,7 +863,7 @@ describe('DataView', () => {
         it('should show custom loading icon', async () => {
             component.loading = true;
             component.loadingIcon = ' pi-spinner';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const loadingIcon = fixture.debugElement.query(By.css('i'));
@@ -875,7 +875,7 @@ describe('DataView', () => {
         it('should hide content when loading', async () => {
             component.loading = true;
             component.products = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const emptyMessage = fixture.debugElement.query(By.css('[class*="emptyMessage"]'));
@@ -885,7 +885,7 @@ describe('DataView', () => {
 
         it('should show default loading icon when no custom icon specified', async () => {
             component.loading = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const svg = fixture.debugElement.query(By.css('svg')) || fixture.debugElement.query(By.css('[data-p-icon="spinner"]'));
@@ -897,7 +897,7 @@ describe('DataView', () => {
     describe('Edge Cases', () => {
         it('should handle null/undefined values gracefully', async () => {
             component.products = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.isEmpty()).toBe(true);
@@ -906,7 +906,7 @@ describe('DataView', () => {
 
         it('should handle empty array', async () => {
             component.products = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.isEmpty()).toBe(true);
@@ -922,17 +922,17 @@ describe('DataView', () => {
             dataview.onChangeLayout.subscribe(() => changeCount++);
 
             component.layout = 'grid';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             component.layout = 'list';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             component.layout = 'grid';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -941,7 +941,7 @@ describe('DataView', () => {
 
         it('should handle filtering with empty filterBy', async () => {
             component.filterBy = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => dataview.filter('test')).not.toThrow();
@@ -949,7 +949,7 @@ describe('DataView', () => {
 
         it('should handle sorting without sortField', async () => {
             component.sortField = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => dataview.sort()).not.toThrow();
@@ -970,7 +970,7 @@ describe('DataView', () => {
             const startTime = performance.now();
 
             component.products = largeData;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             const endTime = performance.now();
 
@@ -980,14 +980,14 @@ describe('DataView', () => {
 
         it('should maintain filter when value changes', async () => {
             component.filterBy = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.filter('Product 1');
             expect(dataview.filteredValue?.length).toBe(1);
 
             component.products = [...component.products, { id: 6, name: 'Product 10', price: 600, category: 'Category D', inventoryStatus: 'INSTOCK' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.filteredValue).toBeTruthy();
@@ -995,7 +995,7 @@ describe('DataView', () => {
 
         it('should handle undefined in template context', async () => {
             component.products = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(async () => await fixture.whenStable()).not.toThrow();
@@ -1005,7 +1005,7 @@ describe('DataView', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply custom styleClass', async () => {
             component.styleClass = 'custom-dataview-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const dataviewElement = fixture.debugElement.query(By.css('p-dataview'));
@@ -1016,7 +1016,7 @@ describe('DataView', () => {
         it('should apply gridStyleClass', async () => {
             component.gridStyleClass = 'custom-grid-class';
             component.layout = 'grid';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.gridStyleClass()).toBe('custom-grid-class');
@@ -1024,7 +1024,7 @@ describe('DataView', () => {
 
         it('should apply correct classes for loading state', async () => {
             component.loading = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const loadingDiv = fixture.debugElement.query(By.css('[class*="loading"]'));
@@ -1035,7 +1035,7 @@ describe('DataView', () => {
         it('should apply paginator style class', async () => {
             component.paginator = true;
             component.paginatorStyleClass = 'custom-paginator';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.paginatorStyleClass).toBe('custom-paginator');
@@ -1063,7 +1063,7 @@ describe('DataView', () => {
             const newProducts = [{ id: 10, name: 'New Product', price: 1000, category: 'New Category', inventoryStatus: 'INSTOCK' }];
 
             component.products = newProducts;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -1133,7 +1133,7 @@ describe('DataView', () => {
             expect(dataview.paginator()).toBe(false);
 
             component.paginator = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.paginator()).toBe(true);
@@ -1143,7 +1143,7 @@ describe('DataView', () => {
             expect(dataview._rows).toBe(3);
 
             component.rows = 5;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview._rows).toBe(5);
@@ -1153,7 +1153,7 @@ describe('DataView', () => {
             expect(dataview._totalRecords).toBe(5); // auto-calculated from value
 
             component.totalRecords = 100;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview._totalRecords).toBe(100);
@@ -1163,7 +1163,7 @@ describe('DataView', () => {
             expect(dataview.pageLinks()).toBe(5);
 
             component.pageLinks = 7;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.pageLinks()).toBe(7);
@@ -1173,7 +1173,7 @@ describe('DataView', () => {
             const options = [5, 10, 20, { showAll: 'All' }];
 
             component.rowsPerPageOptions = options;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.rowsPerPageOptions()).toEqual(options);
@@ -1183,7 +1183,7 @@ describe('DataView', () => {
             expect(dataview.paginatorPosition()).toBe('bottom');
 
             component.paginatorPosition = 'top';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.paginatorPosition()).toBe('top');
@@ -1191,7 +1191,7 @@ describe('DataView', () => {
 
         it('should handle paginatorStyleClass property', async () => {
             component.paginatorStyleClass = 'custom-paginator';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.paginatorStyleClass()).toBe('custom-paginator');
@@ -1201,7 +1201,7 @@ describe('DataView', () => {
             expect(dataview.alwaysShowPaginator()).toBe(true);
 
             component.alwaysShowPaginator = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.alwaysShowPaginator()).toBe(false);
@@ -1211,7 +1211,7 @@ describe('DataView', () => {
             const element = document.createElement('div');
 
             component.paginatorDropdownAppendTo = element;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.paginatorDropdownAppendTo()).toBe(element);
@@ -1221,7 +1221,7 @@ describe('DataView', () => {
             expect(dataview.paginatorDropdownScrollHeight()).toBe('200px');
 
             component.paginatorDropdownScrollHeight = '300px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.paginatorDropdownScrollHeight()).toBe('300px');
@@ -1231,7 +1231,7 @@ describe('DataView', () => {
             const template = 'Page {currentPage} of {totalPages}';
 
             component.currentPageReportTemplate = template;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.currentPageReportTemplate()).toBe(template);
@@ -1241,7 +1241,7 @@ describe('DataView', () => {
             expect(dataview.showCurrentPageReport()).toBe(false);
 
             component.showCurrentPageReport = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.showCurrentPageReport()).toBe(true);
@@ -1251,7 +1251,7 @@ describe('DataView', () => {
             expect(dataview.showJumpToPageDropdown()).toBe(false);
 
             component.showJumpToPageDropdown = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.showJumpToPageDropdown()).toBe(true);
@@ -1261,7 +1261,7 @@ describe('DataView', () => {
             expect(dataview.showFirstLastIcon()).toBe(true);
 
             component.showFirstLastIcon = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.showFirstLastIcon()).toBe(false);
@@ -1271,7 +1271,7 @@ describe('DataView', () => {
             expect(dataview.showPageLinks()).toBe(true);
 
             component.showPageLinks = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.showPageLinks()).toBe(false);
@@ -1281,7 +1281,7 @@ describe('DataView', () => {
             expect(dataview.lazy()).toBe(false);
 
             component.lazy = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.lazy()).toBe(true);
@@ -1291,7 +1291,7 @@ describe('DataView', () => {
             expect(dataview.lazyLoadOnInit()).toBe(true);
 
             component.lazyLoadOnInit = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.lazyLoadOnInit()).toBe(false);
@@ -1301,7 +1301,7 @@ describe('DataView', () => {
             expect(dataview.emptyMessage()).toBe('No products found');
 
             component.emptyMessage = 'Custom empty message';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.emptyMessage()).toBe('Custom empty message');
@@ -1309,7 +1309,7 @@ describe('DataView', () => {
 
         it('should handle styleClass property', async () => {
             component.styleClass = 'custom-dataview-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.styleClass()).toBe('custom-dataview-class');
@@ -1319,7 +1319,7 @@ describe('DataView', () => {
             expect(dataview.gridStyleClass()).toBe('' as any);
 
             component.gridStyleClass = 'custom-grid-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.gridStyleClass()).toBe('custom-grid-class');
@@ -1329,7 +1329,7 @@ describe('DataView', () => {
             const customTrackBy = (index: number, item: any) => item.id;
 
             component.trackBy = customTrackBy;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.trackBy()).toBe(customTrackBy);
@@ -1339,7 +1339,7 @@ describe('DataView', () => {
             expect(dataview.filterBy()).toBe('name,category');
 
             component.filterBy = 'price';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.filterBy()).toBe('price');
@@ -1347,7 +1347,7 @@ describe('DataView', () => {
 
         it('should handle filterLocale property', async () => {
             component.filterLocale = 'en-US';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.filterLocale()).toBe('en-US');
@@ -1357,7 +1357,7 @@ describe('DataView', () => {
             expect(dataview.loading()).toBe(false);
 
             component.loading = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.loading()).toBe(true);
@@ -1365,7 +1365,7 @@ describe('DataView', () => {
 
         it('should handle loadingIcon property', async () => {
             component.loadingIcon = 'pi pi-spinner';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.loadingIcon()).toBe('pi pi-spinner');
@@ -1375,7 +1375,7 @@ describe('DataView', () => {
             expect(dataview._first).toBe(0);
 
             component.first = 5;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview._first).toBe(5);
@@ -1383,7 +1383,7 @@ describe('DataView', () => {
 
         it('should handle sortField property', async () => {
             component.sortField = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.sortField()).toBe('name');
@@ -1391,7 +1391,7 @@ describe('DataView', () => {
 
         it('should handle sortOrder property', async () => {
             component.sortOrder = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.sortOrder()).toBe(1);
@@ -1401,7 +1401,7 @@ describe('DataView', () => {
             expect(dataview.layout()).toBe('list');
 
             component.layout = 'grid';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.layout()).toBe('grid');
@@ -1413,7 +1413,7 @@ describe('DataView', () => {
             const newProducts = [{ id: 10, name: 'New Product', price: 1000, category: 'New Category', inventoryStatus: 'INSTOCK' }];
 
             component.products = newProducts;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.value()).toEqual(newProducts);
@@ -1422,13 +1422,13 @@ describe('DataView', () => {
         it('should handle boolean attributes transformation', async () => {
             // Test boolean transformation for paginator
             component.paginator = 'true' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.paginator()).toBe(true);
 
             component.paginator = '' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.paginator()).toBe(true); // empty string should be true
@@ -1437,7 +1437,7 @@ describe('DataView', () => {
         it('should handle number attributes transformation', async () => {
             // Test number transformation for rows
             component.rows = '10' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview._rows).toBe(10);
@@ -1450,7 +1450,7 @@ describe('DataView', () => {
             component.totalRecords = 0;
             component.pageLinks = 0;
             component.first = 0;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview._rows).toBe(0);
@@ -1463,7 +1463,7 @@ describe('DataView', () => {
             component.rows = -5;
             component.sortOrder = -1;
             component.first = -10;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview._rows).toBe(-5);

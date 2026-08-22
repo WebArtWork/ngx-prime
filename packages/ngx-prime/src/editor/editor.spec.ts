@@ -196,7 +196,7 @@ describe('Editor', () => {
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
@@ -223,7 +223,7 @@ describe('Editor', () => {
             component.readonly = true;
             component.styleClass = 'custom-editor';
             component.formats = ['bold', 'italic'];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(editorInstance.placeholder()).toBe('Custom placeholder');
@@ -244,7 +244,7 @@ describe('Editor', () => {
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
@@ -300,7 +300,7 @@ describe('Editor', () => {
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
@@ -390,7 +390,7 @@ describe('Editor', () => {
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestCustomToolbarComponent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -418,7 +418,7 @@ describe('Editor', () => {
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestPTemplateComponent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -427,7 +427,7 @@ describe('Editor', () => {
             const editorInstance = editorEl.componentInstance as Editor;
 
             editorInstance.ngAfterContentInit();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // pTemplate processing might not work in test environment, just verify method exists
@@ -456,13 +456,13 @@ describe('Editor', () => {
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
         it('should apply custom style classes', async () => {
             component.styleClass = 'custom-editor-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
@@ -473,7 +473,7 @@ describe('Editor', () => {
 
         it('should apply custom styles', async () => {
             component.style = { border: '2px solid red', padding: '10px' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
@@ -503,7 +503,7 @@ describe('Editor', () => {
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestReadonlyComponent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -535,7 +535,7 @@ describe('Editor', () => {
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestCustomConfigurationComponent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -564,7 +564,7 @@ describe('Editor', () => {
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
@@ -601,7 +601,7 @@ describe('Editor', () => {
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -645,7 +645,7 @@ describe('Editor', () => {
 
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
@@ -691,7 +691,7 @@ describe('Editor', () => {
         beforeEach(async () => {
             fixture = TestBed.createComponent(TestBasicEditorComponent);
             component = fixture.componentInstance;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const editorEl = fixture.debugElement.query(By.css('p-editor'));
@@ -713,15 +713,15 @@ describe('Editor', () => {
 
         it('should handle rapid property changes', async () => {
             component.placeholder = 'First placeholder';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.placeholder = 'Second placeholder';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.placeholder = 'Third placeholder';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(editorInstance.placeholder()).toBe('Third placeholder');
@@ -730,11 +730,11 @@ describe('Editor', () => {
         it('should handle invalid configuration gracefully', async () => {
             component.formats = [];
             component.modules = {};
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(async () => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }).not.toThrow();
         });
@@ -742,7 +742,7 @@ describe('Editor', () => {
         it('should handle bounds and scrollingContainer settings', async () => {
             component.bounds = 'body';
             component.scrollingContainer = '#container';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(editorInstance.bounds()).toBe('body');
@@ -776,10 +776,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestPTCase1Component);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
@@ -834,10 +834,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestPTCase2Component);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
@@ -897,10 +897,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestPTCase3Component);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
@@ -956,10 +956,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestPTCase4Component);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
@@ -979,10 +979,10 @@ describe('Editor', () => {
 
                 // Change readonly state
                 fixture.componentInstance.isReadonly = false;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 // Verify class changed
@@ -1024,10 +1024,10 @@ describe('Editor', () => {
                 const fixture = TestBed.createComponent(TestPTCase5Component);
                 const component = fixture.componentInstance;
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const boldButton = fixture.debugElement.query(By.css('.ql-bold'));
@@ -1035,14 +1035,14 @@ describe('Editor', () => {
 
                 if (boldButton) {
                     boldButton.nativeElement.click();
-                    fixture.changeDetectorRef.markForCheck();
+                    fixture.detectChanges();
                     await fixture.whenStable();
                     expect(component.clickedElement).toBe('bold');
                 }
 
                 if (italicButton) {
                     italicButton.nativeElement.click();
-                    fixture.changeDetectorRef.markForCheck();
+                    fixture.detectChanges();
                     await fixture.whenStable();
                     expect(component.clickedElement).toBe('italic');
                 }
@@ -1067,10 +1067,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestInlineComponent);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
@@ -1095,10 +1095,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestInlineObjectComponent);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
@@ -1141,10 +1141,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestGlobalPTComponent);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const editors = fixture.debugElement.queryAll(By.css('p-editor'));
@@ -1202,10 +1202,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestGlobalCSSComponent);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const editorRoot = fixture.debugElement.query(By.css('p-editor')).nativeElement;
@@ -1253,10 +1253,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestHooksComponent);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 // AfterViewInit should be called
@@ -1309,10 +1309,10 @@ describe('Editor', () => {
 
                 const fixture = TestBed.createComponent(TestMultipleHooksComponent);
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 100));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(hookEvents.length).toBeGreaterThan(0);

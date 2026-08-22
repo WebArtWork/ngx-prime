@@ -247,7 +247,7 @@ describe('OrganizationChart', () => {
 
         it('should find index in selection for multiple mode', async () => {
             component.selectionMode = 'multiple';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -303,7 +303,7 @@ describe('OrganizationChart', () => {
 
         it('should handle node click in single selection mode', async () => {
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -325,7 +325,7 @@ describe('OrganizationChart', () => {
 
         it('should handle node unselection in single mode', async () => {
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -348,7 +348,7 @@ describe('OrganizationChart', () => {
 
         it('should handle node click in multiple selection mode', async () => {
             component.selectionMode = 'multiple';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -379,7 +379,7 @@ describe('OrganizationChart', () => {
 
         it('should handle node unselection in multiple mode', async () => {
             component.selectionMode = 'multiple';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -402,7 +402,7 @@ describe('OrganizationChart', () => {
 
         it('should not select non-selectable nodes', async () => {
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -423,7 +423,7 @@ describe('OrganizationChart', () => {
         it('should ignore click on toggle button', async () => {
             component.selectionMode = 'single';
             component.collapsible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -446,7 +446,7 @@ describe('OrganizationChart', () => {
 
         it('should emit expand and collapse events', async () => {
             component.collapsible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -473,13 +473,13 @@ describe('OrganizationChart', () => {
     describe('Edge Cases', () => {
         it('should handle null/undefined values gracefully', async () => {
             component.data = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(() => fixture.detectChanges()).not.toThrow();
             expect(organizationChart.root).toBeNull();
 
             component.data = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(() => fixture.detectChanges()).not.toThrow();
             expect(organizationChart.root).toBeNull();
@@ -741,7 +741,7 @@ describe('OrganizationChart', () => {
             expect(chevronDown).toBeTruthy();
 
             component.data[0].expanded = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 

@@ -95,7 +95,7 @@ describe('IftaLabel', () => {
 
         it('should update input value when model changes', async () => {
             component.email = 'test@example.com';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
@@ -127,7 +127,7 @@ describe('IftaLabel', () => {
 
         it('should handle empty string model', async () => {
             component.value = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));

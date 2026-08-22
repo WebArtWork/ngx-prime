@@ -495,7 +495,7 @@ describe('Inplace', () => {
 
         it('should not activate when disabled', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
@@ -509,7 +509,7 @@ describe('Inplace', () => {
 
         it('should apply disabled class when disabled', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]');
@@ -519,7 +519,7 @@ describe('Inplace', () => {
 
         it('should remove disabled class when enabled', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]');
@@ -527,7 +527,7 @@ describe('Inplace', () => {
             expect(displayDiv?.classList.contains('p-disabled')).toBe(true);
 
             component.disabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(displayDiv?.classList.contains('p-disabled')).toBe(false);
@@ -535,7 +535,7 @@ describe('Inplace', () => {
 
         it('should not activate programmatically when disabled', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             inplaceComponent.activate();
@@ -554,7 +554,7 @@ describe('Inplace', () => {
 
             // Then disable and try to deactivate
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             inplaceComponent.deactivate();
@@ -598,7 +598,7 @@ describe('Inplace', () => {
 
         it('should not show close button when not closable', async () => {
             component.closable = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Activate inplace
@@ -635,7 +635,7 @@ describe('Inplace', () => {
 
         it('should display custom close icon', async () => {
             component.closeIcon = 'pi pi-check';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Activate inplace
@@ -652,7 +652,7 @@ describe('Inplace', () => {
 
         it('should set aria-label on close button', async () => {
             component.closeAriaLabel = 'Close Editor';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Activate inplace
@@ -687,7 +687,7 @@ describe('Inplace', () => {
 
         it('should not activate when preventClick is true', async () => {
             component.preventClick = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
@@ -701,7 +701,7 @@ describe('Inplace', () => {
 
         it('should activate normally when preventClick is false', async () => {
             component.preventClick = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
@@ -715,7 +715,7 @@ describe('Inplace', () => {
 
         it('should allow programmatic activation even when preventClick is true', async () => {
             component.preventClick = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             inplaceComponent.activate();
@@ -750,7 +750,7 @@ describe('Inplace', () => {
 
         it('should start in active state when active=true', async () => {
             component.active = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inplaceComponent.active()).toBe(true);
@@ -765,7 +765,7 @@ describe('Inplace', () => {
 
             // Activate
             component.active = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.querySelector('div[role="button"]')).toBeFalsy();
@@ -773,7 +773,7 @@ describe('Inplace', () => {
 
             // Deactivate
             component.active = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.querySelector('div[role="button"]')).toBeTruthy();
@@ -799,7 +799,7 @@ describe('Inplace', () => {
 
         it('should update style class dynamically', async () => {
             component.styleClass = 'new-custom-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('new-custom-class')).toBe(true);
@@ -994,7 +994,7 @@ describe('Inplace', () => {
             const inplaceComponent = fixture.debugElement.query(By.directive(Inplace)).componentInstance;
 
             fixture.componentInstance.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const displayDiv = element.querySelector('div[role="button"]') as HTMLElement;
@@ -1112,7 +1112,7 @@ describe('Inplace', () => {
             expect(element.querySelector('div[role="button"]')).toBeTruthy();
 
             component.dynamicActive = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inplaceComponent.active()).toBe(true);
@@ -1135,7 +1135,7 @@ describe('Inplace', () => {
 
             // Now disable and try to activate
             component.dynamicDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             displayDiv.click();
@@ -1158,7 +1158,7 @@ describe('Inplace', () => {
 
             // Enable closable
             component.dynamicClosable = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.querySelector('p-button')).toBeTruthy();
@@ -1171,7 +1171,7 @@ describe('Inplace', () => {
 
             component.displayText = 'Updated display text';
             component.contentText = 'Updated content';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(displaySpan?.textContent).toContain('Updated display text');
@@ -1193,17 +1193,17 @@ describe('Inplace', () => {
             component.dynamicActive = true;
             component.dynamicDisabled = true;
             component.dynamicClosable = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.dynamicActive = false;
             component.dynamicDisabled = false;
             component.dynamicClosable = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.dynamicActive = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should end up in active state
@@ -1369,7 +1369,7 @@ describe('Inplace', () => {
             it('should apply string class to content section', async () => {
                 fixture.componentRef.setInput('pt', { content: 'CONTENT_CLASS' });
                 fixture.componentRef.setInput('active', true);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const contentElement = inplaceElement.nativeElement.querySelector('[data-pc-section="content"]');
@@ -1444,7 +1444,7 @@ describe('Inplace', () => {
             it('should apply object to content section', async () => {
                 fixture.componentRef.setInput('pt', { content: { class: 'CONTENT_OBJ_CLASS' } });
                 fixture.componentRef.setInput('active', true);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const contentElement = inplaceElement.nativeElement.querySelector('[data-pc-section="content"]');

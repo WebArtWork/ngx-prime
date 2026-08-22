@@ -150,7 +150,7 @@ describe('Stepper', () => {
             component.value = 2;
             component.linear = true;
             component.transitionOptions = '500ms ease-in-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -215,7 +215,7 @@ describe('Stepper', () => {
 
         it('should render active panel content', async () => {
             component.value = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -228,7 +228,7 @@ describe('Stepper', () => {
 
         it('should switch panel content on value change', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -253,7 +253,7 @@ describe('Stepper', () => {
 
         it('should update active step state', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -265,7 +265,7 @@ describe('Stepper', () => {
 
         it('should handle programmatic value update', async () => {
             stepper.updateValue(3);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -274,7 +274,7 @@ describe('Stepper', () => {
 
         it('should check if step is active', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -287,7 +287,7 @@ describe('Stepper', () => {
         beforeEach(async () => {
             component.linear = true;
             component.value = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -315,7 +315,7 @@ describe('Stepper', () => {
     describe('Disabled Steps', () => {
         it('should disable specific steps', async () => {
             component.step3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -326,7 +326,7 @@ describe('Stepper', () => {
 
         it('should not activate disabled steps', async () => {
             component.step3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -340,7 +340,7 @@ describe('Stepper', () => {
 
         it('should set correct data attributes for disabled steps', async () => {
             component.step3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -453,7 +453,7 @@ describe('Stepper', () => {
 
         it('should set aria-current for active step', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -466,7 +466,7 @@ describe('Stepper', () => {
         it('should set correct tabindex for disabled steps', async () => {
             component.linear = true;
             component.value = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -479,7 +479,7 @@ describe('Stepper', () => {
     describe('Public Methods', () => {
         it('should update value programmatically', async () => {
             stepper.updateValue(3);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -489,7 +489,7 @@ describe('Stepper', () => {
 
         it('should check if step is active', async () => {
             stepper.updateValue(2);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -512,7 +512,7 @@ describe('Stepper', () => {
 
         it('should apply active state classes', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -536,7 +536,7 @@ describe('Stepper', () => {
 
         it('should update data attributes on state change', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -551,7 +551,7 @@ describe('Stepper', () => {
     describe('Edge Cases', () => {
         it('should handle undefined value', async () => {
             component.value = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -561,7 +561,7 @@ describe('Stepper', () => {
 
         it('should handle non-existent step value', async () => {
             stepper.updateValue(999);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -573,7 +573,7 @@ describe('Stepper', () => {
             stepper.updateValue(1);
             stepper.updateValue(2);
             stepper.updateValue(3);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -582,7 +582,7 @@ describe('Stepper', () => {
 
         it('should handle boolean transform for linear input', async () => {
             component.linear = 'true' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -591,7 +591,7 @@ describe('Stepper', () => {
 
         it('should handle empty transition options', async () => {
             component.transitionOptions = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -660,7 +660,7 @@ describe('Stepper', () => {
     describe('Panel Visibility Logic', () => {
         it('should show active panel in horizontal layout', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 

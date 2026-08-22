@@ -2578,7 +2578,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
         fixture = TestBed.createComponent(FileUpload);
         component = fixture.componentInstance;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
     });
 
@@ -2588,7 +2588,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             urlSubject.subscribe((url) => {
                 fixture.componentRef.setInput('url', url);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.url()).toBe('https://initial.com/upload');
@@ -2607,7 +2607,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             delayedUrl$.subscribe((url) => {
                 fixture.componentRef.setInput('url', url);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.url()).toBeUndefined();
@@ -2622,7 +2622,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             acceptSubject.subscribe((accept) => {
                 fixture.componentRef.setInput('accept', accept);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.accept()).toBe('image/*');
@@ -2643,7 +2643,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             disabledSubject.subscribe((disabled) => {
                 fixture.componentRef.setInput('disabled', disabled);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.disabled()).toBe(false);
@@ -2662,7 +2662,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             multipleSubject.subscribe((multiple) => {
                 fixture.componentRef.setInput('multiple', multiple);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.multiple()).toBe(false);
@@ -2678,7 +2678,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             timer(500).subscribe(() => {
                 autoUpload = true;
                 fixture.componentRef.setInput('auto', autoUpload);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.auto()).toBeUndefined();
@@ -2694,7 +2694,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             sizeSubject.subscribe((size) => {
                 fixture.componentRef.setInput('maxFileSize', size);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.maxFileSize()).toBe(1000000);
@@ -2713,7 +2713,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             limitSubject.subscribe((limit) => {
                 fixture.componentRef.setInput('fileLimit', limit);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.fileLimit()).toBe(5);
@@ -2732,7 +2732,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             delayedWidth$.subscribe((width) => {
                 fixture.componentRef.setInput('previewWidth', width);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.previewWidth()).toBe(50); // default value
@@ -2748,7 +2748,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             styleSubject.subscribe((style) => {
                 fixture.componentRef.setInput('style', style);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.style()).toEqual({ width: '100%' });
@@ -2767,7 +2767,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             propsSubject.subscribe((props) => {
                 fixture.componentRef.setInput('uploadButtonProps', props);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.uploadButtonProps()).toEqual({ severity: 'primary' });
@@ -2782,7 +2782,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
 
             filesSubject.subscribe((files) => {
                 component.files = files;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.files).toEqual([]);
@@ -2813,7 +2813,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
                 fixture.componentRef.setInput('multiple', config.multiple);
                 fixture.componentRef.setInput('maxFileSize', config.maxFileSize);
                 fixture.componentRef.setInput('disabled', config.disabled);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             });
 
             expect(component.url()).toBe('https://api.com/upload');
@@ -2842,12 +2842,12 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             errorSubject.subscribe({
                 next: (url) => {
                     fixture.componentRef.setInput('url', url);
-                    fixture.changeDetectorRef.markForCheck();
+                    fixture.detectChanges();
                 },
                 error: () => {
                     errorOccurred = true;
                     fixture.componentRef.setInput('url', 'fallback-url');
-                    fixture.changeDetectorRef.markForCheck();
+                    fixture.detectChanges();
                 }
             });
 

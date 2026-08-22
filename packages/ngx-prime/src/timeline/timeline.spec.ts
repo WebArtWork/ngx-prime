@@ -173,7 +173,7 @@ describe('Timeline', () => {
             component.align = 'right';
             component.layout = 'horizontal';
             component.styleClass = 'custom-timeline';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -189,7 +189,7 @@ describe('Timeline', () => {
 
         it('should handle empty value array', async () => {
             component.events = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -199,7 +199,7 @@ describe('Timeline', () => {
 
         it('should handle undefined value', async () => {
             component.events = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -309,7 +309,7 @@ describe('Timeline', () => {
             const newEvents: EventItem[] = [{ status: 'New Event', date: '20/10/2020', icon: 'pi pi-star', color: '#FF5722' }];
 
             component.events = newEvents;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -338,7 +338,7 @@ describe('Timeline', () => {
             ];
 
             component.events = eventsWithMissingProps;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -351,7 +351,7 @@ describe('Timeline', () => {
             const eventsWithNulls = [{ status: 'Valid Event', date: '20/10/2020' }, null, undefined, { status: 'Another Valid Event' }].filter(Boolean); // Filter out null/undefined
 
             component.events = eventsWithNulls as EventItem[];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -368,14 +368,14 @@ describe('Timeline', () => {
 
             // Test right alignment
             component.align = 'right';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(timeline.align()).toBe('right');
 
             // Test alternate alignment
             component.align = 'alternate';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(timeline.align()).toBe('alternate');
@@ -383,7 +383,7 @@ describe('Timeline', () => {
             // Test top alignment (for horizontal layout)
             component.layout = 'horizontal';
             component.align = 'top';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(timeline.align()).toBe('top');
@@ -391,7 +391,7 @@ describe('Timeline', () => {
 
             // Test bottom alignment (for horizontal layout)
             component.align = 'bottom';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(timeline.align()).toBe('bottom');
@@ -403,7 +403,7 @@ describe('Timeline', () => {
 
             // Test horizontal layout
             component.layout = 'horizontal';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(timeline.layout()).toBe('horizontal');
@@ -421,7 +421,7 @@ describe('Timeline', () => {
             for (const combo of combinations) {
                 component.layout = combo.layout;
                 component.align = combo.align;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -433,7 +433,7 @@ describe('Timeline', () => {
         it('should maintain event structure regardless of layout', async () => {
             // Test vertical layout
             component.layout = 'vertical';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -443,7 +443,7 @@ describe('Timeline', () => {
 
             // Test horizontal layout
             component.layout = 'horizontal';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -464,7 +464,7 @@ describe('Timeline', () => {
 
         it('should apply custom style class', async () => {
             component.styleClass = 'my-custom-timeline';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -494,7 +494,7 @@ describe('Timeline', () => {
 
         it('should handle multiple CSS classes', async () => {
             component.styleClass = 'class1 class2 class3';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -527,7 +527,7 @@ describe('Timeline', () => {
             component.events = malformedEvents;
 
             await expect(async () => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
             }).not.toThrow();
@@ -548,7 +548,7 @@ describe('Timeline', () => {
             const startTime = performance.now();
 
             component.events = largeEventSet;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             const endTime = performance.now();
@@ -565,7 +565,7 @@ describe('Timeline', () => {
 
             for (const dataset of datasets) {
                 component.events = dataset;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -581,7 +581,7 @@ describe('Timeline', () => {
             component.events = specialEvents;
 
             await expect(async () => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
             }).not.toThrow();
@@ -647,7 +647,7 @@ describe('Timeline', () => {
 
         it('should not create memory leaks on destroy', async () => {
             component.events = [{ status: 'Test Event', date: '20/10/2020', icon: 'pi pi-info' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -769,7 +769,7 @@ describe('Timeline', () => {
 
             // Update events
             component.events = [{ status: 'New Event' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -780,19 +780,19 @@ describe('Timeline', () => {
 
         it('should reflect input property changes immediately', async () => {
             component.align = 'right';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(timeline.align()).toBe('right');
 
             component.layout = 'horizontal';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(timeline.layout()).toBe('horizontal');
 
             component.styleClass = 'new-style';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(timeline.styleClass()).toBe('new-style');
@@ -805,7 +805,7 @@ describe('Timeline', () => {
             component.styleClass = 'concurrent-test';
             component.events = [{ status: 'Concurrent Test 1' }, { status: 'Concurrent Test 2' }];
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 

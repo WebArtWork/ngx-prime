@@ -163,7 +163,7 @@ describe('Toast', () => {
             component.position = 'bottom-left';
             component.preventOpenDuplicates = true;
             component.preventDuplicates = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -235,7 +235,7 @@ describe('Toast', () => {
 
         it('should prevent open duplicates when enabled', async () => {
             component.preventOpenDuplicates = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -254,7 +254,7 @@ describe('Toast', () => {
 
         it('should prevent duplicates when enabled', async () => {
             component.preventDuplicates = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -453,7 +453,7 @@ describe('Toast', () => {
 
         it('should apply position class', async () => {
             component.position = 'bottom-center';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -470,7 +470,7 @@ describe('Toast', () => {
             expect(toastInstance.position()).toBe('top-left');
 
             component.position = 'bottom-right';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -568,7 +568,7 @@ describe('Toast', () => {
             closeButton.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -651,7 +651,7 @@ describe('Toast', () => {
 
         it('should apply custom style classes', async () => {
             component.styleClass = 'custom-toast-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -666,7 +666,7 @@ describe('Toast', () => {
                 '640px': { width: '90vw' },
                 '768px': { width: '70vw' }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -741,7 +741,7 @@ describe('Toast', () => {
 
         it('should handle messages without keys', async () => {
             component.key = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -804,7 +804,7 @@ describe('Toast', () => {
 
         it('should destroy custom styles on component destroy', async () => {
             component.breakpoints = { '640px': { width: '90vw' } };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -865,7 +865,7 @@ describe('Toast', () => {
 
         it('should apply pt host class', async () => {
             component.pt = { host: 'HOST_CLASS' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -876,7 +876,7 @@ describe('Toast', () => {
 
         it('should apply pt root class', async () => {
             component.pt = { root: 'ROOT_CLASS' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -918,7 +918,7 @@ describe('Toast', () => {
                     'data-p-test': true
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -937,7 +937,7 @@ describe('Toast', () => {
                     'aria-label': 'TOAST_CONTAINER'
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -981,7 +981,7 @@ describe('Toast', () => {
                 },
                 root: 'ROOT_STRING_CLASS'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1028,11 +1028,11 @@ describe('Toast', () => {
                     }
                 })
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             // Trigger ngAfterViewChecked for hostDirective Bind
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1052,7 +1052,7 @@ describe('Toast', () => {
                     }
                 })
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1096,7 +1096,7 @@ describe('Toast', () => {
                     }
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1119,7 +1119,7 @@ describe('Toast', () => {
                     }
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1292,7 +1292,7 @@ describe('Toast', () => {
                     }
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1310,7 +1310,7 @@ describe('Toast', () => {
                     }
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1328,7 +1328,7 @@ describe('Toast', () => {
                     }
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1348,7 +1348,7 @@ describe('Toast', () => {
                     }
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1372,7 +1372,7 @@ describe('Toast', () => {
                     }
                 }
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1430,7 +1430,7 @@ describe('ToastItem', () => {
             fixture.componentRef.setInput('message', testMessage);
             fixture.componentRef.setInput('index', 0);
             fixture.componentRef.setInput('life', 5000);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1454,7 +1454,7 @@ describe('ToastItem', () => {
             fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
             fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
             fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1543,7 +1543,7 @@ describe('ToastItem', () => {
             fixture.componentRef.setInput('hideTransformOptions', 'translateY(-100%)');
             fixture.componentRef.setInput('showTransitionOptions', '300ms ease-out');
             fixture.componentRef.setInput('hideTransitionOptions', '250ms ease-in');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1586,7 +1586,7 @@ describe('ToastItem', () => {
                 summary: 'Success Message',
                 detail: 'Operation completed successfully'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1606,7 +1606,7 @@ describe('ToastItem', () => {
                     summary: `${severity} message`,
                     detail: 'Test detail'
                 } as any);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -1624,7 +1624,7 @@ describe('ToastItem', () => {
                 detail: 'Message with custom icon',
                 icon: 'pi pi-custom'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1640,7 +1640,7 @@ describe('ToastItem', () => {
                 detail: 'Cannot be closed',
                 closable: false
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1676,7 +1676,7 @@ describe('ToastItem', () => {
 
         it('should have correct close button aria-label', async () => {
             fixture.componentRef.setInput('message', { ...(component.message as any), closable: true });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 

@@ -224,7 +224,7 @@ describe('Avatar', () => {
 
         it('should update label dynamically', async () => {
             component.label = 'AB';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -234,7 +234,7 @@ describe('Avatar', () => {
 
         it('should not display label when undefined', async () => {
             component.label = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -244,7 +244,7 @@ describe('Avatar', () => {
 
         it('should handle empty label', async () => {
             component.label = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -258,7 +258,7 @@ describe('Avatar', () => {
 
         it('should handle long labels', async () => {
             component.label = 'ABCDEFGH';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -289,7 +289,7 @@ describe('Avatar', () => {
 
         it('should update icon dynamically', async () => {
             component.icon = 'pi pi-star';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -300,7 +300,7 @@ describe('Avatar', () => {
 
         it('should not display icon when undefined', async () => {
             component.icon = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -310,7 +310,7 @@ describe('Avatar', () => {
 
         it('should handle icon with multiple classes', async () => {
             component.icon = 'pi pi-user custom-icon';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -346,7 +346,7 @@ describe('Avatar', () => {
 
         it('should update image src dynamically', async () => {
             component.image = '/new/path/avatar.png';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -365,7 +365,7 @@ describe('Avatar', () => {
             const errorEvent = new Event('error');
 
             imageElement.nativeElement.dispatchEvent(errorEvent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.imageError).toBe(errorEvent);
@@ -383,7 +383,7 @@ describe('Avatar', () => {
 
         it('should not display image when undefined', async () => {
             component.image = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -397,7 +397,7 @@ describe('Avatar', () => {
 
         it('should remove p-avatar-image class when image is removed', async () => {
             component.image = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-image')).toBe(false);
@@ -423,7 +423,7 @@ describe('Avatar', () => {
 
         it('should apply large size class', async () => {
             component.size = 'large';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
@@ -432,7 +432,7 @@ describe('Avatar', () => {
 
         it('should apply xlarge size class', async () => {
             component.size = 'xlarge';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-lg')).toBe(false);
@@ -441,18 +441,18 @@ describe('Avatar', () => {
 
         it('should switch between sizes correctly', async () => {
             component.size = 'large';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
 
             component.size = 'xlarge';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(false);
             expect(element.classList.contains('p-avatar-xl')).toBe(true);
 
             component.size = 'normal';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(false);
             expect(element.classList.contains('p-avatar-xl')).toBe(false);
@@ -477,7 +477,7 @@ describe('Avatar', () => {
 
         it('should apply circle shape class', async () => {
             component.shape = 'circle';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-circle')).toBe(true);
@@ -485,12 +485,12 @@ describe('Avatar', () => {
 
         it('should switch between shapes correctly', async () => {
             component.shape = 'circle';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-circle')).toBe(true);
 
             component.shape = 'square';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-circle')).toBe(false);
         });
@@ -514,7 +514,7 @@ describe('Avatar', () => {
 
         it('should update style class dynamically', async () => {
             component.styleClass = 'new-custom-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('new-custom-class')).toBe(true);
@@ -528,7 +528,7 @@ describe('Avatar', () => {
 
         it('should handle multiple custom classes', async () => {
             component.styleClass = 'class1 class2 class3';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('class1')).toBe(true);
@@ -538,7 +538,7 @@ describe('Avatar', () => {
 
         it('should handle undefined style class', async () => {
             component.styleClass = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar')).toBe(true);
@@ -568,7 +568,7 @@ describe('Avatar', () => {
 
         it('should update aria-label dynamically', async () => {
             component.ariaLabel = 'New Label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.getAttribute('aria-label')).toBe('New Label');
@@ -576,7 +576,7 @@ describe('Avatar', () => {
 
         it('should update aria-labelledby dynamically', async () => {
             component.ariaLabelledBy = 'new-label-id';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.getAttribute('aria-labelledby')).toBe('new-label-id');
@@ -585,7 +585,7 @@ describe('Avatar', () => {
         it('should handle undefined aria attributes', async () => {
             component.ariaLabel = undefined as any;
             component.ariaLabelledBy = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // When ariaLabel is undefined, no fallback is used
@@ -633,7 +633,7 @@ describe('Avatar', () => {
             component.label = 'AB';
             component.icon = 'pi pi-user';
             component.image = '/path/to/image.jpg';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -648,7 +648,7 @@ describe('Avatar', () => {
         it('should show label when both label and icon are present', async () => {
             component.label = 'AB';
             component.icon = 'pi pi-user';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -660,7 +660,7 @@ describe('Avatar', () => {
 
         it('should show icon when no label is present', async () => {
             component.icon = 'pi pi-user';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -672,7 +672,7 @@ describe('Avatar', () => {
 
         it('should show image when no label or icon is present', async () => {
             component.image = '/path/to/image.jpg';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -689,7 +689,7 @@ describe('Avatar', () => {
             component.size = 'large';
             component.shape = 'circle';
             component.styleClass = 'custom-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
@@ -716,12 +716,12 @@ describe('Avatar', () => {
 
         it('should keep showing label when icon is added', async () => {
             component.label = 'AB';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('.p-avatar-label'))).toBeTruthy();
 
             component.icon = 'pi pi-user';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('.p-avatar-label'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('.p-avatar-icon'))).toBeFalsy();
@@ -729,7 +729,7 @@ describe('Avatar', () => {
 
         it('should show image only when no label and no icon', async () => {
             component.image = '/path/to/image.jpg';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('img'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('.p-avatar-icon'))).toBeFalsy();
@@ -737,7 +737,7 @@ describe('Avatar', () => {
 
             // Adding icon should hide image
             component.icon = 'pi pi-user';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('.p-avatar-icon'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('img'))).toBeFalsy();
@@ -745,15 +745,15 @@ describe('Avatar', () => {
 
         it('should handle rapid property changes', async () => {
             component.label = 'A';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.label = 'B';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.label = 'C';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -770,7 +770,7 @@ describe('Avatar', () => {
             component.styleClass = undefined as any;
             component.ariaLabel = undefined as any;
             component.ariaLabelledBy = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(avatarComponent.label()).toBeUndefined();
@@ -798,7 +798,7 @@ describe('Avatar', () => {
             component.label = '';
             component.icon = '';
             component.image = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.p-avatar-label'))).toBeFalsy();
@@ -808,7 +808,7 @@ describe('Avatar', () => {
 
         it('should handle whitespace-only label', async () => {
             component.label = '   ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -822,7 +822,7 @@ describe('Avatar', () => {
             component.icon = null as any;
             component.image = null as any;
             component.styleClass = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.p-avatar-label'))).toBeFalsy();
@@ -832,7 +832,7 @@ describe('Avatar', () => {
 
         it('should handle invalid size values', async () => {
             component.size = 'invalid' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should not apply any size classes for invalid values
@@ -842,7 +842,7 @@ describe('Avatar', () => {
 
         it('should handle invalid shape values', async () => {
             component.shape = 'invalid' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should not apply circle class for invalid values
@@ -851,7 +851,7 @@ describe('Avatar', () => {
 
         it('should handle special characters in label', async () => {
             component.label = '<>&"\'';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -861,7 +861,7 @@ describe('Avatar', () => {
 
         it('should handle very long labels', async () => {
             component.label = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -899,7 +899,7 @@ describe('Avatar', () => {
             component.size = 'large';
             component.shape = 'circle';
             component.styleClass = 'custom-1 custom-2';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar')).toBe(true);
@@ -913,12 +913,12 @@ describe('Avatar', () => {
 
         it('should remove p-avatar-image class when image is removed', async () => {
             component.image = '/path/to/image.jpg';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-image')).toBe(true);
 
             component.image = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-image')).toBe(false);
         });
@@ -931,7 +931,7 @@ describe('Avatar', () => {
             // Change to large circle
             component.size = 'large';
             component.shape = 'circle';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
             expect(element.classList.contains('p-avatar-circle')).toBe(true);
@@ -939,7 +939,7 @@ describe('Avatar', () => {
             // Change to xlarge square
             component.size = 'xlarge';
             component.shape = 'square';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(false);
             expect(element.classList.contains('p-avatar-xl')).toBe(true);
@@ -960,7 +960,7 @@ describe('Avatar', () => {
 
             it('should apply string class to host section', async () => {
                 fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(element.classList.contains('HOST_CLASS')).toBe(true);
@@ -968,7 +968,7 @@ describe('Avatar', () => {
 
             it('should apply string class to root section', async () => {
                 fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(element.classList.contains('ROOT_CLASS')).toBe(true);
@@ -976,7 +976,7 @@ describe('Avatar', () => {
 
             it('should apply string class to label section', async () => {
                 fixture.componentRef.setInput('pt', { label: 'LABEL_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -988,7 +988,7 @@ describe('Avatar', () => {
                 fixture.componentRef.setInput('label', undefined);
                 fixture.componentRef.setInput('icon', 'pi pi-user');
                 fixture.componentRef.setInput('pt', { icon: 'ICON_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -1000,7 +1000,7 @@ describe('Avatar', () => {
                 fixture.componentRef.setInput('label', undefined);
                 fixture.componentRef.setInput('image', '/path/to/image.jpg');
                 fixture.componentRef.setInput('pt', { image: 'IMAGE_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const imageElement = fixture.debugElement.query(By.css('img'));
@@ -1028,7 +1028,7 @@ describe('Avatar', () => {
                         'aria-label': 'TEST_ARIA_LABEL'
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(element.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
@@ -1046,7 +1046,7 @@ describe('Avatar', () => {
                         'aria-hidden': 'true'
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -1060,7 +1060,7 @@ describe('Avatar', () => {
             it('should apply object with class, style, data and aria attributes to icon', async () => {
                 fixture.componentRef.setInput('label', undefined);
                 fixture.componentRef.setInput('icon', 'pi pi-user');
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
                     icon: {
@@ -1070,7 +1070,7 @@ describe('Avatar', () => {
                         'aria-hidden': 'false'
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -1084,7 +1084,7 @@ describe('Avatar', () => {
             it('should apply object with class, style, data and aria attributes to image', async () => {
                 fixture.componentRef.setInput('label', undefined);
                 fixture.componentRef.setInput('image', '/path/to/image.jpg');
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
                     image: {
@@ -1094,7 +1094,7 @@ describe('Avatar', () => {
                         'aria-label': 'IMAGE_ARIA_LABEL'
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const imageElement = fixture.debugElement.query(By.css('img'));
@@ -1123,7 +1123,7 @@ describe('Avatar', () => {
                     },
                     label: 'LABEL_MIXED_CLASS'
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(element.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
@@ -1136,14 +1136,14 @@ describe('Avatar', () => {
             it('should apply mixed pt across all sections', async () => {
                 fixture.componentRef.setInput('label', undefined);
                 fixture.componentRef.setInput('icon', 'pi pi-user');
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
                     host: 'HOST_STRING',
                     root: { class: 'ROOT_OBJECT' },
                     icon: 'ICON_STRING'
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(element.classList.contains('HOST_STRING')).toBe(true);
@@ -1167,7 +1167,7 @@ describe('Avatar', () => {
 
             it('should use instance size in pt function for root', async () => {
                 fixture.componentRef.setInput('size', 'large');
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 fixture.componentRef.setInput('pt', {
@@ -1175,7 +1175,7 @@ describe('Avatar', () => {
                         class: instance?.size === 'large' ? 'LARGE_SIZE' : 'NORMAL_SIZE'
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(element.classList.contains('LARGE_SIZE')).toBe(true);
@@ -1183,7 +1183,7 @@ describe('Avatar', () => {
 
             it('should use instance shape in pt function for label', async () => {
                 fixture.componentRef.setInput('shape', 'circle');
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
                     label: ({ instance }: any) => ({
@@ -1192,7 +1192,7 @@ describe('Avatar', () => {
                         }
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -1211,12 +1211,12 @@ describe('Avatar', () => {
                         }
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 // Label has priority, so icon won't show, but we can test with no label
                 fixture.componentRef.setInput('label', undefined);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -1228,14 +1228,14 @@ describe('Avatar', () => {
                 fixture.componentRef.setInput('label', undefined);
                 fixture.componentRef.setInput('image', '/path/to/image.jpg');
                 fixture.componentRef.setInput('ariaLabel', 'Test Avatar');
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
                     image: ({ instance }: any) => ({
                         'data-has-aria': instance?.ariaLabel ? 'true' : 'false'
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const imageElement = fixture.debugElement.query(By.css('img'));
@@ -1264,7 +1264,7 @@ describe('Avatar', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -1284,7 +1284,7 @@ describe('Avatar', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 element.click();
@@ -1298,7 +1298,7 @@ describe('Avatar', () => {
                 let iconClicked = false;
 
                 fixture.componentRef.setInput('icon', 'pi pi-user');
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
                     icon: {
@@ -1307,7 +1307,7 @@ describe('Avatar', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -1331,7 +1331,7 @@ describe('Avatar', () => {
 
                 fixture.componentRef.setInput('label', undefined);
                 fixture.componentRef.setInput('image', '/path/to/image.jpg');
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => {
@@ -1342,7 +1342,7 @@ describe('Avatar', () => {
                         return {};
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(emitterCalled).toBe(true);
@@ -1392,7 +1392,7 @@ describe('Avatar', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(hookCalled).toBe(true);
@@ -1408,7 +1408,7 @@ describe('Avatar', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(hookCalled).toBe(true);
@@ -1424,7 +1424,7 @@ describe('Avatar', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkCount).toBeGreaterThan(0);
@@ -1440,7 +1440,7 @@ describe('Avatar', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.destroy();
 

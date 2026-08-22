@@ -272,7 +272,7 @@ describe('AutoFocus', () => {
 
         it('should remove autofocus attribute when autofocus is false', async () => {
             component.autofocusEnabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.hasAttribute('autofocus')).toBe(false);
@@ -280,7 +280,7 @@ describe('AutoFocus', () => {
 
         it('should set autofocus attribute when autofocus is true', async () => {
             component.autofocusEnabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.hasAttribute('autofocus')).toBe(true);
@@ -290,19 +290,19 @@ describe('AutoFocus', () => {
         it('should update autofocus attribute dynamically', async () => {
             // Initially false
             component.autofocusEnabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.hasAttribute('autofocus')).toBe(false);
 
             // Change to true
             component.autofocusEnabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.hasAttribute('autofocus')).toBe(true);
 
             // Change back to false
             component.autofocusEnabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.hasAttribute('autofocus')).toBe(false);
         });
@@ -494,7 +494,7 @@ describe('AutoFocus', () => {
 
             // Add input element
             component.showInput = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Reset focused state to allow refocusing
@@ -524,7 +524,7 @@ describe('AutoFocus', () => {
 
             // Add button first
             component.showButton = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             directive.focused = false;
 
@@ -539,7 +539,7 @@ describe('AutoFocus', () => {
 
             // Add input (should be focused as first focusable element)
             component.showInput = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             directive.focused = false;
 
@@ -567,7 +567,7 @@ describe('AutoFocus', () => {
 
             // Enable first input autofocus
             component.condition1 = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -580,7 +580,7 @@ describe('AutoFocus', () => {
 
             // Enable second input autofocus
             component.condition2 = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -625,15 +625,15 @@ describe('AutoFocus', () => {
 
             // Rapid changes
             component.autofocusEnabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.autofocusEnabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.autofocusEnabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -695,7 +695,7 @@ describe('AutoFocus', () => {
 
             // Initial state - not focused
             component.autofocusEnabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -704,7 +704,7 @@ describe('AutoFocus', () => {
 
             // Enable autofocus
             component.autofocusEnabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -748,7 +748,7 @@ describe('AutoFocus', () => {
 
             // Open dialog
             component.openDialog();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -780,7 +780,7 @@ describe('AutoFocus', () => {
 
             // Open drawer
             component.openDrawer();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -806,7 +806,7 @@ describe('AutoFocus', () => {
         it('should handle multiple dialog opens/closes correctly', async () => {
             // First dialog open
             component.openDialog();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -823,7 +823,7 @@ describe('AutoFocus', () => {
 
             // Close dialog
             component.closeDialog();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.isDialogVisible).toBe(false);
@@ -831,7 +831,7 @@ describe('AutoFocus', () => {
 
             // Open dialog again
             component.openDialog();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -851,7 +851,7 @@ describe('AutoFocus', () => {
             component.shouldAutoFocus = true;
             component.textareaAutoFocus = false;
             component.openDialog();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -873,7 +873,7 @@ describe('AutoFocus', () => {
             // Switch to textarea
             component.shouldAutoFocus = false;
             component.textareaAutoFocus = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Reset focused states to allow refocusing
@@ -894,7 +894,7 @@ describe('AutoFocus', () => {
             component.shouldAutoFocus = false;
             component.textareaAutoFocus = false;
             component.openDialog();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
@@ -927,16 +927,16 @@ describe('AutoFocus', () => {
         it('should work with rapid dialog open/close operations', async () => {
             // Rapid open/close operations
             component.openDialog();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 
             component.closeDialog();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.openDialog();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 10));
 

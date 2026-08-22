@@ -53,7 +53,7 @@ describe('SelectButton', () => {
             fixture.componentRef.setInput('allowEmpty', false);
             fixture.componentRef.setInput('styleClass', 'custom-class');
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -81,7 +81,7 @@ describe('SelectButton', () => {
                 { label: 'Option 2', value: 'opt2' },
                 { label: 'Option 3', value: 'opt3', disabled: true }
             ]);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -310,7 +310,7 @@ describe('SelectButton', () => {
             ]);
             component.value = { id: 1, label: 'Option 1' };
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -323,7 +323,7 @@ describe('SelectButton', () => {
                 { label: 'Option 1', value: 'opt1' },
                 { label: 'Option 2', value: 'opt2' }
             ]);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -359,7 +359,7 @@ describe('SelectButton', () => {
                 { label: 'Option 1', value: 'opt1' },
                 { label: 'Option 2', value: 'opt2' }
             ]);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             // Mock the disabled state by creating a spy
             spyOn(component, '$disabled').and.returnValue(true);
@@ -388,7 +388,7 @@ describe('SelectButton', () => {
                 { label: 'Option 2', value: 'opt2' },
                 { label: 'Option 3', value: 'opt3' }
             ]);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -698,7 +698,7 @@ describe('SelectButton PassThrough Tests', () => {
         fixture = TestBed.createComponent(SelectButton);
         component = fixture.componentInstance;
         fixture.componentRef.setInput('options', ['One-Way', 'Return']);
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         hostElement = fixture.nativeElement;
     });
@@ -813,7 +813,7 @@ describe('SelectButton PassThrough Tests', () => {
     describe('PT Case 4: Use variables from instance', () => {
         it('should access instance variables in PT function', async () => {
             component.value = 'One-Way';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.componentRef.setInput('pt', {
                 root: ({ instance }: any) => ({
@@ -827,7 +827,7 @@ describe('SelectButton PassThrough Tests', () => {
 
         it('should conditionally apply styles based on instance state', async () => {
             component.value = 'Return';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.componentRef.setInput('pt', {
                 root: ({ instance }: any) => ({
@@ -844,7 +844,7 @@ describe('SelectButton PassThrough Tests', () => {
         it('should access multiple instance properties', async () => {
             component.value = 'One-Way';
             fixture.componentRef.setInput('multiple', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.componentRef.setInput('pt', {
                 root: ({ instance }: any) => ({

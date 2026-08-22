@@ -856,7 +856,7 @@ describe('ColorPicker', () => {
             const fixture = TestBed.createComponent(ColorPicker);
 
             fixture.componentRef.setInput('inline', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -911,7 +911,7 @@ describe('ColorPicker', () => {
             const fixture = TestBed.createComponent(ColorPicker);
 
             fixture.componentRef.setInput('inline', false);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -965,7 +965,7 @@ describe('ColorPicker', () => {
             const fixture = TestBed.createComponent(ColorPicker);
 
             fixture.componentRef.setInput('inline', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -1037,7 +1037,7 @@ describe('ColorPicker', () => {
             const fixture = TestBed.createComponent(ColorPicker);
 
             fixture.componentRef.setInput('inline', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -1107,7 +1107,7 @@ describe('ColorPicker', () => {
 
             fixture.componentRef.setInput('inline', true);
             fixture.componentRef.setInput('format', 'hex');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -1152,7 +1152,7 @@ describe('ColorPicker', () => {
 
             fixture.componentRef.setInput('inline', false);
             fixture.componentRef.setInput('format', 'rgb');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -1167,7 +1167,7 @@ describe('ColorPicker', () => {
 
             // Change format
             fixture.componentRef.setInput('format', 'hsb');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const preview2 = fixture.nativeElement.querySelector('input[type="text"]');
@@ -1202,7 +1202,7 @@ describe('ColorPicker', () => {
 
             fixture.componentRef.setInput('inline', true);
             fixture.componentRef.setInput('disabled', false);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             let rootEl = fixture.nativeElement;
@@ -1216,7 +1216,7 @@ describe('ColorPicker', () => {
 
             // Change to disabled
             fixture.componentRef.setInput('disabled', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             rootEl = fixture.nativeElement;
@@ -1274,7 +1274,7 @@ describe('ColorPicker', () => {
             const fixture = TestBed.createComponent(ColorPicker);
 
             fixture.componentRef.setInput('inline', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -1328,7 +1328,7 @@ describe('ColorPicker', () => {
             const fixture = TestBed.createComponent(ColorPicker);
 
             fixture.componentRef.setInput('inline', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const colorPickerInstance = fixture.componentInstance;
@@ -1377,7 +1377,7 @@ describe('ColorPicker', () => {
             const fixture = TestBed.createComponent(ColorPicker);
 
             fixture.componentRef.setInput('inline', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const colorPickerInstance = fixture.componentInstance;
@@ -1418,7 +1418,7 @@ describe('ColorPicker', () => {
 
             const fixture = TestBed.createComponent(TestInlinePTComponent);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement.querySelector('p-colorpicker');
@@ -1461,7 +1461,7 @@ describe('ColorPicker', () => {
 
             const fixture = TestBed.createComponent(TestInlineObjectPTComponent);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement.querySelector('p-colorpicker');
@@ -1503,7 +1503,7 @@ describe('ColorPicker', () => {
             const fixture = TestBed.createComponent(ColorPicker);
 
             fixture.componentRef.setInput('inline', false);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -1519,7 +1519,7 @@ describe('ColorPicker', () => {
             const colorPicker = fixture.componentInstance;
 
             colorPicker.show();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panel = fixture.nativeElement.querySelector('.p-colorpicker-panel');
@@ -1556,7 +1556,7 @@ describe('ColorPicker', () => {
             const fixture = TestBed.createComponent(ColorPicker);
 
             fixture.componentRef.setInput('inline', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -1606,7 +1606,7 @@ describe('ColorPicker', () => {
                 }
             });
             fixture.componentRef.setInput('inline', true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;
@@ -1654,7 +1654,7 @@ describe('ColorPicker', () => {
 
             const fixture = TestBed.createComponent(TestMultiplePTComponent);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const pickers = fixture.nativeElement.querySelectorAll('p-colorpicker');
@@ -1698,7 +1698,7 @@ describe('ColorPicker', () => {
 
             const fixture = TestBed.createComponent(ColorPicker);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(hooksCalled).toContain('onInit');
@@ -1735,7 +1735,7 @@ describe('ColorPicker', () => {
 
             const fixture = TestBed.createComponent(ColorPicker);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(hooksCalled).toContain('onInit');
@@ -1781,7 +1781,7 @@ describe('ColorPicker', () => {
 
             const fixture = TestBed.createComponent(ColorPicker);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(hooksCalled).toContain('onInit');
@@ -1831,7 +1831,7 @@ describe('ColorPicker', () => {
             fixture.componentRef.setInput('inline', true);
             fixture.componentRef.setInput('format', 'rgb');
             fixture.componentRef.setInput('disabled', false);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootEl = fixture.nativeElement;

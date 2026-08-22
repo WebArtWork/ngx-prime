@@ -116,7 +116,7 @@ describe('ScrollPanel', () => {
 
         it('should accept custom step value', async () => {
             component.step = 10;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -175,7 +175,7 @@ describe('ScrollPanel', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply custom styleClass', async () => {
             component.styleClass = 'my-custom-panel';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -640,7 +640,7 @@ describe('ScrollPanel', () => {
 
             scrollPanel.lastScrollLeft = 50;
             scrollPanel.lastScrollTop = 75;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -708,19 +708,19 @@ describe('ScrollPanel', () => {
 
         it('should handle extreme step values', async () => {
             component.step = 0;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(scrollPanel.step()).toBe(0);
 
             component.step = 1000;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(scrollPanel.step()).toBe(1000);
 
             component.step = -5;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(scrollPanel.step()).toBe(-5);

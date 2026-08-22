@@ -453,7 +453,7 @@ describe('AutoComplete', () => {
         });
 
         it('should render input element', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             const inputElement = fixture.debugElement.query(By.css('input'));
 
@@ -2456,7 +2456,7 @@ describe('AutoComplete', () => {
         beforeEach(async () => {
             fixture = TestBed.createComponent(AutoComplete);
             fixture.componentRef.setInput('suggestions', mockCountries);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             autocompleteElement = fixture.nativeElement;
         });
@@ -2465,7 +2465,7 @@ describe('AutoComplete', () => {
             it('should apply dropdown class from pt', async () => {
                 fixture.componentRef.setInput('dropdown', true);
                 fixture.componentRef.setInput('pt', { dropdown: 'DROPDOWN_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
@@ -2476,7 +2476,7 @@ describe('AutoComplete', () => {
             it('should apply inputMultiple class from pt in multiple mode', async () => {
                 fixture.componentRef.setInput('multiple', true);
                 fixture.componentRef.setInput('pt', { inputMultiple: 'INPUT_MULTIPLE_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
@@ -2488,7 +2488,7 @@ describe('AutoComplete', () => {
                 fixture.componentRef.setInput('multiple', true);
                 fixture.componentRef.setInput('pt', { chipItem: 'CHIP_ITEM_CLASS' });
                 fixture.componentInstance.writeValue([mockCountries[0], mockCountries[1]]);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const chipItems = autocompleteElement.querySelectorAll('li');
@@ -2507,7 +2507,7 @@ describe('AutoComplete', () => {
                         style: { 'border-radius': '5px' }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
@@ -2524,7 +2524,7 @@ describe('AutoComplete', () => {
                         'data-test-id': 'multiple-container'
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const inputMultiple = autocompleteElement.querySelector('ul[role="listbox"]') as HTMLElement;
@@ -2537,7 +2537,7 @@ describe('AutoComplete', () => {
         describe('Case 3: PT with component references', () => {
             it('should apply pcInputText pt to nested InputText component', async () => {
                 fixture.componentRef.setInput('pt', { pcInputText: { root: 'PC_INPUT_CLASS' } });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const input = autocompleteElement.querySelector('input') as HTMLInputElement;
@@ -2563,7 +2563,7 @@ describe('AutoComplete', () => {
                 fixture.componentRef.setInput('multiple', true);
                 fixture.componentRef.setInput('pt', { pcChip: { root: 'PC_CHIP_CLASS' } });
                 fixture.componentInstance.writeValue([mockCountries[0]]);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const chip = autocompleteElement.querySelector('p-chip') as HTMLElement;
@@ -2631,7 +2631,7 @@ describe('AutoComplete', () => {
             it('should apply listContainer class from pt', async () => {
                 fixture.componentRef.setInput('suggestions', mockCountries);
                 fixture.componentRef.setInput('pt', { listContainer: 'LIST_CONTAINER_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 // Open overlay
@@ -2647,7 +2647,7 @@ describe('AutoComplete', () => {
                 fixture.componentRef.setInput('suggestions', []);
                 fixture.componentRef.setInput('showEmptyMessage', true);
                 fixture.componentRef.setInput('pt', { emptyMessage: 'EMPTY_MESSAGE_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 // Open overlay
@@ -2669,7 +2669,7 @@ describe('AutoComplete', () => {
                         'data-dropdown': instance?.dropdown?.()
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
@@ -2741,7 +2741,7 @@ describe('AutoComplete', () => {
                     pcInputText: { root: 'INPUT_MULTI' }
                 });
                 fixture.componentInstance.writeValue([mockCountries[0]]);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('button') as HTMLButtonElement;
@@ -2762,7 +2762,7 @@ describe('AutoComplete', () => {
                         'data-has-suggestions': instance?.suggestions?.()?.length > 0
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const dropdownButton = autocompleteElement.querySelector('[data-pc-section="dropdown"]') as HTMLButtonElement;

@@ -339,7 +339,7 @@ describe('ConfirmDialog', () => {
     describe('Input Properties', () => {
         it('should update header property', async () => {
             component.header = 'Updated Header';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.header()).toBe('Updated Header');
@@ -347,7 +347,7 @@ describe('ConfirmDialog', () => {
 
         it('should update message property', async () => {
             component.message = 'Updated message';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.message()).toBe('Updated message');
@@ -355,7 +355,7 @@ describe('ConfirmDialog', () => {
 
         it('should update icon property', async () => {
             component.icon = 'pi pi-info';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.icon()).toBe('pi pi-info');
@@ -363,7 +363,7 @@ describe('ConfirmDialog', () => {
 
         it('should update visible property', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.visible()).toBe(true);
@@ -371,7 +371,7 @@ describe('ConfirmDialog', () => {
 
         it('should update position property', async () => {
             component.position = 'top';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.position()).toBe('top');
@@ -380,7 +380,7 @@ describe('ConfirmDialog', () => {
         it('should update style and styleClass properties', async () => {
             component.style = { width: '400px' };
             component.styleClass = 'custom-dialog';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.style()).toEqual({ width: '400px' });
@@ -392,7 +392,7 @@ describe('ConfirmDialog', () => {
             component.rejectLabel = 'Reject';
             component.acceptIcon = 'pi pi-check';
             component.rejectIcon = 'pi pi-times';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.acceptLabel()).toBe('Accept');
@@ -404,7 +404,7 @@ describe('ConfirmDialog', () => {
         it('should update button visibility properties', async () => {
             component.acceptVisible = false;
             component.rejectVisible = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.acceptVisible()).toBe(false);
@@ -414,7 +414,7 @@ describe('ConfirmDialog', () => {
         it('should update button style class properties', async () => {
             component.acceptButtonStyleClass = 'custom-accept';
             component.rejectButtonStyleClass = 'custom-reject';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.acceptButtonStyleClass()).toBe('custom-accept');
@@ -425,7 +425,7 @@ describe('ConfirmDialog', () => {
             component.acceptAriaLabel = 'Accept action';
             component.rejectAriaLabel = 'Reject action';
             component.closeAriaLabel = 'Close dialog';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.acceptAriaLabel()).toBe('Accept action');
@@ -438,7 +438,7 @@ describe('ConfirmDialog', () => {
             component.dismissableMask = true;
             component.blockScroll = false;
             component.draggable = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.closeOnEscape()).toBe(false);
@@ -451,12 +451,12 @@ describe('ConfirmDialog', () => {
     describe('Event Handling', () => {
         it('should emit onHide event', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             confirmDialogInstance.onReject();
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.hideEvent).toBeDefined();
@@ -485,7 +485,7 @@ describe('ConfirmDialog', () => {
         it('should display accept button when acceptVisible is true', async () => {
             component.visible = true;
             component.acceptVisible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -497,7 +497,7 @@ describe('ConfirmDialog', () => {
         it('should hide accept button when acceptVisible is false', async () => {
             component.visible = true;
             component.acceptVisible = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -510,7 +510,7 @@ describe('ConfirmDialog', () => {
         it('should display reject button when rejectVisible is true', async () => {
             component.visible = true;
             component.rejectVisible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -522,7 +522,7 @@ describe('ConfirmDialog', () => {
         it('should hide reject button when rejectVisible is false', async () => {
             component.visible = true;
             component.rejectVisible = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -904,7 +904,7 @@ describe('ConfirmDialog', () => {
         it('should handle focus management', async () => {
             component.visible = true;
             component.defaultFocus = 'accept';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -914,7 +914,7 @@ describe('ConfirmDialog', () => {
 
         it('should have proper focus trap behavior', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -928,7 +928,7 @@ describe('ConfirmDialog', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply correct default classes', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -939,7 +939,7 @@ describe('ConfirmDialog', () => {
 
         it('should apply custom styleClass', async () => {
             component.styleClass = 'my-custom-dialog';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.styleClass()).toBe('my-custom-dialog');
@@ -964,7 +964,7 @@ describe('ConfirmDialog', () => {
             component.visible = true;
             component.draggable = false;
             component.blockScroll = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const dialog = fixture.debugElement.query(By.directive(Dialog));
@@ -997,7 +997,7 @@ describe('ConfirmDialog', () => {
             component.header = '';
             component.message = '';
             component.icon = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmDialogInstance.header()).toBe('' as any);
@@ -1009,29 +1009,29 @@ describe('ConfirmDialog', () => {
             component.header = undefined as any;
             component.message = undefined as any;
             component.icon = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             }).not.toThrow();
         });
 
         it('should handle rapid visibility changes', async () => {
             // Rapid visibility state changes
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             component.visible = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(() => {
                 component.visible = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             }).not.toThrow();
         });
     });

@@ -297,7 +297,7 @@ describe('Rating', () => {
 
         it('should update visual state when value changes', async () => {
             component.value = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -354,7 +354,7 @@ describe('Rating', () => {
 
         it('should handle readonly state', async () => {
             component.isReadonly = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -373,7 +373,7 @@ describe('Rating', () => {
 
         it('should handle disabled state', async () => {
             component.isDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -474,7 +474,7 @@ describe('Rating', () => {
 
         it('should reflect invalid state', async () => {
             component.isInvalid = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(ratingInstance.invalid()).toBe(true);
@@ -518,7 +518,7 @@ describe('Rating', () => {
 
         it('should render custom on icon template', async () => {
             component.value = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -536,7 +536,7 @@ describe('Rating', () => {
 
         it('should render custom off icon template', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -572,7 +572,7 @@ describe('Rating', () => {
             component.iconOnClass = 'pi pi-heart-fill';
             component.iconOffClass = 'pi pi-heart';
             component.value = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -588,7 +588,7 @@ describe('Rating', () => {
             component.iconOnStyle = { color: 'gold', fontSize: '20px' };
             component.iconOffStyle = { color: 'gray', fontSize: '20px' };
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -709,7 +709,7 @@ describe('Rating', () => {
 
         it('should handle null value', async () => {
             component.value = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -722,7 +722,7 @@ describe('Rating', () => {
 
         it('should handle value greater than stars', async () => {
             component.value = 10;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -736,7 +736,7 @@ describe('Rating', () => {
 
         it('should handle negative value', async () => {
             component.value = -1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -787,7 +787,7 @@ describe('Rating', () => {
         it('should prevent interaction when disabled and readonly are both set', async () => {
             component.readonly = true;
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -843,7 +843,7 @@ describe('Rating', () => {
 
             for (let i = 0; i < 50; i++) {
                 component.value = i % 10;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 1));
                 await fixture.whenStable();
@@ -888,7 +888,7 @@ describe('Rating', () => {
         it('should pass context parameters to onicon template', async () => {
             // Set value to 3 - first 3 stars should show onicon
             component.value = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -900,7 +900,7 @@ describe('Rating', () => {
         it('should pass context parameters to officon template', async () => {
             // Set value to 2 - last 3 stars should show officon
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -912,7 +912,7 @@ describe('Rating', () => {
         it('should update templates when value changes', async () => {
             // Initially 3 stars filled
             component.value = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -920,7 +920,7 @@ describe('Rating', () => {
 
             // Change to 1 star filled
             component.value = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -953,7 +953,7 @@ describe('Rating', () => {
 
         it('should apply class context to templates', async () => {
             component.value = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -995,7 +995,7 @@ describe('Rating', () => {
         it('should pass context parameters to onicon template', async () => {
             // Set value to 3 - first 3 hearts should be filled
             component.value = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1007,7 +1007,7 @@ describe('Rating', () => {
         it('should pass context parameters to officon template', async () => {
             // Set value to 2 - last 3 hearts should be empty
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1019,7 +1019,7 @@ describe('Rating', () => {
         it('should update templates when value changes', async () => {
             // Initially 3 hearts filled
             component.value = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1027,7 +1027,7 @@ describe('Rating', () => {
 
             // Change to 1 heart filled
             component.value = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1060,7 +1060,7 @@ describe('Rating', () => {
 
         it('should apply class context to templates', async () => {
             component.value = 3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 

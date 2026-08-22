@@ -426,7 +426,7 @@ describe('Paginator', () => {
         it('should not change page when clicking disabled buttons', async () => {
             // Reset to first page to start clean
             component.first = 0;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // First page - prev should be disabled
@@ -441,7 +441,7 @@ describe('Paginator', () => {
 
             // Move to last page - next should be disabled
             component.first = 90;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const nextButton = fixture.debugElement.query(By.css('.p-paginator-next'));
@@ -1010,7 +1010,7 @@ describe('Paginator', () => {
             expect(paginator.pageLinkSize).toBe(5);
 
             component.pageLinkSize = 7;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.pageLinkSize).toBe(7);
@@ -1018,7 +1018,7 @@ describe('Paginator', () => {
 
         it('should handle styleClass property', async () => {
             component.styleClass = 'custom-paginator-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.styleClass()).toBe('custom-paginator-class');
@@ -1028,7 +1028,7 @@ describe('Paginator', () => {
             expect(paginator.alwaysShow()).toBe(true);
 
             component.alwaysShow = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.alwaysShow()).toBe(false);
@@ -1038,7 +1038,7 @@ describe('Paginator', () => {
             const element = document.createElement('div');
 
             component.dropdownAppendTo = element;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.dropdownAppendTo()).toBe(element);
@@ -1048,7 +1048,7 @@ describe('Paginator', () => {
             expect(paginator.dropdownScrollHeight()).toBe('200px');
 
             component.dropdownScrollHeight = '300px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.dropdownScrollHeight()).toBe('300px');
@@ -1058,7 +1058,7 @@ describe('Paginator', () => {
             const template = 'Page {currentPage} of {totalPages}';
 
             component.currentPageReportTemplate = template;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.currentPageReportTemplate()).toBe(template);
@@ -1066,7 +1066,7 @@ describe('Paginator', () => {
 
         it('should handle showCurrentPageReport property', async () => {
             component.showCurrentPageReport = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.showCurrentPageReport()).toBe(false);
@@ -1076,7 +1076,7 @@ describe('Paginator', () => {
             expect(paginator.showFirstLastIcon()).toBe(true);
 
             component.showFirstLastIcon = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.showFirstLastIcon()).toBe(false);
@@ -1086,7 +1086,7 @@ describe('Paginator', () => {
             expect(paginator.totalRecords()).toBe(100);
 
             component.totalRecords = 200;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.totalRecords()).toBe(200);
@@ -1096,7 +1096,7 @@ describe('Paginator', () => {
             expect(paginator.rows()).toBe(10);
 
             component.rows = 20;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.rows()).toBe(20);
@@ -1106,7 +1106,7 @@ describe('Paginator', () => {
             const options = [5, 10, 20, { showAll: 'All' }];
 
             component.rowsPerPageOptions = options;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.rowsPerPageOptions()).toEqual(options);
@@ -1114,7 +1114,7 @@ describe('Paginator', () => {
 
         it('should handle showJumpToPageDropdown property', async () => {
             component.showJumpToPageDropdown = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.showJumpToPageDropdown()).toBe(true);
@@ -1122,7 +1122,7 @@ describe('Paginator', () => {
 
         it('should handle showJumpToPageInput property', async () => {
             component.showJumpToPageInput = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.showJumpToPageInput()).toBe(true);
@@ -1132,7 +1132,7 @@ describe('Paginator', () => {
             expect(paginator.showPageLinks()).toBe(true);
 
             component.showPageLinks = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.showPageLinks()).toBe(false);
@@ -1140,7 +1140,7 @@ describe('Paginator', () => {
 
         it('should handle locale property', async () => {
             component.locale = 'tr-TR';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.locale()).toBe('tr-TR');
@@ -1159,13 +1159,13 @@ describe('Paginator', () => {
         it('should handle boolean attributes transformation', async () => {
             // Test boolean transformation for alwaysShow
             component.alwaysShow = 'false' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.alwaysShow()).toBe(false);
 
             component.alwaysShow = '' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.alwaysShow()).toBe(true); // empty string should be true
@@ -1174,7 +1174,7 @@ describe('Paginator', () => {
         it('should handle number attributes transformation', async () => {
             // Test number transformation for pageLinkSize
             component.pageLinkSize = '7' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.pageLinkSize()).toBe(7);
@@ -1193,7 +1193,7 @@ describe('Paginator', () => {
             component.totalRecords = 0;
             component.rows = 0;
             component.pageLinkSize = 0;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.totalRecords()).toBe(0);
@@ -1205,7 +1205,7 @@ describe('Paginator', () => {
             component.totalRecords = -10;
             component.rows = -5;
             component.pageLinkSize = -3;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(paginator.totalRecords()).toBe(-10);

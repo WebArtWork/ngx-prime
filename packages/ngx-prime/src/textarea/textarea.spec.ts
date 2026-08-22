@@ -96,7 +96,7 @@ describe('Textarea', () => {
 
             textarea.value = 'test content';
             textarea.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -107,7 +107,7 @@ describe('Textarea', () => {
 
         it('should update textarea value when model changes', async () => {
             component.value = 'new content';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -138,7 +138,7 @@ describe('Textarea', () => {
 
         it('should apply autoResize functionality', async () => {
             component.enableAutoResize = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -146,7 +146,7 @@ describe('Textarea', () => {
 
             // Simulate text input that would require resize
             component.content = 'Line 1\nLine 2\nLine 3\nLine 4\nLine 5';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -157,14 +157,14 @@ describe('Textarea', () => {
 
         it('should apply size variants', async () => {
             component.size = 'large';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(textareaDirective.pSize()).toBe('large');
 
             component.size = 'small';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -173,14 +173,14 @@ describe('Textarea', () => {
 
         it('should apply variant styles', async () => {
             component.variant = 'filled';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(textareaDirective.variant()).toBe('filled');
 
             component.variant = 'outlined';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -203,7 +203,7 @@ describe('Textarea', () => {
 
         it('should emit resize events', async () => {
             component.enableAutoResize = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -211,7 +211,7 @@ describe('Textarea', () => {
 
             // Trigger resize by changing content
             component.content = 'This is a very long text that should trigger resize functionality';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -240,7 +240,7 @@ describe('Textarea', () => {
 
         it('should work with reactive forms', async () => {
             component.textControl.setValue('reactive form content');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -254,7 +254,7 @@ describe('Textarea', () => {
 
             textarea.value = 'user input';
             textarea.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -265,7 +265,7 @@ describe('Textarea', () => {
 
         it('should reflect form control validity', async () => {
             component.textControl.setErrors({ required: true });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -294,7 +294,7 @@ describe('Textarea', () => {
 
         it('should handle empty string values', async () => {
             component.value = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -305,7 +305,7 @@ describe('Textarea', () => {
 
         it('should handle null/undefined values', async () => {
             component.value = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -318,7 +318,7 @@ describe('Textarea', () => {
             const multilineContent = 'Line 1\nLine 2\nLine 3';
 
             component.value = multilineContent;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -350,7 +350,7 @@ describe('Textarea', () => {
         describe('Case 1: Simple string classes', () => {
             it('should apply root class from pt', async () => {
                 component.pt = { root: 'ROOT_CLASS' };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -361,7 +361,7 @@ describe('Textarea', () => {
 
             it('should apply host class from pt', async () => {
                 component.pt = { host: 'HOST_CLASS' };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -381,7 +381,7 @@ describe('Textarea', () => {
                         'aria-label': 'TEST_ARIA_LABEL'
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -401,7 +401,7 @@ describe('Textarea', () => {
                         'data-custom': 'custom-value'
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -421,7 +421,7 @@ describe('Textarea', () => {
                     },
                     host: 'HOST_MIXED_CLASS'
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -435,7 +435,7 @@ describe('Textarea', () => {
         describe('Case 4: Use variables from instance', () => {
             it('should access instance.invalid property in PT callback', async () => {
                 component.invalid = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -454,7 +454,7 @@ describe('Textarea', () => {
                         };
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -465,7 +465,7 @@ describe('Textarea', () => {
 
             it('should access instance.autoResize property in PT callback', async () => {
                 component.autoResize = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -484,7 +484,7 @@ describe('Textarea', () => {
                         };
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -495,7 +495,7 @@ describe('Textarea', () => {
 
             it('should use instance properties for conditional styling', async () => {
                 component.invalid = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -506,7 +506,7 @@ describe('Textarea', () => {
                         } as any
                     })
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -527,7 +527,7 @@ describe('Textarea', () => {
                         }
                     })
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -547,7 +547,7 @@ describe('Textarea', () => {
                         }
                     })
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -694,7 +694,7 @@ describe('Textarea', () => {
                         }
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -714,7 +714,7 @@ describe('Textarea', () => {
                         }
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));

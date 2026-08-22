@@ -137,7 +137,7 @@ describe('InputGroup', () => {
 
         it('should update styleClass dynamically', async () => {
             component.customClass = 'new-custom-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const inputGroupInstance = fixture.debugElement.query(By.directive(InputGroup)).componentInstance;
@@ -182,7 +182,7 @@ describe('InputGroup', () => {
         it('should update addon styles dynamically', async () => {
             component.addonStyle = { color: 'red' };
             component.addonClass = 'updated-addon';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const addonInstance = fixture.debugElement.query(By.directive(InputGroupAddon)).componentInstance;
@@ -218,7 +218,7 @@ describe('InputGroup', () => {
 
         it('should update input value when model changes', async () => {
             component.username = 'testuser';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
@@ -268,7 +268,7 @@ describe('InputGroup', () => {
 
         it('should handle undefined styleClass', async () => {
             (fixture.componentInstance as any).customClass = undefined;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const inputGroupInstance = fixture.debugElement.query(By.directive(InputGroup)).componentInstance;

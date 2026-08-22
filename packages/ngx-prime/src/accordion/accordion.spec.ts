@@ -177,7 +177,7 @@ describe('Accordion', () => {
             component.collapseIcon = 'pi pi-minus';
             component.transitionOptions = '200ms ease-in';
             component.styleClass = 'custom-accordion';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(accordion.value()).toBe('tab1');
@@ -214,7 +214,7 @@ describe('Accordion', () => {
     describe('Single Selection Mode', () => {
         beforeEach(async () => {
             component.multiple = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -230,7 +230,7 @@ describe('Accordion', () => {
 
         it('should collapse active panel when clicked again', async () => {
             component.value = 'tab1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -262,7 +262,7 @@ describe('Accordion', () => {
     describe('Multiple Selection Mode', () => {
         beforeEach(async () => {
             component.multiple = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -282,7 +282,7 @@ describe('Accordion', () => {
 
         it('should remove panel from value when collapsed', async () => {
             component.value = ['tab1', 'tab2'];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -296,7 +296,7 @@ describe('Accordion', () => {
 
         it('should handle empty array initialization', async () => {
             component.value = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -322,7 +322,7 @@ describe('Accordion', () => {
 
         it('should emit onClose event when panel is closed', async () => {
             component.value = 'tab1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -337,7 +337,7 @@ describe('Accordion', () => {
 
         it('should not emit events when clicking disabled panels', async () => {
             component.tab1Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.openEvent = undefined as any;
@@ -440,7 +440,7 @@ describe('Accordion', () => {
 
         it('should skip disabled panels during navigation', async () => {
             component.tab2Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -491,7 +491,7 @@ describe('Accordion', () => {
     describe('Disabled Panels', () => {
         it('should not expand disabled panels', async () => {
             component.tab1Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -505,7 +505,7 @@ describe('Accordion', () => {
 
         it('should have tabindex -1 when disabled', async () => {
             component.tab1Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -515,7 +515,7 @@ describe('Accordion', () => {
 
         it('should not trigger events for disabled panels', async () => {
             component.tab1Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const spy = spyOn(accordion, 'updateValue');
@@ -530,7 +530,7 @@ describe('Accordion', () => {
     describe('SelectOnFocus', () => {
         it('should not expand panel on focus when selectOnFocus is false', async () => {
             component.selectOnFocus = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -556,7 +556,7 @@ describe('Accordion', () => {
 
         it('should update value correctly in multiple mode', async () => {
             component.multiple = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             accordion.updateValue('tab1');
@@ -572,7 +572,7 @@ describe('Accordion', () => {
         it('should handle updateValue with non-array initial value in multiple mode', async () => {
             component.multiple = true;
             component.value = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             accordion.updateValue('tab1');
@@ -589,7 +589,7 @@ describe('Accordion', () => {
     describe('Accessibility', () => {
         it('should have proper ARIA attributes', async () => {
             component.value = 'tab1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -626,7 +626,7 @@ describe('Accordion', () => {
             });
 
             component.tab1Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(headers[0].nativeElement.getAttribute('tabindex')).toBe('-1');
@@ -637,7 +637,7 @@ describe('Accordion', () => {
     describe('Animation', () => {
         it('should apply transition options', async () => {
             component.transitionOptions = '300ms ease-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -654,7 +654,7 @@ describe('Accordion', () => {
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('false');
 
             component.value = 'tab1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('true');
@@ -665,7 +665,7 @@ describe('Accordion', () => {
         it('should use custom expand/collapse icons', async () => {
             component.expandIcon = 'pi pi-plus';
             component.collapseIcon = 'pi pi-minus';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -757,7 +757,7 @@ describe('Accordion', () => {
     describe('Edge Cases', () => {
         it('should handle null value gracefully', async () => {
             component.value = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(accordion.value()).toBeNull();
@@ -772,7 +772,7 @@ describe('Accordion', () => {
 
         it('should handle undefined value gracefully', async () => {
             component.value = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(accordion.value()).toBeUndefined();
@@ -800,7 +800,7 @@ describe('Accordion', () => {
             component.tab1Disabled = true;
             component.tab2Disabled = true;
             component.tab3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headers = fixture.debugElement.queryAll(By.directive(AccordionHeader));
@@ -816,7 +816,7 @@ describe('Accordion', () => {
         it('should handle empty accordion', async () => {
             // Test empty accordion by clearing panels
             component.value = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Ensure accordion instance exists and has no active panels
@@ -900,7 +900,7 @@ describe('Accordion', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply custom style class', async () => {
             component.styleClass = 'custom-accordion';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const accordionElement = accordionEl.nativeElement;
@@ -932,7 +932,7 @@ describe('Accordion', () => {
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('false');
 
             component.value = 'tab1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('true');
@@ -944,7 +944,7 @@ describe('Accordion', () => {
             expect(panels[0].nativeElement.getAttribute('data-p-disabled')).toBe('false');
 
             component.tab1Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panels[0].nativeElement.getAttribute('data-p-disabled')).toBe('true');

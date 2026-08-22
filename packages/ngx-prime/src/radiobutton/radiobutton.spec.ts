@@ -298,7 +298,7 @@ describe('RadioButton', () => {
 
         it('should update checked state when model value changes', async () => {
             component.selectedValue = 'option1';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -307,7 +307,7 @@ describe('RadioButton', () => {
             expect(radioInstance.checked).toBe(true);
 
             component.selectedValue = 'other';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -378,7 +378,7 @@ describe('RadioButton', () => {
 
         it('should update group when model changes', async () => {
             component.selectedOption = 'option3';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -440,7 +440,7 @@ describe('RadioButton', () => {
 
         it('should reflect invalid state', async () => {
             component.isInvalid = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             radioInstances.forEach((instance) => {
@@ -507,7 +507,7 @@ describe('RadioButton', () => {
             expect(radioInstance.$variant()).toBe('filled');
 
             component.variant = 'outlined';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(radioInstance.$variant()).toBe('outlined');
@@ -520,7 +520,7 @@ describe('RadioButton', () => {
             expect(radioInstance.size()).toBe('large');
 
             component.size = 'small';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(radioInstance.size()).toBe('small');
@@ -528,7 +528,7 @@ describe('RadioButton', () => {
 
         it('should handle autofocus property', async () => {
             component.autofocus = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(radioInstance.autofocus()).toBe(true);
@@ -550,7 +550,7 @@ describe('RadioButton', () => {
 
             component.radioValue = objectValue;
             component.selectedValue = objectValue;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -595,7 +595,7 @@ describe('RadioButton', () => {
 
         it('should handle boolean values in binary mode', async () => {
             component.binaryValue = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -604,7 +604,7 @@ describe('RadioButton', () => {
             expect(radioInstance.checked).toBe(true);
 
             component.binaryValue = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -689,7 +689,7 @@ describe('RadioButton', () => {
 
         it('should handle null/undefined values', async () => {
             component.selectedValue = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -698,7 +698,7 @@ describe('RadioButton', () => {
             expect(radioInstance.checked).toBe(false);
 
             component.selectedValue = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -710,7 +710,7 @@ describe('RadioButton', () => {
         it('should handle empty string values', async () => {
             component.radioValue = '';
             component.selectedValue = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -722,7 +722,7 @@ describe('RadioButton', () => {
         it('should handle number values', async () => {
             component.radioValue = 123;
             component.selectedValue = 123;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -731,7 +731,7 @@ describe('RadioButton', () => {
             expect(radioInstance.checked).toBe(true);
 
             component.selectedValue = 456;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));

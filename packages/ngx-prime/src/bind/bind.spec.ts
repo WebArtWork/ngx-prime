@@ -191,7 +191,7 @@ describe('Bind', () => {
                 'data-test': null,
                 'data-value': undefined
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -358,7 +358,7 @@ describe('Bind', () => {
 
             // Update attrs
             component.updateAttrs();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Updated state
@@ -375,7 +375,7 @@ describe('Bind', () => {
                 id: 'test-id',
                 'data-test': 'test-value'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -387,7 +387,7 @@ describe('Bind', () => {
                 id: 'test-id',
                 'data-test': null
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.hasAttribute('data-test')).toBe(false);
@@ -409,7 +409,7 @@ describe('Bind', () => {
                 class: 'set-class',
                 'data-test': 'test-value'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.getAttribute('id')).toBe('set-id');
@@ -425,7 +425,7 @@ describe('Bind', () => {
                 id: 'input-id',
                 class: 'input-class'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(Bind)).injector.get(Bind);
@@ -435,7 +435,7 @@ describe('Bind', () => {
                 id: 'set-id',
                 class: 'set-class'
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.getAttribute('id')).toBe('set-id');
@@ -449,7 +449,7 @@ describe('Bind', () => {
             const component = fixture.componentInstance;
 
             component.attrs = undefined;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -464,7 +464,7 @@ describe('Bind', () => {
             component.attrs = {
                 id: 'test-id'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -479,7 +479,7 @@ describe('Bind', () => {
             component.attrs = {
                 id: 'test-id'
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Bind)).nativeElement;
@@ -499,15 +499,15 @@ describe('Bind', () => {
 
             // Update multiple times with same classes
             component.attrs = { class: 'test-class another-class' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.attrs = { class: 'test-class another-class' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.attrs = { class: 'test-class another-class' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check that each class appears only once
@@ -532,15 +532,15 @@ describe('Bind', () => {
 
             // Update multiple times with same event listener
             component.attrs = { onclick: clickHandler };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.attrs = { onclick: clickHandler };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.attrs = { onclick: clickHandler };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Trigger click event
@@ -565,7 +565,7 @@ describe('Bind', () => {
                 component.attrs = {
                     class: isActive() ? 'active' : 'inactive'
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }
 

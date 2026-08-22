@@ -1476,7 +1476,7 @@ describe('Listbox pTemplate Tests', () => {
                 listboxComponent.ngAfterContentInit();
             }
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(listboxComponent).toBeTruthy();
@@ -1490,7 +1490,7 @@ describe('Listbox pTemplate Tests', () => {
                 listboxComponent.ngAfterViewInit();
             }
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(listboxComponent).toBeTruthy();
@@ -1675,7 +1675,7 @@ describe('Listbox #template Reference Tests', () => {
                 listboxComponent.ngAfterContentInit();
             }
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(listboxComponent).toBeTruthy();
@@ -1689,7 +1689,7 @@ describe('Listbox #template Reference Tests', () => {
                 listboxComponent.ngAfterViewInit();
             }
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(listboxComponent).toBeTruthy();
@@ -1754,7 +1754,7 @@ describe('Listbox #template Reference Tests', () => {
         });
 
         it('should verify template context parameters are properly passed', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check if templates receive proper context
@@ -1879,9 +1879,9 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
         });
 
         it('should render ViewChild elements correctly', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100)); // Wait for async options
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const container = fixture.debugElement.query(By.css('.p-listbox'));
@@ -1901,9 +1901,9 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 { name: 'Test Item 1', id: 'test1', active: true },
                 { name: 'Test Item 2', id: 'test2', active: false }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check that function is being used
@@ -1914,9 +1914,9 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
         });
 
         it('should handle optionValue as function', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             void listboxElement.componentInstance;
@@ -1930,9 +1930,9 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 { name: 'Test Item 1', id: 'test1', active: true },
                 { name: 'Test Item 2', id: 'test2', active: false }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check that function is being used
@@ -1945,12 +1945,12 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
     describe('Dynamic Property Updates', () => {
         it('should handle signal-based scroll height updates', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(component.scrollHeightSignal()).toBe('400px');
 
             component.updateScrollHeight();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.scrollHeightSignal()).toBe('600px');
@@ -1961,7 +1961,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
             listboxComponent.emptyMessage = 'No items found';
             listboxComponent.emptyFilterMessage = 'No filtered results';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(listboxComponent.emptyMessage).toBe('No items found');
@@ -1969,13 +1969,13 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
         });
 
         it('should handle dynamic style and styleClass updates', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(component.dynamicStyle).toBeNull();
             expect(component.dynamicStyleClass).toBe('' as any);
 
             component.updateDynamicStyles();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.dynamicStyle).toEqual({ border: '2px solid blue', borderRadius: '8px' });
@@ -1988,9 +1988,9 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 { name: 'Initial 1', id: 'init1', active: true },
                 { name: 'Initial 2', id: 'init2', active: true }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             let initialItems = fixture.debugElement.queryAll(By.css('.p-listbox-option'));
@@ -2004,7 +2004,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 { name: 'Updated 2', id: 'upd2', active: true }
             ];
             await new Promise((resolve) => setTimeout(resolve, 150));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             let updatedItems = fixture.debugElement.queryAll(By.css('.p-listbox-option'));
@@ -2026,9 +2026,9 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 { name: 'Event Test 1', id: 'evt1', active: true },
                 { name: 'Event Test 2', id: 'evt2', active: true }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Test onChange
@@ -2036,7 +2036,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
             if (firstOption) {
                 firstOption.nativeElement.click();
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 expect(component.onChangeHandler).toHaveBeenCalled();
             }
@@ -2048,7 +2048,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 try {
                     filterInput.nativeElement.value = 'test';
                     filterInput.nativeElement.dispatchEvent(new Event('input'));
-                    fixture.changeDetectorRef.markForCheck();
+                    fixture.detectChanges();
                     await fixture.whenStable();
                     expect(component.onFilterHandler).toHaveBeenCalled();
                 } catch {
@@ -2062,7 +2062,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
             if (listbox) {
                 listbox.nativeElement.dispatchEvent(new FocusEvent('focus'));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 expect(component.onFocusHandler).toHaveBeenCalled();
             }
@@ -2070,7 +2070,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             // Test onBlur
             if (listbox) {
                 listbox.nativeElement.dispatchEvent(new FocusEvent('blur'));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 expect(component.onBlurHandler).toHaveBeenCalled();
             }
@@ -2078,7 +2078,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             // Test onDblClick
             if (firstOption) {
                 firstOption.nativeElement.dispatchEvent(new MouseEvent('dblclick'));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 expect(component.onDblClickHandler).toHaveBeenCalled();
             }
@@ -2091,7 +2091,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 { label: 'Item 2', value: 'item2' },
                 { label: 'Item 3', value: 'item3' }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const listboxComponent = fixture.debugElement.query(By.directive(Listbox)).componentInstance;
@@ -2113,7 +2113,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                 { label: 'Item 1', value: 'item1' },
                 { label: 'Item 2', value: 'item2' }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const originalOptions = [...component.options];
@@ -2130,7 +2130,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
 
             listboxComponent.drop(dragDropEvent);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check that items were NOT reordered

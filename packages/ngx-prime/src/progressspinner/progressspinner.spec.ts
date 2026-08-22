@@ -68,7 +68,7 @@ describe('ProgressSpinner', () => {
             component.animationDuration = '1.5s';
             component.ariaLabel = 'Custom loading';
             component.styleClass = 'custom-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(progressSpinnerInstance.strokeWidth()).toBe('4');
@@ -82,49 +82,49 @@ describe('ProgressSpinner', () => {
     describe('Input Properties', () => {
         it('should update strokeWidth input', async () => {
             component.strokeWidth = '3';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressSpinnerInstance.strokeWidth()).toBe('3');
         });
 
         it('should update fill input', async () => {
             component.fill = 'transparent';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressSpinnerInstance.fill()).toBe('transparent');
         });
 
         it('should update animationDuration input', async () => {
             component.animationDuration = '5s';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressSpinnerInstance.animationDuration()).toBe('5s');
         });
 
         it('should update ariaLabel input', async () => {
             component.ariaLabel = 'Processing data';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressSpinnerInstance.ariaLabel()).toBe('Processing data');
         });
 
         it('should update styleClass input', async () => {
             component.styleClass = 'test-spinner';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressSpinnerInstance.styleClass()).toBe('test-spinner');
         });
 
         it('should handle numeric strokeWidth values as strings', async () => {
             component.strokeWidth = '1.5';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressSpinnerInstance.strokeWidth()).toBe('1.5');
         });
 
         it('should handle different time units for animationDuration', async () => {
             component.animationDuration = '500ms';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressSpinnerInstance.animationDuration()).toBe('500ms');
         });
@@ -151,7 +151,7 @@ describe('ProgressSpinner', () => {
 
         it('should apply strokeWidth to circle element', async () => {
             component.strokeWidth = '3';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
@@ -161,7 +161,7 @@ describe('ProgressSpinner', () => {
 
         it('should apply fill to circle element', async () => {
             component.fill = '#ff0000';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
@@ -171,7 +171,7 @@ describe('ProgressSpinner', () => {
 
         it('should apply animationDuration to SVG element', async () => {
             component.animationDuration = '1s';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
@@ -195,7 +195,7 @@ describe('ProgressSpinner', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply styleClass to root element', async () => {
             component.styleClass = 'custom-spinner-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
@@ -228,7 +228,7 @@ describe('ProgressSpinner', () => {
 
         it('should combine multiple CSS classes correctly', async () => {
             component.styleClass = 'class1 class2';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
@@ -257,7 +257,7 @@ describe('ProgressSpinner', () => {
 
         it('should apply aria-label when provided', async () => {
             component.ariaLabel = 'Loading content';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
@@ -267,7 +267,7 @@ describe('ProgressSpinner', () => {
 
         it('should not have aria-label when not provided', async () => {
             component.ariaLabel = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
@@ -289,7 +289,7 @@ describe('ProgressSpinner', () => {
 
         it('should update aria-label dynamically', async () => {
             component.ariaLabel = 'Initial loading';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
@@ -297,7 +297,7 @@ describe('ProgressSpinner', () => {
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Initial loading');
 
             component.ariaLabel = 'Updated loading';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(rootElement.nativeElement.getAttribute('aria-label')).toBe('Updated loading');
         });
@@ -307,7 +307,7 @@ describe('ProgressSpinner', () => {
         it('should handle null/undefined values', async () => {
             component.ariaLabel = undefined as any;
             component.styleClass = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -320,7 +320,7 @@ describe('ProgressSpinner', () => {
             component.fill = '';
             component.animationDuration = '';
             component.ariaLabel = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -332,7 +332,7 @@ describe('ProgressSpinner', () => {
 
         it('should handle zero strokeWidth', async () => {
             component.strokeWidth = '0';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
@@ -342,7 +342,7 @@ describe('ProgressSpinner', () => {
 
         it('should handle very large strokeWidth values', async () => {
             component.strokeWidth = '100';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
@@ -352,7 +352,7 @@ describe('ProgressSpinner', () => {
 
         it('should handle decimal strokeWidth values', async () => {
             component.strokeWidth = '2.5';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const circleElement = fixture.debugElement.query(By.css('circle'));
@@ -362,7 +362,7 @@ describe('ProgressSpinner', () => {
 
         it('should handle very short animation duration', async () => {
             component.animationDuration = '0.1s';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
@@ -372,7 +372,7 @@ describe('ProgressSpinner', () => {
 
         it('should handle very long animation duration', async () => {
             component.animationDuration = '60s';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));
@@ -385,7 +385,7 @@ describe('ProgressSpinner', () => {
 
             for (const color of colorFormats) {
                 component.fill = color;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const circleElement = fixture.debugElement.query(By.css('circle'));
@@ -398,7 +398,7 @@ describe('ProgressSpinner', () => {
             const longLabel = 'This is a very long aria label that describes what is being loaded in great detail';
 
             component.ariaLabel = longLabel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
@@ -408,7 +408,7 @@ describe('ProgressSpinner', () => {
 
         it('should handle special characters in aria-label', async () => {
             component.ariaLabel = 'Loading... 50% complete! @#$%';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressSpinner));
@@ -422,7 +422,7 @@ describe('ProgressSpinner', () => {
             for (const value of values) {
                 component.strokeWidth = value;
                 component.animationDuration = `${value}s`;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const circleElement = fixture.debugElement.query(By.css('circle'));
@@ -437,7 +437,7 @@ describe('ProgressSpinner', () => {
             component.strokeWidth = '999';
             component.fill = 'rgba(255, 255, 255, 0)';
             component.animationDuration = '0.01s';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const svgElement = fixture.debugElement.query(By.css('svg'));

@@ -466,7 +466,7 @@ describe('Fluid', () => {
 
             // Show second section
             component.showSecondSection = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.querySelector('.second-section')).toBeTruthy();
@@ -475,7 +475,7 @@ describe('Fluid', () => {
         it('should handle content visibility changes', async () => {
             // Hide first section
             component.showFirstSection = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.querySelector('.first-section')).toBeFalsy();
@@ -499,7 +499,7 @@ describe('Fluid', () => {
         it('should update dynamic content', async () => {
             // Add new item
             component.dynamicItems.push({ label: 'Item 3', value: 'Value 3' });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const dynamicItems = element.querySelectorAll('.dynamic-item');
@@ -509,7 +509,7 @@ describe('Fluid', () => {
 
         it('should handle empty dynamic content', async () => {
             component.dynamicItems = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const dynamicItems = element.querySelectorAll('.dynamic-item');

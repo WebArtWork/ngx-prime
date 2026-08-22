@@ -222,7 +222,7 @@ describe('Tabs', () => {
             component.selectOnFocus = true;
             component.showNavigators = false;
             component.tabindex = -1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -294,7 +294,7 @@ describe('Tabs', () => {
 
         it('should show active panel content', async () => {
             component.value = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -306,7 +306,7 @@ describe('Tabs', () => {
 
         it('should switch panel content on value change', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -338,7 +338,7 @@ describe('Tabs', () => {
 
         it('should update active tab state', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -358,7 +358,7 @@ describe('Tabs', () => {
 
         it('should check if tab is active', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -381,7 +381,7 @@ describe('Tabs', () => {
     describe('Disabled Tabs', () => {
         it('should disable specific tabs', async () => {
             component.tab3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -392,7 +392,7 @@ describe('Tabs', () => {
 
         it('should not activate disabled tabs', async () => {
             component.tab3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -409,7 +409,7 @@ describe('Tabs', () => {
 
         it('should set correct data attributes for disabled tabs', async () => {
             component.tab3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -420,7 +420,7 @@ describe('Tabs', () => {
 
         it('should set correct ARIA attributes for disabled tabs', async () => {
             component.tab3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -519,7 +519,7 @@ describe('Tabs', () => {
 
         it('should skip disabled tabs in navigation', async () => {
             component.tab3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -541,7 +541,7 @@ describe('Tabs', () => {
     describe('Select On Focus', () => {
         beforeEach(async () => {
             component.selectOnFocus = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -560,7 +560,7 @@ describe('Tabs', () => {
 
         it('should not activate tab on focus when selectOnFocus is disabled', async () => {
             component.selectOnFocus = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -893,7 +893,7 @@ describe('Tabs', () => {
 
         it('should set aria-selected for active tab', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -914,7 +914,7 @@ describe('Tabs', () => {
 
         it('should update tabindex when active tab changes', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -938,7 +938,7 @@ describe('Tabs', () => {
 
         it('should apply active state classes', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -951,7 +951,7 @@ describe('Tabs', () => {
 
         it('should apply disabled state classes', async () => {
             component.tab3Disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -976,7 +976,7 @@ describe('Tabs', () => {
 
         it('should update data attributes on state change', async () => {
             component.value = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -991,7 +991,7 @@ describe('Tabs', () => {
     describe('Edge Cases', () => {
         it('should handle undefined value', async () => {
             component.value = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 

@@ -200,7 +200,7 @@ describe('Image', () => {
             fixture.componentRef.setInput('alt', 'Test Image');
             fixture.componentRef.setInput('width', '300');
             fixture.componentRef.setInput('height', '200');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));

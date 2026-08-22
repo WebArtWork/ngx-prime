@@ -202,7 +202,7 @@ describe('InputOtp', () => {
 
             firstInput.value = '1';
             firstInput.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputOtpInstance.tokens[0]).toBe('1');
@@ -219,7 +219,7 @@ describe('InputOtp', () => {
 
             firstInput.value = '1';
             firstInput.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(secondInput.focus).toHaveBeenCalled();
@@ -238,7 +238,7 @@ describe('InputOtp', () => {
             inputs[3].nativeElement.value = '4';
             inputs[3].nativeElement.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.value).toBe('1234');
@@ -270,7 +270,7 @@ describe('InputOtp', () => {
             const rightArrowEvent = new KeyboardEvent('keydown', { key: 'ArrowRight' });
 
             firstInput.dispatchEvent(rightArrowEvent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(secondInput.focus).toHaveBeenCalled();
@@ -288,7 +288,7 @@ describe('InputOtp', () => {
             const leftArrowEvent = new KeyboardEvent('keydown', { key: 'ArrowLeft' });
 
             secondInput.dispatchEvent(leftArrowEvent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(firstInput.focus).toHaveBeenCalled();
@@ -344,7 +344,7 @@ describe('InputOtp', () => {
 
             spyOn(pasteEvent, 'preventDefault');
             firstInput.dispatchEvent(pasteEvent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(pasteEvent.preventDefault).toHaveBeenCalled();
@@ -365,7 +365,7 @@ describe('InputOtp', () => {
             });
 
             firstInput.dispatchEvent(pasteEvent);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should only take characters up to length
@@ -413,7 +413,7 @@ describe('InputOtp', () => {
 
         it('should enforce integerOnly restriction', async () => {
             component.integerOnly = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const inputs = fixture.debugElement.queryAll(By.css('input'));
@@ -460,7 +460,7 @@ describe('InputOtp', () => {
 
             firstInput.value = '1';
             firstInput.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.changeEvents.length).toBe(1);
@@ -502,7 +502,7 @@ describe('InputOtp', () => {
 
         it('should integrate with reactive forms', async () => {
             component.otpControl.setValue('1234');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputOtpInstance.tokens).toEqual(['1', '2', '3', '4']);
@@ -513,14 +513,14 @@ describe('InputOtp', () => {
             expect(component.otpControl.errors?.['required']).toBe(true);
 
             component.otpControl.setValue('12');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.otpControl.valid).toBe(false);
             expect(component.otpControl.errors?.['minlength']).toBeTruthy();
 
             component.otpControl.setValue('1234');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.otpControl.valid).toBe(true);
@@ -547,13 +547,13 @@ describe('InputOtp', () => {
 
         it('should handle null/undefined values', async () => {
             component.value = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputOtpInstance.tokens).toEqual([]);
 
             component.value = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputOtpInstance.tokens).toEqual([]);
@@ -561,7 +561,7 @@ describe('InputOtp', () => {
 
         it('should handle empty string values', async () => {
             component.value = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputOtpInstance.tokens).toEqual([]);
@@ -595,7 +595,7 @@ describe('InputOtp', () => {
             for (let i = 0; i < 10; i++) {
                 inputs[0].nativeElement.value = i.toString();
                 inputs[0].nativeElement.dispatchEvent(new InputEvent('input', { inputType: 'insertText' }));
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }
 
@@ -637,7 +637,7 @@ describe('InputOtp', () => {
         it('should handle input events through template context', async () => {
             // Test that component can handle value changes
             component.value = '1234';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Value should be updated
@@ -654,7 +654,7 @@ describe('InputOtp', () => {
             }
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             expect(inputOtpInstance).toBeTruthy();
         });
 
@@ -664,7 +664,7 @@ describe('InputOtp', () => {
 
             // Simulate component state changes
             component.value = '12';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.value).toBe('12');
@@ -676,7 +676,7 @@ describe('InputOtp', () => {
             }
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
 
             expect(inputOtpInstance).toBeTruthy();
         });
@@ -687,7 +687,7 @@ describe('InputOtp', () => {
             }
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
 
             expect(inputOtpInstance).toBeTruthy();
         });
@@ -727,7 +727,7 @@ describe('InputOtp', () => {
         it('should handle input events through template context', async () => {
             // Test that component can handle value changes
             component.value = '1234';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Value should be updated
@@ -744,7 +744,7 @@ describe('InputOtp', () => {
             }
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             expect(inputOtpInstance).toBeTruthy();
         });
 
@@ -754,7 +754,7 @@ describe('InputOtp', () => {
 
             // Simulate component state changes
             component.value = '12';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.value).toBe('12');
@@ -766,7 +766,7 @@ describe('InputOtp', () => {
             }
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
 
             expect(inputOtpInstance).toBeTruthy();
         });
@@ -777,7 +777,7 @@ describe('InputOtp', () => {
             }
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
 
             expect(inputOtpInstance).toBeTruthy();
         });

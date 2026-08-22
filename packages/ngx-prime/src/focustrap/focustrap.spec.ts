@@ -242,7 +242,7 @@ describe('FocusTrap', () => {
 
         it('should not create hidden elements when disabled', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check if elements were removed or not created
@@ -271,13 +271,13 @@ describe('FocusTrap', () => {
 
             // Disable
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeFalsy();
 
             // Re-enable
             component.disabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeTruthy();
         });
@@ -407,7 +407,7 @@ describe('FocusTrap', () => {
 
             // Show textarea
             component.showTextarea = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const textarea = element.querySelector('.textarea') as HTMLElement;
@@ -432,7 +432,7 @@ describe('FocusTrap', () => {
         it('should handle removal of focusable elements', async () => {
             // Remove first input
             component.showFirstInput = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.querySelector('.dynamic-first-input')).toBeFalsy();
@@ -460,15 +460,15 @@ describe('FocusTrap', () => {
             // Rapid changes
             component.showTextarea = true;
             component.showCheckbox = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.showFirstInput = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.showTextarea = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should not throw errors and hidden elements should still exist
@@ -479,19 +479,19 @@ describe('FocusTrap', () => {
         it('should handle trap disable/enable with dynamic content', async () => {
             component.showTextarea = true;
             component.showCheckbox = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Disable trap
             component.trapDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeFalsy();
 
             // Re-enable trap with new content
             component.trapDisabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.querySelector('[data-pc-section="firstfocusableelement"]')).toBeTruthy();
@@ -563,7 +563,7 @@ describe('FocusTrap', () => {
 
             // Disable input
             component.inputDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(textInput.disabled).toBe(true);
@@ -584,7 +584,7 @@ describe('FocusTrap', () => {
 
         it('should handle readonly elements', async () => {
             component.textareaReadonly = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const textarea = element.querySelector('.textarea-element') as HTMLTextAreaElement;
@@ -720,7 +720,7 @@ describe('FocusTrap', () => {
 
             // Remove elements
             component.showElements = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(element.querySelector('.conditional-input')).toBeFalsy();
@@ -742,19 +742,19 @@ describe('FocusTrap', () => {
 
             // Rapid disable/enable
             component.trapDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.trapDisabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.trapDisabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             component.trapDisabled = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should have hidden elements after final enable

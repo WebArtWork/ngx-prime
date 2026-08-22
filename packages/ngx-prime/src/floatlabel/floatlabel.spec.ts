@@ -47,7 +47,7 @@ describe('FloatLabel', () => {
 
             fixture = TestBed.createComponent(TestBasicFloatLabelComponent);
             component = fixture.componentInstance;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -86,7 +86,7 @@ describe('FloatLabel', () => {
             fixture = TestBed.createComponent(TestVariantFloatLabelComponent);
             component = fixture.componentInstance;
             floatLabelInstance = fixture.debugElement.query(By.directive(FloatLabel)).componentInstance;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -96,7 +96,7 @@ describe('FloatLabel', () => {
 
         it('should apply variant "in"', async () => {
             component.variant = 'in';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(floatLabelInstance.variant()).toBe('in');
@@ -104,7 +104,7 @@ describe('FloatLabel', () => {
 
         it('should apply variant "on"', async () => {
             component.variant = 'on';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(floatLabelInstance.variant()).toBe('on');
@@ -115,19 +115,19 @@ describe('FloatLabel', () => {
 
             // Test 'in' variant
             component.variant = 'in';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(floatLabelElement.nativeElement.classList.contains('p-floatlabel-in')).toBe(true);
 
             // Test 'on' variant
             component.variant = 'on';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(floatLabelElement.nativeElement.classList.contains('p-floatlabel-on')).toBe(true);
 
             // Test 'over' variant (default)
             component.variant = 'over';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(floatLabelElement.nativeElement.classList.contains('p-floatlabel-over')).toBe(true);
         });
@@ -145,7 +145,7 @@ describe('FloatLabel', () => {
 
             fixture = TestBed.createComponent(TestBasicFloatLabelComponent);
             component = fixture.componentInstance;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -157,7 +157,7 @@ describe('FloatLabel', () => {
 
         it('should update input value when model changes', async () => {
             component.value = 'test value';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));

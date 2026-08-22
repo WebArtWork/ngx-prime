@@ -433,7 +433,7 @@ describe('OrderList', () => {
             component.dragdrop = true;
             component.controlsPosition = 'right';
             component.filterBy = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.header()).toBe('Custom Header');
@@ -522,7 +522,7 @@ describe('OrderList', () => {
 
         it('should not move items when no selection', async () => {
             component.selection = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             const initialOrder = [...component.products];
 
@@ -535,7 +535,7 @@ describe('OrderList', () => {
             // Select items at positions 0, 2, and 4 (first, third, and fifth items)
             // First item (index 0) cannot move up, but others can
             component.selection = [component.products[0], component.products[2], component.products[4]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const initialOrder = [...component.products];
@@ -559,7 +559,7 @@ describe('OrderList', () => {
             // Select items at positions 0, 2, and 4 (first, third, and fifth items)
             // Last item (index 4) cannot move down, but others can
             component.selection = [component.products[0], component.products[2], component.products[4]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const initialOrder = [...component.products];
@@ -582,7 +582,7 @@ describe('OrderList', () => {
         it('should not move items when disabled', async () => {
             component.disabled = true;
             component.selection = [component.products[1]]; // Select second item
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Test that buttons are disabled, not the methods themselves
@@ -593,7 +593,7 @@ describe('OrderList', () => {
 
         it('should check if item is selected', async () => {
             component.selection = [component.products[0], component.products[2]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.isSelected(component.products[0])).toBe(true);
@@ -605,7 +605,7 @@ describe('OrderList', () => {
             expect(orderList.isEmpty()).toBe(false);
 
             component.products = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.isEmpty()).toBe(true);
@@ -620,17 +620,17 @@ describe('OrderList', () => {
         it('should check if move is disabled', async () => {
             // First clear any existing selection from beforeEach
             component.selection = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(orderList.moveDisabled()).toBe(true); // No selection
 
             component.selection = [component.products[0]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(orderList.moveDisabled()).toBeFalsy(); // Has selection
 
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(orderList.moveDisabled()).toBe(true); // Disabled
         });
@@ -659,7 +659,7 @@ describe('OrderList', () => {
 
         it('should reset filter', async () => {
             component.filterBy = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             orderList.filterValue = 'test';
@@ -671,7 +671,7 @@ describe('OrderList', () => {
 
         it('should check if item is visible', async () => {
             component.filterBy = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Without filter, all items should be visible
@@ -866,7 +866,7 @@ describe('OrderList', () => {
 
         it('should enable move buttons when items are selected', async () => {
             component.selection = [component.products[1]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const buttons = fixture.debugElement.queryAll(By.css('button'));
@@ -878,7 +878,7 @@ describe('OrderList', () => {
 
         it('should move items up when clicking move up button', async () => {
             component.selection = [component.products[2]]; // Select Item 3
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const moveUpButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
@@ -891,7 +891,7 @@ describe('OrderList', () => {
 
         it('should move items to top when clicking move top button', async () => {
             component.selection = [component.products[3]]; // Select Item 4
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const moveTopButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovetopbutton"]'));
@@ -905,7 +905,7 @@ describe('OrderList', () => {
 
         it('should move items down when clicking move down button', async () => {
             component.selection = [component.products[1]]; // Select Item 2
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const moveDownButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovedownbutton"]'));
@@ -919,7 +919,7 @@ describe('OrderList', () => {
 
         it('should move items to bottom when clicking move bottom button', async () => {
             component.selection = [component.products[1]]; // Select Item 2
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const moveBottomButton = fixture.debugElement.query(By.css('[data-pc-name="pcmovebottombutton"]'));
@@ -933,7 +933,7 @@ describe('OrderList', () => {
 
         it('should handle multiple item selection', async () => {
             component.selection = [component.products[1], component.products[3]]; // Select Item 2 and Item 4
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const moveUpButton = fixture.debugElement.query(By.css('[data-pc-name="pcmoveupbutton"]'));
@@ -1208,7 +1208,7 @@ describe('OrderList', () => {
 
         it('should handle filter with different match modes', async () => {
             component.filterMatchMode = 'startsWith';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             orderList.filterValue = 'product';
@@ -1219,7 +1219,7 @@ describe('OrderList', () => {
 
         it('should handle filter with locale', async () => {
             component.filterLocale = 'en-US';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             orderList.filterValue = 'PRODUCT';
@@ -1260,7 +1260,7 @@ describe('OrderList', () => {
 
         it('should handle meta key selection', async () => {
             component.metaKeySelection = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.metaKeySelection()).toBe(true);
@@ -1289,7 +1289,7 @@ describe('OrderList', () => {
             component.ariaLabel = 'Product order list';
             component.ariaLabelledBy = 'header-id';
             component.ariaFilterLabel = 'Filter products';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.ariaLabel()).toBe('Product order list');
@@ -1306,7 +1306,7 @@ describe('OrderList', () => {
 
         it('should handle tabindex', async () => {
             component.tabindex = 5;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.tabindex()).toBe(5);
@@ -1314,7 +1314,7 @@ describe('OrderList', () => {
 
         it('should handle autoOptionFocus', async () => {
             component.autoOptionFocus = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.autoOptionFocus()).toBe(false);
@@ -1354,7 +1354,7 @@ describe('OrderList', () => {
 
         it('should handle rapid move operations', async () => {
             component.selection = [component.products[2]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             let moveCount = 0;
@@ -1407,7 +1407,7 @@ describe('OrderList', () => {
         it('should handle concurrent operations', async () => {
             component.selection = [component.products[1]];
             component.filterBy = 'name';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Concurrent move and filter
@@ -1423,7 +1423,7 @@ describe('OrderList', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply custom styleClass', async () => {
             component.styleClass = 'custom-orderlist-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const orderListElement = fixture.debugElement.query(By.css('p-orderlist'));
@@ -1433,7 +1433,7 @@ describe('OrderList', () => {
 
         it('should apply list style', async () => {
             component.listStyle = { height: '400px', border: '1px solid red' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.listStyle()).toEqual({ height: '400px', border: '1px solid red' });
@@ -1442,7 +1442,7 @@ describe('OrderList', () => {
         it('should handle responsive styling', async () => {
             component.responsive = true;
             component.breakpoint = '768px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.responsive()).toBe(true);
@@ -1451,7 +1451,7 @@ describe('OrderList', () => {
 
         it('should apply striped rows', async () => {
             component.stripedRows = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.stripedRows()).toBe(true);
@@ -1459,7 +1459,7 @@ describe('OrderList', () => {
 
         it('should handle controls position', async () => {
             component.controlsPosition = 'right';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(orderList.controlsPosition()).toBe('right');
@@ -1468,7 +1468,7 @@ describe('OrderList', () => {
         it('should apply button styles', async () => {
             component.buttonProps = { severity: 'primary' };
             component.moveUpButtonProps = { size: 'small' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const upButtonProps = orderList.getButtonProps('up');

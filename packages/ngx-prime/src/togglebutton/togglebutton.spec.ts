@@ -217,7 +217,7 @@ describe('ToggleButton', () => {
             component.iconPos = 'right';
             component.tabindex = 5;
             component.ariaLabel = 'Custom Toggle';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -298,7 +298,7 @@ describe('ToggleButton', () => {
 
         it('should not toggle when disabled', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -328,7 +328,7 @@ describe('ToggleButton', () => {
         it('should handle custom labels', async () => {
             component.onLabel = 'Enabled';
             component.offLabel = 'Disabled';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -344,7 +344,7 @@ describe('ToggleButton', () => {
 
         it('should handle disabled property', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -356,7 +356,7 @@ describe('ToggleButton', () => {
 
         it('should handle tabindex property', async () => {
             component.tabindex = -1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -366,7 +366,7 @@ describe('ToggleButton', () => {
         it('should handle disabled state tabindex', async () => {
             // Set disabled through component input property (real usage)
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -380,7 +380,7 @@ describe('ToggleButton', () => {
         it('should handle allowEmpty property', async () => {
             component.allowEmpty = false;
             component.checked = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -392,7 +392,7 @@ describe('ToggleButton', () => {
 
         it('should handle size property', async () => {
             component.size = 'large';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -583,7 +583,7 @@ describe('ToggleButton', () => {
 
         it('should not toggle with keyboard when disabled', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -620,7 +620,7 @@ describe('ToggleButton', () => {
 
         it('should handle aria-label attribute', async () => {
             component.ariaLabel = 'Toggle feature';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -629,7 +629,7 @@ describe('ToggleButton', () => {
 
         it('should handle aria-labelledby attribute', async () => {
             component.ariaLabelledBy = 'toggle-label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -643,7 +643,7 @@ describe('ToggleButton', () => {
         it('should not be focusable when disabled', async () => {
             // Set disabled through component input property (real usage)
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -687,7 +687,7 @@ describe('ToggleButton', () => {
             component.offIcon = undefined as any;
 
             await expect(async () => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
             }).not.toThrow();
@@ -696,7 +696,7 @@ describe('ToggleButton', () => {
         it('should handle empty string labels', async () => {
             component.onLabel = '';
             component.offLabel = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -708,7 +708,7 @@ describe('ToggleButton', () => {
         it('should handle allowEmpty false with initial true state', async () => {
             component.checked = true;
             component.allowEmpty = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -721,7 +721,7 @@ describe('ToggleButton', () => {
         it('should handle programmatic state changes', async () => {
             // Use ngModel to change value programmatically (real usage)
             component.checked = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -735,7 +735,7 @@ describe('ToggleButton', () => {
             expect(toggleButtonInstance.hasOnLabel).toBe(true);
 
             component.onLabel = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -746,7 +746,7 @@ describe('ToggleButton', () => {
             expect(toggleButtonInstance.hasOffLabel).toBe(true);
 
             component.offLabel = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -812,7 +812,7 @@ describe('ToggleButton', () => {
         it('should pass context parameters to icon template', async () => {
             // Initially unchecked
             component.checked = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -826,7 +826,7 @@ describe('ToggleButton', () => {
         it('should pass context parameters to content template', async () => {
             // Initially unchecked
             component.checked = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -834,7 +834,7 @@ describe('ToggleButton', () => {
 
             // Toggle to checked
             component.checked = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -848,7 +848,7 @@ describe('ToggleButton', () => {
         it('should update templates when checked state changes', async () => {
             // Initially unchecked
             component.checked = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -858,7 +858,7 @@ describe('ToggleButton', () => {
 
             // Change to checked
             component.checked = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -869,7 +869,7 @@ describe('ToggleButton', () => {
 
         it('should apply context to templates correctly', async () => {
             component.checked = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -921,7 +921,7 @@ describe('ToggleButton', () => {
         it('should pass context parameters to icon template', async () => {
             // Initially unchecked
             component.checked = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -935,7 +935,7 @@ describe('ToggleButton', () => {
         it('should pass context parameters to content template', async () => {
             // Initially unchecked
             component.checked = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -943,7 +943,7 @@ describe('ToggleButton', () => {
 
             // Toggle to checked
             component.checked = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -957,7 +957,7 @@ describe('ToggleButton', () => {
         it('should update templates when checked state changes', async () => {
             // Initially unchecked
             component.checked = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -967,7 +967,7 @@ describe('ToggleButton', () => {
 
             // Change to checked
             component.checked = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -978,7 +978,7 @@ describe('ToggleButton', () => {
 
         it('should apply context to templates correctly', async () => {
             component.checked = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1205,7 +1205,7 @@ describe('ToggleButton', () => {
 
                 // Change checked state
                 fixture.componentInstance.checked = true;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));

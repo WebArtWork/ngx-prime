@@ -84,7 +84,7 @@ describe('PClass Directive', () => {
         const element = fixture.debugElement.query(By.css('[data-testid="string"]'));
 
         component.stringClass = 'new-class';
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         expect(element.nativeElement.className).toBe('new-class');
@@ -188,7 +188,7 @@ describe('PClass Directive with Signals', () => {
             const element = fixture.debugElement.query(By.css('[data-testid="conditional"]'));
 
             component.toggle1();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const classList = element.nativeElement.className.split(' ');
@@ -209,13 +209,13 @@ describe('PClass Directive with Signals', () => {
 
             // Toggle to true
             component.toggle1();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.nativeElement.className).toContain('bg-primary');
 
             // Toggle back to false
             component.toggle1();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.nativeElement.className).toContain('border-surface');
             expect(element.nativeElement.className).not.toContain('bg-primary');
@@ -242,7 +242,7 @@ describe('PClass Directive with Signals', () => {
             const element = fixture.debugElement.query(By.css('[data-testid="combo"]'));
 
             component.toggle2();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const classList = element.nativeElement.className.split(' ');
@@ -273,21 +273,21 @@ describe('PClass Directive with Signals', () => {
 
             // Toggle to true
             component.toggle2();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.nativeElement.className).toContain('bg-purple-700');
             expect(element.nativeElement.className).toContain('text-white');
 
             // Toggle back to false
             component.toggle2();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.nativeElement.className).toContain('bg-purple-100');
             expect(element.nativeElement.className).toContain('text-purple-800');
 
             // Toggle again to true
             component.toggle2();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(element.nativeElement.className).toContain('bg-purple-700');
             expect(element.nativeElement.className).not.toContain('bg-purple-100');
@@ -301,14 +301,14 @@ describe('PClass Directive with Signals', () => {
 
             // Toggle first signal
             component.toggle1();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(conditionalEl.nativeElement.className).toContain('bg-primary');
             expect(comboEl.nativeElement.className).toContain('bg-purple-100');
 
             // Toggle second signal
             component.toggle2();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(conditionalEl.nativeElement.className).toContain('bg-primary');
             expect(comboEl.nativeElement.className).toContain('bg-purple-700');
@@ -316,7 +316,7 @@ describe('PClass Directive with Signals', () => {
             // Toggle both back
             component.toggle1();
             component.toggle2();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(conditionalEl.nativeElement.className).toContain('border-surface');
             expect(comboEl.nativeElement.className).toContain('bg-purple-100');

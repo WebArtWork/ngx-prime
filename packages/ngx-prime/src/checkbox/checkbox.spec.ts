@@ -1298,7 +1298,7 @@ describe('Checkbox', () => {
         describe('Case 1: Simple string classes', () => {
             it('should apply host class from pt', async () => {
                 fixture.componentRef.setInput('pt', { host: 'HOST_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkboxElement.classList.contains('HOST_CLASS')).toBe(true);
@@ -1306,7 +1306,7 @@ describe('Checkbox', () => {
 
             it('should apply root class from pt', async () => {
                 fixture.componentRef.setInput('pt', { root: 'ROOT_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkboxElement.classList.contains('ROOT_CLASS')).toBe(true);
@@ -1314,7 +1314,7 @@ describe('Checkbox', () => {
 
             it('should apply input class from pt', async () => {
                 fixture.componentRef.setInput('pt', { input: 'INPUT_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputElement.classList.contains('INPUT_CLASS')).toBe(true);
@@ -1322,7 +1322,7 @@ describe('Checkbox', () => {
 
             it('should apply box class from pt', async () => {
                 fixture.componentRef.setInput('pt', { box: 'BOX_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(boxElement.classList.contains('BOX_CLASS')).toBe(true);
@@ -1331,12 +1331,12 @@ describe('Checkbox', () => {
             it('should apply icon class from pt when checked', async () => {
                 fixture.componentRef.setInput('binary', true);
                 fixture.componentRef.setInput('pt', { icon: 'ICON_CLASS' });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 // Check the checkbox programmatically
                 fixture.componentInstance.writeValue(true);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const iconElement = boxElement.querySelector('.p-checkbox-icon') as HTMLElement;
@@ -1357,7 +1357,7 @@ describe('Checkbox', () => {
                         'aria-label': 'TEST_ARIA_LABEL'
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkboxElement.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
@@ -1374,7 +1374,7 @@ describe('Checkbox', () => {
                         'aria-label': 'INPUT_ARIA_LABEL'
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputElement.classList.contains('INPUT_OBJECT_CLASS')).toBe(true);
@@ -1389,7 +1389,7 @@ describe('Checkbox', () => {
                         style: { 'border-radius': '10px' }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(boxElement.classList.contains('BOX_OBJECT_CLASS')).toBe(true);
@@ -1405,7 +1405,7 @@ describe('Checkbox', () => {
                     },
                     input: 'INPUT_MIXED_CLASS'
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkboxElement.classList.contains('ROOT_MIXED_CLASS')).toBe(true);
@@ -1419,7 +1419,7 @@ describe('Checkbox', () => {
                     },
                     box: 'BOX_STRING_MIXED'
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkboxElement.classList.contains('ROOT_OBJECT_MIXED')).toBe(true);
@@ -1436,7 +1436,7 @@ describe('Checkbox', () => {
                         'data-binary': instance?.binary
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkboxElement.classList.contains('INSTANCE_ACCESSED')).toBe(true);
@@ -1452,7 +1452,7 @@ describe('Checkbox', () => {
                         }
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkboxElement.style.opacity).toBe('0.5');
@@ -1467,7 +1467,7 @@ describe('Checkbox', () => {
                         }
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputElement.classList.contains('READONLY_CLASS')).toBe(true);
@@ -1482,7 +1482,7 @@ describe('Checkbox', () => {
                         }
                     })
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(boxElement.style.backgroundColor).toBe('yellow');
@@ -1500,7 +1500,7 @@ describe('Checkbox', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 checkboxElement.click();
@@ -1517,7 +1517,7 @@ describe('Checkbox', () => {
                         }
                     }
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 boxElement.click();
@@ -1559,7 +1559,7 @@ describe('Checkbox', () => {
                     input: 'INPUT_MULTI',
                     box: 'BOX_MULTI'
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkboxElement.classList.contains('HOST_MULTI')).toBe(true);
@@ -1580,7 +1580,7 @@ describe('Checkbox', () => {
                     }),
                     input: 'COMPLEX_INPUT'
                 });
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(checkboxElement.classList.contains('COMPLEX_CLASS')).toBe(true);

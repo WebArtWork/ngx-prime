@@ -214,7 +214,7 @@ describe('Skeleton', () => {
 
         it('should handle rectangle shape', async () => {
             component.shape = 'rectangle';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -223,7 +223,7 @@ describe('Skeleton', () => {
 
         it('should handle circle shape', async () => {
             component.shape = 'circle';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -232,7 +232,7 @@ describe('Skeleton', () => {
 
         it('should handle square shape', async () => {
             component.shape = 'square';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -241,7 +241,7 @@ describe('Skeleton', () => {
 
         it('should handle custom shapes', async () => {
             component.shape = 'custom-shape';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -250,7 +250,7 @@ describe('Skeleton', () => {
 
         it('should apply border radius correctly', async () => {
             component.borderRadius = '10px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -261,7 +261,7 @@ describe('Skeleton', () => {
         it('should handle size property for square elements', async () => {
             component.size = '50px';
             component.shape = 'circle';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -294,7 +294,7 @@ describe('Skeleton', () => {
 
         it('should prioritize size over width/height when size is provided', async () => {
             component.size = '100px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -306,7 +306,7 @@ describe('Skeleton', () => {
             component.size = undefined as any;
             component.width = '300px';
             component.height = '40px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -317,7 +317,7 @@ describe('Skeleton', () => {
         it('should handle percentage values', async () => {
             component.width = '75%';
             component.height = '2em';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -328,7 +328,7 @@ describe('Skeleton', () => {
         it('should handle viewport units', async () => {
             component.width = '50vw';
             component.height = '10vh';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -339,7 +339,7 @@ describe('Skeleton', () => {
         it('should handle rem and em units', async () => {
             component.width = '20rem';
             component.height = '3em';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -363,7 +363,7 @@ describe('Skeleton', () => {
 
         it('should handle wave animation', async () => {
             component.animation = 'wave';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -372,7 +372,7 @@ describe('Skeleton', () => {
 
         it('should handle pulse animation', async () => {
             component.animation = 'pulse';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -381,7 +381,7 @@ describe('Skeleton', () => {
 
         it('should handle none animation', async () => {
             component.animation = 'none';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -390,7 +390,7 @@ describe('Skeleton', () => {
 
         it('should handle custom animation types', async () => {
             component.animation = 'custom-animation';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -434,7 +434,7 @@ describe('Skeleton', () => {
 
         it('should handle undefined styleClass', async () => {
             component.styleClass = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -574,7 +574,7 @@ describe('Skeleton', () => {
 
         it('should update shape dynamically', async () => {
             component.dynamicShape = 'circle';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -583,7 +583,7 @@ describe('Skeleton', () => {
 
         it('should update animation dynamically', async () => {
             component.dynamicAnimation = 'pulse';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -593,7 +593,7 @@ describe('Skeleton', () => {
         it('should update dimensions dynamically', async () => {
             component.dynamicWidth = '250px';
             component.dynamicHeight = '60px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -605,7 +605,7 @@ describe('Skeleton', () => {
 
         it('should update size dynamically', async () => {
             component.dynamicSize = '120px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -616,7 +616,7 @@ describe('Skeleton', () => {
 
         it('should update border radius dynamically', async () => {
             component.dynamicBorderRadius = '15px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -626,7 +626,7 @@ describe('Skeleton', () => {
 
         it('should update styleClass dynamically', async () => {
             component.dynamicStyleClass = 'new-style';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -887,7 +887,7 @@ describe('Skeleton', () => {
 
             // Hide skeletons
             component.showSkeletons = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -897,7 +897,7 @@ describe('Skeleton', () => {
 
             // Show skeletons again
             component.showSkeletons = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1146,7 +1146,7 @@ describe('Skeleton', () => {
                     }
                 })
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             fixture.detectChanges();
@@ -1167,7 +1167,7 @@ describe('Skeleton', () => {
                     }
                 })
             };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             fixture.detectChanges();

@@ -111,7 +111,7 @@ describe('ProgressBar', () => {
             component.color = 'blue';
             component.styleClass = 'custom-class';
             component.valueStyleClass = 'custom-value-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(progressBarInstance.value()).toBe(75);
@@ -127,14 +127,14 @@ describe('ProgressBar', () => {
     describe('Input Properties', () => {
         it('should update value input', async () => {
             component.value = 80;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressBarInstance.value()).toBe(80);
         });
 
         it('should handle value as number through numberAttribute transform', async () => {
             component.value = 45;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressBarInstance.value()).toBe(45);
             expect(typeof progressBarInstance.value()).toBe('number');
@@ -142,42 +142,42 @@ describe('ProgressBar', () => {
 
         it('should handle showValue through booleanAttribute transform', async () => {
             component.showValue = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressBarInstance.showValue()).toBe(false);
         });
 
         it('should update unit input', async () => {
             component.unit = ' MB';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressBarInstance.unit()).toBe(' MB');
         });
 
         it('should update mode input', async () => {
             component.mode = 'indeterminate';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressBarInstance.mode()).toBe('indeterminate');
         });
 
         it('should update color input', async () => {
             component.color = '#ff0000';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressBarInstance.color()).toBe('#ff0000');
         });
 
         it('should update styleClass input', async () => {
             component.styleClass = 'test-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressBarInstance.styleClass()).toBe('test-class');
         });
 
         it('should update valueStyleClass input', async () => {
             component.valueStyleClass = 'value-test-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(progressBarInstance.valueStyleClass()).toBe('value-test-class');
         });
@@ -187,7 +187,7 @@ describe('ProgressBar', () => {
         it('should render determinate progress bar correctly', async () => {
             component.value = 60;
             component.mode = 'determinate';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
@@ -199,7 +199,7 @@ describe('ProgressBar', () => {
         it('should display value when showValue is true', async () => {
             component.value = 45;
             component.showValue = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"]'));
@@ -211,7 +211,7 @@ describe('ProgressBar', () => {
         it('should hide value when showValue is false', async () => {
             component.value = 45;
             component.showValue = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"] > div'));
@@ -223,7 +223,7 @@ describe('ProgressBar', () => {
             component.value = 25;
             component.unit = ' MB';
             component.showValue = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"]'));
@@ -234,7 +234,7 @@ describe('ProgressBar', () => {
         it('should apply color to progress value', async () => {
             component.value = 70;
             component.color = '#00ff00';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
@@ -245,7 +245,7 @@ describe('ProgressBar', () => {
         it('should apply valueStyleClass to progress value', async () => {
             component.value = 80;
             component.valueStyleClass = 'custom-value-style';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
@@ -256,7 +256,7 @@ describe('ProgressBar', () => {
         it('should hide label when value is null or zero and showValue is true', async () => {
             component.value = 0;
             component.showValue = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('[data-pc-section="label"] > div'));
@@ -286,7 +286,7 @@ describe('ProgressBar', () => {
         it('should apply color to indeterminate progress bar', async () => {
             component.mode = 'indeterminate';
             component.color = '#ff6600';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
@@ -412,7 +412,7 @@ describe('ProgressBar', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply styleClass to root element', async () => {
             component.styleClass = 'custom-progress-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressBar));
@@ -447,7 +447,7 @@ describe('ProgressBar', () => {
         it('should apply valueStyleClass to value element', async () => {
             component.value = 55;
             component.valueStyleClass = 'custom-value-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
@@ -457,7 +457,7 @@ describe('ProgressBar', () => {
 
         it('should combine multiple CSS classes correctly', async () => {
             component.styleClass = 'class1 class2';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressBar));
@@ -470,7 +470,7 @@ describe('ProgressBar', () => {
     describe('Accessibility', () => {
         it('should have proper ARIA attributes', async () => {
             component.value = 65;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressBar));
@@ -483,7 +483,7 @@ describe('ProgressBar', () => {
 
         it('should update aria-valuenow when value changes', async () => {
             component.value = 30;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressBar));
@@ -491,7 +491,7 @@ describe('ProgressBar', () => {
             expect(rootElement.nativeElement.getAttribute('aria-valuenow')).toBe('30');
 
             component.value = 80;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(rootElement.nativeElement.getAttribute('aria-valuenow')).toBe('80');
         });
@@ -499,7 +499,7 @@ describe('ProgressBar', () => {
         it('should set aria-level with value and unit', async () => {
             component.value = 45;
             component.unit = ' MB';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressBar));
@@ -509,7 +509,7 @@ describe('ProgressBar', () => {
 
         it('should handle undefined value in ARIA attributes', async () => {
             component.value = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootElement = fixture.debugElement.query(By.directive(ProgressBar));
@@ -524,7 +524,7 @@ describe('ProgressBar', () => {
             component.value = undefined as any;
             component.color = undefined as any;
             component.styleClass = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -538,7 +538,7 @@ describe('ProgressBar', () => {
         it('should handle zero value correctly', async () => {
             component.value = 0;
             component.showValue = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
@@ -580,7 +580,7 @@ describe('ProgressBar', () => {
 
         it('should handle values over 100%', async () => {
             component.value = 150;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
@@ -596,7 +596,7 @@ describe('ProgressBar', () => {
 
         it('should handle empty string values gracefully', async () => {
             component.unit = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => fixture.detectChanges()).not.toThrow();
@@ -606,7 +606,7 @@ describe('ProgressBar', () => {
         it('should handle mode changes correctly', async () => {
             component.mode = 'determinate';
             component.value = 50;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             let valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
@@ -614,7 +614,7 @@ describe('ProgressBar', () => {
             expect(valueElement.nativeElement.style.width).toBe('50%');
 
             component.mode = 'indeterminate';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));
@@ -626,7 +626,7 @@ describe('ProgressBar', () => {
 
             for (const value of values) {
                 component.value = value;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 const valueElement = fixture.debugElement.query(By.css('[data-pc-section="value"]'));

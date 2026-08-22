@@ -159,7 +159,7 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -188,7 +188,7 @@ describe('DynamicDialog', () => {
         it('should create aria-labelledby when header is present', async () => {
             mockConfig.showHeader = true;
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             component.ngAfterViewInit();
 
@@ -200,7 +200,7 @@ describe('DynamicDialog', () => {
             mockConfig.header = null as any;
             mockConfig.showHeader = false;
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             component.ngAfterViewInit();
             expect(component.ariaLabelledBy).toBeNull();
@@ -209,7 +209,7 @@ describe('DynamicDialog', () => {
         it('should not create aria-labelledby when showHeader is false', async () => {
             mockConfig.showHeader = false;
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             component.ngAfterViewInit();
             expect(component.ariaLabelledBy).toBeNull();
@@ -229,7 +229,7 @@ describe('DynamicDialog', () => {
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
             component.visible = true; // Make dialog visible so template renders
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -304,7 +304,7 @@ describe('DynamicDialog', () => {
             component.container = containerElement;
             component.visible = true;
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -451,7 +451,7 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = ResizableDialogComponent;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -550,7 +550,7 @@ describe('DynamicDialog', () => {
             component = fixture.componentInstance;
             component.childComponentType = MaximizableDialogComponent;
             component.visible = true; // Make dialog visible so template renders
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -592,7 +592,7 @@ describe('DynamicDialog', () => {
 
             maximizeButton.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 100));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check that maximized state is set
@@ -613,13 +613,13 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
         it('should have correct ARIA attributes', async () => {
             component.ngAfterViewInit();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const dialogElement = fixture.debugElement.query(By.css('[role="dialog"]'));
@@ -662,7 +662,7 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -772,7 +772,7 @@ describe('DynamicDialog', () => {
         });
 
         it('should display header content', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headerElement = fixture.debugElement.query(By.css('.p-dialog-title'));
@@ -782,7 +782,7 @@ describe('DynamicDialog', () => {
         });
 
         it('should display footer content', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Footer is rendered as a plain div, not with .p-dialog-footer class in dynamic dialog
@@ -793,7 +793,7 @@ describe('DynamicDialog', () => {
 
         it('should hide header when showHeader is false', async () => {
             mockConfig.showHeader = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const headerElement = fixture.debugElement.query(By.css('.p-dialog-header'));
@@ -812,7 +812,7 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = DialogWithinDialogComponent;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -877,7 +877,7 @@ describe('DynamicDialog', () => {
             fixture = TestBed.createComponent(DynamicDialog);
             component = fixture.componentInstance;
             component.childComponentType = TestDialogContentComponent;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 
@@ -1006,7 +1006,7 @@ describe('DynamicDialog', () => {
             // Mock platform to be browser for createStyle to work
             Object.defineProperty(component, 'platformId', { value: 'browser' });
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
         });
 

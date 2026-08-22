@@ -335,7 +335,7 @@ describe('ConfirmPopup', () => {
     describe('Input Properties', () => {
         it('should update key property', async () => {
             component.key = 'testKey';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.key()).toBe('testKey');
@@ -343,7 +343,7 @@ describe('ConfirmPopup', () => {
 
         it('should update defaultFocus property', async () => {
             component.defaultFocus = 'reject';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.defaultFocus()).toBe('reject');
@@ -352,7 +352,7 @@ describe('ConfirmPopup', () => {
         it('should update transition options', async () => {
             component.showTransitionOptions = '.2s ease-in';
             component.hideTransitionOptions = '.15s ease-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.showTransitionOptions()).toBe('.2s ease-in');
@@ -362,7 +362,7 @@ describe('ConfirmPopup', () => {
         it('should update autoZIndex and baseZIndex', async () => {
             component.autoZIndex = false;
             component.baseZIndex = 1000;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.autoZIndex()).toBe(false);
@@ -372,7 +372,7 @@ describe('ConfirmPopup', () => {
         it('should update style and styleClass', async () => {
             component.style = { width: '300px' };
             component.styleClass = 'custom-popup';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.style()).toEqual({ width: '300px' });
@@ -381,7 +381,7 @@ describe('ConfirmPopup', () => {
 
         it('should update visible property', async () => {
             component.visible = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.computedVisible()).toBe(true);
@@ -408,7 +408,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -424,7 +424,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -438,7 +438,7 @@ describe('ConfirmPopup', () => {
         it('should hide popup when confirmation is null', async () => {
             confirmPopupInstance['_visible'].set(true);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             confirmationService.confirm(null as any);
@@ -788,7 +788,7 @@ describe('ConfirmPopup', () => {
                 rejectVisible: true
             });
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.confirmation?.acceptVisible).toBe(false);
@@ -829,7 +829,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -866,7 +866,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -908,7 +908,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -932,7 +932,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -958,7 +958,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -982,7 +982,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1000,7 +1000,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1018,7 +1018,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1039,7 +1039,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1057,7 +1057,7 @@ describe('ConfirmPopup', () => {
             // Open popup
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1067,7 +1067,7 @@ describe('ConfirmPopup', () => {
             // Close popup
             confirmPopupInstance.hide();
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Verify popup is hidden
@@ -1079,7 +1079,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1102,7 +1102,7 @@ describe('ConfirmPopup', () => {
                 closeOnEscape: true
             });
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Verify popup is visible
@@ -1127,7 +1127,7 @@ describe('ConfirmPopup', () => {
                 closeOnEscape: false
             });
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.computedVisible()).toBe(true);
@@ -1149,7 +1149,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1184,7 +1184,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1215,7 +1215,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1246,7 +1246,7 @@ describe('ConfirmPopup', () => {
                 closeOnEscape: true
             });
             await new Promise((resolve) => setTimeout(resolve, 0));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(confirmPopupInstance.computedVisible()).toBe(true);
@@ -1276,7 +1276,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1287,14 +1287,14 @@ describe('ConfirmPopup', () => {
 
         it('should apply custom styleClass', async () => {
             component.styleClass = 'my-custom-popup';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1303,14 +1303,14 @@ describe('ConfirmPopup', () => {
 
         it('should apply inline styles', async () => {
             component.style = { backgroundColor: 'red' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const triggerBtn = fixture.debugElement.query(By.css('.trigger-btn'));
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1326,7 +1326,7 @@ describe('ConfirmPopup', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(() => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             }).not.toThrow();
         });
 
@@ -1344,7 +1344,7 @@ describe('ConfirmPopup', () => {
 
             fixture.detectChanges();
             expect(() => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             }).not.toThrow();
         });
 
@@ -1353,7 +1353,7 @@ describe('ConfirmPopup', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(() => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
             }).not.toThrow();
         });
 
@@ -1419,7 +1419,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1435,7 +1435,7 @@ describe('ConfirmPopup', () => {
 
             triggerBtn.nativeElement.click();
             await new Promise((resolve) => setTimeout(resolve, 50));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 

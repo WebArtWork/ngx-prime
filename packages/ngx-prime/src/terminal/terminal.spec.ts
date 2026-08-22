@@ -110,7 +110,7 @@ describe('Terminal', () => {
             component.prompt = 'custom$ ';
             component.styleClass = 'custom-class';
             component.style = { color: 'red' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -139,7 +139,7 @@ describe('Terminal', () => {
     describe('Input Properties', () => {
         it('should update welcomeMessage input', async () => {
             component.welcomeMessage = 'Updated Welcome';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.welcomeMessage()).toBe('Updated Welcome');
@@ -147,7 +147,7 @@ describe('Terminal', () => {
 
         it('should update prompt input', async () => {
             component.prompt = 'new> ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt()).toBe('new> ');
@@ -155,7 +155,7 @@ describe('Terminal', () => {
 
         it('should update styleClass input', async () => {
             component.styleClass = 'test-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.styleClass()).toBe('test-class');
@@ -165,7 +165,7 @@ describe('Terminal', () => {
             component.welcomeMessage = undefined as any;
             component.prompt = undefined as any;
             component.styleClass = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -178,7 +178,7 @@ describe('Terminal', () => {
             component.welcomeMessage = '';
             component.prompt = '';
             component.styleClass = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -191,7 +191,7 @@ describe('Terminal', () => {
     describe('Welcome Message Display', () => {
         it('should display welcome message when provided', async () => {
             component.welcomeMessage = 'Test Welcome Message';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -207,7 +207,7 @@ describe('Terminal', () => {
 
         it('should not display welcome message element when not provided', async () => {
             component.welcomeMessage = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -219,13 +219,13 @@ describe('Terminal', () => {
 
         it('should update welcome message when changed', async () => {
             component.welcomeMessage = 'Initial Message';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.welcomeMessage()).toBe('Initial Message');
 
             component.welcomeMessage = 'Updated Message';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.welcomeMessage()).toBe('Updated Message');
@@ -235,7 +235,7 @@ describe('Terminal', () => {
             const specialMessage = 'Welcome! @#$%^&*()_+{}:"<>?[]\\;\',./ ðŸš€';
 
             component.welcomeMessage = specialMessage;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -246,7 +246,7 @@ describe('Terminal', () => {
     describe('Prompt Display', () => {
         it('should display prompt in command line', async () => {
             component.prompt = 'test> ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -266,7 +266,7 @@ describe('Terminal', () => {
 
         it('should handle empty prompt', async () => {
             component.prompt = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt()).toBe('' as any);
@@ -274,7 +274,7 @@ describe('Terminal', () => {
 
         it('should handle undefined prompt', async () => {
             component.prompt = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt()).toBeUndefined();
@@ -282,13 +282,13 @@ describe('Terminal', () => {
 
         it('should update prompt when changed', async () => {
             component.prompt = 'initial$ ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt()).toBe('initial$ ');
 
             component.prompt = 'updated> ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(terminalInstance.prompt()).toBe('updated> ');
@@ -436,7 +436,7 @@ describe('Terminal', () => {
             terminalInstance.commands.push({ text: 'test' });
 
             component.response = 'Direct response';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(terminalInstance.commands[0].response).toBe('Direct response');
@@ -448,7 +448,7 @@ describe('Terminal', () => {
             terminalInstance.commandProcessed = false;
 
             component.response = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(terminalInstance.commands[0].response).toBeUndefined();
@@ -549,7 +549,7 @@ describe('Terminal', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply styleClass to root element', async () => {
             component.styleClass = 'custom-terminal-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -587,7 +587,7 @@ describe('Terminal', () => {
 
         it('should combine multiple CSS classes correctly', async () => {
             component.styleClass = 'class1 class2';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -627,7 +627,7 @@ describe('Terminal', () => {
                 { text: 'pwd', response: '/home/user' }
             ];
             component.prompt = '$ ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -786,7 +786,7 @@ describe('Terminal', () => {
         it('should maintain state across property changes', async () => {
             component.welcomeMessage = 'Initial';
             component.prompt = 'init> ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -795,7 +795,7 @@ describe('Terminal', () => {
 
             component.welcomeMessage = 'Updated';
             component.prompt = 'update> ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -831,7 +831,7 @@ describe('Terminal', () => {
             // Set up terminal
             component.welcomeMessage = 'Test Terminal';
             component.prompt = 'test> ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -909,7 +909,7 @@ describe('Terminal', () => {
             terminalInstance.commands.push({ text: 'test' });
 
             component.response = 'Test Response';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(terminalInstance.commands[0].response).toBe('Test Response');

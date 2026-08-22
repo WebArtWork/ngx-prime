@@ -104,7 +104,7 @@ describe('Divider', () => {
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestBasicDividerComponent);
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
 
         dividerEl = fixture.debugElement.query(By.directive(Divider));
@@ -366,7 +366,7 @@ describe('Divider', () => {
         });
 
         it('should handle no content gracefully', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             const contentContainer = dividerEl.query(By.css('.p-divider-content'));
 

@@ -242,7 +242,7 @@ describe('TieredMenu', () => {
             const newModel = [{ label: 'New Menu', items: [{ label: 'Item' }] }];
 
             component.model = newModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -252,7 +252,7 @@ describe('TieredMenu', () => {
 
         it('should bind styleClass', async () => {
             component.styleClass = 'custom-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -263,7 +263,7 @@ describe('TieredMenu', () => {
             const customStyle = { width: '300px', height: '400px' };
 
             component.style = customStyle;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -272,7 +272,7 @@ describe('TieredMenu', () => {
 
         it('should bind popup property', async () => {
             component.popup = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -281,7 +281,7 @@ describe('TieredMenu', () => {
 
         it('should bind disabled property', async () => {
             component.disabled = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -290,7 +290,7 @@ describe('TieredMenu', () => {
 
         it('should bind autoDisplay property', async () => {
             component.autoDisplay = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -708,7 +708,7 @@ describe('TieredMenu', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply custom style class', async () => {
             component.styleClass = 'my-custom-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -719,7 +719,7 @@ describe('TieredMenu', () => {
 
         it('should apply inline styles', async () => {
             component.style = { 'background-color': 'red', border: '1px solid blue' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -939,7 +939,7 @@ describe('TieredMenu', () => {
                 { label: 'Save', tooltip: 'Save the file' },
                 { label: 'Delete', tooltipOptions: { tooltipLabel: 'Delete the file' } }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -976,7 +976,7 @@ describe('TieredMenu', () => {
     describe('Edge Cases', () => {
         it('should handle empty model', async () => {
             component.model = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -986,7 +986,7 @@ describe('TieredMenu', () => {
 
         it('should handle null/undefined model', async () => {
             component.model = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -995,7 +995,7 @@ describe('TieredMenu', () => {
 
         it('should handle items with no subitems', async () => {
             component.model = [{ label: 'Simple Item' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1020,7 +1020,7 @@ describe('TieredMenu', () => {
                     ]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 

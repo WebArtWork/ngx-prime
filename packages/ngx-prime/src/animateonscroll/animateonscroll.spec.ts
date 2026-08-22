@@ -200,7 +200,7 @@ describe('AnimateOnScroll', () => {
             component = fixture.componentInstance;
             component.enterClass = 'fade-in';
             component.leaveClass = 'fade-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directiveEl = fixture.debugElement.query(By.directive(AnimateOnScroll));
@@ -256,7 +256,7 @@ describe('AnimateOnScroll', () => {
             component = fixture.componentInstance;
             component.enterClass = 'fade-in';
             component.leaveClass = 'fade-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directiveEl = fixture.debugElement.query(By.directive(AnimateOnScroll));
@@ -322,7 +322,7 @@ describe('AnimateOnScroll', () => {
 
         it('should use custom threshold', async () => {
             component.threshold = 0.8;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -331,7 +331,7 @@ describe('AnimateOnScroll', () => {
 
         it('should use custom rootMargin', async () => {
             component.rootMargin = '10px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -342,7 +342,7 @@ describe('AnimateOnScroll', () => {
             const rootElement = document.createElement('div');
 
             component.root = rootElement;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -351,7 +351,7 @@ describe('AnimateOnScroll', () => {
 
         it('should default threshold to 0.5 when undefined', async () => {
             component.threshold = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -370,7 +370,7 @@ describe('AnimateOnScroll', () => {
             component = fixture.componentInstance;
             component.enterClass = 'fade-in';
             component.once = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directiveEl = fixture.debugElement.query(By.directive(AnimateOnScroll));
@@ -391,7 +391,7 @@ describe('AnimateOnScroll', () => {
 
         it('should not unbind observer when once is false', async () => {
             component.once = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(directive, 'unbindIntersectionObserver');
@@ -415,7 +415,7 @@ describe('AnimateOnScroll', () => {
             component = fixture.componentInstance;
             component.enterClass = 'fade-in';
             component.leaveClass = 'fade-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directiveEl = fixture.debugElement.query(By.directive(AnimateOnScroll));
@@ -515,7 +515,7 @@ describe('AnimateOnScroll', () => {
 
         it('should handle dynamic enterClass changes', async () => {
             component.enterClass = 'new-enter-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(directive.enterClass()).toBe('new-enter-class');
@@ -523,7 +523,7 @@ describe('AnimateOnScroll', () => {
 
         it('should handle dynamic threshold changes', async () => {
             component.threshold = 0.9;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(directive.threshold()).toBe(0.9);
@@ -532,7 +532,7 @@ describe('AnimateOnScroll', () => {
 
         it('should handle dynamic once property changes', async () => {
             component.once = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(directive.once()).toBe(true);
@@ -550,7 +550,7 @@ describe('AnimateOnScroll', () => {
             component = fixture.componentInstance;
             component.enterClass = 'fade-in';
             component.leaveClass = 'fade-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directiveEl = fixture.debugElement.query(By.directive(AnimateOnScroll));
@@ -590,14 +590,14 @@ describe('AnimateOnScroll', () => {
         it('should handle undefined enterClass and leaveClass', async () => {
             component.enterClass = undefined as any;
             component.leaveClass = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
 
             await expectAsync(fixture.whenStable()).toBeResolved();
         });
 
         it('should handle null root element', async () => {
             component.root = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -607,7 +607,7 @@ describe('AnimateOnScroll', () => {
 
         it('should handle elements with top <= 0', async () => {
             component.enterClass = 'fade-in';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const directiveEl = fixture.debugElement.query(By.directive(AnimateOnScroll));
@@ -635,7 +635,7 @@ describe('AnimateOnScroll', () => {
             fixture = TestBed.createComponent(TestCustomAnimateOnScrollComponent);
             component = fixture.componentInstance;
             component.enterClass = 'fade-in';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directiveEl = fixture.debugElement.query(By.directive(AnimateOnScroll));

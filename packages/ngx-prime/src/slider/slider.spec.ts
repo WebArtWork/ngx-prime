@@ -118,7 +118,7 @@ describe('Slider', () => {
             // fixture.componentRef.setInput('styleClass', 'custom-slider'); // deprecated property
             fixture.componentRef.setInput('tabindex', 2);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -151,7 +151,7 @@ describe('Slider', () => {
             fixture.componentRef.setInput('ariaLabel', 'Volume slider');
             fixture.componentRef.setInput('ariaLabelledBy', 'volume-label');
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.ariaLabel()).toBe('Volume slider');
@@ -207,7 +207,7 @@ describe('Slider', () => {
             fixture.componentRef.setInput('min', 10);
             fixture.componentRef.setInput('max', 90);
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.getValueFromHandle(0)).toBe(10);
@@ -1356,7 +1356,7 @@ describe('Slider', () => {
 
                 // Change orientation
                 fixture.componentInstance.orientation = 'vertical';
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));

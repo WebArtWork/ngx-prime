@@ -159,7 +159,7 @@ describe('Message', () => {
             component.closeIcon = 'pi pi-times';
             component.size = 'large';
             component.variant = 'outlined';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -214,7 +214,7 @@ describe('Message', () => {
         it('should hide message element when visible is false', async () => {
             messageInstance.close(new MouseEvent('click'));
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // In v21, the message gets p-message-leave-active class when closing
@@ -247,7 +247,7 @@ describe('Message', () => {
 
             closeButton.nativeElement.click();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.closeEvent).toBeDefined();
@@ -265,7 +265,7 @@ describe('Message', () => {
 
         it('should not show close button when closable is false', async () => {
             component.closable = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -301,7 +301,7 @@ describe('Message', () => {
 
             // Wait for the life duration timeout
             await new Promise((resolve) => setTimeout(resolve, 1100));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -312,7 +312,7 @@ describe('Message', () => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
             component.life = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             messageEl = fixture.debugElement.query(By.css('p-message'));
@@ -321,7 +321,7 @@ describe('Message', () => {
             expect(messageInstance.visible()).toBe(true);
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(messageInstance.visible()).toBe(true);
@@ -347,7 +347,7 @@ describe('Message', () => {
 
             for (const severity of severities) {
                 component.severity = severity;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -360,7 +360,7 @@ describe('Message', () => {
 
         it('should handle null and undefined severity', async () => {
             component.severity = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -369,7 +369,7 @@ describe('Message', () => {
             expect(messageEl).toBeTruthy();
 
             component.severity = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -508,7 +508,7 @@ describe('Message', () => {
             // Trigger ngAfterContentInit to process templates
             messageInstance.ngAfterContentInit();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const customCloseButton = fixture.debugElement.query(By.css('.custom-close-button'));
@@ -517,7 +517,7 @@ describe('Message', () => {
 
             customCloseButton.nativeElement.click();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(messageInstance.close).toHaveBeenCalled();
@@ -591,7 +591,7 @@ describe('Message', () => {
 
         it('should render pTemplate content correctly', async () => {
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const ptemplateContainer = fixture.debugElement.query(By.css('.ptemplate-container'));
@@ -620,7 +620,7 @@ describe('Message', () => {
             // Trigger ngAfterContentInit to process templates
             messageInstance.ngAfterContentInit();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const ptemplateCloseButton = fixture.debugElement.query(By.css('.ptemplate-close'));
@@ -629,7 +629,7 @@ describe('Message', () => {
 
             ptemplateCloseButton.nativeElement.click();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(messageInstance.close).toHaveBeenCalled();
@@ -676,7 +676,7 @@ describe('Message', () => {
 
         it('should apply size classes', async () => {
             component.size = 'large';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -686,7 +686,7 @@ describe('Message', () => {
             expect(messageInstance.size()).toBe('large');
 
             component.size = 'small';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             expect(messageInstance.size()).toBe('small');
@@ -697,7 +697,7 @@ describe('Message', () => {
 
             for (const variant of variants) {
                 component.variant = variant;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 fixture.detectChanges();
 
@@ -791,7 +791,7 @@ describe('Message', () => {
 
         it('should handle rapid close button clicks', async () => {
             component.closable = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
@@ -821,7 +821,7 @@ describe('Message', () => {
             fixture2.detectChanges();
 
             component.severity = 'error';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -834,14 +834,14 @@ describe('Message', () => {
 
         it('should handle life property with zero value', async () => {
             component.life = 0;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
             const messageInstance = messageEl.componentInstance as Message;
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Zero value should NOT auto-close (falsy check prevents it)
@@ -885,7 +885,7 @@ describe('Message', () => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
             component.life = 5000;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
@@ -904,17 +904,17 @@ describe('Message', () => {
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
             component.life = 100;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Recreate component
             fixture = TestBed.createComponent(TestBasicMessageComponent);
             component = fixture.componentInstance;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const messageEl = fixture.debugElement.query(By.css('p-message'));
@@ -1361,7 +1361,7 @@ describe('Message', () => {
                 })
             });
             fixture.componentRef.setInput('text', 'Test');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // In v21, .p-message class is on the host element itself
@@ -1369,7 +1369,7 @@ describe('Message', () => {
 
             rootElement.click();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(clickedInstance).toBeTruthy();
@@ -1387,14 +1387,14 @@ describe('Message', () => {
                 })
             });
             fixture.componentRef.setInput('text', 'Test');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const contentElement = fixture.debugElement.query(By.css('.p-message-content'));
 
             contentElement.nativeElement.click();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(clickCount).toBe(1);
@@ -1415,7 +1415,7 @@ describe('Message', () => {
                 })
             });
             fixture.componentRef.setInput('text', 'Test');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // In v21, .p-message class is on the host element itself
@@ -1439,14 +1439,14 @@ describe('Message', () => {
                 })
             });
             fixture.componentRef.setInput('text', 'Test');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const textElement = fixture.debugElement.query(By.css('span'));
 
             textElement.nativeElement.click();
             await fixture.whenStable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect((fixture.componentInstance as any)._customProperty).toBe('CLICKED');

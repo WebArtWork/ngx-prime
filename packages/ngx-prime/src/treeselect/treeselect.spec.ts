@@ -1514,7 +1514,7 @@ describe('TreeSelect', () => {
             const fixture = TestBed.createComponent(TreeSelect);
 
             fixture.componentRef.setInput('options', mockTreeNodes);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1542,7 +1542,7 @@ describe('TreeSelect', () => {
             const fixture = TestBed.createComponent(TreeSelect);
 
             fixture.componentRef.setInput('options', mockTreeNodes);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             const root = fixture.debugElement;
@@ -1570,7 +1570,7 @@ describe('TreeSelect', () => {
             const fixture = TestBed.createComponent(TreeSelect);
 
             fixture.componentRef.setInput('options', mockTreeNodes);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1601,7 +1601,7 @@ describe('TreeSelect', () => {
             const fixture = TestBed.createComponent(TreeSelect);
 
             fixture.componentRef.setInput('options', mockTreeNodes);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1635,7 +1635,7 @@ describe('TreeSelect', () => {
             const fixture = TestBed.createComponent(TreeSelect);
 
             fixture.componentRef.setInput('options', mockTreeNodes);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 

@@ -929,7 +929,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
     it('should pass context parameters to handle template', async () => {
         // Initially unchecked
         component.checked = false;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -943,7 +943,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
     it('should render templates with correct context', async () => {
         // Test with checked state
         component.checked = true;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -959,7 +959,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
 
         // Change to checked
         component.checked = true;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -970,7 +970,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
 
     it('should apply context to templates correctly', async () => {
         component.checked = true;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -984,7 +984,7 @@ describe('ToggleSwitch pTemplate Tests', () => {
     it('should process pTemplates after content init', async () => {
         if (toggleSwitchInstance.ngAfterContentInit) {
             toggleSwitchInstance.ngAfterContentInit();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1023,7 +1023,7 @@ describe('ToggleSwitch #template Reference Tests', () => {
     it('should pass context parameters to handle template', async () => {
         // Initially unchecked
         component.checked = false;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1037,7 +1037,7 @@ describe('ToggleSwitch #template Reference Tests', () => {
     it('should render templates with correct context', async () => {
         // Test with checked state
         component.checked = true;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1053,7 +1053,7 @@ describe('ToggleSwitch #template Reference Tests', () => {
 
         // Change to checked
         component.checked = true;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1064,7 +1064,7 @@ describe('ToggleSwitch #template Reference Tests', () => {
 
     it('should apply context to templates correctly', async () => {
         component.checked = true;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1078,7 +1078,7 @@ describe('ToggleSwitch #template Reference Tests', () => {
     it('should process #templates after content init', async () => {
         if (toggleSwitchInstance.ngAfterContentInit) {
             toggleSwitchInstance.ngAfterContentInit();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1300,7 +1300,7 @@ describe('PassThrough (PT) Tests', () => {
 
             // Change checked state
             fixture.componentInstance.checked = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));

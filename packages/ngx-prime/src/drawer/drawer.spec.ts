@@ -221,7 +221,7 @@ describe('Drawer', () => {
 
         fixture = TestBed.createComponent(Drawer);
         component = fixture.componentInstance;
-        fixture.changeDetectorRef.markForCheck();
+        fixture.detectChanges();
         await fixture.whenStable();
     });
 

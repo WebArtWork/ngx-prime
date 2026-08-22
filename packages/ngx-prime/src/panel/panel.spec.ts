@@ -1334,7 +1334,7 @@ describe('Panel', () => {
 
                 // Toggle to collapsed
                 fixture.componentRef.setInput('collapsed', true);
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(rootEl.classList.contains('DYNAMIC_CLASS')).toBe(true);

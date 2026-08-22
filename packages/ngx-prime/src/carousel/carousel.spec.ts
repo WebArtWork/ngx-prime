@@ -254,7 +254,7 @@ describe('Carousel', () => {
             component.circular = true;
             component.orientation = 'vertical';
             component.autoplayInterval = 2000;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(carouselInstance.page()).toBe(1);
@@ -349,7 +349,7 @@ describe('Carousel', () => {
             component = fixture.componentInstance;
             component.numVisible = 2; // Show 2 items to have multiple pages
             component.numScroll = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -725,7 +725,7 @@ describe('Carousel', () => {
             component.styleClass = 'custom-carousel-class';
             component.contentClass = 'custom-content-class';
             component.indicatorsContentClass = 'custom-indicators-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(carouselInstance.styleClass()).toBe('custom-carousel-class');
@@ -736,7 +736,7 @@ describe('Carousel', () => {
         it('should apply custom styles', async () => {
             component.indicatorsContentStyle = { marginTop: '10px' };
             component.indicatorStyle = { backgroundColor: 'red' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(carouselInstance.indicatorsContentStyle()).toEqual({ marginTop: '10px' });
@@ -768,7 +768,7 @@ describe('Carousel', () => {
             fixture = TestBed.createComponent(TestBasicCarouselComponent);
             component = fixture.componentInstance;
             component.numVisible = 2; // To enable pagination
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const carouselEl = fixture.debugElement.query(By.css('p-carousel'));
@@ -903,7 +903,7 @@ describe('Carousel', () => {
 
         it('should handle empty products array', async () => {
             component.products = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(carouselInstance.isEmpty()).toBe(true);
@@ -912,7 +912,7 @@ describe('Carousel', () => {
 
         it('should handle null products', async () => {
             component.products = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(carouselInstance.isEmpty()).toBe(true);
@@ -920,7 +920,7 @@ describe('Carousel', () => {
 
         it('should handle single item', async () => {
             component.products = [mockProducts[0]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // For single item: Math.ceil((1 - 3) / 1) + 1 = Math.ceil(-2) + 1 = -2 + 1 = -1
@@ -950,7 +950,7 @@ describe('Carousel', () => {
         it('should handle button props configuration', async () => {
             component.prevButtonProps = { severity: 'primary', icon: 'pi-custom' };
             component.nextButtonProps = { severity: 'secondary', text: false };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(carouselInstance.prevButtonProps()).toEqual({ severity: 'primary', icon: 'pi-custom' });

@@ -289,7 +289,7 @@ describe('ContextMenu', () => {
             component.baseZIndex = 100;
             component.styleClass = 'custom-contextmenu';
             component.ariaLabel = 'Custom Context Menu';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.model()).toBe(testModel);
@@ -325,7 +325,7 @@ describe('ContextMenu', () => {
             const newModel = [{ label: 'New Item' }];
 
             component.model = newModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.model()).toBe(newModel);
@@ -336,7 +336,7 @@ describe('ContextMenu', () => {
             const targetElement = document.createElement('div');
 
             component.target = targetElement;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.target()).toBe(targetElement);
@@ -344,19 +344,19 @@ describe('ContextMenu', () => {
 
         it('should update global input with booleanAttribute transform', async () => {
             component.global = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(contextMenuInstance.global()).toBe(true);
 
             component.global = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(contextMenuInstance.global()).toBe(false);
         });
 
         it('should update triggerEvent input', async () => {
             component.triggerEvent = 'click';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(contextMenuInstance.triggerEvent()).toBe('click');
         });
@@ -366,7 +366,7 @@ describe('ContextMenu', () => {
 
             component.style = customStyle;
             component.styleClass = 'test-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.style()).toBe(customStyle);
@@ -375,21 +375,21 @@ describe('ContextMenu', () => {
 
         it('should update autoZIndex with booleanAttribute transform', async () => {
             component.autoZIndex = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(contextMenuInstance.autoZIndex()).toBe(false);
         });
 
         it('should update baseZIndex with numberAttribute transform', async () => {
             component.baseZIndex = 1000;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(contextMenuInstance.baseZIndex()).toBe(1000);
         });
 
         it('should update breakpoint input', async () => {
             component.breakpoint = '768px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(contextMenuInstance.breakpoint()).toBe('768px');
         });
@@ -397,7 +397,7 @@ describe('ContextMenu', () => {
         it('should update ariaLabel and ariaLabelledBy inputs', async () => {
             component.ariaLabel = 'Test Menu';
             component.ariaLabelledBy = 'menu-label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.ariaLabel()).toBe('Test Menu');
@@ -406,7 +406,7 @@ describe('ContextMenu', () => {
 
         it('should update pressDelay with numberAttribute transform', async () => {
             component.pressDelay = 1000;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(contextMenuInstance.pressDelay()).toBe(1000);
         });
@@ -629,7 +629,7 @@ describe('ContextMenu', () => {
             ];
 
             component.model = model;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.processedItems).toBeTruthy();
@@ -640,7 +640,7 @@ describe('ContextMenu', () => {
 
         it('should handle empty model', async () => {
             component.model = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.processedItems).toEqual([]);
@@ -648,7 +648,7 @@ describe('ContextMenu', () => {
 
         it('should handle undefined model', async () => {
             component.model = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.model()).toBeUndefined();
@@ -658,7 +658,7 @@ describe('ContextMenu', () => {
             const modelWithSeparator = [{ label: 'Item 1' }, { separator: true }, { label: 'Item 2' }];
 
             component.model = modelWithSeparator;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.processedItems.length).toBe(3);
@@ -801,11 +801,11 @@ describe('ContextMenu', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply styleClass when visible', async () => {
             component.styleClass = 'custom-contextmenu-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             contextMenuInstance.visible.set(true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const containerElement = fixture.debugElement.query(By.css('[data-pc-name="contextmenu"]'));
@@ -839,7 +839,7 @@ describe('ContextMenu', () => {
 
         it('should have proper data attributes when visible', async () => {
             contextMenuInstance.visible.set(true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const containerElement = fixture.debugElement.query(By.css('[data-pc-name="contextmenu"]'));
@@ -852,7 +852,7 @@ describe('ContextMenu', () => {
 
         it('should have generated id on container when visible', async () => {
             contextMenuInstance.visible.set(true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const containerElement = fixture.debugElement.query(By.css('[data-pc-name="contextmenu"]'));
@@ -867,7 +867,7 @@ describe('ContextMenu', () => {
         it('should have proper ARIA attributes', async () => {
             component.ariaLabel = 'Context menu';
             component.ariaLabelledBy = 'menu-title';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.ariaLabel()).toBe('Context menu');
@@ -887,7 +887,7 @@ describe('ContextMenu', () => {
 
         it('should have proper tabindex when not disabled', async () => {
             contextMenuInstance.visible.set(true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check that tabindex is handled correctly in template
@@ -904,7 +904,7 @@ describe('ContextMenu', () => {
 
         it('should handle role attributes correctly', async () => {
             contextMenuInstance.visible.set(true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Menu should have role="menu" attributes in template
@@ -916,7 +916,7 @@ describe('ContextMenu', () => {
         it('should position menu correctly', async () => {
             // First show the menu to make rootmenu available
             contextMenuInstance.visible.set(true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -931,7 +931,7 @@ describe('ContextMenu', () => {
         it('should handle viewport boundaries', async () => {
             // First show the menu
             contextMenuInstance.visible.set(true);
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -960,11 +960,11 @@ describe('ContextMenu', () => {
     describe('Edge Cases', () => {
         it('should handle null/undefined model', async () => {
             component.model = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(async () => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }).not.toThrow();
             expect(contextMenuInstance.model()).toBeUndefined();
@@ -972,11 +972,11 @@ describe('ContextMenu', () => {
 
         it('should handle empty model array', async () => {
             component.model = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(async () => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }).not.toThrow();
             expect(contextMenuInstance.model()).toEqual([]);
@@ -984,11 +984,11 @@ describe('ContextMenu', () => {
 
         it('should handle items without labels', async () => {
             component.model = [{ icon: 'pi pi-file' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(async () => {
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
             }).not.toThrow();
             expect(contextMenuInstance.model()?.[0]?.icon).toBe('pi pi-file');
@@ -1013,7 +1013,7 @@ describe('ContextMenu', () => {
             ];
 
             component.model = deeplyNestedModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.processedItems.length).toBe(1);
@@ -1139,7 +1139,7 @@ describe('ContextMenu', () => {
         it('should maintain state across property changes', async () => {
             component.model = [{ label: 'Initial' }];
             component.styleClass = 'initial-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.model()?.[0]?.label).toBe('Initial');
@@ -1148,7 +1148,7 @@ describe('ContextMenu', () => {
             component.model = [{ label: 'Updated' }];
             component.styleClass = 'updated-class';
             component.autoZIndex = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(contextMenuInstance.model()?.[0]?.label).toBe('Updated');

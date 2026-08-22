@@ -401,7 +401,7 @@ describe('KeyFilter', () => {
 
         it('should skip processing when validateOnly is true', async () => {
             testComponent.validateOnly = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const keyEvent = new KeyboardEvent('keypress', { keyCode: 97, charCode: 97 }); // 'a'
@@ -457,7 +457,7 @@ describe('KeyFilter', () => {
 
         it('should handle complex regex patterns for paste', async () => {
             testComponent.pattern = /^\d{3}$/; // exactly 3 digits
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const mockClipboardData = {
@@ -476,7 +476,7 @@ describe('KeyFilter', () => {
 
         it('should prevent invalid content with complex regex', async () => {
             testComponent.pattern = /^\d{3}$/; // exactly 3 digits
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const mockClipboardData = {
@@ -557,7 +557,7 @@ describe('KeyFilter', () => {
 
             // Test pint pattern
             testComponent.pattern = 'pint';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(directive.isValidString('12345')).toBe(true);
             expect(directive.isValidString('123abc')).toBe(false);
@@ -565,7 +565,7 @@ describe('KeyFilter', () => {
 
             // Test int pattern
             testComponent.pattern = 'int';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(directive.isValidString('12345')).toBe(true);
             expect(directive.isValidString('-123')).toBe(true);
@@ -573,7 +573,7 @@ describe('KeyFilter', () => {
 
             // Test email pattern
             testComponent.pattern = 'email';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(directive.isValidString('test@example.com')).toBe(true);
             expect(directive.isValidString('user.name@domain')).toBe(true);
@@ -581,7 +581,7 @@ describe('KeyFilter', () => {
 
             // Test hex pattern
             testComponent.pattern = 'hex';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(directive.isValidString('ff00aa')).toBe(true);
             expect(directive.isValidString('123abc')).toBe(true);
@@ -589,7 +589,7 @@ describe('KeyFilter', () => {
 
             // Test alpha pattern
             testComponent.pattern = 'alpha';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(directive.isValidString('abcdef')).toBe(true);
             expect(directive.isValidString('test_value')).toBe(true);
@@ -597,7 +597,7 @@ describe('KeyFilter', () => {
 
             // Test alphanum pattern
             testComponent.pattern = 'alphanum';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(directive.isValidString('abc123')).toBe(true);
             expect(directive.isValidString('test_value')).toBe(true);
@@ -605,7 +605,7 @@ describe('KeyFilter', () => {
 
             // Test pnum pattern
             testComponent.pattern = 'pnum';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(directive.isValidString('123.45')).toBe(true);
             expect(directive.isValidString('123')).toBe(true);
@@ -613,7 +613,7 @@ describe('KeyFilter', () => {
 
             // Test money pattern
             testComponent.pattern = 'money';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(directive.isValidString('123.45')).toBe(true);
             expect(directive.isValidString('1,234.56')).toBe(true);
@@ -622,7 +622,7 @@ describe('KeyFilter', () => {
 
             // Test num pattern
             testComponent.pattern = 'num';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(directive.isValidString('123.45')).toBe(true);
             expect(directive.isValidString('-123.45')).toBe(true);
@@ -714,7 +714,7 @@ describe('KeyFilter', () => {
         it('should integrate all events correctly', async () => {
             testComponent.pattern = 'pint';
             testComponent.value = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const inputElement = inputEl.nativeElement;
@@ -755,7 +755,7 @@ describe('KeyFilter', () => {
             spyOn(directive.ngModelChange, 'emit');
 
             testComponent.pattern = 'pint';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             directive.lastValue = '123';

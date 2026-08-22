@@ -386,7 +386,7 @@ describe('DatePicker', () => {
         });
 
         it('should initialize with default values', async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(component.dateFormat()).toBeUndefined(); // Default is undefined, not 'mm/dd/yy'
             expect(component.multipleSeparator()).toBe(',');

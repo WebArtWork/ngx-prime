@@ -409,19 +409,19 @@ describe('Tree', () => {
             ];
 
             component.nodes = testNodes;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.filter = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.loading = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             // component.styleClass = 'custom-tree'; // Deprecated property
@@ -435,7 +435,7 @@ describe('Tree', () => {
 
         it('should handle empty nodes array', async () => {
             component.nodes = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -446,7 +446,7 @@ describe('Tree', () => {
             const singleNode: TreeNode = { label: 'Single Node' };
 
             component.nodes = singleNode as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -467,7 +467,7 @@ describe('Tree', () => {
                     ]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -476,7 +476,7 @@ describe('Tree', () => {
             expect(component.nodes[0].expanded).toBe(false);
 
             component.nodes[0].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -532,7 +532,7 @@ describe('Tree', () => {
                     ]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -551,7 +551,7 @@ describe('Tree', () => {
 
         it('should handle node collapse', async () => {
             component.nodes[0].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -568,7 +568,7 @@ describe('Tree', () => {
 
         it('should handle single selection', async () => {
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -601,15 +601,15 @@ describe('Tree', () => {
                     ]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.selectedNodes = null;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             await fixture.whenStable();
@@ -659,19 +659,19 @@ describe('Tree', () => {
     describe('Edge Cases', () => {
         it('should handle null/undefined values gracefully', async () => {
             component.nodes = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(() => fixture.detectChanges()).not.toThrow();
 
             component.nodes = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(() => fixture.detectChanges()).not.toThrow();
         });
 
         it('should handle nodes without children', async () => {
             component.nodes = [{ label: 'Leaf Node 1' }, { label: 'Leaf Node 2' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -700,7 +700,7 @@ describe('Tree', () => {
                     ]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1168,11 +1168,11 @@ describe('Tree', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply custom style class', async () => {
             component.styleClass = 'custom-tree-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.nodes = [{ label: 'Test' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1190,7 +1190,7 @@ describe('Tree', () => {
                     children: [{ label: 'Child' }]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1203,7 +1203,7 @@ describe('Tree', () => {
 
         it('should display loading state', async () => {
             component.loading = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1220,7 +1220,7 @@ describe('Tree', () => {
                     children: [{ label: 'Child 1' }, { label: 'Child 2' }]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1263,11 +1263,11 @@ describe('Tree', () => {
                     children: [{ label: 'Child 1' }, { label: 'Child 2' }]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1315,11 +1315,11 @@ describe('Tree', () => {
     describe('Drag and Drop', () => {
         beforeEach(async () => {
             component.draggableNodes = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.droppableNodes = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.nodes = [
@@ -1329,7 +1329,7 @@ describe('Tree', () => {
                     children: [{ label: 'Node 1', droppable: true }, { label: 'Node 2', droppable: false }, { label: 'Node 3' }]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1362,7 +1362,7 @@ describe('Tree', () => {
     describe('Filter', () => {
         beforeEach(async () => {
             component.filter = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.nodes = [
@@ -1376,7 +1376,7 @@ describe('Tree', () => {
                     ]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1397,7 +1397,7 @@ describe('Tree', () => {
     describe('Checkbox Selection', () => {
         beforeEach(async () => {
             component.selectionMode = 'checkbox';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
             component.nodes = [
@@ -1407,7 +1407,7 @@ describe('Tree', () => {
                     children: [{ label: 'Child 1' }, { label: 'Child 2' }]
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1436,7 +1436,7 @@ describe('Tree', () => {
                 component.nodes.push({ label: `Node ${i}` });
             }
 
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1461,7 +1461,7 @@ describe('Tree', () => {
                     expanded: false
                 }
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1840,7 +1840,7 @@ describe('Tree', () => {
 
     describe('Input Properties Tests', () => {
         beforeEach(async () => {
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
         });
@@ -1849,21 +1849,21 @@ describe('Tree', () => {
             expect(tree.selectionMode()).toBeNull();
 
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(tree.selectionMode()).toBe('single');
 
             component.selectionMode = 'multiple';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(tree.selectionMode()).toBe('multiple');
 
             component.selectionMode = 'checkbox';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1874,7 +1874,7 @@ describe('Tree', () => {
             expect(tree.loadingMode()).toBe('mask');
 
             component.loadingMode = 'icon';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1883,7 +1883,7 @@ describe('Tree', () => {
 
         it('should handle styleClass property', async () => {
             component.styleClass = 'custom-tree-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1894,7 +1894,7 @@ describe('Tree', () => {
             const mockContextMenu = { show: () => {} };
 
             component.contextMenu = mockContextMenu;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1903,7 +1903,7 @@ describe('Tree', () => {
 
         it('should handle draggableScope property', async () => {
             component.draggableScope = 'custom-drag-scope';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1912,7 +1912,7 @@ describe('Tree', () => {
 
         it('should handle droppableScope property', async () => {
             component.droppableScope = 'custom-drop-scope';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1923,7 +1923,7 @@ describe('Tree', () => {
             expect(tree.draggableNodes()).toBe(false);
 
             component.draggableNodes = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1934,7 +1934,7 @@ describe('Tree', () => {
             expect(tree.droppableNodes()).toBe(false);
 
             component.droppableNodes = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1945,7 +1945,7 @@ describe('Tree', () => {
             expect(tree.metaKeySelection()).toBe(false);
 
             component.metaKeySelection = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1956,7 +1956,7 @@ describe('Tree', () => {
             expect(tree.propagateSelectionUp()).toBe(true);
 
             component.propagateSelectionUp = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1967,7 +1967,7 @@ describe('Tree', () => {
             expect(tree.propagateSelectionDown()).toBe(true);
 
             component.propagateSelectionDown = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1978,7 +1978,7 @@ describe('Tree', () => {
             expect(tree.loading()).toBe(false);
 
             component.loading = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1987,7 +1987,7 @@ describe('Tree', () => {
 
         it('should handle loadingIcon property', async () => {
             component.loadingIcon = 'pi pi-spinner';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -1998,7 +1998,7 @@ describe('Tree', () => {
             expect(tree.emptyMessage()).toBe('' as any);
 
             component.emptyMessage = 'No data available';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2007,7 +2007,7 @@ describe('Tree', () => {
 
         it('should handle ariaLabel property', async () => {
             component.ariaLabel = 'Tree navigation';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2016,7 +2016,7 @@ describe('Tree', () => {
 
         it('should handle togglerAriaLabel property', async () => {
             component.togglerAriaLabel = 'Toggle node';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2025,7 +2025,7 @@ describe('Tree', () => {
 
         it('should handle ariaLabelledBy property', async () => {
             component.ariaLabelledBy = 'tree-label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2036,7 +2036,7 @@ describe('Tree', () => {
             expect(tree.validateDrop()).toBe(false);
 
             component.validateDrop = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2047,7 +2047,7 @@ describe('Tree', () => {
             expect(tree.filter()).toBe(false);
 
             component.filter = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2058,7 +2058,7 @@ describe('Tree', () => {
             expect(tree.filterInputAutoFocus()).toBe(false);
 
             component.filterInputAutoFocus = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2069,7 +2069,7 @@ describe('Tree', () => {
             expect(tree.filterBy()).toBe('label');
 
             component.filterBy = 'data';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2080,7 +2080,7 @@ describe('Tree', () => {
             expect(tree.filterMode()).toBe('lenient');
 
             component.filterMode = 'strict';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2091,7 +2091,7 @@ describe('Tree', () => {
             const options = { filterMatchMode: 'contains' };
 
             component.filterOptions = options;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2100,7 +2100,7 @@ describe('Tree', () => {
 
         it('should handle filterPlaceholder property', async () => {
             component.filterPlaceholder = 'Search nodes...';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2111,7 +2111,7 @@ describe('Tree', () => {
             const filteredNodes = [{ label: 'Filtered Node' }];
 
             component.filteredNodes = filteredNodes;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2120,7 +2120,7 @@ describe('Tree', () => {
 
         it('should handle filterLocale property', async () => {
             component.filterLocale = 'en-US';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2129,7 +2129,7 @@ describe('Tree', () => {
 
         it('should handle scrollHeight property', async () => {
             component.scrollHeight = '400px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2140,7 +2140,7 @@ describe('Tree', () => {
             expect(tree.lazy()).toBe(false);
 
             component.lazy = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2151,7 +2151,7 @@ describe('Tree', () => {
             expect(tree.virtualScroll()).toBe(false);
 
             component.virtualScroll = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2160,7 +2160,7 @@ describe('Tree', () => {
 
         it('should handle virtualScrollItemSize property', async () => {
             component.virtualScrollItemSize = 50;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2171,7 +2171,7 @@ describe('Tree', () => {
             const options = { itemSize: 40, numToleratedItems: 10 };
 
             component.virtualScrollOptions = options;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2182,7 +2182,7 @@ describe('Tree', () => {
             expect(tree.indentation()).toBe(1.5);
 
             component.indentation = 2.0;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2193,7 +2193,7 @@ describe('Tree', () => {
             const customTrackBy = (index: number, item: any) => item.id;
 
             component.trackBy = customTrackBy;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2204,7 +2204,7 @@ describe('Tree', () => {
             expect(tree.highlightOnSelect()).toBe(false);
 
             component.highlightOnSelect = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2215,7 +2215,7 @@ describe('Tree', () => {
             const nodes = [{ label: 'Node 1', children: [{ label: 'Child 1' }] }, { label: 'Node 2' }];
 
             component.nodes = nodes;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2225,14 +2225,14 @@ describe('Tree', () => {
         it('should handle boolean attributes transformation', async () => {
             // Test boolean transformation for filter
             component.filter = 'true' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
             expect(tree.filter()).toBe(true);
 
             component.filter = '' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2242,7 +2242,7 @@ describe('Tree', () => {
         it('should handle number attributes transformation', async () => {
             // Test number transformation for indentation
             component.indentation = '2.5' as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2254,7 +2254,7 @@ describe('Tree', () => {
             // Test zero values
             component.indentation = 0;
             component.virtualScrollItemSize = 0;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2265,7 +2265,7 @@ describe('Tree', () => {
         it('should handle negative values for numeric inputs', async () => {
             component.indentation = -1;
             component.virtualScrollItemSize = -10;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2277,7 +2277,7 @@ describe('Tree', () => {
             const templateMap = { default: 'custom-template' };
 
             component._templateMap = templateMap;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             fixture.detectChanges();
 
@@ -2649,7 +2649,7 @@ describe('Tree', () => {
 
         it('should not conflict with regular selectionMode', async () => {
             component.selectionMode = 'single';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -2751,7 +2751,7 @@ describe('Tree', () => {
 
         it('should work independently from checkbox selection mode', async () => {
             component.selectionMode = 'checkbox';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -2775,7 +2775,7 @@ describe('Tree', () => {
 
         it('should work independently from multiple selection mode', async () => {
             component.selectionMode = 'multiple';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -2882,7 +2882,7 @@ describe('Tree', () => {
             // Remove context menu
             tree.contextMenuSelection.set(null);
             component.contextMenu = null;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             await fixture.whenStable();
 

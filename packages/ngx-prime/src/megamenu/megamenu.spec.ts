@@ -376,7 +376,7 @@ describe('MegaMenu', () => {
             component.styleClass = 'custom-megamenu';
             component.ariaLabel = 'Custom MegaMenu';
             component.tabindex = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(megaMenuInstance.model()).toBe(testModel);
@@ -415,7 +415,7 @@ describe('MegaMenu', () => {
             const newModel = [{ label: 'New Item' }];
 
             component.model = newModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(megaMenuInstance.model()).toBe(newModel);
@@ -424,7 +424,7 @@ describe('MegaMenu', () => {
 
         it('should update orientation input', async () => {
             component.orientation = 'vertical';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(megaMenuInstance.orientation()).toBe('vertical');
@@ -434,7 +434,7 @@ describe('MegaMenu', () => {
             component.styleClass = 'test-class';
             component.breakpoint = '768px';
             component.scrollHeight = '15rem';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(megaMenuInstance.styleClass()).toBe('test-class');
@@ -445,7 +445,7 @@ describe('MegaMenu', () => {
         it('should update disabled and tabindex inputs', async () => {
             component.disabled = true;
             component.tabindex = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(megaMenuInstance.disabled()).toBe(true);
@@ -455,7 +455,7 @@ describe('MegaMenu', () => {
         it('should update aria inputs', async () => {
             component.ariaLabel = 'Test MegaMenu';
             component.ariaLabelledBy = 'megamenu-label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(megaMenuInstance.ariaLabel()).toBe('Test MegaMenu');
@@ -464,7 +464,7 @@ describe('MegaMenu', () => {
 
         it('should update id input', async () => {
             component.id = 'custom-megamenu-id';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(megaMenuInstance.id()).toBe('custom-megamenu-id');
         });
@@ -495,7 +495,7 @@ describe('MegaMenu', () => {
                 { label: 'Hidden Item', visible: false },
                 { label: 'Default Item' } // visible undefined = true
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
@@ -505,7 +505,7 @@ describe('MegaMenu', () => {
 
         it('should handle empty model', async () => {
             component.model = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
@@ -515,7 +515,7 @@ describe('MegaMenu', () => {
 
         it('should handle null model', async () => {
             component.model = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const items = fixture.debugElement.queryAll(By.css('li[data-pc-section="item"]'));
@@ -1023,7 +1023,7 @@ describe('MegaMenu', () => {
 
         it('should set aria-label when provided', async () => {
             component.ariaLabel = 'Main Navigation Menu';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check if ariaLabel is set on component instance
@@ -1043,7 +1043,7 @@ describe('MegaMenu', () => {
 
         it('should set aria-labelledby when provided', async () => {
             component.ariaLabelledBy = 'megamenu-heading';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Check if ariaLabelledBy is set on component instance
@@ -1236,7 +1236,7 @@ describe('MegaMenu', () => {
         it('should handle null/undefined values gracefully', async () => {
             component.model = undefined as any;
             component.ariaLabel = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
@@ -1245,7 +1245,7 @@ describe('MegaMenu', () => {
 
         it('should handle items without icons', async () => {
             component.model = [{ label: 'No Icon Item' }, { label: 'Icon Item', icon: 'pi pi-check' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const iconElements = fixture.debugElement.queryAll(By.css('span[data-pc-section="itemicon"]'));
@@ -1255,7 +1255,7 @@ describe('MegaMenu', () => {
 
         it('should handle items with custom styleClass', async () => {
             component.model = [{ label: 'Custom Style', styleClass: 'custom-item-class' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const itemElement = fixture.debugElement.query(By.css('li[data-pc-section="item"]'));
@@ -1721,7 +1721,7 @@ describe('MegaMenu', () => {
                     }
                 });
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 // Hooks may or may not be called depending on lifecycle timing
@@ -1744,7 +1744,7 @@ describe('MegaMenu', () => {
                     }
                 });
 
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 // Verify hooks configuration doesn't break the component

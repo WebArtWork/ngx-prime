@@ -305,7 +305,7 @@ describe('PanelMenu', () => {
 
         it('should use custom id when provided', async () => {
             component.id = 'custom_panel_menu';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panelMenuInstance.id()).toBe('custom_panel_menu');
@@ -328,7 +328,7 @@ describe('PanelMenu', () => {
             const newModel: MenuItem[] = [{ label: 'New Panel', items: [{ label: 'New Item' }] }];
 
             component.model = newModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panelMenuInstance.model()).toEqual(newModel);
@@ -336,7 +336,7 @@ describe('PanelMenu', () => {
 
         it('should update multiple property', async () => {
             component.multiple = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panelMenuInstance.multiple()).toBe(true);
@@ -344,7 +344,7 @@ describe('PanelMenu', () => {
 
         it('should update transitionOptions property', async () => {
             component.transitionOptions = '300ms ease-in';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panelMenuInstance.transitionOptions()).toBe('300ms ease-in');
@@ -352,7 +352,7 @@ describe('PanelMenu', () => {
 
         it('should update styleClass property', async () => {
             component.styleClass = 'custom-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panelMenuInstance.styleClass()).toBe('custom-class');
@@ -360,7 +360,7 @@ describe('PanelMenu', () => {
 
         it('should update tabindex property', async () => {
             component.tabindex = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panelMenuInstance.tabindex()).toBe(1);
@@ -368,7 +368,7 @@ describe('PanelMenu', () => {
 
         it('should handle undefined model', async () => {
             component.model = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panelMenuInstance.model()).toBeUndefined();
@@ -376,7 +376,7 @@ describe('PanelMenu', () => {
 
         it('should handle empty model', async () => {
             component.model = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panelMenuInstance.model()).toEqual([]);
@@ -387,7 +387,7 @@ describe('PanelMenu', () => {
         it('should expand panel on header click', async () => {
             // Set transition options to prevent animation errors
             component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -402,10 +402,10 @@ describe('PanelMenu', () => {
         it('should collapse expanded panel on header click', async () => {
             // Set transition options to prevent animation errors
             component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             component.model![0].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -420,10 +420,10 @@ describe('PanelMenu', () => {
         it('should collapse other panels in single mode', async () => {
             // Set transition options to prevent animation errors
             component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             component.model![0].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Click second panel header
@@ -462,10 +462,10 @@ describe('PanelMenu', () => {
 
         it('should show panel content when expanded', async () => {
             component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             component.model![0].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelContent = fixture.debugElement.query(By.css('.p-panelmenu-content'));
@@ -533,7 +533,7 @@ describe('PanelMenu', () => {
             ];
 
             component.model = nestedModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.model[0].items![0].items).toBeTruthy();
@@ -549,7 +549,7 @@ describe('PanelMenu', () => {
             ];
 
             component.model = modelWithSeparator;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const separators = fixture.debugElement.queryAll(By.css('li[role="separator"]'));
@@ -701,7 +701,7 @@ describe('PanelMenu', () => {
 
         it('should have proper ARIA attributes on panel content', async () => {
             component.model![0].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelContent = fixture.debugElement.query(By.css('.p-panelmenu-content-container'));
@@ -712,7 +712,7 @@ describe('PanelMenu', () => {
 
         it('should have proper ARIA attributes on menu items', async () => {
             component.model![0].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const menuItems = fixture.debugElement.queryAll(By.css('li[role="treeitem"]'));
@@ -727,7 +727,7 @@ describe('PanelMenu', () => {
 
         it('should update aria-expanded when panel state changes', async () => {
             component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -756,7 +756,7 @@ describe('PanelMenu', () => {
     describe('Keyboard Navigation', () => {
         it('should handle Enter key on panel header', async () => {
             component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -774,7 +774,7 @@ describe('PanelMenu', () => {
 
         it('should handle Space key on panel header', async () => {
             component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -926,7 +926,7 @@ describe('PanelMenu', () => {
 
         it('should apply active styling to expanded panels', async () => {
             component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -1033,7 +1033,7 @@ describe('PanelMenu', () => {
             ];
 
             component.model = newModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(panelMenuInstance.model()).toEqual(newModel);
@@ -1045,12 +1045,12 @@ describe('PanelMenu', () => {
 
         it('should preserve expansion state during model updates', async () => {
             component.model![0].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Update the same model reference
             component.model![0].label = 'Updated Documents';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.model![0].expanded).toBe(true);
@@ -1074,7 +1074,7 @@ describe('PanelMenu', () => {
 
         it('should handle null/undefined model items gracefully', async () => {
             component.model = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Should not throw error
@@ -1088,7 +1088,7 @@ describe('PanelMenu', () => {
                     items: [{ label: 'Sub Item' }]
                 } as MenuItem
             ];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -1117,7 +1117,7 @@ describe('PanelMenu', () => {
 
         it('should handle panels without items', async () => {
             component.model = [{ label: 'Panel without items' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const panelHeader = fixture.debugElement.query(By.css('[data-pc-section="header"]'));
@@ -1150,7 +1150,7 @@ describe('PanelMenu', () => {
             ];
 
             component.model = deepModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.model[0].items![0].items![0].items).toBeTruthy();
@@ -1161,13 +1161,13 @@ describe('PanelMenu', () => {
         it('should collapse all panels with collapseAll method', async () => {
             // Set transition options and expand multiple panels
             component.transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             component.model![0].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             component.model![1].expanded = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             panelMenuInstance.collapseAll();

@@ -338,7 +338,7 @@ describe('Menubar', () => {
             component.breakpoint = '768px';
             component.styleClass = 'custom-menubar';
             component.ariaLabel = 'Custom Menu Bar';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menubarInstance.model()).toBe(testModel);
@@ -376,7 +376,7 @@ describe('Menubar', () => {
             const newModel = [{ label: 'New Item' }];
 
             component.model = newModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menubarInstance.model()).toBe(newModel);
@@ -385,7 +385,7 @@ describe('Menubar', () => {
 
         it('should update styleClass input', async () => {
             component.styleClass = 'test-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menubarInstance.styleClass()).toBe('test-class');
@@ -393,42 +393,42 @@ describe('Menubar', () => {
 
         it('should update autoZIndex with booleanAttribute transform', async () => {
             component.autoZIndex = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(menubarInstance.autoZIndex()).toBe(false);
         });
 
         it('should update baseZIndex with numberAttribute transform', async () => {
             component.baseZIndex = 500;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(menubarInstance.baseZIndex()).toBe(500);
         });
 
         it('should update autoDisplay with booleanAttribute transform', async () => {
             component.autoDisplay = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(menubarInstance.autoDisplay()).toBe(false);
         });
 
         it('should update autoHide with booleanAttribute transform', async () => {
             component.autoHide = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(menubarInstance.autoHide()).toBe(true);
         });
 
         it('should update autoHideDelay with numberAttribute transform', async () => {
             component.autoHideDelay = 300;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(menubarInstance.autoHideDelay()).toBe(300);
         });
 
         it('should update breakpoint input', async () => {
             component.breakpoint = '768px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(menubarInstance.breakpoint()).toBe('768px');
         });
@@ -436,7 +436,7 @@ describe('Menubar', () => {
         it('should update ariaLabel and ariaLabelledBy inputs', async () => {
             component.ariaLabel = 'Test Menubar';
             component.ariaLabelledBy = 'menubar-label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menubarInstance.ariaLabel()).toBe('Test Menubar');
@@ -752,7 +752,7 @@ describe('Menubar', () => {
     describe('CSS Classes and Styling', () => {
         it('should apply styleClass when provided', async () => {
             component.styleClass = 'custom-menubar-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const hostElement = menubarElement.nativeElement;
@@ -824,7 +824,7 @@ describe('Menubar', () => {
         it('should update ariaLabel and ariaLabelledBy', async () => {
             component.ariaLabel = 'Main Navigation';
             component.ariaLabelledBy = 'nav-heading';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const rootMenu = fixture.debugElement.query(By.css('ul[pMenubarSub]'));
@@ -882,7 +882,7 @@ describe('Menubar', () => {
 
         it('should handle breakpoint changes', async () => {
             component.breakpoint = '768px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menubarInstance.breakpoint()).toBe('768px');
@@ -916,7 +916,7 @@ describe('Menubar', () => {
     describe('Edge Cases', () => {
         it('should handle null/undefined model', async () => {
             component.model = undefined as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
@@ -925,7 +925,7 @@ describe('Menubar', () => {
 
         it('should handle empty model array', async () => {
             component.model = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();
@@ -934,7 +934,7 @@ describe('Menubar', () => {
 
         it('should handle items without labels', async () => {
             component.model = [{ icon: 'pi pi-file' }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(() => fixture.changeDetectorRef.markForCheck()).not.toThrow();

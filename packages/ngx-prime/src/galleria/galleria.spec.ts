@@ -287,7 +287,7 @@ describe('Galleria', () => {
             component.transitionInterval = 2000;
             component.showIndicators = true;
             component.baseZIndex = 1000;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.activeIndex()).toBe(2);
@@ -309,7 +309,7 @@ describe('Galleria', () => {
         it('should set numVisibleLimit when value length is less than numVisible', async () => {
             component.images = mockImages.slice(0, 2); // Only 2 images
             component.numVisible = 5; // Want to show 5
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.numVisibleLimit).toBe(2);
@@ -638,7 +638,7 @@ describe('Galleria', () => {
 
         it('should apply custom mask class', async () => {
             component.maskClass = 'custom-mask-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.maskClass()).toBe('custom-mask-class');
@@ -647,7 +647,7 @@ describe('Galleria', () => {
         it('should apply custom container class and style', async () => {
             component.containerClass = 'custom-container-class';
             component.containerStyle = { width: '800px', height: '600px' };
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.containerClass()).toBe('custom-container-class');
@@ -657,7 +657,7 @@ describe('Galleria', () => {
         it('should apply custom transition options', async () => {
             component.showTransitionOptions = '300ms ease-in';
             component.hideTransitionOptions = '200ms ease-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.showTransitionOptions()).toBe('300ms ease-in');
@@ -691,7 +691,7 @@ describe('Galleria', () => {
 
             for (const position of positions) {
                 component.thumbnailsPosition = position;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 expect(galleriaInstance.thumbnailsPosition()).toBe(position);
             }
@@ -702,7 +702,7 @@ describe('Galleria', () => {
 
             for (const position of positions) {
                 component.indicatorsPosition = position;
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
                 expect(galleriaInstance.indicatorsPosition()).toBe(position);
             }
@@ -710,7 +710,7 @@ describe('Galleria', () => {
 
         it('should handle vertical thumbnail viewport height', async () => {
             component.verticalThumbnailViewPortHeight = '400px';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.verticalThumbnailViewPortHeight()).toBe('400px');
@@ -718,7 +718,7 @@ describe('Galleria', () => {
 
         it('should handle show indicators on item', async () => {
             component.showIndicatorsOnItem = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.showIndicatorsOnItem()).toBe(true);
@@ -806,7 +806,7 @@ describe('Galleria', () => {
 
         it('should handle empty images array', async () => {
             component.images = [];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.value()).toEqual([]);
@@ -814,7 +814,7 @@ describe('Galleria', () => {
 
         it('should handle null images', async () => {
             component.images = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.value()).toBe(null as any);
@@ -822,7 +822,7 @@ describe('Galleria', () => {
 
         it('should handle single image', async () => {
             component.images = [mockImages[0]];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.value()?.length).toBe(1);
@@ -847,7 +847,7 @@ describe('Galleria', () => {
 
         it('should handle custom id', async () => {
             component.id = 'custom-galleria-id';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(galleriaInstance.id()).toBe('custom-galleria-id');
@@ -894,7 +894,7 @@ describe('Galleria', () => {
 
             component.images = smallArray;
             component.numVisible = 5;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             // Simulate ngOnChanges
@@ -913,7 +913,7 @@ describe('Galleria', () => {
         it('should reset numVisibleLimit when value is sufficient', async () => {
             component.images = mockImages; // 5 images
             component.numVisible = 3; // Want to show 3
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             galleriaInstance.ngOnChanges({

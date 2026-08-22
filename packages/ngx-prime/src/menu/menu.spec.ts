@@ -340,7 +340,7 @@ describe('Menu', () => {
             component.styleClass = 'custom-menu';
             component.ariaLabel = 'Custom Menu';
             component.tabindex = 1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menuInstance.model()).toBe(testModel);
@@ -382,7 +382,7 @@ describe('Menu', () => {
             const newModel = [{ label: 'New Item' }];
 
             component.model = newModel;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menuInstance.model()).toBe(newModel);
@@ -390,7 +390,7 @@ describe('Menu', () => {
 
         it('should update popup input', async () => {
             component.popup = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menuInstance.popup()).toBe(true);
@@ -399,7 +399,7 @@ describe('Menu', () => {
         it('should update style inputs', async () => {
             component.style = { width: '200px' };
             component.styleClass = 'test-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menuInstance.style()).toEqual({ width: '200px' });
@@ -409,7 +409,7 @@ describe('Menu', () => {
         it('should update z-index inputs', async () => {
             component.autoZIndex = false;
             component.baseZIndex = 1000;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menuInstance.autoZIndex()).toBe(false);
@@ -419,7 +419,7 @@ describe('Menu', () => {
         it('should update transition inputs', async () => {
             component.showTransitionOptions = '.2s ease-in';
             component.hideTransitionOptions = '.15s ease-out';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menuInstance.showTransitionOptions()).toBe('.2s ease-in');
@@ -429,7 +429,7 @@ describe('Menu', () => {
         it('should update aria inputs', async () => {
             component.ariaLabel = 'Test Menu';
             component.ariaLabelledBy = 'menu-label';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(menuInstance.ariaLabel()).toBe('Test Menu');
@@ -438,14 +438,14 @@ describe('Menu', () => {
 
         it('should update tabindex input', async () => {
             component.tabindex = 2;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(menuInstance.tabindex()).toBe(2);
         });
 
         it('should update id input', async () => {
             component.id = 'custom-menu-id';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(menuInstance.id()).toBe('custom-menu-id');
         });
@@ -765,7 +765,7 @@ describe('Menu', () => {
 
         it('should handle escape key for popup menu', async () => {
             component.popup = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(menuInstance, 'hide');
@@ -950,7 +950,7 @@ describe('Menu', () => {
 
         it('should set aria-label when provided', async () => {
             component.ariaLabel = 'Main Navigation Menu';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
@@ -960,7 +960,7 @@ describe('Menu', () => {
 
         it('should set aria-labelledby when provided', async () => {
             component.ariaLabelledBy = 'menu-heading';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
@@ -1011,7 +1011,7 @@ describe('Menu', () => {
     describe('Popup Menu Tests', () => {
         it('should show and hide popup menu', async () => {
             component.popup = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(menuInstance.onShow, 'emit');
@@ -1033,7 +1033,7 @@ describe('Menu', () => {
 
         it('should toggle popup menu visibility', async () => {
             component.popup = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const mockEvent = new MouseEvent('click', { bubbles: true });
@@ -1054,7 +1054,7 @@ describe('Menu', () => {
 
         it('should handle overlay click', async () => {
             component.popup = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(overlayService, 'add');
@@ -1068,7 +1068,7 @@ describe('Menu', () => {
 
         it('should bind document click listener for popup', async () => {
             component.popup = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             spyOn(menuInstance, 'bindDocumentClickListener');
@@ -1352,7 +1352,7 @@ describe('Menu', () => {
 
         it('should handle rapid show/hide calls', async () => {
             component.popup = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const mockEvent = { currentTarget: document.createElement('button') };
@@ -1370,7 +1370,7 @@ describe('Menu', () => {
 
         it('should handle disabled items click prevention', async () => {
             component.model = [{ label: 'Disabled Item', disabled: true }];
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const mockEvent = {
@@ -1435,12 +1435,12 @@ describe('Menu', () => {
 
         it('should get tab index value correctly', () => {
             component.tabindex = 0;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             expect(menuInstance.getTabIndexValue()).toBe('0');
 
             component.tabindex = -1;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             fixture.detectChanges();
             expect(menuInstance.getTabIndexValue()).toBe('-1');
         });

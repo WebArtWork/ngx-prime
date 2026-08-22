@@ -110,7 +110,7 @@ describe('IconField', () => {
 
         it('should apply iconPosition "right"', async () => {
             component.position = 'right';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(iconFieldInstance.iconPosition()).toBe('right');
@@ -121,13 +121,13 @@ describe('IconField', () => {
 
             // Test 'left' position (default)
             component.position = 'left';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(iconFieldElement.nativeElement.classList.contains('p-iconfield-left')).toBe(true);
 
             // Test 'right' position
             component.position = 'right';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(iconFieldElement.nativeElement.classList.contains('p-iconfield-right')).toBe(true);
         });
@@ -160,7 +160,7 @@ describe('IconField', () => {
 
         it('should update styleClass dynamically', async () => {
             component.customClass = 'new-custom-class';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(iconFieldInstance.styleClass()).toBe('new-custom-class');
@@ -194,7 +194,7 @@ describe('IconField', () => {
 
         it('should update input value when model changes', async () => {
             component.value = 'search term';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const inputElement = fixture.debugElement.query(By.css('input'));
@@ -270,7 +270,7 @@ describe('IconField PassThrough Tests', () => {
                     class: instance?.iconPosition() === 'right' ? 'ICON_RIGHT' : ''
                 })
             });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(hostElement.classList.contains('ICON_RIGHT')).toBe(true);

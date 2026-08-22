@@ -98,7 +98,7 @@ describe('InputText', () => {
 
             input.value = 'test input';
             input.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.value).toBe('test input');
@@ -106,7 +106,7 @@ describe('InputText', () => {
 
         it('should update input value when model changes', async () => {
             component.value = 'new value';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputEl.nativeElement.value).toBe('new value');
@@ -134,13 +134,13 @@ describe('InputText', () => {
 
         it('should apply size variants', async () => {
             component.size = 'large';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputDirective.pSize()).toBe('large');
 
             component.size = 'small';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputDirective.pSize()).toBe('small');
@@ -148,13 +148,13 @@ describe('InputText', () => {
 
         it('should apply variant styles', async () => {
             component.variant = 'filled';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputDirective.variant()).toBe('filled');
 
             component.variant = 'outlined';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputDirective.variant()).toBe('outlined');
@@ -162,14 +162,14 @@ describe('InputText', () => {
 
         it('should apply fluid styling', async () => {
             component.fluid = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputDirective.fluid()).toBe(true);
             expect(inputDirective.hasFluid).toBe(true);
 
             component.fluid = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputDirective.fluid()).toBe(false);
@@ -178,13 +178,13 @@ describe('InputText', () => {
 
         it('should apply invalid state', async () => {
             component.invalid = true;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputDirective.invalid()).toBe(true);
 
             component.invalid = false;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputDirective.invalid()).toBe(false);
@@ -210,7 +210,7 @@ describe('InputText', () => {
 
         it('should work with reactive forms', async () => {
             component.emailControl.setValue('test@example.com');
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputEl.nativeElement.value).toBe('test@example.com');
@@ -221,7 +221,7 @@ describe('InputText', () => {
 
             input.value = 'user@test.com';
             input.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.emailControl.value).toBe('user@test.com');
@@ -229,7 +229,7 @@ describe('InputText', () => {
 
         it('should handle form control validation', async () => {
             component.emailControl.setErrors({ email: true });
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.emailControl.invalid).toBe(true);
@@ -238,7 +238,7 @@ describe('InputText', () => {
 
         it('should handle disabled state', async () => {
             component.emailControl.disable();
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputEl.nativeElement.disabled).toBe(true);
@@ -272,7 +272,7 @@ describe('InputText', () => {
 
             input.value = 'secret123';
             input.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.password).toBe('secret123');
@@ -298,7 +298,7 @@ describe('InputText', () => {
 
         it('should handle empty string values', async () => {
             component.value = '';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputEl.nativeElement.value).toBe('' as any);
@@ -306,7 +306,7 @@ describe('InputText', () => {
 
         it('should handle null/undefined values', async () => {
             component.value = null as any;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputEl.nativeElement.value).toBe('' as any);
@@ -316,7 +316,7 @@ describe('InputText', () => {
             const specialText = 'Hello! @#$%^&*()_+ 123';
 
             component.value = specialText;
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputEl.nativeElement.value).toBe(specialText);
@@ -324,7 +324,7 @@ describe('InputText', () => {
 
         it('should handle whitespace values', async () => {
             component.value = '   spaces   ';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(inputEl.nativeElement.value).toBe('   spaces   ');
@@ -353,19 +353,19 @@ describe('InputText', () => {
 
             input.value = 'a';
             input.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(component.value).toBe('a');
 
             input.value = 'ab';
             input.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(component.value).toBe('ab');
 
             input.value = 'abc';
             input.dispatchEvent(new Event('input'));
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
             expect(component.value).toBe('abc');
         });
@@ -409,7 +409,7 @@ describe('InputText', () => {
         describe('Case 1: Simple string classes', () => {
             it('should apply root class from pt', async () => {
                 component.pt = { root: 'ROOT_CLASS' };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputEl.classList.contains('ROOT_CLASS')).toBe(true);
@@ -426,7 +426,7 @@ describe('InputText', () => {
                         'aria-label': 'TEST_ARIA_LABEL'
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputEl.classList.contains('ROOT_OBJECT_CLASS')).toBe(true);
@@ -445,7 +445,7 @@ describe('InputText', () => {
                         'data-invalid': instance?.invalid()
                     })
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputEl.classList.contains('INSTANCE_ACCESSED')).toBe(true);
@@ -461,7 +461,7 @@ describe('InputText', () => {
                         }
                     })
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputEl.style.width).toBe('100%');
@@ -474,7 +474,7 @@ describe('InputText', () => {
                         'data-variant': instance?.variant()
                     })
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputEl.getAttribute('data-variant')).toBe('filled');
@@ -492,7 +492,7 @@ describe('InputText', () => {
                         }
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 inputEl.click();
@@ -509,7 +509,7 @@ describe('InputText', () => {
                         }
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 inputEl.dispatchEvent(new Event('focus'));
@@ -526,7 +526,7 @@ describe('InputText', () => {
                         }
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 inputEl.dispatchEvent(new Event('blur'));
@@ -537,7 +537,7 @@ describe('InputText', () => {
         describe('Case 5: Inline test', () => {
             it('should apply inline pt with string class', async () => {
                 component.pt = { root: 'INLINE_CLASS' };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputEl.classList.contains('INLINE_CLASS')).toBe(true);
@@ -545,7 +545,7 @@ describe('InputText', () => {
 
             it('should apply inline pt with object class', async () => {
                 component.pt = { root: { class: 'INLINE_OBJECT_CLASS' } };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputEl.classList.contains('INLINE_OBJECT_CLASS')).toBe(true);
@@ -564,7 +564,7 @@ describe('InputText', () => {
                         'data-fluid': instance?.hasFluid
                     })
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputEl.classList.contains('COMPLEX_CLASS')).toBe(true);
@@ -580,7 +580,7 @@ describe('InputText', () => {
                         class: 'custom-input'
                     }
                 };
-                fixture.changeDetectorRef.markForCheck();
+                fixture.detectChanges();
                 await fixture.whenStable();
 
                 expect(inputEl.getAttribute('aria-required')).toBe('true');

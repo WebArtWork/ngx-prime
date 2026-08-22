@@ -95,7 +95,7 @@ describe('InputGroupAddon', () => {
         it('should update addon styles dynamically', async () => {
             component.addonStyle = { color: 'red' };
             component.addonClass = 'updated-addon';
-            fixture.changeDetectorRef.markForCheck();
+            fixture.detectChanges();
             await fixture.whenStable();
 
             const addonInstance = fixture.debugElement.query(By.directive(InputGroupAddon)).componentInstance;
