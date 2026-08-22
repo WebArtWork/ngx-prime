@@ -2,8 +2,8 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
+import { ButtonModule } from 'ngx-prime/button';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     selector: 'app-buttonbar-doc',

@@ -2,10 +2,10 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     selector: 'app-template-doc',

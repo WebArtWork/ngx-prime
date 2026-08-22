@@ -20,7 +20,7 @@ import { PrimeUIFigmaPluginDoc } from '@/doc/uikit/v4/primeuifigmaplugin-doc';
 
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'primeng/ripple';
+import { RippleModule } from 'ngx-prime/ripple';
 
 @Component({
     standalone: true,

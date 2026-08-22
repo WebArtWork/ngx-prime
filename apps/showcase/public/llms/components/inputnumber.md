@@ -13,7 +13,7 @@ Spinner buttons are enabled using the showButtons options and layout is defined 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -56,7 +56,7 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -79,7 +79,7 @@ Currency formatting is specified by setting the mode option to currency and curr
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -120,7 +120,7 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -143,7 +143,7 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -166,8 +166,8 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { FloatLabelModule } from 'ngx-prime/floatlabel';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -203,7 +203,7 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -226,8 +226,8 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { IftaLabelModule } from 'ngx-prime/iftalabel';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -248,12 +248,12 @@ export class InputnumberIftalabelDemo {
 
 ## Invalid
 
-The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -278,7 +278,7 @@ Localization information such as grouping and decimal symbols are defined with t
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -319,7 +319,7 @@ InputNumber is used as a controlled input with ngModel property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -360,7 +360,7 @@ Custom texts e.g. units can be placed before or after the input section with the
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -379,7 +379,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
             </div>
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="temperature">Temperature</label>
-                <p-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
+                <p-inputnumber [(ngModel)]="value4" prefix="â†‘ " inputId="temperature" suffix="â„ƒ" [min]="0" [max]="40" />
             </div>
         </p-fluid>
     `,
@@ -401,11 +401,11 @@ InputNumber can also be used with reactive forms. In this case, the formControlN
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -459,7 +459,7 @@ InputNumber provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -484,11 +484,11 @@ export class InputnumberSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -528,7 +528,7 @@ Buttons can also placed vertically by setting buttonLayout as vertical .
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
 
 @Component({
     template: `
@@ -600,7 +600,7 @@ InputNumber is an input component to provide numerical input.
 | localeMatcher | any | - | The locale matching algorithm to use. Possible values are "lookup" and "best fit"; the default is "best fit". See Locale Negotiation for details. |
 | mode | any | decimal | Defines the behavior of the component, valid values are "decimal" and "currency". |
 | currency | string | - | The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB. There is no default value; if the style is "currency", the currency property must be provided. |
-| currencyDisplay | any | - | How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as €, ü"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol". |
+| currencyDisplay | any | - | How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as â‚¬, Ã¼"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol". |
 | useGrouping | boolean | true | Whether to use grouping separators, such as thousands separators or thousand/lakh/crore separators. |
 | minFractionDigits | number | - | The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information). |
 | maxFractionDigits | number | - | The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information). |

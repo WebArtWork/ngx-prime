@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { providePrimeNG } from 'primeng/config';
-import { TextareaPassThrough } from 'primeng/types/textarea';
+import { provideNgxPrime } from 'ngx-prime/config';
+import { TextareaPassThrough } from 'ngx-prime/types/textarea';
 import { Textarea } from './textarea';
 
 @Component({
@@ -594,14 +594,14 @@ describe('Textarea', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             it('should apply global pt configuration', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [TestPTTextareaComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 textarea: {
                                     host: { 'aria-label': 'GLOBAL_ARIA_LABEL' }
@@ -624,13 +624,13 @@ describe('Textarea', () => {
                 expect(el.getAttribute('aria-label')).toBe('GLOBAL_ARIA_LABEL');
             });
 
-            it('should apply global css from PrimeNGConfig', async () => {
+            it('should apply global css from NgxPrimeConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [TestPTTextareaComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 textarea: {
                                     root: 'GLOBAL_CLASS',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/button';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -54,7 +54,7 @@ export class ButtonStyle extends BaseStyle {
  *
  * Button is an extension to standard button element with icons and theming.
  *
- * [Live Demo](https://www.primeng.org/button/)
+ * [Live Demo](https://www.ngx-prime.org/button/)
  *
  * @module buttonstyle
  *

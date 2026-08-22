@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { DockModule } from 'primeng/dock';
-import { TooltipModule } from 'primeng/tooltip';
+import { DockModule } from 'ngx-prime/dock';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     selector: 'app-dock-pt-viewer',

@@ -4,7 +4,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 import { BehaviorSubject, delay, of, timer } from 'rxjs';
 import { FileUpload } from './fileupload';
 import { FileUploadClearDirective, FileUploadDirective } from './nativefileupload';
@@ -132,7 +132,7 @@ describe('FileUpload', () => {
             fixture.detectChanges();
 
             const basicFileInput = component.basicFileInput();
-            const basicFileInput = component.basicFileInput();
+
 
             if (basicFileInput?.nativeElement) {
                 spyOn(basicFileInput.nativeElement, 'click');
@@ -314,7 +314,7 @@ describe('FileUpload', () => {
 
             const dragEvent = new DragEvent('dragleave');
 
-            component.onDragLeave(dragEvent);
+            component.onDragLeave();
 
             // dragHighlight should be reset in the actual implementation
             // This test verifies the event handling
@@ -1586,8 +1586,8 @@ describe('FileUpload CSS Classes and Styling', () => {
 
         // In testing environment, we simulate the ngStyle behavior
         if (component.style()) {
-            Object.keys(component.style()).forEach((key) => {
-                element.style[key] = component.style()![key];
+            Object.keys(component.style() as object).forEach((key) => {
+                (element.style as any)[key] = (component.style() as any)![key];
             });
         }
 
@@ -1597,8 +1597,8 @@ describe('FileUpload CSS Classes and Styling', () => {
 
         // Also verify the template binding
         expect(component.style()).toBeTruthy();
-        expect(Object.keys(component.style())).toContain('border');
-        expect(Object.keys(component.style())).toContain('padding');
+        expect(Object.keys(component.style() as object)).toContain('border');
+        expect(Object.keys(component.style() as object)).toContain('padding');
     });
 
     it('should apply button style classes', () => {
@@ -1823,7 +1823,7 @@ describe('FileUpload Advanced Template Combinations', () => {
 
                     <ng-template pTemplate="empty">
                         <div class="mixed-empty">
-                            <div class="empty-icon">📁</div>
+                            <div class="empty-icon">ðŸ“</div>
                             <div class="empty-text">Drag and drop files here or click Choose</div>
                             <div class="empty-hint">Supported formats: PDF, JPG, PNG</div>
                         </div>
@@ -3174,7 +3174,7 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-fileupload name="file1" url="./upload"></p-fileupload>
@@ -3184,14 +3184,14 @@ describe('FileUpload Input Properties - Observable/Async Values', () => {
             })
             class TestPTCase7GlobalComponent {}
 
-            it('should apply global PT configuration from PrimeNGConfig to multiple instances', async () => {
+            it('should apply global PT configuration from NgxPrimeConfig to multiple instances', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [FileUpload, HttpClientTestingModule, TestPTCase7GlobalComponent],
                     providers: [
                         MessageService,
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideNgxPrime',
                             useValue: {
                                 pt: {
                                     fileupload: {

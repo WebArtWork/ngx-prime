@@ -8,11 +8,11 @@ import Aura from '@wawjs/css-prime-themes/aura';
 import Lara from '@wawjs/css-prime-themes/lara';
 import Material from '@wawjs/css-prime-themes/material';
 import Nora from '@wawjs/css-prime-themes/nora';
-import { ButtonModule } from 'primeng/button';
-import { PrimeNG } from 'primeng/config';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { SelectButton } from 'primeng/selectbutton';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ButtonModule } from 'ngx-prime/button';
+import { ngx-prime } from 'ngx-prime/config';
+import { RadioButtonModule } from 'ngx-prime/radiobutton';
+import { SelectButton } from 'ngx-prime/selectbutton';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 
 const presets = {
     Aura,
@@ -98,7 +98,7 @@ export class AppConfiguratorComponent {
         return this.configService.appState().RTL;
     }
 
-    config: PrimeNG = inject(PrimeNG);
+    config: ngx-prime = inject(ngx-prime);
 
     configService: AppConfigService = inject(AppConfigService);
 

@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThroughOptions } from 'primeng/types/button';
+import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
+import type { ButtonPassThroughOptions } from 'ngx-prime/types/button';
 
 /**
  * Custom pass-through(pt) options.

@@ -1,8 +1,8 @@
 import { Code } from '@/domain/code';
 import { Product } from '@/domain/product';
 import { Component, inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'ngx-prime/api';
+import { DialogService, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -47,12 +47,12 @@ export class CloseDoc {
     code: Code = {
         typescript: `
 import { Component, Input } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'ngx-prime/api';
+import { DialogService, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
 import { Product } from '@/domain/product';
 import { ProductListDemo } from './productlistdemo';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     template: \`

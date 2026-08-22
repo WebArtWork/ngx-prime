@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { Message } from './message';
 
 @Component({
@@ -71,10 +71,10 @@ class TestContainerTemplateComponent {}
     template: `
         <p-message [closable]="true">
             <ng-template #icon>
-                <i class="custom-icon">🔔</i>
+                <i class="custom-icon">ðŸ””</i>
             </ng-template>
             <ng-template #closeicon>
-                <i class="custom-close-icon">✖</i>
+                <i class="custom-close-icon">âœ–</i>
             </ng-template>
             Custom Message Content
         </p-message>
@@ -93,10 +93,10 @@ class TestIconTemplatesComponent {}
                 </div>
             </ng-template>
             <ng-template pTemplate="icon">
-                <i class="ptemplate-icon">📢</i>
+                <i class="ptemplate-icon">ðŸ“¢</i>
             </ng-template>
             <ng-template pTemplate="closeicon">
-                <i class="ptemplate-close-icon">❌</i>
+                <i class="ptemplate-close-icon">âŒ</i>
             </ng-template>
         </p-message>
     `,
@@ -541,14 +541,14 @@ describe('Message', () => {
             const customIcon = fixture.debugElement.query(By.css('.custom-icon'));
 
             expect(customIcon).toBeTruthy();
-            expect(customIcon.nativeElement.textContent).toBe('🔔');
+            expect(customIcon.nativeElement.textContent).toBe('ðŸ””');
         });
 
         it('should project closeicon template correctly', () => {
             const customCloseIcon = fixture.debugElement.query(By.css('.custom-close-icon'));
 
             expect(customCloseIcon).toBeTruthy();
-            expect(customCloseIcon.nativeElement.textContent).toBe('✖');
+            expect(customCloseIcon.nativeElement.textContent).toBe('âœ–');
         });
     });
 
@@ -602,12 +602,12 @@ describe('Message', () => {
             const ptemplateIcon = fixture.debugElement.query(By.css('.ptemplate-icon'));
 
             expect(ptemplateIcon).toBeTruthy();
-            expect(ptemplateIcon.nativeElement.textContent).toBe('📢');
+            expect(ptemplateIcon.nativeElement.textContent).toBe('ðŸ“¢');
 
             const ptemplateCloseIcon = fixture.debugElement.query(By.css('.ptemplate-close-icon'));
 
             expect(ptemplateCloseIcon).toBeTruthy();
-            expect(ptemplateCloseIcon.nativeElement.textContent).toBe('❌');
+            expect(ptemplateCloseIcon.nativeElement.textContent).toBe('âŒ');
         });
 
         it('should handle closeCallback in pTemplate container', async () => {
@@ -1498,7 +1498,7 @@ describe('Message', () => {
         });
     });
 
-    describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
+    describe('PassThrough - Case 7: Test from NgxPrimeConfig', () => {
         @Component({
             template: `
                 <p-message [text]="'First Message'" [closable]="true"></p-message>
@@ -1508,12 +1508,12 @@ describe('Message', () => {
         })
         class TestGlobalPtComponent {}
 
-        it('should apply global pt configuration from PrimeNGConfig', async () => {
+        it('should apply global pt configuration from NgxPrimeConfig', async () => {
             await TestBed.configureTestingModule({
                 imports: [Message, TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             message: {
                                 host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
@@ -1545,12 +1545,12 @@ describe('Message', () => {
             expect(secondHost.classList.contains('GLOBAL_ROOT_CLASS')).toBe(true);
         });
 
-        it('should apply global css from PrimeNGConfig', async () => {
+        it('should apply global css from NgxPrimeConfig', async () => {
             await TestBed.configureTestingModule({
                 imports: [Message, TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             message: {
                                 root: {
@@ -1584,7 +1584,7 @@ describe('Message', () => {
                 imports: [Message, TestMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             message: {
                                 root: 'GLOBAL_ROOT_CLASS',
@@ -1617,7 +1617,7 @@ describe('Message', () => {
                 imports: [Message, TestGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             message: {
                                 root: {

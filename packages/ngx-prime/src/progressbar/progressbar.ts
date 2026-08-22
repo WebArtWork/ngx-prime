@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, numberAttribute, TemplateRef, ViewEncapsulation, contentChild, contentChildren } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ProgressBarContentTemplateContext, ProgressBarPassThrough } from 'primeng/types/progressbar';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { ProgressBarContentTemplateContext, ProgressBarPassThrough } from 'ngx-prime/types/progressbar';
 import { ProgressBarStyle } from './style/progressbarstyle';
 
 const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTANCE');

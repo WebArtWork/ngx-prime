@@ -26,17 +26,17 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { addClass, find, findSingle, focus, getAttribute, removeClass, setAttribute, uuid } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
-import { FocusTrap } from 'primeng/focustrap';
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'primeng/icons';
-import { MotionDirective, MotionModule } from 'primeng/motion';
-import { Ripple } from 'primeng/ripple';
-import { VoidListener } from 'primeng/ts-helpers';
-import { GalleriaCaptionTemplateContext, GalleriaIndicatorTemplateContext, GalleriaItemTemplateContext, GalleriaPassThrough, GalleriaResponsiveOptions, GalleriaThumbnailTemplateContext } from 'primeng/types/galleria';
-import { ZIndexUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { blockBodyScroll, unblockBodyScroll } from 'ngx-prime/dom';
+import { FocusTrap } from 'ngx-prime/focustrap';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'ngx-prime/icons';
+import { MotionDirective, MotionModule } from 'ngx-prime/motion';
+import { Ripple } from 'ngx-prime/ripple';
+import { VoidListener } from 'ngx-prime/ts-helpers';
+import { GalleriaCaptionTemplateContext, GalleriaIndicatorTemplateContext, GalleriaItemTemplateContext, GalleriaPassThrough, GalleriaResponsiveOptions, GalleriaThumbnailTemplateContext } from 'ngx-prime/types/galleria';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { GalleriaStyle } from './style/galleriastyle';
 
 const GALLERIA_INSTANCE = new InjectionToken<Galleria>('GALLERIA_INSTANCE');

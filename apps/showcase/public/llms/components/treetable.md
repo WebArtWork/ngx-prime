@@ -12,9 +12,9 @@ TreeTable requires a collection of TreeNode instances as a value components as c
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -58,8 +58,8 @@ export class TreetableBasicDemo implements OnInit {
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
-import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'ngx-prime/treetable';
+import { TreeNode } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -373,9 +373,9 @@ Setting columnResizeMode as expand changes the table width as well.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -438,9 +438,9 @@ Columns can be resized with drag and drop when resizableColumns is enabled. Defa
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -503,10 +503,10 @@ To utilize the column resize modes with a scrollable TreeTable, a colgroup templ
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTable, TreeTableModule } from 'primeng/treetable';
+import { TreeTable, TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
-import { TreeTable } from 'primeng/treetable';
+import { TreeNode } from 'ngx-prime/api';
+import { TreeTable } from 'ngx-prime/treetable';
 
 interface Column {
     field: string;
@@ -577,10 +577,10 @@ Column visibility based on a condition can be implemented with dynamic columns, 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TreeTableModule } from 'primeng/treetable';
+import { MultiSelectModule } from 'ngx-prime/multiselect';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -650,9 +650,9 @@ Particular rows and cells can be styled based on conditions. The ngClass receive
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -715,10 +715,10 @@ TreeTable has exclusive integration with contextmenu component. In order to atta
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTable, TreeTableModule } from 'primeng/treetable';
+import { TreeTable, TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode, MenuItem, MessageService } from 'primeng/api';
-import { TreeTable } from 'primeng/treetable';
+import { TreeNode, MenuItem, MessageService } from 'ngx-prime/api';
+import { TreeTable } from 'ngx-prime/treetable';
 
 interface Column {
     field: string;
@@ -797,9 +797,9 @@ Expansion state is controlled with expandedKeys property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -855,9 +855,9 @@ Columns can be created programmatically.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -921,10 +921,10 @@ Incell editing is enabled by defining input elements with treeTableCellEditor .
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeTableModule } from 'primeng/treetable';
-import { InputTextModule } from 'primeng/inputtext';
+import { TreeTableModule } from 'ngx-prime/treetable';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -982,12 +982,12 @@ The filterMode specifies the filtering strategy, in lenient mode when the query 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { TreeTableModule } from 'primeng/treetable';
-import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'ngx-prime/iconfield';
+import { InputIconModule } from 'ngx-prime/inputicon';
+import { TreeTableModule } from 'ngx-prime/treetable';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -1072,11 +1072,11 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { TreeTableModule } from 'primeng/treetable';
+import { ButtonModule } from 'ngx-prime/button';
+import { Dialog, DialogModule } from 'ngx-prime/dialog';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -1133,9 +1133,9 @@ Enabling showGridlines displays grid lines.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -1181,9 +1181,9 @@ Lazy mode is handy to deal with large datasets, instead of loading the entire da
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -1315,9 +1315,9 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -1365,10 +1365,10 @@ Skeleton component can be used as a placeholder during the loading process.
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TreeTableModule } from 'primeng/treetable';
+import { SkeletonModule } from 'ngx-prime/skeleton';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -1411,8 +1411,8 @@ Pagination is enabled by adding paginator property and defining rows per page.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
-import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'ngx-prime/treetable';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -1492,10 +1492,10 @@ Paginator UI is customized using the paginatorleft and paginatorright property. 
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TreeTableModule } from 'primeng/treetable';
-import { TreeNode } from 'primeng/api';
-import { Paginator } from 'primeng/paginator';
+import { ButtonModule } from 'ngx-prime/button';
+import { TreeTableModule } from 'ngx-prime/treetable';
+import { TreeNode } from 'ngx-prime/api';
+import { Paginator } from 'ngx-prime/paginator';
 
 interface Column {
     field: string;
@@ -1581,9 +1581,9 @@ Order of the columns can be changed using drag and drop when reorderableColumns 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -1646,9 +1646,9 @@ A column can be fixed during horizontal scrolling by enabling the frozenColumns 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -1732,9 +1732,9 @@ Horizontal scrolling is enabled when the total width of columns exceeds table wi
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -1804,9 +1804,9 @@ Adding scrollable property along with a scrollHeight for the data viewport enabl
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -1869,9 +1869,9 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -1956,9 +1956,9 @@ TreeTable provides onNodeSelect and onNodeUnselect events to listen selection ev
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode, MessageService } from 'primeng/api';
+import { TreeNode, MessageService } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -2042,14 +2042,14 @@ export class TreetableSelectioneventscDemo implements OnInit {
 
 ## Multiple
 
-More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, TreeTable always ignores metaKey.
+More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. âŒ˜ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, TreeTable always ignores metaKey.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTable, TreeTableModule } from 'primeng/treetable';
+import { TreeTable, TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
-import { TreeTable } from 'primeng/treetable';
+import { TreeNode } from 'ngx-prime/api';
+import { TreeTable } from 'ngx-prime/treetable';
 
 interface Column {
     field: string;
@@ -2110,13 +2110,13 @@ export class TreetableSelectionmultipleDemo implements OnInit {
 
 ## Single
 
-Single node selection is configured by setting selectionMode as single along with selection properties to manage the selection value binding. By default, metaKey press (e.g. ⌘ ) is necessary to unselect a node however this can be configured with disabling the metaKeySelection property. In touch enabled devices this option has no effect and behavior is same as setting it to false
+Single node selection is configured by setting selectionMode as single along with selection properties to manage the selection value binding. By default, metaKey press (e.g. âŒ˜ ) is necessary to unselect a node however this can be configured with disabling the metaKeySelection property. In touch enabled devices this option has no effect and behavior is same as setting it to false
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -2181,9 +2181,9 @@ In addition to a regular treetable, alternatives with alternative sizes are avai
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -2232,13 +2232,13 @@ export class TreetableSizeDemo implements OnInit {
 
 ## Multiple Columns
 
-Multiple columns can be sorted by defining sortMode as multiple . This mode requires metaKey (e.g. ⌘ ) to be pressed when clicking a header.
+Multiple columns can be sorted by defining sortMode as multiple . This mode requires metaKey (e.g. âŒ˜ ) to be pressed when clicking a header.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -2304,10 +2304,10 @@ The removable sort can be implemented using the customSort property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTable, TreeTableModule } from 'primeng/treetable';
+import { TreeTable, TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode, SortEvent } from 'primeng/api';
-import { TreeTable } from 'primeng/treetable';
+import { TreeNode, SortEvent } from 'ngx-prime/api';
+import { TreeTable } from 'ngx-prime/treetable';
 
 interface Column {
     field: string;
@@ -2409,9 +2409,9 @@ Sorting on a column is enabled by adding the ttSortableColumn property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;
@@ -2477,10 +2477,10 @@ Custom content at caption , header , body and summary sections are supported via
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TreeTableModule } from 'primeng/treetable';
+import { ButtonModule } from 'ngx-prime/button';
+import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 interface Column {
     field: string;

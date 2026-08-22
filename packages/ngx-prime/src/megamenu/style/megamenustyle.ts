@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/megamenu';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const inlineStyles = {
     rootList: ({ instance }) => ({ 'max-height': instance.scrollHeight(), overflow: 'auto' })
@@ -93,7 +93,7 @@ export class MegaMenuStyle extends BaseStyle {
  *
  * MegaMenu is navigation component that displays submenus together.
  *
- * [Live Demo](https://www.primeng.org/megamenu/)
+ * [Live Demo](https://www.ngx-prime.org/megamenu/)
  *
  * @module megamenustyle
  *

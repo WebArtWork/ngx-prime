@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/terminal';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: () => ['p-terminal p-component'],
@@ -27,7 +27,7 @@ export class TerminalStyle extends BaseStyle {
  *
  * Terminal is a text based user interface.
  *
- * [Live Demo](https://www.primeng.org/terminal)
+ * [Live Demo](https://www.ngx-prime.org/terminal)
  *
  * @module terminalstyle
  *

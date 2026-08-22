@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/colorpicker';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const nativeStyle = `
 .p-colorpicker-input { inline-size: 2.5rem; block-size: 2.5rem; padding: .125rem; cursor: pointer; border-radius: dt('inputtext.border.radius'); }
@@ -42,7 +42,7 @@ export class ColorPickerStyle extends BaseStyle {
  *
  * ColorPicker groups a collection of contents in tabs.
  *
- * [Live Demo](https://www.primeng.org/colorpicker/)
+ * [Live Demo](https://www.ngx-prime.org/colorpicker/)
  *
  * @module colorpickerstyle
  *

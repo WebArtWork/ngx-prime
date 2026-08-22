@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -22,7 +22,7 @@ export class TabStyle extends BaseStyle {
  *
  * Tabs facilitates seamless switching between different views.
  *
- * [Live Demo](https://www.primeng.org/tabs/)
+ * [Live Demo](https://www.ngx-prime.org/tabs/)
  *
  * @module tabsstyle
  *

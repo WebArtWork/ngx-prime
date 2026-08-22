@@ -12,17 +12,17 @@ A mock desktop UI implemented with various components in addition to Dock.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
-import { DockModule } from 'primeng/dock';
-import { GalleriaModule } from 'primeng/galleria';
-import { MenubarModule } from 'primeng/menubar';
-import { TerminalModule } from 'primeng/terminal';
-import { ToastModule } from 'primeng/toast';
-import { TreeModule } from 'primeng/tree';
-import { TooltipModule } from 'primeng/tooltip';
+import { DialogModule } from 'ngx-prime/dialog';
+import { DockModule } from 'ngx-prime/dock';
+import { GalleriaModule } from 'ngx-prime/galleria';
+import { MenubarModule } from 'ngx-prime/menubar';
+import { TerminalModule } from 'ngx-prime/terminal';
+import { ToastModule } from 'ngx-prime/toast';
+import { TreeModule } from 'ngx-prime/tree';
+import { TooltipModule } from 'ngx-prime/tooltip';
 import { NodeService } from '@/service/nodeservice';
 import { PhotoService } from '@/service/photoservice';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -53,7 +53,7 @@ import { MenuItem, MessageService } from 'primeng/api';
                     <p-tree [value]="nodes" />
                 </p-dialog>
                 <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" header="Terminal">
-                    <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
+                    <p-terminal welcomeMessage="Welcome to ngx-prime (cmd: 'date', 'greet {0}', 'random')" prompt="ngx-prime $" />
                 </p-dialog>
                 <p-galleria
                     [(value)]="images"
@@ -103,7 +103,7 @@ export class DockAdvancedDemo implements OnInit {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/finder.svg',
                 command: () => {
                     this.displayFinder = true;
                 }
@@ -117,7 +117,7 @@ export class DockAdvancedDemo implements OnInit {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/terminal.svg',
                 command: () => {
                     this.displayTerminal = true;
                 }
@@ -131,7 +131,7 @@ export class DockAdvancedDemo implements OnInit {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/appstore.svg',
                 url: 'https://www.apple.com/app-store/'
             },
             {
@@ -143,7 +143,7 @@ export class DockAdvancedDemo implements OnInit {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg'
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/safari.svg'
             },
             {
                 label: 'Photos',
@@ -154,7 +154,7 @@ export class DockAdvancedDemo implements OnInit {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/photos.svg',
                 command: () => {
                     this.displayGalleria = true;
                 }
@@ -168,8 +168,8 @@ export class DockAdvancedDemo implements OnInit {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg',
-                url: 'https://github.com/primefaces/primeng'
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/github.svg',
+                url: 'https://github.com/primefaces/ngx-prime'
             },
             {
                 label: 'Trash',
@@ -180,7 +180,7 @@ export class DockAdvancedDemo implements OnInit {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/trash.png',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Trash is empty', key: 'tc' });
                 }
@@ -370,10 +370,10 @@ Dock requires a collection of menuitems as its model . Default location is botto
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DockModule } from 'primeng/dock';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { TooltipModule } from 'primeng/tooltip';
-import { MenuItem } from 'primeng/api';
+import { DockModule } from 'ngx-prime/dock';
+import { RadioButtonModule } from 'ngx-prime/radiobutton';
+import { TooltipModule } from 'ngx-prime/tooltip';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -404,19 +404,19 @@ export class DockBasicDemo implements OnInit {
         this.items = [
             {
                 label: 'Finder',
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg'
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/finder.svg'
             },
             {
                 label: 'App Store',
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg'
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/appstore.svg'
             },
             {
                 label: 'Photos',
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg'
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/photos.svg'
             },
             {
                 label: 'Trash',
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png'
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/trash.png'
             }
         ];
     }

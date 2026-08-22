@@ -1,6 +1,6 @@
 import { computed, Directive, signal } from '@angular/core';
 import { isNotEmpty } from '@wawjs/css-prime-utils';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from 'ngx-prime/basecomponent';
 
 @Directive({ standalone: true })
 export class BaseModelHolder<PT = any> extends BaseComponent<PT> {

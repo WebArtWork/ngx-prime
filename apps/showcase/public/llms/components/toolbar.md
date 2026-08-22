@@ -12,13 +12,13 @@ Toolbar is a grouping component for buttons and other content. Its content can b
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToolbarModule } from 'primeng/toolbar';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { IconFieldModule } from 'ngx-prime/iconfield';
+import { InputIconModule } from 'ngx-prime/inputicon';
+import { SplitButtonModule } from 'ngx-prime/splitbutton';
+import { ToolbarModule } from 'ngx-prime/toolbar';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -68,9 +68,9 @@ Content can also be placed using the start , center and end templates.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { ToolbarModule } from 'primeng/toolbar';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToolbarModule } from 'ngx-prime/toolbar';
 
 @Component({
     template: `
@@ -115,7 +115,7 @@ import { ToolbarModule } from 'primeng/toolbar';
                 <ng-template #end>
                     <div class="flex items-center gap-2">
                         <p-button label="Share" severity="contrast" size="small" />
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" [style]="{ width: '32px', height: '32px' }" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" [style]="{ width: '32px', height: '32px' }" />
                     </div>
                 </ng-template>
             </p-toolbar>

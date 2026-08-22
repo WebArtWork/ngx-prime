@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as selectbutton_style } from '@wawjs/css-prime-styles/selectbutton';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${selectbutton_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     .p-selectbutton.ng-invalid.ng-dirty {
         outline: 1px solid dt('selectbutton.invalid.border.color');
         outline-offset: 0;
@@ -36,7 +36,7 @@ export class SelectButtonStyle extends BaseStyle {
  *
  * SelectButton is used to choose single or multiple items from a list using buttons.
  *
- * [Live Demo](https://www.primeng.org/selectbutton/)
+ * [Live Demo](https://www.ngx-prime.org/selectbutton/)
  *
  * @module selectbuttonstyle
  *

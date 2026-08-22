@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'ngx-prime/inputgroup';
+import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

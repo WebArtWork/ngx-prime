@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/slider';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const nativeStyle = `
 input[pRange] { inline-size: 100%; accent-color: dt('primary.color'); cursor: pointer; }
@@ -45,7 +45,7 @@ export class SliderStyle extends BaseStyle {
  *
  * Slider is a component to provide input with a drag handle.
  *
- * [Live Demo](https://www.primeng.org/slider/)
+ * [Live Demo](https://www.ngx-prime.org/slider/)
  *
  * @module sliderstyle
  *

@@ -1,10 +1,10 @@
 import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Field, form } from '@angular/forms/signals';
+import { form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
-import { CheckboxChangeEvent } from 'primeng/types/checkbox';
+import { SharedModule } from 'ngx-prime/api';
+import { CheckboxChangeEvent } from 'ngx-prime/types/checkbox';
 import { Checkbox } from './checkbox';
 import { CheckboxContainerDirective, CheckboxDirective, CheckboxIconDirective } from './nativecheckbox';
 
@@ -116,7 +116,7 @@ class TestNativeCheckboxDirectiveComponent {
 }
 
 @Component({
-    imports: [CheckboxDirective, Field],
+    imports: [CheckboxDirective],
     template: `<input type="checkbox" pCheckbox [binary]="true" [field]="checkboxForm.value" />`
 })
 class TestSignalFormCheckboxDirectiveComponent {
@@ -1050,29 +1050,29 @@ describe('Checkbox', () => {
         });
 
         it('should handle RTL languages', async () => {
-            testComponent.checkboxValue = 'قيمة الاختيار';
-            testComponent.ariaLabel = 'خانة الاختيار';
+            testComponent.checkboxValue = 'Ù‚ÙŠÙ…Ø© Ø§Ù„Ø§Ø®ØªÙŠØ§Ø±';
+            testComponent.ariaLabel = 'Ø®Ø§Ù†Ø© Ø§Ù„Ø§Ø®ØªÙŠØ§Ø±';
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
             const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
 
-            expect(checkboxInstance.value()).toBe('قيمة الاختيار');
-            expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('خانة الاختيار');
+            expect(checkboxInstance.value()).toBe('Ù‚ÙŠÙ…Ø© Ø§Ù„Ø§Ø®ØªÙŠØ§Ø±');
+            expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('Ø®Ø§Ù†Ø© Ø§Ù„Ø§Ø®ØªÙŠØ§Ø±');
         });
 
         it('should handle special characters and unicode', async () => {
-            testComponent.checkboxValue = 'Valeur avec accents éàü';
-            testComponent.ariaLabel = 'Case à cocher spéciale';
+            testComponent.checkboxValue = 'Valeur avec accents Ã©Ã Ã¼';
+            testComponent.ariaLabel = 'Case Ã  cocher spÃ©ciale';
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
             const inputElement = testFixture.debugElement.query(By.css('input[type="checkbox"]'));
             const checkboxInstance = testFixture.debugElement.query(By.css('p-checkbox')).componentInstance;
 
-            expect(checkboxInstance.value()).toBe('Valeur avec accents éàü');
-            expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('Case à cocher spéciale');
+            expect(checkboxInstance.value()).toBe('Valeur avec accents Ã©Ã Ã¼');
+            expect(inputElement.nativeElement.getAttribute('aria-label')).toBe('Case Ã  cocher spÃ©ciale');
         });
     });
 

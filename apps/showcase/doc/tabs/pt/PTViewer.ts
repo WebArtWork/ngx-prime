@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     selector: 'app-tabs-pt-viewer',

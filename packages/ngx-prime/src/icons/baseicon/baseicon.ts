@@ -1,6 +1,6 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, input, ViewEncapsulation } from '@angular/core';
 import { cn } from '@wawjs/css-prime-utils';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from 'ngx-prime/basecomponent';
 import { BaseIconStyle } from './style/baseiconstyle';
 
 @Component({

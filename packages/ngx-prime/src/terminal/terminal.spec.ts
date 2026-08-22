@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { Terminal } from './terminal';
 import { TerminalService } from './terminalservice';
 
@@ -12,7 +12,7 @@ import { TerminalService } from './terminalservice';
     imports: [Terminal, FormsModule]
 })
 class TestBasicTerminalComponent {
-    welcomeMessage: string | undefined = 'Welcome to PrimeNG Terminal';
+    welcomeMessage: string | undefined = 'Welcome to ngx-prime Terminal';
     prompt: string | undefined = 'prime$ ';
     styleClass: string | undefined;
     style: { [key: string]: any } | undefined;
@@ -232,7 +232,7 @@ describe('Terminal', () => {
         });
 
         it('should handle special characters in welcome message', async () => {
-            const specialMessage = 'Welcome! @#$%^&*()_+{}:"<>?[]\\;\',./ 🚀';
+            const specialMessage = 'Welcome! @#$%^&*()_+{}:"<>?[]\\;\',./ ðŸš€';
 
             component.welcomeMessage = specialMessage;
             fixture.changeDetectorRef.markForCheck();
@@ -1252,7 +1252,7 @@ describe('Terminal', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-terminal welcomeMessage="Terminal 1" prompt="1$ "></p-terminal>
@@ -1262,14 +1262,14 @@ describe('Terminal', () => {
             })
             class TestPTCase7GlobalComponent {}
 
-            it('should apply global PT configuration from PrimeNGConfig to multiple instances', async () => {
+            it('should apply global PT configuration from NgxPrimeConfig to multiple instances', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [Terminal, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         TerminalService,
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 terminal: {
                                     host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },

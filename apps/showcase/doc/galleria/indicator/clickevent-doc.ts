@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 
 import { Component, inject, model, OnInit } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'ngx-prime/galleria';
 
 @Component({
     selector: 'app-clickevent-doc',

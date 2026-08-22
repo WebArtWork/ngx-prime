@@ -2,21 +2,21 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, ElementRef, inject, InjectionToken, input, model, NgModule, NgZone, output, signal, TemplateRef, ViewEncapsulation, viewChild, contentChild, contentChildren } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { absolutePosition, addClass, appendChild, focus, getOuterWidth, getTargetElement, isTouchDevice, relativePosition, removeClass } from '@wawjs/css-prime-utils';
-import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MotionModule } from 'primeng/motion';
+import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, OverlayOnHideEvent, OverlayOnShowEvent, OverlayOptions, OverlayService, PrimeTemplate, ResponsiveOverlayOptions, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { ConnectedOverlayScrollHandler } from 'ngx-prime/dom';
+import { MotionModule } from 'ngx-prime/motion';
 import { Subscription } from 'rxjs';
-import { VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
-import { OverlayContentTemplateContext } from 'primeng/types/overlay';
+import { VoidListener } from 'ngx-prime/ts-helpers';
+import { ObjectUtils, ZIndexUtils } from 'ngx-prime/utils';
+import { OverlayContentTemplateContext } from 'ngx-prime/types/overlay';
 import { OverlayStyle } from './style/overlaystyle';
 
 const OVERLAY_INSTANCE = new InjectionToken<Overlay>('OVERLAY_INSTANCE');
 
 /**
- * This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.
+ * This API allows overlay components to be controlled from the ngx-prime. In this way, all overlay components in the application can have the same behavior.
  * @group Components
  */
 @Component({

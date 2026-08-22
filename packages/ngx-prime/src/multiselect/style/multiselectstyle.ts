@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as multiselect_style } from '@wawjs/css-prime-styles/multiselect';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${multiselect_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
    .p-multiselect.ng-invalid.ng-dirty {
         border-color: dt('multiselect.invalid.border.color');
     }
@@ -82,7 +82,7 @@ export class MultiSelectStyle extends BaseStyle {
  *
  * MultiSelect is used to select multiple items from a collection.
  *
- * [Live Demo](https://www.primeng.org/multiselect/)
+ * [Live Demo](https://www.ngx-prime.org/multiselect/)
  *
  * @module multiselectstyle
  *

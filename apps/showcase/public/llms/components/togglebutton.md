@@ -13,7 +13,7 @@ Two-way binding to a boolean property is defined using the standard ngModel dire
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 
 @Component({
     template: `
@@ -36,7 +36,7 @@ Icons and Labels can be customized using onLabel , offLabel , onIcon and offIcon
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 
 @Component({
     template: `
@@ -59,7 +59,7 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 
 @Component({
     template: `
@@ -82,7 +82,7 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 
 @Component({
     template: `
@@ -100,12 +100,12 @@ export class TogglebuttonFluidDemo {
 
 ## Invalid
 
-The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 
 @Component({
     template: `
@@ -128,11 +128,11 @@ ToggleButton can also be used with reactive forms. In this case, the formControl
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -186,7 +186,7 @@ ToggleButton provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 
 @Component({
     template: `
@@ -211,11 +211,11 @@ export class TogglebuttonSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `

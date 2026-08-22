@@ -1,15 +1,15 @@
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, TemplateRef, ViewContainerRef } from '@angular/core';
 import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@wawjs/css-prime-utils';
-import { TooltipOptions } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BindModule } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { Nullable } from 'primeng/ts-helpers';
-import { TooltipPassThroughOptions } from 'primeng/types/tooltip';
-import { ZIndexUtils } from 'primeng/utils';
+import { TooltipOptions } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BindModule } from 'ngx-prime/bind';
+import { ConnectedOverlayScrollHandler } from 'ngx-prime/dom';
+import { Nullable } from 'ngx-prime/ts-helpers';
+import { TooltipPassThroughOptions } from 'ngx-prime/types/tooltip';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { TooltipStyle } from './style/tooltipstyle';
-import type { TooltipPassThrough } from 'primeng/types/tooltip';
+import type { TooltipPassThrough } from 'ngx-prime/types/tooltip';
 
 const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 

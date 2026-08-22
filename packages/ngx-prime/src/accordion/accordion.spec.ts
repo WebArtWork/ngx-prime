@@ -962,9 +962,9 @@ describe('Accordion', () => {
         });
 
         it('should apply simple string classes to PT sections', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: 'ROOT_CLASS'
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
@@ -975,14 +975,14 @@ describe('Accordion', () => {
         });
 
         it('should apply object-based PT options with class and attributes', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'PT_ROOT_CLASS',
                     'data-test': 'accordion-test',
                     'aria-label': 'PT Accordion Label',
                     'data-role': 'accordion-role'
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
@@ -995,12 +995,12 @@ describe('Accordion', () => {
         });
 
         it('should apply mixed object and string PT values', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'PT_ROOT_CLASS',
                     'data-custom': 'custom-value'
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
@@ -1011,12 +1011,12 @@ describe('Accordion', () => {
         });
 
         it('should use instance variables in PT functions', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: ({ instance }) => ({
                     class: instance?.multiple() ? 'MULTIPLE' : 'SINGLE',
                     'data-select-on-focus': instance?.selectOnFocus()
                 })
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
@@ -1029,13 +1029,13 @@ describe('Accordion', () => {
         it('should handle event binding in PT options', async () => {
             let clicked = false;
 
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     onclick: () => {
                         clicked = true;
                     }
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 

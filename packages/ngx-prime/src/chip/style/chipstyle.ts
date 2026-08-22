@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/chip';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const inlineStyles = {
     root: ({ instance }) => ({
@@ -36,7 +36,7 @@ export class ChipStyle extends BaseStyle {
  *
  * Chip represents people using icons, labels and images.
  *
- * [Live Demo](https://www.primeng.org/chip)
+ * [Live Demo](https://www.ngx-prime.org/chip)
  *
  * @module chipstyle
  *

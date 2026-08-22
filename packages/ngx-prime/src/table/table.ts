@@ -30,34 +30,34 @@ import {
 import { FormsModule } from '@angular/forms';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { absolutePosition, addStyle, appendChild, find, findSingle, getAttribute, isClickable, setAttribute } from '@wawjs/css-prime-utils';
-import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
-import { Badge, BadgeModule } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { Button, ButtonModule } from 'primeng/button';
-import { Checkbox, CheckboxChangeEvent, CheckboxModule } from 'primeng/checkbox';
-import { DatePicker, DatePickerModule } from 'primeng/datepicker';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { ArrowDownIcon } from 'primeng/icons/arrowdown';
-import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { FilterIcon } from 'primeng/icons/filter';
-import { FilterFillIcon } from 'primeng/icons/filterfill';
-import { FilterSlashIcon } from 'primeng/icons/filterslash';
-import { PlusIcon } from 'primeng/icons/plus';
-import { SortAltIcon } from 'primeng/icons/sortalt';
-import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
-import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { TrashIcon } from 'primeng/icons/trash';
-import { InputNumber, InputNumberModule } from 'primeng/inputnumber';
-import { InputText, InputTextModule } from 'primeng/inputtext';
-import { MotionDirective, MotionModule } from 'primeng/motion';
-import { Paginator, PaginatorModule } from 'primeng/paginator';
-import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from 'primeng/radiobutton';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { Select, SelectModule } from 'primeng/select';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'ngx-prime/api';
+import { Badge, BadgeModule } from 'ngx-prime/badge';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { Button, ButtonModule } from 'ngx-prime/button';
+import { Checkbox, CheckboxChangeEvent, CheckboxModule } from 'ngx-prime/checkbox';
+import { DatePicker, DatePickerModule } from 'ngx-prime/datepicker';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'ngx-prime/dom';
+import { ArrowDownIcon } from 'ngx-prime/icons/arrowdown';
+import { ArrowUpIcon } from 'ngx-prime/icons/arrowup';
+import { FilterIcon } from 'ngx-prime/icons/filter';
+import { FilterFillIcon } from 'ngx-prime/icons/filterfill';
+import { FilterSlashIcon } from 'ngx-prime/icons/filterslash';
+import { PlusIcon } from 'ngx-prime/icons/plus';
+import { SortAltIcon } from 'ngx-prime/icons/sortalt';
+import { SortAmountDownIcon } from 'ngx-prime/icons/sortamountdown';
+import { SortAmountUpAltIcon } from 'ngx-prime/icons/sortamountupalt';
+import { SpinnerIcon } from 'ngx-prime/icons/spinner';
+import { TrashIcon } from 'ngx-prime/icons/trash';
+import { InputNumber, InputNumberModule } from 'ngx-prime/inputnumber';
+import { InputText, InputTextModule } from 'ngx-prime/inputtext';
+import { MotionDirective, MotionModule } from 'ngx-prime/motion';
+import { Paginator, PaginatorModule } from 'ngx-prime/paginator';
+import { RadioButton, RadioButtonClickEvent, RadioButtonModule } from 'ngx-prime/radiobutton';
+import { Scroller, ScrollerModule } from 'ngx-prime/scroller';
+import { Select, SelectModule } from 'ngx-prime/select';
+import { SelectButtonModule } from 'ngx-prime/selectbutton';
+import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
 import {
     ColumnFilterPassThrough,
     ExportCSVOptions,
@@ -79,8 +79,8 @@ import {
     TableRowSelectEvent,
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
-} from 'primeng/types/table';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+} from 'ngx-prime/types/table';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'ngx-prime/utils';
 import { Subject, Subscription } from 'rxjs';
 import { TableStyle } from './style/tablestyle';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/tree';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -48,7 +48,7 @@ export class TreeStyle extends BaseStyle {
  *
  * Tree is used to display hierarchical data.
  *
- * [Live Demo](https://www.primeng.org/tree/)
+ * [Live Demo](https://www.ngx-prime.org/tree/)
  *
  * @module treestyle
  *

@@ -1,6 +1,6 @@
 import { afterRenderEffect, computed, Directive, effect, inject, InjectionToken, input, output, untracked } from '@angular/core';
 import { createMotion, resolveDuration, type ClassNameOptions, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@wawjs/css-prime-motion';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
 import { applyHiddenStyles, resetStyles } from './motion.utils';
 import { MotionStyle } from './style/motion.style';
 

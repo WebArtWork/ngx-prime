@@ -44,7 +44,7 @@ export class GitLabDoc {
     # Set these as GitLab CI/CD variables for security
     DESIGNER_SECRET: \${THEME_DESIGNER_SECRET_KEY}
     THEME_NAME: "my-custom-theme"
-    PROJECT: "primeng" # or your target project
+    PROJECT: "ngx-prime" # or your target project
     TOKENS_PATH: "./tokens.json"
     OUTPUT_DIR: "./my-custom-theme"
     # Optional configuration

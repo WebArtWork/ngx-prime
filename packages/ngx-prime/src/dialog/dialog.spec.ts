@@ -2,8 +2,8 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ButtonModule } from 'primeng/button';
-import { FocusTrap } from 'primeng/focustrap';
+import { ButtonModule } from 'ngx-prime/button';
+import { FocusTrap } from 'ngx-prime/focustrap';
 import { Dialog } from './dialog';
 
 // Basic Dialog Test Component
@@ -1264,7 +1264,7 @@ describe('Dialog', () => {
 
         it('should create breakpoint styles when breakpoints are provided', () => {
             // Set breakpoints on dialogInstance directly since it's an input property
-            dialogInstance.breakpoints = { '960px': '75vw', '640px': '90vw' };
+            (dialogInstance as any).breakpoints = () => ({ '960px': '75vw', '640px': '90vw' });
 
             spyOn(dialogInstance, 'createStyle');
             dialogInstance.ngOnInit();
@@ -1673,7 +1673,7 @@ describe('Dialog', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-dialog [visible]="visible1" header="Dialog 1">Content 1</p-dialog>
@@ -1686,14 +1686,14 @@ describe('Dialog', () => {
                 visible2 = true;
             }
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+            it('should apply global PT configuration from NgxPrimeConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [Dialog, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideNgxPrime',
                             useValue: {
                                 pt: {
                                     dialog: {

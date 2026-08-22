@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'ngx-prime/button';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     selector: 'app-custom-doc',
@@ -46,7 +46,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                         <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                     </svg>
-                    <span> <b>PrimeNG</b> rocks! </span>
+                    <span> <b>ngx-prime</b> rocks! </span>
                 </div>
             </ng-template>
         </div>

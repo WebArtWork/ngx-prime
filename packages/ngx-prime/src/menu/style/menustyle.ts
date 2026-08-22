@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/menu';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const inlineStyles = {
     root: ({ instance }) => ({ position: instance.popup() ? 'absolute' : 'relative' })
@@ -47,7 +47,7 @@ export class MenuStyle extends BaseStyle {
  *
  * Menu is a navigation / command component that supports dynamic and static positioning.
  *
- * [Live Demo](https://www.primeng.org/menu/)
+ * [Live Demo](https://www.ngx-prime.org/menu/)
  *
  * @module menustyle
  *

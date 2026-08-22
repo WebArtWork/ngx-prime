@@ -6,13 +6,13 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { RatingModule } from 'primeng/rating';
-import { RippleModule } from 'primeng/ripple';
-import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { RatingModule } from 'ngx-prime/rating';
+import { RippleModule } from 'ngx-prime/ripple';
+import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     selector: 'app-rowexpansion-doc',
@@ -52,7 +52,7 @@ import { ToastModule } from 'primeng/toast';
                             </td>
                             <td>{{ product.name }}</td>
                             <td>
-                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" />
+                                <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" />
                             </td>
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>

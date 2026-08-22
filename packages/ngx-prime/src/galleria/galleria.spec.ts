@@ -3,17 +3,17 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { GalleriaResponsiveOptions } from 'primeng/types/galleria';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { GalleriaResponsiveOptions } from 'ngx-prime/types/galleria';
 import { Galleria, GalleriaModule } from './galleria';
 
 // Mock data for testing
 const mockImages = [
-    { itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria1s.jpg', alt: 'Image 1', title: 'Title 1' },
-    { itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria2s.jpg', alt: 'Image 2', title: 'Title 2' },
-    { itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria3.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria3s.jpg', alt: 'Image 3', title: 'Title 3' },
-    { itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria4.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria4s.jpg', alt: 'Image 4', title: 'Title 4' },
-    { itemImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria5.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/primeng/images/galleria/galleria5s.jpg', alt: 'Image 5', title: 'Title 5' }
+    { itemImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria1.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria1s.jpg', alt: 'Image 1', title: 'Title 1' },
+    { itemImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria2.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria2s.jpg', alt: 'Image 2', title: 'Title 2' },
+    { itemImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria3.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria3s.jpg', alt: 'Image 3', title: 'Title 3' },
+    { itemImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria4.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria4s.jpg', alt: 'Image 4', title: 'Title 4' },
+    { itemImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria5.jpg', thumbnailImageSrc: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria5s.jpg', alt: 'Image 5', title: 'Title 5' }
 ];
 
 // Test Components for different scenarios
@@ -405,7 +405,7 @@ describe('Galleria', () => {
             // Same target and currentTarget - should hide
             mockEvent.target = mockEvent.currentTarget;
             galleriaInstance.onMaskHide(mockEvent);
-            expect(component.visibleChangeEvent).toBe(false);
+            expect(component.visibleChangeEvent as boolean | undefined).toBe(false);
         });
     });
 
@@ -870,7 +870,7 @@ describe('Galleria', () => {
 
             galleriaInstance.onMaskHide();
 
-            expect(component.visibleChangeEvent).toBe(false);
+            expect(component.visibleChangeEvent as boolean | undefined).toBe(false);
         });
     });
 

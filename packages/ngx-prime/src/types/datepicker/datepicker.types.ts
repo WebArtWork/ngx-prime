@@ -1,8 +1,8 @@
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@wawjs/css-prime-motion';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThrough } from 'primeng/types/button';
-import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
+import type { ButtonPassThrough } from 'ngx-prime/types/button';
+import type { InputTextPassThrough } from 'ngx-prime/types/inputtext';
 
 /**
  * Custom pass-through(pt) options.

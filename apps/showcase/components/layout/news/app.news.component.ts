@@ -15,7 +15,7 @@ export class AppNewsComponent {
     private configService = inject(AppConfigService);
     private cd = inject(ChangeDetectorRef);
 
-    storageKey: string = 'primeng';
+    storageKey: string = 'ngx-prime';
 
     announcement: any;
 

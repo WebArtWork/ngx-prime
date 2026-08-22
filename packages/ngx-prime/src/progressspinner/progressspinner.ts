@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ProgressSpinnerPassThrough } from 'primeng/types/progressspinner';
+import { SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { ProgressSpinnerPassThrough } from 'ngx-prime/types/progressspinner';
 import { ProgressSpinnerStyle } from './style/progressspinnerstyle';
 
 const PROGRESSSPINNER_INSTANCE = new InjectionToken<ProgressSpinner>('PROGRESSSPINNER_INSTANCE');

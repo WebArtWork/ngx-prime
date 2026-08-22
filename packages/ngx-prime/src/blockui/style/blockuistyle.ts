@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/blockui';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -24,7 +24,7 @@ export class BlockUiStyle extends BaseStyle {
  *
  * BlockUI represents people using icons, labels and images.
  *
- * [Live Demo](https://www.primeng.org/blockui)
+ * [Live Demo](https://www.ngx-prime.org/blockui)
  *
  * @module blockuistyle
  *

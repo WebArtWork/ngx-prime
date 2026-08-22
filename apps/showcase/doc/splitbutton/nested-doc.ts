@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'ngx-prime/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { SplitButtonModule } from 'ngx-prime/splitbutton';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     selector: 'app-nested-doc',

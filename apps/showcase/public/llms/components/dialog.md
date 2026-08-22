@@ -12,9 +12,9 @@ Dialog is used as a container and visibility is controlled with visible property
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogModule } from 'ngx-prime/dialog';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -55,9 +55,9 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogModule } from 'ngx-prime/dialog';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -134,8 +134,8 @@ Dialog automatically displays a scroller when content exceeds viewport.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogModule } from 'ngx-prime/dialog';
 
 @Component({
     template: `
@@ -195,8 +195,8 @@ Setting maximizable property to true enables the full screen mode.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogModule } from 'ngx-prime/dialog';
 
 @Component({
     template: `
@@ -228,8 +228,8 @@ Mask layer behind the Dialog can be turned on by setting the modal property to t
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'ngx-prime/button';
+import { Dialog, DialogModule } from 'ngx-prime/dialog';
 
 @Component({
     template: `
@@ -262,9 +262,9 @@ When dialog includes other components with overlays such as dropdown, the overla
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { SelectModule } from 'primeng/select';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogModule } from 'ngx-prime/dialog';
+import { SelectModule } from 'ngx-prime/select';
 
 interface City {
     name: string;
@@ -312,9 +312,9 @@ The position property is used to display a Dialog at all edges and corners of th
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { Dialog, DialogModule } from 'ngx-prime/dialog';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -369,8 +369,8 @@ Dialog width can be adjusted per screen size with the breakpoints option where a
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'ngx-prime/button';
+import { Dialog, DialogModule } from 'ngx-prime/dialog';
 
 @Component({
     template: `
@@ -402,10 +402,10 @@ Dialog can be customized using header and footer templates.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogModule } from 'ngx-prime/dialog';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -414,7 +414,7 @@ import { InputTextModule } from 'primeng/inputtext';
             <p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
                 <ng-template #header>
                     <div class="inline-flex items-center justify-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold whitespace-nowrap">Amy Elsner</span>
                     </div>
                 </ng-template>
@@ -452,9 +452,9 @@ Mask layer behind the Dialog is configured with the modal property. By default, 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { Dialog, DialogModule } from 'ngx-prime/dialog';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `

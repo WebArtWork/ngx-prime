@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/scrolltop';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => ['p-scrolltop', { 'p-scrolltop-sticky': instance.target() !== 'window' }],
@@ -20,7 +20,7 @@ export class ScrollTopStyle extends BaseStyle {
  *
  * ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
  *
- * [Live Demo](https://www.primeng.org/scrolltop/)
+ * [Live Demo](https://www.ngx-prime.org/scrolltop/)
  *
  * @module scrolltopstyle
  *

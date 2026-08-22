@@ -2,8 +2,8 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { providePrimeNG } from 'primeng/config';
-import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from 'primeng/types/fieldset';
+import { provideNgxPrime } from 'ngx-prime/config';
+import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from 'ngx-prime/types/fieldset';
 import { Fieldset } from './fieldset';
 
 @Component({
@@ -62,10 +62,10 @@ class TestFieldsetComponent {
                 <div class="custom-content">Custom Content Template</div>
             </ng-template>
             <ng-template #expandicon>
-                <span class="custom-expand-icon">⬇</span>
+                <span class="custom-expand-icon">â¬‡</span>
             </ng-template>
             <ng-template #collapseicon>
-                <span class="custom-collapse-icon">⬆</span>
+                <span class="custom-collapse-icon">â¬†</span>
             </ng-template>
             <div class="template-content">Template Test Content</div>
         </p-fieldset>
@@ -520,7 +520,7 @@ describe('Fieldset', () => {
             const customCollapseIcon = templateFixture.debugElement.query(By.css('.custom-collapse-icon'));
 
             expect(customCollapseIcon).toBeTruthy();
-            expect(customCollapseIcon.nativeElement.textContent.trim()).toBe('⬆');
+            expect(customCollapseIcon.nativeElement.textContent.trim()).toBe('â¬†');
         });
 
         it('should handle ngAfterContentInit template processing', () => {
@@ -1132,7 +1132,7 @@ describe('Fieldset', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 standalone: true,
                 imports: [Fieldset],
@@ -1149,7 +1149,7 @@ describe('Fieldset', () => {
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 fieldset: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
@@ -1161,7 +1161,7 @@ describe('Fieldset', () => {
                 });
             });
 
-            it('should apply global PT configuration from PrimeNG config', () => {
+            it('should apply global PT configuration from ngx-prime config', () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
 
                 globalFixture.detectChanges();

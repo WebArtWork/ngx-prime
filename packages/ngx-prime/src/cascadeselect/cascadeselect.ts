@@ -24,16 +24,16 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@wawjs/css-prime-utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind } from 'primeng/bind';
-import { Fluid } from 'primeng/fluid';
-import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'primeng/icons';
-import { Overlay } from 'primeng/overlay';
-import { Ripple } from 'primeng/ripple';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
+import { AutoFocus } from 'ngx-prime/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import { Bind } from 'ngx-prime/bind';
+import { Fluid } from 'ngx-prime/fluid';
+import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'ngx-prime/icons';
+import { Overlay } from 'ngx-prime/overlay';
+import { Ripple } from 'ngx-prime/ripple';
+import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
 import {
     CascadeSelectBeforeHideEvent,
     CascadeSelectBeforeShowEvent,
@@ -43,7 +43,7 @@ import {
     CascadeSelectPassThrough,
     CascadeSelectShowEvent,
     CascadeSelectValueTemplateContext
-} from 'primeng/types/cascadeselect';
+} from 'ngx-prime/types/cascadeselect';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
 
 const CASCADESELECT_INSTANCE = new InjectionToken<CascadeSelect>('CASCADESELECT_INSTANCE');
@@ -451,7 +451,7 @@ export class CascadeSelect extends BaseEditableHolder<CascadeSelectPassThrough> 
      */
     readonly selectionMessage = input<string>();
     /**
-     * Text to display when filtering does not return any results. Defaults to value from PrimeNG locale configuration.
+     * Text to display when filtering does not return any results. Defaults to value from ngx-prime locale configuration.
      * @group Props
      * @defaultValue 'No available options'
      */

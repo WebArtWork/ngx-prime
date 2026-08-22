@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'ngx-prime/api';
+import { FileUploadModule } from 'ngx-prime/fileupload';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -1,9 +1,9 @@
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from 'ngx-prime/basecomponent';
 import { Skeleton, SkeletonModule } from './skeleton';
 
 @Component({
@@ -1295,8 +1295,8 @@ describe('Skeleton', () => {
         });
     });
 
-    describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
-        it('should apply global pt configuration from PrimeNGConfig', () => {
+    describe('PassThrough - Case 7: Test from NgxPrimeConfig', () => {
+        it('should apply global pt configuration from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-skeleton></p-skeleton>
@@ -1311,7 +1311,7 @@ describe('Skeleton', () => {
                 imports: [SkeletonModule, TestSkeletonGlobalPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             skeleton: {
                                 host: 'GLOBAL_HOST_CLASS',
@@ -1349,7 +1349,7 @@ describe('Skeleton', () => {
                 imports: [SkeletonModule, TestSkeletonMergedPtComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             skeleton: {
                                 host: 'GLOBAL_HOST_CLASS'

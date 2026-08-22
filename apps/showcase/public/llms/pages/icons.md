@@ -1,6 +1,6 @@
 # Icons
 
-PrimeIcons is the default icon library of PrimeNG with over 250 open source icons.
+PrimeIcons is the default icon library of ngx-prime with over 250 open source icons.
 
 ## Basic-
 
@@ -16,7 +16,7 @@ Constants API is available to reference icons easily when used programmatically.
 
 ```typescript
 import { Component } from '@angular/core';
-import { PrimeIcons, MenuItem } from 'primeng/api';
+import { PrimeIcons, MenuItem } from 'ngx-prime/api';
 
 @Component({
     selector: 'prime-icons-constants-demo',

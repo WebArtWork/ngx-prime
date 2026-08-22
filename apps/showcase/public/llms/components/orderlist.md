@@ -12,7 +12,7 @@ OrderList is used as a controlled input with value property. Content of a list i
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'ngx-prime/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -59,7 +59,7 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'ngx-prime/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -69,7 +69,7 @@ import { Product } from '@/domain/product';
             <p-orderlist [value]="products()" dataKey="id" [dragdrop]="true" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
@@ -121,7 +121,7 @@ Filter value is checked against the property of an object configured with the fi
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'ngx-prime/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -131,7 +131,7 @@ import { Product } from '@/domain/product';
             <p-orderlist [value]="products()" filterBy="name" filterPlaceholder="Filter by name" [responsive]="true" breakpoint="575px" scrollHeight="20rem" class="sm:min-w-96">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
@@ -183,7 +183,7 @@ For custom content support define an item template that gets the item instance a
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { OrderListModule } from 'primeng/orderlist';
+import { OrderListModule } from 'ngx-prime/orderlist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -193,7 +193,7 @@ import { Product } from '@/domain/product';
             <p-orderlist [value]="products()" dataKey="id" [responsive]="true" breakpoint="575px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span

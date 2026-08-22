@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ScrollTopModule } from 'primeng/scrolltop';
+import { ScrollTopModule } from 'ngx-prime/scrolltop';
 
 @Component({
     selector: 'app-element-doc',

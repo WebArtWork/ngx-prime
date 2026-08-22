@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { Toast } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
+import { Toast } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     selector: 'app-clear-doc',

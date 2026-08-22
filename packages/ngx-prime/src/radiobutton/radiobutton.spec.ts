@@ -1,12 +1,12 @@
 import { Component, DebugElement, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Field, form } from '@angular/forms/signals';
+import { form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { RadioButton } from './radiobutton';
 import { RadioButtonDirective } from './nativeradiobutton';
 
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 // Basic RadioButton test component
 @Component({
@@ -95,7 +95,7 @@ class TestNativeRadioButtonDirectiveComponent {
 
 @Component({
     standalone: true,
-    imports: [RadioButtonDirective, Field],
+    imports: [RadioButtonDirective],
     template: `
         <input type="radio" pRadioButton name="signal-radio" [value]="'one'" [field]="radioForm.value" />
         <input type="radio" pRadioButton name="signal-radio" [value]="'two'" [field]="radioForm.value" />
@@ -287,7 +287,7 @@ describe('RadioButton', () => {
 
         it('should programmatically focus', () => {
             const inputViewChild = radioInstance.inputViewChild();
-            const inputViewChild = radioInstance.inputViewChild();
+
 
             spyOn(inputViewChild.nativeElement, 'focus');
 
@@ -1078,7 +1078,7 @@ describe('RadioButton', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             @Component({
                 template: `<p-radiobutton name="test" value="option1" [(ngModel)]="selectedValue"></p-radiobutton>`,
                 imports: [RadioButton, FormsModule]
@@ -1093,7 +1093,7 @@ describe('RadioButton', () => {
                     imports: [RadioButton, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 radioButton: {
                                     root: 'GLOBAL_ROOT_CLASS',
@@ -1269,7 +1269,7 @@ describe('RadioButtonDirective', () => {
         input.checked = true;
         input.dispatchEvent(new Event('change'));
 
-        expect(component.value).toBe(true);
+        expect(component.value as any).toBe(true);
         expect(component.clickEvent?.value).toBe(true);
     });
 });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/iconfield';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -25,7 +25,7 @@ export class IconFieldStyle extends BaseStyle {
  *
  * IconField wraps an input and an icon.
  *
- * [Live Demo](https://www.primeng.org/iconfield/)
+ * [Live Demo](https://www.ngx-prime.org/iconfield/)
  *
  * @module iconfieldstyle
  *

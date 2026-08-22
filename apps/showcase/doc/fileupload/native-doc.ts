@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { FileUploadCancelDirective, FileUploadChooseDirective, FileUploadClearDirective, FileUploadDirective, FileUploadDropZoneDirective, FileUploadQueueDirective, FileUploadUploadDirective } from 'primeng/fileupload';
+import { FileUploadCancelDirective, FileUploadChooseDirective, FileUploadClearDirective, FileUploadDirective, FileUploadDropZoneDirective, FileUploadQueueDirective, FileUploadUploadDirective } from 'ngx-prime/fileupload';
 
 @Component({
     selector: 'app-fileupload-native-doc',

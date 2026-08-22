@@ -12,7 +12,7 @@ OrganizationChart requires a collection of TreeNode instances as a value .
 
 ```typescript
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -32,7 +32,7 @@ export class OrganizationchartBasicDemo {
 
 ```typescript
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -65,7 +65,7 @@ export class OrganizationchartColored.Demo {
 
 ```typescript
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -103,7 +103,7 @@ Custom content instead of a node label is defined using the pTemplate property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -111,7 +111,7 @@ import { TreeNode } from 'primeng/api';
             <p-organization-chart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="default">
                     <div class="flex flex-col items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
+                        <img src="https://primefaces.org/cdn/ngx-prime/images/flag/flag_placeholder.png" [alt]="node.label" [class]="'flag' + ' flag-' + node.data" width="32" />
                         <div class="mt-4 font-medium text-lg">{{ node.label }}</div>
                     </div>
                 </ng-template>

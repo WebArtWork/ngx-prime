@@ -12,17 +12,17 @@ Grouping is available by wrapping multiple Avatar components inside an AvatarGro
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'ngx-prime/avatar';
 
 @Component({
     template: `
         <div class="card flex justify-center">
             <p-avatar-group>
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/ionibowcher.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/xuxuefeng.png" size="large" shape="circle" />
                 <p-avatar label="+2" shape="circle" size="large" />
             </p-avatar-group>
         </div>
@@ -125,12 +125,12 @@ A badge can be added to an Avatar with the Badge directive.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'ngx-prime/avatar';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" pBadge value="4" severity="danger" />
+            <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" pBadge value="4" severity="danger" />
         </div>
     `,
     standalone: true,
@@ -145,7 +145,7 @@ A font icon is displayed as an Avatar with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'ngx-prime/avatar';
 
 @Component({
     template: `
@@ -184,7 +184,7 @@ Use the image property to display an image as an Avatar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'ngx-prime/avatar';
 
 @Component({
     template: `
@@ -192,14 +192,14 @@ import { AvatarModule } from 'primeng/avatar';
             <div class="flex flex-wrap gap-8">
                 <div class="flex-auto">
                     <h5>Image</h5>
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" size="xlarge" shape="circle" />
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" class="mr-2" size="large" shape="circle" />
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
+                    <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" class="mr-2" size="xlarge" shape="circle" />
+                    <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/asiyajavayant.png" class="mr-2" size="large" shape="circle" />
+                    <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/onyamalimba.png" shape="circle" />
                 </div>
                 <div class="flex-auto">
                     <h5>Badge</h5>
                     <p-overlay-badge value="4" severity="danger" class="inline-flex">
-                        <p-avatar class="p-overlay-badge" image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg" size="xlarge" />
+                        <p-avatar class="p-overlay-badge" image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/walter.jpg" size="xlarge" />
                     </p-overlay-badge>
                 </div>
                 <div class="flex-auto">
@@ -221,7 +221,7 @@ A letter Avatar is defined with the label property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'ngx-prime/avatar';
 
 @Component({
     template: `
@@ -260,7 +260,7 @@ Avatar comes in two different styles specified with the shape property, square i
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'ngx-prime/avatar';
 
 @Component({
     template: `
@@ -281,7 +281,7 @@ size property defines the size of the Avatar with large and xlarge as possible v
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'ngx-prime/avatar';
 
 @Component({
     template: `
@@ -302,7 +302,7 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
+import { AvatarModule } from 'ngx-prime/avatar';
 
 @Component({
     template: `

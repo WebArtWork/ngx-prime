@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuItem, MessageService } from 'primeng/api';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { ToastModule } from 'primeng/toast';
-import { Tag } from 'primeng/tag';
+import { MenuItem, MessageService } from 'ngx-prime/api';
+import { ContextMenu, ContextMenuModule } from 'ngx-prime/contextmenu';
+import { ToastModule } from 'ngx-prime/toast';
+import { Tag } from 'ngx-prime/tag';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 interface Users {
@@ -31,7 +31,7 @@ interface Users {
                         (contextmenu)="onContextMenu($event, user)"
                     >
                         <div class="flex flex-1 items-center gap-2">
-                            <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
+                            <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/avatar/' + user.image" />
                             <span class="font-bold">{{ user.name }}</span>
                         </div>
                         <p-tag [value]="user.role" [severity]="getBadge(user)" />

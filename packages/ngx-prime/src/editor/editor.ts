@@ -2,12 +2,12 @@ import { CommonModule, isPlatformServer } from '@angular/common';
 import { afterNextRender, ChangeDetectionStrategy, Component, ContentChild, effect, forwardRef, inject, InjectionToken, input, NgModule, output, TemplateRef, ViewEncapsulation, contentChild, contentChildren } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@wawjs/css-prime-utils';
-import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind, BindModule } from 'primeng/bind';
-import { Nullable } from 'primeng/ts-helpers';
-import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'primeng/types/editor';
+import { Header, PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { Nullable } from 'ngx-prime/ts-helpers';
+import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'ngx-prime/types/editor';
 import { EditorStyle } from './style/editorstyle';
 
 const EDITOR_INSTANCE = new InjectionToken<Editor>('EDITOR_INSTANCE');
@@ -123,7 +123,7 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
      */
     modules = input<object>();
     /**
-     * DOM Element or a CSS selector for a DOM Element, within which the editor’s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries.
+     * DOM Element or a CSS selector for a DOM Element, within which the editorâ€™s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries.
      * @group Props
      */
     bounds = input<HTMLElement | string>();

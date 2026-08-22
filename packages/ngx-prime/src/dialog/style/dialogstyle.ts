@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/dialog';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 /* Position */
 const inlineStyles = {
@@ -70,7 +70,7 @@ export class DialogStyle extends BaseStyle {
  *
  * Dialog is a container to display content in an overlay window.
  *
- * [Live Demo](https://www.primeng.org/dialog)
+ * [Live Demo](https://www.ngx-prime.org/dialog)
  *
  * @module dialogstyle
  *

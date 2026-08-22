@@ -13,7 +13,7 @@ This example demonstrates an advanced use case with templating, object handling,
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -35,7 +35,7 @@ import { Product } from '@/domain/product';
             >
                 <ng-template let-product #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ product.name }}</span>
                             <span class="text-sm text-surface-500 dark:text-surface-400">{{ product.category }}</span>
@@ -105,12 +105,12 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
 
 ## basic-chips-doc
 
-With ⁠multiple enabled, the AutoComplete component behaves like a chips or tags input. Use addOnBlur , ⁠addOnTab , and ⁠separator properties to customize the keystroke behavior for adding items.
+With â multiple enabled, the AutoComplete component behaves like a chips or tags input. Use addOnBlur , â addOnTab , and â separator properties to customize the keystroke behavior for adding items.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 @Component({
     template: `
@@ -143,7 +143,7 @@ AutoComplete uses ngModel for two-way binding, requires a list of suggestions an
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -176,7 +176,7 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -209,7 +209,7 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -243,7 +243,7 @@ Enabling dropdown property displays a button next to the input field where click
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -278,7 +278,7 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -312,8 +312,8 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { FloatLabelModule } from 'ngx-prime/floatlabel';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -359,7 +359,7 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -392,7 +392,7 @@ ForceSelection mode validates the manual input to check whether it also exists i
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 import { CountryService } from '@/service/countryservice';
 
 interface AutoCompleteCompleteEvent {
@@ -445,8 +445,8 @@ Option grouping is enabled when group property is set to true . group template i
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { SelectItemGroup, FilterService } from 'primeng/api';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { SelectItemGroup, FilterService } from 'ngx-prime/api';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -459,7 +459,7 @@ interface AutoCompleteCompleteEvent {
             <p-autocomplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
                 <ng-template let-group #group>
                     <div class="flex items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
@@ -536,8 +536,8 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { IftaLabelModule } from 'primeng/iftalabel';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { IftaLabelModule } from 'ngx-prime/iftalabel';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -568,12 +568,12 @@ export class AutocompleteIftaLabelDemo {
 
 ## Invalid
 
-The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -603,12 +603,12 @@ export class AutocompleteInvalidDemo {
 
 ## Multiple
 
-Enable multiple selection mode using the ⁠multiple property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.
+Enable multiple selection mode using the â multiple property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -645,7 +645,7 @@ AutoComplete can also work with objects using the optionLabel property that defi
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 import { CountryService } from '@/service/countryservice';
 import { Country } from '@/domain/customer';
 
@@ -699,11 +699,11 @@ AutoComplete can also be used with reactive forms. In this case, the formControl
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -767,7 +767,7 @@ AutoComplete provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 @Component({
     template: `
@@ -799,8 +799,8 @@ AutoComplete offers multiple templates for customization through templating.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { ButtonModule } from 'primeng/button';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { ButtonModule } from 'ngx-prime/button';
 import { CountryService } from '@/service/countryservice';
 
 interface AutoCompleteCompleteEvent {
@@ -814,7 +814,7 @@ interface AutoCompleteCompleteEvent {
             <p-autocomplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name">
                 <ng-template let-country #item>
                     <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
@@ -865,11 +865,11 @@ export class AutocompleteTemplateDemo implements OnInit {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -914,7 +914,7 @@ Virtual scrolling is an efficient way of rendering the options by displaying a s
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;

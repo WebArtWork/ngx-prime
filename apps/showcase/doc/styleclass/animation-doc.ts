@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { StyleClassModule } from 'primeng/styleclass';
-import { ButtonModule } from 'primeng/button';
+import { StyleClassModule } from 'ngx-prime/styleclass';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     selector: 'app-animation-doc',

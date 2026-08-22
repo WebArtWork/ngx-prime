@@ -4,11 +4,11 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { Popover, PopoverModule } from 'primeng/popover';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { MessageService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { Popover, PopoverModule } from 'ngx-prime/popover';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-datatable-doc',
@@ -38,7 +38,7 @@ import { TagModule } from 'primeng/tag';
                         <td>{{ product.name }}</td>
                         <td>$ {{ product.price }}</td>
                         <td>
-                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
+                            <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
                         </td>
                         <td>
                             <p-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
@@ -52,7 +52,7 @@ import { TagModule } from 'primeng/tag';
                         <div class="rounded flex flex-col">
                             <div class="flex justify-center rounded">
                                 <div class="relative mx-auto">
-                                    <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
+                                    <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
                                     <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
                             </div>

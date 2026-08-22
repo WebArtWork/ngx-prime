@@ -2,11 +2,11 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { DatePickerModule } from 'ngx-prime/datepicker';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     selector: 'app-reactiveforms-doc',

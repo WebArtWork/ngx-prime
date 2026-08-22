@@ -2,7 +2,7 @@
     "name": "@wawjs/ngx-prime-monorepo",
     "version": "22.0.0",
     "author": "Web Art Work",
-    "description": "ngx-prime is an independent MIT-licensed Angular UI component library continuing from the PrimeNG v21.1.9 codebase.",
+    "description": "ngx-prime is an independent MIT-licensed Angular UI component library continuing from the ngx-prime v21.1.9 codebase.",
     "homepage": "https://github.com/WebArtWork/ngx-prime",
     "repository": {
         "type": "git",
@@ -23,7 +23,7 @@
         "build": "cross-env NODE_ENV=production pnpm run build:check && pnpm run build:packages",
         "build:check": "pnpm run format:check && pnpm run security:check",
         "build:packages": "pnpm run build:lib && pnpm run build:themes && pnpm run build:mcp && pnpm run build:docs && pnpm run build:showcase",
-        "build:lib": "pnpm --filter primeng build",
+        "build:lib": "pnpm --filter ngx-prime build",
         "build:themes": "pnpm --filter themes build",
         "build:mcp": "pnpm --filter mcp build",
         "build:showcase": "pnpm --filter showcase build",
@@ -35,8 +35,9 @@
         "format:check": "prettier --check \"packages/**/*.{js,mjs,ts,mts,d.ts,html}\" \"apps/**/*.{js,mjs,ts,mts,d.ts,html}\"",
         "lint": "eslint \"packages/**/*.ts\" \"apps/**/*.{ts,html}\"",
         "lint:fix": "eslint --fix \"packages/**/*.ts\" \"apps/**/*.{ts,html}\"",
-        "test:unit": "pnpm --filter primeng test:unit",
-        "test:coverage": "pnpm --filter primeng test:unit --code-coverage"
+        "test": "pnpm run test:unit",
+        "test:unit": "pnpm --filter ngx-prime test:unit",
+        "test:coverage": "pnpm --filter ngx-prime test:unit --code-coverage"
     },
     "devDependencies": {
         "@angular/build": "catalog:angular22",

@@ -1,8 +1,8 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption, TreeNode } from 'primeng/api';
-import { ChipPassThrough } from 'primeng/types/chip';
-import { OverlayPassThrough } from 'primeng/types/overlay';
-import { TreePassThrough } from 'primeng/types/tree';
+import type { PassThrough, PassThroughOption, TreeNode } from 'ngx-prime/api';
+import { ChipPassThrough } from 'ngx-prime/types/chip';
+import { OverlayPassThrough } from 'ngx-prime/types/overlay';
+import { TreePassThrough } from 'ngx-prime/types/tree';
 
 /**
  * Custom pass-through(pt) options.

@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 
 @Component({
     selector: 'app-horizontalscroll-doc',

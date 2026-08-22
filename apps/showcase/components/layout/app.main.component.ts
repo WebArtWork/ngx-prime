@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { PrimeNG } from 'primeng/config';
-import { DomHandler } from 'primeng/dom';
+import { ngx-prime } from 'ngx-prime/config';
+import { DomHandler } from 'ngx-prime/dom';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
@@ -33,7 +33,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);
 
-    primeng: PrimeNG = inject(PrimeNG);
+    ngx-prime: ngx-prime = inject(ngx-prime);
 
     isNewsActive = computed(() => false);
 

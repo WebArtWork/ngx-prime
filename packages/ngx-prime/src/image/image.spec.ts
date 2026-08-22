@@ -2,12 +2,12 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'ngx-prime/api';
 import { Image, ImageModule } from './image';
 
 // Using image paths from photoservice.ts to ensure consistency
-const mockImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg';
-const mockPreviewImageSrc = 'https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg';
+const mockImageSrc = 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria1.jpg';
+const mockPreviewImageSrc = 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria2.jpg';
 
 @Component({
     template: `
@@ -989,13 +989,13 @@ describe('Image', () => {
             });
         });
 
-        describe('Case 8: Test from PrimeNGConfig', () => {
+        describe('Case 8: Test from NgxPrimeConfig', () => {
             beforeEach(() => {
                 TestBed.resetTestingModule();
             });
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
-                const { providePrimeNG } = await import('primeng/config');
+            it('should apply global PT configuration from NgxPrimeConfig', async () => {
+                const { provideNgxPrime } = await import('ngx-prime/config');
 
                 @Component({
                     template: `
@@ -1013,7 +1013,7 @@ describe('Image', () => {
                     imports: [ImageModule, TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 image: {
                                     root: {

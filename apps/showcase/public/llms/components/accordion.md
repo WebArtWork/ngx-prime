@@ -12,7 +12,7 @@ Accordion is defined using AccordionPanel , AccordionHeader and AccordionContent
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'primeng/accordion';
+import { AccordionModule } from 'ngx-prime/accordion';
 
 @Component({
     template: `
@@ -61,8 +61,8 @@ Panels can be controlled programmatically using value property as a model.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'primeng/accordion';
-import { ButtonModule } from 'primeng/button';
+import { AccordionModule } from 'ngx-prime/accordion';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     template: `
@@ -118,7 +118,7 @@ Enabling disabled property of an AccordionTab prevents user interaction.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'primeng/accordion';
+import { AccordionModule } from 'ngx-prime/accordion';
 
 @Component({
     template: `
@@ -170,7 +170,7 @@ AccordionPanel can be generated dynamically using the standard &#64;for block.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'primeng/accordion';
+import { AccordionModule } from 'ngx-prime/accordion';
 
 @Component({
     template: `
@@ -201,7 +201,7 @@ Only one tab at a time can be active by default, enabling multiple property chan
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'primeng/accordion';
+import { AccordionModule } from 'ngx-prime/accordion';
 
 @Component({
     template: `
@@ -250,9 +250,9 @@ Accordion is customized with toggleicon template.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AccordionModule } from 'primeng/accordion';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
+import { AccordionModule } from 'ngx-prime/accordion';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { BadgeModule } from 'ngx-prime/badge';
 
 @Component({
     template: `
@@ -268,7 +268,7 @@ import { BadgeModule } from 'primeng/badge';
                             }
                         </ng-template>
                         <span class="flex items-center gap-2 w-full">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                            <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                             <span class="font-bold whitespace-nowrap">Amy Elsner</span>
                             <p-badge value="3" class="ml-auto mr-2" />
                         </span>
@@ -291,7 +291,7 @@ import { BadgeModule } from 'primeng/badge';
                             }
                         </ng-template>
                         <span class="flex items-center gap-2 w-full">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
+                            <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/onyamalimba.png" shape="circle" />
                             <span class="font-bold whitespace-nowrap">Onyama Limba</span>
                             <p-badge value="4" class="ml-auto mr-2" />
                         </span>
@@ -313,7 +313,7 @@ import { BadgeModule } from 'primeng/badge';
                             }
                         </ng-template>
                         <span class="flex items-center gap-2 w-full">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" shape="circle" />
+                            <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/ionibowcher.png" shape="circle" />
                             <span class="font-bold whitespace-nowrap">Ioni Bowcher</span>
                             <p-badge value="2" class="ml-auto mr-2" />
                         </span>

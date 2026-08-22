@@ -12,7 +12,7 @@ PickList is used as a controlled input with source and target properties. Conten
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { PickListModule } from 'primeng/picklist';
+import { PickListModule } from 'ngx-prime/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -49,7 +49,7 @@ Filter value is checked against the property of an object configured with the fi
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { PickListModule } from 'primeng/picklist';
+import { PickListModule } from 'ngx-prime/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -69,7 +69,7 @@ import { Product } from '@/domain/product';
             >
                 <ng-template let-option let-selected="selected" #option>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span
@@ -110,7 +110,7 @@ For custom content support define an item template that gets the item instance a
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { PickListModule } from 'primeng/picklist';
+import { PickListModule } from 'ngx-prime/picklist';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -120,7 +120,7 @@ import { Product } from '@/domain/product';
             <p-picklist [source]="sourceProducts()" [target]="targetProducts()" [dragdrop]="true" [responsive]="true" sourceFilterPlaceholder="Search by name" targetFilterPlaceholder="Search by name" breakpoint="1400px" scrollHeight="20rem">
                 <ng-template let-option let-selected="selected" #item>
                     <div class="flex flex-wrap p-1 items-center gap-4 w-full">
-                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ option.image }}" [alt]="option.name" />
+                        <img class="w-12 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ option.image }}" [alt]="option.name" />
                         <div class="flex-1 flex flex-col">
                             <span class="font-medium text-sm">{{ option.name }}</span>
                             <span

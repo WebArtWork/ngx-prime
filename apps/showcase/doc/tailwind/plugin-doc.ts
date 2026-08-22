@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <p>
                 The <a href="https://www.npmjs.com/package/tailwindcss-primeui" target="_blank" rel="noopener noreferrer">tailwindcss-primeui</a> is an official plugin by PrimeTek to provide first class integration between a Prime UI library like
-                PrimeNG and Tailwind CSS. It is designed to work both in styled and unstyled modes. In styled mode, for instance the semantic colors such as primary and surfaces are provided as Tailwind utilities e.g. <i>bg-primary</i>,
+                ngx-prime and Tailwind CSS. It is designed to work both in styled and unstyled modes. In styled mode, for instance the semantic colors such as primary and surfaces are provided as Tailwind utilities e.g. <i>bg-primary</i>,
                 <i>text-surface-500</i>, <i>text-muted-color</i>.
             </p>
             <p>
@@ -23,7 +23,7 @@ import { Component } from '@angular/core';
             <p>In the CSS file that contains the tailwindcss import, add the <i>tailwindcss-primeui</i> import as well.</p>
             <app-code [code]="code2" [importCode]="true" [hideToggleCode]="true" [hideStackBlitz]="true" />
             <p class="mt-4">
-                For a comprehensive starter guide, review the <a href="https://github.com/primefaces/primeng-examples/tree/main/primeng-quickstart-tailwind" target="_blank" rel="noopener noreferrer">primeng-quickstart-tailwind</a> repository which
+                For a comprehensive starter guide, review the <a href="https://github.com/primefaces/ngx-prime-examples/tree/main/ngx-prime-quickstart-tailwind" target="_blank" rel="noopener noreferrer">ngx-prime-quickstart-tailwind</a> repository which
                 demonstrates the integration.
             </p>
             <h3>Tailwind v3</h3>

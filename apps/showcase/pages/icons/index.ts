@@ -15,9 +15,9 @@ import { AppDoc } from '@/components/doc/app.doc';
     imports: [AppDoc],
     template: `
         <app-doc
-            title="Angular Icon Library - PrimeNG"
+            title="Angular Icon Library - ngx-prime"
             header="Icons"
-            description="PrimeIcons is the default icon library of PrimeNG with over 250 open source icons developed by PrimeTek. PrimeIcons library is optional as PrimeNG components can use any icon with templating."
+            description="PrimeIcons is the default icon library of ngx-prime with over 250 open source icons developed by PrimeTek. PrimeIcons library is optional as ngx-prime components can use any icon with templating."
             [docs]="docs"
             docType="page"
         ></app-doc>

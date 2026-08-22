@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
+import type { MenuItem, PassThrough, PassThroughOption } from 'ngx-prime/api';
 
 /**
  * Custom pass-through(pt) options.

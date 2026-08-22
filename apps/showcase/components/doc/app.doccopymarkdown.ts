@@ -1,9 +1,9 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, inject, input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'ngx-prime/api';
+import { SplitButtonModule } from 'ngx-prime/splitbutton';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     selector: 'app-doccopymarkdown',
@@ -33,7 +33,7 @@ export class AppDocCopyMarkdown implements OnInit {
             return this.document.location.origin;
         }
 
-        return 'https://primeng.org';
+        return 'https://ngx-prime.org';
     }
 
     get currentComponentName(): string {
@@ -68,14 +68,14 @@ export class AppDocCopyMarkdown implements OnInit {
             // For pages, use the full route path for nested pages like theming/styled
             const docPath = this.routePath || this.currentComponentName;
 
-            return `https://github.com/primefaces/primeng/tree/master/apps/showcase/doc/${docPath}/`;
+            return `https://github.com/primefaces/ngx-prime/tree/master/apps/showcase/doc/${docPath}/`;
         }
 
         if (this.currentComponentName) {
-            return `https://github.com/primefaces/primeng/tree/master/apps/showcase/doc/${this.currentComponentName}/`;
+            return `https://github.com/primefaces/ngx-prime/tree/master/apps/showcase/doc/${this.currentComponentName}/`;
         }
 
-        return 'https://github.com/primefaces/primeng/tree/master/apps/showcase/';
+        return 'https://github.com/primefaces/ngx-prime/tree/master/apps/showcase/';
     }
 
     get chatGPTLink(): string {

@@ -61,7 +61,7 @@ jobs:
               with:
                   designer-secret: \${{ secrets.THEME_DESIGNER_SECRET_KEY }}
                   theme-name: "acme"
-                  project: "primeng"
+                  project: "ngx-prime"
                   font-size: "14px"
                   font-family: "Inter Var"
                   tokens-path: "tokens.json"

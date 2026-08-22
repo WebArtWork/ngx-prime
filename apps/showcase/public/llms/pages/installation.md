@@ -1,20 +1,20 @@
 # Installation
 
-Setting up PrimeNG in an Angular CLI project.
+Setting up ngx-prime in an Angular CLI project.
 
 ## Download-
 
-PrimeNG is available for download on the npm registry .
+ngx-prime is available for download on the npm registry .
 
 ```bash
 # Using npm
-npm install primeng @wawjs/css-prime-themes
+npm install ngx-prime @wawjs/css-prime-themes
 
 # Using yarn
-yarn add primeng @wawjs/css-prime-themes
+yarn add ngx-prime @wawjs/css-prime-themes
 
 # Using pnpm
-pnpm add primeng @wawjs/css-prime-themes
+pnpm add ngx-prime @wawjs/css-prime-themes
 ```
 
 ## Examples-
@@ -23,20 +23,20 @@ An example starter with Angular CLI is available at GitHub .
 
 ## Nextsteps-
 
-Welcome to the Prime UI Ecosystem! Once you have PrimeNG up and running, we recommend exploring the following resources to gain a deeper understanding of the library. Global configuration Customization of styles Getting support
+Welcome to the Prime UI Ecosystem! Once you have ngx-prime up and running, we recommend exploring the following resources to gain a deeper understanding of the library. Global configuration Customization of styles Getting support
 
 ## Provider-
 
-Add providePrimeNG to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
+Add providengx-prime to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { providengx-prime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providePrimeNG({
+        providengx-prime({
             theme: {
                 preset: Aura
             }
@@ -47,18 +47,18 @@ export const appConfig: ApplicationConfig = {
 
 ## Theme-
 
-Configure PrimeNG to use a theme like Aura.
+Configure ngx-prime to use a theme like Aura.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
+import { providengx-prime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providePrimeNG({
+        providengx-prime({
             theme: Aura
         })
     ]
@@ -71,5 +71,5 @@ Verify your setup by adding a component such as Button. Each component can be im
 
 ## Videos
 
-Angular CLI is the recommended way to build Angular applications with PrimeNG.
+Angular CLI is the recommended way to build Angular applications with ngx-prime.
 

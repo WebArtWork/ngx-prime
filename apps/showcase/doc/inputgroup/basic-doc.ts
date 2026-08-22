@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { SelectModule } from 'primeng/select';
+import { InputGroupModule } from 'ngx-prime/inputgroup';
+import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
+import { SelectModule } from 'ngx-prime/select';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as datepicker_style } from '@wawjs/css-prime-styles/datepicker';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
 ${datepicker_style}
 
-/* For PrimeNG */
+/* For ngx-prime */
 .p-datepicker.ng-invalid.ng-dirty .p-inputtext {
     border-color: dt('inputtext.invalid.border.color');
 }
@@ -127,7 +127,7 @@ export class DatePickerStyle extends BaseStyle {
  *
  * DatePicker is a form component to work with dates.
  *
- * [Live Demo](https://www.primeng.org/datepicker/)
+ * [Live Demo](https://www.ngx-prime.org/datepicker/)
  *
  * @module datepickerstyle
  *

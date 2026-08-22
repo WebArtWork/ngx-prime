@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { MenuItem } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
 import { SpeedDial } from './speeddial';
 
 // Basic SpeedDial Test Component
@@ -1575,7 +1575,7 @@ describe('SpeedDial', () => {
             ptFixture = TestBed.createComponent(TestPTSpeedDialComponent);
             ptComponent = ptFixture.componentInstance;
             ptSpeedDialInstance = ptFixture.debugElement.query(By.directive(SpeedDial)).componentInstance;
-            ptComponent.visible = true;
+            (ptComponent as any).visible = () => true;
             ptFixture.detectChanges();
         });
 
@@ -1617,7 +1617,7 @@ describe('SpeedDial', () => {
             });
 
             it('should apply string class to item', async () => {
-                ptComponent.visible = true;
+                (ptComponent as any).visible = () => true;
                 ptFixture.componentRef.setInput('pt', { item: 'ITEM_CLASS' });
                 ptFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
@@ -1631,7 +1631,7 @@ describe('SpeedDial', () => {
             });
 
             it('should apply string class to mask when visible', async () => {
-                ptComponent.visible = true;
+                (ptComponent as any).visible = () => true;
                 ptFixture.componentRef.setInput('pt', { mask: 'MASK_CLASS' });
                 (ptSpeedDialInstance as any).mask = () => true;
                 ptFixture.detectChanges();
@@ -1703,7 +1703,7 @@ describe('SpeedDial', () => {
             });
 
             it('should apply object to item elements', async () => {
-                ptComponent.visible = true;
+                (ptComponent as any).visible = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     item: {
                         class: 'item-custom',
@@ -1725,7 +1725,7 @@ describe('SpeedDial', () => {
             });
 
             it('should apply object to mask element', async () => {
-                ptComponent.visible = true;
+                (ptComponent as any).visible = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     mask: {
                         class: 'mask-custom',
@@ -1766,7 +1766,7 @@ describe('SpeedDial', () => {
             });
 
             it('should apply mixed PT with string for pcButton and object for item', async () => {
-                ptComponent.visible = true;
+                (ptComponent as any).visible = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     pcButton: { root: 'BUTTON_STRING_CLASS' },
                     item: {
@@ -1984,16 +1984,16 @@ describe('SpeedDial', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
-                // Create a new test module with PrimeNG config
+        describe('Case 7: Test from NgxPrimeConfig', () => {
+            it('should apply global PT configuration from NgxPrimeConfig', async () => {
+                // Create a new test module with ngx-prime config
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [SpeedDial, ButtonModule, RouterTestingModule, TestPTSpeedDialComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideNgxPrime',
                             useValue: {
                                 pt: {
                                     speeddial: {
@@ -2011,14 +2011,14 @@ describe('SpeedDial', () => {
                 configFixture.detectChanges();
 
                 // Note: This test verifies the configuration structure
-                // Actual global PT merging depends on PrimeNG configuration implementation
+                // Actual global PT merging depends on ngx-prime configuration implementation
                 expect(configFixture.componentInstance).toBeTruthy();
             });
         });
 
         describe('Case 8: Test hooks', () => {
             it('should handle onAfterViewInit hook in PT', async () => {
-                void false;
+                let hookCalled = false;
 
                 ptFixture.componentRef.setInput('pt', {
                     root: 'TEST_HOOK_CLASS',
@@ -2038,8 +2038,8 @@ describe('SpeedDial', () => {
             });
 
             it('should handle lifecycle hooks via PT', () => {
-                void false;
-                void false;
+                let initCalled = false;
+                let destroyCalled = false;
 
                 ptFixture.componentRef.setInput('pt', {
                     root: 'HOOK_TEST',
@@ -2155,7 +2155,7 @@ describe('SpeedDial', () => {
 
         describe('PT Integration Tests', () => {
             it('should apply PT to all sections simultaneously', async () => {
-                ptComponent.visible = true;
+                (ptComponent as any).visible = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     host: 'HOST_ALL',
                     root: 'ROOT_ALL',

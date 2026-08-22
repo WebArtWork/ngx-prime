@@ -1,9 +1,9 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, inject } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';
 
 @Component({
     selector: 'app-confirmpopup-pt-viewer',

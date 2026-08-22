@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/galleria';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     mask: 'p-galleria-mask p-overlay-mask',
@@ -93,7 +93,7 @@ export class GalleriaStyle extends BaseStyle {
  *
  * Galleria is an advanced content gallery component.
  *
- * [Live Demo](https://www.primeng.org/galleria/)
+ * [Live Demo](https://www.ngx-prime.org/galleria/)
  *
  * @module galleriastyle
  *

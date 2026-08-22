@@ -3,9 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, OverlayService, SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { MenuItem, OverlayService, SharedModule } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { Menu } from './menu';
+
+@Component({ standalone: true, template: '<div>Target Page</div>' })
+class TestTargetComponent {}
 
 @Component({
     template: `
@@ -257,12 +260,6 @@ class TestCommandMenuComponent {
         }
     ];
 }
-
-@Component({
-    standalone: true,
-    template: '<div>Target Page</div>'
-})
-class TestTargetComponent {}
 
 describe('Menu', () => {
     let component: TestBasicMenuComponent;
@@ -1809,7 +1806,7 @@ describe('Menu', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 standalone: true,
                 imports: [Menu],
@@ -1826,7 +1823,7 @@ describe('Menu', () => {
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 menu: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
@@ -1838,7 +1835,7 @@ describe('Menu', () => {
                 });
             });
 
-            it('should apply global PT configuration from PrimeNG config', () => {
+            it('should apply global PT configuration from ngx-prime config', () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
 
                 globalFixture.detectChanges();

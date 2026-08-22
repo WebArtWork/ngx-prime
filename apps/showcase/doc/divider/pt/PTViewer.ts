@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'ngx-prime/divider';
 
 @Component({
     selector: 'app-divider-pt-viewer',

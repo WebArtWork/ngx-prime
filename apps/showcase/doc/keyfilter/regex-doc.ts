@@ -1,8 +1,8 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { KeyFilterModule } from 'primeng/keyfilter';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { KeyFilterModule } from 'ngx-prime/keyfilter';
 
 @Component({
     selector: 'app-regex-doc',

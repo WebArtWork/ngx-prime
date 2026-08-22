@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { IftaLabelModule } from 'primeng/iftalabel';
+import { CascadeSelectModule } from 'ngx-prime/cascadeselect';
+import { IftaLabelModule } from 'ngx-prime/iftalabel';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

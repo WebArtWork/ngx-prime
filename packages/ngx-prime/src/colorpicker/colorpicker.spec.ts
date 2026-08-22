@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
-import { providePrimeNG } from 'primeng/config';
-import { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
+import { provideNgxPrime } from 'ngx-prime/config';
+import { ColorPickerChangeEvent } from 'ngx-prime/types/colorpicker';
 import { ColorPicker, ColorPickerClearDirective, ColorPickerDirective } from './colorpicker';
 
 @Component({
@@ -835,7 +835,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: 'PT_ROOT_CLASS',
@@ -897,7 +897,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: 'PT_ROOT_OVERLAY',
@@ -929,7 +929,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1005,7 +1005,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1080,7 +1080,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({
@@ -1129,7 +1129,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({
@@ -1181,7 +1181,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({
@@ -1237,7 +1237,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1306,7 +1306,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 colorHandle: ({ instance }: any) => ({
@@ -1352,7 +1352,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => {
@@ -1474,13 +1474,13 @@ describe('ColorPicker', () => {
             expect(panel?.getAttribute('data-p-inline')).toBe('true');
         });
 
-        // Case 8: Test from PrimeNGConfig (global PT)
-        it('PT Case 8a: should apply global PT configuration from PrimeNGConfig', async () => {
+        // Case 8: Test from NgxPrimeConfig (global PT)
+        it('PT Case 8a: should apply global PT configuration from NgxPrimeConfig', async () => {
             TestBed.configureTestingModule({
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1533,7 +1533,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1574,7 +1574,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: {
@@ -1639,7 +1639,7 @@ describe('ColorPicker', () => {
                 imports: [TestMultiplePTComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: 'GLOBAL_MULTI_ROOT',
@@ -1678,7 +1678,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: 'HOOKS_ROOT_CLASS',
@@ -1716,7 +1716,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 hooks: {
@@ -1754,7 +1754,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 hooks: {
@@ -1798,7 +1798,7 @@ describe('ColorPicker', () => {
                 imports: [ColorPicker, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             colorPicker: {
                                 root: ({ instance }: any) => ({

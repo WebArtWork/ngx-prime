@@ -12,7 +12,7 @@ Tabs is defined using TabList , Tab , TabPanels and TabPanel components. Tab and
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     template: `
@@ -59,8 +59,8 @@ Tabs can be controlled programmatically using value property as a model.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TabsModule } from 'primeng/tabs';
+import { ButtonModule } from 'ngx-prime/button';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     template: `
@@ -114,9 +114,9 @@ Custom content for a tab is defined with the default ng-content.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
-import { TabsModule } from 'primeng/tabs';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { BadgeModule } from 'ngx-prime/badge';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     template: `
@@ -127,15 +127,15 @@ import { TabsModule } from 'primeng/tabs';
                         <i class="pi pi-minus"></i>
                     </ng-template>
                     <p-tab value="0" class="flex items-center !gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold whitespace-nowrap">Amy Elsner</span>
                     </p-tab>
                     <p-tab value="1" class="flex items-center !gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/onyamalimba.png" shape="circle" />
                         <span class="font-bold whitespace-nowrap">Onyama Limba</span>
                     </p-tab>
                     <p-tab value="2" class="flex items-center !gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/ionibowcher.png" shape="circle" />
                         <span class="font-bold whitespace-nowrap">Ioni Bowcher</span>
                         <p-badge value="2" />
                     </p-tab>
@@ -179,7 +179,7 @@ Enabling disabled property of a Tab prevents user interaction.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     template: `
@@ -227,7 +227,7 @@ Tabs can be generated dynamically using the standard &#64;for block.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     template: `
@@ -268,7 +268,7 @@ By default, inactive tab's content is rendered (but hidden). You can use the laz
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     template: `
@@ -312,7 +312,7 @@ Adding scrollable property displays navigational buttons at each side to scroll 
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     template: `
@@ -349,7 +349,7 @@ A navigation menu is implemented using tabs without the panels where the content
 
 ```typescript
 import { Component } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     template: `

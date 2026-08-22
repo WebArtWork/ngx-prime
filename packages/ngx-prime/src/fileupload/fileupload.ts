@@ -23,15 +23,15 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { addClass, removeClass } from '@wawjs/css-prime-utils';
-import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { Badge } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { Button, ButtonProps } from 'primeng/button';
-import { PlusIcon, TimesIcon, UploadIcon } from 'primeng/icons';
-import { Message } from 'primeng/message';
-import { ProgressBar } from 'primeng/progressbar';
-import { VoidListener } from 'primeng/ts-helpers';
+import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
+import { Badge } from 'ngx-prime/badge';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { Button, ButtonProps } from 'ngx-prime/button';
+import { PlusIcon, TimesIcon, UploadIcon } from 'ngx-prime/icons';
+import { Message } from 'ngx-prime/message';
+import { ProgressBar } from 'ngx-prime/progressbar';
+import { VoidListener } from 'ngx-prime/ts-helpers';
 import {
     FileBeforeUploadEvent,
     FileProgressEvent,
@@ -46,7 +46,7 @@ import {
     FileUploadHeaderTemplateContext,
     FileUploadPassThrough,
     RemoveUploadedFileEvent
-} from 'primeng/types/fileupload';
+} from 'ngx-prime/types/fileupload';
 import { Subscription } from 'rxjs';
 import { FileUploadStyle } from './style/fileuploadstyle';
 import { FileUploadCancelDirective, FileUploadChooseDirective, FileUploadClearDirective, FileUploadDirective, FileUploadDropZoneDirective, FileUploadQueueDirective, FileUploadUploadDirective } from './nativefileupload';
@@ -507,17 +507,17 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
      */
     previewWidth = input<number, unknown>(50, { transform: numberAttribute });
     /**
-     * Label of the choose button. Defaults to PrimeNG Locale configuration.
+     * Label of the choose button. Defaults to ngx-prime Locale configuration.
      * @group Props
      */
     chooseLabel = input<string>();
     /**
-     * Label of the upload button. Defaults to PrimeNG Locale configuration.
+     * Label of the upload button. Defaults to ngx-prime Locale configuration.
      * @group Props
      */
     uploadLabel = input<string>();
     /**
-     * Label of the cancel button. Defaults to PrimeNG Locale configuration.
+     * Label of the cancel button. Defaults to ngx-prime Locale configuration.
      * @group Props
      */
     cancelLabel = input<string>();
@@ -557,7 +557,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
      */
     headers = input<HttpHeaders>();
     /**
-     * Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration.
+     * Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to ngx-prime Locale configuration.
      * @group Props
      */
     customUpload = input<boolean, unknown>(undefined, { transform: booleanAttribute });
@@ -738,7 +738,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
      * operations, whereas a bound input replaces the complete queue.
      */
     // eslint-disable-next-line @angular-eslint/no-input-rename
-    private readonly inputFiles = input<File[] | undefined>(undefined, { alias: 'files' });
+    readonly inputFiles = input<File[] | undefined>(undefined, { alias: 'files' });
 
     private readonly syncInputFiles = effect(() => {
         const files = this.inputFiles();
@@ -773,7 +773,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
             return this.chooseLabel() as string;
         }
 
-        return this.uploadLabel() ?? this.files[0].name;
+        return this.uploadLabel() ?? this.files[0]!.name;
     }
 
     public _files: File[] = [];
@@ -979,8 +979,9 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
     validate(file: File): boolean {
         this.msgs = this.msgs || [];
 
-        if (this.accept() && !this.isFileTypeValid(file)) {
-            const text = `${this.invalidFileTypeMessageSummary().replace('{0}', file.name)} ${this.invalidFileTypeMessageDetail().replace('{0}', this.accept())}`;
+        const accept = this.accept();
+        if (accept && !this.isFileTypeValid(file)) {
+            const text = `${this.invalidFileTypeMessageSummary().replace('{0}', file.name)} ${this.invalidFileTypeMessageDetail().replace('{0}', accept)}`;
 
             this.msgs.push({
                 severity: 'error',
@@ -990,8 +991,9 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
             return false;
         }
 
-        if (this.maxFileSize() && file.size > this.maxFileSize()) {
-            const text = `${this.invalidFileSizeMessageSummary().replace('{0}', file.name)} ${this.invalidFileSizeMessageDetail().replace('{0}', this.formatSize(this.maxFileSize()))}`;
+        const maxFileSize = this.maxFileSize();
+        if (maxFileSize && file.size > maxFileSize) {
+            const text = `${this.invalidFileSizeMessageSummary().replace('{0}', file.name)} ${this.invalidFileSizeMessageDetail().replace('{0}', this.formatSize(maxFileSize))}`;
 
             this.msgs.push({
                 severity: 'error',
@@ -1174,24 +1176,27 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         const isAutoMode = this.auto();
         const totalFileCount = isAutoMode ? this.files.length : this.files.length + this.uploadedFileCount;
 
-        if (this.fileLimit() && this.fileLimit() <= totalFileCount && this.focus) {
+        const fileLimit = this.fileLimit();
+        if (fileLimit && fileLimit <= totalFileCount && this.focus) {
             this.focus = false;
         }
 
-        return this.fileLimit() && this.fileLimit() < totalFileCount;
+        return fileLimit && fileLimit < totalFileCount;
     }
 
     isChooseDisabled() {
+        const fileLimit = this.fileLimit();
         if (this.auto()) {
-            return this.fileLimit() && this.fileLimit() <= this.files.length;
+            return fileLimit && fileLimit <= this.files.length;
         } else {
-            return this.fileLimit() && this.fileLimit() <= this.files.length + this.uploadedFileCount;
+            return fileLimit && fileLimit <= this.files.length + this.uploadedFileCount;
         }
     }
 
     checkFileLimit(files: File[]) {
         this.msgs ??= [];
-        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit() && this.fileLimit() < files.length;
+        const fileLimit = this.fileLimit();
+        const hasExistingValidationMessages = this.msgs.length > 0 && fileLimit && fileLimit < files.length;
 
         if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
             const text = `${this.invalidFileLimitMessageSummary().replace('{0}', (this.fileLimit() as number).toString())} ${this.invalidFileLimitMessageDetail().replace('{0}', (this.fileLimit() as number).toString())}`;

@@ -21,7 +21,7 @@ import { Component, inject } from '@angular/core';
                     <div
                         class="template-block block-5 mr-2 lg:mb-0 flex justify-center items-center"
                         [ngStyle]="{
-                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/verona-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/verona-light-v17.jpg)'
+                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/verona-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/verona-light-v17.jpg)'
                         }"
                     >
                         <a class="templates-btn" href="https://www.primefaces.org/verona-ng" target="_blank">Verona Preview</a>
@@ -29,7 +29,7 @@ import { Component, inject } from '@angular/core';
                     <div
                         class="template-block block-2 ml-2 flex justify-center items-center"
                         [ngStyle]="{
-                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/freya-light-v17.jpg)'
+                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/freya-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/freya-light-v17.jpg)'
                         }"
                     >
                         <a class="templates-btn" href="https://www.primefaces.org/freya-ng/" target="_blank">Freya Preview</a>
@@ -39,7 +39,7 @@ import { Component, inject } from '@angular/core';
                     <div
                         class="template-block block-3 mr-2 lg:mb-0 flex justify-center items-center"
                         [ngStyle]="{
-                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/atlantis-light-v17.jpg)'
+                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/atlantis-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/atlantis-light-v17.jpg)'
                         }"
                     >
                         <a class="templates-btn" href="https://www.primefaces.org/atlantis-ng/" target="_blank">Atlantis Preview</a>
@@ -53,7 +53,7 @@ import { Component, inject } from '@angular/core';
                     <div
                         class="template-block block-4 ml-2 flex justify-center items-center"
                         [ngStyle]="{
-                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/apollo-light-v17.jpg)'
+                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/apollo-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/apollo-light-v17.jpg)'
                         }"
                     >
                         <a class="templates-btn" href="https://www.primefaces.org/apollo-ng/" target="_blank">Apollo Preview</a>
@@ -63,7 +63,7 @@ import { Component, inject } from '@angular/core';
                     <div
                         class="template-block block-1 mr-2 lg:mb-0 flex justify-center items-center"
                         [ngStyle]="{
-                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/diamond-light-v17.jpg)'
+                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/diamond-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/diamond-light-v17.jpg)'
                         }"
                     >
                         <a class="templates-btn" href="https://www.primefaces.org/diamond-ng/" target="_blank">Diamond Preview</a>
@@ -71,7 +71,7 @@ import { Component, inject } from '@angular/core';
                     <div
                         class="template-block block-6 ml-2 flex justify-center items-center"
                         [ngStyle]="{
-                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/ultima-light-v17.jpg)'
+                            'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/ultima-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/ngx-prime/images/landing/templates/ultima-light-v17.jpg)'
                         }"
                     >
                         <a class="templates-btn" href="https://www.primefaces.org/ultima-ng/" target="_blank">Ultima Preview</a>

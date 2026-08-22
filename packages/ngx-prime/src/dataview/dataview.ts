@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, effect, ElementRef, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation, contentChild } from '@angular/core';
 import { resolveFieldData } from '@wawjs/css-prime-utils';
-import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { SpinnerIcon } from 'primeng/icons';
-import { PaginatorModule } from 'primeng/paginator';
-import { Nullable } from 'primeng/ts-helpers';
+import { BlockableUI, FilterService, Footer, Header, SharedModule, TranslationKeys } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { SpinnerIcon } from 'ngx-prime/icons';
+import { PaginatorModule } from 'ngx-prime/paginator';
+import { Nullable } from 'ngx-prime/ts-helpers';
 import {
     DataViewGridTemplateContext,
     DataViewLayoutChangeEvent,
@@ -19,7 +19,7 @@ import {
     DataViewPaginatorState,
     DataViewPassThrough,
     DataViewSortEvent
-} from 'primeng/types/dataview';
+} from 'ngx-prime/types/dataview';
 import { Subscription } from 'rxjs';
 import { DataViewStyle } from './style/dataviewstyle';
 

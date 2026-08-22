@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { AnimateOnScrollModule } from 'ngx-prime/animateonscroll';
 
 @Component({
     selector: 'app-template-configuration',
@@ -19,7 +19,7 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; cd {{ appName }}-ng</p>
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; npm install</p>
                         <p class="m-0 text-surface-0 text-xs sm:text-sm">&gt; ng serve</p>
-                        <img class="w-28 lg:w-32 h-28 lg:h-32 absolute right-6 bottom-4" src="https://primefaces.org/cdn/primeng/images/templates/angular-3d-logo.png" alt="Angular 3D Logo" />
+                        <img class="w-28 lg:w-32 h-28 lg:h-32 absolute right-6 bottom-4" src="https://primefaces.org/cdn/ngx-prime/images/templates/angular-3d-logo.png" alt="Angular 3D Logo" />
                     </div>
                 </div>
                 <h3 class="text-lg lg:text-2xl text-surface-900 dark:text-surface-0 font-bold">{{ title }}</h3>

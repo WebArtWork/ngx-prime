@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { style as badge_style } from '@wawjs/css-prime-styles/badge';
 import { isEmpty, isNotEmpty } from '@wawjs/css-prime-utils';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${badge_style}
 
-    /* For PrimeNG (directive)*/
+    /* For ngx-prime (directive)*/
     .p-overlay-badge {
         position: relative;
     }
@@ -60,7 +60,7 @@ export class BadgeStyle extends BaseStyle {
  *
  * Badge represents people using icons, labels and images.
  *
- * [Live Demo](https://www.primeng.org/badge)
+ * [Live Demo](https://www.ngx-prime.org/badge)
  *
  * @module badgestyle
  *

@@ -6,8 +6,8 @@ import { ProductService } from '@/service/productservice';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TableModule } from 'ngx-prime/table';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 
 @Component({
     selector: 'app-multipleselection-doc',
@@ -15,7 +15,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
     imports: [FormsModule, TableModule, ToggleSwitchModule, AppDocSectionText, AppCode, DeferredDemo],
     template: ` <app-docsectiontext>
             <p>
-                More than one row is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is not necessary to add to existing selections. When the optional
+                More than one row is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>âŒ˜</i>) is not necessary to add to existing selections. When the optional
                 <i>metaKeySelection</i>
                 is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch enabled devices, DataTable always ignores metaKey.
             </p>

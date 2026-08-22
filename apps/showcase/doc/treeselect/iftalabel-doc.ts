@@ -2,8 +2,8 @@ import { NodeService } from '@/service/nodeservice';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { IftaLabelModule } from 'primeng/iftalabel';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
+import { IftaLabelModule } from 'ngx-prime/iftalabel';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

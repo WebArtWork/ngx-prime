@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/confirmdialog';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: 'p-confirmdialog',
@@ -23,7 +23,7 @@ export class ConfirmDialogStyle extends BaseStyle {
  *
  * ConfirmDialog uses a Dialog UI with confirmDialog method or <ConfirmDialog> tag.
  *
- * [Live Demo](https://www.primeng.org/confirmdialog)
+ * [Live Demo](https://www.ngx-prime.org/confirmdialog)
  *
  * @module confirmdialogstyle
  *

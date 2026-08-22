@@ -13,9 +13,9 @@ TreeSelect is used as a controlled component with ng-model directive along with 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -48,7 +48,7 @@ Selection of multiple nodes via checkboxes is enabled by configuring selectionMo
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -82,7 +82,7 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -116,7 +116,7 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -150,7 +150,7 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -184,7 +184,7 @@ Filtering is enabled by adding the filter property, by default label property of
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -218,8 +218,8 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { FloatLabelModule } from 'ngx-prime/floatlabel';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -266,7 +266,7 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -300,8 +300,8 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { IftaLabelModule } from 'ngx-prime/iftalabel';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -333,12 +333,12 @@ export class TreeselectIftalabelDemo implements OnInit {
 
 ## Invalid
 
-The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -374,8 +374,8 @@ Lazy loading is useful when dealing with huge datasets, in this example nodes ar
 ```typescript
 import { Component, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { TreeNode } from 'primeng/api';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
+import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -457,12 +457,12 @@ export class TreeselectLazyDemo implements OnInit {
 
 ## Multiple
 
-More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, TreeSelect always ignores metaKey. In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.
+More than one node is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. âŒ˜ ) is necessary to add to existing selections however this can be configured with disabling the metaKeySelection property. Note that in touch enabled devices, TreeSelect always ignores metaKey. In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -496,12 +496,12 @@ TreeSelect can also be used with reactive forms. In this case, the formControlNa
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
+import { ButtonModule } from 'ngx-prime/button';
 import { NodeService } from '@/service/nodeservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -562,7 +562,7 @@ TreeSelect provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -600,8 +600,8 @@ TreeSelect offers multiple templates for customization through templating.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { ButtonModule } from 'ngx-prime/button';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -646,12 +646,12 @@ export class TreeselectTemplateDemo implements OnInit {
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { ButtonModule } from 'primeng/button';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
+import { ButtonModule } from 'ngx-prime/button';
 import { NodeService } from '@/service/nodeservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -701,7 +701,7 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({
@@ -772,7 +772,7 @@ TreeSelect is a form component to choose from hierarchical data.
 | labelStyle | { [klass: string]: any } | - | Inline style of the label element. |
 | labelStyleClass | string | - | Style class of the label element. |
 | overlayOptions | OverlayOptions | - | Specifies the options for the overlay. |
-| emptyMessage | string | - | Text to display when there are no options available. Defaults to value from PrimeNG locale configuration. |
+| emptyMessage | string | - | Text to display when there are no options available. Defaults to value from ngx-prime locale configuration. |
 | filter | boolean | false | When specified, displays an input field to filter the items. |
 | filterBy | string | label | When filtering is enabled, filterBy decides which field or fields (comma separated) to search against. |
 | filterMode | string | lenient | Mode for filtering valid values are "lenient" and "strict". Default is lenient. |

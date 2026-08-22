@@ -5,9 +5,9 @@ import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeNode } from 'primeng/api';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeNode } from 'ngx-prime/api';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { TreeTableModule } from 'ngx-prime/treetable';
 
 interface Column {
     field: string;
@@ -21,7 +21,7 @@ interface Column {
     template: `
         <app-docsectiontext>
             <p>
-                More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with
+                More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>âŒ˜</i>) is necessary to add to existing selections however this can be configured with
                 disabling the <i>metaKeySelection</i> property. Note that in touch enabled devices, TreeTable always ignores metaKey.
             </p>
         </app-docsectiontext>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/breadcrumb';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: () => ['p-breadcrumb p-component'],
@@ -26,7 +26,7 @@ export class BreadCrumbStyle extends BaseStyle {
  *
  * Breadcrumb provides contextual information about page hierarchy.
  *
- * [Live Demo](https://www.primeng.org/breadcrumb/)
+ * [Live Demo](https://www.ngx-prime.org/breadcrumb/)
  *
  * @module breadcrumbstyle
  *

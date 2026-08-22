@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/paginator';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     paginator: () => ['p-paginator p-component'],
@@ -61,7 +61,7 @@ export class PaginatorStyle extends BaseStyle {
  *
  * Paginator is a generic component to display content in paged format.
  *
- * [Live Demo](https://www.primeng.org/paginator)
+ * [Live Demo](https://www.ngx-prime.org/paginator)
  *
  * @module paginatorstyle
  *

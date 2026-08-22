@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@wawjs/css-prime-motion';
-import type { MenuItem, PassThrough, PassThroughOption } from 'primeng/api';
+import type { MenuItem, PassThrough, PassThroughOption } from 'ngx-prime/api';
 
 /**
  * Custom pass-through(pt) options.

@@ -1,7 +1,7 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
+import { InplaceModule } from 'ngx-prime/inplace';
 
 @Component({
     selector: 'app-basic-doc',

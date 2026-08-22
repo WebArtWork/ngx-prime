@@ -739,13 +739,13 @@ describe('Toolbar', () => {
         });
 
         it('should apply simple string classes to PT sections', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: 'ROOT_CLASS',
                 host: 'HOST_CLASS',
                 start: 'START_CLASS',
                 center: 'CENTER_CLASS',
                 end: 'END_CLASS'
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -766,7 +766,7 @@ describe('Toolbar', () => {
         });
 
         it('should apply object-based PT options with class and attributes', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'PT_ROOT_CLASS',
                     'data-test': 'toolbar-test',
@@ -777,7 +777,7 @@ describe('Toolbar', () => {
                     class: 'PT_START_CLASS',
                     'data-section': 'start'
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -797,13 +797,13 @@ describe('Toolbar', () => {
         });
 
         it('should apply mixed object and string PT values', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'PT_ROOT_CLASS'
                 },
                 host: 'PT_HOST_CLASS',
                 start: 'PT_START_STRING'
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -820,12 +820,12 @@ describe('Toolbar', () => {
         });
 
         it('should use instance variables in PT functions', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: ({ instance }) => ({
                     class: instance?.ariaLabelledBy() ? 'HAS_ARIA' : 'NO_ARIA',
                     'data-styleclass': instance?.styleClass()
                 })
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -841,13 +841,13 @@ describe('Toolbar', () => {
         it('should handle event binding in PT options', async () => {
             let clicked = false;
 
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     onclick: () => {
                         clicked = true;
                     }
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();

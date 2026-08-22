@@ -3,7 +3,7 @@ import APIDoc from '@/doc/apidoc/index.json';
 import { ChangeDetectorRef, Component, computed, ElementRef, inject, input, InputSignal, viewChild, AfterViewChecked } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { addClass, find, removeClass } from '@wawjs/css-prime-utils/dom';
-import { PrimeNG } from 'primeng/config';
+import { ngx-prime } from 'ngx-prime/config';
 import { AppDocSectionText } from './app.docsectiontext';
 
 interface DocItem {
@@ -83,7 +83,7 @@ export const getPTOptions = (name) => {
     template: `
         <app-docsectiontext>
             <p>
-                Some sections may not be visible due to the availability of the particular feature. Section names that start with the <i>pc</i> prefix indicate that the element is a PrimeNG component not a DOM element. Visit the
+                Some sections may not be visible due to the availability of the particular feature. Section names that start with the <i>pc</i> prefix indicate that the element is a ngx-prime component not a DOM element. Visit the
                 <a routerLink="/passthrough">pass-through</a> documentation for more information.
             </p>
         </app-docsectiontext>
@@ -117,7 +117,7 @@ export class AppDocPtViewer implements AfterViewChecked {
 
     container = viewChild<ElementRef>('container');
 
-    primeng: PrimeNG = inject(PrimeNG);
+    ngx-prime: ngx-prime = inject(ngx-prime);
 
     hoveredElements: any[] = [];
 
@@ -140,7 +140,7 @@ export class AppDocPtViewer implements AfterViewChecked {
 
         if (label.includes('pc')) {
             let reservedNames = ['Decrement', 'File', 'Increment', 'JumpToPage', 'Maximize', 'Node', 'Option', 'Prev', 'Remove', 'RowPerPage', 'Source', 'Target', 'MoveAllTo', 'MoveAll', 'MoveTop', 'MoveTo'];
-            let whiteList = [...reservedNames, ...Object.keys(this.primeng.translation), ...Object.keys(this.primeng.translation.aria)];
+            let whiteList = [...reservedNames, ...Object.keys(this.ngx-prime.translation), ...Object.keys(this.ngx-prime.translation.aria)];
             let elemName = label.replace('pc', '');
 
             if (elemName.includes('FilterContainer')) elemName = elemName.replace('FilterContainer', 'IconField');

@@ -7,6 +7,7 @@ import { AnimateOnScroll, AnimateOnScrollModule } from './animateonscroll';
 class MockIntersectionObserver implements IntersectionObserver {
     root: Element | Document | null = null as any;
     rootMargin = '';
+    scrollMargin = '';
     thresholds: readonly number[] = [];
 
     private callback: IntersectionObserverCallback;

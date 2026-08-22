@@ -27,21 +27,21 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, scrollInView, uuid } from '@wawjs/css-prime-utils';
-import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseInput } from 'primeng/baseinput';
-import { Bind, BindModule } from 'primeng/bind';
-import { unblockBodyScroll } from 'primeng/dom';
-import { IconField } from 'primeng/iconfield';
-import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
-import { InputIcon } from 'primeng/inputicon';
-import { InputText } from 'primeng/inputtext';
-import { Overlay } from 'primeng/overlay';
-import { Ripple } from 'primeng/ripple';
-import { Scroller } from 'primeng/scroller';
-import { Tooltip } from 'primeng/tooltip';
-import { Nullable } from 'primeng/ts-helpers';
+import { FilterService, OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'ngx-prime/api';
+import { AutoFocus } from 'ngx-prime/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseInput } from 'ngx-prime/baseinput';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { unblockBodyScroll } from 'ngx-prime/dom';
+import { IconField } from 'ngx-prime/iconfield';
+import { BlankIcon, CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'ngx-prime/icons';
+import { InputIcon } from 'ngx-prime/inputicon';
+import { InputText } from 'ngx-prime/inputtext';
+import { Overlay } from 'ngx-prime/overlay';
+import { Ripple } from 'ngx-prime/ripple';
+import { Scroller } from 'ngx-prime/scroller';
+import { Tooltip } from 'ngx-prime/tooltip';
+import { Nullable } from 'ngx-prime/ts-helpers';
 import {
     SelectChangeEvent,
     SelectFilterEvent,
@@ -54,7 +54,7 @@ import {
     SelectLoaderTemplateContext,
     SelectPassThrough,
     SelectSelectedItemTemplateContext
-} from 'primeng/types/select';
+} from 'ngx-prime/types/select';
 import { SelectStyle } from './style/selectstyle';
 
 const SELECT_INSTANCE = new InjectionToken<Select>('SELECT_INSTANCE');
@@ -1321,7 +1321,8 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
     }
 
     allowModelChange() {
-        return !!this.modelValue() && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable() && this._options() && this._options().length;
+        const modelValue = this.modelValue();
+        return !!modelValue && !this.placeholder() && (modelValue === undefined || modelValue === null) && !this.editable() && !!this._options()?.length;
     }
 
     isSelected(option) {
@@ -1508,7 +1509,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.itemsWrapper = <any>findSingle(this.overlayViewChild()?.overlayViewChild()?.nativeElement, this.virtualScroll() ? '[data-pc-name="virtualscroller"]' : '[data-pc-section="listcontainer"]');
         this.virtualScroll() && this.scroller()?.setContentEl(this.itemsViewChild()?.nativeElement);
 
-        if (this._options() && this._options().length) {
+        if (this._options()?.length) {
             if (this.virtualScroll()) {
                 const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
 
@@ -2077,7 +2078,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
         this.clearEditableLabel();
         this.onModelTouched();
         this.onChange.emit({ originalEvent: event, value: this.value });
-        this.onClear.emit(event);
+        this.onClear.emit(event ?? new Event('clear'));
         this.resetFilter();
     }
 

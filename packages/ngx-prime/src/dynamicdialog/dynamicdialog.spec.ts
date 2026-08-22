@@ -1,8 +1,8 @@
 import { Component, provideZonelessChangeDetection, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DomHandler } from 'primeng/dom';
-import { ZIndexUtils } from 'primeng/utils';
+import { DomHandler } from 'ngx-prime/dom';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { Subject } from 'rxjs';
 import { DynamicDialog } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';
@@ -252,7 +252,7 @@ describe('DynamicDialog', () => {
             // Test onDialogHide which gets called when dialog closes
 
             // Simulate the onHide event from Dialog
-            component.onDialogHide({});
+            component.onDialogHide();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
             expect(mockDialogRef.destroy).toHaveBeenCalled();
@@ -757,7 +757,7 @@ describe('DynamicDialog', () => {
                 clear: jasmine.createSpy('clear'),
                 createComponent: jasmine.createSpy('createComponent').and.returnValue({
                     setInput: jasmine.createSpy('setInput'),
-                    instance: new TestDialogContentComponent(mockDialogRef, mockConfig)
+                    instance: new (TestDialogContentComponent as any)(mockDialogRef, mockConfig)
                 })
             };
 

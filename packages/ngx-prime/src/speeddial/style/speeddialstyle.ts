@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/speeddial';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 /* Direction */
 const inlineStyles = {
@@ -51,7 +51,7 @@ export class SpeedDialStyle extends BaseStyle {
  *
  * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
  *
- * [Live Demo](https://www.primeng.org/speeddial/)
+ * [Live Demo](https://www.ngx-prime.org/speeddial/)
  *
  * @module speeddialstyle
  *

@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, computed, signal } from '@angular/core';
-import { ClassNamesModule } from 'primeng/classnames';
+import { ClassNamesModule } from 'ngx-prime/classnames';
 
 @Component({
     selector: 'app-examples-doc',

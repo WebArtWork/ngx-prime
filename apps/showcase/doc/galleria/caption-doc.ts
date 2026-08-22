@@ -1,7 +1,7 @@
 import { PhotoService } from '@/service/photoservice';
 import { Component, inject, model, OnInit } from '@angular/core';
 
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'ngx-prime/galleria';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

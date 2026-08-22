@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, ContentChild, forwardRef, inject, InjectionToken, input, InputSignalWithTransform, model, NgModule, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { findSingle, focus, getAttribute, uuid } from '@wawjs/css-prime-utils';
-import { BlockableUI, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
-import { Ripple } from 'primeng/ripple';
-import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough } from 'primeng/types/accordion';
-import { transformToBoolean } from 'primeng/utils';
+import { BlockableUI, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { ChevronDownIcon, ChevronUpIcon } from 'ngx-prime/icons';
+import { MotionModule } from 'ngx-prime/motion';
+import { Ripple } from 'ngx-prime/ripple';
+import { AccordionContentPassThrough, AccordionHeaderPassThrough, AccordionPanelPassThrough, AccordionPassThrough } from 'ngx-prime/types/accordion';
+import { transformToBoolean } from 'ngx-prime/utils';
 import { AccordionStyle } from './style/accordionstyle';
 
 /**

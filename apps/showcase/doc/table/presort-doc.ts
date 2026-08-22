@@ -5,7 +5,7 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 
 @Component({
     selector: 'app-presort-doc',

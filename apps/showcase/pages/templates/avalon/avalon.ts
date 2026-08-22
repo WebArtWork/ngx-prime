@@ -32,16 +32,16 @@ import { AvalonSeparator } from './avalonseparator';
 export class AvalonPage {
     avalonLogo = AvalonLogo;
     templateHeroData = {
-        pattern: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-pattern.png',
+        pattern: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/avalon-hero-pattern.png',
         patternClass: 'select-none absolute md:w-[60rem] h-auto md:bottom-0 bottom-40 -left-32 xl:-left-12 md:-left-32 z-[6] opacity-75',
         light: true,
         rectangle: true,
-        dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-dashboard1.png',
-        dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-dashboard2.png',
+        dashboard1: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/avalon-hero-dashboard1.png',
+        dashboard2: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/avalon-hero-dashboard2.png',
         description:
             'An elegantly designed admin template offering 7 menu layouts with light and dark modes. The layout is mobile-friendly and cross-browser compatible, built with SASS, CSS3 and HTML5 ensuring excellent performance to get you started with your next project!',
-        liveHref: 'https://avalon.primeng.org/',
-        docHref: 'https://avalon.primeng.org/documentation',
+        liveHref: 'https://avalon.ngx-prime.org/',
+        docHref: 'https://avalon.ngx-prime.org/documentation',
         storeHref: 'https://primeui.store/templates/angular/avalon'
     };
 
@@ -49,37 +49,37 @@ export class AvalonPage {
         {
             title: 'Fully Responsive',
             description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features2-responsive.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/avalon-features2-responsive.png'
         },
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser-dark.png'
         },
         {
             title: 'Support',
             description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
             can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
-            <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/support.png'
+            <a href="https://github.com/orgs/primefaces/discussions/categories/ngx-prime-templates" class="doc-link">Forum</a>.`,
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/support.png'
         },
         {
             title: 'Customizable Design',
             description: 'Fully customizable with a mixture of Sass and CSS variables.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/customizable.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/customizable-dark.png'
         },
         {
             title: 'Top Notch Quality',
             description: 'Superior standards with 100% compatibility for strict mode and linting tools.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/quality.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/quality.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/customizable-dark.png'
         },
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features2-mobile.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/avalon-features2-mobile.png'
         }
     ];
 
@@ -88,27 +88,27 @@ export class AvalonPage {
             id: 1,
             title: 'Tailwind CSS',
             description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
             description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeblocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
-            description: 'Ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeicons.png'
+            description: 'Ships with PrimeIcons, PrimeTekâ€™s modern icon library including a wide range of icons for your applications.',
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeicons.png'
         },
         {
             id: 4,
             title: 'Figma File',
             description: `Avalon uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
-                <a href="https://www.figma.com/design/kOSpIMmOxQ3vWq7md9ZIqZ/Preview-%7C-Avalon-%7C-2.0.0?node-id=6184-14861&t=2WN09Iqp8HcYlKkE-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the
+                <a href="https://www.figma.com/design/kOSpIMmOxQ3vWq7md9ZIqZ/Preview-%7C-Avalon-%7C-2.0.0?node-id=6184-14861&t=2WN09Iqp8HcYlKkE-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that ngx-prime UI components are excluded from the
                 Avalon Figma file as they are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-figma.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/features-animation-figma.png'
         }
     ];
 
@@ -117,55 +117,55 @@ export class AvalonPage {
             id: 1,
             title: 'Light and Dark Modes',
             description: '2 color schemes with 8 surface color alternatives for each.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-darkmode.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/features-animation-darkmode.png'
         },
         {
             id: 2,
             title: 'Component Themes',
             description: '17 built-in theme colors with the power of 3 presets: Aura, Lara and Nora.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-component-themes.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/features-animation-component-themes.png'
         },
         {
             id: 3,
             title: '7 Menu Orientations',
             description: 'Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-orientations.png',
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/diamond/features-animation-orientations.png',
             type: 'inline-animation',
             inlineFeaturesData: [
                 {
                     id: 1,
                     title: 'Static',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/Static.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/Static.png'
                 },
                 {
                     id: 2,
                     title: 'Slim',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/Slim.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/Slim.png'
                 },
                 {
                     id: 3,
                     title: 'Reveal',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/Reveal.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/Reveal.png'
                 },
                 {
                     id: 4,
                     title: 'Horizontal',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/Horizontal.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/Horizontal.png'
                 },
                 {
                     id: 5,
                     title: 'Overlay',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/Overlay.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/Overlay.png'
                 },
                 {
                     id: 6,
                     title: 'Slim+',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/Slim+.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/Slim+.png'
                 },
                 {
                     id: 7,
                     title: 'Drawer',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/Drawer.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/Drawer.png'
                 }
             ]
         },
@@ -173,12 +173,12 @@ export class AvalonPage {
             id: 4,
             title: 'Topbar Themes',
             description: 'Numerous topbar themes with an appealing design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-menu-themes.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/avalon/features-animation-menu-themes.png'
         }
     ];
 
     license = {
-        documentLink: 'https://avalon.primeng.org/documentation',
+        documentLink: 'https://avalon.ngx-prime.org/documentation',
         description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
         showDiscount: false,
         licenseDetails: [

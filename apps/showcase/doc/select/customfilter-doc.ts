@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectFilterOptions } from 'primeng/select';
+import { SelectFilterOptions } from 'ngx-prime/select';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'ngx-prime/select';
+import { InputGroupModule } from 'ngx-prime/inputgroup';
+import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';
+import { ButtonModule } from 'ngx-prime/button';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 interface City {
     name: string;
@@ -35,13 +35,13 @@ interface City {
                 </ng-template>
                 <ng-template pTemplate="selectedItem" let-selectedOption>
                     <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
                         <div>{{ selectedOption.name }}</div>
                     </div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
                     <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>

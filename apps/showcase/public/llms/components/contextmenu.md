@@ -12,14 +12,14 @@ ContextMenu can be attached to a particular element whose local template variabl
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { MenuItem } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
+import { ContextMenu, ContextMenuModule } from 'ngx-prime/contextmenu';
+import { MenuItem } from 'ngx-prime/api';
+import { ContextMenu } from 'ngx-prime/contextmenu';
 
 @Component({
     template: `
         <div class="card flex justify-center">
-            <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
+            <img #img src="https://primefaces.org/cdn/ngx-prime/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-[30rem] rounded shadow-lg" />
             <p-contextmenu [target]="img" [model]="items" />
         </div>
     `,
@@ -44,11 +44,11 @@ The function to invoke when an item is clicked is defined using the command prop
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
+import { ContextMenu, ContextMenuModule } from 'ngx-prime/contextmenu';
+import { TagModule } from 'ngx-prime/tag';
+import { ToastModule } from 'ngx-prime/toast';
+import { MenuItem, MessageService } from 'ngx-prime/api';
+import { ContextMenu } from 'ngx-prime/contextmenu';
 
 interface Users {
     id: number;
@@ -69,7 +69,7 @@ interface Users {
                     (contextmenu)="onContextMenu($event, user)"
                 >
                     <div class="flex flex-1 items-center gap-2">
-                        <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" />
+                        <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/avatar/' + user.image" />
                         <span class="font-bold">{{ user.name }}</span>
                     </div>
                     <p-tag [value]="user.role" [severity]="getBadge(user)" />
@@ -159,9 +159,9 @@ Setting global property to true attaches the context menu to the document.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { MenuItem } from 'primeng/api';
-import { ContextMenu } from 'primeng/contextmenu';
+import { ContextMenu, ContextMenuModule } from 'ngx-prime/contextmenu';
+import { MenuItem } from 'ngx-prime/api';
+import { ContextMenu } from 'ngx-prime/contextmenu';
 
 @Component({
     template: `
@@ -214,8 +214,8 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { MenuItem } from 'primeng/api';
+import { ContextMenuModule } from 'ngx-prime/contextmenu';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -289,12 +289,12 @@ ContextMenu offers item customization with the item template that receives the m
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
+import { BadgeModule } from 'ngx-prime/badge';
+import { ContextMenu, ContextMenuModule } from 'ngx-prime/contextmenu';
+import { RippleModule } from 'ngx-prime/ripple';
+import { MenuItem } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
-import { ContextMenu } from 'primeng/contextmenu';
+import { ContextMenu } from 'ngx-prime/contextmenu';
 
 @Component({
     template: `
@@ -307,7 +307,7 @@ import { ContextMenu } from 'primeng/contextmenu';
                     (contextmenu)="onContextMenu($event)"
                 >
                     <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                        <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.name" />
                         <div class="flex-1 flex flex-col gap-1">
                             <span class="font-bold">{{ product.name }}</span>
                             <div class="flex items-center gap-2">
@@ -345,12 +345,12 @@ export class ContextmenuTemplateDemo implements OnInit {
             {
                 label: 'Favorite',
                 icon: 'pi pi-star',
-                shortcut: '⌘+D'
+                shortcut: 'âŒ˜+D'
             },
             {
                 label: 'Add',
                 icon: 'pi pi-shopping-cart',
-                shortcut: '⌘+A'
+                shortcut: 'âŒ˜+A'
             },
             {
                 separator: true

@@ -19,12 +19,12 @@ import {
     AfterViewChecked
 } from '@angular/core';
 import { isAttributeEquals } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { ChevronDownIcon, ChevronUpIcon } from 'primeng/icons';
-import { Nullable } from 'primeng/ts-helpers';
-import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent, OrganizationChartPassThrough } from 'primeng/types/organizationchart';
+import { PrimeTemplate, SharedModule, TreeNode } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { ChevronDownIcon, ChevronUpIcon } from 'ngx-prime/icons';
+import { Nullable } from 'ngx-prime/ts-helpers';
+import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent, OrganizationChartPassThrough } from 'ngx-prime/types/organizationchart';
 import { Subject, Subscription } from 'rxjs';
 import { OrganizationChartStyle } from './style/organizationchartstyle';
 

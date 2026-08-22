@@ -2,7 +2,7 @@ import { inject, Service } from '@angular/core';
 import { css as Css, dt, Theme } from '@wawjs/css-prime-styled';
 import { style as base_style } from '@wawjs/css-prime-styles/base';
 import { minifyCSS, resolve } from '@wawjs/css-prime-utils';
-import { UseStyle } from 'primeng/usestyle';
+import { UseStyle } from 'ngx-prime/usestyle';
 
 const css = /*css*/ `
 .p-hidden-accessible {
@@ -71,7 +71,7 @@ export class BaseStyle {
                 .reduce<any>((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
                 .join(' ');
 
-            return `<style type="text/css" data-primeng-style-id="${this.name}" ${_props}>${_style}</style>`;
+            return `<style type="text/css" data-ngx-prime-style-id="${this.name}" ${_props}>${_style}</style>`;
         }
 
         return '';
@@ -90,7 +90,7 @@ export class BaseStyle {
                 .reduce<any>((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
                 .join(' ');
 
-            css.push(`<style type="text/css" data-primeng-style-id="${name}" ${_props}>${_style}</style>`);
+            css.push(`<style type="text/css" data-ngx-prime-style-id="${name}" ${_props}>${_style}</style>`);
         }
 
         return css.join('');

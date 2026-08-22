@@ -32,9 +32,9 @@ Steps can be controlled programmatically using activeIndex property.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StepsModule } from 'primeng/steps';
-import { MenuItem } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { StepsModule } from 'ngx-prime/steps';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -85,9 +85,9 @@ In order to add interactivity to the component, disable readonly and use a bindi
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Steps, StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { Steps, StepsModule } from 'ngx-prime/steps';
+import { ToastModule } from 'ngx-prime/toast';
+import { MenuItem, MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -143,10 +143,10 @@ Example below uses nested routes with Steps.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { Steps, StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
+import { Steps, StepsModule } from 'ngx-prime/steps';
+import { ToastModule } from 'ngx-prime/toast';
 import { TicketService } from '@/service/ticketservice';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `

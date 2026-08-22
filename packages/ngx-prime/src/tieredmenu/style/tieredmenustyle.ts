@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/tieredmenu';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const inlineStyles = {
     submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'flex' : 'none' })
@@ -50,7 +50,7 @@ export class TieredMenuStyle extends BaseStyle {
  *
  * TieredMenu displays submenus in nested overlays.
  *
- * [Live Demo](https://www.primeng.org/menu/)
+ * [Live Demo](https://www.ngx-prime.org/menu/)
  *
  * @module tieredmenustyle
  *

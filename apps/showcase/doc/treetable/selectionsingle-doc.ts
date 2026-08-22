@@ -5,9 +5,9 @@ import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeNode } from 'primeng/api';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeNode } from 'ngx-prime/api';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { TreeTableModule } from 'ngx-prime/treetable';
 
 interface Column {
     field: string;
@@ -22,7 +22,7 @@ interface Column {
         <app-docsectiontext>
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
             <p>
-                By default, metaKey press (e.g. <i>⌘</i>) is necessary to unselect a node however this can be configured with disabling the <i>metaKeySelection</i> property. In touch enabled devices this option has no effect and behavior is same as
+                By default, metaKey press (e.g. <i>âŒ˜</i>) is necessary to unselect a node however this can be configured with disabling the <i>metaKeySelection</i> property. In touch enabled devices this option has no effect and behavior is same as
                 setting it to false
             </p>
         </app-docsectiontext>

@@ -3,8 +3,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DatePickerModule } from 'primeng/datepicker';
-import { IftaLabelModule } from 'primeng/iftalabel';
+import { DatePickerModule } from 'ngx-prime/datepicker';
+import { IftaLabelModule } from 'ngx-prime/iftalabel';
 
 @Component({
     selector: 'app-iftalabel-doc',

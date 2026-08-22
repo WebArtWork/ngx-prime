@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 
 @Component({
     selector: 'app-multiplecolumnssort-doc',
@@ -12,7 +12,7 @@ import { TableModule } from 'primeng/table';
     imports: [TableModule, AppDocSectionText, AppCode, DeferredDemo],
     template: `
         <app-docsectiontext>
-            <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
+            <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>âŒ˜</i>) to be pressed when clicking a header.</p>
         </app-docsectiontext>
         <app-p-deferred-demo (demoLoad)="loadDemoData()">
             <div class="card">

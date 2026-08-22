@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as iftalabel_style } from '@wawjs/css-prime-styles/iftalabel';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${iftalabel_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     .p-iftalabel:has(.ng-invalid.ng-dirty) label {
         color: dt('iftalabel.invalid.color');
     }
@@ -28,7 +28,7 @@ export class IftaLabelStyle extends BaseStyle {
  *
  * IftaLabel visually integrates a label within its form element.
  *
- * [Live Demo](https://www.primeng.org/iftalabel/)
+ * [Live Demo](https://www.ngx-prime.org/iftalabel/)
  *
  * @module iftalabelstyle
  *

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'ngx-prime/divider';
 
 @Component({
     selector: 'app-template-separator',

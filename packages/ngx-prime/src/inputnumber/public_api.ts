@@ -1,4 +1,4 @@
 export * from './inputnumber';
 export * from './nativeinputnumber';
-export * from 'primeng/types/inputnumber';
+export * from 'ngx-prime/types/inputnumber';
 export * from './style/inputnumberstyle';

@@ -18,7 +18,7 @@ export class RuntimeDoc {
     code: Code = {
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { PrimeNG } from 'primeng/config';
+import { ngx-prime } from 'ngx-prime/config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -27,7 +27,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private config: PrimeNG, private translateService: TranslateService) {}
+    constructor(private config: ngx-prime, private translateService: TranslateService) {}
 
     ngOnInit() {
         this.translateService.setDefaultLang('en');
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
 
     translate(lang: string) {
         this.translateService.use(lang);
-        this.translateService.get('primeng').subscribe(res => this.primeng.setTranslation(res));
+        this.translateService.get('ngx-prime').subscribe(res => this.ngx-prime.setTranslation(res));
     }
 }`
     };

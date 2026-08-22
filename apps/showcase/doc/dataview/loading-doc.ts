@@ -6,9 +6,9 @@ import { CommonModule } from '@angular/common';
 import { Component, signal, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DataViewModule } from 'primeng/dataview';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SkeletonModule } from 'primeng/skeleton';
+import { DataViewModule } from 'ngx-prime/dataview';
+import { SelectButtonModule } from 'ngx-prime/selectbutton';
+import { SkeletonModule } from 'ngx-prime/skeleton';
 
 @Component({
     selector: 'app-loading-doc',

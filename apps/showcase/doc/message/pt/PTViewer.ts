@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { MessageModule } from 'primeng/message';
+import { MessageModule } from 'ngx-prime/message';
 
 @Component({
     selector: 'app-message-pt-viewer',

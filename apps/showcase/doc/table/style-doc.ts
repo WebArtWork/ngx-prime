@@ -5,8 +5,8 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-import { TableModule } from 'primeng/table';
+import { BadgeModule } from 'ngx-prime/badge';
+import { TableModule } from 'ngx-prime/table';
 
 @Component({
     selector: 'app-style-doc',

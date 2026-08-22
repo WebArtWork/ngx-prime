@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/contextmenu';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const inlineStyles = {
     root: { position: 'absolute' }
@@ -43,7 +43,7 @@ export class ContextMenuStyle extends BaseStyle {
  * ContextMenu displays an overlay menu on right click of its target. Note that components like DataTable has special integration with ContextMenu.
  * Refer to documentation of the individual documentation of the with context menu support.
  *
- * [Live Demo](https://www.primeng.org/contextmenu/)
+ * [Live Demo](https://www.ngx-prime.org/contextmenu/)
  *
  * @module contextmenustyle
  *

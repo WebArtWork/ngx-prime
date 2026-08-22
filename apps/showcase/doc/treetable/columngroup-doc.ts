@@ -1,8 +1,8 @@
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeNode } from 'ngx-prime/api';
+import { TreeTableModule } from 'ngx-prime/treetable';
 
 @Component({
     selector: 'app-columngroup-doc',

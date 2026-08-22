@@ -21,9 +21,9 @@ export class VSCodeDoc {
     code: Code = {
         typescript: `{
     "servers": {
-        "primeng": {
+        "ngx-prime": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@ngx-prime/mcp"]
         }
     }
 }`

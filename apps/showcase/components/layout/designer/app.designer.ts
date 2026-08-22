@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { Drawer, DrawerModule } from 'primeng/drawer';
+import { Drawer, DrawerModule } from 'ngx-prime/drawer';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AppConfigService } from '@/service/appconfigservice';
-import { ToastModule } from 'primeng/toast';
-import { PrimeNG } from 'primeng/config';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'ngx-prime/toast';
+import { ngx-prime } from 'ngx-prime/config';
+import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
 import { DesignDashboard } from '@/components/layout/designer/dashboard/designdashboard';
 import { DesignCreateTheme } from '@/components/layout/designer/create/designcreatetheme';
 import { DesignEditor } from '@/components/layout/designer/editor/designeditor';
 import { DesignEditorFooter } from '@/components/layout/designer/editor/designeditorfooter';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';
 
 @Component({
     selector: 'app-designer',
@@ -69,7 +69,7 @@ export class AppDesigner implements OnInit {
 
     configService = inject(AppConfigService);
 
-    config: PrimeNG = inject(PrimeNG);
+    config: ngx-prime = inject(ngx-prime);
 
     activeView = computed(() => this.designerService.designer().activeView);
 

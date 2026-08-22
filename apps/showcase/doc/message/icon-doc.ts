@@ -1,8 +1,8 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { MessageModule } from 'primeng/message';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { MessageModule } from 'ngx-prime/message';
 
 @Component({
     selector: 'app-icon-doc',
@@ -16,7 +16,7 @@ import { MessageModule } from 'primeng/message';
             <p-message severity="info" icon="pi pi-send" text="Info Message" styleClass="h-full" />
             <p-message severity="success">
                 <ng-template #icon>
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                    <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
                 <span class="ms-2">How may I help you?</span>
             </p-message>

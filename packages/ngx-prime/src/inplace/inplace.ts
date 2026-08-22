@@ -1,11 +1,11 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, NgModule, output, TemplateRef, ViewEncapsulation, contentChild, contentChildren } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ButtonModule } from 'primeng/button';
-import { TimesIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
-import { InplaceContentTemplateContext, InplacePassThrough } from 'primeng/types/inplace';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { ButtonModule } from 'ngx-prime/button';
+import { TimesIcon } from 'ngx-prime/icons';
+import { Ripple } from 'ngx-prime/ripple';
+import { InplaceContentTemplateContext, InplacePassThrough } from 'ngx-prime/types/inplace';
 import { InplaceStyle } from './style/inplacestyle';
 
 const INPLACE_INSTANCE = new InjectionToken<Inplace>('INPLACE_INSTANCE');

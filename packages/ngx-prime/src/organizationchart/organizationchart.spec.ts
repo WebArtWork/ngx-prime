@@ -2,8 +2,8 @@ import { Component, provideZonelessChangeDetection, TemplateRef } from '@angular
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { TreeNode } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { TreeNode } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { OrganizationChart, OrganizationChartNode } from './organizationchart';
 
 // Test component for basic use cases
@@ -1015,14 +1015,14 @@ describe('OrganizationChart', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             it('should apply global PT configuration', async () => {
                 TestBed.resetTestingModule();
                 TestBed.configureTestingModule({
                     imports: [OrganizationChart],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 organizationChart: {
                                     root: 'GLOBAL_ROOT_CLASS',
@@ -1053,7 +1053,7 @@ describe('OrganizationChart', () => {
                     imports: [OrganizationChart],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 organizationChart: {
                                     root: 'GLOBAL_CLASS'

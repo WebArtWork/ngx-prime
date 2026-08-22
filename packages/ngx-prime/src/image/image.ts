@@ -22,16 +22,16 @@ import {
 import { SafeUrl } from '@angular/platform-browser';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { appendChild, focus } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
-import { FocusTrap } from 'primeng/focustrap';
-import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
-import { Nullable } from 'primeng/ts-helpers';
-import { ImageImageTemplateContext, ImagePassThrough, ImagePreviewTemplateContext } from 'primeng/types/image';
-import { ZIndexUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { blockBodyScroll, unblockBodyScroll } from 'ngx-prime/dom';
+import { FocusTrap } from 'ngx-prime/focustrap';
+import { EyeIcon, RefreshIcon, SearchMinusIcon, SearchPlusIcon, TimesIcon, UndoIcon } from 'ngx-prime/icons';
+import { MotionModule } from 'ngx-prime/motion';
+import { Nullable } from 'ngx-prime/ts-helpers';
+import { ImageImageTemplateContext, ImagePassThrough, ImagePreviewTemplateContext } from 'ngx-prime/types/image';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { ImageStyle } from './style/imagestyle';
 
 const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');

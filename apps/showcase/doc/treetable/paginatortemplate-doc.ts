@@ -4,9 +4,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TreeNode } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeNode } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { TreeTableModule } from 'ngx-prime/treetable';
 
 interface Column {
     field: string;

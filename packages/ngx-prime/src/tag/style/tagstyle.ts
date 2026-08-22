@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/tag';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -32,7 +32,7 @@ export class TagStyle extends BaseStyle {
  *
  * Tag component is used to categorize content.
  *
- * [Live Demo](https://www.primeng.org/tag)
+ * [Live Demo](https://www.ngx-prime.org/tag)
  *
  * @module tagstyle
  *

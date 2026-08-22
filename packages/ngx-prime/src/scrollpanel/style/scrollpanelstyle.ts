@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as scrollpanel_style } from '@wawjs/css-prime-styles/scrollpanel';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${scrollpanel_style}
@@ -31,7 +31,7 @@ export class ScrollPanelStyle extends BaseStyle {
  *
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
  *
- * [Live Demo](https://www.primeng.org/scrollpanel/)
+ * [Live Demo](https://www.ngx-prime.org/scrollpanel/)
  *
  * @module scrollpanelstyle
  *

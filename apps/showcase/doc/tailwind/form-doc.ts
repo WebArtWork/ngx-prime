@@ -3,10 +3,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { InputTextModule } from 'primeng/inputtext';
-import { SelectModule } from 'primeng/select';
-import { TextareaModule } from 'primeng/textarea';
+import { DatePickerModule } from 'ngx-prime/datepicker';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { SelectModule } from 'ngx-prime/select';
+import { TextareaModule } from 'ngx-prime/textarea';
 
 @Component({
     selector: 'app-form-doc',
@@ -14,7 +14,7 @@ import { TextareaModule } from 'primeng/textarea';
     imports: [FormsModule, AppDocSectionText, AppCode, InputTextModule, SelectModule, DatePickerModule, TextareaModule],
     template: `
         <app-docsectiontext>
-            <p>Using Tailwind utilities for the responsive layout of a form with PrimeNG components.</p>
+            <p>Using Tailwind utilities for the responsive layout of a form with ngx-prime components.</p>
         </app-docsectiontext>
         <div class="card flex sm:justify-center">
             <div class="flex flex-col gap-6 w-full sm:w-auto">
@@ -39,14 +39,14 @@ import { TextareaModule } from 'primeng/textarea';
                             <ng-template pTemplate="selectedItem">
                                 @if (selectedCountry) {
                                     <div class="flex items-center gap-2">
-                                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
+                                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
                                         <div>{{ selectedCountry.name }}</div>
                                     </div>
                                 }
                             </ng-template>
                             <ng-template let-country pTemplate="item">
                                 <div class="flex items-center gap-2">
-                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                                    <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                                     <div>{{ country.name }}</div>
                                 </div>
                             </ng-template>

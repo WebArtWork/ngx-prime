@@ -2,7 +2,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate } from 'primeng/api';
+import { PrimeTemplate } from 'ngx-prime/api';
 import { Drawer } from './drawer';
 
 @Component({
@@ -1430,7 +1430,7 @@ describe('Drawer', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-drawer [(visible)]="visible1" header="Drawer 1">Content 1</p-drawer>
@@ -1443,14 +1443,14 @@ describe('Drawer', () => {
                 visible2 = true;
             }
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+            it('should apply global PT configuration from NgxPrimeConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [Drawer, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideNgxPrime',
                             useValue: {
                                 pt: {
                                     drawer: {

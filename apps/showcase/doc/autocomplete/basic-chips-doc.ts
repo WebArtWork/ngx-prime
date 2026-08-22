@@ -2,14 +2,14 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
 
 @Component({
     selector: 'app-basic-chips-doc',
     standalone: true,
     imports: [FormsModule, AutoCompleteModule, AppDocSectionText, AppCode],
     template: ` <app-docsectiontext>
-            <p>With <i>⁠multiple</i> enabled, the AutoComplete component behaves like a chips or tags input. Use <i>addOnBlur</i>, <i>⁠addOnTab</i>, and <i>⁠separator</i> properties to customize the keystroke behavior for adding items.</p>
+            <p>With <i>â multiple</i> enabled, the AutoComplete component behaves like a chips or tags input. Use <i>addOnBlur</i>, <i>â addOnTab</i>, and <i>â separator</i> properties to customize the keystroke behavior for adding items.</p>
         </app-docsectiontext>
         <div class="card">
             <label for="chips-blur" class="font-bold mb-2 block">With Add On Blur</label>

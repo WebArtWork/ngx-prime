@@ -6,7 +6,7 @@ import { ProductService } from '@/service/productservice';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 
 @Component({
     selector: 'app-checkboxselection-doc',

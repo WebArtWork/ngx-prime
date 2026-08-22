@@ -12,7 +12,7 @@ DataTable requires a collection to display along with column components for the 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
+import { Table, TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -62,8 +62,8 @@ In-cell editing is enabled by adding pEditableColumn directive to an editable ce
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'ngx-prime/table';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -148,7 +148,7 @@ Multiple selection can also be handled using checkboxes by enabling the selectio
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -204,7 +204,7 @@ Columns can be grouped using rowspan and colspan properties.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -342,7 +342,7 @@ Setting columnResizeMode as expand changes the table width as well.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -391,7 +391,7 @@ Columns can be resized using drag drop by setting the resizableColumns to true .
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -438,7 +438,7 @@ export class TableColumnresizefitmodeDemo implements OnInit {
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -487,11 +487,11 @@ Row selection with an element inside a column is implemented with templating.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { TableModule } from 'ngx-prime/table';
+import { ToastModule } from 'ngx-prime/toast';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -551,8 +551,8 @@ This demo uses a multiselect component to implement toggleable columns.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TableModule } from 'primeng/table';
+import { MultiSelectModule } from 'ngx-prime/multiselect';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -617,11 +617,11 @@ Table has exclusive integration with contextmenu component. In order to attach a
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { Table, TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { ContextMenuModule } from 'ngx-prime/contextmenu';
+import { Table, TableModule } from 'ngx-prime/table';
+import { ToastModule } from 'ngx-prime/toast';
 import { ProductService } from '@/service/productservice';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -689,16 +689,16 @@ DataTable with selection, pagination, filtering, sorting and templating.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { SliderModule } from 'primeng/slider';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { SelectModule } from 'ngx-prime/select';
+import { IconFieldModule } from 'ngx-prime/iconfield';
+import { InputIconModule } from 'ngx-prime/inputicon';
+import { MultiSelectModule } from 'ngx-prime/multiselect';
+import { ProgressBarModule } from 'ngx-prime/progressbar';
+import { SliderModule } from 'ngx-prime/slider';
+import { Table, TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -759,7 +759,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                         <p-multiselect [filter]="false" [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" class="w-full">
                                             <ng-template let-option #item>
                                                 <div class="flex items-center gap-2">
-                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
+                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ option.image }}" style="width: 32px" />
                                                     <span>{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
@@ -825,13 +825,13 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                 <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </div>
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                                 <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                             </div>
                         </td>
@@ -934,7 +934,7 @@ Columns can be defined dynamically using the *ngFor directive.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -997,10 +997,10 @@ When expandableRowGroups is present in subheader based row grouping, groups can 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { ButtonModule } from 'ngx-prime/button';
+import { RippleModule } from 'ngx-prime/ripple';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Country } from '@/domain/customer';
 
@@ -1021,7 +1021,7 @@ import { Customer, Country } from '@/domain/customer';
                     <tr>
                         <td colspan="5">
                             <button type="button" pButton pRipple [pRowToggler]="customer" text rounded plain class="mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                            <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle; display: inline-block" />
+                            <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle; display: inline-block" />
                             <span class="font-bold ml-2">{{ customer.representative.name }}</span>
                         </td>
                     </tr>
@@ -1039,7 +1039,7 @@ import { Customer, Country } from '@/domain/customer';
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                 <span>{{ customer.country.name }}</span>
                             </div>
                         </td>
@@ -1112,8 +1112,8 @@ Table can export its data to CSV format.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'ngx-prime/button';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -1185,16 +1185,16 @@ Filters are displayed in an overlay.
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { SelectModule } from 'primeng/select';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { SliderModule } from 'primeng/slider';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { SelectModule } from 'ngx-prime/select';
+import { IconFieldModule } from 'ngx-prime/iconfield';
+import { InputIconModule } from 'ngx-prime/inputicon';
+import { MultiSelectModule } from 'ngx-prime/multiselect';
+import { ProgressBarModule } from 'ngx-prime/progressbar';
+import { SliderModule } from 'ngx-prime/slider';
+import { Table, TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -1235,7 +1235,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                         <p-multiselect [(ngModel)]="value" [options]="representatives()" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                             <ng-template let-option #item>
                                                 <div class="flex items-center gap-2">
-                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
+                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ option.image }}" style="width: 32px" />
                                                     <span>{{ option.name }}</span>
                                                 </div>
                                             </ng-template>
@@ -1299,13 +1299,13 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                 <span>{{ customer.country.name }}</span>
                             </div>
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}" width="32" />
                                 <span>{{ customer.representative.name }}</span>
                             </div>
                         </td>
@@ -1415,13 +1415,13 @@ Data filtering is enabled by defining the filters property referring to a DataTa
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'ngx-prime/select';
+import { IconFieldModule } from 'ngx-prime/iconfield';
+import { InputIconModule } from 'ngx-prime/inputicon';
+import { MultiSelectModule } from 'ngx-prime/multiselect';
+import { Table, TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -1470,7 +1470,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                                     <p-multiselect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" style="min-width: 14rem" [panelStyle]="{ minWidth: '16rem' }">
                                         <ng-template let-option #item>
                                             <div class="flex items-center gap-2">
-                                                <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" style="width: 32px" />
+                                                <img [alt]="option.label" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ option.image }}" style="width: 32px" />
                                                 <span>{{ option.name }}</span>
                                             </div>
                                         </ng-template>
@@ -1501,13 +1501,13 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                 <span>{{ customer.country.name }}</span>
                             </div>
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                                 <span>{{ customer.representative.name }}</span>
                             </div>
                         </td>
@@ -1604,9 +1604,9 @@ Flex scroll feature makes the scrollable viewport section dynamic instead of a f
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'ngx-prime/button';
+import { Dialog, DialogModule } from 'ngx-prime/dialog';
+import { TableModule } from 'ngx-prime/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -1669,8 +1669,8 @@ Certain columns can be frozen by using the pFrozenColumn directive of the table 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { TableModule } from 'ngx-prime/table';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -1737,9 +1737,9 @@ Frozen rows are used to fix certain rows while scrolling, this data is defined w
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { TableModule } from 'ngx-prime/table';
+import { ButtonModule } from 'ngx-prime/button';
+import { RippleModule } from 'ngx-prime/ripple';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -1836,7 +1836,7 @@ Enabling showGridlines displays borders between cells.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -1885,7 +1885,7 @@ Horizontal scrollbar is displayed when table width exceeds the parent width.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -1961,7 +1961,7 @@ The loading property displays a mask layer to indicate busy state. Use the pagin
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -2010,8 +2010,8 @@ Skeleton component can be used as a placeholder during the loading process.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'ngx-prime/skeleton';
+import { TableModule } from 'ngx-prime/table';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -2051,11 +2051,11 @@ export class TableLoadingskeletonDemo implements OnInit {
 
 ## multiplecolumnssort-doc
 
-Multiple columns can be sorted by defining sortMode as multiple . This mode requires metaKey (e.g. ⌘ ) to be pressed when clicking a header.
+Multiple columns can be sorted by defining sortMode as multiple . This mode requires metaKey (e.g. âŒ˜ ) to be pressed when clicking a header.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -2120,13 +2120,13 @@ export class TableMultiplecolumnssortDemo implements OnInit {
 
 ## multipleselection-doc
 
-More than one row is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. ⌘ ) is not necessary to add to existing selections. When the optional metaKeySelection is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch enabled devices, DataTable always ignores metaKey.
+More than one row is selectable by setting selectionMode to multiple . By default in multiple selection mode, metaKey press (e.g. âŒ˜ ) is not necessary to add to existing selections. When the optional metaKeySelection is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch enabled devices, DataTable always ignores metaKey.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TableModule } from 'ngx-prime/table';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -2181,7 +2181,7 @@ Pagination is enabled by setting paginator property to true and defining a rows 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -2230,8 +2230,8 @@ Paginator can also be controlled via model using a binding to the first property
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'ngx-prime/button';
+import { TableModule } from 'ngx-prime/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -2322,7 +2322,7 @@ Defining a default sortField and sortOrder displays data as sorted initially in 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -2399,23 +2399,23 @@ CRUD implementation example with a Dialog.
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { Dialog, DialogModule } from 'primeng/dialog';
-import { SelectModule } from 'primeng/select';
-import { FileUploadModule } from 'primeng/fileupload';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
+import { Dialog, DialogModule } from 'ngx-prime/dialog';
+import { SelectModule } from 'ngx-prime/select';
+import { FileUploadModule } from 'ngx-prime/fileupload';
+import { IconFieldModule } from 'ngx-prime/iconfield';
+import { InputIconModule } from 'ngx-prime/inputicon';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
+import { RadioButtonModule } from 'ngx-prime/radiobutton';
+import { RatingModule } from 'ngx-prime/rating';
+import { Table, TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { ToastModule } from 'ngx-prime/toast';
+import { ToolbarModule } from 'ngx-prime/toolbar';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { ProductService } from '@/service/productservice';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
 
 interface Column {
@@ -2514,7 +2514,7 @@ interface ExportColumn {
                         <td style="min-width: 12rem">{{ product.code }}</td>
                         <td style="min-width: 16rem">{{ product.name }}</td>
                         <td>
-                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="width: 64px" class="rounded" />
+                            <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.name" style="width: 64px" class="rounded" />
                         </td>
                         <td>{{ product.price | currency: 'USD' }}</td>
                         <td>{{ product.category }}</td>
@@ -2534,7 +2534,7 @@ interface ExportColumn {
             <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true">
                 <ng-template #content>
                     <div class="flex flex-col gap-6">
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
+                        <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
                         <div>
                             <label for="name" class="block font-bold mb-3">Name</label>
                             <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus fluid />
@@ -2766,7 +2766,7 @@ Single selection can also be handled using radio buttons.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -2820,9 +2820,9 @@ The removable sort can be implemented using the customSort property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
+import { Table, TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
-import { SortEvent } from 'primeng/api';
+import { SortEvent } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -2922,7 +2922,7 @@ Order of the columns and rows can be changed using drag and drop. Column reorder
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -2986,15 +2986,15 @@ Row editing toggles the visibility of all the editors in the row at once and pro
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { RippleModule } from 'primeng/ripple';
+import { SelectModule } from 'ngx-prime/select';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { RippleModule } from 'ngx-prime/ripple';
 import { ProductService } from '@/service/productservice';
-import { SelectItem, MessageService } from 'primeng/api';
+import { SelectItem, MessageService } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -3124,14 +3124,14 @@ Row expansion allows displaying detailed content for a particular row. To use th
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { RatingModule } from 'primeng/rating';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
+import { ButtonModule } from 'ngx-prime/button';
+import { RatingModule } from 'ngx-prime/rating';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { ToastModule } from 'ngx-prime/toast';
+import { RippleModule } from 'ngx-prime/ripple';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
 import { Customer } from '@/domain/customer';
 
@@ -3164,7 +3164,7 @@ import { Customer } from '@/domain/customer';
                         </td>
                         <td>{{ product.name }}</td>
                         <td>
-                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" />
+                            <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" />
                         </td>
                         <td>{{ product.price | currency: 'USD' }}</td>
                         <td>{{ product.category }}</td>
@@ -3311,8 +3311,8 @@ When rowGroupMode is configured to be rowspan , the grouping column spans multip
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -3335,7 +3335,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         <td>{{ rowIndex }}</td>
                         <td *ngIf="rowgroup" [attr.rowspan]="rowspan">
                             <div class="flex items-center gap-2">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}" width="32" />
                                 <span>{{ customer.representative.name }}</span>
                             </div>
                         </td>
@@ -3344,7 +3344,7 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                 <span>{{ customer.country.name }}</span>
                             </div>
                         </td>
@@ -3414,10 +3414,10 @@ Table provides onRowSelect and onRowUnselect events to listen selection events.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'ngx-prime/table';
+import { ToastModule } from 'ngx-prime/toast';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -3476,7 +3476,7 @@ A column can be made sortable by adding the pSortableColumn directive whose valu
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -3541,13 +3541,13 @@ export class TableSinglecolumnsortDemo implements OnInit {
 
 ## singleselection-doc
 
-Single row selection is enabled by defining selectionMode as single along with a value binding using selection property. When available, it is suggested to provide a unique identifier of a row with dataKey to optimize performance. By default, metaKey press (e.g. ⌘ ) is necessary to unselect a row however this can be configured with disabling the metaKeySelection property. In touch enabled devices this option has no effect and behavior is same as setting it to false.
+Single row selection is enabled by defining selectionMode as single along with a value binding using selection property. When available, it is suggested to provide a unique identifier of a row with dataKey to optimize performance. By default, metaKey press (e.g. âŒ˜ ) is necessary to unselect a row however this can be configured with disabling the metaKeySelection property. In touch enabled devices this option has no effect and behavior is same as setting it to false.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TableModule } from 'ngx-prime/table';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -3603,8 +3603,8 @@ In addition to a regular table, alternatives with alternative sizes are availabl
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TableModule } from 'primeng/table';
+import { SelectButtonModule } from 'ngx-prime/selectbutton';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -3663,11 +3663,11 @@ Stateful table allows keeping the state such as page, sort and filtering either 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'ngx-prime/iconfield';
+import { InputIconModule } from 'ngx-prime/inputicon';
+import { Table, TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -3730,13 +3730,13 @@ import { Customer, Representative, Country } from '@/domain/customer';
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                 <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </div>
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                                 <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                             </div>
                         </td>
@@ -3751,11 +3751,11 @@ import { Customer, Representative, Country } from '@/domain/customer';
                             {{ customer.name }}
                         </td>
                         <td>
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                            <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                             <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                         </td>
                         <td>
-                            <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                            <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                             <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                         </td>
                         <td>
@@ -3794,7 +3794,7 @@ Alternating rows are displayed when stripedRows property is present.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -3941,8 +3941,8 @@ Rows are grouped with the groupRowsBy property. When rowGroupMode is set as subh
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Country } from '@/domain/customer';
 
@@ -3963,7 +3963,7 @@ import { Customer, Country } from '@/domain/customer';
                     <tr pRowGroupHeader>
                         <td colspan="5">
                             <div class="flex items-center gap-2">
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                                 <span class="font-bold">{{ customer.representative.name }}</span>
                             </div>
                         </td>
@@ -3983,7 +3983,7 @@ import { Customer, Country } from '@/domain/customer';
                         </td>
                         <td>
                             <div class="flex items-center gap-2">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                 <span>{{ customer.country.name }}</span>
                             </div>
                         </td>
@@ -4057,10 +4057,10 @@ Custom content at header , body and footer sections are supported via templating
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { RatingModule } from 'primeng/rating';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'ngx-prime/button';
+import { RatingModule } from 'ngx-prime/rating';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -4093,7 +4093,7 @@ interface Column {
                     <tr>
                         <td>{{ product.name }}</td>
                         <td>
-                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" class="w-24 rounded" />
+                            <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.name" class="w-24 rounded" />
                         </td>
                         <td>{{ product.price | currency: 'USD' }}</td>
                         <td>{{ product.category }}</td>
@@ -4149,7 +4149,7 @@ export class TableTemplateDemo implements OnInit {
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
+import { TableModule } from 'ngx-prime/table';
 import { CustomerService } from '@/service/customerservice';
 import { Customer, Representative, Country } from '@/domain/customer';
 
@@ -4198,7 +4198,7 @@ Virtual Scrolling is an efficient way to render large amount data. Usage is simi
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
+import { Table, TableModule } from 'ngx-prime/table';
 import { CarService } from '@/service/carservice';
 import { Car } from '@/domain/car';
 
@@ -4258,10 +4258,10 @@ VirtualScroller is a performance-approach to handle huge data efficiently. Setti
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'ngx-prime/skeleton';
+import { TableModule } from 'ngx-prime/table';
 import { CarService } from '@/service/carservice';
-import { TableLazyLoadEvent } from 'primeng/api';
+import { TableLazyLoadEvent } from 'ngx-prime/api';
 import { Car } from '@/domain/car';
 
 interface Column {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     .p-motion {
@@ -24,7 +24,7 @@ export class MotionStyle extends BaseStyle {
  *
  * Motion and MotionDirective provide an easy way to add motion effects to Angular applications.
  *
- * [Live Demo](https://www.primeng.org/motion)
+ * [Live Demo](https://www.ngx-prime.org/motion)
  *
  * @module motionstyle
  *

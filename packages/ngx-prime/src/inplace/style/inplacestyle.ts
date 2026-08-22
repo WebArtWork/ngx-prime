@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/inplace';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: () => ['p-inplace p-component'],
@@ -21,7 +21,7 @@ export class InplaceStyle extends BaseStyle {
  *
  * Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
  *
- * [Live Demo](https://www.primeng.org/inplace)
+ * [Live Demo](https://www.ngx-prime.org/inplace)
  *
  * @module inplacestyle
  *

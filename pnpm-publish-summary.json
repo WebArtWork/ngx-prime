@@ -1,11 +1,11 @@
 {
 	"publishedPackages": [
 		{
-			"name": "@primeng/mcp",
+			"name": "@ngx-prime/mcp",
 			"version": "21.1.9"
 		},
 		{
-			"name": "primeng",
+			"name": "ngx-prime",
 			"version": "21.1.9"
 		}
 	]

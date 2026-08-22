@@ -13,7 +13,7 @@ Listbox is used as a controlled component with ngModel property along with an op
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 
 interface City {
     name: string;
@@ -52,7 +52,7 @@ Listbox allows item selection using checkboxes.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 
 interface City {
     name: string;
@@ -91,7 +91,7 @@ An alternative way to highlight the selected option is displaying a checkmark in
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 
 interface City {
     name: string;
@@ -130,7 +130,7 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 
 interface City {
     name: string;
@@ -169,7 +169,7 @@ Items can be reordered using drag and drop by enabling dragdrop property. Depend
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 
 @Component({
     template: `
@@ -203,7 +203,7 @@ ListBox provides built-in filtering that is enabled by adding the filter propert
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 
 interface City {
     name: string;
@@ -242,8 +242,8 @@ Options can be grouped when a nested data structures is provided.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
-import { SelectItemGroup } from 'primeng/api';
+import { ListboxModule } from 'ngx-prime/listbox';
+import { SelectItemGroup } from 'ngx-prime/api';
 import { Country } from '@/domain/customer';
 
 interface Country {
@@ -257,7 +257,7 @@ interface Country {
             <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" class="w-full md:w-56">
                 <ng-template let-group #group>
                     <div class="flex items-center">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
@@ -310,12 +310,12 @@ export class ListboxGroupDemo {
 
 ## Invalid
 
-The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 
 interface City {
     name: string;
@@ -354,7 +354,7 @@ ListBox allows choosing a single item by default, enable multiple property to ch
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 
 interface City {
     name: string;
@@ -393,11 +393,11 @@ Listbox can also be used with reactive forms. In this case, the formControlName 
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { ListboxModule } from 'ngx-prime/listbox';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 interface City {
     name: string;
@@ -464,7 +464,7 @@ For custom content support define a template named item where the default local 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 import { Country } from '@/domain/customer';
 
 interface Country {
@@ -478,7 +478,7 @@ interface Country {
             <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" class="w-full md:w-56">
                 <ng-template #item let-country>
                     <div class="flex items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
+                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
@@ -514,11 +514,11 @@ export class ListboxTemplateDemo implements OnInit {
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { ListboxModule } from 'ngx-prime/listbox';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 interface City {
     name: string;
@@ -574,7 +574,7 @@ VirtualScrolling is an efficient way of rendering the options by displaying a sm
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'primeng/listbox';
+import { ListboxModule } from 'ngx-prime/listbox';
 
 @Component({
     template: `

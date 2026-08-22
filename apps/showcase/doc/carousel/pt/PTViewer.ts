@@ -3,9 +3,9 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { Component, signal, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CarouselModule } from 'primeng/carousel';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'ngx-prime/button';
+import { CarouselModule } from 'ngx-prime/carousel';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-carousel-pt-viewer',
@@ -18,7 +18,7 @@ import { TagModule } from 'primeng/tag';
                     <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded" />
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute dark:!bg-surface-900" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>

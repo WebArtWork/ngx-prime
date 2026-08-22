@@ -1,13 +1,13 @@
 import { TemplateRef } from '@angular/core';
-import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThrough, ButtonProps } from 'primeng/types/button';
-import type { CheckboxPassThrough } from 'primeng/types/checkbox';
-import type { PaginatorPassThrough } from 'primeng/types/paginator';
-import type { VirtualScrollerPassThrough } from 'primeng/types/scroller';
-import type { InputTextPassThrough } from 'primeng/types/inputtext';
-import type { SelectPassThrough } from 'primeng/types/select';
-import type { InputNumberPassThrough } from 'primeng/types/inputnumber';
-import type { DatePickerPassThrough } from 'primeng/types/datepicker';
+import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption } from 'ngx-prime/api';
+import type { ButtonPassThrough, ButtonProps } from 'ngx-prime/types/button';
+import type { CheckboxPassThrough } from 'ngx-prime/types/checkbox';
+import type { PaginatorPassThrough } from 'ngx-prime/types/paginator';
+import type { VirtualScrollerPassThrough } from 'ngx-prime/types/scroller';
+import type { InputTextPassThrough } from 'ngx-prime/types/inputtext';
+import type { SelectPassThrough } from 'ngx-prime/types/select';
+import type { InputNumberPassThrough } from 'ngx-prime/types/inputnumber';
+import type { DatePickerPassThrough } from 'ngx-prime/types/datepicker';
 import type { MotionOptions } from '@wawjs/css-prime-motion';
 
 /**

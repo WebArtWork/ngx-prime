@@ -13,7 +13,7 @@ Two-way value binding is defined using ngModel .
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 
 @Component({
     template: `
@@ -36,7 +36,7 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 
 @Component({
     template: `
@@ -54,12 +54,12 @@ export class ToggleswitchDisabledDemo {
 
 ## Invalid
 
-The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 
 @Component({
     template: `
@@ -82,7 +82,7 @@ Enabling ngModel property displays the component as active initially.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 
 @Component({
     template: `
@@ -105,11 +105,11 @@ ToggleSwitch can also be used with reactive forms. In this case, the formControl
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -163,7 +163,7 @@ The handle template is available to display custom content.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 
 @Component({
     template: `
@@ -188,11 +188,11 @@ export class ToggleswitchTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `

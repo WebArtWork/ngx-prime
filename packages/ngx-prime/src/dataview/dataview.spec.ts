@@ -3,7 +3,7 @@ import { Component, signal, provideZonelessChangeDetection, viewChild } from '@a
 import { By } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { DataView } from './dataview';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'ngx-prime/paginator';
 
 @Component({
     template: `

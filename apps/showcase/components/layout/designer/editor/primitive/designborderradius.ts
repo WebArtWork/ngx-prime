@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { FieldsetModule } from 'primeng/fieldset';
+import { FieldsetModule } from 'ngx-prime/fieldset';
 import { FormsModule } from '@angular/forms';
 import { DesignerService } from '@/service/designerservice';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';

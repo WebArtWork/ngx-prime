@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: 'p-tabpanels'
@@ -16,7 +16,7 @@ export class TabPanelsStyle extends BaseStyle {
  *
  * Tab is a helper component for Tabs component.
  *
- * [Live Demo](https://www.primeng.org/tabs/)
+ * [Live Demo](https://www.ngx-prime.org/tabs/)
  *
  * @module tabpanelstyle
  *

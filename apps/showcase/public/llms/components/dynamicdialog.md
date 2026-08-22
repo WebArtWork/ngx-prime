@@ -16,11 +16,11 @@ Dynamic dialogs require an instance of a DialogService that is responsible for d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, DialogService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService, DialogService } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
-import { Dialog } from 'primeng/dialog';
+import { Dialog } from 'ngx-prime/dialog';
 
 @Component({
     template: `

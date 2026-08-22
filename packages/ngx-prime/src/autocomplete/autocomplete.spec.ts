@@ -2,8 +2,8 @@ import { Component, provideZonelessChangeDetection, signal } from '@angular/core
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'primeng/types/autocomplete';
+import { SharedModule } from 'ngx-prime/api';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'ngx-prime/types/autocomplete';
 import { BehaviorSubject } from 'rxjs';
 import { AUTOCOMPLETE_VALUE_ACCESSOR, AutoComplete, AutoCompleteModule } from './autocomplete';
 
@@ -310,7 +310,7 @@ class TestAutocompleteComponent {
             <!-- Empty Template with pTemplate -->
             <ng-template pTemplate="empty">
                 <div class="ptemplate-empty">
-                    <i class="empty-icon">🔍</i>
+                    <i class="empty-icon">ðŸ”</i>
                     <span class="empty-message">No countries found</span>
                 </div>
             </ng-template>
@@ -318,7 +318,7 @@ class TestAutocompleteComponent {
             <!-- Selected Item Template with pTemplate -->
             <ng-template pTemplate="selecteditem" let-item>
                 <div class="ptemplate-selecteditem">
-                    <span class="selected-flag">🏳️</span>
+                    <span class="selected-flag">ðŸ³ï¸</span>
                     <span class="selected-name">{{ item.name }}</span>
                 </div>
             </ng-template>
@@ -334,7 +334,7 @@ class TestAutocompleteComponent {
             <!-- Loader Template with pTemplate -->
             <ng-template pTemplate="loader" let-options="options">
                 <div class="ptemplate-loader" [attr.data-loading]="loading">
-                    <span class="loader-spinner">⏳</span>
+                    <span class="loader-spinner">â³</span>
                     <span class="loader-text">Loading...</span>
                 </div>
             </ng-template>
@@ -342,28 +342,28 @@ class TestAutocompleteComponent {
             <!-- Remove Icon Template with pTemplate -->
             <ng-template pTemplate="removetokenicon" let-removeCallback="removeCallback" let-index="index">
                 <span class="ptemplate-removeicon" (click)="removeCallback($event, index)">
-                    <i class="remove-icon">❌</i>
+                    <i class="remove-icon">âŒ</i>
                 </span>
             </ng-template>
 
             <!-- Loading Icon Template with pTemplate -->
             <ng-template pTemplate="loadingicon">
                 <div class="ptemplate-loadingicon">
-                    <span class="loading-spinner">🔄</span>
+                    <span class="loading-spinner">ðŸ”„</span>
                 </div>
             </ng-template>
 
             <!-- Clear Icon Template with pTemplate -->
             <ng-template pTemplate="clearicon">
                 <div class="ptemplate-clearicon">
-                    <span class="clear-button">🗑️</span>
+                    <span class="clear-button">ðŸ—‘ï¸</span>
                 </div>
             </ng-template>
 
             <!-- Dropdown Icon Template with pTemplate -->
             <ng-template pTemplate="dropdownicon">
                 <div class="ptemplate-dropdownicon">
-                    <span class="dropdown-arrow">⬇️</span>
+                    <span class="dropdown-arrow">â¬‡ï¸</span>
                 </div>
             </ng-template>
         </p-autocomplete>
@@ -1100,7 +1100,7 @@ describe('AutoComplete', () => {
                 const emptyTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-empty'));
 
                 if (emptyTemplate) {
-                    expect(emptyTemplate.query(By.css('.empty-icon')).nativeElement.textContent.trim()).toBe('🔍');
+                    expect(emptyTemplate.query(By.css('.empty-icon')).nativeElement.textContent.trim()).toBe('ðŸ”');
                     expect(emptyTemplate.query(By.css('.empty-message')).nativeElement.textContent.trim()).toBe('No countries found');
                 } else {
                     // Verify template is loaded even if not rendered
@@ -1127,7 +1127,7 @@ describe('AutoComplete', () => {
                 const selectedItemTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-selecteditem'));
 
                 if (selectedItemTemplate) {
-                    expect(selectedItemTemplate.query(By.css('.selected-flag')).nativeElement.textContent.trim()).toBe('🏳️');
+                    expect(selectedItemTemplate.query(By.css('.selected-flag')).nativeElement.textContent.trim()).toBe('ðŸ³ï¸');
                     expect(selectedItemTemplate.query(By.css('.selected-name')).nativeElement.textContent.trim()).toBe('Afghanistan');
                 } else {
                     // Verify template is loaded even if not rendered
@@ -1206,7 +1206,7 @@ describe('AutoComplete', () => {
                 const removeIcon = pTemplateFixture.debugElement.query(By.css('.ptemplate-removeicon'));
 
                 if (removeIcon) {
-                    expect(removeIcon.query(By.css('.remove-icon')).nativeElement.textContent.trim()).toBe('❌');
+                    expect(removeIcon.query(By.css('.remove-icon')).nativeElement.textContent.trim()).toBe('âŒ');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -1231,7 +1231,7 @@ describe('AutoComplete', () => {
                 const loadingIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-loadingicon'));
 
                 if (loadingIconTemplate) {
-                    expect(loadingIconTemplate.query(By.css('.loading-spinner')).nativeElement.textContent.trim()).toBe('🔄');
+                    expect(loadingIconTemplate.query(By.css('.loading-spinner')).nativeElement.textContent.trim()).toBe('ðŸ”„');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -1259,7 +1259,7 @@ describe('AutoComplete', () => {
                 const clearIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-clearicon'));
 
                 if (clearIconTemplate) {
-                    expect(clearIconTemplate.query(By.css('.clear-button')).nativeElement.textContent.trim()).toBe('🗑️');
+                    expect(clearIconTemplate.query(By.css('.clear-button')).nativeElement.textContent.trim()).toBe('ðŸ—‘ï¸');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -1286,7 +1286,7 @@ describe('AutoComplete', () => {
                 const dropdownIconTemplate = pTemplateFixture.debugElement.query(By.css('.ptemplate-dropdownicon'));
 
                 if (dropdownIconTemplate) {
-                    expect(dropdownIconTemplate.query(By.css('.dropdown-arrow')).nativeElement.textContent.trim()).toBe('⬇️');
+                    expect(dropdownIconTemplate.query(By.css('.dropdown-arrow')).nativeElement.textContent.trim()).toBe('â¬‡ï¸');
                 } else {
                     // Verify template is loaded even if not rendered
                     const autocompleteInstance = pTemplateFixture.debugElement.query(By.directive(AutoComplete)).componentInstance;
@@ -2340,7 +2340,7 @@ describe('AutoComplete', () => {
 
                 // Setup component to have visible options
                 testComponent.suggestions = ['Option 1', 'Option 2'];
-                autocompleteComponent.suggestions = ['Option 1', 'Option 2'];
+                (autocompleteComponent as any).suggestions = ['Option 1', 'Option 2'];
                 autocompleteComponent.overlayVisible = true;
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
@@ -2385,7 +2385,7 @@ describe('AutoComplete', () => {
 
                 // Set the multiInputEl value directly since we're in multiple mode
                 const multiInputEl = autocompleteComponent.multiInputEl();
-                const multiInputEl = autocompleteComponent.multiInputEl();
+
 
                 if (multiInputEl) {
                     multiInputEl.nativeElement.value = 'Test Item';
@@ -2423,8 +2423,10 @@ describe('AutoComplete', () => {
                 await testFixture.whenStable();
 
                 // Set input value with whitespace
-                inputElement.value = '  Test Item  ';
-                inputElement.dispatchEvent(new Event('input'));
+                const multiInputEl = autocompleteComponent.multiInputEl();
+                const activeInput = multiInputEl?.nativeElement ?? inputElement;
+                activeInput.value = '  Test Item  ';
+                activeInput.dispatchEvent(new Event('input'));
                 testFixture.changeDetectorRef.markForCheck();
                 await testFixture.whenStable();
 
@@ -2663,8 +2665,8 @@ describe('AutoComplete', () => {
                 fixture.componentRef.setInput('dropdown', true);
                 fixture.componentRef.setInput('pt', {
                     dropdown: ({ instance }) => ({
-                        class: instance?.dropdown ? 'DROPDOWN_ENABLED' : 'DROPDOWN_DISABLED',
-                        'data-dropdown': instance?.dropdown
+                        class: instance?.dropdown?.() ? 'DROPDOWN_ENABLED' : 'DROPDOWN_DISABLED',
+                        'data-dropdown': instance?.dropdown?.()
                     })
                 });
                 fixture.changeDetectorRef.markForCheck();
@@ -2757,7 +2759,7 @@ describe('AutoComplete', () => {
                 fixture.componentRef.setInput('pt', {
                     dropdown: ({ instance }) => ({
                         class: 'FUNC_DROPDOWN',
-                        'data-has-suggestions': instance?.suggestions?.length > 0
+                        'data-has-suggestions': instance?.suggestions?.()?.length > 0
                     })
                 });
                 fixture.changeDetectorRef.markForCheck();

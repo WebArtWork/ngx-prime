@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as togglebutton_style } from '@wawjs/css-prime-styles/togglebutton';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${togglebutton_style}
 
-    /* For PrimeNG (iconPos) */
+    /* For ngx-prime (iconPos) */
     .p-togglebutton-icon-right {
         order: 1;
     }
@@ -49,7 +49,7 @@ export class ToggleButtonStyle extends BaseStyle {
  *
  * ToggleButton is used to select a boolean value using a button.
  *
- * [Live Demo](https://www.primeng.org/togglebutton/)
+ * [Live Demo](https://www.ngx-prime.org/togglebutton/)
  *
  * @module togglebuttonstyle
  *

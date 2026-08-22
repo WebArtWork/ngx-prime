@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -23,7 +23,7 @@ export class StepPanelStyle extends BaseStyle {
  *
  * StepPanel is a helper component for Stepper component.
  *
- * [Live Demo](https://www.primeng.org/stepper/)
+ * [Live Demo](https://www.ngx-prime.org/stepper/)
  *
  * @module steppanelstyle
  *

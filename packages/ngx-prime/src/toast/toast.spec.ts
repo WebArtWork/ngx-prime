@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { Toast, ToastItem } from './toast';
 
 // Test Components for different scenarios
@@ -86,7 +86,7 @@ class TestHeadlessTemplateComponent {}
         <p-toast [key]="'ptemplate-test'">
             <ng-template pTemplate="message" let-message>
                 <div class="ptemplate-message">
-                    <i class="ptemplate-icon">📢</i>
+                    <i class="ptemplate-icon">ðŸ“¢</i>
                     <span class="ptemplate-text">{{ message.summary }}</span>
                 </div>
             </ng-template>
@@ -623,7 +623,7 @@ describe('Toast', () => {
                 const ptemplateIcon = fixture.debugElement.query(By.css('.ptemplate-icon'));
 
                 if (ptemplateIcon) {
-                    expect(ptemplateIcon.nativeElement.textContent).toBe('📢');
+                    expect(ptemplateIcon.nativeElement.textContent).toBe('ðŸ“¢');
                 }
 
                 const ptemplateText = fixture.debugElement.query(By.css('.ptemplate-text'));
@@ -1180,7 +1180,7 @@ describe('Toast', () => {
         });
     });
 
-    describe('Toast PassThrough - Case 7: Test from PrimeNGConfig', () => {
+    describe('Toast PassThrough - Case 7: Test from NgxPrimeConfig', () => {
         @Component({
             template: `
                 <p-toast [key]="'toast1'"></p-toast>
@@ -1190,14 +1190,14 @@ describe('Toast', () => {
         })
         class TestToastGlobalPtComponent {}
 
-        it('should apply global pt configuration from PrimeNGConfig', async () => {
+        it('should apply global pt configuration from NgxPrimeConfig', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [Toast, TestToastGlobalPtComponent],
                 providers: [
                     MessageService,
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             toast: {
                                 host: 'GLOBAL_HOST_CLASS',
@@ -1235,7 +1235,7 @@ describe('Toast', () => {
                 providers: [
                     MessageService,
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             toast: {
                                 host: 'GLOBAL_HOST_CLASS'

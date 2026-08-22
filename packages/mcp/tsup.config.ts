@@ -4,7 +4,7 @@ export default defineConfig({
     entry: ['./src/index.ts'],
     format: ['esm'],
     dts: true,
-    external: [/^@primeuix\/(.*)$/, /^@primeng\/(.*)$/],
+    external: [/^@primeuix\/(.*)$/, /^@ngx-prime\/(.*)$/],
     splitting: false,
     clean: true,
     shims: true,

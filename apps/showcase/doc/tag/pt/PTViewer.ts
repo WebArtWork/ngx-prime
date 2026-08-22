@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-tag-pt-viewer',

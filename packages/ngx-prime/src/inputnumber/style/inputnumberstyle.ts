@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as inputnumber_style } from '@wawjs/css-prime-styles/inputnumber';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${inputnumber_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     p-inputNumber.ng-invalid.ng-dirty > .p-inputtext,
     p-input-number.ng-invalid.ng-dirty > .p-inputtext,
     p-inputnumber.ng-invalid.ng-dirty > .p-inputtext {
@@ -68,7 +68,7 @@ export class InputNumberStyle extends BaseStyle {
  *
  * InputNumber is an input component to provide numerical input.
  *
- * [Live Demo](https://www.primeng.org/inputnumber/)
+ * [Live Demo](https://www.ngx-prime.org/inputnumber/)
  *
  * @module inputnumberstyle
  *

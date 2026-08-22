@@ -1,20 +1,22 @@
 import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, InjectionToken, input, NgModule, output, TemplateRef, ViewChild, ViewEncapsulation, viewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
-import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MotionModule } from 'primeng/motion';
-import { OverlayModule } from 'primeng/overlay';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import type { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
-import { ColorPickerPassThrough } from 'primeng/types/colorpicker';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from 'ngx-prime/api';
+import { AutoFocusModule } from 'ngx-prime/autofocus';
+import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import { Bind } from 'ngx-prime/bind';
+import { ConnectedOverlayScrollHandler } from 'ngx-prime/dom';
+import { MotionModule } from 'ngx-prime/motion';
+import { OverlayModule } from 'ngx-prime/overlay';
+import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import type { ColorPickerChangeEvent } from 'ngx-prime/types/colorpicker';
+import { ColorPickerPassThrough } from 'ngx-prime/types/colorpicker';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { ColorPickerStyle } from './style/colorpickerstyle';
-import { ColorPickerDirective } from './nativecolorpicker';
+import { ColorPickerClearDirective, ColorPickerDirective } from './nativecolorpicker';
+
+export { ColorPickerClearDirective, ColorPickerDirective } from './nativecolorpicker';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

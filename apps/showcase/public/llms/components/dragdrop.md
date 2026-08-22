@@ -82,8 +82,8 @@ Drag and Drop to Table
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { Table, TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 
@@ -94,7 +94,7 @@ import { Product } from '@/domain/product';
                 <div *ngFor="let product of availableProducts">
                     <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                         <div class="image-container">
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
+                            <img src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
                         </div>
                         <div class="product-list-detail">
                             <h5 class="mb-2">{{ product.name }}</h5>
@@ -192,7 +192,7 @@ dragHandle is used to restrict dragging unless mousedown occurs on the specified
 
 ```typescript
 import { Component } from '@angular/core';
-import { PanelModule } from 'primeng/panel';
+import { PanelModule } from 'ngx-prime/panel';
 import { Product } from '@/domain/product';
 
 @Component({

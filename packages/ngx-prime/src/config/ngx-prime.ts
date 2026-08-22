@@ -1,11 +1,11 @@
 import { ElementRef, inject, PLATFORM_ID, Service, signal, TemplateRef } from '@angular/core';
-import { FilterMatchMode, OverlayOptions, Translation } from 'primeng/api';
+import { FilterMatchMode, OverlayOptions, Translation } from 'ngx-prime/api';
 import { Subject } from 'rxjs';
-import type { PrimeNGConfigType, ThemeConfigType, ZIndex } from './primeng.types';
+import type { NgxPrimeConfigType, ThemeConfigType, ZIndex } from './ngx-prime.types';
 import { ThemeProvider } from './themeprovider';
 
 @Service()
-export class PrimeNG extends ThemeProvider {
+export class NgxPrime extends ThemeProvider {
     ripple = signal<boolean>(false);
 
     public platformId: any = inject(PLATFORM_ID);
@@ -24,9 +24,9 @@ export class PrimeNG extends ThemeProvider {
 
     unstyled = signal<boolean | undefined>(undefined);
 
-    pt = signal<PrimeNGConfigType['pt']>(undefined);
+    pt = signal<NgxPrimeConfigType['pt']>(undefined);
 
-    ptOptions = signal<PrimeNGConfigType['ptOptions']>(undefined);
+    ptOptions = signal<NgxPrimeConfigType['ptOptions']>(undefined);
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
@@ -185,7 +185,7 @@ export class PrimeNG extends ThemeProvider {
         this.translationSource.next(this.translation);
     }
 
-    setConfig(config: PrimeNGConfigType): void {
+    setConfig(config: NgxPrimeConfigType): void {
         const { csp, ripple, inputStyle, inputVariant, theme, overlayOptions, translation, filterMatchModeOptions, overlayAppendTo, zIndex, ptOptions, pt, unstyled } = config || {};
 
         if (csp) this.csp.set(csp);

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 
-import { MessageService } from 'primeng/api';
-import { PrimeNG } from 'primeng/config';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { BadgeModule } from 'primeng/badge';
-import { ProgressBarModule } from 'primeng/progressbar';
+import { MessageService } from 'ngx-prime/api';
+import { ngx-prime } from 'ngx-prime/config';
+import { FileUploadModule } from 'ngx-prime/fileupload';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { BadgeModule } from 'ngx-prime/badge';
+import { ProgressBarModule } from 'ngx-prime/progressbar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -91,7 +91,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [MessageService]
 })
 export class TemplateDoc {
-    private config = inject(PrimeNG);
+    private config = inject(ngx-prime);
     private messageService = inject(MessageService);
 
     files = [];

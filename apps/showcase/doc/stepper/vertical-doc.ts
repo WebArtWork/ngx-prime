@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { StepperModule } from 'primeng/stepper';
-import { ButtonModule } from 'primeng/button';
+import { StepperModule } from 'ngx-prime/stepper';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     selector: 'app-vertical-doc',

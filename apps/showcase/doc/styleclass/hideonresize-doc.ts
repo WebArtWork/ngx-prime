@@ -1,8 +1,8 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'ngx-prime/button';
+import { StyleClassModule } from 'ngx-prime/styleclass';
 
 @Component({
     selector: 'app-hideonresize-doc',

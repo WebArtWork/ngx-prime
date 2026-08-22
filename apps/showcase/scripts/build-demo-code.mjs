@@ -16,8 +16,8 @@ const SKIP_DIRS = ['apidoc', 'theming', 'icons', 'installation', 'configuration'
 // Known services that exist in StackBlitz templates
 const KNOWN_SERVICES = ['CarService', 'CountryService', 'CustomerService', 'EventService', 'NodeService', 'PhotoService', 'ProductService', 'TicketService'];
 
-// PrimeNG API services that should be included in providers
-const PRIMENG_SERVICES = ['MessageService', 'ConfirmationService', 'DialogService', 'TreeDragDropService', 'FilterService'];
+// ngx-prime API services that should be included in providers
+const ngx-prime_SERVICES = ['MessageService', 'ConfirmationService', 'DialogService', 'TreeDragDropService', 'FilterService'];
 
 // Known domain types and their paths
 // Note: 'Event' is excluded because it conflicts with DOM Event type
@@ -78,8 +78,8 @@ export interface Customer {
 }`
 };
 
-// PrimeNG named exports that can be used as types (not modules)
-const PRIMENG_NAMED_EXPORTS = {
+// ngx-prime named exports that can be used as types (not modules)
+const ngx-prime_NAMED_EXPORTS = {
     Table: 'table',
     Tree: 'tree',
     TreeTable: 'treetable',
@@ -98,8 +98,8 @@ const PRIMENG_NAMED_EXPORTS = {
     PanelMenu: 'panelmenu'
 };
 
-// PrimeNG API types that need to be imported from 'primeng/api'
-const PRIMENG_API_TYPES = [
+// ngx-prime API types that need to be imported from 'ngx-prime/api'
+const ngx-prime_API_TYPES = [
     'TreeNode',
     'MenuItem',
     'MegaMenuItem',
@@ -108,7 +108,7 @@ const PRIMENG_API_TYPES = [
     'FilterService',
     'MessageService',
     'ConfirmationService',
-    'PrimeNGConfig',
+    'ngx-primeConfig',
     'TreeTableNode',
     'ConfirmEventType',
     'SortEvent',
@@ -117,7 +117,7 @@ const PRIMENG_API_TYPES = [
     'TableLazyLoadEvent'
 ];
 
-// PrimeNG selector to module mapping
+// ngx-prime selector to module mapping
 const SELECTOR_TO_MODULE = {
     'p-accordion': 'AccordionModule',
     'p-autocomplete': 'AutoCompleteModule',
@@ -413,8 +413,8 @@ function extractConstructor(content, services = []) {
             if (services.some((s) => p.includes(s))) return true;
             // Keep common Angular services
             if (p.includes('MessageService') || p.includes('ConfirmationService')) return true;
-            // Keep PrimeNG config injection
-            if (p.includes('PrimeNG')) return true;
+            // Keep ngx-prime config injection
+            if (p.includes('ngx-prime')) return true;
             // Filter out doc-specific ones
             if (p.includes('ChangeDetectorRef') || p.includes('PLATFORM_ID') || p.includes('DOCUMENT')) return false;
             // Keep other services
@@ -745,7 +745,7 @@ function extractDivContent(html, classPattern) {
     return null;
 }
 
-// Extract basic code (just PrimeNG component without wrapper)
+// Extract basic code (just ngx-prime component without wrapper)
 function extractBasicCode(htmlContent) {
     if (!htmlContent) return null;
 
@@ -757,7 +757,7 @@ function extractBasicCode(htmlContent) {
         basic = cardContent;
     }
 
-    // Only remove flex/grid wrapper if it's the ONLY top-level element wrapping PrimeNG components
+    // Only remove flex/grid wrapper if it's the ONLY top-level element wrapping ngx-prime components
     // Don't remove flex divs that are inside ng-template or other components
     // Don't remove if there are sibling elements after the flex div
     const trimmed = basic.trim();
@@ -788,11 +788,11 @@ function extractBasicCode(htmlContent) {
 
                 // Only unwrap if there's nothing after the flex div
                 if (!afterFlexDiv) {
-                    // Only unwrap if the flex div directly contains PrimeNG components (not nested in templates)
-                    const hasPrimeNGDirect = /^[\s\S]*?<p-[a-z]/.test(flexContent);
+                    // Only unwrap if the flex div directly contains ngx-prime components (not nested in templates)
+                    const hasngx-primeDirect = /^[\s\S]*?<p-[a-z]/.test(flexContent);
                     const hasNoTemplates = !flexContent.includes('<ng-template');
                     const isSimpleWrapper = flexContent.split('<div').length <= 3;
-                    if (hasPrimeNGDirect && hasNoTemplates && isSimpleWrapper) {
+                    if (hasngx-primeDirect && hasNoTemplates && isSimpleWrapper) {
                         basic = flexContent;
                     }
                 }
@@ -905,12 +905,12 @@ function detectDomainTypes(content) {
     return domainTypes;
 }
 
-// Detect PrimeNG named exports used as types in component
-function detectPrimeNGNamedExports(content) {
+// Detect ngx-prime named exports used as types in component
+function detectngx-primeNamedExports(content) {
     const namedExports = {};
 
     // Check each known named export
-    for (const [exportName, modulePath] of Object.entries(PRIMENG_NAMED_EXPORTS)) {
+    for (const [exportName, modulePath] of Object.entries(ngx-prime_NAMED_EXPORTS)) {
         // Look for usage as type annotation (e.g., `: Table`, `Table[]`, `<Table>`)
         const typeRegex = new RegExp(`[:\\s<,]\\s*${exportName}\\b(?![a-zA-Z])`, 'g');
         if (typeRegex.test(content)) {
@@ -952,7 +952,7 @@ function generateExtFilesFromDomainTypes(content) {
 // Detect services from component file
 function detectServices(content) {
     const services = [];
-    const primeNGServices = [];
+    const ngx-primeServices = [];
 
     // Method 1: Look for imports from @/service/*
     const serviceImportMatches = content.matchAll(/import\s*\{\s*([^}]+)\s*\}\s*from\s*['"`]@\/service\/[^'"`]+['"`]/g);
@@ -973,18 +973,18 @@ function detectServices(content) {
             if (KNOWN_SERVICES.includes(name) && !services.includes(name)) {
                 services.push(name);
             }
-            // Also check for PrimeNG API services
-            if (PRIMENG_SERVICES.includes(name) && !primeNGServices.includes(name)) {
-                primeNGServices.push(name);
+            // Also check for ngx-prime API services
+            if (ngx-prime_SERVICES.includes(name) && !ngx-primeServices.includes(name)) {
+                ngx-primeServices.push(name);
             }
         }
     }
 
-    return { services, primeNGServices };
+    return { services, ngx-primeServices };
 }
 
-// Detect PrimeNG modules used in template
-function detectPrimeNGModules(template) {
+// Detect ngx-prime modules used in template
+function detectngx-primeModules(template) {
     const modules = new Set();
 
     // Check for p-* selectors
@@ -1039,8 +1039,8 @@ function detectPrimeNGModules(template) {
 }
 
 // Generate demo TypeScript code with actual module imports (not ImportsModule)
-function generateTypescript(componentName, template, services = [], fileContent = '', primeNGServices = []) {
-    const primeModules = detectPrimeNGModules(template);
+function generateTypescript(componentName, template, services = [], fileContent = '', ngx-primeServices = []) {
+    const primeModules = detectngx-primeModules(template);
 
     // Extract class details from original file
     const interfaces = extractInterfaceDefinitions(fileContent);
@@ -1057,7 +1057,7 @@ function generateTypescript(componentName, template, services = [], fileContent 
     const hasSignals = properties.some((p) => p.type === '__signal__');
 
     // Check if we have inject() properties or services that need inject()
-    const hasInject = properties.some((p) => p.type === '__inject__') || services.length > 0 || primeNGServices.length > 0;
+    const hasInject = properties.some((p) => p.type === '__inject__') || services.length > 0 || ngx-primeServices.length > 0;
 
     // Build import statements with actual modules
     let importStatements = '';
@@ -1079,21 +1079,21 @@ function generateTypescript(componentName, template, services = [], fileContent 
         importStatements += `import { ReactiveFormsModule } from '@angular/forms';\n`;
     }
 
-    // Add PrimeNG modules (will be modified below to include named exports)
-    const primeNGImports = primeModules.filter((m) => !['CommonModule', 'FormsModule', 'ReactiveFormsModule'].includes(m));
+    // Add ngx-prime modules (will be modified below to include named exports)
+    const ngx-primeImports = primeModules.filter((m) => !['CommonModule', 'FormsModule', 'ReactiveFormsModule'].includes(m));
 
-    // Detect PrimeNG named exports early so we can combine them with module imports
-    const primeNGNamedExportsEarly = detectPrimeNGNamedExports(fileContent);
+    // Detect ngx-prime named exports early so we can combine them with module imports
+    const ngx-primeNamedExportsEarly = detectngx-primeNamedExports(fileContent);
 
-    for (const module of primeNGImports) {
+    for (const module of ngx-primeImports) {
         const moduleLower = module.replace('Module', '').toLowerCase();
         // Check if there are named exports for this module
-        const namedExportsForModule = primeNGNamedExportsEarly[moduleLower] || [];
+        const namedExportsForModule = ngx-primeNamedExportsEarly[moduleLower] || [];
         if (namedExportsForModule.length > 0) {
             // Combine module with named exports
-            importStatements += `import { ${[...namedExportsForModule, module].join(', ')} } from 'primeng/${moduleLower}';\n`;
+            importStatements += `import { ${[...namedExportsForModule, module].join(', ')} } from 'ngx-prime/${moduleLower}';\n`;
         } else {
-            importStatements += `import { ${module} } from 'primeng/${moduleLower}';\n`;
+            importStatements += `import { ${module} } from 'ngx-prime/${moduleLower}';\n`;
         }
     }
 
@@ -1102,25 +1102,25 @@ function generateTypescript(componentName, template, services = [], fileContent 
         importStatements += `import { ${service} } from '@/service/${service.toLowerCase()}';\n`;
     }
 
-    // Add PrimeNG config import if used in constructor
-    if (constructor && constructor.params && constructor.params.includes('PrimeNG')) {
-        importStatements += `import { PrimeNG } from 'primeng/config';\n`;
+    // Add ngx-prime config import if used in constructor
+    if (constructor && constructor.params && constructor.params.includes('ngx-prime')) {
+        importStatements += `import { ngx-prime } from 'ngx-prime/config';\n`;
     }
 
-    // Detect and add PrimeNG API types (TreeNode, MenuItem, etc.) and services
+    // Detect and add ngx-prime API types (TreeNode, MenuItem, etc.) and services
     const usedApiTypes = [];
     const allContent = fileContent + (interfaces.length > 0 ? interfaces.join('\n') : '');
-    for (const apiType of PRIMENG_API_TYPES) {
+    for (const apiType of ngx-prime_API_TYPES) {
         // Check if type is used in properties, interfaces, or method signatures
         const typeRegex = new RegExp(`\\b${apiType}\\b`, 'g');
         if (typeRegex.test(allContent)) {
             usedApiTypes.push(apiType);
         }
     }
-    // Combine API types with PrimeNG services for import (avoid duplicates)
-    const apiImports = [...new Set([...usedApiTypes, ...primeNGServices])];
+    // Combine API types with ngx-prime services for import (avoid duplicates)
+    const apiImports = [...new Set([...usedApiTypes, ...ngx-primeServices])];
     if (apiImports.length > 0) {
-        importStatements += `import { ${apiImports.join(', ')} } from 'primeng/api';\n`;
+        importStatements += `import { ${apiImports.join(', ')} } from 'ngx-prime/api';\n`;
     }
 
     // Detect and add domain type imports (Customer, Product, etc.)
@@ -1129,21 +1129,21 @@ function generateTypescript(componentName, template, services = [], fileContent 
         importStatements += `import { ${types.join(', ')} } from '@/domain/${domainPath}';\n`;
     }
 
-    // Add PrimeNG named exports that weren't combined with module imports
-    for (const [modulePath, exports] of Object.entries(primeNGNamedExportsEarly)) {
+    // Add ngx-prime named exports that weren't combined with module imports
+    for (const [modulePath, exports] of Object.entries(ngx-primeNamedExportsEarly)) {
         const moduleNameBase = modulePath.charAt(0).toUpperCase() + modulePath.slice(1);
         const moduleName = moduleNameBase + 'Module';
         // Only add separate import if we don't already have the module imported
-        if (!primeNGImports.includes(moduleName)) {
-            importStatements += `import { ${exports.join(', ')} } from 'primeng/${modulePath}';\n`;
+        if (!ngx-primeImports.includes(moduleName)) {
+            importStatements += `import { ${exports.join(', ')} } from 'ngx-prime/${modulePath}';\n`;
         }
     }
 
     // Build imports array for decorator (actual modules, not ImportsModule)
     const decoratorImports = primeModules.filter((m) => m !== 'CommonModule');
 
-    // Build providers if services exist (include both custom services and PrimeNG API services)
-    const allProviders = [...services, ...primeNGServices];
+    // Build providers if services exist (include both custom services and ngx-prime API services)
+    const allProviders = [...services, ...ngx-primeServices];
     const providersLine = allProviders.length > 0 ? `,\n    providers: [${allProviders.join(', ')}]` : '';
 
     // Generate class name (e.g., SelectBasicDemo)
@@ -1162,7 +1162,7 @@ function generateTypescript(componentName, template, services = [], fileContent 
     let classBody = '';
 
     // Add inject() statements for services first (before other properties)
-    const allServices = [...services, ...primeNGServices];
+    const allServices = [...services, ...ngx-primeServices];
     if (allServices.length > 0) {
         classBody += '\n';
         for (const service of allServices) {
@@ -1275,11 +1275,11 @@ function parseDocFile(filePath, componentDir) {
     const componentName = toPascalCase(uniqueKey.replace(/-demo$/, ''));
 
     // Detect services from component file (preferred) or fall back to existing code block
-    const { services: detectedServices, primeNGServices } = detectServices(content);
+    const { services: detectedServices, ngx-primeServices } = detectServices(content);
     const services = detectedServices.length > 0 ? detectedServices : existingCode?.service || [];
 
     // Generate TypeScript - pass full content for class extraction
-    const generatedTypescript = generateTypescript(componentName, demoContent, services, content, primeNGServices);
+    const generatedTypescript = generateTypescript(componentName, demoContent, services, content, ngx-primeServices);
 
     return {
         key: uniqueKey,
@@ -1293,9 +1293,9 @@ function parseDocFile(filePath, componentDir) {
         },
         metadata: {
             services,
-            primeNGServices, // Add PrimeNG API services to metadata
+            ngx-primeServices, // Add ngx-prime API services to metadata
             extFiles,
-            imports: detectPrimeNGModules(demoContent)
+            imports: detectngx-primeModules(demoContent)
         }
     };
 }

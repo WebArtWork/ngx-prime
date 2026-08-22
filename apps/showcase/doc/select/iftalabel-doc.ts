@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'primeng/select';
-import { IftaLabelModule } from 'primeng/iftalabel';
+import { SelectModule } from 'ngx-prime/select';
+import { IftaLabelModule } from 'ngx-prime/iftalabel';
 import { RouterModule } from '@angular/router';
 
 interface City {

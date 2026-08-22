@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+import { MessageService } from 'ngx-prime/api';
+import { AutoCompleteCompleteEvent } from 'ngx-prime/autocomplete';
 
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
-import { ButtonModule } from 'primeng/button';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageModule } from 'ngx-prime/message';
+import { ButtonModule } from 'ngx-prime/button';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 

@@ -1464,8 +1464,8 @@ describe('Card', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
+            it('should apply global PT configuration from NgxPrimeConfig', async () => {
                 @Component({
                     template: `
                         <p-card header="Card 1"></p-card>
@@ -1481,7 +1481,7 @@ describe('Card', () => {
                     providers: [
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideNgxPrime',
                             useValue: {
                                 pt: {
                                     card: {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/fileupload';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const nativeStyle = `
 input[pFileUpload] { cursor: pointer; }
@@ -41,7 +41,7 @@ export class FileUploadStyle extends BaseStyle {
  *
  * FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
  *
- * [Live Demo](https://www.primeng.org/fileupload/)
+ * [Live Demo](https://www.ngx-prime.org/fileupload/)
  *
  * @module fileuploadstyle
  *

@@ -13,7 +13,7 @@ Two-way value binding is defined using the standard ngModel directive referencin
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -36,8 +36,8 @@ When showButtonBar is present, today and clear buttons are displayed at the foot
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DatePickerModule } from 'primeng/datepicker';
+import { ButtonModule } from 'ngx-prime/button';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -75,7 +75,7 @@ When showClear is enabled, a clear icon is displayed to clear the value.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -98,7 +98,7 @@ Custom content can be placed inside date cells with the ng-template property tha
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -126,7 +126,7 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -244,7 +244,7 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -267,8 +267,8 @@ A floating label appears on top of the input field when focused. Visit FloatLabe
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { DatePickerModule } from 'ngx-prime/datepicker';
+import { FloatLabelModule } from 'ngx-prime/floatlabel';
 
 @Component({
     template: `
@@ -304,7 +304,7 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -327,7 +327,7 @@ Default date format is mm/dd/yy which can be customized using the dateFormat pro
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -350,7 +350,7 @@ An additional icon is displayed next to the input field when showIcon is present
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -390,8 +390,8 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { IftaLabelModule } from 'primeng/iftalabel';
+import { DatePickerModule } from 'ngx-prime/datepicker';
+import { IftaLabelModule } from 'ngx-prime/iftalabel';
 
 @Component({
     template: `
@@ -417,7 +417,7 @@ DatePicker is displayed as a popup by default, add inline property to customize 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -435,12 +435,12 @@ export class DatepickerInlineDemo {
 
 ## Invalid
 
-The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -460,7 +460,7 @@ export class DatepickerInvalidDemo {
 
 ## Locale
 
-Locale for different languages and formats is defined globally, refer to the PrimeNG Locale configuration for more information.
+Locale for different languages and formats is defined globally, refer to the ngx-prime Locale configuration for more information.
 
 ## Mask
 
@@ -469,8 +469,8 @@ DatePicker can be used with the pInputMask directive to enforce a specific input
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { InputMaskModule } from 'primeng/inputmask';
+import { DatePickerModule } from 'ngx-prime/datepicker';
+import { InputMaskModule } from 'ngx-prime/inputmask';
 
 @Component({
     template: `
@@ -527,7 +527,7 @@ Boundaries for the permitted dates that can be entered are defined with minDate 
 ```typescript
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -568,7 +568,7 @@ Month only picker is enabled by specifying view as month in addition to a suitab
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -591,7 +591,7 @@ In order to choose multiple dates, set selectionMode as multiple . In this mode,
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -614,7 +614,7 @@ Number of months to display is configured with the numberOfMonths property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -637,7 +637,7 @@ A range of dates can be selected by defining selectionMode as range , in this ca
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -660,11 +660,11 @@ DatePicker can also be used with reactive forms. In this case, the formControlNa
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { DatePickerModule } from 'ngx-prime/datepicker';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -718,7 +718,7 @@ DatePicker provides small and large sizes as alternatives to the base.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -768,11 +768,11 @@ export class DatepickerTemplateDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { MessageService } from 'primeng/api';
+import { DatePickerModule } from 'ngx-prime/datepicker';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -878,7 +878,7 @@ A time picker is displayed when showTime is enabled where 12/24 hour format is c
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -914,7 +914,7 @@ When touchUI is enabled, overlay is displayed as optimized for touch devices.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `
@@ -937,7 +937,7 @@ Specifying view as year in addition to a suitable dateFormat enables the year pi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'ngx-prime/datepicker';
 
 @Component({
     template: `

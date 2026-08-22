@@ -4,9 +4,9 @@ import { By } from '@angular/platform-browser';
 
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
-import { Tooltip } from 'primeng/tooltip';
+import { MenuItem } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
+import { Tooltip } from 'ngx-prime/tooltip';
 import { TieredMenu } from './tieredmenu';
 
 @Component({
@@ -75,7 +75,7 @@ class TestPopupTieredMenuComponent {
                 <div class="custom-item">
                     <span class="custom-label">{{ item.label }}</span>
                     @if (hasSubmenu) {
-                        <span class="custom-arrow">→</span>
+                        <span class="custom-arrow">â†’</span>
                     }
                 </div>
             </ng-template>
@@ -106,7 +106,7 @@ class TestTemplateTieredMenuComponent {
                         <span class="custom-badge">{{ item.badge }}</span>
                     }
                     @if (hasSubmenu) {
-                        <span class="submenu-indicator">▶</span>
+                        <span class="submenu-indicator">â–¶</span>
                     }
                 </div>
             </ng-template>
@@ -576,7 +576,7 @@ describe('TieredMenu', () => {
     describe('Keyboard Navigation', () => {
         beforeEach(async () => {
             // Focus the menu first
-            tieredMenu.onMenuFocus({});
+            tieredMenu.onMenuFocus();
             tieredMenu.focusedItemInfo.set({ index: 0, level: 0, parentKey: '', item: null });
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -1386,7 +1386,7 @@ describe('TieredMenu', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 standalone: true,
                 imports: [TieredMenu],
@@ -1406,7 +1406,7 @@ describe('TieredMenu', () => {
                     imports: [PTGlobalConfigTestComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 tieredMenu: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL', class: 'GLOBAL_ROOT_CLASS' },

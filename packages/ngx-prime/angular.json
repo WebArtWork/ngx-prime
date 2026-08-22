@@ -3,7 +3,7 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "primeng": {
+        "ngx-prime": {
             "root": "src",
             "projectType": "library",
             "architect": {
@@ -15,10 +15,12 @@
                     }
                 },
                 "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
+                    "builder": "@angular/build:karma",
                     "options": {
+                        "main": "src/test.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
+                        "include": ["**/*.spec.ts"],
                         "scripts": []
                     }
                 },

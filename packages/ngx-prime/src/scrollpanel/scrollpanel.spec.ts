@@ -299,7 +299,7 @@ describe('ScrollPanel', () => {
         it('should programmatically scroll to top position', async () => {
             // Mock scrollTop behavior since test environment doesn't scroll
             const contentViewChild = scrollPanel.contentViewChild();
-            const contentViewChild = scrollPanel.contentViewChild();
+
 
             if (contentViewChild) {
                 Object.defineProperty(contentViewChild.nativeElement, 'scrollHeight', { value: 600, writable: true });
@@ -320,7 +320,7 @@ describe('ScrollPanel', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             const contentViewChild = scrollPanel.contentViewChild();
-            const contentViewChild = scrollPanel.contentViewChild();
+
 
             expect(contentViewChild?.nativeElement.scrollTop).toBe(0);
 
@@ -487,7 +487,7 @@ describe('ScrollPanel', () => {
             const xBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-x'));
             const yBar = fixture.debugElement.query(By.css('.p-scrollpanel-bar-y'));
 
-            scrollPanel.onDocumentMouseUp(new MouseEvent('mouseup'));
+            scrollPanel.onDocumentMouseUp();
 
             expect(scrollPanel.isXBarClicked).toBe(false);
             expect(scrollPanel.isYBarClicked).toBe(false);
@@ -826,7 +826,7 @@ describe('ScrollPanel', () => {
             expect(yBar.nativeElement.getAttribute('data-p-scrollpanel-grabbed')).toBe('true');
             expect(document.body.getAttribute('data-p-scrollpanel-grabbed')).toBe('true');
 
-            scrollPanel.onDocumentMouseUp(new MouseEvent('mouseup'));
+            scrollPanel.onDocumentMouseUp();
 
             expect(yBar.nativeElement.getAttribute('data-p-scrollpanel-grabbed')).toBe('false');
             expect(document.body.getAttribute('data-p-scrollpanel-grabbed')).toBe('false');
@@ -864,7 +864,7 @@ describe('ScrollPanel', () => {
         it('should handle zero dimensions gracefully', async () => {
             // Mock content with zero dimensions
             const contentViewChild = scrollPanel.contentViewChild();
-            const contentViewChild = scrollPanel.contentViewChild();
+
 
             if (contentViewChild) {
                 Object.defineProperty(contentViewChild.nativeElement, 'scrollWidth', { value: 0, writable: true });
@@ -892,14 +892,14 @@ describe('ScrollPanel', () => {
         });
 
         it('should apply simple string classes to PT sections', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 host: 'HOST_CLASS',
                 root: 'ROOT_CLASS',
                 contentContainer: 'CONTENT_CONTAINER_CLASS',
                 content: 'CONTENT_CLASS',
                 barX: 'BAR_X_CLASS',
                 barY: 'BAR_Y_CLASS'
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -921,7 +921,7 @@ describe('ScrollPanel', () => {
         });
 
         it('should apply object-based PT options with class, style, and attributes', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'ROOT_OBJECT_CLASS',
                     'data-test': 'root-test',
@@ -935,7 +935,7 @@ describe('ScrollPanel', () => {
                     class: 'BARX_CLASS',
                     'aria-label': 'BARX_ARIA_LABEL'
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -956,7 +956,7 @@ describe('ScrollPanel', () => {
         });
 
         it('should apply mixed object and string PT values', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'MIXED_ROOT_CLASS'
                 },
@@ -964,7 +964,7 @@ describe('ScrollPanel', () => {
                 barY: {
                     style: 'opacity: 0.5'
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -985,7 +985,7 @@ describe('ScrollPanel', () => {
             ptScrollPanel.initialized = true;
             ptScrollPanel.orientation = 'horizontal';
 
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: ({ instance }) => ({
                     class: instance?.initialized ? 'INITIALIZED' : 'NOT_INITIALIZED'
                 }),
@@ -997,7 +997,7 @@ describe('ScrollPanel', () => {
                         'data-orientation': instance?.orientation
                     };
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -1015,13 +1015,13 @@ describe('ScrollPanel', () => {
         it('should handle event binding in PT options', async () => {
             let clicked = false;
 
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 content: {
                     onclick: () => {
                         clicked = true;
                     }
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();

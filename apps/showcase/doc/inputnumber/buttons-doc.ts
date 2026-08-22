@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { FluidModule } from 'primeng/fluid';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
+import { FluidModule } from 'ngx-prime/fluid';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

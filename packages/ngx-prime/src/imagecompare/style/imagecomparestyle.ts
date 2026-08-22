@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/imagecompare';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: 'p-imagecompare',
@@ -20,7 +20,7 @@ export class ImageCompareStyle extends BaseStyle {
  *
  * ImageCompare compares two images side by side with a slider.
  *
- * [Live Demo](https://www.primeng.org/imagecompare/)
+ * [Live Demo](https://www.ngx-prime.org/imagecompare/)
  *
  * @module imagecomparestyle
  *

@@ -4,11 +4,11 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Paginator, PaginatorModule } from './paginator';
-import { Select } from 'primeng/select';
-import { InputNumber } from 'primeng/inputnumber';
-import { Ripple } from 'primeng/ripple';
-import { SharedModule } from 'primeng/api';
-import { PaginatorState } from 'primeng/types/paginator';
+import { Select } from 'ngx-prime/select';
+import { InputNumber } from 'ngx-prime/inputnumber';
+import { Ripple } from 'ngx-prime/ripple';
+import { SharedModule } from 'ngx-prime/api';
+import { PaginatorState } from 'ngx-prime/types/paginator';
 
 // Test component for basic paginator functionality
 @Component({
@@ -77,23 +77,23 @@ class TestBasicPaginatorComponent {
     template: `
         <p-paginator [rows]="10" [totalRecords]="100" [first]="0">
             <ng-template pTemplate="dropdownicon">
-                <span class="custom-dropdown-icon">▼</span>
+                <span class="custom-dropdown-icon">â–¼</span>
             </ng-template>
 
             <ng-template pTemplate="firstpagelinkicon">
-                <span class="custom-first-icon">⏮</span>
+                <span class="custom-first-icon">â®</span>
             </ng-template>
 
             <ng-template pTemplate="previouspagelinkicon">
-                <span class="custom-prev-icon">⏪</span>
+                <span class="custom-prev-icon">âª</span>
             </ng-template>
 
             <ng-template pTemplate="nextpagelinkicon">
-                <span class="custom-next-icon">⏩</span>
+                <span class="custom-next-icon">â©</span>
             </ng-template>
 
             <ng-template pTemplate="lastpagelinkicon">
-                <span class="custom-last-icon">⏭</span>
+                <span class="custom-last-icon">â­</span>
             </ng-template>
         </p-paginator>
     `,
@@ -108,23 +108,23 @@ class TestPTemplatePaginatorComponent {
     template: `
         <p-paginator [rows]="10" [totalRecords]="100" [first]="0" [rowsPerPageOptions]="[5, 10, 20]">
             <ng-template #dropdownicon>
-                <span class="contentchild-dropdown-icon">⬇</span>
+                <span class="contentchild-dropdown-icon">â¬‡</span>
             </ng-template>
 
             <ng-template #firstpagelinkicon>
-                <span class="contentchild-first-icon">⏮️</span>
+                <span class="contentchild-first-icon">â®ï¸</span>
             </ng-template>
 
             <ng-template #previouspagelinkicon>
-                <span class="contentchild-prev-icon">◀️</span>
+                <span class="contentchild-prev-icon">â—€ï¸</span>
             </ng-template>
 
             <ng-template #nextpagelinkicon>
-                <span class="contentchild-next-icon">▶️</span>
+                <span class="contentchild-next-icon">â–¶ï¸</span>
             </ng-template>
 
             <ng-template #lastpagelinkicon>
-                <span class="contentchild-last-icon">⏭️</span>
+                <span class="contentchild-last-icon">â­ï¸</span>
             </ng-template>
         </p-paginator>
     `,
@@ -458,7 +458,7 @@ describe('Paginator', () => {
             spyOn(paginator, 'onRppChange').and.callThrough();
             spyOn(paginator, 'changePage').and.callThrough();
 
-            paginator.onRppChange(new Event('change'));
+            paginator.onRppChange();
             await fixture.whenStable();
 
             expect(paginator.onRppChange).toHaveBeenCalled();
@@ -618,25 +618,25 @@ describe('Paginator', () => {
                 const firstIcon = pTemplateFixture.debugElement.query(By.css('.custom-first-icon'));
 
                 if (firstIcon) {
-                    expect(firstIcon.nativeElement.textContent).toBe('⏮');
+                    expect(firstIcon.nativeElement.textContent).toBe('â®');
                 }
 
                 const prevIcon = pTemplateFixture.debugElement.query(By.css('.custom-prev-icon'));
 
                 if (prevIcon) {
-                    expect(prevIcon.nativeElement.textContent).toBe('⏪');
+                    expect(prevIcon.nativeElement.textContent).toBe('âª');
                 }
 
                 const nextIcon = pTemplateFixture.debugElement.query(By.css('.custom-next-icon'));
 
                 if (nextIcon) {
-                    expect(nextIcon.nativeElement.textContent).toBe('⏩');
+                    expect(nextIcon.nativeElement.textContent).toBe('â©');
                 }
 
                 const lastIcon = pTemplateFixture.debugElement.query(By.css('.custom-last-icon'));
 
                 if (lastIcon) {
-                    expect(lastIcon.nativeElement.textContent).toBe('⏭');
+                    expect(lastIcon.nativeElement.textContent).toBe('â­');
                 }
             });
         });
@@ -675,13 +675,13 @@ describe('Paginator', () => {
                 const firstIcon = contentChildFixture.debugElement.query(By.css('.contentchild-first-icon'));
 
                 if (firstIcon) {
-                    expect(firstIcon.nativeElement.textContent).toBe('⏮️');
+                    expect(firstIcon.nativeElement.textContent).toBe('â®ï¸');
                 }
 
                 const prevIcon = contentChildFixture.debugElement.query(By.css('.contentchild-prev-icon'));
 
                 if (prevIcon) {
-                    expect(prevIcon.nativeElement.textContent).toBe('◀️');
+                    expect(prevIcon.nativeElement.textContent).toBe('â—€ï¸');
                 }
             });
         });

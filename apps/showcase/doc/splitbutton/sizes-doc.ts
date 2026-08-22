@@ -2,9 +2,9 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'ngx-prime/api';
+import { SplitButtonModule } from 'ngx-prime/splitbutton';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     selector: 'app-sizes-doc',

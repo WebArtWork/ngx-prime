@@ -2,28 +2,28 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { AutoComplete } from 'primeng/autocomplete';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
-import { BadgeModule } from 'primeng/badge';
-import { ButtonModule } from 'primeng/button';
-import { Checkbox } from 'primeng/checkbox';
-import { PrimeNG } from 'primeng/config';
-import { DividerModule } from 'primeng/divider';
-import { FileUpload } from 'primeng/fileupload';
-import { InputNumber } from 'primeng/inputnumber';
-import { InputOtp } from 'primeng/inputotp';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenuModule } from 'primeng/menu';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { RadioButton } from 'primeng/radiobutton';
-import { Select } from 'primeng/select';
-import { SelectButton } from 'primeng/selectbutton';
-import { Slider } from 'primeng/slider';
-import { Tag } from 'primeng/tag';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { TooltipModule } from 'primeng/tooltip';
+import { MessageService } from 'ngx-prime/api';
+import { AutoComplete } from 'ngx-prime/autocomplete';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { AvatarGroupModule } from 'ngx-prime/avatargroup';
+import { BadgeModule } from 'ngx-prime/badge';
+import { ButtonModule } from 'ngx-prime/button';
+import { Checkbox } from 'ngx-prime/checkbox';
+import { ngx-prime } from 'ngx-prime/config';
+import { DividerModule } from 'ngx-prime/divider';
+import { FileUpload } from 'ngx-prime/fileupload';
+import { InputNumber } from 'ngx-prime/inputnumber';
+import { InputOtp } from 'ngx-prime/inputotp';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { MenuModule } from 'ngx-prime/menu';
+import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
+import { RadioButton } from 'ngx-prime/radiobutton';
+import { Select } from 'ngx-prime/select';
+import { SelectButton } from 'ngx-prime/selectbutton';
+import { Slider } from 'ngx-prime/slider';
+import { Tag } from 'ngx-prime/tag';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     selector: 'app-cards-app',
@@ -55,7 +55,7 @@ import { TooltipModule } from 'primeng/tooltip';
     ],
     template: `
         <div class="text-color text-2xl font-medium leading-8">Cards</div>
-        <div class="mt-1 text-muted-color leading-6">You can make cards using Aura like below 👇</div>
+        <div class="mt-1 text-muted-color leading-6">You can make cards using Aura like below ðŸ‘‡</div>
         <div class="mt-6 flex flex-wrap items-start gap-6">
             <div class="flex-1 flex flex-col gap-6">
                 <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
@@ -333,7 +333,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png" class="w-9 h-9" shape="circle" />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Brook Simmons</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">brook.sim42&#64;primeng.org</div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">brook.sim42&#64;ngx-prime.org</div>
                                 </div>
                                 <p-select [(ngModel)]="memberSelectedTypes[0]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
                             </div>
@@ -341,7 +341,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" class="w-9 h-9" shape="circle" />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Dianne Russell</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">di.russ23&#64;primeng.org</div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">di.russ23&#64;ngx-prime.org</div>
                                 </div>
                                 <p-select [(ngModel)]="memberSelectedTypes[1]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
                             </div>
@@ -349,7 +349,7 @@ import { TooltipModule } from 'primeng/tooltip';
                                 <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" class="w-9 h-9" shape="circle" />
                                 <div class="flex-1">
                                     <div class="text-sm font-medium text-color leading-5">Jacob Jones</div>
-                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">jac.jon87&#64;primeng.org</div>
+                                    <div class="text-sm text-muted-color leading-5 line-clamp-4">jac.jon87&#64;ngx-prime.org</div>
                                 </div>
                                 <p-select [(ngModel)]="memberSelectedTypes[2]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!border-0 !shadow-none" />
                             </div>
@@ -511,7 +511,7 @@ export class CardsApp implements OnInit {
 
     items: any;
 
-    private config = inject(PrimeNG);
+    private config = inject(ngx-prime);
     private messageService = inject(MessageService);
 
     ngOnInit() {

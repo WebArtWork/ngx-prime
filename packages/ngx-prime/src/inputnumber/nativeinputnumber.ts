@@ -1,5 +1,5 @@
 import { booleanAttribute, Directive, ElementRef, inject, input, numberAttribute, output } from '@angular/core';
-import type { InputNumberInputEvent } from 'primeng/types/inputnumber';
+import type { InputNumberInputEvent } from 'ngx-prime/types/inputnumber';
 
 /** Adds Prime state attributes to a native number input. */
 @Directive({

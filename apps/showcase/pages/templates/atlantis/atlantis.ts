@@ -18,7 +18,7 @@ import { AtlantisSeparator } from './atlantisseparator';
         <app-atlantis-separator></app-atlantis-separator>
         <div [style.display]="'none'">
             <app-atlantis-separator></app-atlantis-separator>
-            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-youtube-screen.png"></app-template-youtube>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/atlantis-youtube-screen.png"></app-template-youtube>
         </div>
         <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
         <app-atlantis-separator></app-atlantis-separator>
@@ -37,12 +37,12 @@ export class AtlantisPage {
     atlantisLogo = AtlantisLogo;
 
     templateHeroData = {
-        pattern: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-pattern.png',
+        pattern: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/atlantis-hero-pattern.png',
         patternClass: 'select-none absolute md:-bottom-28 bottom-36 -left-20 md:-left-28 z-[6] md:w-[50rem] h-auto w-[60rem] opacity-75',
-        dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard1.png',
-        dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard2.png',
+        dashboard1: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/atlantis-hero-dashboard1.png',
+        dashboard2: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/atlantis-hero-dashboard2.png',
         description: 'A spectacular application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',
-        liveHref: 'https://atlantis.primeng.org/',
+        liveHref: 'https://atlantis.ngx-prime.org/',
         docHref: 'https://www.primefaces.org/atlantis-ng/documentation/',
         storeHref: 'https://primeui.store/templates/angular/atlantis'
     };
@@ -51,36 +51,36 @@ export class AtlantisPage {
         {
             title: 'Fully Responsive',
             description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-features2-responsive.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/atlantis-features2-responsive.png'
         },
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser-dark.png'
         },
         {
             title: 'Support',
             description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
             can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
-            <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/support.png'
+            <a href="https://github.com/orgs/primefaces/discussions/categories/ngx-prime-templates" class="doc-link">Forum</a>.`,
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/support.png'
         },
         {
             title: 'Full SaSS Support',
             description: 'Sass is utilized for the application to provide simplicity and flexibility.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/quality.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/quality-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/quality.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/quality-dark.png'
         },
         {
             title: 'Ready to Use Pages',
             description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-features2-ready.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/atlantis-features2-ready.png'
         },
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-features2-mobile.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/atlantis-features2-mobile.png'
         }
     ];
 
@@ -89,27 +89,27 @@ export class AtlantisPage {
             id: 1,
             title: 'Tailwind CSS',
             description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
             description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeblocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
-            description: 'Ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeicons.png'
+            description: 'Ships with PrimeIcons, PrimeTekâ€™s modern icon library including a wide range of icons for your applications.',
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeicons.png'
         },
         {
             id: 4,
             title: 'Figma File',
             description: `Atlantis uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
-                <a href="https://www.figma.com/design/2aOISJWanQAd4Kzu8BLYe7/Preview-%7C%C2%A0Atlantis-%7C-2.0.0?node-id=1303-749&t=PVvmnN9FxL8FMgZf-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the
+                <a href="https://www.figma.com/design/2aOISJWanQAd4Kzu8BLYe7/Preview-%7C%C2%A0Atlantis-%7C-2.0.0?node-id=1303-749&t=PVvmnN9FxL8FMgZf-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that ngx-prime UI components are excluded from the
                 Atlantis Figma file as they are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-figma.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/features-animation-figma.png'
         }
     ];
 
@@ -118,62 +118,62 @@ export class AtlantisPage {
             id: 1,
             title: 'Light and Dark Modes',
             description: '2 color schemes with 8 surface color alternatives for each.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-darkmode.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/features-animation-darkmode.png'
         },
         {
             id: 2,
             title: 'Component Themes',
             description: '17 built-in theme colors with the power of 2 presets: Aura and Lara.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-component-themes.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/features-animation-component-themes.png'
         },
         {
             id: 3,
             title: '7 Menu Orientations',
             description: 'Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-orientations.png',
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/features-animation-orientations.png',
             type: 'inline-animation',
             inlineFeaturesData: [
                 {
                     id: 1,
                     title: 'Static',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/Static.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/Static.png'
                 },
                 {
                     id: 2,
                     title: 'Slim',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/Slim.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/Slim.png'
                 },
                 {
                     id: 3,
                     title: 'Reveal',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/Reveal.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/Reveal.png'
                 },
                 {
                     id: 4,
                     title: 'Horizontal',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/Horizontal.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/Horizontal.png'
                 },
                 {
                     id: 5,
                     title: 'Overlay',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/Overlay.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/Overlay.png'
                 },
                 {
                     id: 6,
                     title: 'Slim+',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/Slim+.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/Slim+.png'
                 },
                 {
                     id: 7,
                     title: 'Drawer',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/Drawer.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/atlantis/Drawer.png'
                 }
             ]
         }
     ];
 
     license = {
-        documentLink: 'https://atlantis.primeng.org/documentation',
+        documentLink: 'https://atlantis.ngx-prime.org/documentation',
         description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
         showDiscount: false,
         licenseDetails: [

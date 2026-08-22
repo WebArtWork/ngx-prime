@@ -2,11 +2,11 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { RippleModule } from 'primeng/ripple';
+import { MegaMenuItem } from 'ngx-prime/api';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { ButtonModule } from 'ngx-prime/button';
+import { MegaMenuModule } from 'ngx-prime/megamenu';
+import { RippleModule } from 'ngx-prime/ripple';
 
 @Component({
     selector: 'app-template-doc',
@@ -76,7 +76,7 @@ import { RippleModule } from 'primeng/ripple';
                     }
                 </ng-template>
                 <ng-template #end>
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                    <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
             </p-megamenu>
         </div>
@@ -123,7 +123,7 @@ export class TemplateDoc implements OnInit {
                         {
                             items: [
                                 {
-                                    image: 'https://primefaces.org/cdn/primeng/images/uikit/uikit-system.png',
+                                    image: 'https://primefaces.org/cdn/ngx-prime/images/uikit/uikit-system.png',
                                     label: 'GET STARTED',
                                     subtext: 'Build spectacular apps in no time.'
                                 }

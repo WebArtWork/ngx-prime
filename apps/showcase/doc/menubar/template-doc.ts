@@ -2,12 +2,12 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenubarModule } from 'primeng/menubar';
-import { Ripple } from 'primeng/ripple';
+import { MenuItem } from 'ngx-prime/api';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { BadgeModule } from 'ngx-prime/badge';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { MenubarModule } from 'ngx-prime/menubar';
+import { Ripple } from 'ngx-prime/ripple';
 
 @Component({
     selector: 'app-template-doc',
@@ -67,7 +67,7 @@ import { Ripple } from 'primeng/ripple';
                 <ng-template #end>
                     <div class="flex items-center gap-2">
                         <input type="text" pInputText placeholder="Search" class="w-36" />
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                     </div>
                 </ng-template>
             </p-menubar>
@@ -92,12 +92,12 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Core',
                         icon: 'pi pi-bolt',
-                        shortcut: '⌘+S'
+                        shortcut: 'âŒ˜+S'
                     },
                     {
                         label: 'Blocks',
                         icon: 'pi pi-server',
-                        shortcut: '⌘+B'
+                        shortcut: 'âŒ˜+B'
                     },
                     {
                         separator: true
@@ -105,7 +105,7 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'UI Kit',
                         icon: 'pi pi-pencil',
-                        shortcut: '⌘+U'
+                        shortcut: 'âŒ˜+U'
                     }
                 ]
             }

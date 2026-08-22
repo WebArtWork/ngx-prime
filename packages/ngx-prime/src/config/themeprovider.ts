@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { effect, inject, OnDestroy, Service, signal, untracked } from '@angular/core';
 import { Theme, ThemeService } from '@wawjs/css-prime-styled';
-import { BaseStyle } from 'primeng/base';
-import type { ThemeConfigType } from './primeng.types';
+import { BaseStyle } from 'ngx-prime/base';
+import type { ThemeConfigType } from './ngx-prime.types';
 
 @Service()
 export class ThemeProvider implements OnDestroy {

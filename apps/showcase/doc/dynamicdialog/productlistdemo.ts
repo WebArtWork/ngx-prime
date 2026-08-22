@@ -1,10 +1,10 @@
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component, OnInit, signal, inject } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
 import { InfoDemo } from './infodemo';
-import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'ngx-prime/button';
+import { TableModule } from 'ngx-prime/table';
 @Component({
     standalone: true,
     imports: [ButtonModule, TableModule],
@@ -27,7 +27,7 @@ import { TableModule } from 'primeng/table';
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
                     <td>
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-16" />
+                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-16" />
                     </td>
                     <td>{{ product.category }}</td>
                     <td>

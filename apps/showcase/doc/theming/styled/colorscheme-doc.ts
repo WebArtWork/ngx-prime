@@ -31,7 +31,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 export class ColorSchemeDoc {
     code1 = {
         typescript: `import { bootstrapApplication } from '@angular/platform-browser';
-import { providePrimeNG } from 'primeng/config';
+import { providengx-prime } from 'ngx-prime/config';
 import { definePreset } from '@wawjs/css-prime-themes';
 import Aura from '@wawjs/css-prime-themes/aura';
 import { AppComponent } from './app/app.component';
@@ -51,7 +51,7 @@ const MyPreset = definePreset(Aura, {
 
 bootstrapApplication(AppComponent, {
     providers: [
-        providePrimeNG({
+        providengx-prime({
             theme: {
                 preset: MyPreset
             }

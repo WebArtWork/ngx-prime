@@ -1,5 +1,5 @@
 {
-    "name": "@primeng/mcp",
+    "name": "@ngx-prime/mcp",
     "version": "22.0.0",
     "author": "Web Art Work",
     "description": "Model Context Protocol (MCP) server for ngx-prime Angular component documentation.",
@@ -14,7 +14,7 @@
         "url": "https://github.com/WebArtWork/ngx-prime/issues"
     },
     "keywords": [
-        "primeng",
+        "ngx-prime",
         "mcp",
         "model-context-protocol",
         "ai",
@@ -23,7 +23,7 @@
         "components"
     ],
     "bin": {
-        "primeng-mcp": "./dist/index.js"
+        "ngx-prime-mcp": "./dist/index.js"
     },
     "type": "module",
     "main": "./dist/index.js",

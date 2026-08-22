@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MenuItem } from 'primeng/api';
-import { ButtonDirective } from 'primeng/button';
-import { TieredMenu } from 'primeng/tieredmenu';
+import { MenuItem } from 'ngx-prime/api';
+import { ButtonDirective } from 'ngx-prime/button';
+import { TieredMenu } from 'ngx-prime/tieredmenu';
 import { SplitButton } from './splitbutton';
 
 // Basic SplitButton Test Component
@@ -383,7 +383,7 @@ describe('SplitButton', () => {
             await fixture.whenStable();
 
             expect(splitButtonInstance.model()).toEqual(newModel);
-            expect(splitButtonInstance.menu()?.model).toEqual(newModel);
+            expect(splitButtonInstance.menu()?.model()).toEqual(newModel);
         });
 
         it('should update label property', async () => {

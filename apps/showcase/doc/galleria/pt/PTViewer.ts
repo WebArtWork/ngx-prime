@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { PhotoService } from '@/service/photoservice';
 
 import { Component, model, OnInit, inject } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'ngx-prime/galleria';
 
 @Component({
     selector: 'app-galleria-pt-viewer',

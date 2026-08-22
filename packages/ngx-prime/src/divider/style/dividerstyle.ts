@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/divider';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 /* Position */
 const inlineStyles = {
@@ -40,7 +40,7 @@ export class DividerStyle extends BaseStyle {
  *
  * Divider is used to separate contents.
  *
- * [Live Demo](https://primeng.org/divider)
+ * [Live Demo](https://ngx-prime.org/divider)
  *
  * @module dividerstyle
  *

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { KeyFilterModule } from 'primeng/keyfilter';
-import { TextareaModule } from 'primeng/textarea';
+import { KeyFilterModule } from 'ngx-prime/keyfilter';
+import { TextareaModule } from 'ngx-prime/textarea';
 
 @Component({
     selector: 'app-keyfilter-doc',

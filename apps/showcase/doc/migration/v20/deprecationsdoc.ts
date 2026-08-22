@@ -1,6 +1,6 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-v20-deprecations-doc',
@@ -22,7 +22,7 @@ import { TagModule } from 'primeng/tag';
                     </thead>
                     <tbody>
                         <tr>
-                            <td>@primeng/themes</td>
+                            <td>@ngx-prime/themes</td>
                             <td>v20</td>
                             <td>@wawjs/css-prime-themes</td>
                             <td>v22</td>

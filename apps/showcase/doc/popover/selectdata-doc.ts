@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Popover, PopoverModule } from 'primeng/popover';
-import { ButtonModule } from 'primeng/button';
+import { Popover, PopoverModule } from 'ngx-prime/popover';
+import { ButtonModule } from 'ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -23,7 +23,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                         <ul class="list-none p-0 m-0 flex flex-col">
                             @for (member of members; track member) {
                                 <li class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
-                                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                                    <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/avatar/' + member.image" style="width: 32px" />
                                     <div>
                                         <span class="font-medium">{{ member.name }}</span>
                                         <div class="text-sm text-surface-500 dark:text-surface-400">{{ member.email }}</div>

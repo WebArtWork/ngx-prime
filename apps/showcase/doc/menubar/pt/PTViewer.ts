@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { MenubarModule } from 'primeng/menubar';
+import { MenuItem } from 'ngx-prime/api';
+import { MenubarModule } from 'ngx-prime/menubar';
 
 @Component({
     selector: 'app-menubar-pt-viewer',

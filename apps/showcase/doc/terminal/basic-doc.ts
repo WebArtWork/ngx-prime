@@ -1,6 +1,6 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-import { TerminalService } from 'primeng/terminal';
-import { TerminalModule } from 'primeng/terminal';
+import { TerminalService } from 'ngx-prime/terminal';
+import { TerminalModule } from 'ngx-prime/terminal';
 import { Subscription } from 'rxjs';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
@@ -15,7 +15,7 @@ import { AppCode } from '@/components/doc/app.code';
         </app-docsectiontext>
         <div class="card">
             <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
-            <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
+            <p-terminal welcomeMessage="Welcome to ngx-prime" prompt="ngx-prime $" />
         </div>
         <app-code></app-code>
     `,

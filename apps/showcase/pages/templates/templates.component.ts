@@ -14,7 +14,7 @@ export class TemplatesComponent {
     private metaService = inject(Meta);
 
     constructor() {
-        this.titleService.setTitle('Angular Application Templates - PrimeNG');
-        this.metaService.updateTag({ name: 'description', content: 'PrimeNG Angular application templates.' });
+        this.titleService.setTitle('Angular Application Templates - ngx-prime');
+        this.metaService.updateTag({ name: 'description', content: 'ngx-prime Angular application templates.' });
     }
 }

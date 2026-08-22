@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'ngx-prime/dialog';
+import { ButtonModule } from 'ngx-prime/button';
+import { InputTextModule } from 'ngx-prime/inputtext';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

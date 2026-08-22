@@ -12,10 +12,10 @@ ConfirmPopup is defined using p-confirmPopup tag and an instance of Confirmation
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService, ConfirmationService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -177,10 +177,10 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService, ConfirmationService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -286,10 +286,10 @@ Content section can be customized using content template.
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService, ConfirmationService } from 'ngx-prime/api';
 
 @Component({
     template: `

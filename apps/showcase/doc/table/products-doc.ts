@@ -6,23 +6,23 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DialogModule } from 'primeng/dialog';
-import { FileUploadModule } from 'primeng/fileupload';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
-import { SelectModule } from 'primeng/select';
-import { Table, TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { TextareaModule } from 'primeng/textarea';
-import { ToastModule } from 'primeng/toast';
-import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmationService, MessageService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
+import { DialogModule } from 'ngx-prime/dialog';
+import { FileUploadModule } from 'ngx-prime/fileupload';
+import { IconFieldModule } from 'ngx-prime/iconfield';
+import { InputIconModule } from 'ngx-prime/inputicon';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { RadioButtonModule } from 'ngx-prime/radiobutton';
+import { RatingModule } from 'ngx-prime/rating';
+import { SelectModule } from 'ngx-prime/select';
+import { Table, TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { TextareaModule } from 'ngx-prime/textarea';
+import { ToastModule } from 'ngx-prime/toast';
+import { ToolbarModule } from 'ngx-prime/toolbar';
 
 interface Column {
     field: string;
@@ -150,7 +150,7 @@ interface ExportColumn {
                             <td style="min-width: 12rem">{{ product.code }}</td>
                             <td style="min-width: 16rem">{{ product.name }}</td>
                             <td>
-                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="width: 64px" class="rounded" />
+                                <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.name" style="width: 64px" class="rounded" />
                             </td>
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
@@ -172,7 +172,7 @@ interface ExportColumn {
                     <ng-template #content>
                         <div class="flex flex-col gap-6">
                             @if (product.image) {
-                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" />
+                                <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" />
                             }
                             <div>
                                 <label for="name" class="block font-bold mb-3">Name</label>

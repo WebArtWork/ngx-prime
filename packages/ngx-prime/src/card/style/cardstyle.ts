@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as card_style } from '@wawjs/css-prime-styles/card';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${card_style}
@@ -34,7 +34,7 @@ export class CardStyle extends BaseStyle {
  *
  * Card is a flexible container component.
  *
- * [Live Demo](https://www.primeng.org/card/)
+ * [Live Demo](https://www.ngx-prime.org/card/)
  *
  * @module cardstyle
  *

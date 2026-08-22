@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/confirmpopup';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: () => ['p-confirmpopup p-component'],
@@ -25,7 +25,7 @@ export class ConfirmPopupStyle extends BaseStyle {
  *
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
  *
- * [Live Demo](https://www.primeng.org/confirmpopup)
+ * [Live Demo](https://www.ngx-prime.org/confirmpopup)
  *
  * @module confirmpopupstyle
  *

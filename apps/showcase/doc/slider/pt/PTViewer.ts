@@ -2,7 +2,7 @@ import { AppDocPtViewer } from '@/components/doc/app.docptviewer';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'primeng/slider';
+import { SliderModule } from 'ngx-prime/slider';
 
 @Component({
     selector: 'app-slider-pt-viewer',

@@ -6,8 +6,8 @@ import { ProductService } from '@/service/productservice';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TableModule } from 'primeng/table';
+import { MultiSelectModule } from 'ngx-prime/multiselect';
+import { TableModule } from 'ngx-prime/table';
 
 interface Column {
     field: string;

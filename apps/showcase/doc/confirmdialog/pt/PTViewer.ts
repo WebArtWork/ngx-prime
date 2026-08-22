@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnInit, inject } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'ngx-prime/api';
+import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
 
 @Component({
     selector: 'app-confirmdialog-pt-viewer',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as toggleswitch_style } from '@wawjs/css-prime-styles/toggleswitch';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${toggleswitch_style}
@@ -56,7 +56,7 @@ export class ToggleSwitchStyle extends BaseStyle {
  *
  * ToggleSwitch is used to select a boolean value.
  *
- * [Live Demo](https://www.primeng.org/toggleswitch/)
+ * [Live Demo](https://www.ngx-prime.org/toggleswitch/)
  *
  * @module toggleswitchstyle
  *

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as floatlabel_style } from '@wawjs/css-prime-styles/floatlabel';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${floatlabel_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     .p-floatlabel:has(.ng-invalid.ng-dirty) label {
         color: dt('floatlabel.invalid.color');
     }
@@ -35,7 +35,7 @@ export class FloatLabelStyle extends BaseStyle {
  *
  * FloatLabel visually integrates a label with its form element.
  *
- * [Live Demo](https://www.primeng.org/floatlabel/)
+ * [Live Demo](https://www.ngx-prime.org/floatlabel/)
  *
  * @module floatlabelstyle
  *

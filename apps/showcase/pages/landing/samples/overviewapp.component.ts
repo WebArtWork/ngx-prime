@@ -4,21 +4,21 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { ChartModule } from 'primeng/chart';
-import { DatePickerModule } from 'primeng/datepicker';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenuModule } from 'primeng/menu';
-import { MeterGroupModule } from 'primeng/metergroup';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
-import { TooltipModule } from 'primeng/tooltip';
+import { MenuItem } from 'ngx-prime/api';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { ButtonModule } from 'ngx-prime/button';
+import { ChartModule } from 'ngx-prime/chart';
+import { DatePickerModule } from 'ngx-prime/datepicker';
+import { IconFieldModule } from 'ngx-prime/iconfield';
+import { InputIconModule } from 'ngx-prime/inputicon';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { MenuModule } from 'ngx-prime/menu';
+import { MeterGroupModule } from 'ngx-prime/metergroup';
+import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
+import { SelectButtonModule } from 'ngx-prime/selectbutton';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     selector: 'app-overview-app',
@@ -329,8 +329,8 @@ export class OverviewApp implements OnInit {
         this.metersData = [
             { label: 'BTC', color: '#F59E0B', value: 15, text: '27.215' },
             { label: 'ETH', color: '#717179', value: 5, text: '4.367' },
-            { label: 'GBP', color: '#22C55E', value: 25, text: '£ 147.562,32' },
-            { label: 'EUR', color: '#84CC16', value: 11, text: '€ 137.457,25' },
+            { label: 'GBP', color: '#22C55E', value: 25, text: 'Â£ 147.562,32' },
+            { label: 'EUR', color: '#84CC16', value: 11, text: 'â‚¬ 137.457,25' },
             { label: 'USD', color: '#14B8A6', value: 29, text: '$ 133.364,12' },
             { label: 'XAU', color: '#EAB308', value: 29, text: '200 g' }
         ];

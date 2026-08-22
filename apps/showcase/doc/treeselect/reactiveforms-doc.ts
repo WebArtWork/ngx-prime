@@ -1,11 +1,11 @@
 import { NodeService } from '@/service/nodeservice';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
+import { MessageService } from 'ngx-prime/api';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageModule } from 'ngx-prime/message';
 
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';

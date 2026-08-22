@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ColorPickerClearDirective, ColorPickerDirective } from 'primeng/colorpicker';
+import { ColorPickerClearDirective, ColorPickerDirective } from 'ngx-prime/colorpicker';
 
 @Component({
     standalone: true,

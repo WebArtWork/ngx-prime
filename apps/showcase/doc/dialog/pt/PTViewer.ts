@@ -2,9 +2,9 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogModule } from 'ngx-prime/dialog';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     selector: 'app-dialog-pt-viewer',

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputTextModule } from 'primeng/inputtext';
-import { CheckboxModule } from 'primeng/checkbox';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { InputGroupModule } from 'ngx-prime/inputgroup';
+import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { CheckboxModule } from 'ngx-prime/checkbox';
+import { RadioButtonModule } from 'ngx-prime/radiobutton';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

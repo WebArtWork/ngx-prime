@@ -12,7 +12,7 @@ Paginator is used as a controlled component with first , rows and onPageChange p
 
 ```typescript
 import { Component } from '@angular/core';
-import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { Paginator, PaginatorModule } from 'ngx-prime/paginator';
 
 @Component({
     template: `
@@ -40,7 +40,7 @@ Current page report item in the template displays information about the paginati
 
 ```typescript
 import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'ngx-prime/paginator';
 
 @Component({
     template: `
@@ -77,13 +77,13 @@ Sample image gallery implementation using paginator.
 
 ```typescript
 import { Component } from '@angular/core';
-import { PaginatorModule } from 'primeng/paginator';
+import { PaginatorModule } from 'ngx-prime/paginator';
 
 @Component({
     template: `
         <div class="card flex flex-col gap-4 justify-center items-center">
             <p-paginator [first]="first" [rows]="1" [totalRecords]="12" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
+            <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
         </div>
     `,
     standalone: true,
@@ -107,11 +107,11 @@ Templating allows overriding the default content of the UI elements by defining 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-import { SelectModule } from 'primeng/select';
-import { PaginatorModule } from 'primeng/paginator';
-import { SliderModule } from 'primeng/slider';
+import { ButtonModule } from 'ngx-prime/button';
+import { DividerModule } from 'ngx-prime/divider';
+import { SelectModule } from 'ngx-prime/select';
+import { PaginatorModule } from 'ngx-prime/paginator';
+import { SliderModule } from 'ngx-prime/slider';
 
 @Component({
     template: `

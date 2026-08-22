@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { IconField } from './iconfield';
-import { InputIcon } from 'primeng/inputicon';
-import { providePrimeNG } from 'primeng/config';
+import { InputIcon } from 'ngx-prime/inputicon';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 @Component({
     standalone: true,
@@ -296,14 +296,14 @@ describe('IconField PassThrough Tests', () => {
         });
     });
 
-    describe('PT Case 5: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 5: Global PT from NgxPrimeConfig', () => {
         it('should apply global PT configuration', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [IconField, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             iconField: {
                                 host: { 'aria-label': 'GLOBAL_LABEL' },
@@ -334,7 +334,7 @@ describe('IconField PassThrough Tests', () => {
                 imports: [IconField, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             iconField: {
                                 hooks: {

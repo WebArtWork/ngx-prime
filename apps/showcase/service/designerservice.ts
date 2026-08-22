@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { $dt, usePreset } from '@wawjs/css-prime-styled';
 import Aura from '@wawjs/css-prime-themes/aura';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 
 export interface Theme {
     key: string;
@@ -283,7 +283,7 @@ export class DesignerService {
         if (!this.designer().verified) {
             this.messageService.add({ key: 'designer', severity: 'error', summary: 'Not Available', detail: 'A license is required for download.', life: 3000 });
         } else {
-            this.http.get(`${this.baseUrl}/theme/download/${theme.t_key}`, { withCredentials: true, responseType: 'blob', headers: { 'X-CSRF-Token': this.designer().csrfToken }, params: { library: 'primeng' } }).subscribe({
+            this.http.get(`${this.baseUrl}/theme/download/${theme.t_key}`, { withCredentials: true, responseType: 'blob', headers: { 'X-CSRF-Token': this.designer().csrfToken }, params: { library: 'ngx-prime' } }).subscribe({
                 next: (res: any) => {
                     const blobUrl = window.URL.createObjectURL(res);
                     const link = document.createElement('a');
@@ -450,7 +450,7 @@ export class DesignerService {
             const body = {
                 name: this.themeName(),
                 preset: this.newPreset(),
-                project: 'primeng',
+                project: 'ngx-prime',
                 base: this.basePreset(),
                 config: {
                     font_size: '14px',
@@ -504,7 +504,7 @@ export class DesignerService {
             const body = {
                 name: this.themeName(),
                 figma_tokens: this.figmaData(),
-                project: 'primeng',
+                project: 'ngx-prime',
                 base: 'Figma',
                 config: {
                     font_size: '14px',

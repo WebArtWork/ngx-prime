@@ -12,9 +12,9 @@ Toasts are displayed by calling the add and addAll method provided by the messag
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -38,9 +38,9 @@ Clicking the close icon on the toast, removes it manually. Same can also be achi
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -69,10 +69,10 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ProgressBarModule } from 'ngx-prime/progressbar';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -149,9 +149,9 @@ A toast disappears after 3000ms by default, set the life option on either the me
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -180,10 +180,10 @@ Multiple toasts are displayed by passing an array to the showAll method of the m
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { RippleModule } from 'ngx-prime/ripple';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -207,10 +207,10 @@ Location of the toast is customized with the position property. Valid values are
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { RippleModule } from 'ngx-prime/ripple';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -260,9 +260,9 @@ Toast styling can be adjusted per screen size with the breakpoints option. The v
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -286,10 +286,10 @@ The severity option specifies the type of the message. There are four types of m
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { RippleModule } from 'ngx-prime/ripple';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -338,10 +338,10 @@ A toast disappears after the time defined by the life option, set sticky option 
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { RippleModule } from 'primeng/ripple';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { RippleModule } from 'ngx-prime/ripple';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -372,9 +372,9 @@ A page may have multiple toast components, in case you'd like to target a specif
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -405,10 +405,10 @@ Templating allows customizing the content where the message instance is availabl
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -417,7 +417,7 @@ import { MessageService } from 'primeng/api';
                 <ng-template let-message #message>
                     <div class="flex flex-col items-start flex-auto">
                         <div class="flex items-center gap-2">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                            <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                             <span class="font-bold">Amy Elsner</span>
                         </div>
                         <div class="font-medium text-lg my-4">{{ message.summary }}</div>

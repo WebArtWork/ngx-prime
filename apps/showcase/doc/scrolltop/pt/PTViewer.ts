@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
-import { ScrollTopModule } from 'primeng/scrolltop';
+import { ScrollPanelModule } from 'ngx-prime/scrollpanel';
+import { ScrollTopModule } from 'ngx-prime/scrolltop';
 
 @Component({
     selector: 'app-scrolltop-pt-viewer',

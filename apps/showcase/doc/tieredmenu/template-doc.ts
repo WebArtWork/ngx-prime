@@ -2,10 +2,10 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { RippleModule } from 'primeng/ripple';
-import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenuItem } from 'ngx-prime/api';
+import { BadgeModule } from 'ngx-prime/badge';
+import { RippleModule } from 'ngx-prime/ripple';
+import { TieredMenuModule } from 'ngx-prime/tieredmenu';
 
 @Component({
     selector: 'app-template-doc',
@@ -53,29 +53,29 @@ export class TemplateDoc implements OnInit {
                             {
                                 label: 'Docs',
                                 icon: 'pi pi-file',
-                                shortcut: '⌘+N'
+                                shortcut: 'âŒ˜+N'
                             },
                             {
                                 label: 'Image',
                                 icon: 'pi pi-image',
-                                shortcut: '⌘+I'
+                                shortcut: 'âŒ˜+I'
                             },
                             {
                                 label: 'Video',
                                 icon: 'pi pi-video',
-                                shortcut: '⌘+L'
+                                shortcut: 'âŒ˜+L'
                             }
                         ]
                     },
                     {
                         label: 'Open',
                         icon: 'pi pi-folder-open',
-                        shortcut: '⌘+O'
+                        shortcut: 'âŒ˜+O'
                     },
                     {
                         label: 'Print',
                         icon: 'pi pi-print',
-                        shortcut: '⌘+P'
+                        shortcut: 'âŒ˜+P'
                     }
                 ]
             },
@@ -86,19 +86,19 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Copy',
                         icon: 'pi pi-copy',
-                        shortcut: '⌘+C'
+                        shortcut: 'âŒ˜+C'
                     },
                     {
                         label: 'Delete',
                         icon: 'pi pi-times',
-                        shortcut: '⌘+D'
+                        shortcut: 'âŒ˜+D'
                     }
                 ]
             },
             {
                 label: 'Search',
                 icon: 'pi pi-search',
-                shortcut: '⌘+S'
+                shortcut: 'âŒ˜+S'
             },
             {
                 separator: true

@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { FileUploadDirective, FileUploadClearDirective } from 'primeng/fileupload';`
+        typescript: `import { FileUploadDirective, FileUploadClearDirective } from 'ngx-prime/fileupload';`
     };
 }

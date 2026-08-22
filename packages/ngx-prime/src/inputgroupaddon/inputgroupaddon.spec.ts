@@ -3,7 +3,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputGroupAddon } from './inputgroupaddon';
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 @Component({
     standalone: true,
@@ -240,14 +240,14 @@ describe('InputGroupAddon PassThrough Tests', () => {
         });
     });
 
-    describe('PT Case 6: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 6: Global PT from NgxPrimeConfig', () => {
         it('should apply global PT configuration', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [InputGroupAddon, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             inputGroupAddon: {
                                 host: { 'aria-label': 'GLOBAL_LABEL' },
@@ -278,7 +278,7 @@ describe('InputGroupAddon PassThrough Tests', () => {
                 imports: [InputGroupAddon, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             inputGroupAddon: {
                                 hooks: {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/carousel';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -67,7 +67,7 @@ export class CarouselStyle extends BaseStyle {
  *
  * Carousel is a content slider featuring various customization options.
  *
- * [Live Demo](https://www.primeng.org/carousel/)
+ * [Live Demo](https://www.ngx-prime.org/carousel/)
  *
  * @module carouselstyle
  *

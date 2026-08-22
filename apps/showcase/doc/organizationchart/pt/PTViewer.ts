@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { OrganizationChartModule } from 'primeng/organizationchart';
+import { OrganizationChartModule } from 'ngx-prime/organizationchart';
 
 @Component({
     selector: 'app-organizationchart-pt-viewer',

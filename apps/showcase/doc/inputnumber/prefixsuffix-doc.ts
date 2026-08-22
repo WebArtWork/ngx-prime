@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { FluidModule } from 'primeng/fluid';
+import { InputNumberModule } from 'ngx-prime/inputnumber';
+import { FluidModule } from 'ngx-prime/fluid';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -28,7 +28,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             </div>
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="temperature">Temperature</label>
-                <p-inputnumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
+                <p-inputnumber [(ngModel)]="value4" prefix="â†‘ " inputId="temperature" suffix="â„ƒ" [min]="0" [max]="40" />
             </div>
         </p-fluid>
         <app-code></app-code>

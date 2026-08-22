@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
             <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
                 <h1 class="text-5xl font-bold leading-tight">ngx-prime for <span class="text-primary">Angular</span></h1>
                 <p class="mt-6 mb-8 text-surface-500 dark:text-surface-400 font-medium text-xl leading-relaxed">
-                    An independent MIT-licensed Angular UI component library, maintained by Web Art Work and contributors and continuing from the PrimeNG v21.1.9 codebase.
+                    An independent MIT-licensed Angular UI component library, maintained by Web Art Work and contributors and continuing from the ngx-prime v21.1.9 codebase.
                 </p>
                 <div class="flex items-center gap-4">
                     <a [routerLink]="['/installation']" class="linkbox linkbox-primary"><span>Get started</span><i class="pi pi-arrow-right ms-4"></i></a>

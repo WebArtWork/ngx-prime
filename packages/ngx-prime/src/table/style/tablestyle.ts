@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as datatable_style } from '@wawjs/css-prime-styles/datatable';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
 ${datatable_style}
 
-/* For PrimeNG */
+/* For ngx-prime */
 .p-datatable-scrollable-table > .p-datatable-thead {
     top: 0;
     z-index: 2;
@@ -256,7 +256,7 @@ export class TableStyle extends BaseStyle {
  *
  * DataTable displays data in tabular format.
  *
- * [Live Demo](https://www.primeng.org/table/)
+ * [Live Demo](https://www.ngx-prime.org/table/)
  *
  * @module tablestyle
  *

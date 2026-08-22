@@ -12,10 +12,10 @@ ConfirmDialog is defined using p-confirmdialog tag and an instance of Confirmati
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService, ConfirmationService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -68,10 +68,10 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService, ConfirmationService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -113,11 +113,11 @@ The position property of the confirm options is used to display a Dialog at all 
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { Dialog } from 'primeng/dialog';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService, ConfirmationService } from 'ngx-prime/api';
+import { Dialog } from 'ngx-prime/dialog';
 
 @Component({
     template: `
@@ -156,10 +156,10 @@ Properties of the dialog are defined in two ways, message , icon , header proper
 
 ```typescript
 import { Component, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
+import { ToastModule } from 'ngx-prime/toast';
+import { MessageService, ConfirmationService } from 'ngx-prime/api';
 
 @Component({
     template: `

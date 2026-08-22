@@ -3,9 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MegaMenuItem, SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { MegaMenuItem, SharedModule } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { MegaMenu } from './megamenu';
+
+@Component({ standalone: true, template: '<div>Target Page</div>' })
+class TestTargetComponent {}
 
 @Component({
     template: `
@@ -299,17 +302,11 @@ class TestResponsiveMegaMenuComponent {
     breakpoint: string = '768px';
 }
 
-@Component({
-    standalone: true,
-    template: '<div>Target Page</div>'
-})
-class TestTargetComponent {}
-
 describe('MegaMenu', () => {
-    let component: TestBasicMegaMenuComponent;
+    let component: any;
     let fixture: ComponentFixture<TestBasicMegaMenuComponent>;
     let megaMenuElement: DebugElement;
-    let megaMenuInstance: MegaMenu;
+    let megaMenuInstance: any;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
@@ -1620,14 +1617,14 @@ describe('MegaMenu', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
-            it('should apply global PT configuration from PrimeNG config', async () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
+            it('should apply global PT configuration from ngx-prime config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [MegaMenu, SharedModule, RouterTestingModule, TestBasicMegaMenuComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 megamenu: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL', class: 'GLOBAL_MEGAMENU_CLASS' }
@@ -1648,13 +1645,13 @@ describe('MegaMenu', () => {
                 expect(hostElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
             });
 
-            it('should apply global CSS from PrimeNG config', async () => {
+            it('should apply global CSS from ngx-prime config', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [MegaMenu, SharedModule, RouterTestingModule, TestBasicMegaMenuComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 megamenu: {
                                     root: { class: 'GLOBAL_CSS_CLASS' },
@@ -1686,7 +1683,7 @@ describe('MegaMenu', () => {
                     imports: [MegaMenu, SharedModule, RouterTestingModule, TestBasicMegaMenuComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 megamenu: {
                                     root: { class: 'GLOBAL_CLASS' }
@@ -1713,7 +1710,7 @@ describe('MegaMenu', () => {
 
         describe('Case 8: Test hooks', () => {
             it('should accept PT hooks configuration without error', async () => {
-                void false;
+                let onAfterViewInitCalled = false;
 
                 fixture.componentRef.setInput('pt', {
                     root: 'MY-MEGAMENU',

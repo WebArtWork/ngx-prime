@@ -12,7 +12,7 @@ Label of the tag is defined with the value property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     template: `
@@ -32,7 +32,7 @@ A font icon next to the value can be displayed with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     template: `
@@ -58,7 +58,7 @@ Enabling rounded , displays a tag as a pill.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     template: `
@@ -84,7 +84,7 @@ Severity defines the color of the tag, possible values are success , info , warn
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     template: `
@@ -110,7 +110,7 @@ Children of the component are passed as the content for templating.
 
 ```typescript
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'ngx-prime/tag';
 import { Country } from '@/domain/customer';
 
 @Component({
@@ -118,7 +118,7 @@ import { Country } from '@/domain/customer';
         <div class="card flex justify-center">
             <p-tag [style]="{ border: '2px solid var(--border-color)', background: 'transparent', color: 'var(--text-color)' }">
                 <div class="flex items-center gap-2 px-1">
-                    <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: 18px" />
+                    <img alt="Country" src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: 18px" />
                     <span class="text-base">Italy</span>
                 </div>
             </p-tag>

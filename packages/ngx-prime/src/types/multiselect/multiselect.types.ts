@@ -1,10 +1,10 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption, ScrollerOptions } from 'primeng/api';
-import type { CheckboxPassThrough } from 'primeng/types/checkbox';
-import type { ChipPassThrough } from 'primeng/types/chip';
-import type { IconFieldPassThrough } from 'primeng/types/iconfield';
-import type { InputIconPassThrough } from 'primeng/types/inputicon';
-import type { InputTextPassThrough } from 'primeng/types/inputtext';
+import type { PassThrough, PassThroughOption, ScrollerOptions } from 'ngx-prime/api';
+import type { CheckboxPassThrough } from 'ngx-prime/types/checkbox';
+import type { ChipPassThrough } from 'ngx-prime/types/chip';
+import type { IconFieldPassThrough } from 'ngx-prime/types/iconfield';
+import type { InputIconPassThrough } from 'ngx-prime/types/inputicon';
+import type { InputTextPassThrough } from 'ngx-prime/types/inputtext';
 
 /**
  * Custom pass-through(pt) options.

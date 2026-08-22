@@ -12,8 +12,8 @@ Galleria can be extended further to implement complex requirements.
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
-import { ButtonModule } from 'primeng/button';
+import { GalleriaModule } from 'ngx-prime/galleria';
+import { ButtonModule } from 'ngx-prime/button';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
@@ -185,7 +185,7 @@ A slideshow implementation is defined by adding circular and autoPlay properties
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'ngx-prime/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
@@ -222,7 +222,7 @@ Galleria requires a value as a collection of images, item template for the highe
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'ngx-prime/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
@@ -259,7 +259,7 @@ Description of an image is specified with the caption template.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'ngx-prime/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
@@ -300,8 +300,8 @@ Galleria can be controlled programmatically using the activeIndex property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'ngx-prime/button';
+import { GalleriaModule } from 'ngx-prime/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
@@ -351,7 +351,7 @@ Galleria responsiveness is defined with the responsiveOptions property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from 'ngx-prime/galleria';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({
@@ -389,8 +389,8 @@ Galleria can be controlled programmatically using the activeIndex property.
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { GalleriaModule } from 'primeng/galleria';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { GalleriaModule } from 'ngx-prime/galleria';
+import { RadioButtonModule } from 'ngx-prime/radiobutton';
 import { PhotoService } from '@/service/photoservice';
 
 @Component({

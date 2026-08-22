@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as stepper_style } from '@wawjs/css-prime-styles/stepper';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
 ${stepper_style}
@@ -34,7 +34,7 @@ export class StepperStyle extends BaseStyle {
  *
  * Stepper is a component that streamlines a wizard-like workflow, organizing content into coherent steps and visually guiding users through a numbered progression in a multi-step process.
  *
- * [Live Demo](https://www.primeng.org/stepper/)
+ * [Live Demo](https://www.ngx-prime.org/stepper/)
  *
  * @module stepperstyle
  *

@@ -4,7 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { BehaviorSubject, Observable, delay, of } from 'rxjs';
 import { Listbox } from './listbox';
 
@@ -119,7 +119,7 @@ class TestListboxComponent {
 }
 
 describe('Listbox', () => {
-    let component: Listbox;
+    let component: any;
     let fixture: ComponentFixture<Listbox>;
     let testComponent: TestListboxComponent;
     let testFixture: ComponentFixture<TestListboxComponent>;
@@ -2142,7 +2142,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
     // PassThrough (PT) Tests
     describe('PassThrough Tests', () => {
         let ptFixture: ComponentFixture<Listbox>;
-        let listbox: Listbox;
+        let listbox: any;
 
         beforeEach(async () => {
             await TestBed.resetTestingModule();
@@ -2519,7 +2519,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 standalone: true,
                 imports: [Listbox, FormsModule],
@@ -2542,7 +2542,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                     providers: [
                         provideZonelessChangeDetection(),
                         provideNoopAnimations(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 listbox: {
                                     host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' }
@@ -2572,7 +2572,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
                     providers: [
                         provideZonelessChangeDetection(),
                         provideNoopAnimations(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 listbox: {
                                     host: { class: 'GLOBAL_CLASS' },
@@ -2628,7 +2628,7 @@ describe('Listbox ViewChild and Advanced Scenarios', () => {
             });
 
             it('should call PT hooks onInit', async () => {
-                void false;
+                let onInitCalled = false;
 
                 ptFixture.componentRef.setInput('pt', {
                     hooks: {

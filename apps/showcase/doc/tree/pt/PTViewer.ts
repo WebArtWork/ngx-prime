@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnInit, signal, inject } from '@angular/core';
-import { TreeNode } from 'primeng/api';
-import { TreeModule } from 'primeng/tree';
+import { TreeNode } from 'ngx-prime/api';
+import { TreeModule } from 'ngx-prime/tree';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({

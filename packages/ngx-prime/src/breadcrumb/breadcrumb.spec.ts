@@ -3,9 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem } from 'primeng/api';
-import { BreadcrumbItemClickEvent } from 'primeng/types/breadcrumb';
+import { MenuItem } from 'ngx-prime/api';
+import { BreadcrumbItemClickEvent } from 'ngx-prime/types/breadcrumb';
 import { Breadcrumb } from './breadcrumb';
+
+@Component({ standalone: true, selector: 'test-target-component', template: '<div>Target Page</div>' })
+class TestTargetComponent {}
 
 @Component({
     template: ` <p-breadcrumb [model]="model" [home]="home" [style]="style" [styleClass]="styleClass" [homeAriaLabel]="homeAriaLabel" (onItemClick)="onItemClick($event)"> </p-breadcrumb> `,
@@ -159,13 +162,6 @@ class TestDynamicBreadcrumbComponent {
         this.dynamicModel = [];
     }
 }
-
-@Component({
-    standalone: true,
-    selector: 'test-target-component',
-    template: '<div>Target Page</div>'
-})
-class TestTargetComponent {}
 
 describe('Breadcrumb', () => {
     let component: TestBasicBreadcrumbComponent;
@@ -948,7 +944,7 @@ describe('Breadcrumb', () => {
                 { label: 'Item with spaces' },
                 { label: 'Item-with-dashes' },
                 { label: 'Item_with_underscores' },
-                { label: 'Item with émojis 🍞' },
+                { label: 'Item with Ã©mojis ðŸž' },
                 { label: 'Item with @#$%^&*() symbols' },
                 { label: 'Item with "quotes" and \'apostrophes\'' },
                 { label: 'Item with <html> tags' }

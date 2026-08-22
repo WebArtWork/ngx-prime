@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/steps';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => ['p-steps p-component', { 'p-readonly': instance.readonly() }],
@@ -30,7 +30,7 @@ export class StepsStyle extends BaseStyle {
  *
  * Steps components is an indicator for the steps in a wizard workflow. Example below uses nested routes with Steps.
  *
- * [Live Demo](https://www.primeng.org/steps/)
+ * [Live Demo](https://www.ngx-prime.org/steps/)
  *
  * @module stepsstyle
  *

@@ -12,15 +12,15 @@ Card content can be customized further with subHeader , header and footer proper
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'ngx-prime/button';
+import { CardModule } from 'ngx-prime/card';
 
 @Component({
     template: `
         <div class="mb-4 p-8 flex items-center justify-center">
             <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
                 <ng-template #header>
-                    <img alt="Card" class="w-full" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
+                    <img alt="Card" class="w-full" src="https://primefaces.org/cdn/ngx-prime/images/card-ng.jpg" />
                 </ng-template>
                 <ng-template #title> Advanced Card </ng-template>
                 <ng-template #subtitle> Card subtitle </ng-template>
@@ -49,7 +49,7 @@ A simple Card is created with a header property along with the content as childr
 
 ```typescript
 import { Component } from '@angular/core';
-import { CardModule } from 'primeng/card';
+import { CardModule } from 'ngx-prime/card';
 
 @Component({
     template: `

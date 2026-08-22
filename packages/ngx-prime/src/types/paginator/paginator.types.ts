@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import { InputNumberPassThrough } from 'primeng/types/inputnumber';
-import { SelectPassThrough } from 'primeng/types/select';
+import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
+import { InputNumberPassThrough } from 'ngx-prime/types/inputnumber';
+import { SelectPassThrough } from 'ngx-prime/types/select';
 
 /**
  * Custom pass-through(pt) options.

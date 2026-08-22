@@ -901,13 +901,13 @@ describe('Splitter', () => {
         });
 
         xit('should apply simple string classes to PT sections', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 host: 'HOST_CLASS',
                 root: 'ROOT_CLASS',
                 panel: 'PANEL_CLASS',
                 gutter: 'GUTTER_CLASS',
                 gutterHandle: 'GUTTER_HANDLE_CLASS'
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -928,7 +928,7 @@ describe('Splitter', () => {
         });
 
         xit('should apply object-based PT options with class and attributes', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'ROOT_OBJECT_CLASS',
                     'data-test': 'root-test',
@@ -946,7 +946,7 @@ describe('Splitter', () => {
                     class: 'HANDLE_OBJECT_CLASS',
                     'aria-label': 'HANDLE_ARIA_LABEL'
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -970,7 +970,7 @@ describe('Splitter', () => {
         });
 
         xit('should apply mixed object and string PT values', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'MIXED_ROOT_CLASS'
                 },
@@ -979,7 +979,7 @@ describe('Splitter', () => {
                     class: 'MIXED_GUTTER_CLASS'
                 },
                 gutterHandle: 'MIXED_HANDLE_CLASS'
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -1002,7 +1002,7 @@ describe('Splitter', () => {
             (ptSplitter as any).layout = () => 'vertical';
             ptSplitter.dragging = true;
 
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: ({ instance }) => ({
                     class: instance?.dragging ? 'DRAGGING' : 'NOT_DRAGGING'
                 }),
@@ -1010,7 +1010,7 @@ describe('Splitter', () => {
                     class: 'GUTTER_INSTANCE',
                     'data-layout': instance?.layout()
                 })
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();
@@ -1028,13 +1028,13 @@ describe('Splitter', () => {
         xit('should handle event binding in PT options', async () => {
             let clicked = false;
 
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 panel: {
                     onclick: () => {
                         clicked = true;
                     }
                 }
-            };
+            });
             ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
             ptFixture.detectChanges();

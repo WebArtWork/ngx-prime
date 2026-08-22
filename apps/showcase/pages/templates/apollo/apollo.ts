@@ -16,7 +16,7 @@ import { ApolloSeparator } from './apolloseparator';
         <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="apolloLogo"></app-template-hero>
         <div [style.display]="'none'">
             <app-apollo-separator></app-apollo-separator>
-            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-youtube-screen.png"></app-template-youtube>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/ngx-prime/images/templates/apollo/apollo-youtube-screen.png"></app-template-youtube>
         </div>
         <app-apollo-separator></app-apollo-separator>
         <app-template-license [license]="license"></app-template-license>
@@ -38,13 +38,13 @@ export class ApolloPage {
     apolloLogo = ApolloLogo;
 
     templateHeroData = {
-        pattern: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-pattern.png',
+        pattern: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/apollo-hero-pattern.png',
         patternClass: 'select-none absolute md:bottom-0 bottom-80 left-0 z-[6] md:w-[95rem] h-auto w-[90rem] opacity-60',
-        dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard1.png',
-        dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard2.png',
+        dashboard1: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/apollo-hero-dashboard1.png',
+        dashboard2: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/apollo-hero-dashboard2.png',
         description: 'A spectacular application template for Angular based on CLI featuring light-dark modes with 8 surface colors, 7 menu layouts, various menu themes, sample apps, ready to use template pages and 3 presets.',
-        liveHref: 'https://apollo.primeng.org',
-        docHref: 'https://apollo.primeng.org/documentation',
+        liveHref: 'https://apollo.ngx-prime.org',
+        docHref: 'https://apollo.ngx-prime.org/documentation',
         storeHref: 'https://primeui.store/templates/angular/apollo'
     };
 
@@ -52,37 +52,37 @@ export class ApolloPage {
         {
             title: 'Fully Responsive',
             description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-responsive.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/apollo-features2-responsive.png'
         },
         {
             title: 'Support',
             description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
             can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
-            <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/support.png'
+            <a href="https://github.com/orgs/primefaces/discussions/categories/ngx-prime-templates" class="doc-link">Forum</a>.`,
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/support.png'
         },
         {
             title: 'Top Notch Quality',
             description: 'Superior standards with 100% compatibility for strict mode and linting tools.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/quality.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/quality-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/quality.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/quality-dark.png'
         },
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser-dark.png'
         },
         {
             title: 'Customizable Design',
             description: 'Fully customizable with a mixture of Sass and CSS variables.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/customizable.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/customizable-dark.png'
         },
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-mobile.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/apollo-features2-mobile.png'
         }
     ];
 
@@ -91,19 +91,19 @@ export class ApolloPage {
             id: 1,
             title: 'Tailwind CSS',
             description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
             description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeblocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
-            description: 'Ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeicons.png'
+            description: 'Ships with PrimeIcons, PrimeTekâ€™s modern icon library including a wide range of icons for your applications.',
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeicons.png'
         },
         {
             id: 4,
@@ -113,9 +113,9 @@ export class ApolloPage {
             description: `
                     Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
                     <a href="https://www.figma.com/design/p2G3F7XAaZZrlbfLY30P8s/Preview-%7C-Apollo-%7C 2.0.0?node-id=138-5712&t=w3JQkFR0CDX6Kvef-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a>
-                    before the purchase. Note that PrimeNG UI components are excluded from the Apollo Figma file as they are available in
+                    before the purchase. Note that ngx-prime UI components are excluded from the Apollo Figma file as they are available in
                     <a href="/uikit">PrimeOne for Figma</a> only.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-figma.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/features-animation-figma.png'
         }
     ];
 
@@ -126,7 +126,7 @@ export class ApolloPage {
             description: '2 color schemes with 8 surface color alternatives for each.',
             height: 940,
             width: 960,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-darkmode.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/features-animation-darkmode.png'
         },
         {
             id: 2,
@@ -134,7 +134,7 @@ export class ApolloPage {
             description: '17 built-in theme colors with the power of 3 presets: Aura, Lara and Nora.',
             width: 940,
             height: 960,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-component-themes.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/features-animation-component-themes.png'
         },
         {
             id: 3,
@@ -147,49 +147,49 @@ export class ApolloPage {
                     title: 'Static',
                     width: 1440,
                     height: 1789,
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Static.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/Static.png'
                 },
                 {
                     id: 2,
                     title: 'Slim',
                     width: 1440,
                     height: 1789,
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Slim.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/Slim.png'
                 },
                 {
                     id: 3,
                     title: 'Reveal',
                     width: 1440,
                     height: 1789,
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Reveal.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/Reveal.png'
                 },
                 {
                     id: 4,
                     title: 'Horizontal',
                     width: 1440,
                     height: 1789,
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Horizontal.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/Horizontal.png'
                 },
                 {
                     id: 5,
                     title: 'Overlay',
                     width: 1440,
                     height: 1789,
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Overlay.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/Overlay.png'
                 },
                 {
                     id: 6,
                     title: 'Slim+',
                     width: 1440,
                     height: 1789,
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Slim+.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/Slim+.png'
                 },
                 {
                     id: 7,
                     title: 'Drawer',
                     width: 1440,
                     height: 1789,
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Drawer.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/Drawer.png'
                 }
             ]
         },
@@ -199,12 +199,12 @@ export class ApolloPage {
             description: 'Appealing theming for the main menu with 3 alternatives; Color Scheme, Primary Color and Transparent.',
             width: 960,
             height: 940,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-menu-themes.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/apollo/features-animation-menu-themes.png'
         }
     ];
 
     license = {
-        documentLink: 'https://apollo.primeng.org/documentation/',
+        documentLink: 'https://apollo.ngx-prime.org/documentation/',
         description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
         showDiscount: false,
         licenseDetails: [

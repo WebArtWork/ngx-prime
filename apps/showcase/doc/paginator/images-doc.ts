@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { PaginatorModule, PaginatorState } from 'ngx-prime/paginator';
 
 @Component({
     selector: 'app-images-doc',
@@ -13,7 +13,7 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
         </app-docsectiontext>
         <div class="card flex flex-col gap-4 justify-center items-center">
             <p-paginator [first]="first" [rows]="1" [totalRecords]="12" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
-            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
+            <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/nature/nature' + (first + 1) + '.jpg'" class="max-w-full rounded-xl" />
         </div>
         <app-code></app-code>
     `

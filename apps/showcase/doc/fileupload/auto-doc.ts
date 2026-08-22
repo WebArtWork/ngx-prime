@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { FileUploadModule } from 'primeng/fileupload';
-import { ToastModule } from 'primeng/toast';
+import { FileUploadModule } from 'ngx-prime/fileupload';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     selector: 'app-auto-doc',

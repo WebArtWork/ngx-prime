@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/toast';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 // Position
 const inlineStyles = {
@@ -59,7 +59,7 @@ export class ToastStyle extends BaseStyle {
  *
  * Toast is used to display messages in an overlay.
  *
- * [Live Demo](https://www.primeng.org/toast/)
+ * [Live Demo](https://www.ngx-prime.org/toast/)
  *
  * @module toaststyle
  *

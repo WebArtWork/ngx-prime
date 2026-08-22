@@ -2,7 +2,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ImageModule } from 'primeng/image';
+import { ImageModule } from 'ngx-prime/image';
 
 @Component({
     selector: 'app-basic-doc',
@@ -13,7 +13,7 @@ import { ImageModule } from 'primeng/image';
             <p>Image is used as the native <i>img</i> element and supports all properties that the native element has. For multiple image, see <a [routerLink]="['/galleria']">Galleria.</a></p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
+            <p-image src="https://primefaces.org/cdn/ngx-prime/images/galleria/galleria10.jpg" alt="Image" width="250" />
         </div>
         <app-code></app-code>
     `

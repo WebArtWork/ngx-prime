@@ -4,11 +4,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { BehaviorSubject, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { MultiSelect, MultiSelectModule } from './multiselect';
-import type { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFocusEvent } from 'primeng/types/multiselect';
+import type { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFocusEvent } from 'ngx-prime/types/multiselect';
 interface City {
     name: string;
     code: string;
@@ -225,7 +225,7 @@ class TestFormMultiSelectComponent {
                     @for (city of value; track city) {
                         <div class="custom-chip">
                             {{ city.name }}
-                            <span class="remove-chip" (click)="removeChip(city)">×</span>
+                            <span class="remove-chip" (click)="removeChip(city)">Ã—</span>
                         </div>
                     }
                 </div>
@@ -1002,7 +1002,7 @@ describe('MultiSelect', () => {
 
         it('should show empty filter message', async () => {
             component.emptyFilterMessage = 'No results found';
-            multiSelect.filter = true;
+            (multiSelect as any).filter = () => true;
             multiSelect.show();
             await fixture.whenStable();
             fixture.detectChanges();
@@ -1753,7 +1753,7 @@ describe('MultiSelect Virtual Scrolling', () => {
 
         // Virtual scroller should emit lazy load events
         const scroller = multiSelect.scroller();
-        const scroller = multiSelect.scroller();
+
 
         if (scroller) {
             scroller.onLazyLoad.emit({
@@ -1775,7 +1775,7 @@ describe('MultiSelect Virtual Scrolling', () => {
 
         // First check if scroller exists and if scrollInView method exists
         const scroller = multiSelect.scroller();
-        const scroller = multiSelect.scroller();
+
 
         if (scroller && typeof scroller.scrollToIndex === 'function') {
             const scrollSpy = spyOn(scroller, 'scrollToIndex');
@@ -2381,11 +2381,11 @@ class TestComplexEdgeCasesMultiSelectComponent {
 
     // Unicode and special characters
     unicodeOptions: City[] = [
-        { name: '北京', code: 'BJ' }, // Chinese
-        { name: 'Москва', code: 'MSK' }, // Cyrillic
-        { name: 'العربية', code: 'AR' }, // Arabic
-        { name: '🌟 Star City 🌟', code: 'STAR' }, // Emojis
-        { name: 'Ñoño & Çağ', code: 'SPECIAL' }, // Special chars
+        { name: 'åŒ—äº¬', code: 'BJ' }, // Chinese
+        { name: 'ÐœÐ¾ÑÐºÐ²Ð°', code: 'MSK' }, // Cyrillic
+        { name: 'Ø§Ù„Ø¹Ø±Ø¨ÙŠØ©', code: 'AR' }, // Arabic
+        { name: 'ðŸŒŸ Star City ðŸŒŸ', code: 'STAR' }, // Emojis
+        { name: 'Ã‘oÃ±o & Ã‡aÄŸ', code: 'SPECIAL' }, // Special chars
         { name: 'Test\nNewline\tTab', code: 'WHITESPACE' }, // Whitespace
         { name: '"Quoted" & <Tagged>', code: 'QUOTES' }
     ];
@@ -2492,7 +2492,7 @@ class TestComplexEdgeCasesMultiSelectComponent {
     }
 
     addRandomUnicodeOptions(): void {
-        const unicodeChars = ['😀', '🚀', '🌍', '🎉', '🔥', '💎', '🌈', '⭐'];
+        const unicodeChars = ['ðŸ˜€', 'ðŸš€', 'ðŸŒ', 'ðŸŽ‰', 'ðŸ”¥', 'ðŸ’Ž', 'ðŸŒˆ', 'â­'];
         const newOptions = unicodeChars.map((char, idx) => ({
             name: `${char} Unicode City ${idx} ${char}`,
             code: `UC${idx}`
@@ -2652,7 +2652,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             await fixture.whenStable();
 
             const asyncMultiSelect = component.asyncMultiSelect();
-            const asyncMultiSelect = component.asyncMultiSelect();
+
 
             expect(asyncMultiSelect.options?.length).toBe(2);
             expect(asyncMultiSelect.options?.[0].name).toBe('Observable City 1');
@@ -2668,7 +2668,7 @@ describe('MultiSelect Dynamic Data Sources', () => {
             await fixture.whenStable();
 
             const asyncMultiSelect = component.asyncMultiSelect();
-            const asyncMultiSelect = component.asyncMultiSelect();
+
 
             expect(asyncMultiSelect.options?.length).toBe(3);
             expect(asyncMultiSelect.options?.[0].name).toBe('Updated Observable 1');
@@ -2952,7 +2952,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
             // Should be invalid initially due to required
             const citiesModel = component.citiesModel();
-            const citiesModel = component.citiesModel();
+
 
             expect(citiesModel?.invalid).toBe(true);
             expect(citiesModel?.errors?.['required']).toBe(true);
@@ -2970,7 +2970,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             await fixture.whenStable();
 
             const citiesModel = component.citiesModel();
-            const citiesModel = component.citiesModel();
+
 
             expect(citiesModel?.hasError('required')).toBe(true);
 
@@ -2987,7 +2987,7 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
             // Initially should be invalid due to required fields
             const templateForm = component.templateForm();
-            const templateForm = component.templateForm();
+
 
             expect(templateForm?.valid).toBe(false);
 
@@ -3151,14 +3151,14 @@ describe('MultiSelect ViewChild Properties', () => {
             expect(limitResult).toBe(false);
 
             // Set selection limit
-            component.mainMultiSelect().selectionLimit = 2;
+            (component.mainMultiSelect() as any).selectionLimit = () => 2;
             component.callUpdateModelMethod([component.cities[0], component.cities[1]]);
             await fixture.whenStable();
 
             expect(component.isMaxSelectionLimitReached()).toBe(true);
         } else {
             // Method doesn't exist, test selection limit directly
-            component.mainMultiSelect().selectionLimit = 2;
+            (component.mainMultiSelect() as any).selectionLimit = () => 2;
             component.callUpdateModelMethod([component.cities[0], component.cities[1]]);
             await fixture.whenStable();
 
@@ -3442,7 +3442,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 root: 'custom-root-class',
@@ -3456,7 +3456,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3476,7 +3476,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 root: {
@@ -3495,7 +3495,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3518,7 +3518,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 root: 'string-root',
@@ -3531,7 +3531,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3551,7 +3551,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 root: ({ instance }: any) => ({
@@ -3564,7 +3564,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3587,7 +3587,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 root: {
@@ -3600,7 +3600,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3623,7 +3623,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3644,7 +3644,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 root: 'global-root',
@@ -3661,7 +3661,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3683,7 +3683,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 root: 'MY-MultiSelect',
@@ -3697,7 +3697,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3714,7 +3714,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 pcHeaderCheckbox: ({ context }: any) => ({
@@ -3729,7 +3729,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3748,7 +3748,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 option: ({ context }: any) => ({
@@ -3765,7 +3765,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3791,7 +3791,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 root: 'pt-root',
@@ -3809,7 +3809,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },
@@ -3829,7 +3829,7 @@ describe('MultiSelect Complex Edge Cases', () => {
                 providers: [
                     provideNoopAnimations(),
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             multiselect: {
                                 pcChip: {
@@ -3848,7 +3848,7 @@ describe('MultiSelect Complex Edge Cases', () => {
             }).compileComponents();
 
             const fixture = TestBed.createComponent(MultiSelect);
-            const instance = fixture.componentInstance;
+            const instance: any = fixture.componentInstance;
 
             instance.options = [
                 { label: 'Option 1', value: 1 },

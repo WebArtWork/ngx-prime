@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TabsModule } from 'primeng/tabs';
+import { TabsModule } from 'ngx-prime/tabs';
 
 @Component({
     selector: 'app-dynamic-doc',

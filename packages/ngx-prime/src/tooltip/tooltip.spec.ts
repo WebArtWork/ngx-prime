@@ -2,7 +2,7 @@ import { Component, ElementRef, TemplateRef, provideZonelessChangeDetection, vie
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { TooltipOptions } from 'primeng/api';
+import { TooltipOptions } from 'ngx-prime/api';
 import { Tooltip } from './tooltip';
 
 @Component({
@@ -236,7 +236,7 @@ describe('Tooltip', () => {
         it('should activate on mouse enter for hover event', () => {
             spyOn(tooltipDirective, 'activate');
 
-            tooltipDirective.onMouseEnter(new MouseEvent('mouseenter'));
+            tooltipDirective.onMouseEnter();
 
             expect(tooltipDirective.activate).toHaveBeenCalled();
         });
@@ -252,7 +252,7 @@ describe('Tooltip', () => {
         it('should activate on focus for focus event', () => {
             spyOn(tooltipDirective, 'activate');
 
-            tooltipDirective.onFocus(new FocusEvent('focus'));
+            tooltipDirective.onFocus();
 
             expect(tooltipDirective.activate).toHaveBeenCalled();
         });
@@ -260,7 +260,7 @@ describe('Tooltip', () => {
         it('should deactivate on blur for focus event', () => {
             spyOn(tooltipDirective, 'deactivate');
 
-            tooltipDirective.onBlur(new FocusEvent('blur'));
+            tooltipDirective.onBlur();
 
             expect(tooltipDirective.deactivate).toHaveBeenCalled();
         });
@@ -268,7 +268,7 @@ describe('Tooltip', () => {
         it('should deactivate on input click', () => {
             spyOn(tooltipDirective, 'deactivate');
 
-            tooltipDirective.onInputClick(new MouseEvent('click'));
+            tooltipDirective.onInputClick();
 
             expect(tooltipDirective.deactivate).toHaveBeenCalled();
         });
@@ -586,7 +586,7 @@ describe('Tooltip', () => {
         it('should handle window resize events', () => {
             spyOn(tooltipDirective, 'hide');
 
-            tooltipDirective.onWindowResize(new Event('resize'));
+            tooltipDirective.onWindowResize();
 
             expect(tooltipDirective.hide).toHaveBeenCalled();
         });
@@ -614,7 +614,7 @@ describe('Tooltip', () => {
             tooltipDirective.container = null as any;
             tooltipDirective.showTimeout = null as any;
 
-            tooltipDirective.onMouseEnter(new MouseEvent('mouseenter'));
+            tooltipDirective.onMouseEnter();
 
             expect(tooltipDirective.activate).toHaveBeenCalled();
         });

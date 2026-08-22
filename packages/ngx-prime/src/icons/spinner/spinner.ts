@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { uuid } from '@wawjs/css-prime-utils';
-import { BaseIcon } from 'primeng/icons/baseicon';
+import { BaseIcon } from 'ngx-prime/icons/baseicon';
 
 @Component({
     selector: '[data-p-icon="spinner"]',

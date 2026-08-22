@@ -3,9 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { MenuItem, SharedModule } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { Dock } from './dock';
+
+@Component({ standalone: true, template: '<div>Target Page</div>' })
+class TestTargetComponent {}
 
 @Component({
     template: ` <p-dock [id]="id" [model]="model" [position]="position" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [breakpoint]="breakpoint" (onFocus)="onFocus($event)" (onBlur)="onBlur($event)"> </p-dock> `,
@@ -166,12 +169,6 @@ class TestCommandDockComponent {
         }
     ];
 }
-
-@Component({
-    standalone: true,
-    template: '<div>Target Page</div>'
-})
-class TestTargetComponent {}
 
 describe('Dock', () => {
     let component: TestBasicDockComponent;
@@ -1335,7 +1332,7 @@ describe('Dock', () => {
             expect(contentEls.length).toBeGreaterThan(0);
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 standalone: true,
                 imports: [Dock],
@@ -1354,7 +1351,7 @@ describe('Dock', () => {
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 dock: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
@@ -1370,7 +1367,7 @@ describe('Dock', () => {
                 });
             });
 
-            it('should apply global PT configuration from PrimeNG config', async () => {
+            it('should apply global PT configuration from ngx-prime config', async () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
 
                 globalFixture.changeDetectorRef.markForCheck();
@@ -1412,7 +1409,7 @@ describe('Dock', () => {
                     imports: [TestMergedPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 dock: {
                                     root: { 'aria-label': 'GLOBAL_LABEL' }
@@ -1442,7 +1439,7 @@ describe('Dock', () => {
                 // Global CSS may be injected as style tag or in head
                 const styleElements = document.querySelectorAll('style');
 
-                void false;
+                let hasGlobalCSS = false;
 
                 styleElements.forEach((style) => {
                     if (style.textContent?.includes('.p-dock') && style.textContent?.includes('border: 1px solid red')) {

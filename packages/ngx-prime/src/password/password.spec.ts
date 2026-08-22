@@ -5,8 +5,8 @@ import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { SharedModule } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { MapperPipe, Password, PasswordClearDirective, PasswordDirective, PasswordModule, PasswordToggleMaskDirective } from './password';
 
 // Test Components
@@ -110,18 +110,18 @@ class TestFormPasswordComponent {
             <!-- Content template with strength indicators -->
             <ng-template pTemplate="content">
                 <div class="custom-content" data-testid="ptemplate-content">
-                    <div class="requirement">• At least one lowercase letter</div>
-                    <div class="requirement">• At least one uppercase letter</div>
-                    <div class="requirement">• At least one numeric character</div>
-                    <div class="requirement">• Minimum 8 characters</div>
-                    <div class="requirement">• Special characters recommended</div>
+                    <div class="requirement">â€¢ At least one lowercase letter</div>
+                    <div class="requirement">â€¢ At least one uppercase letter</div>
+                    <div class="requirement">â€¢ At least one numeric character</div>
+                    <div class="requirement">â€¢ Minimum 8 characters</div>
+                    <div class="requirement">â€¢ Special characters recommended</div>
                 </div>
             </ng-template>
 
             <!-- Footer template -->
             <ng-template pTemplate="footer">
                 <div class="custom-footer" data-testid="ptemplate-footer">
-                    <small>Strong passwords save lives 🔐</small>
+                    <small>Strong passwords save lives ðŸ”</small>
                     <div class="tips">
                         <span>Tip: Use a mix of characters</span>
                     </div>
@@ -169,18 +169,18 @@ class TestPasswordPTemplateComponent {
             <!-- Content template with strength indicators -->
             <ng-template #content>
                 <div class="custom-content" data-testid="ref-content">
-                    <div class="requirement">• At least one lowercase letter</div>
-                    <div class="requirement">• At least one uppercase letter</div>
-                    <div class="requirement">• At least one numeric character</div>
-                    <div class="requirement">• Minimum 8 characters</div>
-                    <div class="requirement">• Special characters recommended</div>
+                    <div class="requirement">â€¢ At least one lowercase letter</div>
+                    <div class="requirement">â€¢ At least one uppercase letter</div>
+                    <div class="requirement">â€¢ At least one numeric character</div>
+                    <div class="requirement">â€¢ Minimum 8 characters</div>
+                    <div class="requirement">â€¢ Special characters recommended</div>
                 </div>
             </ng-template>
 
             <!-- Footer template -->
             <ng-template #footer>
                 <div class="custom-footer" data-testid="ref-footer">
-                    <small>Strong passwords save lives 🔐</small>
+                    <small>Strong passwords save lives ðŸ”</small>
                     <div class="tips">
                         <span>Tip: Use a mix of characters</span>
                     </div>
@@ -747,7 +747,7 @@ describe('Password', () => {
         it('should handle rapid value changes', async () => {
             const passwordComponent = formTestFixture.debugElement.query(By.css('p-password')).componentInstance;
 
-            void 0;
+            let changeCount = 0;
 
             // Subscribe to value changes (if available)
             if (passwordComponent.onChange) {
@@ -1198,19 +1198,19 @@ describe('Password', () => {
 
     describe('Internationalization Tests', () => {
         it('should handle RTL languages', () => {
-            fixture.componentRef.setInput('promptLabel', 'أدخل كلمة مرور');
-            fixture.componentRef.setInput('weakLabel', 'ضعيف');
-            fixture.componentRef.setInput('mediumLabel', 'متوسط');
-            fixture.componentRef.setInput('strongLabel', 'قوي');
+            fixture.componentRef.setInput('promptLabel', 'Ø£Ø¯Ø®Ù„ ÙƒÙ„Ù…Ø© Ù…Ø±ÙˆØ±');
+            fixture.componentRef.setInput('weakLabel', 'Ø¶Ø¹ÙŠÙ');
+            fixture.componentRef.setInput('mediumLabel', 'Ù…ØªÙˆØ³Ø·');
+            fixture.componentRef.setInput('strongLabel', 'Ù‚ÙˆÙŠ');
 
-            expect(component.promptText()).toBe('أدخل كلمة مرور');
-            expect(component.weakText()).toBe('ضعيف');
-            expect(component.mediumText()).toBe('متوسط');
-            expect(component.strongText()).toBe('قوي');
+            expect(component.promptText()).toBe('Ø£Ø¯Ø®Ù„ ÙƒÙ„Ù…Ø© Ù…Ø±ÙˆØ±');
+            expect(component.weakText()).toBe('Ø¶Ø¹ÙŠÙ');
+            expect(component.mediumText()).toBe('Ù…ØªÙˆØ³Ø·');
+            expect(component.strongText()).toBe('Ù‚ÙˆÙŠ');
         });
 
         it('should handle special characters and unicode', () => {
-            const unicodePassword = 'Pàsswörd123!ñ';
+            const unicodePassword = 'PÃ sswÃ¶rd123!Ã±';
 
             expect(() => component.testStrength(unicodePassword)).not.toThrow();
             expect(() => component.updateUI(unicodePassword)).not.toThrow();
@@ -1218,7 +1218,7 @@ describe('Password', () => {
         });
 
         it('should handle emoji passwords', () => {
-            const emojiPassword = '🔐Secure123!🛡️';
+            const emojiPassword = 'ðŸ”Secure123!ðŸ›¡ï¸';
 
             expect(() => component.testStrength(emojiPassword)).not.toThrow();
             expect(() => component.updateUI(emojiPassword)).not.toThrow();
@@ -1253,7 +1253,7 @@ describe('Password', () => {
         });
 
         it('should handle special character combinations', () => {
-            const specialPasswords = ['!@#$%^&*()', '[]{}|;:,.<>?', '~`"\'-_=+', '©®™°§¶•'];
+            const specialPasswords = ['!@#$%^&*()', '[]{}|;:,.<>?', '~`"\'-_=+', 'Â©Â®â„¢Â°Â§Â¶â€¢'];
 
             specialPasswords.forEach((pwd) => {
                 expect(() => component.testStrength(pwd)).not.toThrow();
@@ -1654,7 +1654,7 @@ describe('PasswordDirective', () => {
         describe('Case 4: Use variables from instance', () => {
             it('should support PT callback with instance parameter', async () => {
                 ptComponent.value = 'directivePassword';
-                void false;
+                let callbackExecuted = false;
 
                 ptComponent.pt = {
                     host: ({ instance }) => {
@@ -1786,14 +1786,14 @@ describe('PasswordDirective', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             it('should have global pt configuration available', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [PasswordDirective, FormsModule, CommonModule, TestPTPasswordDirectiveComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 password: {
                                     host: { 'aria-label': 'DIRECTIVE_GLOBAL_ARIA_LABEL', class: 'DIRECTIVE_GLOBAL_CLASS' },
@@ -1822,7 +1822,7 @@ describe('PasswordDirective', () => {
                     imports: [PasswordDirective, FormsModule, CommonModule, TestPTPasswordDirectiveComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 password: {
                                     host: { 'data-global-directive': 'shared', class: 'GLOBAL_SHARED_CLASS' }
@@ -2215,7 +2215,7 @@ describe('Password PassThrough Tests', () => {
     describe('Case 4: Use variables from instance', () => {
         it('should access instance.value property in PT callback', async () => {
             component.value = 'testPassword';
-            void false;
+            let instanceAccessed = false;
 
             component.pt = {
                 root: ({ instance }) => {
@@ -2235,7 +2235,7 @@ describe('Password PassThrough Tests', () => {
 
         it('should access instance.feedback property in PT callback', async () => {
             component.feedback = true;
-            void false;
+            let feedbackAccessed = false;
 
             component.pt = {
                 root: ({ instance }) => {
@@ -2379,14 +2379,14 @@ describe('Password PassThrough Tests', () => {
         });
     });
 
-    describe('Case 7: Global PT from PrimeNGConfig', () => {
+    describe('Case 7: Global PT from NgxPrimeConfig', () => {
         it('should apply global pt configuration', async () => {
             await TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [PasswordModule, FormsModule, CommonModule, TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             password: {
                                 host: { 'aria-label': 'GLOBAL_ARIA_LABEL' },
@@ -2414,7 +2414,7 @@ describe('Password PassThrough Tests', () => {
                 imports: [PasswordModule, FormsModule, CommonModule, TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             password: {
                                 root: { class: 'GLOBAL_CSS_CLASS' },
@@ -2443,7 +2443,7 @@ describe('Password PassThrough Tests', () => {
                 imports: [PasswordModule, FormsModule, CommonModule, TestPTPasswordComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             password: {
                                 root: { 'data-global': 'shared' }

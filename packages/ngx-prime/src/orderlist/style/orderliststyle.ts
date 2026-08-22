@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/orderlist';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const theme = /*css*/ `
     ${style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     .p-orderlist-controls-right .p-orderlist-controls {
         order: 2;
     }
@@ -29,7 +29,7 @@ export class OrderListStyle extends BaseStyle {
  *
  * OrderList is used to maneged the order of a collection.
  *
- * [Live Demo](https://primeng.org/orderlist)
+ * [Live Demo](https://ngx-prime.org/orderlist)
  *
  * @module orderliststyle
  *

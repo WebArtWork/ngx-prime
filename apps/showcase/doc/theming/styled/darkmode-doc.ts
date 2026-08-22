@@ -10,8 +10,8 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
             <p>
-                PrimeNG uses the <i>system</i> as the default <i>darkModeSelector</i> in theme configuration. If you have a dark mode switch in your application, set the <i>darkModeSelector</i> to the selector you utilize such as
-                <i>.my-app-dark</i> so that PrimeNG can fit in seamlessly with your color scheme.
+                ngx-prime uses the <i>system</i> as the default <i>darkModeSelector</i> in theme configuration. If you have a dark mode switch in your application, set the <i>darkModeSelector</i> to the selector you utilize such as
+                <i>.my-app-dark</i> so that ngx-prime can fit in seamlessly with your color scheme.
             </p>
             <app-code [code]="code1" [hideToggleCode]="true"></app-code>
             <p class="mt-4">
@@ -39,7 +39,7 @@ import { Component } from '@angular/core';
 })
 export class DarkModeDoc {
     code1: Code = {
-        typescript: `providePrimeNG({
+        typescript: `providengx-prime({
     theme: {
         preset: Aura,
         options: {
@@ -65,7 +65,7 @@ export class DarkModeDoc {
     };
 
     code5: Code = {
-        typescript: `providePrimeNG({
+        typescript: `providengx-prime({
     theme: {
         preset: Aura,
         options: {

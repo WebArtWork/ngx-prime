@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: 'p-fluid'
@@ -16,7 +16,7 @@ export class FluidStyle extends BaseStyle {
  *
  * Fluid is a layout component to make descendant components span full width of their container.
  *
- * [Live Demo](https://www.primeng.org/fluid/)
+ * [Live Demo](https://www.ngx-prime.org/fluid/)
  *
  * @module fluidstyle
  *

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/metergroup';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -38,7 +38,7 @@ export class MeterGroupStyle extends BaseStyle {
  *
  * MeterGroup is a group of process status indicators.
  *
- * [Live Demo](https://www.primeng.org/metergroup)
+ * [Live Demo](https://www.ngx-prime.org/metergroup)
  *
  * @module metergroupstyle
  *

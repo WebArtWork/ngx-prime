@@ -16,7 +16,7 @@ import { PoseidonSeparator } from './poseidonseparator';
         <app-template-hero [templateHeroData]="templateHeroData" [templateLogo]="poseidonLogo"></app-template-hero>
         <app-poseidon-separator></app-poseidon-separator>
         <div [style.display]="'none'">
-            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-youtube-screen.png"></app-template-youtube>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/ngx-prime/images/templates/apollo/apollo-youtube-screen.png"></app-template-youtube>
             <app-poseidon-separator></app-poseidon-separator>
         </div>
         <app-template-license [license]="license"></app-template-license>
@@ -37,13 +37,13 @@ import { PoseidonSeparator } from './poseidonseparator';
 export class PoseidonPage {
     poseidonLogo = PoseidonLogo;
     templateHeroData = {
-        pattern: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/hero-background.png',
+        pattern: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/hero-background.png',
         patternClass: 'select-none absolute z-[6] w-[72rem] md:w-[100rem] h-auto bottom-[25rem] -left-40 md:-bottom-12 xl:bottom-0 md:-left-48 xl:-left-28 opacity-90',
-        dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-hero-1.jpg',
-        dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-hero-2.jpg',
+        dashboard1: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-hero-1.jpg',
+        dashboard2: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-hero-2.jpg',
         description: 'A modern and easy to use premium application template with various color schemes.Based on flat design language, it is fully responsive, touch optimized, built with SASS, CSS3 and HTML5.',
-        liveHref: 'https://poseidon.primeng.org',
-        docHref: 'https://poseidon.primeng.org/documentation',
+        liveHref: 'https://poseidon.ngx-prime.org',
+        docHref: 'https://poseidon.ngx-prime.org/documentation',
         storeHref: 'https://primeui.store/templates/angular/poseidon'
     };
 
@@ -51,37 +51,37 @@ export class PoseidonPage {
         {
             title: 'Fully Responsive',
             description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-responsive.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-responsive.png'
         },
         {
             title: 'Support',
             description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
             can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
-            <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/support.png'
+            <a href="https://github.com/orgs/primefaces/discussions/categories/ngx-prime-templates" class="doc-link">Forum</a>.`,
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/support.png'
         },
         {
             title: 'Top Notch Quality',
             description: 'Superior standards with 100% compatibility for strict mode and linting tools.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/quality.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/quality-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/quality.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/quality-dark.png'
         },
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser-dark.png'
         },
         {
             title: 'Customizable Design',
             description: 'Fully customizable with a mixture of Sass and CSS variables.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/customizable.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/customizable-dark.png'
         },
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-mobile.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-mobile.png'
         }
     ];
 
@@ -90,19 +90,19 @@ export class PoseidonPage {
             id: 1,
             title: 'Tailwind CSS',
             description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
             description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeblocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
-            description: 'Ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeicons.png'
+            description: 'Ships with PrimeIcons, PrimeTekâ€™s modern icon library including a wide range of icons for your applications.',
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeicons.png'
         },
         {
             id: 4,
@@ -111,9 +111,9 @@ export class PoseidonPage {
             height: 1788,
             description: `Poseidon uses Figma as the design tool. It will be possible to download the Figma file after your purchase.
                     You can <a href="https://www.figma.com/design/lRgoOE0jsHoL20okFMM5xT/Preview-%7C-Poseidon-%7C%C2%A02.0.0?node-id=0-1&t=Co2AkDgjOnN425Tz-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> the Figma file before the purchase.
-                    Note that PrimeNG UI components are excluded from the
+                    Note that ngx-prime UI components are excluded from the
                     Avalon Figma file as they are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-figma.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-figma.png'
         }
     ];
 
@@ -122,13 +122,13 @@ export class PoseidonPage {
             id: 1,
             title: 'Light and Dark Modes',
             description: '2 color schemes with numerous surface color alternatives for each.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-lightdark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-lightdark.png'
         },
         {
             id: 2,
             title: 'Component Themes',
             description: 'Poseidon offers 17 fully customizable built-in themes featuring different presets such as Aura, Lara and Nora.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-component.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-component.png'
         },
         {
             id: 3,
@@ -139,37 +139,37 @@ export class PoseidonPage {
                 {
                     id: 1,
                     title: 'Static',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-static.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-static.png'
                 },
                 {
                     id: 2,
                     title: 'Overlay',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-overlay.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-overlay.png'
                 },
                 {
                     id: 3,
                     title: 'Horizontal',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-horizontal.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-horizontal.png'
                 },
                 {
                     id: 4,
                     title: 'Drawer',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-drawer.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-drawer.png'
                 },
                 {
                     id: 5,
                     title: 'Slim',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-slim.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-slim.png'
                 },
                 {
                     id: 6,
                     title: 'Compact',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-compact.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-compact.png'
                 },
                 {
                     id: 7,
                     title: 'Reveal',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-reveal.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-reveal.png'
                 }
             ]
         },
@@ -177,12 +177,12 @@ export class PoseidonPage {
             id: 4,
             title: 'Application Themes',
             description: 'The application layout and components seamlessly complements your brand color.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/poseidon/nextgen/poseidon-layout.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/poseidon/nextgen/poseidon-layout.png'
         }
     ];
 
     license = {
-        documentLink: 'https://poseidon.primeng.org/documentation/',
+        documentLink: 'https://poseidon.ngx-prime.org/documentation/',
         description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
         showDiscount: false,
         licenseDetails: [

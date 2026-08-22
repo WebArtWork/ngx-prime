@@ -1,14 +1,14 @@
-import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
+import { Component, forwardRef, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Field, form } from '@angular/forms/signals';
+import { form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { providePrimeNG } from 'primeng/config';
-import { ToggleSwitchChangeEvent } from 'primeng/types/toggleswitch';
+import { SharedModule } from 'ngx-prime/api';
+import { AutoFocus } from 'ngx-prime/autofocus';
+import { provideNgxPrime } from 'ngx-prime/config';
+import { ToggleSwitchChangeEvent } from 'ngx-prime/types/toggleswitch';
 import { ToggleSwitch, ToggleSwitchModule } from './toggleswitch';
 import { ToggleSwitchDirective } from './nativetoggleswitch';
 
@@ -706,7 +706,7 @@ class TestNativeToggleSwitchDirectiveComponent {
 
 @Component({
     standalone: true,
-    imports: [Field, ToggleSwitchDirective],
+    imports: [ToggleSwitchDirective],
     template: `<input type="checkbox" pToggleSwitch [field]="toggleForm.enabled" />`
 })
 class TestSignalFormToggleSwitchDirectiveComponent {
@@ -791,7 +791,7 @@ describe('ToggleSwitchDirective Signal Forms', () => {
     template: `
         <p-toggleswitch [(ngModel)]="checked" [readonly]="readonly" [disabled]="disabled" [autofocus]="autofocus" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" [tabindex]="tabindex" (onChange)="onToggleChange($event)"> </p-toggleswitch>
     `,
-    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, forwardRef(() => TestToggleSwitchPTemplateComponent), forwardRef(() => TestToggleSwitchRefTemplateComponent)]
 })
 class TestBasicToggleSwitchComponent {
     checked: boolean = false;
@@ -802,7 +802,7 @@ class TestBasicToggleSwitchComponent {
     ariaLabelledBy: string = '';
     tabindex: number = 0;
 
-    onToggleChange() {}
+    onToggleChange(_event?: ToggleSwitchChangeEvent) {}
 }
 
 @Component({
@@ -811,7 +811,7 @@ class TestBasicToggleSwitchComponent {
             <p-toggleswitch formControlName="toggleValue"></p-toggleswitch>
         </form>
     `,
-    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, forwardRef(() => TestToggleSwitchPTemplateComponent), forwardRef(() => TestToggleSwitchRefTemplateComponent)]
 })
 class TestFormToggleSwitchComponent {
     form = new FormGroup({
@@ -827,7 +827,7 @@ class TestFormToggleSwitchComponent {
             </ng-template>
         </p-toggleswitch>
     `,
-    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, forwardRef(() => TestToggleSwitchPTemplateComponent), forwardRef(() => TestToggleSwitchRefTemplateComponent)]
 })
 class TestTemplateToggleSwitchComponent {
     checked: boolean = false;
@@ -841,7 +841,7 @@ class TestTemplateToggleSwitchComponent {
             </ng-template>
         </p-toggleswitch>
     `,
-    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, forwardRef(() => TestToggleSwitchPTemplateComponent), forwardRef(() => TestToggleSwitchRefTemplateComponent)]
 })
 class TestPrimeTemplateToggleSwitchComponent {
     checked: boolean = false;
@@ -849,7 +849,7 @@ class TestPrimeTemplateToggleSwitchComponent {
 
 @Component({
     template: ` <p-toggleswitch [required]="required"></p-toggleswitch> `,
-    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, forwardRef(() => TestToggleSwitchPTemplateComponent), forwardRef(() => TestToggleSwitchRefTemplateComponent)]
 })
 class TestRequiredToggleSwitchComponent {
     required: boolean = false;
@@ -857,7 +857,7 @@ class TestRequiredToggleSwitchComponent {
 
 @Component({
     template: ` <p-toggleswitch [name]="name"></p-toggleswitch> `,
-    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, TestToggleSwitchPTemplateComponent, TestToggleSwitchRefTemplateComponent]
+    imports: [ToggleSwitch, ToggleSwitchModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, AutoFocus, forwardRef(() => TestToggleSwitchPTemplateComponent), forwardRef(() => TestToggleSwitchRefTemplateComponent)]
 })
 class TestNamedToggleSwitchComponent {
     name: string = '';
@@ -1407,7 +1407,7 @@ describe('PassThrough (PT) Tests', () => {
         });
     });
 
-    describe('Case 7: Global PT from PrimeNGConfig', () => {
+    describe('Case 7: Global PT from NgxPrimeConfig', () => {
         it('should apply global PT configuration', async () => {
             @Component({
                 standalone: true,
@@ -1423,7 +1423,7 @@ describe('PassThrough (PT) Tests', () => {
                 imports: [TestGlobalPTComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             toggleSwitch: {
                                 root: { 'data-test': 'global-toggleswitch' },

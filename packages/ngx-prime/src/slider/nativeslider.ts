@@ -1,7 +1,7 @@
 import { booleanAttribute, computed, Directive, ElementRef, inject, input, numberAttribute, output } from '@angular/core';
-import { BaseModelHolder } from 'primeng/basemodelholder';
-import { Bind } from 'primeng/bind';
-import type { SliderChangeEvent, SliderPassThrough, SliderSlideEndEvent } from 'primeng/types/slider';
+import { BaseModelHolder } from 'ngx-prime/basemodelholder';
+import { Bind } from 'ngx-prime/bind';
+import type { SliderChangeEvent, SliderPassThrough, SliderSlideEndEvent } from 'ngx-prime/types/slider';
 import { SliderStyle } from './style/sliderstyle';
 
 /** Adds Prime behavior to a native range input. */

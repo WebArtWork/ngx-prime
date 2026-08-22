@@ -1,6 +1,6 @@
 # Angular Tooltip Component
 
-Tooltip directive provides advisory information for a component. Tooltip is integrated within various PrimeNG components.
+Tooltip directive provides advisory information for a component. Tooltip is integrated within various ngx-prime components.
 
 ## Accessibility
 
@@ -12,8 +12,8 @@ Tooltip is hidden when mouse leaves the target element, in cases where tooltip n
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     template: `
@@ -34,8 +34,8 @@ Tooltip can use either a string or a TemplateRef .
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'ngx-prime/button';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     template: `
@@ -72,7 +72,7 @@ import { TooltipModule } from 'primeng/tooltip';
                         <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--ground-background)" />
                         <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--ground-background)" />
                     </svg>
-                    <span> <b>PrimeNG</b> rocks! </span>
+                    <span> <b>ngx-prime</b> rocks! </span>
                 </div>
             </ng-template>
         </div>
@@ -89,8 +89,8 @@ Adding delays to the show and hide events are defined with showDelay and hideDel
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'ngx-prime/button';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     template: `
@@ -110,8 +110,8 @@ Tooltip gets displayed on hover event of its target by default, other option is 
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     template: `
@@ -131,8 +131,8 @@ Tooltip is also configurable by using tooltipOptions property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     template: `
@@ -154,8 +154,8 @@ Position of the tooltip is specified using tooltipPosition attribute. Valid valu
 
 ```typescript
 import { Component } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     template: `

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { SkeletonModule } from 'primeng/skeleton';
+import { SkeletonModule } from 'ngx-prime/skeleton';
 
 @Component({
     selector: 'app-shapes-doc',

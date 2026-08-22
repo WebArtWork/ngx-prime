@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectButton } from 'primeng/selectbutton';
-import { AvatarModule } from 'primeng/avatar';
-import { TooltipModule } from 'primeng/tooltip';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { ProgressBar } from 'primeng/progressbar';
-import { Carousel } from 'primeng/carousel';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { SelectButton } from 'ngx-prime/selectbutton';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { TooltipModule } from 'ngx-prime/tooltip';
+import { IconField } from 'ngx-prime/iconfield';
+import { InputIcon } from 'ngx-prime/inputicon';
+import { ButtonModule } from 'ngx-prime/button';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { ProgressBar } from 'ngx-prime/progressbar';
+import { Carousel } from 'ngx-prime/carousel';
+import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
 
 @Component({
     selector: 'app-movies-app',

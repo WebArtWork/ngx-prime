@@ -2,9 +2,9 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'primeng/button';
-import { MinusIcon, PlusIcon } from 'primeng/icons';
-import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from 'primeng/types/panel';
+import { ButtonModule } from 'ngx-prime/button';
+import { MinusIcon, PlusIcon } from 'ngx-prime/icons';
+import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from 'ngx-prime/types/panel';
 import { Panel } from './panel';
 
 @Component({
@@ -69,10 +69,10 @@ class TestBasicPanelComponent {
                 <div class="custom-footer">Custom Footer Template</div>
             </ng-template>
             <ng-template #icons>
-                <span class="custom-icons">🎯</span>
+                <span class="custom-icons">ðŸŽ¯</span>
             </ng-template>
             <ng-template #headericons let-collapsed>
-                <span class="custom-header-icon">{{ collapsed ? '➕' : '➖' }}</span>
+                <span class="custom-header-icon">{{ collapsed ? 'âž•' : 'âž–' }}</span>
             </ng-template>
         </p-panel>
     `,
@@ -439,7 +439,7 @@ describe('Panel', () => {
             expect(customHeader?.nativeElement.textContent.trim()).toBe('Custom Header Template');
             expect(customContent?.nativeElement.textContent.trim()).toBe('Custom Content Template');
             expect(customFooter?.nativeElement.textContent.trim()).toBe('Custom Footer Template');
-            expect(customIcons?.nativeElement.textContent.trim()).toBe('🎯');
+            expect(customIcons?.nativeElement.textContent.trim()).toBe('ðŸŽ¯');
         });
 
         it('should render header icons template with context', () => {
@@ -450,7 +450,7 @@ describe('Panel', () => {
             const panelComponent = fixture.debugElement.query(By.directive(Panel)).componentInstance;
             const customHeaderIcon = fixture.debugElement.query(By.css('.custom-header-icon'));
 
-            expect(customHeaderIcon?.nativeElement.textContent.trim()).toBe(panelComponent.collapsed() ? '➕' : '➖');
+            expect(customHeaderIcon?.nativeElement.textContent.trim()).toBe(panelComponent.collapsed() ? 'âž•' : 'âž–');
         });
     });
 

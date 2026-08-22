@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { AvatarGroupModule } from 'ngx-prime/avatargroup';
 
 @Component({
     selector: 'app-avatargroup-doc',
@@ -14,11 +14,11 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-avatar-group>
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" size="large" shape="circle" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/ionibowcher.png" size="large" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/xuxuefeng.png" size="large" shape="circle" />
                 <p-avatar label="+2" shape="circle" size="large" />
             </p-avatar-group>
         </div>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/skeleton';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const inlineStyles = {
     root: { position: 'relative' }
@@ -31,7 +31,7 @@ export class SkeletonStyle extends BaseStyle {
  *
  * Skeleton is a placeholder to display instead of the actual content.
  *
- * [Live Demo](https://www.primeng.org/skeleton/)
+ * [Live Demo](https://www.ngx-prime.org/skeleton/)
  *
  * @module skeletonstyle
  *

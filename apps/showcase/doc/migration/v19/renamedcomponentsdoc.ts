@@ -8,7 +8,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     template: `
         <app-docsectiontext>
             <h4>Renamed Components</h4>
-            <p>Old names are deprecated but still functional, migrate to new import paths instead e.g. <i>primeng/calendar</i> becomes <i>primeng/datepicker</i>.</p>
+            <p>Old names are deprecated but still functional, migrate to new import paths instead e.g. <i>ngx-prime/calendar</i> becomes <i>ngx-prime/datepicker</i>.</p>
             <ul class="flex flex-col gap-2 leading-normal">
                 <li><i class="mark">Calendar</i> -&gt; <i class="mark">DatePicker</i>.</li>
                 <li><i class="mark">Dropdown</i> -&gt; <i class="mark">Select</i>.</li>

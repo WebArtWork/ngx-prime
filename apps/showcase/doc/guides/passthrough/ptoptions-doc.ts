@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
     imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
-            <p>The <i>⁠ptOptions</i> property determines how a component's local PassThrough configuration merges with the global PT configuration, as demonstrated in the following examples using both global and component-level settings.</p>
+            <p>The <i>â ptOptions</i> property determines how a component's local PassThrough configuration merges with the global PT configuration, as demonstrated in the following examples using both global and component-level settings.</p>
             <p class="mt-4">
                 The <i>mergeSections</i> defines whether the sections from the main configuration gets added and the <i>mergeProps</i> controls whether to override or merge the defined props. Defaults are <i>true</i> for <i>mergeSections</i> and
                 <i>false</i> for <i>mergeProps</i>.
@@ -34,11 +34,11 @@ import { Component } from '@angular/core';
 export class PTOptionsDoc {
     codeGlobal: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { providengx-prime } from 'ngx-prime/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providePrimeNG({
+        providengx-prime({
             pt: {
                 panel: {
                     header: {
@@ -55,7 +55,7 @@ export const appConfig: ApplicationConfig = {
 
     codeComponent: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'ngx-prime/panel';
 
 @Component({
     selector: 'ptoptions-doc',
@@ -83,7 +83,7 @@ export class PanelPtDemo {
 
     codeComponentTrueTrue: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'ngx-prime/panel';
 
 @Component({
     selector: 'ptoptions-doc',
@@ -111,7 +111,7 @@ export class PanelPtDemo {
 
     codeComponentFalseTrue: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'ngx-prime/panel';
 
 @Component({
     selector: 'ptoptions-doc',
@@ -137,7 +137,7 @@ export class PanelPtDemo {
 
     codeComponentFalseFalse: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'primeng/panel';
+import { Panel, PanelModule, PanelPassThrough } from 'ngx-prime/panel';
 
 @Component({
     selector: 'ptoptions-doc',

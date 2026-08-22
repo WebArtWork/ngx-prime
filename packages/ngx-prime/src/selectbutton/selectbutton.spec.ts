@@ -1,11 +1,11 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, forwardRef, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { SharedModule } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { SelectButtonDirective, SelectButtonOptionDirective } from './nativeselectbutton';
 import { SelectButton, SelectButtonModule } from './selectbutton';
 
@@ -445,7 +445,7 @@ describe('SelectButton', () => {
             <p-selectbutton [options]="options" formControlName="selectedValue"> </p-selectbutton>
         </form>
     `,
-    imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent]
+    imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, forwardRef(() => TestSelectButtonPTemplateComponent), forwardRef(() => TestSelectButtonRefTemplateComponent)]
 })
 class TestFormSelectButtonComponent {
     form = new FormGroup({
@@ -467,7 +467,7 @@ class TestFormSelectButtonComponent {
             </ng-template>
         </p-selectbutton>
     `,
-    imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, TestSelectButtonPTemplateComponent, TestSelectButtonRefTemplateComponent]
+    imports: [SelectButton, SelectButtonModule, FormsModule, ReactiveFormsModule, CommonModule, SharedModule, forwardRef(() => TestSelectButtonPTemplateComponent), forwardRef(() => TestSelectButtonRefTemplateComponent)]
 })
 class TestPrimeTemplateSelectButtonComponent {
     options = [
@@ -914,14 +914,14 @@ describe('SelectButton PassThrough Tests', () => {
         });
     });
 
-    describe('PT Case 7: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 7: Global PT from NgxPrimeConfig', () => {
         it('should apply global PT configuration to all instances', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             selectButton: {
                                 host: { 'aria-label': 'GLOBAL_ARIA_LABEL' },
@@ -951,7 +951,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule, TestMultipleInstancesComponent],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             selectButton: {
                                 root: {
@@ -988,7 +988,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             selectButton: {
                                 hooks: {
@@ -1020,7 +1020,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             selectButton: {
                                 hooks: {
@@ -1052,7 +1052,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             selectButton: {
                                 hooks: {
@@ -1086,7 +1086,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             selectButton: {
                                 hooks: {
@@ -1120,7 +1120,7 @@ describe('SelectButton PassThrough Tests', () => {
                 imports: [SelectButton, SelectButtonModule, FormsModule, CommonModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             selectButton: {
                                 hooks: {

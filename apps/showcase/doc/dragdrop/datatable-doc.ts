@@ -4,9 +4,9 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 
 import { Component, OnInit, inject } from '@angular/core';
-import { DragDropModule } from 'primeng/dragdrop';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { DragDropModule } from 'ngx-prime/dragdrop';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-datatable-doc',
@@ -23,7 +23,7 @@ import { TagModule } from 'primeng/tag';
                     <div>
                         <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                             <div class="image-container">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
                             </div>
                             <div class="product-list-detail">
                                 <h5 class="mb-2">{{ product.name }}</h5>

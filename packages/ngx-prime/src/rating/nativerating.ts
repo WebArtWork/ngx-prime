@@ -1,8 +1,8 @@
 import { booleanAttribute, Directive, forwardRef, inject, input, numberAttribute, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals } from '@wawjs/css-prime-utils';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import type { RatingPassThrough, RatingRateEvent } from 'primeng/types/rating';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import type { RatingPassThrough, RatingRateEvent } from 'ngx-prime/types/rating';
 import { RatingStyle } from './style/ratingstyle';
 
 /** Adds Prime state attributes to a native radio used in a rating group. */

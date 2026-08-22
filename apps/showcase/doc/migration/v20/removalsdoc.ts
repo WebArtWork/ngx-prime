@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'ngx-prime/tag';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 @Component({

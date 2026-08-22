@@ -4,7 +4,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import {
     PickListMoveAllToSourceEvent,
     PickListMoveAllToTargetEvent,
@@ -14,7 +14,7 @@ import {
     PickListSourceSelectEvent,
     PickListTargetReorderEvent,
     PickListTargetSelectEvent
-} from 'primeng/types/picklist';
+} from 'ngx-prime/types/picklist';
 import { PickList } from './picklist';
 
 @Component({
@@ -1072,7 +1072,7 @@ describe('PickList', () => {
 
         it('should work with keepSelection option when dragging multiple items', async () => {
             // Enable keepSelection
-            picklistComponent.keepSelection = true;
+            (picklistComponent as any).keepSelection = () => true;
 
             // Select multiple items
             const selectedItems = [picklistComponent.source()[0], picklistComponent.source()[1]];
@@ -1340,7 +1340,7 @@ describe('PickList', () => {
             });
         });
 
-        describe('Case 5: Test from PrimeNGConfig', () => {
+        describe('Case 5: Test from NgxPrimeConfig', () => {
             @Component({
                 standalone: true,
                 imports: [PickList],
@@ -1362,7 +1362,7 @@ describe('PickList', () => {
                     imports: [PickList],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 picklist: {
                                     host: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' }
@@ -1391,7 +1391,7 @@ describe('PickList', () => {
                     imports: [PickList],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 picklist: {
                                     host: { class: 'GLOBAL_CLASS' },
@@ -1470,7 +1470,7 @@ describe('PickList', () => {
 
         describe('Case 7: Test with different configurations', () => {
             it('should apply PT when showSourceControls is true', () => {
-                ptPicklist.showSourceControls = true;
+                (ptPicklist as any).showSourceControls = () => true;
                 ptFixture.componentRef.setInput('pt', { sourceControls: 'SOURCE_VISIBLE_CLASS' });
                 ptFixture.detectChanges();
 
@@ -1482,7 +1482,7 @@ describe('PickList', () => {
             });
 
             it('should apply PT when showTargetControls is true', () => {
-                ptPicklist.showTargetControls = true;
+                (ptPicklist as any).showTargetControls = () => true;
                 ptFixture.componentRef.setInput('pt', { targetControls: 'TARGET_VISIBLE_CLASS' });
                 ptFixture.detectChanges();
 
@@ -1496,7 +1496,7 @@ describe('PickList', () => {
 
         describe('Case 8: Multiple button PT variations', () => {
             it('should apply PT to all source control buttons', async () => {
-                ptPicklist.showSourceControls = true;
+                (ptPicklist as any).showSourceControls = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     pcSourceMoveUpButton: { root: { class: 'MOVE_UP_CLASS' } },
                     pcSourceMoveTopButton: { root: { class: 'MOVE_TOP_CLASS' } },
@@ -1529,7 +1529,7 @@ describe('PickList', () => {
             });
 
             it('should apply PT to target control buttons', async () => {
-                ptPicklist.showTargetControls = true;
+                (ptPicklist as any).showTargetControls = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     pcTargetMoveUpButton: { root: { class: 'TARGET_UP_CLASS' } },
                     pcTargetMoveTopButton: { root: { class: 'TARGET_TOP_CLASS' } },
@@ -1548,7 +1548,7 @@ describe('PickList', () => {
 
         describe('Case 9: Instance-based PT tests with callbacks', () => {
             it('should access instance.disabled property in PT callback', async () => {
-                ptPicklist.disabled = true;
+                (ptPicklist as any).disabled = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     sourceControls: ({ instance }) => ({
                         class: {
@@ -1568,7 +1568,7 @@ describe('PickList', () => {
             });
 
             it('should access instance.showSourceControls property in PT callback', async () => {
-                ptPicklist.showSourceControls = true;
+                (ptPicklist as any).showSourceControls = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     host: ({ instance }) => ({
                         class: {
@@ -1587,7 +1587,7 @@ describe('PickList', () => {
             });
 
             it('should access instance.showTargetControls property in PT callback', async () => {
-                ptPicklist.showTargetControls = true;
+                (ptPicklist as any).showTargetControls = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     host: ({ instance }) => ({
                         class: {
@@ -1649,7 +1649,7 @@ describe('PickList', () => {
             });
 
             it('should apply conditional styling based on instance.disabled in transferControls', async () => {
-                ptPicklist.disabled = false;
+                (ptPicklist as any).disabled = () => false;
                 ptFixture.componentRef.setInput('pt', {
                     transferControls: ({ instance }) => ({
                         style: {
@@ -1708,8 +1708,8 @@ describe('PickList', () => {
             });
 
             it('should use instance properties for complex conditional PT', async () => {
-                ptPicklist.disabled = false;
-                ptPicklist.showSourceControls = true;
+                (ptPicklist as any).disabled = () => false;
+                (ptPicklist as any).showSourceControls = () => true;
                 ptFixture.componentRef.setInput('pt', {
                     sourceControls: ({ instance }) => ({
                         class: {
@@ -1796,7 +1796,7 @@ describe('PickList', () => {
             });
 
             it('should pass PT to listbox filter input when filterBy is enabled', async () => {
-                ptPicklist.filterBy = 'label';
+                (ptPicklist as any).filterBy = () => 'label';
                 ptFixture.componentRef.setInput('pt', {
                     pcListbox: {
                         pcFilter: {
@@ -1823,7 +1823,7 @@ describe('PickList', () => {
                         }
                     })
                 });
-                ptPicklist.disabled = true;
+                (ptPicklist as any).disabled = () => true;
                 ptFixture.detectChanges();
                 await new Promise((resolve) => setTimeout(resolve, 100));
                 await ptFixture.whenStable();

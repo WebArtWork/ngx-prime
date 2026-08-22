@@ -4,9 +4,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MessageService, TreeNode } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { TreeTableModule } from 'primeng/treetable';
+import { MessageService, TreeNode } from 'ngx-prime/api';
+import { ToastModule } from 'ngx-prime/toast';
+import { TreeTableModule } from 'ngx-prime/treetable';
 
 interface Column {
     field: string;

@@ -1,9 +1,9 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogModule } from 'ngx-prime/dialog';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     selector: 'app-headless-doc',
@@ -11,7 +11,7 @@ import { InputTextModule } from 'primeng/inputtext';
     imports: [AppDocSectionText, AppCode, ButtonModule, DialogModule, InputTextModule],
     template: `
         <app-docsectiontext>
-            <p>A headless PrimeNG dialog with a custom UI.</p>
+            <p>A headless ngx-prime dialog with a custom UI.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />

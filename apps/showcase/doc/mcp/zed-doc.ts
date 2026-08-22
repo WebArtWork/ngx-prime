@@ -19,10 +19,10 @@ export class ZedDoc {
     code: Code = {
         typescript: `{
     "context_servers": {
-        "primeng": {
+        "ngx-prime": {
             "command": {
                 "path": "npx",
-                "args": ["-y", "@primeng/mcp"]
+                "args": ["-y", "@ngx-prime/mcp"]
             }
         }
     }

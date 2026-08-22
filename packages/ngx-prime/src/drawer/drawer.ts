@@ -22,17 +22,17 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { addClass, appendChild, removeClass, setAttribute } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { Button, ButtonProps } from 'primeng/button';
-import { blockBodyScroll, unblockBodyScroll } from 'primeng/dom';
-import { FocusTrapModule } from 'primeng/focustrap';
-import { TimesIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { DrawerPassThrough } from 'primeng/types/drawer';
-import { ZIndexUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { Button, ButtonProps } from 'ngx-prime/button';
+import { blockBodyScroll, unblockBodyScroll } from 'ngx-prime/dom';
+import { FocusTrapModule } from 'ngx-prime/focustrap';
+import { TimesIcon } from 'ngx-prime/icons';
+import { MotionModule } from 'ngx-prime/motion';
+import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import { DrawerPassThrough } from 'ngx-prime/types/drawer';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { DrawerStyle } from './style/drawerstyle';
 
 const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');

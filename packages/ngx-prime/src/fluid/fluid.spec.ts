@@ -65,10 +65,10 @@ class TestFluidWithFormControlsComponent {}
 class TestNestedFluidComponent {}
 
 @Component({
-    selector: 'test-fluid-with-primeng-components',
+    selector: 'test-fluid-with-ngx-prime-components',
     template: `
         <p-fluid>
-            <div class="primeng-controls">
+            <div class="ngx-prime-controls">
                 <div class="control-group">
                     <label>Button</label>
                     <button type="button" class="p-button">Test Button</button>
@@ -88,7 +88,7 @@ class TestNestedFluidComponent {}
     `,
     imports: [FluidModule]
 })
-class TestFluidWithPrimeNGComponentsComponent {}
+class TestFluidWithNgxPrimeComponentsComponent {}
 
 @Component({
     selector: 'test-fluid-responsive',
@@ -192,7 +192,7 @@ describe('Fluid', () => {
                 TestFluidWithContentComponent,
                 TestFluidWithFormControlsComponent,
                 TestNestedFluidComponent,
-                TestFluidWithPrimeNGComponentsComponent,
+                TestFluidWithNgxPrimeComponentsComponent,
                 TestFluidResponsiveComponent,
                 TestFluidDynamicContentComponent,
                 TestFluidComplexLayoutComponent
@@ -370,17 +370,17 @@ describe('Fluid', () => {
         });
     });
 
-    describe('PrimeNG Components Integration', () => {
-        let fixture: ComponentFixture<TestFluidWithPrimeNGComponentsComponent>;
+    describe('ngx-prime Components Integration', () => {
+        let fixture: ComponentFixture<TestFluidWithNgxPrimeComponentsComponent>;
         let element: HTMLElement;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(TestFluidWithPrimeNGComponentsComponent);
+            fixture = TestBed.createComponent(TestFluidWithNgxPrimeComponentsComponent);
             fixture.detectChanges();
             element = fixture.debugElement.query(By.directive(Fluid)).nativeElement;
         });
 
-        it('should work with PrimeNG styled components', () => {
+        it('should work with ngx-prime styled components', () => {
             const button = element.querySelector('.p-button');
             const input = element.querySelector('.p-inputtext');
             const dropdown = element.querySelector('.p-dropdown');

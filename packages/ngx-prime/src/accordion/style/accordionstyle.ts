@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as accordion_style } from '@wawjs/css-prime-styles/accordion';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
 ${accordion_style}
 
-/* For PrimeNG */
+/* For ngx-prime */
 .p-accordionheader-toggle-icon.icon-start {
     order: -1;
 }
@@ -55,7 +55,7 @@ export class AccordionStyle extends BaseStyle {
  *
  * Accordion groups a collection of contents in tabs.
  *
- * [Live Demo](https://www.primeng.org/accordion/)
+ * [Live Demo](https://www.ngx-prime.org/accordion/)
  *
  * @module accordionstyle
  *

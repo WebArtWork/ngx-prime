@@ -1,3 +1,3 @@
-export * from 'primeng/types/toolbar';
+export * from 'ngx-prime/types/toolbar';
 export * from './toolbar';
 export * from './style/toolbarstyle';

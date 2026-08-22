@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/dataview';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -33,7 +33,7 @@ export class DataViewStyle extends BaseStyle {
  *
  * DataView displays data in grid or list layout with pagination and sorting features.
  *
- * [Live Demo](https://www.primeng.org/dataview/)
+ * [Live Demo](https://www.ngx-prime.org/dataview/)
  *
  * @module dataviewstyle
  *

@@ -3,7 +3,7 @@ import { Component, ElementRef, provideZonelessChangeDetection, viewChild } from
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { OverlayService, PrimeTemplate } from 'primeng/api';
+import { OverlayService, PrimeTemplate } from 'ngx-prime/api';
 import { Popover } from './popover';
 
 // function createMockAnimationEvent(toState: string, fromState: string = 'void'): AnimationEvent {
@@ -489,7 +489,7 @@ describe('Popover', () => {
 
             const escapeEvent = new KeyboardEvent('keydown', { key: 'Escape' });
 
-            popoverInstance.onEscapeKeydown(escapeEvent);
+            popoverInstance.onEscapeKeydown();
 
             expect(popoverInstance.overlayVisible).toBe(false);
         });

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as autocomplete_style } from '@wawjs/css-prime-styles/autocomplete';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
 ${autocomplete_style}
 
-/* For PrimeNG */
+/* For ngx-prime */
 p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input,
 p-autoComplete.ng-invalid.ng-dirty .p-autocomplete-input-multiple,
 p-auto-complete.ng-invalid.ng-dirty .p-autocomplete-input,
@@ -101,7 +101,7 @@ export class AutoCompleteStyle extends BaseStyle {
  *
  * AutoComplete is an input component that provides real-time suggestions while being typed.
  *
- * [Live Demo](https://www.primeng.org/autocomplete/)
+ * [Live Demo](https://www.ngx-prime.org/autocomplete/)
  *
  * @module autocompletestyle
  *

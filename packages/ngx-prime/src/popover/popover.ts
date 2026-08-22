@@ -21,14 +21,14 @@ import {
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { $dt } from '@wawjs/css-prime-styled';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@wawjs/css-prime-utils';
-import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler } from 'primeng/dom';
-import { MotionModule } from 'primeng/motion';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { PopoverContentTemplateContext, PopoverPassThrough } from 'primeng/types/popover';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { ConnectedOverlayScrollHandler } from 'ngx-prime/dom';
+import { MotionModule } from 'ngx-prime/motion';
+import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import { PopoverContentTemplateContext, PopoverPassThrough } from 'ngx-prime/types/popover';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
 

@@ -23,7 +23,7 @@ const staticMessages = {
 async function main() {
     const app = await TypeDoc.Application.bootstrapWithPlugins({
         // typedoc options here
-        name: 'PrimeNG',
+        name: 'ngx-prime',
         entryPointStrategy: 'expand',
         entryPoints: ['../../packages/ngx-prime/'],
         hideGenerator: true,

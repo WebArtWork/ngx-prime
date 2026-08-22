@@ -1,13 +1,13 @@
 # Configuration
 
-Application wide configuration for PrimeNG.
+Application wide configuration for ngx-prime.
 
 ## Csp-
 
 The nonce value to use on dynamically generated style elements in core.
 
 ```typescript
-providePrimeNG({ 
+providengx-prime({ 
     csp: {
         nonce: '...'
     }
@@ -16,11 +16,11 @@ providePrimeNG({
 
 ## Dynamic-
 
-Inject the PrimeNG to your application to update the initial configuration at runtime.
+Inject the ngx-prime to your application to update the initial configuration at runtime.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PrimeNG } from 'primeng/config';
+import { ngx-prime } from 'ngx-prime/config';
 
 @Component({
     selector: 'app-root',
@@ -28,10 +28,10 @@ import { PrimeNG } from 'primeng/config';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primeng: PrimeNG) {}
+    constructor(private ngx-prime: ngx-prime) {}
 
     ngOnInit() {
-        this.primeng.ripple.set(true);
+        this.ngx-prime.ripple.set(true);
     }
 }
 ```
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
 Default filter modes to display on DataTable filter menus.
 
 ```typescript
-import { PrimeNGConfig } from 'primeng/api';
+import { ngx-primeConfig } from 'ngx-prime/api';
 
 @Component({
     selector: 'app-root',
@@ -49,10 +49,10 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private ngx-primeConfig: ngx-primeConfig) {}
 
     ngOnInit() {
-        primengConfig.filterMatchModeOptions = {
+        ngx-primeConfig.filterMatchModeOptions = {
             text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
             numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],
             date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]
@@ -79,7 +79,7 @@ The translations can be changed dynamically at runtime, here is an example with 
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PrimeNG } from 'primeng/config';
+import { ngx-prime } from 'ngx-prime/config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -88,7 +88,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private config: PrimeNG, private translateService: TranslateService) {}
+    constructor(private config: ngx-prime, private translateService: TranslateService) {}
 
     ngOnInit() {
         this.translateService.setDefaultLang('en');
@@ -96,7 +96,7 @@ export class AppComponent implements OnInit {
 
     translate(lang: string) {
         this.translateService.use(lang);
-        this.translateService.get('primeng').subscribe(res => this.primeng.setTranslation(res));
+        this.translateService.get('ngx-prime').subscribe(res => this.ngx-prime.setTranslation(res));
     }
 }
 ```
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
 A translation is specified using the translation property during initialization.
 
 ```typescript
-providePrimeNG({ 
+providengx-prime({ 
     translation: {
         accept: 'Aceptar',
         reject: 'Rechazar',
@@ -121,17 +121,17 @@ Defines the default location of the overlays; self refers to the host element an
 
 ## Provider-
 
-The initial configuration is defined by the providePrimeNG provider during application startup.
+The initial configuration is defined by the providengx-prime provider during application startup.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
+import { providengx-prime } from 'ngx-prime/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providePrimeNG({ /* options */ })
+        providengx-prime({ /* options */ })
     ]
 };
 ```
@@ -141,26 +141,26 @@ export const appConfig: ApplicationConfig = {
 Ripple is an optional animation for the supported components such as buttons. It is disabled by default.
 
 ```typescript
-providePrimeNG({ 
+providengx-prime({ 
     ripple: true
 })
 ```
 
 ## Theme-
 
-PrimeNG provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.
+ngx-prime provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
+import { providengx-prime } from 'ngx-prime/config';
 
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providePrimeNG({
+        providengx-prime({
             theme: {
                 preset: Aura,
                 options: {
@@ -176,10 +176,10 @@ export const appConfig: ApplicationConfig = {
 
 ## Zindex-
 
-ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. PrimeNG configuration offers the zIndex property to customize the default values for components categories. Default values are described below and can be customized when setting up PrimeNG.
+ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. ngx-prime configuration offers the zIndex property to customize the default values for components categories. Default values are described below and can be customized when setting up ngx-prime.
 
 ```typescript
-import { PrimeNGConfig } from 'primeng/api';
+import { ngx-primeConfig } from 'ngx-prime/api';
 
 @Component({
     selector: 'app-root',
@@ -187,10 +187,10 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private ngx-primeConfig: ngx-primeConfig) {}
 
     ngOnInit() {
-        this.primengConfig.zIndex = {
+        this.ngx-primeConfig.zIndex = {
             modal: 1100,    // dialog, sidebar
             overlay: 1000,  // dropdown, overlaypanel
             menu: 1000,     // overlay menus

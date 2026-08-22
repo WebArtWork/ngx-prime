@@ -1,11 +1,11 @@
 import { Component, DebugElement, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { BaseComponent } from 'primeng/basecomponent';
-import { Button } from 'primeng/button';
-import { ZIndexUtils } from 'primeng/utils';
+import { BaseComponent } from 'ngx-prime/basecomponent';
+import { Button } from 'ngx-prime/button';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { ScrollTop, ScrollTopModule } from './scrolltop';
 
 @Component({
@@ -50,7 +50,7 @@ class TestScrollTopWithIconComponent {
     template: `
         <p-scrolltop [threshold]="50">
             <ng-template #icon let-styleClass="styleClass">
-                <span class="custom-icon" [ngClass]="styleClass">↑</span>
+                <span class="custom-icon" [ngClass]="styleClass">â†‘</span>
             </ng-template>
         </p-scrolltop>
     `,
@@ -407,7 +407,7 @@ describe('ScrollTop', () => {
             const customIcon = fixture.debugElement.query(By.css('.custom-icon'));
 
             expect(customIcon).toBeTruthy();
-            expect(customIcon.nativeElement.textContent).toBe('↑');
+            expect(customIcon.nativeElement.textContent).toBe('â†‘');
         });
 
         it('should process templates in ngAfterContentInit', () => {
@@ -1265,8 +1265,8 @@ describe('ScrollTop', () => {
         });
     });
 
-    describe('PassThrough - Case 7: Test from PrimeNGConfig', () => {
-        it('should apply global pt configuration from PrimeNGConfig', () => {
+    describe('PassThrough - Case 7: Test from NgxPrimeConfig', () => {
+        it('should apply global pt configuration from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-scrolltop [threshold]="100"></p-scrolltop>
@@ -1282,7 +1282,7 @@ describe('ScrollTop', () => {
                 providers: [
                     provideZonelessChangeDetection(),
                     { provide: PLATFORM_ID, useValue: 'browser' },
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             scrolltop: {
                                 host: 'GLOBAL_HOST_CLASS',
@@ -1321,7 +1321,7 @@ describe('ScrollTop', () => {
                 providers: [
                     provideZonelessChangeDetection(),
                     { provide: PLATFORM_ID, useValue: 'browser' },
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             scrolltop: {
                                 host: 'GLOBAL_HOST_CLASS'

@@ -15,7 +15,7 @@ export class UseStyle {
         const { name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false } = options;
 
         if (!this.document) return;
-        styleRef = (this.document.querySelector(`style[data-primeng-style-id="${name}"]`) || (id && this.document.getElementById(id)) || this.document.createElement('style')) as HTMLStyleElement;
+        styleRef = (this.document.querySelector(`style[data-ngx-prime-style-id="${name}"]`) || (id && this.document.getElementById(id)) || this.document.createElement('style')) as HTMLStyleElement;
 
         if (styleRef) {
             if (!styleRef.isConnected) {
@@ -30,7 +30,7 @@ export class UseStyle {
                     type: 'text/css',
                     media,
                     nonce,
-                    'data-primeng-style-id': name
+                    'data-ngx-prime-style-id': name
                 });
             }
 

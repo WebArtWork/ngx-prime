@@ -26,23 +26,23 @@ import {
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isArray, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@wawjs/css-prime-utils';
-import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind, BindModule } from 'primeng/bind';
-import { Checkbox } from 'primeng/checkbox';
-import { Chip } from 'primeng/chip';
-import { DomHandler, unblockBodyScroll } from 'primeng/dom';
-import { Fluid } from 'primeng/fluid';
-import { IconField } from 'primeng/iconfield';
-import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'primeng/icons';
-import { InputIcon } from 'primeng/inputicon';
-import { InputText } from 'primeng/inputtext';
-import { Overlay } from 'primeng/overlay';
-import { Scroller } from 'primeng/scroller';
-import { Tooltip } from 'primeng/tooltip';
-import { Nullable } from 'primeng/ts-helpers';
+import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'ngx-prime/api';
+import { AutoFocus } from 'ngx-prime/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { Checkbox } from 'ngx-prime/checkbox';
+import { Chip } from 'ngx-prime/chip';
+import { DomHandler, unblockBodyScroll } from 'ngx-prime/dom';
+import { Fluid } from 'ngx-prime/fluid';
+import { IconField } from 'ngx-prime/iconfield';
+import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'ngx-prime/icons';
+import { InputIcon } from 'ngx-prime/inputicon';
+import { InputText } from 'ngx-prime/inputtext';
+import { Overlay } from 'ngx-prime/overlay';
+import { Scroller } from 'ngx-prime/scroller';
+import { Tooltip } from 'ngx-prime/tooltip';
+import { Nullable } from 'ngx-prime/ts-helpers';
 import {
     MultiSelectBlurEvent,
     MultiSelectChangeEvent,
@@ -62,8 +62,8 @@ import {
     MultiSelectRemoveEvent,
     MultiSelectSelectAllChangeEvent,
     MultiSelectSelectedItemsTemplateContext
-} from 'primeng/types/multiselect';
-import { ObjectUtils } from 'primeng/utils';
+} from 'ngx-prime/types/multiselect';
+import { ObjectUtils } from 'ngx-prime/utils';
 import { MultiSelectStyle } from './style/multiselectstyle';
 
 const MULTISELECT_INSTANCE = new InjectionToken<MultiSelect>('MULTISELECT_INSTANCE');
@@ -2332,7 +2332,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
             clearable: this.showClear(),
             disabled: this.disabled,
             [this.size() as string]: this.size(),
-            'has-chip': this.display() === 'chip' && this.value && this.value.length && (this.maxSelectedLabels() ? this.value.length <= this.maxSelectedLabels() : true),
+            'has-chip': this.display() === 'chip' && this.value && this.value.length && (this.maxSelectedLabels() ? this.value.length <= this.maxSelectedLabels()! : true),
             empty: !this.placeholder() && !this.$filled
         });
     }

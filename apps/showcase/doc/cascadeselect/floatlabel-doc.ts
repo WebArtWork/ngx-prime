@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { CascadeSelectModule } from 'ngx-prime/cascadeselect';
+import { FloatLabelModule } from 'ngx-prime/floatlabel';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

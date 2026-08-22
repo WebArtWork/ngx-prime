@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { SelectButtonDirective, SelectButtonOptionDirective } from 'primeng/selectbutton';
+import { SelectButtonDirective, SelectButtonOptionDirective } from 'ngx-prime/selectbutton';
 
 @Component({
     selector: 'app-selectbutton-native-doc',

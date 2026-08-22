@@ -139,9 +139,9 @@ function testStackBlitzFileGeneration(demos) {
             // Test: theme-switcher added to template
             allPassed &= logTest('theme-switcher added to template', modified.includes('<theme-switcher />'));
 
-            // Test: PrimeNG module imports removed
-            const hasNoDirectModuleImport = !modified.includes("from 'primeng/select';") || modified.includes('ImportsModule');
-            allPassed &= logTest('PrimeNG direct imports removed', !modified.match(/import\s+\{[^}]*Module[^}]*\}\s+from\s+'primeng\//));
+            // Test: ngx-prime module imports removed
+            const hasNoDirectModuleImport = !modified.includes("from 'ngx-prime/select';") || modified.includes('ImportsModule');
+            allPassed &= logTest('ngx-prime direct imports removed', !modified.match(/import\s+\{[^}]*Module[^}]*\}\s+from\s+'ngx-prime\//));
         }
 
         // Test: Metadata has services if needed
@@ -275,7 +275,7 @@ function testStackBlitzProjectStructure(demos) {
     allPassed &= logTest(`No separate ${selector}.html file`, true, 'Using inline template');
 
     // Test: package.json would have correct dependencies
-    const requiredDeps = ['primeng', '@angular/core', '@wawjs/css-prime-themes', 'tailwindcss'];
+    const requiredDeps = ['ngx-prime', '@angular/core', '@wawjs/css-prime-themes', 'tailwindcss'];
     allPassed &= logTest('Required dependencies present', true, requiredDeps.join(', '));
 
     return allPassed;
@@ -296,14 +296,14 @@ function testContentMatching(demos) {
 
         const { typescript } = demo.code;
 
-        // Test: TypeScript has inline template with PrimeNG components
+        // Test: TypeScript has inline template with ngx-prime components
         if (typescript) {
             const hasTemplate = typescript.includes('template:') && typescript.includes('`');
             allPassed &= logTest('TypeScript has inline template', hasTemplate);
 
-            // Check for PrimeNG component in template
-            const hasPrimeNGComponent = /p-[\w-]+/.test(typescript);
-            allPassed &= logTest('Template contains PrimeNG component', hasPrimeNGComponent);
+            // Check for ngx-prime component in template
+            const hasngx-primeComponent = /p-[\w-]+/.test(typescript);
+            allPassed &= logTest('Template contains ngx-prime component', hasngx-primeComponent);
         }
 
         // Test: Component class name matches selector

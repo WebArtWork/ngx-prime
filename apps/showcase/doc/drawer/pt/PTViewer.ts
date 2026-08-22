@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { DrawerModule } from 'primeng/drawer';
-import { TimesIcon } from 'primeng/icons';
+import { DrawerModule } from 'ngx-prime/drawer';
+import { TimesIcon } from 'ngx-prime/icons';
 
 @Component({
     selector: 'app-drawer-pt-viewer',

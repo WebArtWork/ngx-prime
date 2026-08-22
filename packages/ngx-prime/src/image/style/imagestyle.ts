@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/image';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -44,7 +44,7 @@ export class ImageStyle extends BaseStyle {
  *
  * Displays an image with preview and tranformation options. For multiple image, see Galleria.
  *
- * [Live Demo](https://www.primeng.org/image/)
+ * [Live Demo](https://www.ngx-prime.org/image/)
  *
  * @module imagestyle
  *

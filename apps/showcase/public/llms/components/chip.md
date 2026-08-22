@@ -12,7 +12,7 @@ A basic chip with a text is created with the label property. In addition when re
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'ngx-prime/chip';
 
 @Component({
     template: `
@@ -35,7 +35,7 @@ A font icon next to the label can be displayed with the icon property.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'ngx-prime/chip';
 
 @Component({
     template: `
@@ -58,15 +58,15 @@ The image property is used to display an image like an avatar.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'ngx-prime/chip';
 
 @Component({
     template: `
         <div class="card flex items-center gap-2 flex-wrap">
-            <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar image" />
-            <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
-            <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
-            <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
+            <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" alt="Avatar image" />
+            <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
+            <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
+            <p-chip label="Xuxue Feng" image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/xuxuefeng.png" alt="Avatar image" [removable]="true" />
         </div>
     `,
     standalone: true,
@@ -81,7 +81,7 @@ Content can easily be customized with the dynamic content instead of using the b
 
 ```typescript
 import { Component } from '@angular/core';
-import { ChipModule } from 'primeng/chip';
+import { ChipModule } from 'ngx-prime/chip';
 
 @Component({
     template: `

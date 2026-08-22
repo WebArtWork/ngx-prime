@@ -1,9 +1,9 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { BlockUIModule } from 'primeng/blockui';
-import { ButtonModule } from 'primeng/button';
-import { PanelModule } from 'primeng/panel';
+import { BlockUIModule } from 'ngx-prime/blockui';
+import { ButtonModule } from 'ngx-prime/button';
+import { PanelModule } from 'ngx-prime/panel';
 
 @Component({
     selector: 'app-blockui-pt-viewer',

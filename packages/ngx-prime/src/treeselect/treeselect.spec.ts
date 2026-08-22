@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection, signal } from '@angular/core
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule, TreeNode } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
-import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from 'primeng/types/treeselect';
+import { SharedModule, TreeNode } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
+import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from 'ngx-prime/types/treeselect';
 import { BehaviorSubject } from 'rxjs';
 import { TreeSelect, TreeSelectModule } from './treeselect';
 
@@ -142,14 +142,14 @@ const mockTreeNodes: TreeNode[] = [
             <!-- Item toggler icon template -->
             <ng-template #itemtogglericon let-expanded>
                 <i class="custom-toggler" data-testid="template-itemtogglericon" [class.expanded]="expanded">
-                    {{ expanded ? '−' : '+' }}
+                    {{ expanded ? 'âˆ’' : '+' }}
                 </i>
             </ng-template>
 
             <!-- Item checkbox icon template -->
             <ng-template #itemcheckboxicon let-selected let-partialSelected="partialSelected">
                 <i class="custom-checkbox" data-testid="template-itemcheckboxicon" [class.selected]="selected" [class.partial]="partialSelected">
-                    {{ selected ? '☑' : partialSelected ? '☐' : '☐' }}
+                    {{ selected ? 'â˜‘' : partialSelected ? 'â˜' : 'â˜' }}
                 </i>
             </ng-template>
 
@@ -1499,7 +1499,7 @@ describe('TreeSelect', () => {
                 imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             treeSelect: {
                                 root: 'custom-root-class',
@@ -1528,7 +1528,7 @@ describe('TreeSelect', () => {
                 imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             treeSelect: {
                                 root: { class: 'pt-root-test' },
@@ -1555,7 +1555,7 @@ describe('TreeSelect', () => {
                 imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             treeSelect: {
                                 root: 'string-root',
@@ -1586,7 +1586,7 @@ describe('TreeSelect', () => {
                 imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             treeSelect: {
                                 root: {
@@ -1617,7 +1617,7 @@ describe('TreeSelect', () => {
                 imports: [TreeSelectModule, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             treeSelect: {
                                 root: 'global-root',

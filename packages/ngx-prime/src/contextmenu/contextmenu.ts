@@ -44,17 +44,17 @@ import {
     resolve,
     uuid
 } from '@wawjs/css-prime-utils';
-import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BindModule } from 'primeng/bind';
-import { AngleRightIcon } from 'primeng/icons';
-import { MotionModule } from 'primeng/motion';
-import { Ripple } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { VoidListener } from 'primeng/ts-helpers';
-import { ContextMenuItemTemplateContext, ContextMenuPassThrough, ContextMenuSubmenuIconTemplateContext } from 'primeng/types/contextmenu';
-import { ZIndexUtils } from 'primeng/utils';
+import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { BadgeModule } from 'ngx-prime/badge';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BindModule } from 'ngx-prime/bind';
+import { AngleRightIcon } from 'ngx-prime/icons';
+import { MotionModule } from 'ngx-prime/motion';
+import { Ripple } from 'ngx-prime/ripple';
+import { TooltipModule } from 'ngx-prime/tooltip';
+import { VoidListener } from 'ngx-prime/ts-helpers';
+import { ContextMenuItemTemplateContext, ContextMenuPassThrough, ContextMenuSubmenuIconTemplateContext } from 'ngx-prime/types/contextmenu';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
 
 const CONTEXTMENU_INSTANCE = new InjectionToken<ContextMenu>('CONTEXTMENU_INSTANCE');

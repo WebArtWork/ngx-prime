@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/inputotp';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: 'p-inputotp p-component',
@@ -20,7 +20,7 @@ export class InputOtpStyle extends BaseStyle {
  *
  * InputOtp is used to enter one time passwords.
  *
- * [Live Demo](https://www.primeng.org/inputotp/)
+ * [Live Demo](https://www.ngx-prime.org/inputotp/)
  *
  * @module inputotpstyle
  *

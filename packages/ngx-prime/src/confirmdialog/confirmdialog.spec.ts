@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection, inject } from '@angular/core
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ConfirmationService } from 'primeng/api';
-import { Button } from 'primeng/button';
-import { Dialog } from 'primeng/dialog';
+import { ConfirmationService } from 'ngx-prime/api';
+import { Button } from 'ngx-prime/button';
+import { Dialog } from 'ngx-prime/dialog';
 import { ConfirmDialog } from './confirmdialog';
 
 // Basic ConfirmDialog Component Test
@@ -1053,7 +1053,7 @@ describe('ConfirmDialog', () => {
         });
 
         it('should have option method for accessing properties', () => {
-            confirmDialogInstance.message = 'test message';
+            (confirmDialogInstance as any).message = () => 'test message';
 
             expect(confirmDialogInstance.option('message')).toBe('test message');
         });
@@ -1478,7 +1478,7 @@ describe('ConfirmDialog', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-confirmdialog key="test1"></p-confirmdialog>
@@ -1500,7 +1500,7 @@ describe('ConfirmDialog', () => {
                 }
             }
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+            it('should apply global PT configuration from NgxPrimeConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [ConfirmDialog, Dialog, Button, TestPTCase7GlobalComponent],
@@ -1508,7 +1508,7 @@ describe('ConfirmDialog', () => {
                         ConfirmationService,
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideNgxPrime',
                             useValue: {
                                 pt: {
                                     confirmdialog: {

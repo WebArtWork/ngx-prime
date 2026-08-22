@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as drawer_style } from '@wawjs/css-prime-styles/drawer';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
 ${drawer_style}
 
-/** For PrimeNG **/
+/** For ngx-prime **/
 .p-drawer {
     position: fixed;
 }
@@ -123,7 +123,7 @@ export class DrawerStyle extends BaseStyle {
  *
  * Drawer is a panel component displayed as an overlay at the edges of the screen.
  *
- * [Live Demo](https://www.primeng.org/drawer)
+ * [Live Demo](https://www.ngx-prime.org/drawer)
  *
  * @module drawerstyle
  *

@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'ngx-prime/button';
+import { CardModule } from 'ngx-prime/card';
 
 @Component({
     selector: 'app-card-pt-viewer',

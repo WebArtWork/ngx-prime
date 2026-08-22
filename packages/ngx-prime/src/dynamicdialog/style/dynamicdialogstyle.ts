@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DialogStyle } from 'primeng/dialog';
+import { DialogStyle } from 'ngx-prime/dialog';
 
 @Injectable()
 export class DynamicDialogStyle extends DialogStyle {
@@ -10,7 +10,7 @@ export class DynamicDialogStyle extends DialogStyle {
  *
  * DynamicDialog is a container to display content in an overlay window.
  *
- * [Live Demo](https://www.primeng.org/dynamicdialog)
+ * [Live Demo](https://www.ngx-prime.org/dynamicdialog)
  *
  * @module dynamicdialogstyle
  *

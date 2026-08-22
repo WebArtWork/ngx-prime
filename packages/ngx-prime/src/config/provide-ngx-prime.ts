@@ -1,10 +1,10 @@
 import { EnvironmentProviders, inject, InjectionToken, makeEnvironmentProviders, provideAppInitializer } from '@angular/core';
-import { PrimeNG } from './primeng';
-import type { PrimeNGConfigType } from './primeng.types';
+import { NgxPrime } from './ngx-prime';
+import type { NgxPrimeConfigType } from './ngx-prime.types';
 
-export const PRIME_NG_CONFIG = new InjectionToken<PrimeNGConfigType>('PRIME_NG_CONFIG');
+export const PRIME_NG_CONFIG = new InjectionToken<NgxPrimeConfigType>('PRIME_NG_CONFIG');
 
-export function providePrimeNG(...features: PrimeNGConfigType[]): EnvironmentProviders {
+export function provideNgxPrime(...features: NgxPrimeConfigType[]): EnvironmentProviders {
     const providers = features?.map((feature) => ({
         provide: PRIME_NG_CONFIG,
         useValue: feature,
@@ -12,9 +12,9 @@ export function providePrimeNG(...features: PrimeNGConfigType[]): EnvironmentPro
     }));
 
     const initializer = provideAppInitializer(() => {
-        const PrimeNGConfig = inject(PrimeNG);
+        const NgxPrimeConfig = inject(NgxPrime);
 
-        features?.forEach((feature) => PrimeNGConfig.setConfig(feature));
+        features?.forEach((feature) => NgxPrimeConfig.setConfig(feature));
 
         return;
     });

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/menubar';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const inlineStyles = {
     submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'flex' : 'none' })
@@ -50,7 +50,7 @@ export class MenuBarStyle extends BaseStyle {
  *
  * Menubar is a horizontal menu component.
  *
- * [Live Demo](https://www.primeng.org/menubar/)
+ * [Live Demo](https://www.ngx-prime.org/menubar/)
  *
  * @module menubarstyle
  *

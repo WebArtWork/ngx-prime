@@ -1,9 +1,9 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { ToastModule } from 'primeng/toast';
+import { MenuItem, MessageService } from 'ngx-prime/api';
+import { SpeedDialModule } from 'ngx-prime/speeddial';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     selector: 'app-speeddial-pt-viewer',

@@ -12,8 +12,8 @@ Menu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuModule } from 'primeng/menu';
-import { MenuItem } from 'primeng/api';
+import { MenuModule } from 'ngx-prime/menu';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -42,9 +42,9 @@ The function to invoke when an item is clicked is defined using the command prop
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuModule } from 'primeng/menu';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuModule } from 'ngx-prime/menu';
+import { ToastModule } from 'ngx-prime/toast';
+import { MenuItem, MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -96,8 +96,8 @@ Menu supports one level of nesting by defining children with items property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuModule } from 'primeng/menu';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuModule } from 'ngx-prime/menu';
+import { MenuItem, MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -152,9 +152,9 @@ Popup mode is enabled by setting popup property to true and calling toggle metho
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { MenuModule } from 'ngx-prime/menu';
+import { MenuItem, MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -197,8 +197,8 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenuModule } from 'primeng/menu';
-import { MenuItem } from 'primeng/api';
+import { MenuModule } from 'ngx-prime/menu';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -247,11 +247,11 @@ Menu offers item customization with the item template that receives the menuitem
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
-import { Menu, MenuModule } from 'primeng/menu';
-import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { BadgeModule } from 'ngx-prime/badge';
+import { Menu, MenuModule } from 'ngx-prime/menu';
+import { RippleModule } from 'ngx-prime/ripple';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -304,7 +304,7 @@ import { MenuItem } from 'primeng/api';
                 </ng-template>
                 <ng-template #end>
                     <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-col items-start">
                             <span class="font-bold">Amy Elsner</span>
                             <span class="text-sm">Admin</span>
@@ -331,12 +331,12 @@ export class MenuTemplateDemo implements OnInit {
                     {
                         label: 'New',
                         icon: 'pi pi-plus',
-                        shortcut: '⌘+N'
+                        shortcut: 'âŒ˜+N'
                     },
                     {
                         label: 'Search',
                         icon: 'pi pi-search',
-                        shortcut: '⌘+S'
+                        shortcut: 'âŒ˜+S'
                     }
                 ]
             },
@@ -346,7 +346,7 @@ export class MenuTemplateDemo implements OnInit {
                     {
                         label: 'Settings',
                         icon: 'pi pi-cog',
-                        shortcut: '⌘+O'
+                        shortcut: 'âŒ˜+O'
                     },
                     {
                         label: 'Messages',
@@ -356,7 +356,7 @@ export class MenuTemplateDemo implements OnInit {
                     {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
-                        shortcut: '⌘+Q',
+                        shortcut: 'âŒ˜+Q',
                         linkClass: '!text-red-500 dark:!text-red-400'
                     }
                 ]

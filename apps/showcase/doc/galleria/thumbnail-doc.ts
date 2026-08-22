@@ -2,8 +2,8 @@ import { PhotoService } from '@/service/photoservice';
 import { Component, inject, OnInit, signal } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { GalleriaModule } from 'primeng/galleria';
-import { RadioButtonModule } from 'primeng/radiobutton';
+import { GalleriaModule } from 'ngx-prime/galleria';
+import { RadioButtonModule } from 'ngx-prime/radiobutton';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

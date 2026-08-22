@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/organizationchart';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => ['p-organizationchart p-component', { 'p-organizationchart-preservespace': instance.preserveSpace() }],
@@ -31,7 +31,7 @@ export class OrganizationChartStyle extends BaseStyle {
  *
  * OrganizationChart visualizes hierarchical organization data.
  *
- * [Live Demo](https://www.primeng.org/organizationchart)
+ * [Live Demo](https://www.ngx-prime.org/organizationchart)
  *
  * @module organizationchartstyle
  *

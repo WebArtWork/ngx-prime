@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/picklist';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: () => ['p-picklist p-component'],
@@ -24,7 +24,7 @@ export class PickListStyle extends BaseStyle {
  *
  * PickList is used to reorder items between different lists.
  *
- * [Live Demo](https://www.primeng.org/picklist)
+ * [Live Demo](https://www.ngx-prime.org/picklist)
  *
  * @module pickliststyle
  *

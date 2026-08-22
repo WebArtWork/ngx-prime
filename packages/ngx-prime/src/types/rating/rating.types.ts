@@ -1,4 +1,4 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
 import { TemplateRef } from '@angular/core';
 
 /**

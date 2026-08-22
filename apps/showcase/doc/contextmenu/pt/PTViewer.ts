@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ContextMenuModule } from 'primeng/contextmenu';
+import { ContextMenuModule } from 'ngx-prime/contextmenu';
 
 @Component({
     selector: 'app-contextmenu-pt-viewer',
@@ -9,7 +9,7 @@ import { ContextMenuModule } from 'primeng/contextmenu';
     imports: [AppDocPtViewer, ContextMenuModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <img #image src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-80 rounded shadow-lg" (contextmenu)="cm.show($event)" />
+            <img #image src="https://primefaces.org/cdn/ngx-prime/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="w-full md:w-80 rounded shadow-lg" (contextmenu)="cm.show($event)" />
             <p-contextMenu #cm [target]="image" [model]="items" />
         </app-docptviewer>
     `

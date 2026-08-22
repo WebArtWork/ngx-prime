@@ -2,8 +2,8 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { ChangeDetectorRef, Component, signal, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeNode } from 'primeng/api';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeNode } from 'ngx-prime/api';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 
 @Component({
     selector: 'app-lazy-doc',

@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, inject, input, NgModule, numberAttribute, output, ViewEncapsulation, viewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { find, findSingle } from '@wawjs/css-prime-utils';
-import { MenuItem, SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
-import { TooltipModule } from 'primeng/tooltip';
-import { Nullable } from 'primeng/ts-helpers';
+import { MenuItem, SharedModule } from 'ngx-prime/api';
+import { BaseComponent } from 'ngx-prime/basecomponent';
+import { TooltipModule } from 'ngx-prime/tooltip';
+import { Nullable } from 'ngx-prime/ts-helpers';
 import { Subscription } from 'rxjs';
 import { StepsStyle } from './style/stepsstyle';
 

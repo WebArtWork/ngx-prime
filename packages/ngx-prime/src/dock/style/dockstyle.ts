@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/dock';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -37,7 +37,7 @@ export class DockStyle extends BaseStyle {
  *
  * Dock is a navigation component consisting of menuitems.
  *
- * [Live Demo](https://www.primeng.org/dock/)
+ * [Live Demo](https://www.ngx-prime.org/dock/)
  *
  * @module dockstyle
  *

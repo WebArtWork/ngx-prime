@@ -1,7 +1,7 @@
 import { booleanAttribute, DestroyRef, Directive, ElementRef, inject, input, model, numberAttribute, OnInit, output } from '@angular/core';
-import { BaseModelHolder } from 'primeng/basemodelholder';
-import { Bind } from 'primeng/bind';
-import type { FileSelectEvent, FileUploadPassThrough, NativeFileUploadValidationErrorEvent } from 'primeng/types/fileupload';
+import { BaseModelHolder } from 'ngx-prime/basemodelholder';
+import { Bind } from 'ngx-prime/bind';
+import type { FileSelectEvent, FileUploadPassThrough, NativeFileUploadValidationErrorEvent } from 'ngx-prime/types/fileupload';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
 /**
@@ -234,21 +234,21 @@ export class FileUploadQueueDirective implements OnInit {
             if (request.status >= 200 && request.status < 300) {
                 this.uploadedFiles.set([...this.uploadedFiles(), ...files]);
                 this.files.set([]);
-                this.onUpload.emit({ originalEvent: request, files });
-            } else this.onError.emit({ originalEvent: request, files });
+                this.onUpload.emit({ originalEvent: new Event('load'), files });
+            } else this.onError.emit({ originalEvent: new Event('error'), files });
             this.progress.set(0);
             this.request = undefined;
         };
 
         request.onerror = () => {
             this.uploading.set(false);
-            this.onError.emit({ originalEvent: request, files });
+            this.onError.emit({ originalEvent: new Event('error'), files });
             this.request = undefined;
         };
 
         this.uploading.set(true);
         request.send(formData);
-        this.onSend.emit({ originalEvent: request, formData });
+        this.onSend.emit({ originalEvent: new Event('send'), formData });
     }
 }
 @Directive({ selector: 'button[pFileUploadChoose]', standalone: true, host: { type: 'button', '(click)': 'queue().choose()' } })

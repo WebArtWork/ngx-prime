@@ -24,9 +24,9 @@ import {
 } from '@angular/core';
 import { Theme, ThemeService } from '@wawjs/css-prime-styled';
 import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@wawjs/css-prime-utils';
-import type { Lifecycle, PassThroughOptions } from 'primeng/api';
-import { Base, BaseStyle } from 'primeng/base';
-import { PrimeNG } from 'primeng/config';
+import type { Lifecycle, PassThroughOptions } from 'ngx-prime/api';
+import { Base, BaseStyle } from 'ngx-prime/base';
+import { NgxPrime } from 'ngx-prime/config';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');
@@ -48,7 +48,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
 
     public renderer: Renderer2 = inject(Renderer2);
 
-    public config: PrimeNG = inject(PrimeNG);
+    public config: NgxPrime = inject(NgxPrime);
 
     public $parentInstance: BaseComponent | undefined = inject(PARENT_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
@@ -219,7 +219,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
     }
 
     /**
-     * ⚠ Do not override ngOnInit!
+     * âš  Do not override ngOnInit!
      *
      * Use 'onInit()' in subclasses instead.
      */
@@ -232,7 +232,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
     }
 
     /**
-     * ⚠ Do not override ngOnChanges!
+     * âš  Do not override ngOnChanges!
      *
      * Use 'onChanges(changes: SimpleChanges)' in subclasses instead.
      */
@@ -242,7 +242,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
     }
 
     /**
-     * ⚠ Do not override ngDoCheck!
+     * âš  Do not override ngDoCheck!
      *
      * Use 'onDoCheck()' in subclasses instead.
      */
@@ -252,7 +252,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
     }
 
     /**
-     * ⚠ Do not override ngAfterContentInit!
+     * âš  Do not override ngAfterContentInit!
      *
      * Use 'onAfterContentInit()' in subclasses instead.
      */
@@ -262,7 +262,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
     }
 
     /**
-     * ⚠ Do not override ngAfterContentChecked!
+     * âš  Do not override ngAfterContentChecked!
      *
      * Use 'onAfterContentChecked()' in subclasses instead.
      */
@@ -272,7 +272,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
     }
 
     /**
-     * ⚠ Do not override ngAfterViewInit!
+     * âš  Do not override ngAfterViewInit!
      *
      * Use 'onAfterViewInit()' in subclasses instead.
      */
@@ -285,7 +285,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
     }
 
     /**
-     * ⚠ Do not override ngAfterViewChecked!
+     * âš  Do not override ngAfterViewChecked!
      *
      * Use 'onAfterViewChecked()' in subclasses instead.
      */
@@ -295,7 +295,7 @@ export class BaseComponent<PT = any> implements Lifecycle, OnInit, OnChanges, Do
     }
 
     /**
-     * ⚠ Do not override ngOnDestroy!
+     * âš  Do not override ngOnDestroy!
      *
      * Use 'onDestroy()' in subclasses instead.
      */

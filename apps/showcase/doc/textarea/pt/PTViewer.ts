@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TextareaModule } from 'primeng/textarea';
+import { TextareaModule } from 'ngx-prime/textarea';
 
 @Component({
     selector: 'app-textarea-pt-viewer',

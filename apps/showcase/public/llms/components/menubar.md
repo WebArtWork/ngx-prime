@@ -12,8 +12,8 @@ Menubar requires nested menuitems as its model.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
+import { MenubarModule } from 'ngx-prime/menubar';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -84,9 +84,9 @@ The command property defines the callback to run when an item is activated by cl
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { MenubarModule } from 'primeng/menubar';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenubarModule } from 'ngx-prime/menubar';
+import { ToastModule } from 'ngx-prime/toast';
+import { MenuItem, MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -171,8 +171,8 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from 'primeng/api';
+import { MenubarModule } from 'ngx-prime/menubar';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -234,12 +234,12 @@ Custom content can be placed inside the menubar using the start and end template
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
-import { MenubarModule } from 'primeng/menubar';
-import { InputTextModule } from 'primeng/inputtext';
-import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { BadgeModule } from 'ngx-prime/badge';
+import { MenubarModule } from 'ngx-prime/menubar';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { RippleModule } from 'ngx-prime/ripple';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -287,7 +287,7 @@ import { MenuItem } from 'primeng/api';
                 <ng-template #end>
                     <div class="flex items-center gap-2">
                         <input type="text" pInputText placeholder="Search" class="w-36" />
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                     </div>
                 </ng-template>
             </p-menubar>
@@ -313,12 +313,12 @@ export class MenubarTemplateDemo implements OnInit {
                     {
                         label: 'Core',
                         icon: 'pi pi-bolt',
-                        shortcut: '⌘+S'
+                        shortcut: 'âŒ˜+S'
                     },
                     {
                         label: 'Blocks',
                         icon: 'pi pi-server',
-                        shortcut: '⌘+B'
+                        shortcut: 'âŒ˜+B'
                     },
                     {
                         separator: true
@@ -326,7 +326,7 @@ export class MenubarTemplateDemo implements OnInit {
                     {
                         label: 'UI Kit',
                         icon: 'pi pi-pencil',
-                        shortcut: '⌘+U'
+                        shortcut: 'âŒ˜+U'
                     }
                 ]
             }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { style as panelmenu_style } from '@wawjs/css-prime-styles/panelmenu';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${panelmenu_style}
-    /*For PrimeNG*/
+    /*For ngx-prime*/
 
 
     .p-panelmenu-root-list,
@@ -62,7 +62,7 @@ export class PanelMenuStyle extends BaseStyle {
  *
  * PanelMenu is a hybrid of Accordion and Tree components.
  *
- * [Live Demo](https://www.primeng.org/panelmenu/)
+ * [Live Demo](https://www.ngx-prime.org/panelmenu/)
  *
  * @module panelmenustyle
  *

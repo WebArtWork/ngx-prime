@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as listbox_style } from '@wawjs/css-prime-styles/listbox';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${listbox_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     .p-listbox.ng-invalid.ng-dirty {
         border-color: dt('listbox.invalid.border.color');
     }
@@ -84,7 +84,7 @@ export class ListBoxStyle extends BaseStyle {
  *
  * ListBox is used to select one or more values from a list of items.
  *
- * [Live Demo](https://www.primeng.org/listbox/)
+ * [Live Demo](https://www.ngx-prime.org/listbox/)
  *
  * @module listboxstyle
  *

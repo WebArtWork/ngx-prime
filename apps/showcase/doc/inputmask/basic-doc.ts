@@ -2,8 +2,8 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputText } from 'primeng/inputtext';
+import { InputMaskModule } from 'ngx-prime/inputmask';
+import { InputText } from 'ngx-prime/inputtext';
 
 @Component({
     selector: 'app-basic-doc',

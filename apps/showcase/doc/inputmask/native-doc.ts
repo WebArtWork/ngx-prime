@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskDirective } from 'primeng/inputmask';
+import { InputMaskDirective } from 'ngx-prime/inputmask';
 
 @Component({
     selector: 'app-inputmask-native-doc',

@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, effect, ElementRef, input, NgModule, NgZone, OnDestroy, output, Renderer2, inject } from '@angular/core';
 import { addClass, removeClass } from '@wawjs/css-prime-utils';
-import { DomHandler } from 'primeng/dom';
-import { VoidListener } from 'primeng/ts-helpers';
+import { DomHandler } from 'ngx-prime/dom';
+import { VoidListener } from 'ngx-prime/ts-helpers';
 
 /**
  * pDraggable directive apply draggable behavior to any element.

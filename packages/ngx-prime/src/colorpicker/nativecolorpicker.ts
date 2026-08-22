@@ -1,5 +1,5 @@
 import { booleanAttribute, Directive, ElementRef, inject, input, output } from '@angular/core';
-import type { ColorPickerChangeEvent } from 'primeng/types/colorpicker';
+import type { ColorPickerChangeEvent } from 'ngx-prime/types/colorpicker';
 
 /** Enhances a browser-native color input while preserving native color selection. */
 @Directive({
@@ -39,7 +39,7 @@ export class ColorPickerDirective {
     tabindex = input<number>();
     colorChange = output<string>();
     touch = output<void>();
-    onInput = output<ColorPickerChangeEvent>();
+    onInputChange = output<ColorPickerChangeEvent>({ alias: 'onInput' });
     onChange = output<ColorPickerChangeEvent>();
     onFocus = output<Event>();
     onBlur = output<Event>();
@@ -49,7 +49,7 @@ export class ColorPickerDirective {
         const value = (event.target as HTMLInputElement).value.toUpperCase();
 
         this.colorChange.emit(value);
-        this.onInput.emit({ originalEvent: event, value });
+        this.onInputChange.emit({ originalEvent: event, value });
     }
 
     onNativeBlur(event: Event) {

@@ -13,7 +13,7 @@ InputText is used as a controlled input with ngModel property.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -36,7 +36,7 @@ When disabled is present, the element cannot be edited and focused.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -59,7 +59,7 @@ Specify the variant property as filled to display the component with a higher vi
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -82,8 +82,8 @@ FloatLabel visually integrates a label with its form element. Visit FloatLabel d
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabelModule } from 'ngx-prime/floatlabel';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -119,7 +119,7 @@ The fluid prop makes the component take up the full width of its container when 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -142,7 +142,7 @@ An advisory text can be defined with the semantic small tag.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -169,7 +169,7 @@ Icons can be placed inside an input element by wrapping both the input and the i
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -200,8 +200,8 @@ IftaLabel is used to create infield top aligned labels. Visit IftaLabel document
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'primeng/iftalabel';
-import { InputTextModule } from 'primeng/inputtext';
+import { IftaLabelModule } from 'ngx-prime/iftalabel';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -222,12 +222,12 @@ export class InputtextIftalabelDemo {
 
 ## Invalid
 
-The invalid state is applied using the ⁠invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -252,7 +252,7 @@ InputText has built-in key filtering support to block certain keys, refer to key
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -273,11 +273,11 @@ export class InputtextKeyfilterDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -343,7 +343,7 @@ InputText provides small and large sizes as alternatives to the standard.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -368,11 +368,11 @@ export class InputtextSizesDemo {
 ```typescript
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { MessageService } from 'primeng/api';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { MessageService } from 'ngx-prime/api';
 
 @Component({
     template: `

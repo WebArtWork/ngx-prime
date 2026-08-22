@@ -4,7 +4,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { Table, TableModule, TablePassThrough } from 'primeng/table';
+import { Table, TableModule, TablePassThrough } from 'ngx-prime/table';
 
 @Component({
     selector: 'app-basic-doc',

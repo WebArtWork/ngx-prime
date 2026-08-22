@@ -28,19 +28,19 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { absolutePosition, addClass, hasClass, isTouchDevice, removeClass } from '@wawjs/css-prime-utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { BaseInput } from 'primeng/baseinput';
-import { Bind, BindModule } from 'primeng/bind';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { Fluid } from 'primeng/fluid';
-import { EyeIcon, EyeSlashIcon, TimesIcon } from 'primeng/icons';
-import { InputText } from 'primeng/inputtext';
-import { Overlay } from 'primeng/overlay';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import type { PasswordIconTemplateContext, PasswordPassThrough } from 'primeng/types/password';
+import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
+import { AutoFocus } from 'ngx-prime/autofocus';
+import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import { BaseInput } from 'ngx-prime/baseinput';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { ConnectedOverlayScrollHandler, DomHandler } from 'ngx-prime/dom';
+import { Fluid } from 'ngx-prime/fluid';
+import { EyeIcon, EyeSlashIcon, TimesIcon } from 'ngx-prime/icons';
+import { InputText } from 'ngx-prime/inputtext';
+import { Overlay } from 'ngx-prime/overlay';
+import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import type { PasswordIconTemplateContext, PasswordPassThrough } from 'ngx-prime/types/password';
 import { Subscription } from 'rxjs';
 import { PasswordStyle } from './style/passwordstyle';
 
@@ -110,22 +110,22 @@ export class PasswordDirective extends BaseEditableHolder {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
     /**
-     * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
+     * Text to prompt password entry. Defaults to ngx-prime I18N API configuration.
      * @group Props
      */
     promptLabel = input('Enter a password');
     /**
-     * Text for a weak password. Defaults to PrimeNG I18N API configuration.
+     * Text for a weak password. Defaults to ngx-prime I18N API configuration.
      * @group Props
      */
     weakLabel = input('Weak');
     /**
-     * Text for a medium password. Defaults to PrimeNG I18N API configuration.
+     * Text for a medium password. Defaults to ngx-prime I18N API configuration.
      * @group Props
      */
     mediumLabel = input('Medium');
     /**
-     * Text for a strong password. Defaults to PrimeNG I18N API configuration.
+     * Text for a strong password. Defaults to ngx-prime I18N API configuration.
      * @group Props
      */
     strongLabel = input('Strong');
@@ -694,7 +694,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     label = input<string>();
     /**
-     * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
+     * Text to prompt password entry. Defaults to ngx-prime I18N API configuration.
      * @group Props
      */
     promptLabel = input<string>();
@@ -709,12 +709,12 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     strongRegex = input('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})');
     /**
-     * Text for a weak password. Defaults to PrimeNG I18N API configuration.
+     * Text for a weak password. Defaults to ngx-prime I18N API configuration.
      * @group Props
      */
     weakLabel = input<string>();
     /**
-     * Text for a medium password. Defaults to PrimeNG I18N API configuration.
+     * Text for a medium password. Defaults to ngx-prime I18N API configuration.
      * @group Props
      */
     mediumLabel = input<string>();
@@ -725,7 +725,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
      */
     maxLength = input<number, unknown>(undefined, { transform: numberAttribute });
     /**
-     * Text for a strong password. Defaults to PrimeNG I18N API configuration.
+     * Text for a strong password. Defaults to ngx-prime I18N API configuration.
      * @group Props
      */
     strongLabel = input<string>();

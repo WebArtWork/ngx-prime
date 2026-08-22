@@ -7649,7 +7649,7 @@
                             "readonly": false,
                             "type": "string",
                             "default": "'No available options'",
-                            "description": "Text to display when filtering does not return any results. Defaults to value from PrimeNG locale configuration."
+                            "description": "Text to display when filtering does not return any results. Defaults to value from ngx-prime locale configuration."
                         },
                         {
                             "name": "emptySelectionMessage",
@@ -9695,13 +9695,13 @@
             }
         }
     },
-    "primeng": {
+    "ngx-prime": {
         "components": {},
         "types": {
             "components": {}
         }
     },
-    "provideprimeng": {
+    "providengx-prime": {
         "components": {}
     },
     "config": {
@@ -15966,7 +15966,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string | HTMLElement",
-                            "description": "DOM Element or a CSS selector for a DOM Element, within which the editor’s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries."
+                            "description": "DOM Element or a CSS selector for a DOM Element, within which the editorâ€™s p elements (i.e. tooltips, etc.) should be confined. Currently, it only considers left and right boundaries."
                         },
                         {
                             "name": "scrollingContainer",
@@ -16887,21 +16887,21 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Label of the choose button. Defaults to PrimeNG Locale configuration."
+                            "description": "Label of the choose button. Defaults to ngx-prime Locale configuration."
                         },
                         {
                             "name": "uploadLabel",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Label of the upload button. Defaults to PrimeNG Locale configuration."
+                            "description": "Label of the upload button. Defaults to ngx-prime Locale configuration."
                         },
                         {
                             "name": "cancelLabel",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Label of the cancel button. Defaults to PrimeNG Locale configuration."
+                            "description": "Label of the cancel button. Defaults to ngx-prime Locale configuration."
                         },
                         {
                             "name": "chooseIcon",
@@ -16961,7 +16961,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration."
+                            "description": "Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to ngx-prime Locale configuration."
                         },
                         {
                             "name": "fileLimit",
@@ -21501,7 +21501,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "any",
-                            "description": "How to display the currency in currency formatting. Possible values are \"symbol\" to use a localized currency symbol such as €, ü\"code\" to use the ISO currency code, \"name\" to use a localized currency name such as \"dollar\"; the default is \"symbol\"."
+                            "description": "How to display the currency in currency formatting. Possible values are \"symbol\" to use a localized currency symbol such as â‚¬, Ã¼\"code\" to use the ISO currency code, \"name\" to use a localized currency name such as \"dollar\"; the default is \"symbol\"."
                         },
                         {
                             "name": "useGrouping",
@@ -29388,7 +29388,7 @@
     "overlay": {
         "components": {
             "Overlay": {
-                "description": "This API allows overlay components to be controlled from the PrimeNG. In this way, all overlay components in the application can have the same behavior.",
+                "description": "This API allows overlay components to be controlled from the ngx-prime. In this way, all overlay components in the application can have the same behavior.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -31411,7 +31411,7 @@
                             "readonly": false,
                             "type": "string",
                             "default": "Enter a password",
-                            "description": "Text to prompt password entry. Defaults to PrimeNG I18N API configuration."
+                            "description": "Text to prompt password entry. Defaults to ngx-prime I18N API configuration."
                         },
                         {
                             "name": "weakLabel",
@@ -31419,7 +31419,7 @@
                             "readonly": false,
                             "type": "string",
                             "default": "Weak",
-                            "description": "Text for a weak password. Defaults to PrimeNG I18N API configuration."
+                            "description": "Text for a weak password. Defaults to ngx-prime I18N API configuration."
                         },
                         {
                             "name": "mediumLabel",
@@ -31427,7 +31427,7 @@
                             "readonly": false,
                             "type": "string",
                             "default": "Medium",
-                            "description": "Text for a medium password. Defaults to PrimeNG I18N API configuration."
+                            "description": "Text for a medium password. Defaults to ngx-prime I18N API configuration."
                         },
                         {
                             "name": "strongLabel",
@@ -31435,7 +31435,7 @@
                             "readonly": false,
                             "type": "string",
                             "default": "Strong",
-                            "description": "Text for a strong password. Defaults to PrimeNG I18N API configuration."
+                            "description": "Text for a strong password. Defaults to ngx-prime I18N API configuration."
                         },
                         {
                             "name": "feedback",
@@ -31654,7 +31654,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Text to prompt password entry. Defaults to PrimeNG I18N API configuration."
+                            "description": "Text to prompt password entry. Defaults to ngx-prime I18N API configuration."
                         },
                         {
                             "name": "mediumRegex",
@@ -31677,14 +31677,14 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Text for a weak password. Defaults to PrimeNG I18N API configuration."
+                            "description": "Text for a weak password. Defaults to ngx-prime I18N API configuration."
                         },
                         {
                             "name": "mediumLabel",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Text for a medium password. Defaults to PrimeNG I18N API configuration."
+                            "description": "Text for a medium password. Defaults to ngx-prime I18N API configuration."
                         },
                         {
                             "name": "maxLength",
@@ -31699,7 +31699,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Text for a strong password. Defaults to PrimeNG I18N API configuration."
+                            "description": "Text for a strong password. Defaults to ngx-prime I18N API configuration."
                         },
                         {
                             "name": "inputId",
@@ -47257,7 +47257,7 @@
                             "readonly": false,
                             "type": "string",
                             "default": "",
-                            "description": "Text to display when there are no options available. Defaults to value from PrimeNG locale configuration."
+                            "description": "Text to display when there are no options available. Defaults to value from ngx-prime locale configuration."
                         },
                         {
                             "name": "filter",

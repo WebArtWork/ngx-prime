@@ -1,9 +1,9 @@
 import { Code } from '@/domain/code';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, PrimeIcons } from 'primeng/api';
+import { MenuItem, PrimeIcons } from 'ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { MenuModule } from 'primeng/menu';
+import { MenuModule } from 'ngx-prime/menu';
 
 @Component({
     selector: 'app-constants-doc',
@@ -38,7 +38,7 @@ export class ConstantsDoc implements OnInit {
     code: Code = {
         typescript: `
 import { Component } from '@angular/core';
-import { PrimeIcons, MenuItem } from 'primeng/api';
+import { PrimeIcons, MenuItem } from 'ngx-prime/api';
 
 @Component({
     selector: 'prime-icons-constants-demo',

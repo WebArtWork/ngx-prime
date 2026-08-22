@@ -9,9 +9,9 @@ import { Meta, Title } from '@angular/platform-browser';
             <div class="doc-intro">
                 <h1>Roadmap</h1>
                 <p>
-                    At <a href="https://www.primetek.com.tr/" target="_blank" rel="noopener noreferrer" class="text-primary font-medium hover:underline">PrimeTek</a>, we are passionate about improving PrimeNG and would like to share our ideas for
-                    2026 (Year 10) with the community. These are planned to be implemented in parallel to the regular maintenance work of the library involving review of issue tickets, PRs, LTS updates and PrimeNG PRO support. Based on semantic
-                    versioning guidelines, PrimeNG updates will be backward compatible with a clear migration path when necessary.
+                    At <a href="https://www.primetek.com.tr/" target="_blank" rel="noopener noreferrer" class="text-primary font-medium hover:underline">PrimeTek</a>, we are passionate about improving ngx-prime and would like to share our ideas for
+                    2026 (Year 10) with the community. These are planned to be implemented in parallel to the regular maintenance work of the library involving review of issue tickets, PRs, LTS updates and ngx-prime PRO support. Based on semantic
+                    versioning guidelines, ngx-prime updates will be backward compatible with a clear migration path when necessary.
                 </p>
             </div>
 
@@ -59,7 +59,7 @@ import { Meta, Title } from '@angular/platform-browser';
                                     <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
                                 </div>
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v22</h2>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">ngx-prime v22</h2>
                                     <p class="mt-0 mb-4 leading-normal">Angular v22 compatible version.</p>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@ import { Meta, Title } from '@angular/platform-browser';
                                     <p class="mt-0 mb-4 leading-normal">Refactor of internal component implementations with modern Angular APIs.</p>
                                 </div>
                                 <div class="p-4 bg-surface-0 dark:bg-surface-900 rounded border-blue-500 border-l-4">
-                                    <h2 class="text-lg font-bold mt-0 mb-2">PrimeNG v23</h2>
+                                    <h2 class="text-lg font-bold mt-0 mb-2">ngx-prime v23</h2>
                                     <p class="mt-0 mb-4 leading-normal">Angular v23 compatible version.</p>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@ export class RoadmapDemo {
     private metaService = inject(Meta);
 
     constructor() {
-        this.titleService.setTitle('Roadmap - PrimeNG');
-        this.metaService.updateTag({ name: 'description', content: 'PrimeNG Roadmap' });
+        this.titleService.setTitle('Roadmap - ngx-prime');
+        this.metaService.updateTag({ name: 'description', content: 'ngx-prime Roadmap' });
     }
 }

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as inputgroup_style } from '@wawjs/css-prime-styles/inputgroup';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${inputgroup_style}
 
-    /*For PrimeNG*/
+    /*For ngx-prime*/
 
     .p-inputgroup > .p-component,
     .p-inputgroup > .p-inputwrapper > .p-component,
@@ -60,7 +60,7 @@ export class InputGroupStyle extends BaseStyle {
  *
  * InputGroup displays text, icon, buttons and other content can be grouped next to an input.
  *
- * [Live Demo](https://www.primeng.org/inputgroup/)
+ * [Live Demo](https://www.ngx-prime.org/inputgroup/)
  *
  * @module inputgroupstyle
  *

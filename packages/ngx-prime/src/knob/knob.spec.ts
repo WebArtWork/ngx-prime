@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { Knob } from './knob';
 
 // Temel test component'i
@@ -34,7 +34,7 @@ class TestReactiveFormKnobComponent {
     }
 }
 
-// Gelişmiş özellikler test component'i
+// GeliÅŸmiÅŸ Ã¶zellikler test component'i
 @Component({
     standalone: true,
     imports: [Knob, FormsModule],
@@ -97,7 +97,7 @@ class TestKeyboardKnobComponent {
 @Component({
     standalone: true,
     imports: [Knob, FormsModule],
-    template: ` <p-knob [(ngModel)]="temperature" [min]="0" [max]="40" [valueTemplate]="'{value}°C'" /> `
+    template: ` <p-knob [(ngModel)]="temperature" [min]="0" [max]="40" [valueTemplate]="'{value}Â°C'" /> `
 })
 class TestTemplateKnobComponent {
     temperature: number = 25;
@@ -631,11 +631,11 @@ describe('Knob', () => {
             knobInstance.writeControlValue(component.temperature, () => {});
             fixture.detectChanges();
 
-            expect(knobInstance.valueToDisplay()).toBe('25°C');
+            expect(knobInstance.valueToDisplay()).toBe('25Â°C');
 
             const textElement = fixture.debugElement.query(By.css('text'));
 
-            expect(textElement.nativeElement.textContent.trim()).toBe('25°C');
+            expect(textElement.nativeElement.textContent.trim()).toBe('25Â°C');
         });
 
         it('should update template when value changes', async () => {
@@ -644,11 +644,11 @@ describe('Knob', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(knobInstance.valueToDisplay()).toBe('30°C');
+            expect(knobInstance.valueToDisplay()).toBe('30Â°C');
 
             const textElement = fixture.debugElement.query(By.css('text'));
 
-            expect(textElement.nativeElement.textContent.trim()).toBe('30°C');
+            expect(textElement.nativeElement.textContent.trim()).toBe('30Â°C');
         });
     });
 
@@ -759,7 +759,7 @@ describe('Knob', () => {
             expect(typeof knobInstance.valuePath()).toBe('string');
 
             // minRadians = (4 * Math.PI) / 3, radius = 40, midX = 50
-            // minX = 50 + cos((4 * Math.PI) / 3) * 40 ≈ 30
+            // minX = 50 + cos((4 * Math.PI) / 3) * 40 â‰ˆ 30
             expect(knobInstance.minX()).toBeCloseTo(30, 1);
             expect(knobInstance.maxX()).toBeCloseTo(70, 1);
             expect(knobInstance.valueX()).toBeDefined();
@@ -1132,7 +1132,7 @@ describe('Knob', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             @Component({
                 template: `<p-knob [(ngModel)]="value"></p-knob>`,
                 imports: [Knob, FormsModule]
@@ -1147,7 +1147,7 @@ describe('Knob', () => {
                     imports: [Knob, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 knob: {
                                     host: 'GLOBAL_HOST_CLASS',

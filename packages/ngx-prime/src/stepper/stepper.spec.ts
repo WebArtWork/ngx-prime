@@ -696,10 +696,10 @@ describe('Stepper', () => {
         });
 
         it('should apply simple string classes to PT sections', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: 'ROOT_CLASS',
                 host: 'HOST_CLASS'
-            };
+            });
             ptFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();
@@ -713,14 +713,14 @@ describe('Stepper', () => {
         });
 
         it('should apply object-based PT options with class and attributes', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'PT_ROOT_CLASS',
                     'data-test': 'stepper-test',
                     'aria-label': 'PT Stepper Label',
                     'data-role': 'stepper-role'
                 }
-            };
+            });
             ptFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();
@@ -735,12 +735,12 @@ describe('Stepper', () => {
         });
 
         it('should apply mixed object and string PT values', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     class: 'PT_ROOT_CLASS'
                 },
                 host: 'PT_HOST_CLASS'
-            };
+            });
             ptFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();
@@ -754,12 +754,12 @@ describe('Stepper', () => {
         });
 
         it('should use instance variables in PT functions', async () => {
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: ({ instance }) => ({
                     class: instance?.linear() ? 'LINEAR' : 'NON_LINEAR',
                     'data-value': instance?.value()
                 })
-            };
+            });
             ptFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();
@@ -774,13 +774,13 @@ describe('Stepper', () => {
         it('should handle event binding in PT options', async () => {
             let clicked = false;
 
-            ptComponent.pt = {
+            (ptComponent as any).pt = () => ({
                 root: {
                     onclick: () => {
                         clicked = true;
                     }
                 }
-            };
+            });
             ptFixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await ptFixture.whenStable();

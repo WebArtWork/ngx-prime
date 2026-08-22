@@ -7,7 +7,7 @@ import { AppDoc } from '@/components/doc/app.doc';
     selector: 'app-rtl-demo',
     standalone: true,
     imports: [AppDoc],
-    template: `<app-doc title="RTL Support" header="RTL Support" description="Right-to-left direction support of PrimeNG." [docs]="docs" docType="page"></app-doc>`
+    template: `<app-doc title="RTL Support" header="RTL Support" description="Right-to-left direction support of ngx-prime." [docs]="docs" docType="page"></app-doc>`
 })
 export class RTLDemoComponent {
     docs = [

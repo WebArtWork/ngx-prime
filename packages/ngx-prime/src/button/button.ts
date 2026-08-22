@@ -1,15 +1,15 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, Directive, effect, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, findSingle, isEmpty } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { BadgeModule } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { Fluid } from 'primeng/fluid';
-import { SpinnerIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
-import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from 'primeng/types/button';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { AutoFocus } from 'ngx-prime/autofocus';
+import { BadgeModule } from 'ngx-prime/badge';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { Fluid } from 'ngx-prime/fluid';
+import { SpinnerIcon } from 'ngx-prime/icons';
+import { Ripple } from 'ngx-prime/ripple';
+import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from 'ngx-prime/types/button';
 import { ButtonStyle } from './style/buttonstyle';
 
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');

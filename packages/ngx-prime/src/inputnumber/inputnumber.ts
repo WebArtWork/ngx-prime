@@ -22,15 +22,15 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { getSelection } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseInput } from 'primeng/baseinput';
-import { Bind, BindModule } from 'primeng/bind';
-import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'primeng/icons';
-import { InputText } from 'primeng/inputtext';
-import { Nullable } from 'primeng/ts-helpers';
-import type { InputNumberInputEvent, InputNumberPassThrough } from 'primeng/types/inputnumber';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { AutoFocus } from 'ngx-prime/autofocus';
+import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseInput } from 'ngx-prime/baseinput';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'ngx-prime/icons';
+import { InputText } from 'ngx-prime/inputtext';
+import { Nullable } from 'ngx-prime/ts-helpers';
+import type { InputNumberInputEvent, InputNumberPassThrough } from 'ngx-prime/types/inputnumber';
 import { InputNumberStyle } from './style/inputnumberstyle';
 import { InputNumberDirective } from './nativeinputnumber';
 
@@ -357,7 +357,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
      */
     currency = input<string>();
     /**
-     * How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as €, ü"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol".
+     * How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as â‚¬, Ã¼"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol".
      * @group Props
      */
     currencyDisplay = input<string | undefined | any>();

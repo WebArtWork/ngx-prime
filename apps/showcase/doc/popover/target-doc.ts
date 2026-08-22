@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PopoverModule } from 'primeng/popover';
-import { ButtonModule } from 'primeng/button';
+import { PopoverModule } from 'ngx-prime/popover';
+import { ButtonModule } from 'ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -21,7 +21,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <span>Target Element</span>
             </div>
             <p-popover #op>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
+                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/product/bamboo-watch.jpg" alt="product" />
             </p-popover>
         </div>
         <app-code></app-code>

@@ -2,8 +2,8 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { FloatLabelModule } from 'primeng/floatlabel';
-import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabelModule } from 'ngx-prime/floatlabel';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     selector: 'app-floatlabel-pt-viewer',

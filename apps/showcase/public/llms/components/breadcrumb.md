@@ -12,8 +12,8 @@ Breadcrumb provides contextual information about page hierarchy.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'ngx-prime/breadcrumb';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -41,8 +41,8 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component } from '@angular/core';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'ngx-prime/breadcrumb';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -65,8 +65,8 @@ Custom content can be placed inside the items using the item template. The divid
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { MenuItem } from 'primeng/api';
+import { BreadcrumbModule } from 'ngx-prime/breadcrumb';
+import { MenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `

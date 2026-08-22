@@ -3,10 +3,10 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { providePrimeNG } from 'primeng/config';
-import type { CarouselPageEvent, CarouselResponsiveOptions } from 'primeng/types/carousel';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { provideNgxPrime } from 'ngx-prime/config';
+import type { CarouselPageEvent, CarouselResponsiveOptions } from 'ngx-prime/types/carousel';
 import { Carousel } from './carousel';
 
 // Mock data for testing
@@ -959,6 +959,7 @@ describe('Carousel', () => {
     });
 
     describe('PassThrough (PT) Tests', () => {
+        let carouselInstance: Carousel;
         describe('Case 1: Simple string classes', () => {
             let fixture: ComponentFixture<Carousel>;
             let carouselInstance: Carousel;
@@ -1266,7 +1267,7 @@ describe('Carousel', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             let fixture: ComponentFixture<Carousel>;
 
             beforeEach(async () => {
@@ -1275,7 +1276,7 @@ describe('Carousel', () => {
                     imports: [CommonModule, Carousel, SharedModule, PrimeTemplate, ButtonModule],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 carousel: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL', class: 'GLOBAL_CAROUSEL_CLASS' },
@@ -1294,7 +1295,7 @@ describe('Carousel', () => {
                 fixture.detectChanges();
             });
 
-            it('should apply global PT from PrimeNGConfig', () => {
+            it('should apply global PT from NgxPrimeConfig', () => {
                 const rootElement = fixture.nativeElement;
 
                 expect(rootElement.getAttribute('aria-label')).toBe('TEST_GLOBAL_ARIA_LABEL');
@@ -1312,6 +1313,7 @@ describe('Carousel', () => {
 
         describe('Case 8: Test hooks', () => {
             let fixture: ComponentFixture<Carousel>;
+            let afterViewInitCalled = false;
 
             beforeEach(() => {
                 fixture = TestBed.createComponent(Carousel);

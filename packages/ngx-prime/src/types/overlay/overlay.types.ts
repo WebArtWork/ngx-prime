@@ -1,6 +1,6 @@
 import type { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@wawjs/css-prime-motion';
-import type { OverlayModeType, PassThrough, PassThroughOption } from 'primeng/api';
+import type { OverlayModeType, PassThrough, PassThroughOption } from 'ngx-prime/api';
 
 /**
  * Custom content template context.

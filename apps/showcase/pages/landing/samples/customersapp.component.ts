@@ -3,20 +3,20 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from 
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { ChartModule } from 'primeng/chart';
-import { DividerModule } from 'primeng/divider';
-import { DrawerModule } from 'primeng/drawer';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { PopoverModule } from 'primeng/popover';
-import { TableModule } from 'primeng/table';
-import { Tag } from 'primeng/tag';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
-import { TooltipModule } from 'primeng/tooltip';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { ButtonModule } from 'ngx-prime/button';
+import { ChartModule } from 'ngx-prime/chart';
+import { DividerModule } from 'ngx-prime/divider';
+import { DrawerModule } from 'ngx-prime/drawer';
+import { IconField } from 'ngx-prime/iconfield';
+import { InputIcon } from 'ngx-prime/inputicon';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
+import { PopoverModule } from 'ngx-prime/popover';
+import { TableModule } from 'ngx-prime/table';
+import { Tag } from 'ngx-prime/tag';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     selector: 'app-customers-app',

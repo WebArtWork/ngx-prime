@@ -4,9 +4,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
-import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'primeng/types/editor';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
+import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'ngx-prime/types/editor';
 import { Editor } from './editor';
 // Test Components for different scenarios
 @Component({
@@ -1108,7 +1108,7 @@ describe('Editor', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             it('should apply global PT configuration', async () => {
                 @Component({
                     standalone: true,
@@ -1124,7 +1124,7 @@ describe('Editor', () => {
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 editor: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
@@ -1169,7 +1169,7 @@ describe('Editor', () => {
                 });
             });
 
-            it('should apply global CSS from PrimeNGConfig', async () => {
+            it('should apply global CSS from NgxPrimeConfig', async () => {
                 @Component({
                     standalone: true,
                     imports: [Editor, FormsModule],
@@ -1183,7 +1183,7 @@ describe('Editor', () => {
                     imports: [TestGlobalCSSComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 editor: {
                                     root: 'GLOBAL_CSS_CLASS'
@@ -1213,7 +1213,7 @@ describe('Editor', () => {
                 expect(editorRoot.classList.contains('GLOBAL_CSS_CLASS')).toBe(true);
 
                 // Check if global CSS style tag was injected
-                const styleTag = document.head.querySelector('style[data-primeng-global-css]');
+                const styleTag = document.head.querySelector('style[data-ngx-prime-global-css]');
 
                 if (styleTag) {
                     expect(styleTag.textContent).toContain('.p-editor-toolbar');

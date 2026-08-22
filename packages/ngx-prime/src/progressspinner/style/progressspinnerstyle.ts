@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/progressspinner';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: () => ['p-progressspinner'],
@@ -21,7 +21,7 @@ export class ProgressSpinnerStyle extends BaseStyle {
  *
  * ProgressSpinner is a process status indicator.
  *
- * [Live Demo](https://www.primeng.org/progressspinner)
+ * [Live Demo](https://www.ngx-prime.org/progressspinner)
  *
  * @module progressspinnerstyle
  *

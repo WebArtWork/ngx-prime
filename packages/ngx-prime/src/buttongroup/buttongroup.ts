@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, NgModule, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
+import { BaseComponent } from 'ngx-prime/basecomponent';
 import { ButtonGroupStyle } from './style/buttongroupstyle';
 
 @Component({

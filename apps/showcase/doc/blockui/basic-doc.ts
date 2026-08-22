@@ -1,9 +1,9 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { BlockUIModule } from 'primeng/blockui';
-import { ButtonModule } from 'primeng/button';
-import { PanelModule } from 'primeng/panel';
+import { BlockUIModule } from 'ngx-prime/blockui';
+import { ButtonModule } from 'ngx-prime/button';
+import { PanelModule } from 'ngx-prime/panel';
 
 @Component({
     selector: 'app-basic-doc',

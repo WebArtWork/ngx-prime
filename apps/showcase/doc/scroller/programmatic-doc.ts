@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ButtonModule } from 'primeng/button';
+import { Scroller, ScrollerModule } from 'ngx-prime/scroller';
+import { ButtonModule } from 'ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';

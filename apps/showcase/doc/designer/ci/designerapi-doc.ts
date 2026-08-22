@@ -58,7 +58,7 @@ import { RouterModule } from '@angular/router';
                         </td>
                         <td>string</td>
                         <td>yes</td>
-                        <td>Name of the project, possible values are "primeng" or "primevue".</td>
+                        <td>Name of the project, possible values are "ngx-prime" or "primevue".</td>
                     </tr>
                     <tr>
                         <td>
@@ -106,7 +106,7 @@ export class DesignerApiDoc {
       },
       body: JSON.stringify({
         name: 'acme-theme',
-        project: 'primeng,
+        project: 'ngx-prime,
         tokens: //JSON data
       })
 });`

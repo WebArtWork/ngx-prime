@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ContentChild, inject, InjectionToken, input, NgModule, output, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
-import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { TimesCircleIcon } from 'primeng/icons';
-import { ChipProps, ChipPassThrough } from 'primeng/types/chip';
+import { PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { TimesCircleIcon } from 'ngx-prime/icons';
+import { ChipProps, ChipPassThrough } from 'ngx-prime/types/chip';
 import { ChipStyle } from './style/chipstyle';
 
 const CHIP_INSTANCE = new InjectionToken<Chip>('CHIP_INSTANCE');

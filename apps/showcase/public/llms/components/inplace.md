@@ -12,7 +12,7 @@ Inplace component requires display and content templates to define the content o
 
 ```typescript
 import { Component } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
+import { InplaceModule } from 'ngx-prime/inplace';
 
 @Component({
     template: `
@@ -42,7 +42,7 @@ Any content such as an image can be placed inside an Inplace.
 
 ```typescript
 import { Component } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
+import { InplaceModule } from 'ngx-prime/inplace';
 import { Photo } from '@/domain/photo';
 
 @Component({
@@ -56,7 +56,7 @@ import { Photo } from '@/domain/photo';
                     </span>
                 </ng-template>
                 <ng-template #content>
-                    <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
+                    <img class="w-full sm:w-80 shadow-md" src="https://primefaces.org/cdn/ngx-prime/images/demo/galleria/galleria5.jpg" alt="Nature" />
                 </ng-template>
             </p-inplace>
         </div>
@@ -73,9 +73,9 @@ The closeCallback switches the state back to display mode when called from an ev
 
 ```typescript
 import { Component } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { InplaceModule } from 'ngx-prime/inplace';
+import { ButtonModule } from 'ngx-prime/button';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -107,8 +107,8 @@ Using the onActivate event, data can be loaded in a lazy manner before displayin
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
-import { TableModule } from 'primeng/table';
+import { InplaceModule } from 'ngx-prime/inplace';
+import { TableModule } from 'ngx-prime/table';
 import { ProductService } from '@/service/productservice';
 import { Product } from '@/domain/product';
 

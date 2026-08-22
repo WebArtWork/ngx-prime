@@ -3,8 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { MenuItem, SharedModule } from 'ngx-prime/api';
 import { ContextMenu } from './contextmenu';
+
+@Component({ standalone: true, selector: 'test-target-component', template: '<div>Target Page</div>' })
+class TestTargetComponent {}
 
 @Component({
     template: `
@@ -208,13 +211,6 @@ class TestDynamicContextMenuComponent {
 class TestDisabledItemsComponent {
     disabledModel: MenuItem[] = [{ label: 'Enabled Item' }, { label: 'Disabled Item', disabled: true }, { separator: true }, { label: 'Another Enabled Item' }];
 }
-
-@Component({
-    standalone: true,
-    selector: 'test-target-component',
-    template: '<div>Target Page</div>'
-})
-class TestTargetComponent {}
 
 describe('ContextMenu', () => {
     let component: TestBasicContextMenuComponent;
@@ -882,10 +878,10 @@ describe('ContextMenu', () => {
             const focusEvent = new FocusEvent('focus');
             const blurEvent = new FocusEvent('blur');
 
-            contextMenuInstance.onMenuFocus(focusEvent);
+            contextMenuInstance.onMenuFocus();
             expect(contextMenuInstance.focused).toBe(true);
 
-            contextMenuInstance.onMenuBlur(blurEvent);
+            contextMenuInstance.onMenuBlur();
             expect(contextMenuInstance.focused).toBe(false);
         });
 

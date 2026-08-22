@@ -2,12 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ImageCompare, ImageCompareModule } from './imagecompare';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'ngx-prime/api';
 
 // Using image paths from photoservice.ts to ensure consistency
 const mockImages = {
-    leftImage: 'https://primefaces.org/cdn/primeng/images/galleria/galleria3.jpg',
-    rightImage: 'https://primefaces.org/cdn/primeng/images/galleria/galleria4.jpg'
+    leftImage: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria3.jpg',
+    rightImage: 'https://primefaces.org/cdn/ngx-prime/images/galleria/galleria4.jpg'
 };
 
 @Component({
@@ -771,8 +771,8 @@ describe('ImageCompare', () => {
             });
         });
 
-        describe('Case 7: PrimeNGConfig', () => {
-            // Skipping this test as PrimeNG config PT requires specific configuration
+        describe('Case 7: NgxPrimeConfig', () => {
+            // Skipping this test as ngx-prime config PT requires specific configuration
             // that conflicts with the existing TestBed setup
             it('should be able to configure global PT (skipped)', () => {
                 // This test would require a separate test file or different setup
@@ -787,7 +787,7 @@ describe('ImageCompare', () => {
                 const testFixture = TestBed.createComponent(TestPTImageCompareComponent);
                 const testComponent = testFixture.componentInstance;
 
-                void false;
+                let hookExecuted = false;
 
                 // Setting PT with hooks should not throw an error
                 expect(() => {

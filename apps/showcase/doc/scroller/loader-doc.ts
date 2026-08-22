@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ScrollerModule } from 'primeng/scroller';
-import { Skeleton } from 'primeng/skeleton';
+import { ScrollerModule } from 'ngx-prime/scroller';
+import { Skeleton } from 'ngx-prime/skeleton';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';

@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import { FooterSectionComponent } from './footersection.component';
 import { HeroSectionComponent } from './herosection.component';
 import { UsersSectionComponent } from './userssection.component';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     selector: 'app-landing',

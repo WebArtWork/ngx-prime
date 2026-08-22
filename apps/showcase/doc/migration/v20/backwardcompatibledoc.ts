@@ -25,7 +25,7 @@ import { Component } from '@angular/core';
             <h4>PrimeUIX Themes</h4>
             <p>
                 PrimeUIX is a shared package between all Prime libraries, this shared approach allows PrimeTek teams to share theming and the Design team who is responsible for the Figma UI Kit to work on a single design file, which is the single
-                source of truth. Prior to v20, PrimeNG has its own fork in default styles and for the design tokens <i>{{ '@' }}primeng/themes</i> package is required. With v20, PrimeNG receives the styles from <i>{{ '@' }}primeuix/styles</i> under
+                source of truth. Prior to v20, ngx-prime has its own fork in default styles and for the design tokens <i>{{ '@' }}ngx-prime/themes</i> package is required. With v20, ngx-prime receives the styles from <i>{{ '@' }}primeuix/styles</i> under
                 the hood and the design tokens as theme presets are loaded from <i>{{ '@' }}primeuix/themes</i>.
             </p>
             <p>
@@ -34,7 +34,7 @@ import { Component } from '@angular/core';
             </p>
             <app-code [code]="code3" [hideToggleCode]="true"></app-code>
             <p class="mt-4">
-                All of these changes are backward compatible, <i>{{ '@' }}primeng/themes</i> use <i>{{ '@' }}primeuix/themes</i> internally, and migration is easy as replacing the dependency <i>{{ '@' }}primeng/themes</i> with
+                All of these changes are backward compatible, <i>{{ '@' }}ngx-prime/themes</i> use <i>{{ '@' }}primeuix/themes</i> internally, and migration is easy as replacing the dependency <i>{{ '@' }}ngx-prime/themes</i> with
                 <i>{{ '@' }}primeuix/themes</i> in your application.
             </p>
         </app-docsectiontext>

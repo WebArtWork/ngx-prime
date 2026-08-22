@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { Confirmation, PassThrough, PassThroughOption } from 'primeng/api';
-import { DialogPassThrough } from 'primeng/types/dialog';
-import type { ButtonPassThrough } from 'primeng/types/button';
+import type { Confirmation, PassThrough, PassThroughOption } from 'ngx-prime/api';
+import { DialogPassThrough } from 'ngx-prime/types/dialog';
+import type { ButtonPassThrough } from 'ngx-prime/types/button';
 
 /**
  * Custom pass-through(pt) options.

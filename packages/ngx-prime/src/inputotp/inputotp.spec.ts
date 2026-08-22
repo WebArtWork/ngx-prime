@@ -3,7 +3,7 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputOtp, InputOtpChangeEvent } from './inputotp';
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 // Temel test component'i
 @Component({
@@ -32,7 +32,7 @@ class TestReactiveFormInputOtpComponent {
     }
 }
 
-// Gelişmiş özellikler test component'i
+// GeliÅŸmiÅŸ Ã¶zellikler test component'i
 @Component({
     standalone: true,
     imports: [InputOtp, FormsModule],
@@ -865,14 +865,14 @@ describe('InputOtp PassThrough Tests', () => {
         });
     });
 
-    describe('PT Case 5: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 5: Global PT from NgxPrimeConfig', () => {
         it('should apply global PT configuration', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [InputOtp, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             inputOtp: {
                                 host: { 'aria-label': 'GLOBAL_LABEL' },
@@ -903,7 +903,7 @@ describe('InputOtp PassThrough Tests', () => {
                 imports: [InputOtp, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             inputOtp: {
                                 hooks: {

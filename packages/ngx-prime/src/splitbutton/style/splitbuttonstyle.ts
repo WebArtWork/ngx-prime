@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/splitbutton';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -30,7 +30,7 @@ export class SplitButtonStyle extends BaseStyle {
  *
  * SplitButton groups a set of commands in an overlay with a default command.
  *
- * [Live Demo](https://www.primeng.org/splitbutton/)
+ * [Live Demo](https://www.ngx-prime.org/splitbutton/)
  *
  * @module splitbuttonstyle
  *

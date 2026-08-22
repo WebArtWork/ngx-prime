@@ -89,7 +89,7 @@ function generateStackBlitzProject(demo, selector) {
         .join('');
 
     const packageJson = {
-        name: `primeng-${selector}`,
+        name: `ngx-prime-${selector}`,
         version: '1.0.0',
         scripts: {
             ng: 'ng',
@@ -107,7 +107,7 @@ function generateStackBlitzProject(demo, selector) {
             '@angular/router': '^21.0.0',
             '@wawjs/css-prime-themes': '^2.0.2',
             primeicons: '^7.0.0',
-            primeng: '21.0.0',
+            ngx-prime: '21.0.0',
             rxjs: '~7.8.0',
             tailwindcss: '^3.4.10',
             'tailwindcss-primeui': '^0.6.1',
@@ -127,13 +127,13 @@ function generateStackBlitzProject(demo, selector) {
 import { ${componentName} } from './app/${selector}';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
-import { providePrimeNG } from 'primeng/config';
+import { providengx-prime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideHttpClient(withFetch()),
-        providePrimeNG({
+        providengx-prime({
             theme: { preset: Aura, options: { darkModeSelector: '.p-dark' } },
         }),
     ],
@@ -147,7 +147,7 @@ bootstrapApplication(${componentName}, appConfig).catch((err) =>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>PrimeNG ${componentName}</title>
+    <title>ngx-prime ${componentName}</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -197,11 +197,11 @@ function validateTypeScript(tsContent, filePath, selector) {
     }
 
     // Check for invalid imports
-    if (tsContent.includes("from 'primeng/") && tsContent.includes('ImportsModule')) {
-        // Should not have direct primeng imports when using ImportsModule
-        const directImports = tsContent.match(/import\s+\{[^}]*Module[^}]*\}\s+from\s+'primeng\/[^']+'/g);
+    if (tsContent.includes("from 'ngx-prime/") && tsContent.includes('ImportsModule')) {
+        // Should not have direct ngx-prime imports when using ImportsModule
+        const directImports = tsContent.match(/import\s+\{[^}]*Module[^}]*\}\s+from\s+'ngx-prime\/[^']+'/g);
         if (directImports) {
-            errors.push('Has direct PrimeNG module imports alongside ImportsModule');
+            errors.push('Has direct ngx-prime module imports alongside ImportsModule');
         }
     }
 
@@ -221,7 +221,7 @@ function validateTypeScript(tsContent, filePath, selector) {
 // Validate package.json
 function validatePackageJson(packageJson) {
     const errors = [];
-    const requiredDeps = ['@angular/core', '@angular/common', 'primeng', '@wawjs/css-prime-themes'];
+    const requiredDeps = ['@angular/core', '@angular/common', 'ngx-prime', '@wawjs/css-prime-themes'];
 
     for (const dep of requiredDeps) {
         if (!packageJson.dependencies?.[dep]) {

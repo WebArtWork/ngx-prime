@@ -3,8 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { MenuItem, SharedModule } from 'ngx-prime/api';
 import { Menubar, MenubarSub } from './menubar';
+
+@Component({ standalone: true, template: '<div>Target Page</div>' })
+class TestTargetComponent {}
 
 @Component({
     template: `
@@ -254,12 +257,6 @@ class TestAutoHideMenubarComponent {
     autoHide: boolean = true;
     autoHideDelay: number = 200;
 }
-
-@Component({
-    standalone: true,
-    template: '<div>Target Page</div>'
-})
-class TestTargetComponent {}
 
 describe('Menubar', () => {
     let component: TestBasicMenubarComponent;

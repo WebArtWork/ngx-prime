@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { FormsModule, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Field, form } from '@angular/forms/signals';
+import { form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { InputMask, InputMaskModule, InputMaskDirective } from './inputmask';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'ngx-prime/api';
 import { CommonModule } from '@angular/common';
 
 // Test Components
@@ -69,10 +69,10 @@ class TestBasicInputMaskComponent {
     type: string = 'text';
 
     onMaskComplete() {}
-    onInputFocus() {}
-    onInputBlur() {}
-    onInputChange() {}
-    onKeydownEvent() {}
+    onInputFocus(_event?: Event) {}
+    onInputBlur(_event?: Event) {}
+    onInputChange(_event?: Event) {}
+    onKeydownEvent(_event?: KeyboardEvent) {}
     onClearEvent() {}
 }
 
@@ -1394,15 +1394,15 @@ describe('InputMask', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
+            it('should apply global PT configuration from NgxPrimeConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [InputMask, FormsModule],
                     providers: [
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideNgxPrime',
                             useValue: {
                                 pt: {
                                     inputmask: {
@@ -1657,7 +1657,7 @@ class DirectiveFullFeaturedTestComponent {
 
 @Component({
     standalone: true,
-    imports: [Field, InputMaskDirective],
+    imports: [InputMaskDirective],
     template: `<input pInputMask="99-999" [field]="maskedForm.value" />`
 })
 class DirectiveSignalFormTestComponent {

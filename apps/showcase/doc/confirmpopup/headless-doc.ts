@@ -2,10 +2,10 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, inject } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';
+import { ToastModule } from 'ngx-prime/toast';
 
 @Component({
     selector: 'app-headless-doc',

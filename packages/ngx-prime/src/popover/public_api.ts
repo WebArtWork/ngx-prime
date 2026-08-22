@@ -1,3 +1,3 @@
-export * from 'primeng/types/popover';
+export * from 'ngx-prime/types/popover';
 export * from './popover';
 export * from './style/popoverstyle';

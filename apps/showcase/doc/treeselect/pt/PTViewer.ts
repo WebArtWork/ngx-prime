@@ -2,8 +2,8 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeNode } from 'primeng/api';
-import { TreeSelectModule } from 'primeng/treeselect';
+import { TreeNode } from 'ngx-prime/api';
+import { TreeSelectModule } from 'ngx-prime/treeselect';
 import { NodeService } from '@/service/nodeservice';
 
 @Component({

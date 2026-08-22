@@ -5,9 +5,9 @@ import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeNode } from 'primeng/api';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeNode } from 'ngx-prime/api';
+import { SelectButtonModule } from 'ngx-prime/selectbutton';
+import { TreeTableModule } from 'ngx-prime/treetable';
 
 @Component({
     selector: 'app-size-doc',

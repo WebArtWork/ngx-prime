@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { OverlayModule } from 'primeng/overlay';
+import { ButtonModule } from 'ngx-prime/button';
+import { OverlayModule } from 'ngx-prime/overlay';
 
 @Component({
     selector: 'app-overlay-pt-viewer',

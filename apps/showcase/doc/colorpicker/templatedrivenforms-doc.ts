@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ColorPickerModule } from 'primeng/colorpicker';
-import { ButtonModule } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'ngx-prime/api';
+import { ColorPickerModule } from 'ngx-prime/colorpicker';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

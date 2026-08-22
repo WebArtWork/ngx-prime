@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputGroup } from './inputgroup';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';
-import { providePrimeNG } from 'primeng/config';
+import { InputGroupAddon } from 'ngx-prime/inputgroupaddon';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 @Component({
     standalone: true,
@@ -267,7 +267,7 @@ describe('InputGroup', () => {
         });
 
         it('should handle undefined styleClass', async () => {
-            component.customClass = undefined as any;
+            (fixture.componentInstance as any).customClass = undefined;
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
@@ -395,14 +395,14 @@ describe('InputGroup PassThrough Tests', () => {
         });
     });
 
-    describe('PT Case 6: Global PT from PrimeNGConfig', () => {
+    describe('PT Case 6: Global PT from NgxPrimeConfig', () => {
         it('should apply global PT configuration', async () => {
             TestBed.resetTestingModule();
             await TestBed.configureTestingModule({
                 imports: [InputGroup, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             inputGroup: {
                                 host: { 'aria-label': 'GLOBAL_LABEL' },
@@ -433,7 +433,7 @@ describe('InputGroup PassThrough Tests', () => {
                 imports: [InputGroup, FormsModule],
                 providers: [
                     provideZonelessChangeDetection(),
-                    providePrimeNG({
+                    provideNgxPrime({
                         pt: {
                             inputGroup: {
                                 hooks: {

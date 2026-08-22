@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { PaginatorState, PaginatorModule } from 'primeng/paginator';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-import { SelectModule } from 'primeng/select';
-import { SliderModule } from 'primeng/slider';
+import { PaginatorState, PaginatorModule } from 'ngx-prime/paginator';
+import { ButtonModule } from 'ngx-prime/button';
+import { DividerModule } from 'ngx-prime/divider';
+import { SelectModule } from 'ngx-prime/select';
+import { SliderModule } from 'ngx-prime/slider';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';

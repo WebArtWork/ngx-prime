@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/editor';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -26,7 +26,7 @@ export class EditorStyle extends BaseStyle {
  *
  * Editor groups a collection of contents in tabs.
  *
- * [Live Demo](https://www.primeng.org/editor/)
+ * [Live Demo](https://www.ngx-prime.org/editor/)
  *
  * @module editorstyle
  *

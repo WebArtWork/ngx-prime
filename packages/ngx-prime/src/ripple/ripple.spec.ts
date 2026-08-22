@@ -448,7 +448,7 @@ describe('Ripple', () => {
             // Test that ripple works even when parent component changes
             expect(rippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);
 
-            component = fixture.componentInstance;
+            const component = fixture.componentInstance;
             fixture.detectChanges();
 
             expect(rippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);

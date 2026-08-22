@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from 'ngx-prime/api';
 
 @Injectable()
 export class NodeService {
@@ -381,7 +381,7 @@ export class NodeService {
                     {
                         key: '7-1',
                         data: {
-                            name: 'primeng.png',
+                            name: 'ngx-prime.png',
                             size: '30kb',
                             type: 'Picture'
                         }
@@ -724,7 +724,7 @@ export class NodeService {
                     },
                     {
                         data: {
-                            name: 'primeng.png',
+                            name: 'ngx-prime.png',
                             size: '30kb',
                             type: 'Picture'
                         }

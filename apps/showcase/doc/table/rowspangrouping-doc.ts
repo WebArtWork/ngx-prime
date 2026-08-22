@@ -5,8 +5,8 @@ import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-rowspangrouping-doc',
@@ -34,7 +34,7 @@ import { TagModule } from 'primeng/tag';
                             @if (rowgroup) {
                                 <td [attr.rowspan]="rowspan">
                                     <div class="flex items-center gap-2">
-                                        <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" />
+                                        <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}" width="32" />
                                         <span>{{ customer.representative.name }}</span>
                                     </div>
                                 </td>
@@ -44,7 +44,7 @@ import { TagModule } from 'primeng/tag';
                             </td>
                             <td>
                                 <div class="flex items-center gap-2">
-                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                    <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                                     <span>{{ customer.country.name }}</span>
                                 </div>
                             </td>

@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection, inject as inject_1 } from '@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ConfirmationService, OverlayService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { FocusTrap } from 'primeng/focustrap';
+import { ConfirmationService, OverlayService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { FocusTrap } from 'ngx-prime/focustrap';
 import { ConfirmPopup } from './confirmpopup';
 
 // Basic ConfirmPopup Component Test
@@ -475,7 +475,7 @@ describe('ConfirmPopup', () => {
         });
 
         it('should only respond to confirmations with matching key', async () => {
-            confirmPopupInstance.key = 'specificKey';
+            (confirmPopupInstance as any).key = () => 'specificKey';
 
             confirmationService.confirm({
                 key: 'differentKey',
@@ -1114,7 +1114,7 @@ describe('ConfirmPopup', () => {
 
             spyOn(confirmPopupInstance, 'onReject');
 
-            confirmPopupInstance.onEscapeKeydown(escapeEvent);
+            confirmPopupInstance.onEscapeKeydown();
 
             expect(confirmPopupInstance.onReject).toHaveBeenCalled();
         });
@@ -1138,7 +1138,7 @@ describe('ConfirmPopup', () => {
 
             spyOn(confirmPopupInstance, 'onReject');
 
-            confirmPopupInstance.onEscapeKeydown(escapeEvent);
+            confirmPopupInstance.onEscapeKeydown();
 
             expect(confirmPopupInstance.onReject).not.toHaveBeenCalled();
             expect(confirmPopupInstance.computedVisible()).toBe(true);
@@ -1162,7 +1162,7 @@ describe('ConfirmPopup', () => {
 
             spyOn(confirmPopupInstance, 'onReject');
 
-            confirmPopupInstance.onEscapeKeydown(escapeEvent);
+            confirmPopupInstance.onEscapeKeydown();
 
             // Should be called because closeOnEscape !== false (undefined is not false)
             expect(confirmPopupInstance.onReject).toHaveBeenCalled();
@@ -1174,7 +1174,7 @@ describe('ConfirmPopup', () => {
 
             spyOn(confirmPopupInstance, 'onReject');
 
-            confirmPopupInstance.onEscapeKeydown(escapeEvent);
+            confirmPopupInstance.onEscapeKeydown();
 
             expect(confirmPopupInstance.onReject).not.toHaveBeenCalled();
         });
@@ -1864,7 +1864,7 @@ describe('ConfirmPopup', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-confirmpopup key="test1"></p-confirmpopup>
@@ -1887,7 +1887,7 @@ describe('ConfirmPopup', () => {
                 }
             }
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+            it('should apply global PT configuration from NgxPrimeConfig', async () => {
                 TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [ConfirmPopup, ButtonModule, TestPTCase7GlobalComponent],
@@ -1896,7 +1896,7 @@ describe('ConfirmPopup', () => {
                         OverlayService,
                         provideZonelessChangeDetection(),
                         {
-                            provide: 'providePrimeNG',
+                            provide: 'provideNgxPrime',
                             useValue: {
                                 pt: {
                                     confirmpopup: {

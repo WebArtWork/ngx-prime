@@ -69,13 +69,13 @@ const GUIDE_PAGES = [
         route: 'installation',
         docPath: 'installation',
         title: 'Installation',
-        description: 'Setting up PrimeNG in an Angular CLI project.'
+        description: 'Setting up ngx-prime in an Angular CLI project.'
     },
     {
         route: 'configuration',
         docPath: 'configuration',
         title: 'Configuration',
-        description: 'Application wide configuration for PrimeNG.'
+        description: 'Application wide configuration for ngx-prime.'
     },
     {
         route: 'theming/styled',
@@ -87,19 +87,19 @@ const GUIDE_PAGES = [
         route: 'theming/unstyled',
         docPath: 'theming/unstyled',
         title: 'Unstyled Mode',
-        description: 'Theming PrimeNG with alternative styling approaches.'
+        description: 'Theming ngx-prime with alternative styling approaches.'
     },
     {
         route: 'icons',
         docPath: 'icons',
         title: 'Icons',
-        description: 'PrimeIcons is the default icon library of PrimeNG with over 250 open source icons.'
+        description: 'PrimeIcons is the default icon library of ngx-prime with over 250 open source icons.'
     },
     {
         route: 'customicons',
         docPath: 'customicons',
         title: 'Custom Icons',
-        description: 'Use custom icons with PrimeNG components.'
+        description: 'Use custom icons with ngx-prime components.'
     },
     {
         route: 'passthrough',
@@ -111,55 +111,55 @@ const GUIDE_PAGES = [
         route: 'tailwind',
         docPath: 'tailwind',
         title: 'Tailwind CSS',
-        description: 'Integration between PrimeNG and Tailwind CSS.'
+        description: 'Integration between ngx-prime and Tailwind CSS.'
     },
     {
         route: 'llms',
         docPath: 'llms',
         title: 'LLMs.txt',
-        description: 'LLM-optimized documentation endpoints for PrimeNG components.'
+        description: 'LLM-optimized documentation endpoints for ngx-prime components.'
     },
     {
         route: 'mcp',
         docPath: 'mcp',
         title: 'MCP Server',
-        description: 'Model Context Protocol (MCP) server for PrimeNG component library.'
+        description: 'Model Context Protocol (MCP) server for ngx-prime component library.'
     },
     {
         route: 'guides/accessibility',
         docPath: 'guides/accessibility',
         title: 'Accessibility',
-        description: 'PrimeNG has WCAG 2.1 AA level compliance.'
+        description: 'ngx-prime has WCAG 2.1 AA level compliance.'
     },
     {
         route: 'guides/animations',
         docPath: 'guides/animations',
         title: 'Animations',
-        description: 'Built-in CSS animations for PrimeNG components.'
+        description: 'Built-in CSS animations for ngx-prime components.'
     },
     {
         route: 'guides/rtl',
         docPath: 'guides/rtl',
         title: 'RTL',
-        description: 'Right-to-left support for PrimeNG components.'
+        description: 'Right-to-left support for ngx-prime components.'
     },
     {
         route: 'migration/v19',
         docPath: 'migration/v19',
         title: 'Migration v19',
-        description: 'Migration guide to PrimeNG v19.'
+        description: 'Migration guide to ngx-prime v19.'
     },
     {
         route: 'migration/v20',
         docPath: 'migration/v20',
         title: 'Migration v20',
-        description: 'Migration guide to PrimeNG v20.'
+        description: 'Migration guide to ngx-prime v20.'
     },
     {
         route: 'migration/v21',
         docPath: 'migration/v21',
         title: 'Migration v21',
-        description: 'Migration guide to PrimeNG v21.'
+        description: 'Migration guide to ngx-prime v21.'
     }
 ];
 
@@ -925,7 +925,7 @@ function generateJsonOutput(components, apiDocs, guidePages = []) {
 
     const outputPath = path.join(OUTPUT_DIR, 'components.json');
     fs.writeFileSync(outputPath, JSON.stringify(output, null, 2), 'utf-8');
-    console.log(`✓ Generated JSON output: ${outputPath}`);
+    console.log(`âœ“ Generated JSON output: ${outputPath}`);
 
     // Also write to MCP package data directory
     if (!fs.existsSync(MCP_DATA_DIR)) {
@@ -933,7 +933,7 @@ function generateJsonOutput(components, apiDocs, guidePages = []) {
     }
     const mcpOutputPath = path.join(MCP_DATA_DIR, 'components.json');
     fs.writeFileSync(mcpOutputPath, JSON.stringify(output, null, 2), 'utf-8');
-    console.log(`✓ Generated MCP JSON output: ${mcpOutputPath}`);
+    console.log(`âœ“ Generated MCP JSON output: ${mcpOutputPath}`);
 
     return output;
 }
@@ -942,7 +942,7 @@ function generateJsonOutput(components, apiDocs, guidePages = []) {
  * Generate combined Markdown output for AI context
  */
 function generateMarkdownOutput(components, apiDocs, guidePages = []) {
-    let markdown = '# PrimeNG Documentation\n\n';
+    let markdown = '# ngx-prime Documentation\n\n';
     markdown += `Generated: ${new Date().toISOString().split('T')[0]}\n\n`;
     markdown += '---\n\n';
 
@@ -1025,7 +1025,7 @@ function generateMarkdownOutput(components, apiDocs, guidePages = []) {
 
     const outputPath = path.join(OUTPUT_DIR, 'llms-full.txt');
     fs.writeFileSync(outputPath, markdown, 'utf-8');
-    console.log(`✓ Generated Markdown output: ${outputPath}`);
+    console.log(`âœ“ Generated Markdown output: ${outputPath}`);
 
     return markdown;
 }
@@ -1034,7 +1034,7 @@ function generateMarkdownOutput(components, apiDocs, guidePages = []) {
  * Generate llms.txt index file
  */
 function generateLlmsTxt(components, pages = []) {
-    let content = '# PrimeNG\n\n';
+    let content = '# ngx-prime\n\n';
     content += '> The Most Complete Angular UI Component Library\n\n';
 
     // Add Guides section
@@ -1042,7 +1042,7 @@ function generateLlmsTxt(components, pages = []) {
         content += '## Guides\n\n';
 
         for (const page of pages) {
-            content += `- [${page.title}](https://primeng.org/${page.route}): ${page.description}\n`;
+            content += `- [${page.title}](https://ngx-prime.org/${page.route}): ${page.description}\n`;
         }
 
         content += '\n';
@@ -1054,12 +1054,12 @@ function generateLlmsTxt(components, pages = []) {
     const sorted = [...components].sort((a, b) => a.title.localeCompare(b.title));
 
     for (const comp of sorted) {
-        content += `- [${comp.title}](https://primeng.org/${comp.name}): ${comp.description}\n`;
+        content += `- [${comp.title}](https://ngx-prime.org/${comp.name}): ${comp.description}\n`;
     }
 
     const outputPath = path.join(OUTPUT_DIR, 'llms.txt');
     fs.writeFileSync(outputPath, content, 'utf-8');
-    console.log(`✓ Generated llms.txt: ${outputPath}`);
+    console.log(`âœ“ Generated llms.txt: ${outputPath}`);
 }
 
 /**
@@ -1119,7 +1119,7 @@ function generateIndividualMarkdownFiles(components, apiDocs) {
         fs.writeFileSync(outputPath, markdown, 'utf-8');
     }
 
-    console.log(`✓ Generated ${components.length} individual markdown files`);
+    console.log(`âœ“ Generated ${components.length} individual markdown files`);
 }
 
 /**
@@ -1246,16 +1246,16 @@ function generatePageMarkdownFiles(pages) {
         fs.writeFileSync(outputPath, markdown, 'utf-8');
     }
 
-    console.log(`✓ Generated ${pages.length} page markdown files`);
+    console.log(`âœ“ Generated ${pages.length} page markdown files`);
 }
 
 /**
  * Main execution
  */
 function main() {
-    console.log('🚀 Building PrimeNG LLM Documentation...\n');
+    console.log('ðŸš€ Building ngx-prime LLM Documentation...\n');
 
-    console.log('📦 Loading demos.json...');
+    console.log('ðŸ“¦ Loading demos.json...');
     demosData = loadDemosJson();
     if (demosData) {
         console.log(`   Loaded ${Object.keys(demosData.demos || {}).length} demos\n`);
@@ -1263,26 +1263,26 @@ function main() {
         console.log('   Warning: demos.json not available, code examples will be missing\n');
     }
 
-    console.log('📁 Parsing component documentation...');
+    console.log('ðŸ“ Parsing component documentation...');
     const components = getAllComponents();
     console.log(`   Found ${components.length} components\n`);
 
-    console.log('📄 Parsing guide pages...');
+    console.log('ðŸ“„ Parsing guide pages...');
     const pages = getAllGuidePages();
     console.log(`   Found ${pages.length} guide pages\n`);
 
-    console.log('📖 Loading API documentation...');
+    console.log('ðŸ“– Loading API documentation...');
     const apiDocs = loadApiDocs();
     console.log(`   Loaded API docs for ${Object.keys(apiDocs).length} modules\n`);
 
-    console.log('✨ Generating outputs...\n');
+    console.log('âœ¨ Generating outputs...\n');
     generateJsonOutput(components, apiDocs, pages);
     generateMarkdownOutput(components, apiDocs, pages);
     generateLlmsTxt(components, pages);
     generateIndividualMarkdownFiles(components, apiDocs);
     generatePageMarkdownFiles(pages);
 
-    console.log('\n✅ LLM documentation generation complete!');
+    console.log('\nâœ… LLM documentation generation complete!');
     console.log(`\nOutput directory: ${OUTPUT_DIR}`);
     console.log('   - components.json (for MCP server with full API data)');
     console.log('   - llms-full.txt (full documentation with Props, Templates, Emits, PT, Theming)');

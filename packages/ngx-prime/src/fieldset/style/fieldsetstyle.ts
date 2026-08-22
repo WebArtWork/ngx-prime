@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/fieldset';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => [
@@ -32,7 +32,7 @@ export class FieldsetStyle extends BaseStyle {
  *
  * Fieldset is a grouping component with the optional content toggle feature.
  *
- * [Live Demo](https://www.primeng.org/fieldset/)
+ * [Live Demo](https://www.ngx-prime.org/fieldset/)
  *
  * @module fieldsetstyle
  *

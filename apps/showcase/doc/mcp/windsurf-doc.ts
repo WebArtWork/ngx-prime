@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
     imports: [AppCodeModule, AppDocSectionText],
     template: `
         <app-docsectiontext>
-            <p>Edit <i>~/.codeium/windsurf/mcp_config.json</i> to add the PrimeNG MCP server.</p>
+            <p>Edit <i>~/.codeium/windsurf/mcp_config.json</i> to add the ngx-prime MCP server.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
         <p class="doc-section-description">See <a href="https://docs.windsurf.com/windsurf/cascade/mcp" class="font-medium hover:underline text-primary" target="_blank" rel="noopener noreferrer">Windsurf MCP Documentation</a> for more details.</p>
@@ -19,9 +19,9 @@ export class WindsurfDoc {
     code: Code = {
         typescript: `{
     "mcpServers": {
-        "primeng": {
+        "ngx-prime": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@ngx-prime/mcp"]
         }
     }
 }`

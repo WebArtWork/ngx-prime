@@ -1,6 +1,6 @@
 import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Field, form } from '@angular/forms/signals';
+import { form } from '@angular/forms/signals';
 import { ColorPickerDirective } from '../colorpicker/nativecolorpicker';
 import { DatePickerDirective } from '../datepicker/nativedatepicker';
 import { FileUploadDirective } from '../fileupload/nativefileupload';
@@ -14,7 +14,7 @@ import { ToggleButtonDirective } from '../togglebutton/nativetogglebutton';
 import { ToggleSwitchDirective } from '../toggleswitch/nativetoggleswitch';
 
 @Component({
-    imports: [Field, ToggleSwitchDirective, RangeDirective, InputNumberDirective],
+    imports: [ToggleSwitchDirective, RangeDirective, InputNumberDirective],
     template: `
         <input type="checkbox" pToggleSwitch [field]="nativeForm.enabled" />
         <input type="range" pRange [field]="nativeForm.level" min="0" max="10" />
@@ -27,7 +27,7 @@ class TestNativeValueControlsComponent {
 }
 
 @Component({
-    imports: [Field, ToggleButtonDirective, SelectButtonDirective, SelectButtonOptionDirective],
+    imports: [ToggleButtonDirective, SelectButtonDirective, SelectButtonOptionDirective],
     template: `
         <button pToggleButton [field]="nativeForm.pinned">Pin</button>
         <div pSelectButton [field]="nativeForm.choice">
@@ -42,7 +42,7 @@ class TestNativeButtonControlsComponent {
 }
 
 @Component({
-    imports: [Field, RatingDirective, FileUploadDirective],
+    imports: [RatingDirective, FileUploadDirective],
     template: `
         <input type="radio" pRating name="rating" [value]="1" [field]="nativeForm.rating" />
         <input type="radio" pRating name="rating" [value]="2" [field]="nativeForm.rating" />
@@ -55,7 +55,7 @@ class TestNativeRatingAndFileControlsComponent {
 }
 
 @Component({
-    imports: [Field, DatePickerDirective, ColorPickerDirective, InputMaskDirective, PasswordDirective],
+    imports: [DatePickerDirective, ColorPickerDirective, InputMaskDirective, PasswordDirective],
     template: `
         <input type="date" pDatePicker [field]="nativeForm.date" />
         <input type="color" pColorPicker [field]="nativeForm.color" />

@@ -12,10 +12,10 @@ Popover is accessed via its reference and visibility is controlled using toggle 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { PopoverModule } from 'primeng/popover';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { InputGroupModule } from 'ngx-prime/inputgroup';
+import { PopoverModule } from 'ngx-prime/popover';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -26,7 +26,7 @@ import { InputTextModule } from 'primeng/inputtext';
                     <div>
                         <span class="font-medium text-surface-900 dark:text-surface-0 block mb-2">Share this document</span>
                         <p-inputgroup>
-                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
+                            <input pInputText value="https://ngx-prime.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-[25rem]" />
                             <p-inputgroup-addon>
                                 <i class="pi pi-copy"></i>
                             </p-inputgroup-addon>
@@ -46,7 +46,7 @@ import { InputTextModule } from 'primeng/inputtext';
                         <ul class="list-none p-0 m-0 flex flex-col gap-4">
                             @for (member of members; track member) {
                                 <li class="flex items-center gap-2">
-                                    <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                                    <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/avatar/' + member.image" style="width: 32px" />
                                     <div>
                                         <span class="font-medium">{{ member.name }}</span>
                                         <div class="text-sm text-muted-color">{{ member.email }}</div>
@@ -77,12 +77,12 @@ Place the Popover outside of the data iteration components to avoid rendering it
 
 ```typescript
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Popover, PopoverModule } from 'primeng/popover';
-import { TableModule } from 'primeng/table';
-import { TagModule } from 'primeng/tag';
+import { ButtonModule } from 'ngx-prime/button';
+import { Popover, PopoverModule } from 'ngx-prime/popover';
+import { TableModule } from 'ngx-prime/table';
+import { TagModule } from 'ngx-prime/tag';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 import { Product } from '@/domain/product';
 
 @Component({
@@ -106,7 +106,7 @@ import { Product } from '@/domain/product';
                         <td>{{ product.name }}</td>
                         <td>$ {{ product.price }}</td>
                         <td>
-                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
+                            <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.image" class="w-16 shadow-sm" />
                         </td>
                         <td>
                             <p-button (onClick)="displayProduct($event, product)" icon="pi pi-search" severity="secondary" rounded />
@@ -119,7 +119,7 @@ import { Product } from '@/domain/product';
                     <div *ngIf="selectedProduct()" class="rounded flex flex-col">
                         <div class="flex justify-center rounded">
                             <div class="relative mx-auto">
-                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
+                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
                                 <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                             </div>
                         </div>
@@ -211,8 +211,8 @@ In this sample, data is retrieved from the content inside the popover.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Popover, PopoverModule } from 'primeng/popover';
+import { ButtonModule } from 'ngx-prime/button';
+import { Popover, PopoverModule } from 'ngx-prime/popover';
 
 @Component({
     template: `
@@ -224,7 +224,7 @@ import { Popover, PopoverModule } from 'primeng/popover';
                         <span class="font-medium block mb-2">Team Members</span>
                         <ul class="list-none p-0 m-0 flex flex-col">
                             <li *ngFor="let member of members" class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
-                                <img [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + member.image" style="width: 32px" />
+                                <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/avatar/' + member.image" style="width: 32px" />
                                 <div>
                                     <span class="font-medium">{{ member.name }}</span>
                                     <div class="text-sm text-surface-500 dark:text-surface-400">{{ member.email }}</div>
@@ -260,8 +260,8 @@ show method takes two parameters, first one is the event and it is mandatory. By
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { PopoverModule } from 'primeng/popover';
+import { ButtonModule } from 'ngx-prime/button';
+import { PopoverModule } from 'ngx-prime/popover';
 
 @Component({
     template: `
@@ -271,7 +271,7 @@ import { PopoverModule } from 'primeng/popover';
                 <span>Target Element</span>
             </div>
             <p-popover #op>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
+                <img src="https://primefaces.org/cdn/ngx-prime/images/demo/product/bamboo-watch.jpg" alt="product" />
             </p-popover>
         </div>
     `,
@@ -287,9 +287,9 @@ Content of the OverlayPanel is defined by content template.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { PopoverModule } from 'primeng/popover';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { ButtonModule } from 'ngx-prime/button';
+import { PopoverModule } from 'ngx-prime/popover';
+import { OverlayPanel } from 'ngx-prime/overlaypanel';
 
 @Component({
     template: `

@@ -12,8 +12,8 @@ Stepper consists of a combination of StepList , Step , StepPanels and StepPanel 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'ngx-prime/button';
+import { StepperModule } from 'ngx-prime/stepper';
 
 @Component({
     template: `
@@ -72,8 +72,8 @@ When linear property is set to true, current step must be completed in order to 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'ngx-prime/button';
+import { StepperModule } from 'ngx-prime/stepper';
 
 @Component({
     template: `
@@ -137,11 +137,11 @@ Stepper provides various templating options to customize the default UI design.
 ```typescript
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { PasswordModule } from 'primeng/password';
-import { StepperModule } from 'primeng/stepper';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { PasswordModule } from 'ngx-prime/password';
+import { StepperModule } from 'ngx-prime/stepper';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -242,7 +242,7 @@ import { InputTextModule } from 'primeng/inputtext';
                             <div class="flex flex-col items-center gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                                 <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
                                 <div class="text-center">
-                                    <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />
+                                    <img alt="logo" src="https://primefaces.org/cdn/ngx-prime/images/stepper/content.svg" />
                                 </div>
                             </div>
                             <div class="flex pt-6 justify-start">
@@ -281,8 +281,8 @@ Vertical layout requires StepItem as a wrapper of Step and StepPanel components.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { StepperModule } from 'primeng/stepper';
+import { ButtonModule } from 'ngx-prime/button';
+import { StepperModule } from 'ngx-prime/stepper';
 
 @Component({
     template: `

@@ -4,13 +4,13 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
 import { Component, inject, PLATFORM_ID, ViewChild, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
-import { ProgressBar } from 'primeng/progressbar';
-import { Table, TableModule } from 'primeng/table';
-import { Tag } from 'primeng/tag';
+import { ButtonModule } from 'ngx-prime/button';
+import { IconField } from 'ngx-prime/iconfield';
+import { InputIcon } from 'ngx-prime/inputicon';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { ProgressBar } from 'ngx-prime/progressbar';
+import { Table, TableModule } from 'ngx-prime/table';
+import { Tag } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-theme-section',
@@ -94,7 +94,7 @@ import { Tag } from 'primeng/tag';
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
                                     <div class="flex items-center gap-2">
-                                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" height="20" alt="country flag" />
+                                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" height="20" alt="country flag" />
                                         <span>{{ customer.country.name }}</span>
                                     </div>
                                 </td>
@@ -102,7 +102,7 @@ import { Tag } from 'primeng/tag';
                                     <div class="flex items-center gap-2">
                                         <img
                                             [alt]="customer.representative.name"
-                                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
+                                            src="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/{{ customer.representative.image }}"
                                             width="32"
                                             height="32"
                                             style="vertical-align: middle"

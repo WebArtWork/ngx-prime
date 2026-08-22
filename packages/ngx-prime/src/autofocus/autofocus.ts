@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Directive, ElementRef, inject, input, NgModule, PLATFORM_ID } from '@angular/core';
-import { BaseComponent } from 'primeng/basecomponent';
-import { DomHandler } from 'primeng/dom';
+import { BaseComponent } from 'ngx-prime/basecomponent';
+import { DomHandler } from 'ngx-prime/dom';
 
 /**
  * AutoFocus manages focus on focusable element on load.
@@ -9,7 +9,10 @@ import { DomHandler } from 'primeng/dom';
  */
 @Directive({
     selector: '[pAutoFocus]',
-    standalone: true
+    standalone: true,
+    host: {
+        '[attr.autofocus]': "autofocus() ? 'true' : null"
+    }
 })
 export class AutoFocus extends BaseComponent {
     /**
@@ -27,13 +30,6 @@ export class AutoFocus extends BaseComponent {
     host: ElementRef = inject(ElementRef);
 
     onAfterContentChecked() {
-        // This sets the `attr.autofocus` which is different than the Input `autofocus` attribute.
-        if (this.autofocus() === false) {
-            this.host.nativeElement.removeAttribute('autofocus');
-        } else {
-            this.host.nativeElement.setAttribute('autofocus', true);
-        }
-
         if (!this.focused) {
             this.autoFocus();
         }

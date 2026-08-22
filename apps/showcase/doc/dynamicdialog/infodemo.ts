@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogService, DynamicDialog, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
 
 @Component({
     standalone: true,

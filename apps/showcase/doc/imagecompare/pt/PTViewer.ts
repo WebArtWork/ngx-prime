@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ImageCompareModule } from 'primeng/imagecompare';
+import { ImageCompareModule } from 'ngx-prime/imagecompare';
 
 @Component({
     selector: 'app-imagecompare-pt-viewer',

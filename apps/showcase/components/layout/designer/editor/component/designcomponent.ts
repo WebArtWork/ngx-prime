@@ -1,6 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
-import { FieldsetModule } from 'primeng/fieldset';
+import { TabsModule } from 'ngx-prime/tabs';
+import { FieldsetModule } from 'ngx-prime/fieldset';
 
 import { DesignerService } from '@/service/designerservice';
 import { NavigationEnd, Router } from '@angular/router';

@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { SharedModule } from 'primeng/api';
-import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from 'primeng/types/cascadeselect';
+import { SharedModule } from 'ngx-prime/api';
+import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from 'ngx-prime/types/cascadeselect';
 import { BehaviorSubject } from 'rxjs';
 import { CASCADESELECT_VALUE_ACCESSOR, CascadeSelect, CascadeSelectModule } from './cascadeselect';
 
@@ -1022,12 +1022,12 @@ describe('CascadeSelect', () => {
         it('should handle special characters and unicode', async () => {
             testComponent.options = [
                 {
-                    name: "Côte d'Ivoire",
+                    name: "CÃ´te d'Ivoire",
                     code: 'CI',
                     states: [
                         {
-                            name: 'Région spéciale',
-                            cities: [{ cname: 'Ville avec accents éàü', code: 'CI-1' }]
+                            name: 'RÃ©gion spÃ©ciale',
+                            cities: [{ cname: 'Ville avec accents Ã©Ã Ã¼', code: 'CI-1' }]
                         }
                     ]
                 }
@@ -1035,8 +1035,8 @@ describe('CascadeSelect', () => {
             testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
 
-            expect(testComponent.options[0].name).toBe("Côte d'Ivoire");
-            expect(testComponent.options[0].states[0].cities[0].cname).toBe('Ville avec accents éàü');
+            expect(testComponent.options[0].name).toBe("CÃ´te d'Ivoire");
+            expect(testComponent.options[0].states[0].cities[0].cname).toBe('Ville avec accents Ã©Ã Ã¼');
         });
 
         it('should handle malformed option data gracefully', async () => {
@@ -1559,10 +1559,10 @@ describe('CascadeSelect', () => {
         beforeEach(async () => {
             ptFixture = TestBed.createComponent(CascadeSelect);
             ptComponent = ptFixture.componentInstance;
-            ptComponent.options = mockCountries as any;
-            ptComponent.optionLabel = 'cname';
-            ptComponent.optionGroupLabel = 'name';
-            ptComponent.optionGroupChildren = ['states', 'cities'];
+            (ptComponent as any).options = () => mockCountries;
+            (ptComponent as any).optionLabel = () => 'cname';
+            (ptComponent as any).optionGroupLabel = () => 'name';
+            (ptComponent as any).optionGroupChildren = () => ['states', 'cities'];
         });
 
         describe('Case 1: Simple string classes', () => {
@@ -1646,7 +1646,7 @@ describe('CascadeSelect', () => {
             });
 
             it('should apply PT string classes to clearIcon', async () => {
-                ptComponent.showClear = true;
+                (ptComponent as any).showClear = () => true;
                 ptComponent.writeValue(mockCountries[0].states[0].cities[0]);
                 ptFixture.componentRef.setInput('pt', {
                     clearIcon: 'CLEAR_ICON_CLASS'
@@ -1879,7 +1879,7 @@ describe('CascadeSelect', () => {
 
         describe('Case 4: Use variables from instance', () => {
             it('should apply PT using instance properties', async () => {
-                ptComponent.showClear = true;
+                (ptComponent as any).showClear = () => true;
                 await ptFixture.whenStable(); // Apply showClear first
 
                 ptFixture.componentRef.setInput('pt', {
@@ -1895,7 +1895,7 @@ describe('CascadeSelect', () => {
             });
 
             it('should apply PT with instance-based styling', async () => {
-                ptComponent.placeholder = 'Test';
+                (ptComponent as any).placeholder = () => 'Test';
                 await ptFixture.whenStable(); // Apply placeholder first
 
                 ptFixture.componentRef.setInput('pt', {
@@ -1924,7 +1924,7 @@ describe('CascadeSelect', () => {
             });
 
             it('should apply PT based on showClear property', async () => {
-                ptComponent.showClear = true;
+                (ptComponent as any).showClear = () => true;
                 await ptFixture.whenStable(); // Apply showClear first
 
                 ptFixture.componentRef.setInput('pt', {
@@ -1964,7 +1964,7 @@ describe('CascadeSelect', () => {
             it('should handle PT event binding with instance access', async () => {
                 let instanceValue: any;
 
-                ptComponent.placeholder = 'Test Placeholder';
+                (ptComponent as any).placeholder = () => 'Test Placeholder';
                 await ptFixture.whenStable(); // Apply placeholder first
 
                 ptFixture.componentRef.setInput('pt', {
@@ -2190,7 +2190,7 @@ describe('CascadeSelect', () => {
 
             it('should preserve PT when component state changes', async () => {
                 // Set placeholder BEFORE PT binding so instance-based PT function can evaluate correctly
-                ptComponent.placeholder = 'Test Placeholder';
+                (ptComponent as any).placeholder = () => 'Test Placeholder';
 
                 ptFixture.componentRef.setInput('pt', {
                     root: 'PERSISTENT_PT',

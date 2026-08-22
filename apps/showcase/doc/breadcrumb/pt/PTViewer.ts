@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MenuItem } from 'ngx-prime/api';
+import { BreadcrumbModule } from 'ngx-prime/breadcrumb';
 
 @Component({
     selector: 'app-breadcrumb-pt-viewer',

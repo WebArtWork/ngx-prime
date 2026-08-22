@@ -1,8 +1,8 @@
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component, inject } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
-import { TableModule } from 'primeng/table';
+import { InplaceModule } from 'ngx-prime/inplace';
+import { TableModule } from 'ngx-prime/table';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -11,8 +11,8 @@ import { AppCode } from '@/components/doc/app.code';
         <app-docsectiontext>
             <p>
                 ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom
-                layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. PrimeNG configuration offers the <i>zIndex</i> property to customize
-                the default values for components categories. Default values are described below and can be customized when setting up PrimeNG.
+                layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. ngx-prime configuration offers the <i>zIndex</i> property to customize
+                the default values for components categories. Default values are described below and can be customized when setting up ngx-prime.
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
@@ -20,7 +20,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ZIndexDoc {
     code: Code = {
-        typescript: `import { PrimeNGConfig } from 'primeng/api';
+        typescript: `import { ngx-primeConfig } from 'ngx-prime/api';
 
 @Component({
     selector: 'app-root',
@@ -28,10 +28,10 @@ export class ZIndexDoc {
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig) {}
+    constructor(private ngx-primeConfig: ngx-primeConfig) {}
 
     ngOnInit() {
-        this.primengConfig.zIndex = {
+        this.ngx-primeConfig.zIndex = {
             modal: 1100,    // dialog, sidebar
             overlay: 1000,  // dropdown, overlaypanel
             menu: 1000,     // overlay menus

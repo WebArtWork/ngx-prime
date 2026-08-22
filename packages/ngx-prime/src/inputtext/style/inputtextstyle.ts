@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as inputtext_style } from '@wawjs/css-prime-styles/inputtext';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${inputtext_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
    .p-inputtext.ng-invalid.ng-dirty {
         border-color: dt('inputtext.invalid.border.color');
     }
@@ -42,7 +42,7 @@ export class InputTextStyle extends BaseStyle {
  *
  * InputText renders a text field to enter data.
  *
- * [Live Demo](https://www.primeng.org/inputtext/)
+ * [Live Demo](https://www.ngx-prime.org/inputtext/)
  *
  * @module inputtextstyle
  *

@@ -2,7 +2,7 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { Divider, DividerModule } from './divider';
 
 @Component({
@@ -1156,7 +1156,7 @@ describe('Divider', () => {
             });
         });
 
-        describe('Case 7: Test from PrimeNGConfig', () => {
+        describe('Case 7: Test from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-divider></p-divider>
@@ -1172,7 +1172,7 @@ describe('Divider', () => {
                     imports: [DividerModule, TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 divider: {
                                     root: { 'aria-label': 'TEST_GLOBAL_ARIA_LABEL' },
@@ -1184,7 +1184,7 @@ describe('Divider', () => {
                 });
             });
 
-            it('should apply global PT configuration from PrimeNG config', async () => {
+            it('should apply global PT configuration from ngx-prime config', async () => {
                 const globalFixture = TestBed.createComponent(TestGlobalPTComponent);
 
                 globalFixture.changeDetectorRef.markForCheck();

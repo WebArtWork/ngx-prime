@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from 'ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'primeng/toast';
-import { ButtonModule } from 'primeng/button';
-import { ProgressBar } from 'primeng/progressbar';
+import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from 'ngx-prime/button';
+import { ProgressBar } from 'ngx-prime/progressbar';
 
 @Component({
     selector: 'app-headless-doc',

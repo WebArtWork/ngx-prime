@@ -21,9 +21,9 @@ export class CursorDoc {
     code: Code = {
         typescript: `{
     "mcpServers": {
-        "primeng": {
+        "ngx-prime": {
             "command": "npx",
-            "args": ["-y", "@primeng/mcp"]
+            "args": ["-y", "@ngx-prime/mcp"]
         }
     }
 }`

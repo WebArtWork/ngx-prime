@@ -1,5 +1,5 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
-import type { ButtonPassThrough } from 'primeng/types/button';
+import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
+import type { ButtonPassThrough } from 'ngx-prime/types/button';
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@wawjs/css-prime-motion';
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TagModule } from 'primeng/tag';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-block-section',
@@ -20,7 +20,7 @@ import { TagModule } from 'primeng/tag';
                     <div class="prime-block flex self-stretch p-1">
                         <div class="block-sidebar w-1/12 p-4">
                             <div class="logo">
-                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/landing/blocks/logo-1.svg" alt="block logo" />
                             </div>
                             <div class="sidebar-menu mt-8">
                                 <div class="bar w-8/12 my-4"></div>
@@ -113,7 +113,7 @@ import { TagModule } from 'primeng/tag';
                     <div class="prime-block p-1 flex self-stretch flex-col">
                         <div class="block-header py-4 px-6 flex justify-between items-center">
                             <div class="logo pr-8">
-                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/landing/blocks/logo-1.svg" alt="block logo" />
                             </div>
                             <div class="flex-auto sidebar-menu flex">
                                 <div class="bar w-8 mx-2"></div>
@@ -155,7 +155,7 @@ import { TagModule } from 'primeng/tag';
                     <div class="prime-block flex self-stretch p-1">
                         <div class="block-sidebar p-4">
                             <div class="logo">
-                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-2.svg" alt="block logo" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/landing/blocks/logo-2.svg" alt="block logo" />
                             </div>
                             <div class="sidebar-menu mt-8">
                                 <div class="circle my-4"></div>
@@ -221,7 +221,7 @@ import { TagModule } from 'primeng/tag';
                     <div class="prime-block flex self-stretch p-1">
                         <div class="block-sidebar w-1/12 p-4">
                             <div class="logo">
-                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/landing/blocks/logo-1.svg" alt="block logo" />
                             </div>
                             <div class="sidebar-menu mt-8">
                                 <div class="bar w-8/12 my-4"></div>
@@ -285,7 +285,7 @@ import { TagModule } from 'primeng/tag';
                     <div class="prime-block flex self-stretch p-1">
                         <div class="block-sidebar p-4">
                             <div class="logo">
-                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-2.svg" alt="block logo" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/landing/blocks/logo-2.svg" alt="block logo" />
                             </div>
                             <div class="sidebar-menu mt-8">
                                 <div class="circle my-4"></div>
@@ -348,7 +348,7 @@ import { TagModule } from 'primeng/tag';
                     <div class="prime-block p-1 flex self-stretch flex-col">
                         <div class="block-header py-4 px-6 flex justify-between items-center">
                             <div class="logo pr-8">
-                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo" />
+                                <img src="https://primefaces.org/cdn/ngx-prime/images/landing/blocks/logo-1.svg" alt="block logo" />
                             </div>
                             <div class="flex-auto sidebar-menu flex">
                                 <div class="bar w-8 mx-2"></div>

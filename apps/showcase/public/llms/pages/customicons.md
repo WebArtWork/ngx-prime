@@ -1,6 +1,6 @@
 # Custom Icons
 
-Use custom icons with PrimeNG components.
+Use custom icons with ngx-prime components.
 
 ## Fontawesome-
 

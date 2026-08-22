@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const css = /*css*/ `
 .p-virtualscroller {
@@ -94,7 +94,7 @@ export class ScrollerStyle extends BaseStyle {
  *
  * VirtualScroller is a performant approach to handle huge data efficiently.
  *
- * [Live Demo](https://www.primeng.org/scroller/)
+ * [Live Demo](https://www.ngx-prime.org/scroller/)
  *
  * @module scrollerstyle
  *

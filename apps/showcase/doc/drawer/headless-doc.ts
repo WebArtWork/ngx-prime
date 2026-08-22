@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Drawer } from 'primeng/drawer';
+import { Drawer } from 'ngx-prime/drawer';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { DrawerModule } from 'primeng/drawer';
-import { ButtonModule } from 'primeng/button';
+import { DrawerModule } from 'ngx-prime/drawer';
+import { ButtonModule } from 'ngx-prime/button';
 import { FormsModule } from '@angular/forms';
-import { AvatarModule } from 'primeng/avatar';
-import { RippleModule } from 'primeng/ripple';
-import { StyleClassModule } from 'primeng/styleclass';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { RippleModule } from 'ngx-prime/ripple';
+import { StyleClassModule } from 'ngx-prime/styleclass';
 
 @Component({
     selector: 'app-headless-doc',
@@ -212,7 +212,7 @@ import { StyleClassModule } from 'primeng/styleclass';
                         <div class="mt-auto">
                             <hr class="mb-4 mx-4 border-t border-0 border-surface" />
                             <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
-                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                                 <span class="font-bold">Amy Elsner</span>
                             </a>
                         </div>

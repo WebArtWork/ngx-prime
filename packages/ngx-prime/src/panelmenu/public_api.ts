@@ -1,3 +1,3 @@
-export * from 'primeng/types/panelmenu';
+export * from 'ngx-prime/types/panelmenu';
 export * from './panelmenu';
 export * from './style/panelmenustyle';

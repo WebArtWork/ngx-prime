@@ -12,9 +12,9 @@ The element to block should be placed as a child of BlockUI and blocked property
 
 ```typescript
 import { Component } from '@angular/core';
-import { BlockUIModule } from 'primeng/blockui';
-import { ButtonModule } from 'primeng/button';
-import { PanelModule } from 'primeng/panel';
+import { BlockUIModule } from 'ngx-prime/blockui';
+import { ButtonModule } from 'ngx-prime/button';
+import { PanelModule } from 'ngx-prime/panel';
 
 @Component({
     template: `
@@ -44,8 +44,8 @@ If the target element is not specified, BlockUI blocks the document by default.
 
 ```typescript
 import { Component } from '@angular/core';
-import { BlockUIModule } from 'primeng/blockui';
-import { ButtonModule } from 'primeng/button';
+import { BlockUIModule } from 'ngx-prime/blockui';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     template: `

@@ -5,9 +5,9 @@ import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeNode } from 'primeng/api';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { TreeTableModule } from 'primeng/treetable';
+import { TreeNode } from 'ngx-prime/api';
+import { MultiSelectModule } from 'ngx-prime/multiselect';
+import { TreeTableModule } from 'ngx-prime/treetable';
 
 interface Column {
     field: string;

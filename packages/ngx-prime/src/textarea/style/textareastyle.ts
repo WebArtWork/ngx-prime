@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as textarea_style } from '@wawjs/css-prime-styles/textarea';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${textarea_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     .p-textarea.ng-invalid.ng-dirty {
         border-color: dt('textarea.invalid.border.color');
     }
@@ -42,7 +42,7 @@ export class TextareaStyle extends BaseStyle {
  *
  * Textarea is a multi-line text input element.
  *
- * [Live Demo](https://www.primeng.org/textarea/)
+ * [Live Demo](https://www.ngx-prime.org/textarea/)
  *
  * @module textareastyle
  *

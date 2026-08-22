@@ -2,11 +2,11 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
-import { MenuModule } from 'primeng/menu';
-import { Ripple } from 'primeng/ripple';
+import { MenuItem } from 'ngx-prime/api';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { BadgeModule } from 'ngx-prime/badge';
+import { MenuModule } from 'ngx-prime/menu';
+import { Ripple } from 'ngx-prime/ripple';
 
 @Component({
     selector: 'app-template-doc',
@@ -72,7 +72,7 @@ import { Ripple } from 'primeng/ripple';
                 </ng-template>
                 <ng-template #end>
                     <button pRipple class="relative overflow-hidden w-full border-0 bg-transparent flex items-start p-2 pl-4 hover:bg-surface-100 dark:hover:bg-surface-800 rounded-none cursor-pointer transition-colors duration-200">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-col items-start">
                             <span class="font-bold">Amy Elsner</span>
                             <span class="text-sm">Admin</span>
@@ -98,12 +98,12 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'New',
                         icon: 'pi pi-plus',
-                        shortcut: '⌘+N'
+                        shortcut: 'âŒ˜+N'
                     },
                     {
                         label: 'Search',
                         icon: 'pi pi-search',
-                        shortcut: '⌘+S'
+                        shortcut: 'âŒ˜+S'
                     }
                 ]
             },
@@ -113,7 +113,7 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Settings',
                         icon: 'pi pi-cog',
-                        shortcut: '⌘+O'
+                        shortcut: 'âŒ˜+O'
                     },
                     {
                         label: 'Messages',
@@ -123,7 +123,7 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Logout',
                         icon: 'pi pi-sign-out',
-                        shortcut: '⌘+Q',
+                        shortcut: 'âŒ˜+Q',
                         linkClass: '!text-red-500 dark:!text-red-400'
                     }
                 ]

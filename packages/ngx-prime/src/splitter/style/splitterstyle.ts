@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/splitter';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => ['p-splitter p-component', 'p-splitter-' + instance.layout()],
@@ -28,7 +28,7 @@ export class SplitterStyle extends BaseStyle {
  *
  * Splitter is utilized to separate and resize panels.
  *
- * [Live Demo](https://www.primeng.org/splitter/)
+ * [Live Demo](https://www.ngx-prime.org/splitter/)
  *
  * @module splitterstyle
  *

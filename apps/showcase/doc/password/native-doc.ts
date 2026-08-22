@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordClearDirective, PasswordDirective, PasswordToggleMaskDirective } from 'primeng/password';
+import { PasswordClearDirective, PasswordDirective, PasswordToggleMaskDirective } from 'ngx-prime/password';
 
 @Component({
     selector: 'app-password-native-doc',

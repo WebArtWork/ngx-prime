@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { InplaceModule } from 'primeng/inplace';
-import { InputTextModule } from 'primeng/inputtext';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { ButtonModule } from 'primeng/button';
+import { InplaceModule } from 'ngx-prime/inplace';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { AutoFocusModule } from 'ngx-prime/autofocus';
+import { ButtonModule } from 'ngx-prime/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

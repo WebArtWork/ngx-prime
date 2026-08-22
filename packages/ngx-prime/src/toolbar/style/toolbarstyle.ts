@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/toolbar';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: () => ['p-toolbar p-component'],
@@ -22,7 +22,7 @@ export class ToolbarStyle extends BaseStyle {
  *
  * Toolbar is a grouping component for buttons and other content.
  *
- * [Live Demo](https://www.primeng.org/toolbar/)
+ * [Live Demo](https://www.ngx-prime.org/toolbar/)
  *
  * @module toolbarstyle
  *

@@ -22,17 +22,17 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isNotEmpty, uuid } from '@wawjs/css-prime-utils';
-import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
-import { AutoFocus } from 'primeng/autofocus';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind } from 'primeng/bind';
-import { Chip } from 'primeng/chip';
-import { Fluid } from 'primeng/fluid';
-import { ChevronDownIcon, TimesIcon } from 'primeng/icons';
-import { Overlay } from 'primeng/overlay';
-import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
-import { Nullable } from 'primeng/ts-helpers';
+import { OverlayOptions, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'ngx-prime/api';
+import { AutoFocus } from 'ngx-prime/autofocus';
+import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import { Bind } from 'ngx-prime/bind';
+import { Chip } from 'ngx-prime/chip';
+import { Fluid } from 'ngx-prime/fluid';
+import { ChevronDownIcon, TimesIcon } from 'ngx-prime/icons';
+import { Overlay } from 'ngx-prime/overlay';
+import { Tree, TreeFilterEvent, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'ngx-prime/tree';
+import { Nullable } from 'ngx-prime/ts-helpers';
 import {
     TreeSelectHeaderTemplateContext,
     TreeSelectItemCheckboxIconTemplateContext,
@@ -41,7 +41,7 @@ import {
     TreeSelectNodeExpandEvent,
     TreeSelectPassThrough,
     TreeSelectValueTemplateContext
-} from 'primeng/types/treeselect';
+} from 'ngx-prime/types/treeselect';
 import { TreeSelectStyle } from './style/treeselectstyle';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
@@ -346,7 +346,7 @@ export class TreeSelect extends BaseEditableHolder<TreeSelectPassThrough> {
      */
     overlayOptions = input<OverlayOptions | undefined>();
     /**
-     * Text to display when there are no options available. Defaults to value from PrimeNG locale configuration.
+     * Text to display when there are no options available. Defaults to value from ngx-prime locale configuration.
      * @group Props
      */
     emptyMessage = input<string>('');

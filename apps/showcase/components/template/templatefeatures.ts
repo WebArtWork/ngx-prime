@@ -2,7 +2,7 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, OnInit, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { AnimateOnScrollModule } from 'primeng/animateonscroll';
+import { AnimateOnScrollModule } from 'ngx-prime/animateonscroll';
 @Component({
     selector: 'app-template-features',
     standalone: true,

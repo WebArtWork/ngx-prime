@@ -3,9 +3,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageService, TreeNode } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { TreeModule } from 'primeng/tree';
+import { MessageService, TreeNode } from 'ngx-prime/api';
+import { ToastModule } from 'ngx-prime/toast';
+import { TreeModule } from 'ngx-prime/tree';
 
 @Component({
     selector: 'app-event-doc',

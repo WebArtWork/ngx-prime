@@ -1,4 +1,4 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
 
 /**
  * Defines valid pass-through options in Tabs component.

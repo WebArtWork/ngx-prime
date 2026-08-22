@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, signal } from '@angular/core';
-import { TimelineModule } from 'primeng/timeline';
+import { TimelineModule } from 'ngx-prime/timeline';
 
 @Component({
     selector: 'app-timeline-pt-viewer',

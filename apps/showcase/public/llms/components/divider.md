@@ -12,7 +12,7 @@ Divider is basically placed between the items to separate.
 
 ```typescript
 import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'ngx-prime/divider';
 
 @Component({
     template: `
@@ -50,7 +50,7 @@ Children are rendered within the boundaries of the divider where location of the
 
 ```typescript
 import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'ngx-prime/divider';
 
 @Component({
     template: `
@@ -94,9 +94,9 @@ Sample implementation of a login form using a divider with content.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { DividerModule } from 'ngx-prime/divider';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     template: `
@@ -137,7 +137,7 @@ Style of the border is configured with the type property that can either be soli
 
 ```typescript
 import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'ngx-prime/divider';
 
 @Component({
     template: `
@@ -175,7 +175,7 @@ Vertical divider is enabled by setting the layout property as vertical .
 
 ```typescript
 import { Component } from '@angular/core';
-import { DividerModule } from 'primeng/divider';
+import { DividerModule } from 'ngx-prime/divider';
 
 @Component({
     template: `

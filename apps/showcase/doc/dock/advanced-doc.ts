@@ -1,16 +1,16 @@
 import { NodeService } from '@/service/nodeservice';
 import { PhotoService } from '@/service/photoservice';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { TerminalModule, TerminalService } from 'primeng/terminal';
+import { MenuItem, MessageService } from 'ngx-prime/api';
+import { TerminalModule, TerminalService } from 'ngx-prime/terminal';
 import { Subscription } from 'rxjs';
-import { Dock } from 'primeng/dock';
-import { DialogModule } from 'primeng/dialog';
-import { GalleriaModule } from 'primeng/galleria';
-import { MenubarModule } from 'primeng/menubar';
-import { ToastModule } from 'primeng/toast';
-import { TooltipModule } from 'primeng/tooltip';
-import { TreeModule } from 'primeng/tree';
+import { Dock } from 'ngx-prime/dock';
+import { DialogModule } from 'ngx-prime/dialog';
+import { GalleriaModule } from 'ngx-prime/galleria';
+import { MenubarModule } from 'ngx-prime/menubar';
+import { ToastModule } from 'ngx-prime/toast';
+import { TooltipModule } from 'ngx-prime/tooltip';
+import { TreeModule } from 'ngx-prime/tree';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
@@ -52,7 +52,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 </p-dialog>
 
                 <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false" header="Terminal">
-                    <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
+                    <p-terminal welcomeMessage="Welcome to ngx-prime (cmd: 'date', 'greet {0}', 'random')" prompt="ngx-prime $" />
                 </p-dialog>
 
                 <p-galleria
@@ -131,7 +131,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/finder.svg',
                 command: () => {
                     this.displayFinder = true;
                 }
@@ -145,7 +145,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/terminal.svg',
                 command: () => {
                     this.displayTerminal = true;
                 }
@@ -159,7 +159,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/appstore.svg',
                 url: 'https://www.apple.com/app-store/'
             },
             {
@@ -171,7 +171,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg'
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/safari.svg'
             },
             {
                 label: 'Photos',
@@ -182,7 +182,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/photos.svg',
                 command: () => {
                     this.displayGalleria = true;
                 }
@@ -196,8 +196,8 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg',
-                url: 'https://github.com/primefaces/primeng'
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/github.svg',
+                url: 'https://github.com/primefaces/ngx-prime'
             },
             {
                 label: 'Trash',
@@ -208,7 +208,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     positionLeft: 15,
                     showDelay: 1000
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
+                icon: 'https://primefaces.org/cdn/ngx-prime/images/dock/trash.png',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Trash is empty', key: 'tc' });
                 }

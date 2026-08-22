@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { TimelineModule } from 'primeng/timeline';
+import { ButtonModule } from 'ngx-prime/button';
+import { CardModule } from 'ngx-prime/card';
+import { TimelineModule } from 'ngx-prime/timeline';
 
 interface EventItem {
     status?: string;
@@ -32,7 +32,7 @@ interface EventItem {
                 <ng-template #content let-event>
                     <p-card [header]="event.status" [subheader]="event.date">
                         @if (event.image) {
-                            <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                            <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
                         }
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate

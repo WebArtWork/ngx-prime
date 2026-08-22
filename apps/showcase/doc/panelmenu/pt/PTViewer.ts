@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { PanelMenuModule } from 'primeng/panelmenu';
+import { PanelMenuModule } from 'ngx-prime/panelmenu';
 
 @Component({
     selector: 'app-panelmenu-pt-viewer',
@@ -22,12 +22,12 @@ export class PTViewer {
                 {
                     label: 'New',
                     icon: 'pi pi-plus',
-                    shortcut: '⌘+N'
+                    shortcut: 'âŒ˜+N'
                 },
                 {
                     label: 'Search',
                     icon: 'pi pi-search',
-                    shortcut: '⌘+S'
+                    shortcut: 'âŒ˜+S'
                 }
             ]
         },
@@ -38,7 +38,7 @@ export class PTViewer {
                 {
                     label: 'Settings',
                     icon: 'pi pi-cog',
-                    shortcut: '⌘+O'
+                    shortcut: 'âŒ˜+O'
                 },
                 {
                     label: 'Messages',
@@ -48,7 +48,7 @@ export class PTViewer {
                 {
                     label: 'Logout',
                     icon: 'pi pi-sign-out',
-                    shortcut: '⌘+Q'
+                    shortcut: 'âŒ˜+Q'
                 }
             ]
         }

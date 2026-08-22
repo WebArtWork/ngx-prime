@@ -2,10 +2,10 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'ngx-prime/api';
 import { Rating } from './rating';
 
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 // Basic Rating test component
 @Component({
@@ -81,10 +81,10 @@ class TestReactiveRatingComponent {
     template: `
         <p-rating [(ngModel)]="value">
             <ng-template pTemplate="onicon">
-                <span class="custom-on-icon">★</span>
+                <span class="custom-on-icon">â˜…</span>
             </ng-template>
             <ng-template pTemplate="officon">
-                <span class="custom-off-icon">☆</span>
+                <span class="custom-off-icon">â˜†</span>
             </ng-template>
         </p-rating>
     `
@@ -528,7 +528,7 @@ describe('Rating', () => {
             // Check if templates are processed by looking for template-generated content
             const allElements = fixture.debugElement.queryAll(By.css('*'));
 
-            void allElements.some((el) => el.nativeElement.textContent && el.nativeElement.textContent.includes('★'));
+            void allElements.some((el) => el.nativeElement.textContent && el.nativeElement.textContent.includes('â˜…'));
 
             // Templates might not be fully functional in test environment
             expect(fixture.componentInstance).toBeTruthy();
@@ -546,7 +546,7 @@ describe('Rating', () => {
             // Check if templates are processed by looking for template-generated content
             const allElements = fixture.debugElement.queryAll(By.css('*'));
 
-            void allElements.some((el) => el.nativeElement.textContent && el.nativeElement.textContent.includes('☆'));
+            void allElements.some((el) => el.nativeElement.textContent && el.nativeElement.textContent.includes('â˜†'));
 
             // Templates might not be fully functional in test environment
             expect(fixture.componentInstance).toBeTruthy();
@@ -1346,7 +1346,7 @@ describe('Rating', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             @Component({
                 template: `<p-rating [(ngModel)]="value"></p-rating>`,
                 imports: [Rating, FormsModule]
@@ -1361,7 +1361,7 @@ describe('Rating', () => {
                     imports: [Rating, FormsModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 rating: {
                                     host: 'GLOBAL_HOST_CLASS',

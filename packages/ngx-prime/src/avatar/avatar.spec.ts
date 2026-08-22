@@ -1,7 +1,7 @@
 import { Component, input, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from 'ngx-prime/api';
 import { Avatar, AvatarModule } from './avatar';
 
 @Component({

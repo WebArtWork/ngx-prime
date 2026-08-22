@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 @Component({
     standalone: true,
     imports: [AppDoc],
-    template: `<app-doc docTitle="Migration - PrimeNG" header="Migration to v19" description="Migration guide to PrimeNG v19" [docs]="docs" docType="page"></app-doc>`
+    template: `<app-doc docTitle="Migration - ngx-prime" header="Migration to v19" description="Migration guide to ngx-prime v19" [docs]="docs" docType="page"></app-doc>`
 })
 export class v19MigrationDemoComponent {
     docs = [

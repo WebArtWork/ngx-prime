@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
+import { ButtonModule } from 'ngx-prime/button';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     selector: 'app-tooltip-pt-viewer',

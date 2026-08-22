@@ -22,14 +22,14 @@ import {
 } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind, BindModule } from 'primeng/bind';
-import { CheckIcon } from 'primeng/icons/check';
-import { MinusIcon } from 'primeng/icons/minus';
-import { Nullable } from 'primeng/ts-helpers';
-import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from 'primeng/types/checkbox';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { CheckIcon } from 'ngx-prime/icons/check';
+import { MinusIcon } from 'ngx-prime/icons/minus';
+import { Nullable } from 'ngx-prime/ts-helpers';
+import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from 'ngx-prime/types/checkbox';
 import { CheckboxStyle } from './style/checkboxstyle';
 import { CheckboxContainerDirective, CheckboxDirective, CheckboxIconDirective } from './nativecheckbox';
 

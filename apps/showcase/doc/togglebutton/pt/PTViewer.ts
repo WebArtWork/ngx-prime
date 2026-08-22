@@ -2,7 +2,7 @@ import { AppDocPtViewer } from '@/components/doc/app.docptviewer';
 import { getPTOptions } from '@/components/doc/app.docptviewer';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 
 @Component({
     selector: 'app-togglebutton-pt-viewer',

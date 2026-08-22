@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { SharedModule } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
 import { Inplace, InplaceContent, InplaceDisplay, InplaceModule } from './inplace';
 
 @Component({
@@ -165,11 +165,11 @@ class TestInplaceStyleClassComponent {
 class TestInplaceTemplatesComponent {}
 
 @Component({
-    selector: 'test-inplace-primeng-templates',
+    selector: 'test-inplace-ngx-prime-templates',
     template: `
         <p-inplace>
             <ng-template pTemplate="display">
-                <span class="p-template-display">PrimeNG Template Display</span>
+                <span class="p-template-display">ngx-prime Template Display</span>
             </ng-template>
             <ng-template pTemplate="content" let-closeCallback="closeCallback">
                 <div class="p-template-content">
@@ -184,7 +184,7 @@ class TestInplaceTemplatesComponent {}
     `,
     imports: [InplaceModule, SharedModule, ButtonModule, FormsModule]
 })
-class TestInplacePrimeNGTemplatesComponent {}
+class TestInplaceNgxPrimeTemplatesComponent {}
 
 @Component({
     selector: 'test-inplace-keyboard',
@@ -281,7 +281,7 @@ describe('Inplace', () => {
                 TestInplaceActiveStateComponent,
                 TestInplaceStyleClassComponent,
                 TestInplaceTemplatesComponent,
-                TestInplacePrimeNGTemplatesComponent,
+                TestInplaceNgxPrimeTemplatesComponent,
                 TestInplaceKeyboardComponent,
                 TestInplaceComplexContentComponent,
                 TestInplaceDynamicComponent
@@ -883,13 +883,13 @@ describe('Inplace', () => {
         });
     });
 
-    describe('PrimeNG Templates', () => {
-        let fixture: ComponentFixture<TestInplacePrimeNGTemplatesComponent>;
+    describe('ngx-prime Templates', () => {
+        let fixture: ComponentFixture<TestInplaceNgxPrimeTemplatesComponent>;
         let inplaceComponent: Inplace;
         let element: HTMLElement;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(TestInplacePrimeNGTemplatesComponent);
+            fixture = TestBed.createComponent(TestInplaceNgxPrimeTemplatesComponent);
             fixture.detectChanges();
 
             const inplaceDebugElement = fixture.debugElement.query(By.directive(Inplace));
@@ -908,7 +908,7 @@ describe('Inplace', () => {
             const pTemplateDisplay = element.querySelector('.p-template-display');
 
             expect(pTemplateDisplay).toBeTruthy();
-            expect(pTemplateDisplay?.textContent?.trim()).toBe('PrimeNG Template Display');
+            expect(pTemplateDisplay?.textContent?.trim()).toBe('ngx-prime Template Display');
         });
 
         it('should render pTemplate content when activated', async () => {

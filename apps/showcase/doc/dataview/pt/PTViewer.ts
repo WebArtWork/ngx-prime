@@ -1,9 +1,9 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnInit, signal, inject } from '@angular/core';
-import { DataViewModule } from 'primeng/dataview';
-import { TagModule } from 'primeng/tag';
-import { ButtonModule } from 'primeng/button';
+import { DataViewModule } from 'ngx-prime/dataview';
+import { TagModule } from 'ngx-prime/tag';
+import { ButtonModule } from 'ngx-prime/button';
 import { ProductService } from '@/service/productservice';
 
 interface Product {

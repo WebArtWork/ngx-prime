@@ -1,13 +1,13 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, contentChild, effect, ElementRef, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, ViewEncapsulation, contentChildren } from '@angular/core';
 import { addClass, getHeight, getOuterHeight, getOuterWidth, getWidth, isRTL, removeClass } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind, BindModule } from 'primeng/bind';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import type { SplitterResizeEndEvent, SplitterResizeStartEvent } from 'primeng/types/splitter';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import type { SplitterResizeEndEvent, SplitterResizeStartEvent } from 'ngx-prime/types/splitter';
 import { SplitterStyle } from './style/splitterstyle';
-import { SplitterPassThrough } from 'primeng/types/splitter';
+import { SplitterPassThrough } from 'ngx-prime/types/splitter';
 
 const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
 

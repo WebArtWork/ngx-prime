@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const css = /*css*/ `
 .p-icon {
@@ -46,7 +46,7 @@ export class BaseIconStyle extends BaseStyle {
 }
 /**
  *
- * [Live Demo](https://www.primeng.org/)
+ * [Live Demo](https://www.ngx-prime.org/)
  *
  * @module baseiconstyle
  *

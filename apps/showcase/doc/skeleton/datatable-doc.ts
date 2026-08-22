@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TableModule } from 'primeng/table';
+import { SkeletonModule } from 'ngx-prime/skeleton';
+import { TableModule } from 'ngx-prime/table';
 
 @Component({
     selector: 'app-datatable-doc',

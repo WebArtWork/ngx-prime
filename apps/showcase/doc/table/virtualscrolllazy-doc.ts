@@ -5,8 +5,8 @@ import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { SkeletonModule } from 'primeng/skeleton';
-import { TableLazyLoadEvent, TableModule } from 'primeng/table';
+import { SkeletonModule } from 'ngx-prime/skeleton';
+import { TableLazyLoadEvent, TableModule } from 'ngx-prime/table';
 
 interface Column {
     field: string;

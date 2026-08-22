@@ -12,9 +12,9 @@ MegaMenu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { MegaMenuItem } from 'primeng/api';
-import { Table } from 'primeng/table';
+import { MegaMenuModule } from 'ngx-prime/megamenu';
+import { MegaMenuItem } from 'ngx-prime/api';
+import { Table } from 'ngx-prime/table';
 
 @Component({
     template: `
@@ -139,8 +139,8 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuModule } from 'ngx-prime/megamenu';
+import { MegaMenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -207,11 +207,11 @@ Custom content can be placed between p-megamenu tags. Megamenu should be horizon
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { RippleModule } from 'primeng/ripple';
-import { MegaMenuItem } from 'primeng/api';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { ButtonModule } from 'ngx-prime/button';
+import { MegaMenuModule } from 'ngx-prime/megamenu';
+import { RippleModule } from 'ngx-prime/ripple';
+import { MegaMenuItem } from 'ngx-prime/api';
 
 @Component({
     template: `
@@ -269,7 +269,7 @@ import { MegaMenuItem } from 'primeng/api';
                     </div>
                 </ng-template>
                 <ng-template #end>
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                    <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
             </p-megamenu>
         </div>
@@ -317,7 +317,7 @@ export class MegamenuTemplateDemo implements OnInit {
                         {
                             items: [
                                 {
-                                    image: 'https://primefaces.org/cdn/primeng/images/uikit/uikit-system.png',
+                                    image: 'https://primefaces.org/cdn/ngx-prime/images/uikit/uikit-system.png',
                                     label: 'GET STARTED',
                                     subtext: 'Build spectacular apps in no time.'
                                 }
@@ -345,10 +345,10 @@ Layout of the MegaMenu is changed with the orientation property that accepts hor
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { MegaMenu, MegaMenuModule } from 'primeng/megamenu';
-import { MegaMenuItem } from 'primeng/api';
-import { Table } from 'primeng/table';
-import { MegaMenu } from 'primeng/megamenu';
+import { MegaMenu, MegaMenuModule } from 'ngx-prime/megamenu';
+import { MegaMenuItem } from 'ngx-prime/api';
+import { Table } from 'ngx-prime/table';
+import { MegaMenu } from 'ngx-prime/megamenu';
 
 @Component({
     template: `

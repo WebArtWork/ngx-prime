@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { TreeNode } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
+import { TreeNode } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { of } from 'rxjs';
 import { TreeTable, TreeTableModule } from './treetable';
 
@@ -3892,7 +3892,7 @@ describe('TreeTable PT', () => {
     });
 });
 
-// Case 11: Global PT from PrimeNGConfig
+// Case 11: Global PT from NgxPrimeConfig
 describe('TreeTable Global PT', () => {
     let fixture: ComponentFixture<TreeTable>;
 
@@ -3901,7 +3901,7 @@ describe('TreeTable Global PT', () => {
             imports: [TreeTableModule],
             providers: [
                 provideZonelessChangeDetection(),
-                providePrimeNG({
+                provideNgxPrime({
                     pt: {
                         treeTable: {
                             host: { 'aria-label': 'GLOBAL_ARIA_LABEL' },

@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem, SharedModule } from 'primeng/api';
+import { MenuItem, SharedModule } from 'ngx-prime/api';
 import { PanelMenu } from './panelmenu';
 
 @Component({
@@ -1421,9 +1421,9 @@ describe('PanelMenu', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             it('should accept global PT configuration structure', async () => {
-                // Note: Full global PT testing requires PrimeNG service setup
+                // Note: Full global PT testing requires ngx-prime service setup
                 // This test verifies the PT structure is accepted
                 fixture.componentRef.setInput('pt', {
                     root: { 'data-global-test': 'true' }

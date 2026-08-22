@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as password_style } from '@wawjs/css-prime-styles/password';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
 ${password_style}
 
-/* For PrimeNG */
+/* For ngx-prime */
 .p-password-overlay {
     min-width: 100%;
 }
@@ -99,7 +99,7 @@ export class PasswordStyle extends BaseStyle {
  *
  * Password displays strength indicator for password fields.
  *
- * [Live Demo](https://www.primeng.org/password/)
+ * [Live Demo](https://www.ngx-prime.org/password/)
  *
  * @module passwordstyle
  *

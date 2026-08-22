@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
-    /* For PrimeNG */
+    /* For ngx-prime */
     p-inputmask {
         position: relative;
     }
@@ -64,7 +64,7 @@ export class InputMaskStyle extends BaseStyle {
  *
  * InputMask component is used to enter input in a certain format such as numeric, date, currency, email and phone.
  *
- * [Live Demo](https://www.primeng.org/inputmask/)
+ * [Live Demo](https://www.ngx-prime.org/inputmask/)
  *
  * @module inputmaskstyle
  *

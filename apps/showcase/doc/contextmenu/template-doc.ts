@@ -2,10 +2,10 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
-import { Ripple } from 'primeng/ripple';
+import { MenuItem } from 'ngx-prime/api';
+import { BadgeModule } from 'ngx-prime/badge';
+import { ContextMenu, ContextMenuModule } from 'ngx-prime/contextmenu';
+import { Ripple } from 'ngx-prime/ripple';
 @Component({
     selector: 'app-template-doc',
     standalone: true,
@@ -23,7 +23,7 @@ import { Ripple } from 'primeng/ripple';
                         (contextmenu)="onContextMenu($event)"
                     >
                         <div class="flex flex-wrap p-2 items-center gap-4">
-                            <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                            <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.name" />
                             <div class="flex-1 flex flex-col gap-1">
                                 <span class="font-bold">{{ product.name }}</span>
                                 <div class="flex items-center gap-2">
@@ -134,12 +134,12 @@ export class TemplateDoc implements OnInit {
             {
                 label: 'Favorite',
                 icon: 'pi pi-star',
-                shortcut: '⌘+D'
+                shortcut: 'âŒ˜+D'
             },
             {
                 label: 'Add',
                 icon: 'pi pi-shopping-cart',
-                shortcut: '⌘+A'
+                shortcut: 'âŒ˜+A'
             },
             {
                 separator: true

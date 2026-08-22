@@ -773,7 +773,7 @@ class TestComplexEdgeCasesComponent {
         this.circularOptions = [circularBase, circularChild];
     }
 
-    onRapidChange() {
+    onRapidChange(_event?: any) {
         this.rapidChangeCount++;
         // Rapid change logic (console.log removed to avoid test output noise)
     }
@@ -998,12 +998,12 @@ describe('Select', () => {
             ];
 
             // Create a new select instance with grouped options
-            selectInstance.group = true;
-            component.options = groupedOptions;
+            (selectInstance as any).group = () => true;
+            component.options = groupedOptions as any;
             fixture.detectChanges();
-            selectInstance.optionGroupChildren = 'items';
-            selectInstance.optionLabel = 'label';
-            selectInstance.optionValue = 'value';
+            (selectInstance as any).optionGroupChildren = () => 'items';
+            (selectInstance as any).optionLabel = () => 'label';
+            (selectInstance as any).optionValue = () => 'value';
 
             // Set disabled option as initial value
             selectInstance.writeModelValue('Berlin');
@@ -1997,14 +1997,14 @@ describe('Select - #template Reference Content Projection', () => {
 
     it('should render clear icon template reference with class context when showClear is true', () => {
         component.selectedValue = 'ref1';
-        selectInstance.showClear = true;
+        (selectInstance as any).showClear = () => true;
         fixture.detectChanges();
 
         expect(selectInstance.clearIconTemplate).toBeDefined();
     });
 
     it('should render filter icon template reference', async () => {
-        selectInstance.filter = true;
+        (selectInstance as any).filter = () => true;
         selectInstance.show();
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
@@ -4036,7 +4036,7 @@ describe('Select PT (PassThrough)', () => {
             component.pt = {
                 loadingIcon: { class: 'CUSTOM_LOADING_ICON' }
             };
-            selectInstance.loading = true;
+            (selectInstance as any).loading = () => true;
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
@@ -4215,8 +4215,8 @@ describe('Select PT (PassThrough)', () => {
                     spacer: { class: 'CUSTOM_VSCROLLER_SPACER', 'data-vscroller': 'spacer' }
                 }
             };
-            selectInstance.virtualScroll = true;
-            selectInstance.virtualScrollItemSize = 38;
+            (selectInstance as any).virtualScroll = () => true;
+            (selectInstance as any).virtualScrollItemSize = () => 38;
             fixture.detectChanges();
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();

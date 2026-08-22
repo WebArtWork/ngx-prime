@@ -12,8 +12,8 @@ Drawer is used as a container and visibility is controlled with a binding to vis
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'ngx-prime/button';
+import { DrawerModule } from 'ngx-prime/drawer';
 
 @Component({
     template: `
@@ -41,8 +41,8 @@ Drawer can cover the whole page when fullScreen property is enabled.
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'ngx-prime/button';
+import { DrawerModule } from 'ngx-prime/drawer';
 
 @Component({
     template: `
@@ -70,10 +70,10 @@ Headless mode allows you to customize the entire user interface instead of the d
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { Drawer, DrawerModule } from 'primeng/drawer';
-import { RippleModule } from 'primeng/ripple';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { ButtonModule } from 'ngx-prime/button';
+import { Drawer, DrawerModule } from 'ngx-prime/drawer';
+import { RippleModule } from 'ngx-prime/ripple';
 
 @Component({
     template: `
@@ -272,7 +272,7 @@ import { RippleModule } from 'primeng/ripple';
                         <div class="mt-auto">
                             <hr class="mb-4 mx-4 border-t border-0 border-surface" />
                             <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
-                                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                                <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                                 <span class="font-bold">Amy Elsner</span>
                             </a>
                         </div>
@@ -300,8 +300,8 @@ Drawer location is configured with the position property that can take left , ri
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { Drawer, DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'ngx-prime/button';
+import { Drawer, DrawerModule } from 'ngx-prime/drawer';
 
 @Component({
     template: `
@@ -355,8 +355,8 @@ Drawer dimension can be defined with style or class properties, this responsive 
 
 ```typescript
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
+import { ButtonModule } from 'ngx-prime/button';
+import { DrawerModule } from 'ngx-prime/drawer';
 
 @Component({
     template: `
@@ -384,9 +384,9 @@ Drawer is customizable by header , content , footer templates.
 
 ```typescript
 import { Component } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { DrawerModule } from 'primeng/drawer';
-import { ButtonModule } from 'primeng/button';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { DrawerModule } from 'ngx-prime/drawer';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     template: `
@@ -394,7 +394,7 @@ import { ButtonModule } from 'primeng/button';
             <p-drawer [(visible)]="visible" [closable]="false">
                 <ng-template #header>
                     <div class="flex items-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/ngx-prime/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>

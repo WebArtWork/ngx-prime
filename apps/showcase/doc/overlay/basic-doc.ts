@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { OverlayModule } from 'primeng/overlay';
+import { ButtonModule } from 'ngx-prime/button';
+import { OverlayModule } from 'ngx-prime/overlay';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

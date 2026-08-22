@@ -2,18 +2,18 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AvatarModule } from 'primeng/avatar';
-import { ButtonModule } from 'primeng/button';
-import { Checkbox } from 'primeng/checkbox';
-import { DividerModule } from 'primeng/divider';
-import { IconField } from 'primeng/iconfield';
-import { InputIcon } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenuModule } from 'primeng/menu';
-import { OverlayBadgeModule } from 'primeng/overlaybadge';
-import { ProgressBar } from 'primeng/progressbar';
-import { TableModule } from 'primeng/table';
-import { Tag } from 'primeng/tag';
+import { AvatarModule } from 'ngx-prime/avatar';
+import { ButtonModule } from 'ngx-prime/button';
+import { Checkbox } from 'ngx-prime/checkbox';
+import { DividerModule } from 'ngx-prime/divider';
+import { IconField } from 'ngx-prime/iconfield';
+import { InputIcon } from 'ngx-prime/inputicon';
+import { InputTextModule } from 'ngx-prime/inputtext';
+import { MenuModule } from 'ngx-prime/menu';
+import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
+import { ProgressBar } from 'ngx-prime/progressbar';
+import { TableModule } from 'ngx-prime/table';
+import { Tag } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-inbox-app',
@@ -57,7 +57,7 @@ import { Tag } from 'primeng/tag';
                             </ng-template>
                         </p-progressbar>
                     </div>
-                    <p-button label="Upgrade to PRO 🚀" outlined styleClass="w-full" />
+                    <p-button label="Upgrade to PRO ðŸš€" outlined styleClass="w-full" />
                 </div>
             </div>
         </div>

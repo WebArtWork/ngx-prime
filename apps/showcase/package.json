@@ -46,7 +46,7 @@
         "jspdf": "^4.0.0",
         "jspdf-autotable": "^3.5.28",
         "primeicons": "catalog:",
-        "primeng": "workspace:*",
+        "ngx-prime": "workspace:*",
         "prismjs": "^1.29.0",
         "quill": "2.0.2",
         "rxjs": "~7.8.2",

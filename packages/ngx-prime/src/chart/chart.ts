@@ -1,11 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, output, ViewEncapsulation } from '@angular/core';
 import Chart from 'chart.js/auto';
-import { SharedModule } from 'primeng/api';
-import { BaseComponent } from 'primeng/basecomponent';
+import { SharedModule } from 'ngx-prime/api';
+import { BaseComponent } from 'ngx-prime/basecomponent';
 import { ChartStyle } from './style/chartstyle';
-import { Bind, BindModule } from 'primeng/bind';
-import type { ChartPassThrough } from 'primeng/types/chart';
+import { Bind, BindModule } from 'ngx-prime/bind';
+import type { ChartPassThrough } from 'ngx-prime/types/chart';
 
 const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
 

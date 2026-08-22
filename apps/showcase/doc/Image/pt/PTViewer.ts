@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ImageModule } from 'primeng/image';
+import { ImageModule } from 'ngx-prime/image';
 
 @Component({
     selector: 'app-image-pt-viewer',
@@ -9,7 +9,7 @@ import { ImageModule } from 'primeng/image';
     imports: [AppDocPtViewer, ImageModule],
     template: `
         <app-docptviewer [docs]="docs">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250" [preview]="true"></p-image>
+            <p-image src="https://primefaces.org/cdn/ngx-prime/images/galleria/galleria1.jpg" alt="Image" width="250" [preview]="true"></p-image>
         </app-docptviewer>
     `
 })

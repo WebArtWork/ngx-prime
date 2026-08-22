@@ -19,7 +19,7 @@ import { VeronaSeparator } from './veronaseparator';
         <app-verona-separator></app-verona-separator>
         <div [style.display]="'none'">
             <app-verona-separator></app-verona-separator>
-            <app-template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/verona/verona-youtube-screen.png"></app-template-youtube>
+            <app-template-youtube imgSrc="https://primefaces.org/cdn/ngx-prime/images/templates/verona/verona-youtube-screen.png"></app-template-youtube>
         </div>
         <app-template-features-animation [featuresData]="animationFeaturesData2" title="Features"></app-template-features-animation>
         <app-verona-separator></app-verona-separator>
@@ -38,13 +38,13 @@ export class VeronaPage {
     veronaLogo = VeronaLogo;
 
     templateHeroData = {
-        pattern: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-pattern.png',
+        pattern: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/verona-hero-pattern.png',
         patternClass: 'select-none absolute z-[6] opacity-90 w-[110rem] h-auto bottom-80 left-0 md:-bottom-8 md:-left-4',
-        description: 'Prepare to be amazed by the remastered Verona for PrimeNG featuring a gorgeous dark mode for the entire layout, 4 menu modes, reusable css widgets, utilities, modern icons and many more.',
-        dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard1.png',
-        dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard2.png',
-        liveHref: 'https://verona.primeng.org/',
-        docHref: 'https://verona.primeng.org/documentation',
+        description: 'Prepare to be amazed by the remastered Verona for ngx-prime featuring a gorgeous dark mode for the entire layout, 4 menu modes, reusable css widgets, utilities, modern icons and many more.',
+        dashboard1: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/verona-hero-dashboard1.png',
+        dashboard2: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/verona-hero-dashboard2.png',
+        liveHref: 'https://verona.ngx-prime.org/',
+        docHref: 'https://verona.ngx-prime.org/documentation',
         storeHref: 'https://primeui.store/templates/angular/verona'
     };
 
@@ -52,36 +52,36 @@ export class VeronaPage {
         {
             title: 'Fully Responsive',
             description: 'Crafted to provide optimal viewing and interaction experience for a wide range of devices.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-features2-responsive.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/verona-features2-responsive.png'
         },
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/cross-browser-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/cross-browser-dark.png'
         },
         {
             title: 'Support',
             description: `PrimeTek offers assistance with account management and licensing issues, with the expectation that users have the necessary technical knowledge to use our products, as we do not offer technical support or consulting. Users
             can seek assistance in our community via our public <a href="https://discord.com/invite/gzKFYnpmCY">Discord</a> and
-            <a href="https://github.com/orgs/primefaces/discussions/categories/primeng-templates" class="doc-link">Forum</a>.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/support.png'
+            <a href="https://github.com/orgs/primefaces/discussions/categories/ngx-prime-templates" class="doc-link">Forum</a>.`,
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/support.png'
         },
         {
             title: 'Customizable Design',
             description: 'Fully customizable with a mixture of Sass and CSS variables.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/common/customizable-dark.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/customizable.png',
+            darkSrc: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/customizable-dark.png'
         },
         {
             title: 'Ready to Use Pages',
             description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-features2-ready.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/verona-features2-ready.png'
         },
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-features2-mobile.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/verona-features2-mobile.png'
         }
     ];
 
@@ -90,27 +90,27 @@ export class VeronaPage {
             id: 1,
             title: 'Tailwind CSS',
             description: 'The demo content is built with TailwindCSS, while the application shell uses custom CSS, offering flexibility and efficiency for responsive design.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/tailwind.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/tailwind.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
             description: `Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeblocks.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeblocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
-            description: 'Ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/common/primeicons.png'
+            description: 'Ships with PrimeIcons, PrimeTekâ€™s modern icon library including a wide range of icons for your applications.',
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/common/primeicons.png'
         },
         {
             id: 4,
             title: 'Figma File',
             description: `Verona uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can
-                <a href="https://www.figma.com/design/9V43wXgKud8vXF9ZkbF83s/Preview-%7C-Verona-%7C%C2%A02.0.0?node-id=1303-749&t=0tlndOYlFeA9OaVc-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that PrimeNG UI components are excluded from the Verona Figma file as they
+                <a href="https://www.figma.com/design/9V43wXgKud8vXF9ZkbF83s/Preview-%7C-Verona-%7C%C2%A02.0.0?node-id=1303-749&t=0tlndOYlFeA9OaVc-1" target="_blank" rel="noopener noreferrer">preview the Figma file</a> before the purchase. Note that ngx-prime UI components are excluded from the Verona Figma file as they
                 are available in <a href="/uikit">PrimeOne for Figma</a> only.`,
-            src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-figma.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/features-animation-figma.png'
         }
     ];
 
@@ -119,40 +119,40 @@ export class VeronaPage {
             id: 1,
             title: 'Light and Dark Modes',
             description: '2 color schemes with 8 surface color alternatives for each.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-darkmode.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/features-animation-darkmode.png'
         },
         {
             id: 2,
             title: 'Component Themes',
             description: '17 built-in theme colors with the power of 3 presets: Aura, Lara and Nora.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-component-themes.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/features-animation-component-themes.png'
         },
         {
             id: 3,
             title: '4 Menu Orientations',
             description: 'Choose from Static, Overlay, Slim and Slim+ menu orientations.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-orientations.png',
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/features-animation-orientations.png',
             type: 'inline-animation',
             inlineFeaturesData: [
                 {
                     id: 1,
                     title: 'Static',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/verona/Static.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/Static.png'
                 },
                 {
                     id: 2,
                     title: 'Slim',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/verona/Slim.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/Slim.png'
                 },
                 {
                     id: 3,
                     title: 'Slim+',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/verona/Slim+.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/Slim+.png'
                 },
                 {
                     id: 4,
                     title: 'Overlay',
-                    src: 'https://primefaces.org/cdn/primeng/images/templates/verona/Overlay.png'
+                    src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/Overlay.png'
                 }
             ]
         },
@@ -160,12 +160,12 @@ export class VeronaPage {
             id: 4,
             title: 'Menu Themes',
             description: 'Verona offers 17 special layout themes featuring gorgeous gradients.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-orientations.png'
+            src: 'https://primefaces.org/cdn/ngx-prime/images/templates/verona/features-animation-orientations.png'
         }
     ];
 
     license = {
-        documentLink: 'https://verona.primeng.org/documentation',
+        documentLink: 'https://verona.ngx-prime.org/documentation',
         description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
         showDiscount: false,
         licenseDetails: [

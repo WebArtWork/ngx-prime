@@ -1,4 +1,4 @@
-import type { PassThrough, PassThroughOption } from 'primeng/api';
+import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
 
 /**
  * Custom passthrough(pt) options.

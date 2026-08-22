@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'ngx-prime/button';
+import { DividerModule } from 'ngx-prime/divider';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     selector: 'app-login-doc',

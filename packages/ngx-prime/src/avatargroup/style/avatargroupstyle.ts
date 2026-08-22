@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: 'p-avatar-group p-component'
@@ -16,7 +16,7 @@ export class AvatarGroupStyle extends BaseStyle {
  *
  * A set of Avatars can be displayed together using the AvatarGroup component.
  *
- * [Live Demo](https://www.primeng.org/avatar/)
+ * [Live Demo](https://www.ngx-prime.org/avatar/)
  *
  * @module avatargroupstyle
  *

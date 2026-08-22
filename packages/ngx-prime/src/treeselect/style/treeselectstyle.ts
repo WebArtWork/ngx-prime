@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as treeselect_style } from '@wawjs/css-prime-styles/treeselect';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${treeselect_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
 
     .p-treeselect.ng-invalid.ng-dirty {
         border-color: dt('treeselect.invalid.border.color');
@@ -79,7 +79,7 @@ export class TreeSelectStyle extends BaseStyle {
  *
  * TreeSelect is a form component to choose from hierarchical data.
  *
- * [Live Demo](https://www.primeng.org/treeselect/)
+ * [Live Demo](https://www.ngx-prime.org/treeselect/)
  *
  * @module treeselectstyle
  *

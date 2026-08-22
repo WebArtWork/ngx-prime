@@ -12,9 +12,9 @@ PanelMenu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { PanelMenu, PanelMenuModule } from 'ngx-prime/panelmenu';
+import { MenuItem } from 'ngx-prime/api';
+import { PanelMenu } from 'ngx-prime/panelmenu';
 
 @Component({
     template: `
@@ -117,10 +117,10 @@ The command property defines the callback to run when an item is activated by cl
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { ToastModule } from 'primeng/toast';
-import { MenuItem, MessageService } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { PanelMenu, PanelMenuModule } from 'ngx-prime/panelmenu';
+import { ToastModule } from 'ngx-prime/toast';
+import { MenuItem, MessageService } from 'ngx-prime/api';
+import { PanelMenu } from 'ngx-prime/panelmenu';
 
 @Component({
     template: `
@@ -214,10 +214,10 @@ Menu items can be controlled programmatically.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { ButtonModule } from 'ngx-prime/button';
+import { PanelMenu, PanelMenuModule } from 'ngx-prime/panelmenu';
+import { MenuItem } from 'ngx-prime/api';
+import { PanelMenu } from 'ngx-prime/panelmenu';
 
 @Component({
     template: `
@@ -313,9 +313,9 @@ Only one single root menuitem can be active by default, enable multiple property
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { PanelMenu, PanelMenuModule } from 'ngx-prime/panelmenu';
+import { MenuItem } from 'ngx-prime/api';
+import { PanelMenu } from 'ngx-prime/panelmenu';
 
 @Component({
     template: `
@@ -418,9 +418,9 @@ Menu items support navigation via routerLink, programmatic routing using command
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { MenuItem, MessageService } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { PanelMenu, PanelMenuModule } from 'ngx-prime/panelmenu';
+import { MenuItem, MessageService } from 'ngx-prime/api';
+import { PanelMenu } from 'ngx-prime/panelmenu';
 
 @Component({
     template: `
@@ -488,11 +488,11 @@ PanelMenu requires a collection of menuitems as its model .
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { BadgeModule } from 'primeng/badge';
-import { PanelMenu, PanelMenuModule } from 'primeng/panelmenu';
-import { RippleModule } from 'primeng/ripple';
-import { MenuItem } from 'primeng/api';
-import { PanelMenu } from 'primeng/panelmenu';
+import { BadgeModule } from 'ngx-prime/badge';
+import { PanelMenu, PanelMenuModule } from 'ngx-prime/panelmenu';
+import { RippleModule } from 'ngx-prime/ripple';
+import { MenuItem } from 'ngx-prime/api';
+import { PanelMenu } from 'ngx-prime/panelmenu';
 
 @Component({
     template: `
@@ -525,7 +525,7 @@ export class PanelmenuTemplateDemo implements OnInit {
                     {
                         label: 'Compose',
                         icon: 'pi pi-file-edit',
-                        shortcut: '⌘+N'
+                        shortcut: 'âŒ˜+N'
                     },
                     {
                         label: 'Inbox',
@@ -535,19 +535,19 @@ export class PanelmenuTemplateDemo implements OnInit {
                     {
                         label: 'Sent',
                         icon: 'pi pi-send',
-                        shortcut: '⌘+S'
+                        shortcut: 'âŒ˜+S'
                     },
                     {
                         label: 'Trash',
                         icon: 'pi pi-trash',
-                        shortcut: '⌘+T'
+                        shortcut: 'âŒ˜+T'
                     }
                 ]
             },
             {
                 label: 'Reports',
                 icon: 'pi pi-chart-bar',
-                shortcut: '⌘+R',
+                shortcut: 'âŒ˜+R',
                 items: [
                     {
                         label: 'Sales',
@@ -564,17 +564,17 @@ export class PanelmenuTemplateDemo implements OnInit {
             {
                 label: 'Profile',
                 icon: 'pi pi-user',
-                shortcut: '⌘+W',
+                shortcut: 'âŒ˜+W',
                 items: [
                     {
                         label: 'Settings',
                         icon: 'pi pi-cog',
-                        shortcut: '⌘+O'
+                        shortcut: 'âŒ˜+O'
                     },
                     {
                         label: 'Privacy',
                         icon: 'pi pi-shield',
-                        shortcut: '⌘+P'
+                        shortcut: 'âŒ˜+P'
                     }
                 ]
             }

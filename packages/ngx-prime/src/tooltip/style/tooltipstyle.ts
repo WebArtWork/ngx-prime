@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/tooltip';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: 'p-tooltip p-component',
@@ -21,7 +21,7 @@ export class TooltipStyle extends BaseStyle {
  *
  * Tooltip directive provides advisory information for a component.
  *
- * [Live Demo](https://www.primeng.org/tooltip)
+ * [Live Demo](https://www.ngx-prime.org/tooltip)
  *
  * @module tooltipstyle
  *

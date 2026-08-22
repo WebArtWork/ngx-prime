@@ -3,11 +3,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { MessageService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { MessageModule } from 'ngx-prime/message';
+import { ToastModule } from 'ngx-prime/toast';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 
 @Component({
     selector: 'app-reactiveforms-doc',

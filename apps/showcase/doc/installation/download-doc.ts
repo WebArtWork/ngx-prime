@@ -9,7 +9,7 @@ import { AppCode } from '@/components/doc/app.code';
     imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
-            <p>PrimeNG is available for download on the <a href="https://www.npmjs.com/package/primeng">npm registry</a>.</p>
+            <p>ngx-prime is available for download on the <a href="https://www.npmjs.com/package/ngx-prime">npm registry</a>.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `
@@ -17,12 +17,12 @@ import { AppCode } from '@/components/doc/app.code';
 export class DownloadDoc {
     code: Code = {
         command: `# Using npm
-npm install primeng @wawjs/css-prime-themes
+npm install ngx-prime @wawjs/css-prime-themes
 
 # Using yarn
-yarn add primeng @wawjs/css-prime-themes
+yarn add ngx-prime @wawjs/css-prime-themes
 
 # Using pnpm
-pnpm add primeng @wawjs/css-prime-themes`
+pnpm add ngx-prime @wawjs/css-prime-themes`
     };
 }

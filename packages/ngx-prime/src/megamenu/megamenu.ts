@@ -22,16 +22,16 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { findLastIndex, findSingle, focus, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, resolve, uuid } from '@wawjs/css-prime-utils';
-import { MegaMenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'primeng/icons';
-import { Ripple } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { VoidListener } from 'primeng/ts-helpers';
-import { MegaMenuItemTemplateContext, MegaMenuPassThrough } from 'primeng/types/megamenu';
-import { ZIndexUtils } from 'primeng/utils';
+import { MegaMenuItem, PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { BadgeModule } from 'ngx-prime/badge';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { AngleDownIcon, AngleRightIcon, BarsIcon } from 'ngx-prime/icons';
+import { Ripple } from 'ngx-prime/ripple';
+import { TooltipModule } from 'ngx-prime/tooltip';
+import { VoidListener } from 'ngx-prime/ts-helpers';
+import { MegaMenuItemTemplateContext, MegaMenuPassThrough } from 'ngx-prime/types/megamenu';
+import { ZIndexUtils } from 'ngx-prime/utils';
 import { MegaMenuStyle } from './style/megamenustyle';
 
 const MEGAMENU_INSTANCE = new InjectionToken<MegaMenu>('MEGAMENU_INSTANCE');

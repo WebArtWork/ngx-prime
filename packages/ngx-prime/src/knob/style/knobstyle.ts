@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/knob';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => ['p-knob p-component', { 'p-disabled': instance.$disabled() }],
@@ -22,7 +22,7 @@ export class KnobStyle extends BaseStyle {
  *
  * Knob is a form component to define number inputs with a dial.
  *
- * [Live Demo](https://www.primeng.org/knob/)
+ * [Live Demo](https://www.ngx-prime.org/knob/)
  *
  * @module knobstyle
  *

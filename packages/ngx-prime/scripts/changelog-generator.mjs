@@ -14,19 +14,19 @@ const today = new Date().toISOString().split('T')[0];
 
 fs.readFile(tsvFilePath, 'utf8', (err, data) => {
     if (err) {
-        console.error('❌ File reading error:', err);
+        console.error('âŒ File reading error:', err);
         return;
     }
 
     if (!data.includes('\t')) {
-        console.error('❌ No tab character found in the TSV file! Please replace spaces with tabs.');
+        console.error('âŒ No tab character found in the TSV file! Please replace spaces with tabs.');
         return;
     }
 
     const lines = data.trim().split('\n');
 
     if (lines.length <= 1) {
-        console.error('❌ No valid data found. Please check the content of the TSV file.');
+        console.error('âŒ No valid data found. Please check the content of the TSV file.');
         return;
     }
 
@@ -37,14 +37,14 @@ fs.readFile(tsvFilePath, 'utf8', (err, data) => {
         let columns = line.split('\t');
 
         if (columns.length < 6) {
-            console.error(`❌ Missing data: "${line}"`);
+            console.error(`âŒ Missing data: "${line}"`);
             return;
         }
 
         let [title, issueUrl, assignees, pullRequestUrl, status, labels, milestone] = columns.map((item) => item.trim());
 
         if (!milestone) {
-            console.warn(`⚠ Milestone (Version) information is missing: "${title}"`);
+            console.warn(`âš  Milestone (Version) information is missing: "${title}"`);
             return;
         }
 
@@ -70,8 +70,8 @@ fs.readFile(tsvFilePath, 'utf8', (err, data) => {
 
     let changelogContent = '';
 
-    changelogContent += `## [${version}](https://github.com/primefaces/primeng/tree/${version}) (${today})\n`;
-    changelogContent += `[Full Changelog](https://github.com/primefaces/primeng/compare/${previousVersion}...${version})\n\n`;
+    changelogContent += `## [${version}](https://github.com/primefaces/ngx-prime/tree/${version}) (${today})\n`;
+    changelogContent += `[Full Changelog](https://github.com/primefaces/ngx-prime/compare/${previousVersion}...${version})\n\n`;
 
     if (changelogData[version].bugs.length > 0) {
         changelogContent += `**Fixed bugs:**\n`;
@@ -85,12 +85,12 @@ fs.readFile(tsvFilePath, 'utf8', (err, data) => {
 
     fs.readFile(outputFilePath, 'utf8', (err, existingData) => {
         if (err) {
-            console.error('❌ Error reading changelog.md:', err);
+            console.error('âŒ Error reading changelog.md:', err);
             return;
         }
 
         if (!existingData.includes('# Changelog')) {
-            console.error('❌ The changelog file does not contain "# Changelog" header.');
+            console.error('âŒ The changelog file does not contain "# Changelog" header.');
             return;
         }
 
@@ -102,10 +102,10 @@ fs.readFile(tsvFilePath, 'utf8', (err, data) => {
 
         fs.writeFile(outputFilePath, updatedContent, 'utf8', (err) => {
             if (err) {
-                console.error('❌ Error writing to changelog.md:', err);
+                console.error('âŒ Error writing to changelog.md:', err);
                 return;
             }
-            console.log('✅ Changelog successfully updated: CHANGELOG.md');
+            console.log('âœ… Changelog successfully updated: CHANGELOG.md');
         });
     });
 });

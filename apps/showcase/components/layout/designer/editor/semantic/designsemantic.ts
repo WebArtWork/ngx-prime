@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { AccordionModule } from 'primeng/accordion';
-import { TabsModule } from 'primeng/tabs';
-import { FieldsetModule } from 'primeng/fieldset';
+import { AccordionModule } from 'ngx-prime/accordion';
+import { TabsModule } from 'ngx-prime/tabs';
+import { FieldsetModule } from 'ngx-prime/fieldset';
 import { DesignTokenField } from '@/components/layout/designer/editor/designtokenfield';
 import { DesignSemanticSection } from './designsemanticsection';
 import { DesignerService } from '@/service/designerservice';

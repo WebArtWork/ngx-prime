@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, output, TemplateRef, ViewChild, ViewEncapsulation, viewChild, contentChild, contentChildren } from '@angular/core';
 import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
-import { BaseComponent, PARENT_INSTANCE } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import { SpinnerIcon } from 'primeng/icons';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { PrimeTemplate, ScrollerOptions, SharedModule } from 'ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import { SpinnerIcon } from 'ngx-prime/icons';
+import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
 import {
     ScrollerContentTemplateContext,
     ScrollerItemTemplateContext,
@@ -16,7 +16,7 @@ import {
     ScrollerScrollIndexChangeEvent,
     ScrollerToType,
     VirtualScrollerPassThrough
-} from 'primeng/types/scroller';
+} from 'ngx-prime/types/scroller';
 import { ScrollerStyle } from './style/scrollerstyle';
 
 const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
@@ -443,7 +443,7 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
         super();
 
         // sync trivial backing fields from their inputs (mirrors what the old individual
-        // @Input setters did — none had side effects beyond `this._x = val`)
+        // @Input setters did â€” none had side effects beyond `this._x = val`)
         effect(() => {
             this._id = this.id();
             this._style = this.style();

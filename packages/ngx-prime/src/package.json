@@ -1,8 +1,8 @@
 {
-    "name": "primeng",
+    "name": "ngx-prime",
     "version": "22.0.0",
     "author": "Web Art Work",
-    "description": "ngx-prime is an independent MIT-licensed Angular UI component library continuing from the PrimeNG v21.1.9 codebase.",
+    "description": "ngx-prime is an independent MIT-licensed Angular UI component library continuing from the ngx-prime v21.1.9 codebase.",
     "homepage": "https://github.com/WebArtWork/ngx-prime",
     "license": "MIT",
     "repository": {
@@ -14,7 +14,7 @@
         "url": "https://github.com/WebArtWork/ngx-prime/issues"
     },
     "keywords": [
-        "primeng",
+        "ngx-prime",
         "angular",
         "ui library",
         "component library",

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as buttongroup_style } from '@wawjs/css-prime-styles/buttongroup';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${buttongroup_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     .p-buttongroup p-button:focus .p-button {
         position: relative;
         z-index: 1;
@@ -48,7 +48,7 @@ export class ButtonGroupStyle extends BaseStyle {
  *
  * A set of Buttons can be displayed together using the ButtonGroup component.
  *
- * [Live Demo](https://www.primeng.org/button/)
+ * [Live Demo](https://www.ngx-prime.org/button/)
  *
  * @module buttongroupstyle
  *

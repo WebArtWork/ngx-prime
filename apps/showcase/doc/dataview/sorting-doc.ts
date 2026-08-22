@@ -5,11 +5,11 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { Component, signal, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectItem } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DataViewModule } from 'primeng/dataview';
-import { SelectModule } from 'primeng/select';
-import { TagModule } from 'primeng/tag';
+import { SelectItem } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { DataViewModule } from 'ngx-prime/dataview';
+import { SelectModule } from 'ngx-prime/select';
+import { TagModule } from 'ngx-prime/tag';
 
 @Component({
     selector: 'app-sorting-doc',
@@ -33,7 +33,7 @@ import { TagModule } from 'primeng/tag';
                             <div class="col-span-12">
                                 <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
                                     <div class="md:w-40 relative">
-                                        <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
+                                        <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + item.image" [alt]="item.name" />
                                         <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="dark:!bg-surface-900 absolute" [style.left.px]="4" [style.top.px]="4" />
                                     </div>
                                     <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">

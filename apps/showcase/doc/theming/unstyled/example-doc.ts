@@ -4,7 +4,7 @@ import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     selector: 'app-example-doc',
@@ -14,7 +14,7 @@ import { ButtonModule } from 'primeng/button';
         <app-docsectiontext>
             <p>
                 Unstyled components require styling using your preferred approach. We recommend using Tailwind CSS with PassThrough attributes, a combination that works seamlessly together. The <i>tailwindcss-primeui</i> even provides special
-                variants such as <i>p-outlined:</i>, <i>p-vertical</i> for the PrimeNG components.
+                variants such as <i>p-outlined:</i>, <i>p-vertical</i> for the ngx-prime components.
             </p>
             <p>
                 The example below demonstrates how to style a button component with Tailwind CSS using PassThrough attributes. Before you begin, refer to the

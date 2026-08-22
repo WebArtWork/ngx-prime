@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ButtonModule } from 'primeng/button';
+import { DynamicDialogRef } from 'ngx-prime/dynamicdialog';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     selector: 'app-footer',

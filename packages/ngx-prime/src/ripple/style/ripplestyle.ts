@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { style as ripple_style } from '@wawjs/css-prime-styles/ripple';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${ripple_style}
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     .p-ripple {
         overflow: hidden;
         position: relative;
@@ -40,7 +40,7 @@ export class RippleStyle extends BaseStyle {
  *
  * Ripple directive adds ripple effect to the host element.
  *
- * [Live Demo](https://www.primeng.org/ripple)
+ * [Live Demo](https://www.ngx-prime.org/ripple)
  *
  * @module ripplestyle
  *

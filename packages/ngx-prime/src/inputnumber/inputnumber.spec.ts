@@ -5,7 +5,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
-import { providePrimeNG } from 'primeng/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import { InputNumber, InputNumberModule } from './inputnumber';
 import { InputNumberDirective } from './nativeinputnumber';
 
@@ -236,9 +236,9 @@ describe('InputNumber', () => {
         // });
 
         it('should format currency correctly', () => {
-            component.mode = 'currency';
-            component.currency = 'USD';
-            component.locale = 'en-US';
+            (component as any).mode = () => 'currency';
+            (component as any).currency = () => 'USD';
+            (component as any).locale = () => 'en-US';
             fixture.detectChanges();
 
             const formatted = component.formatValue(1234.56);
@@ -247,9 +247,9 @@ describe('InputNumber', () => {
         });
 
         it('should handle prefix and suffix', () => {
-            component.prefix = '$ ';
-            component.suffix = ' USD';
-            component.format = true;
+            (component as any).prefix = () => '$ ';
+            (component as any).suffix = () => ' USD';
+            (component as any).format = () => true;
             component.value = 100;
             fixture.detectChanges();
 
@@ -276,8 +276,8 @@ describe('InputNumber', () => {
         });
 
         it('should handle fraction digits correctly', () => {
-            component.minFractionDigits = 2;
-            component.maxFractionDigits = 4;
+            (component as any).minFractionDigits = () => 2;
+            (component as any).maxFractionDigits = () => 4;
             component.value = 123.1;
             fixture.detectChanges();
 
@@ -1428,7 +1428,7 @@ describe('InputNumber', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             @Component({
                 template: `
                     <p-inputNumber [(ngModel)]="value1" [showButtons]="true"></p-inputNumber>
@@ -1441,13 +1441,13 @@ describe('InputNumber', () => {
                 value2: number = 200;
             }
 
-            it('should apply global PT configuration from PrimeNGConfig', async () => {
+            it('should apply global PT configuration from NgxPrimeConfig', async () => {
                 await TestBed.resetTestingModule();
                 await TestBed.configureTestingModule({
                     imports: [InputNumberModule, FormsModule, CommonModule, TestPTCase7GlobalComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 inputNumber: {
                                     root: { class: 'GLOBAL_ROOT_CLASS' },

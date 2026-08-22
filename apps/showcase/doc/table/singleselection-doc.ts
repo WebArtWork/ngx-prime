@@ -5,8 +5,8 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
-import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { TableModule } from 'ngx-prime/table';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 
 @Component({
     selector: 'app-singleselection-doc',
@@ -18,7 +18,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
                 <i>dataKey</i> to optimize performance.
             </p>
             <p>
-                By default, metaKey press (e.g. <i>⌘</i>) is necessary to unselect a row however this can be configured with disabling the <i>metaKeySelection</i> property. In touch enabled devices this option has no effect and behavior is same as
+                By default, metaKey press (e.g. <i>âŒ˜</i>) is necessary to unselect a row however this can be configured with disabling the <i>metaKeySelection</i> property. In touch enabled devices this option has no effect and behavior is same as
                 setting it to false.
             </p>
         </app-docsectiontext>

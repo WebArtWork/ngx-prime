@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, contentChild, contentChildren } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { PARENT_INSTANCE } from 'primeng/basecomponent';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { Bind } from 'primeng/bind';
-import { BindModule } from 'primeng/bind';
-import { Ripple } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { ToggleButtonChangeEvent, ToggleButtonContentTemplateContext, ToggleButtonIconTemplateContext, ToggleButtonPassThrough } from 'primeng/types/togglebutton';
+import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
+import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import { Bind } from 'ngx-prime/bind';
+import { BindModule } from 'ngx-prime/bind';
+import { Ripple } from 'ngx-prime/ripple';
+import { Nullable } from 'ngx-prime/ts-helpers';
+import { ToggleButtonChangeEvent, ToggleButtonContentTemplateContext, ToggleButtonIconTemplateContext, ToggleButtonPassThrough } from 'ngx-prime/types/togglebutton';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 import { ToggleButtonDirective } from './nativetogglebutton';
 

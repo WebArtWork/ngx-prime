@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as checkbox_style } from '@wawjs/css-prime-styles/checkbox';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${checkbox_style}
@@ -17,7 +17,7 @@ const style = /*css*/ `
     }
 
     .p-checkbox > .p-checkbox-native-icon:empty::before {
-        content: '✓';
+        content: 'âœ“';
         color: dt('checkbox.icon.color');
         font-size: dt('checkbox.icon.size');
         line-height: 1;
@@ -43,7 +43,7 @@ const style = /*css*/ `
         color: dt('checkbox.icon.disabled.color');
     }
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     p-checkBox.ng-invalid.ng-dirty .p-checkbox-box,
     p-check-box.ng-invalid.ng-dirty .p-checkbox-box,
     p-checkbox.ng-invalid.ng-dirty .p-checkbox-box {
@@ -81,7 +81,7 @@ export class CheckboxStyle extends BaseStyle {
  *
  * Checkbox is an extension to standard checkbox element with theming.
  *
- * [Live Demo](https://www.primeng.org/checkbox/)
+ * [Live Demo](https://www.ngx-prime.org/checkbox/)
  *
  * @module checkboxstyle
  *

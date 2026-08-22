@@ -2,8 +2,8 @@ import { DesignerService } from '@/service/designerservice';
 
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ConfirmationService } from 'primeng/api';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService } from 'ngx-prime/api';
+import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';
 
 @Component({
     selector: 'app-design-settings',

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputText } from 'primeng/inputtext';
-import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputMaskModule } from 'ngx-prime/inputmask';
+import { InputText } from 'ngx-prime/inputtext';
+import { FloatLabelModule } from 'ngx-prime/floatlabel';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

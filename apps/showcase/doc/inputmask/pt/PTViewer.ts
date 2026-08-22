@@ -2,8 +2,8 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputText } from 'primeng/inputtext';
+import { InputMaskModule } from 'ngx-prime/inputmask';
+import { InputText } from 'ngx-prime/inputtext';
 
 @Component({
     selector: 'app-inputmask-pt-viewer',

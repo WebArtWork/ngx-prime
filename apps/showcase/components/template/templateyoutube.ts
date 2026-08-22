@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, OnInit, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { DialogModule } from 'primeng/dialog';
+import { DialogModule } from 'ngx-prime/dialog';
 
 @Component({
     selector: 'app-template-youtube',
@@ -46,7 +46,7 @@ import { DialogModule } from 'primeng/dialog';
                 </div>
                 <p-dialog header="Video Content" [(visible)]="youtubeVideoVisible" (onHide)="youtubeVideoVisible = false" [style]="{ width: '70vw' }">
                     <div class="template-youtube-video">
-                        <iframe [src]="iframeSrc" title="PrimeNG 2023 Roadmap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe [src]="iframeSrc" title="ngx-prime 2023 Roadmap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </p-dialog>
             </div>
@@ -60,7 +60,7 @@ export class TemplateYoutube implements OnInit {
 
     @Input() imgSrc: string;
     title: string[] = ['Integration with', 'Existing Vite Applications'];
-    description: string = 'Only the folders that are related to the layout needs to move in to your project. We‘ve already created a short tutorial with details for Sakai Vue. The both templates have the same implementation.';
+    description: string = 'Only the folders that are related to the layout needs to move in to your project. Weâ€˜ve already created a short tutorial with details for Sakai Vue. The both templates have the same implementation.';
     youtubeLink: string = 'https://www.youtube.com/embed/Y07edRJd5QM';
     youtubeVideoVisible: boolean = false;
     iframeSrc: SafeResourceUrl;

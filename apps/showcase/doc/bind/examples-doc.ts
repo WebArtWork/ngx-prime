@@ -2,8 +2,8 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, computed, signal } from '@angular/core';
-import { BindModule } from 'primeng/bind';
-import { TooltipModule } from 'primeng/tooltip';
+import { BindModule } from 'ngx-prime/bind';
+import { TooltipModule } from 'ngx-prime/tooltip';
 
 @Component({
     selector: 'app-examples-doc',

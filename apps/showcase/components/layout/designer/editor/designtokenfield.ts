@@ -3,9 +3,9 @@ import { DesignerService } from '@/service/designerservice';
 import { ChangeDetectionStrategy, Component, computed, inject, input, Input, model, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { $dt } from '@wawjs/css-prime-themes';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { TooltipModule } from 'primeng/tooltip';
-import { UniqueComponentId } from 'primeng/utils';
+import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { TooltipModule } from 'ngx-prime/tooltip';
+import { UniqueComponentId } from 'ngx-prime/utils';
 
 @Component({
     selector: 'app-design-token-field',

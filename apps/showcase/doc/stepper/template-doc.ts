@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { StepperModule } from 'primeng/stepper';
-import { ButtonModule } from 'primeng/button';
-import { PasswordModule } from 'primeng/password';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { InputTextModule } from 'primeng/inputtext';
+import { StepperModule } from 'ngx-prime/stepper';
+import { ButtonModule } from 'ngx-prime/button';
+import { PasswordModule } from 'ngx-prime/password';
+import { ToggleButtonModule } from 'ngx-prime/togglebutton';
+import { InputTextModule } from 'ngx-prime/inputtext';
 
 @Component({
     selector: 'app-template-doc',
@@ -119,7 +119,7 @@ import { InputTextModule } from 'primeng/inputtext';
                             <div class="flex flex-col items-center gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                                 <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
                                 <div class="text-center">
-                                    <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />
+                                    <img alt="logo" src="https://primefaces.org/cdn/ngx-prime/images/stepper/content.svg" />
                                 </div>
                             </div>
                             <div class="flex pt-6 justify-start">

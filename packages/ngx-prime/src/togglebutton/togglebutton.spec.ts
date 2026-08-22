@@ -1,11 +1,11 @@
-import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, forwardRef, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'primeng/api';
-import { providePrimeNG } from 'primeng/config';
-import { ToggleButtonChangeEvent } from 'primeng/types/togglebutton';
+import { SharedModule } from 'ngx-prime/api';
+import { provideNgxPrime } from 'ngx-prime/config';
+import { ToggleButtonChangeEvent } from 'ngx-prime/types/togglebutton';
 import { ToggleButtonDirective } from './nativetogglebutton';
 import { ToggleButton } from './togglebutton';
 
@@ -31,7 +31,7 @@ import { ToggleButton } from './togglebutton';
         >
         </p-togglebutton>
     `,
-    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, forwardRef(() => TestToggleButtonPTemplateComponent), forwardRef(() => TestToggleButtonRefTemplateComponent)]
 })
 class TestBasicToggleButtonComponent {
     checked = false;
@@ -62,7 +62,7 @@ class TestBasicToggleButtonComponent {
             <p-togglebutton formControlName="toggle" [onLabel]="onLabel" [offLabel]="offLabel" (onChange)="onFormToggleChange($event)"> </p-togglebutton>
         </form>
     `,
-    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, forwardRef(() => TestToggleButtonPTemplateComponent), forwardRef(() => TestToggleButtonRefTemplateComponent)]
 })
 class TestReactiveToggleButtonComponent {
     toggleForm = new FormGroup({
@@ -85,7 +85,7 @@ class TestReactiveToggleButtonComponent {
             </ng-template>
         </p-togglebutton>
     `,
-    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, forwardRef(() => TestToggleButtonPTemplateComponent), forwardRef(() => TestToggleButtonRefTemplateComponent)]
 })
 class TestTemplateToggleButtonComponent {
     checked = false;
@@ -99,7 +99,7 @@ class TestTemplateToggleButtonComponent {
             </ng-template>
         </p-togglebutton>
     `,
-    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, forwardRef(() => TestToggleButtonPTemplateComponent), forwardRef(() => TestToggleButtonRefTemplateComponent)]
 })
 class TestIconTemplateToggleButtonComponent {
     checked = false;
@@ -107,7 +107,7 @@ class TestIconTemplateToggleButtonComponent {
 
 @Component({
     template: ` <p-togglebutton [(ngModel)]="checked" [onIcon]="onIcon" [offIcon]="offIcon" [iconPos]="iconPos"> </p-togglebutton> `,
-    imports: [ToggleButton, FormsModule, ReactiveFormsModule, TestToggleButtonPTemplateComponent, TestToggleButtonRefTemplateComponent]
+    imports: [ToggleButton, FormsModule, ReactiveFormsModule, forwardRef(() => TestToggleButtonPTemplateComponent), forwardRef(() => TestToggleButtonRefTemplateComponent)]
 })
 class TestIconToggleButtonComponent {
     checked = false;
@@ -1312,7 +1312,7 @@ describe('ToggleButton', () => {
             });
         });
 
-        describe('Case 7: Global PT from PrimeNGConfig', () => {
+        describe('Case 7: Global PT from NgxPrimeConfig', () => {
             it('should apply global PT configuration', async () => {
                 @Component({
                     standalone: true,
@@ -1328,7 +1328,7 @@ describe('ToggleButton', () => {
                     imports: [TestGlobalPTComponent],
                     providers: [
                         provideZonelessChangeDetection(),
-                        providePrimeNG({
+                        provideNgxPrime({
                             pt: {
                                 toggleButton: {
                                     root: { 'data-test': 'global-togglebutton' },

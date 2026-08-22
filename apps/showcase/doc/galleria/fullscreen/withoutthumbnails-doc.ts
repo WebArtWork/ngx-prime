@@ -3,8 +3,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 
 import { Component, inject, model, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'ngx-prime/button';
+import { GalleriaModule } from 'ngx-prime/galleria';
 
 @Component({
     selector: 'app-without-thumbnails-doc',

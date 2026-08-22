@@ -16,9 +16,9 @@ import { AppDoc } from '@/components/doc/app.doc';
     imports: [AppDoc],
     template: `
         <app-doc
-            docTitle="MCP Server - PrimeNG"
+            docTitle="MCP Server - ngx-prime"
             header="MCP Server"
-            description="Model Context Protocol (MCP) server for PrimeNG component library. Provides AI assistants with comprehensive access to PrimeNG component documentation."
+            description="Model Context Protocol (MCP) server for ngx-prime component library. Provides AI assistants with comprehensive access to ngx-prime component documentation."
             [docs]="docs"
             docType="page"
         ></app-doc>

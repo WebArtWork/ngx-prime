@@ -148,11 +148,11 @@ export const ROUTE_FILE_DEFINITIONS: Record<string, RouteFileDefinition> = {
         content: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'ngx-prime/api';
+import { DialogService, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
 import { InfoDemo } from './infodemo';
-import { TableModule } from 'primeng/table'
-import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'ngx-prime/table'
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     providers: [DialogService, MessageService, ProductService],
@@ -176,7 +176,7 @@ import { ButtonModule } from 'primeng/button';
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
-                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-16 h-16 shadow" /></td>
+                    <td><img src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-16 h-16 shadow" /></td>
                     <td>{{ product.category }}</td>
                     <td>
                         {{ product.quantity }}
@@ -232,9 +232,9 @@ export class ProductListDemo implements OnInit {
         path: 'src/app/demo/infodemo.ts',
         name: 'InfoDemo',
         content: `import { Component} from '@angular/core';
-import { DialogService, DynamicDialog, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { DialogService, DynamicDialog, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
+import { MessageService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     providers: [DialogService, MessageService],
@@ -279,8 +279,8 @@ export class InfoDemo {
         path: 'src/app/demo/footer.ts',
         name: 'Footer',
         content: `import { Component } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ButtonModule } from 'primeng/button';
+import { DynamicDialogRef } from 'ngx-prime/dynamicdialog';
+import { ButtonModule } from 'ngx-prime/button';
 
 @Component({
     selector: 'footer',

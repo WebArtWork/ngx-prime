@@ -1,10 +1,10 @@
 import { booleanAttribute, computed, contentChild, Directive, ElementRef, effect, forwardRef, inject, input, numberAttribute, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { contains, equals } from '@wawjs/css-prime-utils';
-import { BaseEditableHolder } from 'primeng/baseeditableholder';
-import { BaseComponent } from 'primeng/basecomponent';
-import { Bind } from 'primeng/bind';
-import type { CheckboxChangeEvent, CheckboxPassThrough } from 'primeng/types/checkbox';
+import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
+import { BaseComponent } from 'ngx-prime/basecomponent';
+import { Bind } from 'ngx-prime/bind';
+import type { CheckboxChangeEvent, CheckboxPassThrough } from 'ngx-prime/types/checkbox';
 import { CheckboxStyle } from './style/checkboxstyle';
 
 /**

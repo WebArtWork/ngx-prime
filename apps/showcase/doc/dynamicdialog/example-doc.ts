@@ -1,10 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, OnDestroy, inject } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'ngx-prime/api';
+import { ButtonModule } from 'ngx-prime/button';
+import { DialogService, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
+import { ToastModule } from 'ngx-prime/toast';
 import { Footer } from './footer';
 import { ProductListDemo } from './productlistdemo';
 

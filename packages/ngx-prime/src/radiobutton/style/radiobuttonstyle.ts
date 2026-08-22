@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as radiobutton_style } from '@wawjs/css-prime-styles/radiobutton';
-import { BaseStyle } from 'primeng/base';
+import { BaseStyle } from 'ngx-prime/base';
 
 const style = /*css*/ `
     ${radiobutton_style}
@@ -15,7 +15,7 @@ const style = /*css*/ `
         cursor: default;
     }
 
-    /* For PrimeNG */
+    /* For ngx-prime */
     p-radioButton.ng-invalid.ng-dirty .p-radiobutton-box,
     p-radio-button.ng-invalid.ng-dirty .p-radiobutton-box,
     p-radiobutton.ng-invalid.ng-dirty .p-radiobutton-box {
@@ -53,7 +53,7 @@ export class RadioButtonStyle extends BaseStyle {
  *
  * RadioButton is an extension to standard radio button element with theming.
  *
- * [Live Demo](https://www.primeng.org/radiobutton/)
+ * [Live Demo](https://www.ngx-prime.org/radiobutton/)
  *
  * @module radiobuttonstyle
  *
