@@ -1,4 +1,4 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -66,7 +66,7 @@ class TestNoScrollScrollPanelComponent {}
 
 @Component({
     template: `
-        <p-scrollpanel [pt]="pt" style="width: 400px; height: 200px;">
+        <p-scrollpanel [pt]="pt()" style="width: 400px; height: 200px;">
             <div style="width: 800px; height: 600px; padding: 20px;">
                 <h2>PT Test Content</h2>
             </div>
@@ -75,7 +75,7 @@ class TestNoScrollScrollPanelComponent {}
     imports: [ScrollPanel]
 })
 class TestPTScrollPanelComponent {
-    @Input() pt: any;
+    readonly pt = input<any>();
 }
 
 describe('ScrollPanel', () => {

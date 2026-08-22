@@ -1592,9 +1592,9 @@ describe('ButtonDirective', () => {
             await fixture.whenStable();
             fixture.detectChanges();
 
-            expect(buttonDirective.raised).toBe(true);
+            expect(buttonDirective.raised()).toBe(true);
             // CSS class application may vary in test environment
-            expect(buttonDirective.raised).toBe(true);
+            expect(buttonDirective.raised()).toBe(true);
         });
     });
 
@@ -1623,7 +1623,7 @@ describe('ButtonDirective', () => {
         it('should have basic directive functionality', () => {
             // Test that directive exists and has basic properties
             expect(buttonDirective).toBeTruthy();
-            expect(buttonDirective.raised).toBe(false);
+            expect(buttonDirective.raised()).toBe(false);
             expect(buttonDirective.rounded()()).toBe(false);
         });
 
@@ -1634,7 +1634,7 @@ describe('ButtonDirective', () => {
 
             // Test that raised property can be changed
             buttonDirective.raised = true;
-            expect(buttonDirective.raised).toBe(true);
+            expect(buttonDirective.raised()).toBe(true);
         });
     });
 });

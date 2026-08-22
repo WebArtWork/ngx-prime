@@ -719,7 +719,24 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
     readonly content = viewChild<ElementRef>('content');
 
-    @Input() set files(files) {
+    /**
+     * Accepts the public `files` binding without giving up the mutable queue
+     * maintained by FileUpload itself. The queue is deliberately kept behind
+     * the `files` accessor: selecting, removing and clearing files are local
+     * operations, whereas a bound input replaces the complete queue.
+     */
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    private readonly inputFiles = input<File[] | undefined>(undefined, { alias: 'files' });
+
+    private readonly syncInputFiles = effect(() => {
+        const files = this.inputFiles();
+
+        if (files !== undefined) {
+            this.files = files;
+        }
+    });
+
+    set files(files: File[]) {
         this._files = [];
 
         for (let i = 0; i < files.length; i++) {

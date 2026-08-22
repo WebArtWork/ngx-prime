@@ -847,11 +847,11 @@ describe('Select', () => {
         it('should have default values', () => {
             // Note: component uses bound values from TestBasicSelectComponent
             expect(selectInstance.placeholder()).toBe('Select an option');
-            expect(selectInstance.loading).toBe(false);
+            expect(selectInstance.loading()).toBe(false);
             expect(selectInstance.$disabled()).toBe(false);
-            expect(selectInstance.filter).toBe(false);
-            expect(selectInstance.showClear).toBe(false);
-            expect(selectInstance.checkmark).toBe(false);
+            expect(selectInstance.filter()).toBe(false);
+            expect(selectInstance.showClear()).toBe(false);
+            expect(selectInstance.checkmark()).toBe(false);
         });
 
         it('should accept custom values', () => {
@@ -864,11 +864,11 @@ describe('Select', () => {
             fixture.detectChanges();
 
             expect(selectInstance.placeholder()).toBe('Custom placeholder');
-            expect(selectInstance.loading).toBe(true);
+            expect(selectInstance.loading()).toBe(true);
             expect(selectInstance.$disabled()).toBe(true);
-            expect(selectInstance.filter).toBe(true);
-            expect(selectInstance.showClear).toBe(true);
-            expect(selectInstance.checkmark).toBe(true);
+            expect(selectInstance.filter()).toBe(true);
+            expect(selectInstance.showClear()).toBe(true);
+            expect(selectInstance.checkmark()).toBe(true);
         });
     });
 
@@ -1339,7 +1339,7 @@ describe('Select', () => {
             fixture.detectChanges();
 
             // Only reset if resetFilterOnHide is enabled
-            if (selectInstance.resetFilterOnHide) {
+            if (selectInstance.resetFilterOnHide()) {
                 expect(selectInstance._filterValue()).toBeNull();
             } else {
                 expect(selectInstance._filterValue()).toBe('test');
@@ -1394,7 +1394,7 @@ describe('Select', () => {
             if (autoFocusElement) {
                 expect(autoFocusElement).toBeTruthy();
             } else {
-                expect(selectInstance.autofocus).toBe(true);
+                expect(selectInstance.autofocus()).toBe(true);
             }
         });
     });
@@ -1480,7 +1480,7 @@ describe('Select', () => {
             component.loading = true;
             fixture.detectChanges();
 
-            expect(selectInstance.loading).toBe(true);
+            expect(selectInstance.loading()).toBe(true);
         });
     });
 });
@@ -1585,7 +1585,7 @@ describe('Select - Grouped Options', () => {
     });
 
     it('should handle grouped options', () => {
-        expect(selectInstance.group).toBe(true);
+        expect(selectInstance.group()).toBe(true);
         expect(selectInstance.options!.length).toBe(2);
         expect(selectInstance.options![0].items.length).toBe(2);
     });
@@ -1789,7 +1789,7 @@ describe('Select - pTemplate Content Projection', () => {
 
         // Just verify component works with loader template
         expect(component).toBeTruthy();
-        expect(selectInstance.loading).toBe(true);
+        expect(selectInstance.loading()).toBe(true);
 
         expect(() => {
             selectInstance.show();
@@ -1816,7 +1816,7 @@ describe('Select - pTemplate Content Projection', () => {
 
         // Just verify component works with clear icon template
         expect(component).toBeTruthy();
-        expect(selectInstance.showClear).toBe(true);
+        expect(selectInstance.showClear()).toBe(true);
     });
 
     it('should render filter icon template', async () => {
@@ -1825,7 +1825,7 @@ describe('Select - pTemplate Content Projection', () => {
 
         // Just verify component works with filter enabled and template
         expect(component).toBeTruthy();
-        expect(selectInstance.filter).toBe(true);
+        expect(selectInstance.filter()).toBe(true);
 
         expect(() => {
             selectInstance.show();
@@ -1839,7 +1839,7 @@ describe('Select - pTemplate Content Projection', () => {
 
         // Just verify component works with loading template
         expect(component).toBeTruthy();
-        expect(selectInstance.loading).toBe(true);
+        expect(selectInstance.loading()).toBe(true);
 
         expect(() => {
             fixture.detectChanges();
@@ -2016,7 +2016,7 @@ describe('Select - #template Reference Content Projection', () => {
         }
 
         // Add explicit expectation to avoid "no expectations" warning
-        expect(selectInstance.filter).toBe(true);
+        expect(selectInstance.filter()).toBe(true);
     });
 
     it('should render loading icon template reference when loading', () => {
@@ -2103,14 +2103,14 @@ describe('Select - Dynamic and Signal-based Properties', () => {
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
 
-        expect(selectInstance.loading).toBe(true);
+        expect(selectInstance.loading()).toBe(true);
 
         component.updateLoading(false);
         fixture.detectChanges();
         await new Promise((resolve) => setTimeout(resolve, 100));
         await fixture.whenStable();
 
-        expect(selectInstance.loading).toBe(false);
+        expect(selectInstance.loading()).toBe(false);
     });
 
     it('should handle async data loading', async () => {
@@ -3088,7 +3088,7 @@ describe('Select Advanced Accessibility', () => {
             const listbox = fixture.debugElement.query(By.css('[role="listbox"]'));
 
             if (listbox) {
-                const expectedId = selectInstance.id + '_list';
+                const expectedId = selectInstance.id() + '_list';
 
                 expect(combobox.nativeElement.getAttribute('aria-controls')).toBe(expectedId);
             }
@@ -3109,7 +3109,7 @@ describe('Select Advanced Accessibility', () => {
             const activeDescendant = combobox.nativeElement.getAttribute('aria-activedescendant');
 
             if (activeDescendant) {
-                expect(activeDescendant).toContain(selectInstance.id);
+                expect(activeDescendant).toContain(selectInstance.id());
             } else {
                 // Fallback: just check that focusedOptionIndex was set correctly
                 expect(selectInstance.focusedOptionIndex()).toBe(0);

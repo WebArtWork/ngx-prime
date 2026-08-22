@@ -1575,6 +1575,43 @@ target.
 
 ### 2. Deprecate the components being replaced
 
+#### Current component-by-component plan (authoritative)
+
+Each replacement remains a directive on a real native element. The legacy
+component, module, and public exports stay functional through v22 and are
+removed only in v23.
+
+| Legacy component | Native replacement | Status and remaining plan |
+| --- | --- | --- |
+| `Button` | `<button pButton>` | **Deprecated.** Keep compatibility exports through v22. |
+| `Checkbox` | `<input type="checkbox" pCheckbox>` | **Deprecated.** Use `pCheckboxContainer` + `pCheckboxIcon` only when a custom visual icon is required. |
+| `RadioButton` | `<input type="radio" pRadioButton>` | **Deprecated.** Native grouping, Forms, Signal Forms, PT, and showcase migration are covered. |
+| `ToggleSwitch` | `<input type="checkbox" pToggleSwitch>` | **Deprecated.** Native checkbox provides the switch role and browser interaction; custom handle templates are a documented migration difference. |
+| `InputMask` | `<input pInputMask>` | Audit masking, Forms/Signal Forms, accessibility, and a migration showcase; then deprecate. |
+| `InputNumber` | `<input type="number" pInputNumber>` | Add locale/currency formatting, min/max/step, buttons, validation, Forms/Signal Forms, and docs; then deprecate. |
+| `Password` | `<input type="password" pPassword>` | Complete native password visibility/feedback parity, Forms/Signal Forms, accessibility, and docs; then deprecate. |
+| `DatePicker` | `<input type="date" pDatePicker>` | Decide and document the native-date limitation versus the calendar overlay; complete Forms/Signal Forms, invalid state, and docs before deprecation. |
+| `ColorPicker` | `<input type="color" pColorPicker>` | Decide and document the native-color limitation versus the palette; complete Forms/Signal Forms, events, and docs before deprecation. |
+| `Slider` | `<input type="range" pSlider>` | Complete min/max/step/orientation, keyboard/accessibility, Forms/Signal Forms, and a separate multi-handle range strategy before deprecation. |
+| `ToggleButton` | `<button pToggleButton>` | Complete pressed state, labels/icons/loading state, Forms/Signal Forms, keyboard/ARIA, and migration docs; then deprecate. |
+| `SelectButton` | native `<button pSelectButtonOption>` group | Complete single/multiple selection, disabled options, ARIA grouping, Forms/Signal Forms, templates, and docs; then deprecate. |
+| `Rating` | native radio inputs with `pRating` | Complete star display, keyboard/ARIA grouping, clearing, Forms/Signal Forms, and docs; then deprecate. |
+| `FileUpload` | `<input type="file" pFileUpload>` | Complete accept/multiple policy, selection events, queue/templates, validation, Forms/Signal Forms, and docs; then deprecate. |
+
+`AutoComplete` is deliberately not a deprecation target: HTML's
+`autocomplete` attribute controls browser autofill and does not replace the
+component's suggestion overlay.
+
+For every backlog row, use this sequence:
+
+1. Implement feature parity and record intentional native-element limitations.
+2. Add focused native, Angular Forms, Reactive Forms, and Signal Forms tests.
+3. Add a showcase "Native Input" example and old-to-new migration guidance.
+4. Add `@deprecated` JSDoc with the native replacement and planned v23
+   removal; do not remove runtime code or public exports in v22.
+
+#### Superseded notes
+
 Once a directive has a working, tested replacement, mark its component
 `@deprecated` (JSDoc tag + `@Component` stays functional, no runtime
 warning removal of behavior) with a pointer to the new directive, planned

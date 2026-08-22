@@ -1,4 +1,4 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -96,7 +96,7 @@ class TestNestedSplitterComponent {}
 
 @Component({
     template: `
-        <p-splitter [pt]="pt">
+        <p-splitter [pt]="pt()">
             <ng-template #panel>
                 <div>PT Test Panel 1</div>
             </ng-template>
@@ -108,7 +108,7 @@ class TestNestedSplitterComponent {}
     imports: [Splitter]
 })
 class TestPTSplitterComponent {
-    @Input() pt: any;
+    readonly pt = input<any>();
 }
 
 describe('Splitter', () => {

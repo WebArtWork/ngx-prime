@@ -1,4 +1,4 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion';
@@ -119,7 +119,7 @@ class TestCustomIconAccordionComponent {
     standalone: true,
     imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
     template: `
-        <p-accordion [value]="'tab1'" [pt]="pt">
+        <p-accordion [value]="'tab1'" [pt]="pt()">
             <p-accordion-panel [value]="'tab1'">
                 <p-accordion-header>PT Test Header 1</p-accordion-header>
                 <p-accordion-content>PT Test Content 1</p-accordion-content>
@@ -132,7 +132,7 @@ class TestCustomIconAccordionComponent {
     `
 })
 class TestPTAccordionComponent {
-    @Input() pt: any;
+    readonly pt = input<any>();
 }
 
 describe('Accordion', () => {

@@ -12,7 +12,6 @@ import {
     inject,
     InjectionToken,
     input,
-    Input,
     NgModule,
     numberAttribute,
     Renderer2,
@@ -162,12 +161,12 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
      * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
      * @group Props
      */
-    @Input() key: string | undefined;
+    readonly key = input<string>();
     /**
      * Element to receive the focus when the popup gets visible, valid values are "accept", "reject", and "none".
      * @group Props
      */
-    @Input() defaultFocus: string = 'accept';
+    readonly defaultFocus = input<string>('accept');
     /**
      * Transition options of the show animation.
      * @group Props
@@ -304,7 +303,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
                 });
             }
 
-            if (confirmation.key === this.key) {
+            if (confirmation.key === this.key()) {
                 this.confirmation = confirmation;
                 const keys = Object.keys(confirmation);
 
@@ -383,7 +382,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     onBeforeEnter(event: MotionEvent) {
         if (this.confirmation) {
-            const focus = this.confirmation.defaultFocus ?? this.defaultFocus;
+            const focus = this.confirmation.defaultFocus ?? this.defaultFocus();
 
             this.autoFocusAccept = focus === 'accept';
             this.autoFocusReject = focus === 'reject';
@@ -399,10 +398,9 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
     }
 
     handleFocus() {
-        if (this.defaultFocus && (this.acceptButtonViewChild() || this.rejectButtonViewChild())) {
-            const focusEl = <HTMLButtonElement>(
-                (this.defaultFocus === 'accept' ? findSingle(this.acceptButtonViewChild()?.nativeElement, '[data-pc-section="root"]') : findSingle(this.rejectButtonViewChild()?.nativeElement, '[data-pc-section="root"]'))
-            );
+        const defaultFocus = this.defaultFocus();
+        if (defaultFocus && (this.acceptButtonViewChild() || this.rejectButtonViewChild())) {
+            const focusEl = <HTMLButtonElement>(defaultFocus === 'accept' ? findSingle(this.acceptButtonViewChild()?.nativeElement, '[data-pc-section="root"]') : findSingle(this.rejectButtonViewChild()?.nativeElement, '[data-pc-section="root"]'));
 
             focusEl.focus();
         }

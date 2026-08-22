@@ -591,7 +591,7 @@ describe('Table', () => {
             });
 
             it('should support row expansion for master-detail views', () => {
-                expect(component.expandedRowKeys).toBeDefined();
+                expect(component.expandedRowKeys()).toBeDefined();
             });
 
             it('should handle column reordering and resizing', () => {

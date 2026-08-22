@@ -3,6 +3,7 @@ import { BasicDoc } from '@/doc/toggleswitch/basic-doc';
 import { DisabledDoc } from '@/doc/toggleswitch/disabled-doc';
 import { ImportDoc } from '@/doc/toggleswitch/import-doc';
 import { InvalidDoc } from '@/doc/toggleswitch/invalid-doc';
+import { NativeDoc } from '@/doc/toggleswitch/native-doc';
 import { PreselectionDoc } from '@/doc/toggleswitch/preselection-doc';
 import { ReactiveFormsDoc } from '@/doc/toggleswitch/reactiveforms-doc';
 import { TemplateDoc } from '@/doc/toggleswitch/template-doc';
@@ -31,6 +32,11 @@ export class ToggleSwitchDemo {
             id: 'import',
             label: 'Import',
             component: ImportDoc
+        },
+        {
+            id: 'native',
+            label: 'Native Input',
+            component: NativeDoc
         },
         {
             id: 'basic',

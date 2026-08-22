@@ -411,11 +411,11 @@ describe('CascadeSelect', () => {
         });
 
         it('should have default values', async () => {
-            expect(component.placeholder).toBeUndefined();
+            expect(component.placeholder()).toBeUndefined();
             expect(component.$disabled()).toBe(false);
-            expect(component.showClear).toBe(false);
-            expect(component.loading).toBe(false);
-            expect(component.tabindex).toBe(0);
+            expect(component.showClear()).toBe(false);
+            expect(component.loading()).toBe(false);
+            expect(component.tabindex()).toBe(0);
         });
 
         it('should have value accessor provider', async () => {
@@ -1659,7 +1659,7 @@ describe('CascadeSelect', () => {
                     expect(clearIcon.nativeElement.classList.contains('CLEAR_ICON_CLASS')).toBe(true);
                 } else {
                     // Clear icon not rendered, but test should pass as PT would be applied if it was rendered
-                    expect(ptComponent.showClear).toBe(true);
+                    expect(ptComponent.showClear()).toBe(true);
                 }
             });
 

@@ -19,6 +19,11 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
 };
 /**
  * ToggleSwitch is used to select a boolean value.
+ *
+ * @deprecated Use a native `<input type="checkbox" pToggleSwitch>` instead.
+ * The native control uses the browser indicator; custom handle templates are
+ * not available. This component remains available for compatibility and is
+ * planned for removal in v23.
  * @group Components
  */
 @Component({

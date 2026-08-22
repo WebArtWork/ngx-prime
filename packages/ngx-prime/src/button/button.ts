@@ -228,7 +228,7 @@ export class ButtonDirective extends BaseComponent {
     //  Your application code writes to the input. This prevents migration.
     // TODO: Skipped for migration because:
     //  Your application code writes to the input. This prevents migration.
-    @Input({ transform: booleanAttribute }) raised: boolean = false;
+    readonly raised = input<boolean, unknown>(false, { transform: booleanAttribute });
 
     /**
      * Defines the size of the button.
@@ -304,6 +304,8 @@ export class ButtonDirective extends BaseComponent {
     //  Accessor inputs cannot be migrated as they are too complex.
     // TODO: Skipped for migration because:
     //  Accessor inputs cannot be migrated as they are too complex.
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get label(): string | undefined {
         return this._label as string;
     }
@@ -327,6 +329,8 @@ export class ButtonDirective extends BaseComponent {
     //  Accessor inputs cannot be migrated as they are too complex.
     // TODO: Skipped for migration because:
     //  Accessor inputs cannot be migrated as they are too complex.
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get icon(): string {
         return this._icon as string;
     }
@@ -344,6 +348,8 @@ export class ButtonDirective extends BaseComponent {
      * Whether the button is in loading state.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     // TODO: Skipped for migration because:
     //  Accessor inputs cannot be migrated as they are too complex.
     // TODO: Skipped for migration because:
@@ -370,6 +376,8 @@ export class ButtonDirective extends BaseComponent {
     //  Accessor inputs cannot be migrated as they are too complex.
     // TODO: Skipped for migration because:
     //  Accessor inputs cannot be migrated as they are too complex.
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get buttonProps(): ButtonProps {
         return this._buttonProps;
     }
@@ -386,6 +394,8 @@ export class ButtonDirective extends BaseComponent {
      * Defines the style of the button.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     // TODO: Skipped for migration because:
     //  Accessor inputs cannot be migrated as they are too complex.
     // TODO: Skipped for migration because:
@@ -458,7 +468,7 @@ export class ButtonDirective extends BaseComponent {
             styleClass.push('p-button-plain');
         }
 
-        if (this.raised) {
+        if (this.raised()) {
             styleClass.push('p-button-raised');
         }
 

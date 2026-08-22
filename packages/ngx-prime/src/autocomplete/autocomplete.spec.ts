@@ -435,16 +435,16 @@ describe('AutoComplete', () => {
         });
 
         it('should have default values', () => {
-            expect(component.minQueryLength || component.minLength).toBe(1);
-            expect(component.delay).toBe(300);
-            expect(component.type).toBe('text');
-            expect(component.autoZIndex).toBe(true);
-            expect(component.baseZIndex).toBe(0);
-            expect(component.scrollHeight).toBe('200px');
-            expect(component.unique).toBe(true);
-            expect(component.completeOnFocus).toBe(false);
-            expect(component.showClear).toBe(false);
-            expect(component.lazy).toBe(false);
+            expect(component.minQueryLength() || component.minLength()).toBe(1);
+            expect(component.delay()).toBe(300);
+            expect(component.type()).toBe('text');
+            expect(component.autoZIndex()).toBe(true);
+            expect(component.baseZIndex()).toBe(0);
+            expect(component.scrollHeight()).toBe('200px');
+            expect(component.unique()).toBe(true);
+            expect(component.completeOnFocus()).toBe(false);
+            expect(component.showClear()).toBe(false);
+            expect(component.lazy()).toBe(false);
         });
 
         it('should have value accessor provider', () => {

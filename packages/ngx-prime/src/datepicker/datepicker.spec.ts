@@ -389,14 +389,14 @@ describe('DatePicker', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
             expect(component.dateFormat).toBeUndefined(); // Default is undefined, not 'mm/dd/yy'
-            expect(component.multipleSeparator).toBe(',');
-            expect(component.rangeSeparator).toBe('-');
-            expect(component.inline).toBe(false);
-            expect(component.showOtherMonths).toBe(true);
-            expect(component.stepHour).toBe(1);
-            expect(component.stepMinute).toBe(1);
-            expect(component.stepSecond).toBe(1);
-            expect(component.showSeconds).toBe(false);
+            expect(component.multipleSeparator()).toBe(',');
+            expect(component.rangeSeparator()).toBe('-');
+            expect(component.inline()).toBe(false);
+            expect(component.showOtherMonths()).toBe(true);
+            expect(component.stepHour()).toBe(1);
+            expect(component.stepMinute()).toBe(1);
+            expect(component.stepSecond()).toBe(1);
+            expect(component.showSeconds()).toBe(false);
             expect(component.hourFormat).toBe('24');
         });
 

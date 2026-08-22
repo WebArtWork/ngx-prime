@@ -1,4 +1,4 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TabList } from './tablist';
@@ -157,7 +157,7 @@ class TestContentChildIconsTabsComponent {
 
 @Component({
     template: `
-        <p-tabs [value]="1" [pt]="pt">
+        <p-tabs [value]="1" [pt]="pt()">
             <p-tablist>
                 <p-tab [value]="1">PT Test Tab 1</p-tab>
                 <p-tab [value]="2">PT Test Tab 2</p-tab>
@@ -175,7 +175,7 @@ class TestContentChildIconsTabsComponent {
     imports: [TabsModule]
 })
 class TestPTTabsComponent {
-    @Input() pt: any;
+    readonly pt = input<any>();
 }
 
 describe('Tabs', () => {

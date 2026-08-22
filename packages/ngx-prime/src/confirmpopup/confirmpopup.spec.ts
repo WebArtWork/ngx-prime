@@ -314,7 +314,7 @@ describe('ConfirmPopup', () => {
         });
 
         it('should have correct default values', () => {
-            expect(confirmPopupInstance.defaultFocus).toBe('accept');
+            expect(confirmPopupInstance.defaultFocus()).toBe('accept');
             expect(confirmPopupInstance.showTransitionOptions()).toBe('.12s cubic-bezier(0, 0, 0.2, 1)');
             expect(confirmPopupInstance.hideTransitionOptions()).toBe('.1s linear');
             expect(confirmPopupInstance.autoZIndex()).toBe(true);
@@ -338,7 +338,7 @@ describe('ConfirmPopup', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(confirmPopupInstance.key).toBe('testKey');
+            expect(confirmPopupInstance.key()).toBe('testKey');
         });
 
         it('should update defaultFocus property', async () => {
@@ -346,7 +346,7 @@ describe('ConfirmPopup', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(confirmPopupInstance.defaultFocus).toBe('reject');
+            expect(confirmPopupInstance.defaultFocus()).toBe('reject');
         });
 
         it('should update transition options', async () => {

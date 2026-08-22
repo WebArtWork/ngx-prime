@@ -1,4 +1,4 @@
-import { Component, DebugElement, Input, TemplateRef, provideZonelessChangeDetection, viewChild } from '@angular/core';
+import { Component, DebugElement, TemplateRef, provideZonelessChangeDetection, viewChild, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -160,7 +160,7 @@ class TestDynamicToolbarComponent {
 
 @Component({
     template: `
-        <p-toolbar [pt]="pt">
+        <p-toolbar [pt]="pt()">
             <ng-template pTemplate="start">
                 <button>PT Test Start</button>
             </ng-template>
@@ -175,7 +175,7 @@ class TestDynamicToolbarComponent {
     imports: [ToolbarModule]
 })
 class TestPTToolbarComponent {
-    @Input() pt: any;
+    readonly pt = input<any>();
 }
 
 describe('Toolbar', () => {

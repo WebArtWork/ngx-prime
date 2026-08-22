@@ -1,4 +1,4 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -10,25 +10,25 @@ import { MegaMenu } from './megamenu';
 @Component({
     template: `
         <p-megamenu
-            [id]="id"
-            [model]="model"
-            [orientation]="orientation"
-            [styleClass]="styleClass"
-            [breakpoint]="breakpoint"
-            [scrollHeight]="scrollHeight"
-            [disabled]="disabled"
-            [tabindex]="tabindex"
-            [ariaLabel]="ariaLabel"
-            [ariaLabelledBy]="ariaLabelledBy"
-            [pt]="pt"
+            [id]="id()"
+            [model]="model()"
+            [orientation]="orientation()"
+            [styleClass]="styleClass()"
+            [breakpoint]="breakpoint()"
+            [scrollHeight]="scrollHeight()"
+            [disabled]="disabled()"
+            [tabindex]="tabindex()"
+            [ariaLabel]="ariaLabel()"
+            [ariaLabelledBy]="ariaLabelledBy()"
+            [pt]="pt()"
         >
         </p-megamenu>
     `,
     imports: [MegaMenu, TestTargetComponent, SharedModule]
 })
 class TestBasicMegaMenuComponent {
-    @Input() id: string | undefined;
-    @Input() model: MegaMenuItem[] | undefined = [
+    readonly id = input<string>();
+    readonly model = input<MegaMenuItem[] | undefined>([
         {
             label: 'Fashion',
             icon: 'pi pi-shopping-cart',
@@ -65,16 +65,16 @@ class TestBasicMegaMenuComponent {
         },
         { separator: true },
         { label: 'Simple Item', icon: 'pi pi-home', disabled: true }
-    ];
-    @Input() orientation: 'horizontal' | 'vertical' | string = 'horizontal';
-    @Input() styleClass: string | undefined;
-    @Input() breakpoint: string = '960px';
-    @Input() scrollHeight: string = '20rem';
-    @Input() disabled: boolean = false;
-    @Input() tabindex: number = 0;
-    @Input() ariaLabel: string | undefined;
-    @Input() ariaLabelledBy: string | undefined;
-    @Input() pt: any;
+    ]);
+    readonly orientation = input<'horizontal' | 'vertical' | string>('horizontal');
+    readonly styleClass = input<string>();
+    readonly breakpoint = input<string>('960px');
+    readonly scrollHeight = input<string>('20rem');
+    readonly disabled = input<boolean>(false);
+    readonly tabindex = input<number>(0);
+    readonly ariaLabel = input<string>();
+    readonly ariaLabelledBy = input<string>();
+    readonly pt = input<any>();
 }
 
 @Component({

@@ -1,4 +1,4 @@
-import { Component, DebugElement, Input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -91,7 +91,7 @@ class TestTemplateStepperComponent {
 
 @Component({
     template: `
-        <p-stepper [value]="1" [pt]="pt">
+        <p-stepper [value]="1" [pt]="pt()">
             <p-step-list>
                 <p-step [value]="1">PT Test Step 1</p-step>
                 <p-step [value]="2">PT Test Step 2</p-step>
@@ -109,7 +109,7 @@ class TestTemplateStepperComponent {
     imports: [Stepper, StepList, StepPanels, StepPanel, StepItem, Step]
 })
 class TestPTStepperComponent {
-    @Input() pt: any;
+    readonly pt = input<any>();
 }
 
 describe('Stepper', () => {

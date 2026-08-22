@@ -1,6 +1,7 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Field, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
@@ -9,6 +10,7 @@ import { AutoFocus } from 'primeng/autofocus';
 import { providePrimeNG } from 'primeng/config';
 import { ToggleSwitchChangeEvent } from 'primeng/types/toggleswitch';
 import { ToggleSwitch, ToggleSwitchModule } from './toggleswitch';
+import { ToggleSwitchDirective } from './nativetoggleswitch';
 
 describe('ToggleSwitch', () => {
     let component: ToggleSwitch;
@@ -662,6 +664,125 @@ describe('ToggleSwitch', () => {
                 expect(testComponent.componentInstance.name).toBe('toggle-field');
             }
         });
+    });
+});
+
+@Component({
+    standalone: true,
+    imports: [FormsModule, ToggleSwitchDirective],
+    template: `
+        <input
+            type="checkbox"
+            pToggleSwitch
+            [(ngModel)]="value"
+            [trueValue]="trueValue"
+            [falseValue]="falseValue"
+            [inputId]="inputId"
+            [name]="name"
+            [required]="required"
+            [invalid]="invalid"
+            [readonly]="readonly"
+            [disabled]="disabled"
+            (onChange)="changeEvent = $event"
+            (onFocus)="focusEvent = $event"
+            (onBlur)="blurEvent = $event"
+        />
+    `
+})
+class TestNativeToggleSwitchDirectiveComponent {
+    value: boolean | 'enabled' | 'disabled' = 'disabled';
+    trueValue = 'enabled';
+    falseValue = 'disabled';
+    inputId = 'native-toggle';
+    name = 'native-toggle';
+    required = true;
+    invalid = true;
+    readonly = false;
+    disabled = false;
+    changeEvent: ToggleSwitchChangeEvent | undefined;
+    focusEvent: Event | undefined;
+    blurEvent: Event | undefined;
+}
+
+@Component({
+    standalone: true,
+    imports: [Field, ToggleSwitchDirective],
+    template: `<input type="checkbox" pToggleSwitch [field]="toggleForm.enabled" />`
+})
+class TestSignalFormToggleSwitchDirectiveComponent {
+    model = signal({ enabled: false });
+    toggleForm = form(this.model);
+}
+
+describe('ToggleSwitchDirective', () => {
+    let fixture: ComponentFixture<TestNativeToggleSwitchDirectiveComponent>;
+    let component: TestNativeToggleSwitchDirectiveComponent;
+    let input: HTMLInputElement;
+
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestNativeToggleSwitchDirectiveComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+
+        fixture = TestBed.createComponent(TestNativeToggleSwitchDirectiveComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+        input = fixture.nativeElement.querySelector('input');
+    });
+
+    it('maps native state, custom values, events, and switch accessibility', () => {
+        expect(input.getAttribute('role')).toBe('switch');
+        expect(input.id).toBe('native-toggle');
+        expect(input.name).toBe('native-toggle');
+        expect(input.required).toBe(true);
+        expect(input.getAttribute('aria-checked')).toBe('false');
+
+        input.checked = true;
+        input.dispatchEvent(new Event('change'));
+        input.dispatchEvent(new Event('focus'));
+        input.dispatchEvent(new Event('blur'));
+
+        expect(component.value).toBe('enabled');
+        expect(component.changeEvent?.checked).toBe(true);
+        expect(component.focusEvent).toBeDefined();
+        expect(component.blurEvent).toBeDefined();
+    });
+
+    it('preserves the model when readonly or disabled', () => {
+        component.readonly = true;
+        fixture.detectChanges();
+        input.checked = true;
+        input.dispatchEvent(new Event('change'));
+
+        expect(component.value).toBe('disabled');
+        expect(input.checked).toBe(false);
+
+        component.readonly = false;
+        component.disabled = true;
+        fixture.detectChanges();
+        input.checked = true;
+        input.dispatchEvent(new Event('change'));
+
+        expect(component.value).toBe('disabled');
+        expect(input.disabled).toBe(true);
+    });
+});
+
+describe('ToggleSwitchDirective Signal Forms', () => {
+    it('updates a boolean signal-form field from native interaction', async () => {
+        await TestBed.configureTestingModule({
+            imports: [TestSignalFormToggleSwitchDirectiveComponent],
+            providers: [provideZonelessChangeDetection()]
+        }).compileComponents();
+
+        const fixture = TestBed.createComponent(TestSignalFormToggleSwitchDirectiveComponent);
+
+        fixture.detectChanges();
+        (fixture.nativeElement.querySelector('input') as HTMLInputElement).click();
+        await fixture.whenStable();
+
+        expect(fixture.componentInstance.model().enabled).toBe(true);
     });
 });
 

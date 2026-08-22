@@ -116,6 +116,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Unique identifier of the element.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get id(): string | undefined {
         return this._id;
     }
@@ -126,6 +128,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Inline style of the component.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get style(): any {
         return this._style;
     }
@@ -136,6 +140,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Style class of the element.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get styleClass(): string | undefined {
         return this._styleClass;
     }
@@ -146,6 +152,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Index of the element in tabbing order.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get tabindex() {
         return this._tabindex;
     }
@@ -156,6 +164,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * An array of objects to display.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get items(): any[] | undefined | null {
         return this._items;
     }
@@ -166,6 +176,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * The height/width of item according to orientation.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get itemSize(): number[] | number {
         return this._itemSize;
     }
@@ -176,6 +188,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Height of the scroll viewport.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get scrollHeight(): string | undefined {
         return this._scrollHeight;
     }
@@ -186,6 +200,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Width of the scroll viewport.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get scrollWidth(): string | undefined {
         return this._scrollWidth;
     }
@@ -196,6 +212,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * The orientation of scrollbar.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get orientation(): 'vertical' | 'horizontal' | 'both' {
         return this._orientation;
     }
@@ -206,6 +224,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Used to specify how many items to load in each load method in lazy mode.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get step(): number {
         return this._step;
     }
@@ -216,6 +236,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Delay in scroll before new data is loaded.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get delay() {
         return this._delay;
     }
@@ -226,6 +248,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Delay after window's resize finishes.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get resizeDelay() {
         return this._resizeDelay;
     }
@@ -236,6 +260,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Used to append each loaded item to top without removing any items from the DOM. Using very large data may cause the browser to crash.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get appendOnly(): boolean {
         return this._appendOnly;
     }
@@ -246,6 +272,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Specifies whether the scroller should be displayed inline or not.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get inline() {
         return this._inline;
     }
@@ -256,6 +284,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get lazy() {
         return this._lazy;
     }
@@ -266,6 +296,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * If disabled, the scroller feature is eliminated and the content is displayed directly.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get disabled() {
         return this._disabled;
     }
@@ -276,6 +308,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Used to implement a custom loader instead of using the loader feature in the scroller.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get loaderDisabled() {
         return this._loaderDisabled;
     }
@@ -286,6 +320,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Columns to display.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get columns(): any[] | undefined | null {
         return this._columns;
     }
@@ -296,6 +332,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Used to implement a custom spacer instead of using the spacer feature in the scroller.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get showSpacer() {
         return this._showSpacer;
     }
@@ -306,6 +344,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Defines whether to show loader.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get showLoader() {
         return this._showLoader;
     }
@@ -316,6 +356,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Determines how many additional elements to add to the DOM outside of the view. According to the scrolls made up and down, extra items are added in a certain algorithm in the form of multiples of this number. Default value is half the number of items shown in the view.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get numToleratedItems() {
         return this._numToleratedItems;
     }
@@ -326,6 +368,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Defines whether the data is loaded.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get loading(): boolean | undefined {
         return this._loading;
     }
@@ -336,6 +380,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Defines whether to dynamically change the height or width of scrollable container.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get autoSize(): boolean {
         return this._autoSize;
     }
@@ -346,6 +392,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algoritm checks for object identity.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get trackBy(): (...args: any[]) => any {
         return this._trackBy;
     }
@@ -356,6 +404,8 @@ export class Scroller extends BaseComponent<VirtualScrollerPassThrough> {
      * Defines whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
      */
+    // TODO: Skipped for migration because:
+    //  Accessor inputs cannot be migrated as they are too complex.
     @Input() get options(): ScrollerOptions | undefined {
         return this._options;
     }

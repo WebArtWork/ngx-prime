@@ -5,6 +5,17 @@ import { BaseStyle } from 'primeng/base';
 const style = /*css*/ `
     ${toggleswitch_style}
 
+    /* Native toggle-switch directive: preserve the checkbox while applying the active theme color. */
+    input.p-toggleswitch.p-component {
+        accent-color: dt('toggleswitch.checked.background');
+        cursor: pointer;
+    }
+
+    input.p-toggleswitch.p-component.p-disabled,
+    input.p-toggleswitch.p-component[readonly] {
+        cursor: default;
+    }
+
     p-toggleswitch.ng-invalid.ng-dirty > .p-toggleswitch-slider {
         border-color: dt('toggleswitch.invalid.border.color');
     }

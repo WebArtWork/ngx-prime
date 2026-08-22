@@ -144,8 +144,8 @@ describe('Listbox', () => {
 
         it('should initialize with default values', () => {
             fixture.detectChanges();
-            expect(component.multiple).toBeUndefined();
-            expect(component.filter).toBe(false);
+            expect(component.multiple()).toBeUndefined();
+            expect(component.filter()).toBe(false);
         });
     });
 

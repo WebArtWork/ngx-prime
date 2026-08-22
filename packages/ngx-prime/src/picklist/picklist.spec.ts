@@ -170,7 +170,7 @@ describe('PickList', () => {
         it('should have CDK drag drop enabled when dragdrop is true', () => {
             // Check that dragdrop is enabled on component
             expect(component.dragdrop).toBe(true);
-            expect(picklistComponent.dragdrop).toBe(true);
+            expect(picklistComponent.dragdrop()).toBe(true);
         });
 
         it('should have cdkDrag directive on items when dragdrop is enabled', () => {
@@ -463,7 +463,7 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             expect(component.dragdrop).toBe(false);
-            expect(picklistComponent.dragdrop).toBe(false);
+            expect(picklistComponent.dragdrop()).toBe(false);
         });
 
         it('should handle multiple items drag drop simulation', async () => {
@@ -559,7 +559,7 @@ describe('PickList', () => {
             fixture.detectChanges();
 
             expect(component.disabled).toBe(true);
-            expect(picklistComponent.disabled).toBe(true);
+            expect(picklistComponent.disabled()).toBe(true);
         });
     });
 
@@ -602,7 +602,7 @@ describe('PickList', () => {
             component.dataKey = 'id';
             fixture.detectChanges();
 
-            expect(picklistComponent.dataKey).toBe('id');
+            expect(picklistComponent.dataKey()).toBe('id');
         });
 
         it('should pass dataKey to both listbox components', () => {
@@ -624,7 +624,7 @@ describe('PickList', () => {
             component.dataKey = 'id';
             fixture.detectChanges();
 
-            expect(picklistComponent.dataKey).toBe('id');
+            expect(picklistComponent.dataKey()).toBe('id');
 
             const listboxes = fixture.debugElement.queryAll(By.css('p-listbox'));
 

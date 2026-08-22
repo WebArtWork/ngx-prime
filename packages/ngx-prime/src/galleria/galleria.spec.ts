@@ -257,23 +257,23 @@ describe('Galleria', () => {
 
         it('should have default values', () => {
             expect(galleriaInstance.activeIndex).toBe(0);
-            expect(galleriaInstance.fullScreen).toBe(false);
-            expect(galleriaInstance.numVisible).toBe(3);
-            expect(galleriaInstance.showItemNavigators).toBe(false);
-            expect(galleriaInstance.showThumbnailNavigators).toBe(true);
-            expect(galleriaInstance.showItemNavigatorsOnHover).toBe(false);
-            expect(galleriaInstance.changeItemOnIndicatorHover).toBe(false);
-            expect(galleriaInstance.circular).toBe(false);
-            expect(galleriaInstance.autoPlay).toBe(false);
-            expect(galleriaInstance.shouldStopAutoplayByClick).toBe(true);
-            expect(galleriaInstance.transitionInterval).toBe(4000);
-            expect(galleriaInstance.showThumbnails).toBe(true);
-            expect(galleriaInstance.thumbnailsPosition).toBe('bottom');
-            expect(galleriaInstance.verticalThumbnailViewPortHeight).toBe('300px');
-            expect(galleriaInstance.showIndicators).toBe(false);
-            expect(galleriaInstance.showIndicatorsOnItem).toBe(false);
-            expect(galleriaInstance.indicatorsPosition).toBe('bottom');
-            expect(galleriaInstance.baseZIndex).toBe(0);
+            expect(galleriaInstance.fullScreen()).toBe(false);
+            expect(galleriaInstance.numVisible()).toBe(3);
+            expect(galleriaInstance.showItemNavigators()).toBe(false);
+            expect(galleriaInstance.showThumbnailNavigators()).toBe(true);
+            expect(galleriaInstance.showItemNavigatorsOnHover()).toBe(false);
+            expect(galleriaInstance.changeItemOnIndicatorHover()).toBe(false);
+            expect(galleriaInstance.circular()).toBe(false);
+            expect(galleriaInstance.autoPlay()).toBe(false);
+            expect(galleriaInstance.shouldStopAutoplayByClick()).toBe(true);
+            expect(galleriaInstance.transitionInterval()).toBe(4000);
+            expect(galleriaInstance.showThumbnails()).toBe(true);
+            expect(galleriaInstance.thumbnailsPosition()).toBe('bottom');
+            expect(galleriaInstance.verticalThumbnailViewPortHeight()).toBe('300px');
+            expect(galleriaInstance.showIndicators()).toBe(false);
+            expect(galleriaInstance.showIndicatorsOnItem()).toBe(false);
+            expect(galleriaInstance.indicatorsPosition()).toBe('bottom');
+            expect(galleriaInstance.baseZIndex()).toBe(0);
             expect(galleriaInstance.visible).toBe(false);
         });
 
@@ -291,19 +291,19 @@ describe('Galleria', () => {
             await fixture.whenStable();
 
             expect(galleriaInstance.activeIndex).toBe(2);
-            expect(galleriaInstance.fullScreen).toBe(true);
-            expect(galleriaInstance.numVisible).toBe(5);
-            expect(galleriaInstance.showItemNavigators).toBe(true);
-            expect(galleriaInstance.circular).toBe(true);
-            expect(galleriaInstance.autoPlay).toBe(true);
-            expect(galleriaInstance.transitionInterval).toBe(2000);
-            expect(galleriaInstance.showIndicators).toBe(true);
-            expect(galleriaInstance.baseZIndex).toBe(1000);
+            expect(galleriaInstance.fullScreen()).toBe(true);
+            expect(galleriaInstance.numVisible()).toBe(5);
+            expect(galleriaInstance.showItemNavigators()).toBe(true);
+            expect(galleriaInstance.circular()).toBe(true);
+            expect(galleriaInstance.autoPlay()).toBe(true);
+            expect(galleriaInstance.transitionInterval()).toBe(2000);
+            expect(galleriaInstance.showIndicators()).toBe(true);
+            expect(galleriaInstance.baseZIndex()).toBe(1000);
         });
 
         it('should initialize with value array', () => {
-            expect(galleriaInstance.value).toEqual(mockImages);
-            expect(galleriaInstance.value?.length).toBe(5);
+            expect(galleriaInstance.value()).toEqual(mockImages);
+            expect(galleriaInstance.value()?.length).toBe(5);
         });
 
         it('should set numVisibleLimit when value length is less than numVisible', async () => {
@@ -423,7 +423,7 @@ describe('Galleria', () => {
         });
 
         it('should enable fullScreen mode', () => {
-            expect(galleriaInstance.fullScreen).toBe(true);
+            expect(galleriaInstance.fullScreen()).toBe(true);
         });
 
         it('should show mask when in fullScreen and visible', () => {
@@ -455,13 +455,13 @@ describe('Galleria', () => {
         });
 
         it('should enable autoPlay mode', () => {
-            expect(galleriaInstance.autoPlay).toBe(true);
-            expect(galleriaInstance.circular).toBe(true);
-            expect(galleriaInstance.transitionInterval).toBe(1000);
+            expect(galleriaInstance.autoPlay()).toBe(true);
+            expect(galleriaInstance.circular()).toBe(true);
+            expect(galleriaInstance.transitionInterval()).toBe(1000);
         });
 
         it('should have shouldStopAutoplayByClick enabled by default', () => {
-            expect(galleriaInstance.shouldStopAutoplayByClick).toBe(true);
+            expect(galleriaInstance.shouldStopAutoplayByClick()).toBe(true);
         });
     });
 
@@ -481,12 +481,12 @@ describe('Galleria', () => {
         });
 
         it('should accept responsive options', () => {
-            expect(galleriaInstance.responsiveOptions).toEqual(component.responsiveOptions);
-            expect(galleriaInstance.responsiveOptions?.length).toBe(3);
+            expect(galleriaInstance.responsiveOptions()).toEqual(component.responsiveOptions);
+            expect(galleriaInstance.responsiveOptions()?.length).toBe(3);
         });
 
         it('should have correct breakpoints and numVisible values', () => {
-            const options = galleriaInstance.responsiveOptions!;
+            const options = galleriaInstance.responsiveOptions()!;
 
             expect(options[0].breakpoint).toBe('1024px');
             expect(options[0].numVisible).toBe(3);
@@ -511,13 +511,13 @@ describe('Galleria', () => {
         });
 
         it('should enable indicators and disable thumbnails', () => {
-            expect(galleriaInstance.showIndicators).toBe(true);
-            expect(galleriaInstance.showThumbnails).toBe(false);
+            expect(galleriaInstance.showIndicators()).toBe(true);
+            expect(galleriaInstance.showThumbnails()).toBe(false);
         });
 
         it('should use default indicator position', () => {
-            expect(galleriaInstance.indicatorsPosition).toBe('bottom');
-            expect(galleriaInstance.showIndicatorsOnItem).toBe(false);
+            expect(galleriaInstance.indicatorsPosition()).toBe('bottom');
+            expect(galleriaInstance.showIndicatorsOnItem()).toBe(false);
         });
     });
 
@@ -641,7 +641,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.maskClass).toBe('custom-mask-class');
+            expect(galleriaInstance.maskClass()).toBe('custom-mask-class');
         });
 
         it('should apply custom container class and style', async () => {
@@ -650,8 +650,8 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.containerClass).toBe('custom-container-class');
-            expect(galleriaInstance.containerStyle).toEqual({ width: '800px', height: '600px' });
+            expect(galleriaInstance.containerClass()).toBe('custom-container-class');
+            expect(galleriaInstance.containerStyle()).toEqual({ width: '800px', height: '600px' });
         });
 
         it('should apply custom transition options', async () => {
@@ -660,8 +660,8 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.showTransitionOptions).toBe('300ms ease-in');
-            expect(galleriaInstance.hideTransitionOptions).toBe('200ms ease-out');
+            expect(galleriaInstance.showTransitionOptions()).toBe('300ms ease-in');
+            expect(galleriaInstance.hideTransitionOptions()).toBe('200ms ease-out');
         });
 
         it('should have proper galleria root structure', () => {
@@ -693,7 +693,7 @@ describe('Galleria', () => {
                 component.thumbnailsPosition = position;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
-                expect(galleriaInstance.thumbnailsPosition).toBe(position);
+                expect(galleriaInstance.thumbnailsPosition()).toBe(position);
             }
         });
 
@@ -704,7 +704,7 @@ describe('Galleria', () => {
                 component.indicatorsPosition = position;
                 fixture.changeDetectorRef.markForCheck();
                 await fixture.whenStable();
-                expect(galleriaInstance.indicatorsPosition).toBe(position);
+                expect(galleriaInstance.indicatorsPosition()).toBe(position);
             }
         });
 
@@ -713,7 +713,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.verticalThumbnailViewPortHeight).toBe('400px');
+            expect(galleriaInstance.verticalThumbnailViewPortHeight()).toBe('400px');
         });
 
         it('should handle show indicators on item', async () => {
@@ -721,7 +721,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.showIndicatorsOnItem).toBe(true);
+            expect(galleriaInstance.showIndicatorsOnItem()).toBe(true);
         });
     });
 
@@ -809,7 +809,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.value).toEqual([]);
+            expect(galleriaInstance.value()).toEqual([]);
         });
 
         it('should handle null images', async () => {
@@ -817,7 +817,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.value).toBe(null as any);
+            expect(galleriaInstance.value()).toBe(null as any);
         });
 
         it('should handle single image', async () => {
@@ -825,7 +825,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.value?.length).toBe(1);
+            expect(galleriaInstance.value()?.length).toBe(1);
         });
 
         it('should handle activeIndex beyond bounds', () => {
@@ -842,7 +842,7 @@ describe('Galleria', () => {
             component.id = undefined as any;
             fixture.detectChanges();
 
-            expect(galleriaInstance.id).toBeUndefined();
+            expect(galleriaInstance.id()).toBeUndefined();
         });
 
         it('should handle custom id', async () => {
@@ -850,7 +850,7 @@ describe('Galleria', () => {
             fixture.changeDetectorRef.markForCheck();
             await fixture.whenStable();
 
-            expect(galleriaInstance.id).toBe('custom-galleria-id');
+            expect(galleriaInstance.id()).toBe('custom-galleria-id');
         });
 
         it('should handle animation events with missing elements', () => {

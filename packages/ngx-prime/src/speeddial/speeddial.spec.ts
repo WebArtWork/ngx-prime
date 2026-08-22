@@ -1,4 +1,4 @@
-import { Component, Input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -321,17 +321,17 @@ class TestCommandSpeedDialComponent {
 
 // SpeedDial PT Test Components
 @Component({
-    template: ` <p-speeddial [model]="model" [pt]="pt" [visible]="visible"></p-speeddial> `,
+    template: ` <p-speeddial [model]="model()" [pt]="pt()" [visible]="visible()"></p-speeddial> `,
     imports: [SpeedDial, ButtonModule]
 })
 class TestPTSpeedDialComponent {
-    @Input() model: MenuItem[] = [
+    readonly model = input<MenuItem[]>([
         { label: 'Add', icon: 'pi pi-plus' },
         { label: 'Update', icon: 'pi pi-refresh' },
         { label: 'Delete', icon: 'pi pi-trash' }
-    ];
-    @Input() pt: any = {};
-    @Input() visible: boolean = false;
+    ]);
+    readonly pt = input<any>({});
+    readonly visible = input<boolean>(false);
 }
 
 describe('SpeedDial', () => {
