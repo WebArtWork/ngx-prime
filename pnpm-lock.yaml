@@ -73,13 +73,7 @@ catalogs:
     '@wawjs/css-prime-mcp':
       specifier: ^1.0.0
       version: 1.0.0
-    '@wawjs/css-prime-motion':
-      specifier: ^1.0.0
-      version: 1.0.0
     '@wawjs/css-prime-styled':
-      specifier: ^1.0.0
-      version: 1.0.0
-    '@wawjs/css-prime-styles':
       specifier: ^1.0.0
       version: 1.0.0
     '@wawjs/css-prime-themes':
@@ -349,34 +343,34 @@ importers:
   packages/ngx-prime:
     dependencies:
       '@angular/cdk':
-        specifier: catalog:angular22
+        specifier: ^22.1.2
         version: 22.1.2(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(@angular/platform-browser@22.1.2(@angular/animations@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)))(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)))(rxjs@7.8.2)
       '@angular/common':
-        specifier: catalog:angular22
+        specifier: ^22.1.2
         version: 22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2)
       '@angular/core':
-        specifier: catalog:angular22
+        specifier: ^22.1.2
         version: 22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)
       '@angular/forms':
-        specifier: catalog:angular22
+        specifier: ^22.1.2
         version: 22.1.2(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(@angular/platform-browser@22.1.2(@angular/animations@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)))(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)))(rxjs@7.8.2)
       '@angular/platform-browser':
-        specifier: catalog:angular22
+        specifier: ^22.1.2
         version: 22.1.2(@angular/animations@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)))(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))
       '@angular/router':
-        specifier: catalog:angular22
+        specifier: ^22.1.2
         version: 22.1.2(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(@angular/platform-browser@22.1.2(@angular/animations@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)))(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)))(rxjs@7.8.2)
       '@wawjs/css-prime-motion':
-        specifier: 'catalog:'
+        specifier: ^1.0.0
         version: 1.0.0
       '@wawjs/css-prime-styled':
-        specifier: 'catalog:'
+        specifier: ^1.0.0
         version: 1.0.0
       '@wawjs/css-prime-styles':
-        specifier: 'catalog:'
+        specifier: ^1.0.0
         version: 1.0.0
       '@wawjs/css-prime-utils':
-        specifier: 'catalog:'
+        specifier: ^1.0.0
         version: 1.0.0
       rxjs:
         specifier: ^6.0.0 || ^7.8.1

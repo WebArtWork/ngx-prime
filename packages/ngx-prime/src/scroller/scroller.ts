@@ -74,8 +74,7 @@ const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');
             }
         }
     `,
-    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [ScrollerStyle, { provide: SCROLLER_INSTANCE, useExisting: Scroller }, { provide: PARENT_INSTANCE, useExisting: Scroller }],
     host: {

@@ -37,7 +37,8 @@ Our intended versioning follows Angular releases:
 
 ### Current status
 
-ngx-prime is currently being migrated and rebranded.
+ngx-prime v22 is available as an Angular 22-compatible continuation of the
+final MIT-licensed PrimeNG v21 codebase.
 
 Angular 22 support is in progress and should not yet be considered complete or production-ready.
 
@@ -45,9 +46,18 @@ Angular 22 support is in progress and should not yet be considered complete or p
 
 The intended npm package is:
 
-`@wawjs/ngx-prime`
+`primeng`
 
-Installation instructions will be added when the first ngx-prime package is published.
+```bash
+npm install primeng
+```
+
+The package name and `primeng/*` import specifiers are intentionally retained
+for source compatibility with existing applications:
+
+```ts
+import { Button } from 'primeng/button';
+```
 
 ### Development
 

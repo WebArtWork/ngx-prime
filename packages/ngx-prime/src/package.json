@@ -26,19 +26,25 @@
     "publishConfig": {
         "access": "public"
     },
+    "files": [
+        "README.md",
+        "LICENSE",
+        "fesm2022",
+        "types"
+    ],
     "peerDependencies": {
-        "@angular/cdk": "catalog:angular22",
-        "@angular/common": "catalog:angular22",
-        "@angular/core": "catalog:angular22",
-        "@angular/forms": "catalog:angular22",
-        "@angular/router": "catalog:angular22",
-        "@angular/platform-browser": "catalog:angular22",
+        "@angular/cdk": "^22.1.2",
+        "@angular/common": "^22.1.2",
+        "@angular/core": "^22.1.2",
+        "@angular/forms": "^22.1.2",
+        "@angular/router": "^22.1.2",
+        "@angular/platform-browser": "^22.1.2",
         "rxjs": "^6.0.0 || ^7.8.1"
     },
     "dependencies": {
-        "@wawjs/css-prime-styled": "catalog:",
-        "@wawjs/css-prime-utils": "catalog:",
-        "@wawjs/css-prime-styles": "catalog:",
-        "@wawjs/css-prime-motion": "catalog:"
+        "@wawjs/css-prime-styled": "^1.0.0",
+        "@wawjs/css-prime-utils": "^1.0.0",
+        "@wawjs/css-prime-styles": "^1.0.0",
+        "@wawjs/css-prime-motion": "^1.0.0"
     }
 }

@@ -106,8 +106,7 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
         }
     `,
     encapsulation: ViewEncapsulation.None,
-    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [OrganizationChartStyle, { provide: PARENT_INSTANCE, useExisting: OrganizationChartNode }]
 })
 export class OrganizationChartNode extends BaseComponent {
@@ -216,8 +215,7 @@ export class OrganizationChartNode extends BaseComponent {
             <table [class]="cx('table')" [collapsible]="collapsible()" pOrganizationChartNode [pt]="pt" [unstyled]="unstyled()" [node]="root" [pBind]="ptm('table')"></table>
         }
     `,
-    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [OrganizationChartStyle, { provide: ORGANIZATIONCHART_INSTANCE, useExisting: OrganizationChart }, { provide: PARENT_INSTANCE, useExisting: OrganizationChart }],
     host: {
         '[class]': "cn(cx('root'), styleClass())"

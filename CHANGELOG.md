@@ -2,6 +2,20 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [22.0.0](https://github.com/WebArtWork/ngx-prime/releases/tag/v22.0.0) (2026-08-22)
+
+First ngx-prime release: an independent MIT-licensed continuation of the
+PrimeNG v21.1.9 codebase, updated for Angular 22. It is published under the
+existing `primeng` package name to retain source compatibility.
+
+**Highlights:**
+- Angular 22 signal inputs, outputs, models, `inject()` DI, and host metadata migrations.
+- Native-element directive alternatives and v22 compatibility deprecations for selected wrapper components.
+- Public `primeng/*` import specifiers are retained for application source compatibility.
+
+**Breaking changes:**
+- Angular 22 is required.
+
 ## [21.1.9](https://github.com/primefaces/primeng/tree/21.1.9) (2026-06-04)
 [Full Changelog](https://github.com/primefaces/primeng/compare/21.1.8...21.1.9)
 

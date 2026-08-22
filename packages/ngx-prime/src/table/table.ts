@@ -393,8 +393,7 @@ export class TableService {
         }
     `,
     providers: [TableService, TableStyle, { provide: TABLE_INSTANCE, useExisting: Table }, { provide: PARENT_INSTANCE, useExisting: Table }],
-    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cn(cx('root'), styleClass())",
@@ -3572,8 +3571,7 @@ export class Table<RowData = any> extends BaseComponent<TablePassThrough> implem
             <ng-container *ngTemplateOutlet="dataTable.emptyMessageTemplate || dataTable._emptyMessageTemplate(); context: { $implicit: columns(), frozen: frozen() }"></ng-container>
         }
     `,
-    // eslint-disable-next-line @angular-eslint/prefer-on-push-component-change-detection -- deliberate Default strategy; this component mutates state in ways OnPush would silently miss, and switching needs a dedicated audit, not a lint sweep.
-    changeDetection: ChangeDetectionStrategy.Default,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
         '[attr.data-p]': 'dataP'
