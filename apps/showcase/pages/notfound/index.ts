@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { RouterModule } from '@angular/router';
 
 @Component({

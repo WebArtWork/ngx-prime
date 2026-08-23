@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { MessageService } from 'ngx-prime/api';
+import { MessageService } from '@wawjs/ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'ngx-prime/toast';
-import { ButtonModule } from 'ngx-prime/button';
-import { ProgressBar } from 'ngx-prime/progressbar';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { ProgressBar } from '@wawjs/ngx-prime/progressbar';
 
 @Component({
     selector: 'app-headless-doc',

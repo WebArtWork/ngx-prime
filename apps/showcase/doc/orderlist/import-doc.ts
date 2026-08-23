@@ -10,6 +10,6 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { OrderListModule } from 'ngx-prime/orderlist';`
+        typescript: `import { OrderListModule } from '@wawjs/ngx-prime/orderlist';`
     };
 }

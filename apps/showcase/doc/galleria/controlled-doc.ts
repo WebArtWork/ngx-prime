@@ -1,8 +1,8 @@
 import { PhotoService } from '@/service/photoservice';
 import { Component, inject, model, OnInit } from '@angular/core';
 
-import { GalleriaModule } from 'ngx-prime/galleria';
-import { ButtonModule } from 'ngx-prime/button';
+import { GalleriaModule } from '@wawjs/ngx-prime/galleria';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

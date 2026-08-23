@@ -278,6 +278,9 @@ importers:
       '@wawjs/css-prime-utils':
         specifier: 'catalog:'
         version: 1.0.0
+      '@wawjs/ngx-prime':
+        specifier: workspace:*
+        version: link:../../packages/ngx-prime
       chart.js:
         specifier: 4.4.2
         version: 4.4.2
@@ -305,9 +308,6 @@ importers:
       jspdf-autotable:
         specifier: ^3.5.28
         version: 3.8.4(jspdf@4.2.1)
-      ngx-prime:
-        specifier: workspace:*
-        version: link:../../packages/ngx-prime
       primeicons:
         specifier: 'catalog:'
         version: 7.0.0

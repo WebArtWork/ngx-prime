@@ -4,7 +4,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MessageService } from 'ngx-prime/api';
+import { MessageService } from '@wawjs/ngx-prime/api';
 import { BehaviorSubject, delay, of, timer } from 'rxjs';
 import { FileUpload } from './fileupload';
 import { FileUploadClearDirective, FileUploadDirective } from './nativefileupload';

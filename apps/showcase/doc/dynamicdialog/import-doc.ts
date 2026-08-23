@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DynamicDialogModule } from 'ngx-prime/dynamicdialog';`
+        typescript: `import { DynamicDialogModule } from '@wawjs/ngx-prime/dynamicdialog';`
     };
 }

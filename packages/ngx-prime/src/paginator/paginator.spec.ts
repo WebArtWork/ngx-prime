@@ -4,11 +4,11 @@ import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Paginator, PaginatorModule } from './paginator';
-import { Select } from 'ngx-prime/select';
-import { InputNumber } from 'ngx-prime/inputnumber';
-import { Ripple } from 'ngx-prime/ripple';
-import { SharedModule } from 'ngx-prime/api';
-import { PaginatorState } from 'ngx-prime/types/paginator';
+import { Select } from '@wawjs/ngx-prime/select';
+import { InputNumber } from '@wawjs/ngx-prime/inputnumber';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { PaginatorState } from '@wawjs/ngx-prime/types/paginator';
 
 // Test component for basic paginator functionality
 @Component({

@@ -2,8 +2,8 @@ import { Component, DebugElement, input, provideZonelessChangeDetection } from '
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { provideNgxPrime } from 'ngx-prime/config';
-import type { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent } from 'ngx-prime/types/scroller';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
+import type { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent } from '@wawjs/ngx-prime/types/scroller';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Scroller } from './scroller';
 @Component({

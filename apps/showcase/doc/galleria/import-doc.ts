@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { GalleriaModule } from 'ngx-prime/galleria';`
+        typescript: `import { GalleriaModule } from '@wawjs/ngx-prime/galleria';`
     };
 }

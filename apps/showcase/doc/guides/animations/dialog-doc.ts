@@ -1,9 +1,9 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
-import { DialogModule } from 'ngx-prime/dialog';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { DialogModule } from '@wawjs/ngx-prime/dialog';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-dialog-doc',

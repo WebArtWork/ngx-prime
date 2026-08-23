@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 
 import { Component, OnInit } from '@angular/core';
-import { DragDropModule } from 'ngx-prime/dragdrop';
+import { DragDropModule } from '@wawjs/ngx-prime/dragdrop';
 
 @Component({
     selector: 'app-basic-doc',

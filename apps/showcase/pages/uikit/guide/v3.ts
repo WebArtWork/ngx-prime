@@ -21,7 +21,7 @@ import { CIPipelineDoc } from '@/doc/uikit/v3/workflow/cipipeline-doc';
 
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'ngx-prime/ripple';
+import { RippleModule } from '@wawjs/ngx-prime/ripple';
 
 @Component({
     standalone: true,

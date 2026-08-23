@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ToggleButtonDirective } from 'ngx-prime/togglebutton';`
+        typescript: `import { ToggleButtonDirective } from '@wawjs/ngx-prime/togglebutton';`
     };
 }

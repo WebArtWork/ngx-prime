@@ -16,8 +16,8 @@ import { Component } from '@angular/core';
 })
 export class ModeDoc {
     code2 = {
-        typescript: `import { OverlayOptions, ResponsiveOverlayDirectionType } from 'ngx-prime/api';
-import { NgxPrime } from 'ngx-prime/config';
+        typescript: `import { OverlayOptions, ResponsiveOverlayDirectionType } from '@wawjs/ngx-prime/api';
+import { NgxPrime } from '@wawjs/ngx-prime/config';
 
 const responsiveOptions: ResponsiveOverlayOptions = {
     // style?: any;                                     // Style of component in given breakpoint or media query

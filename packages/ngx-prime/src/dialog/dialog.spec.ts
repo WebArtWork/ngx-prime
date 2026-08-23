@@ -2,8 +2,8 @@ import { Component, provideZonelessChangeDetection, signal } from '@angular/core
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ButtonModule } from 'ngx-prime/button';
-import { FocusTrap } from 'ngx-prime/focustrap';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { FocusTrap } from '@wawjs/ngx-prime/focustrap';
 import { Dialog } from './dialog';
 
 // Basic Dialog Test Component

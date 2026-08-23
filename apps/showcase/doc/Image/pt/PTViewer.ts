@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ImageModule } from 'ngx-prime/image';
+import { ImageModule } from '@wawjs/ngx-prime/image';
 
 @Component({
     selector: 'app-image-pt-viewer',

@@ -5,8 +5,8 @@ import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { Slider, SliderModule } from './slider';
 import { RangeDirective } from './nativeslider';
 

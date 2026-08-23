@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MenuItem, MessageService } from 'ngx-prime/api';
-import { ContextMenu, ContextMenuModule } from 'ngx-prime/contextmenu';
-import { ToastModule } from 'ngx-prime/toast';
-import { Tag } from 'ngx-prime/tag';
+import { MenuItem, MessageService } from '@wawjs/ngx-prime/api';
+import { ContextMenu, ContextMenuModule } from '@wawjs/ngx-prime/contextmenu';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { Tag } from '@wawjs/ngx-prime/tag';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 interface Users {

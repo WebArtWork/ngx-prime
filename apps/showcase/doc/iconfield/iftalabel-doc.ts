@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { IftaLabelModule } from 'ngx-prime/iftalabel';
-import { IconFieldModule } from 'ngx-prime/iconfield';
-import { InputIconModule } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { IftaLabelModule } from '@wawjs/ngx-prime/iftalabel';
+import { IconFieldModule } from '@wawjs/ngx-prime/iconfield';
+import { InputIconModule } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

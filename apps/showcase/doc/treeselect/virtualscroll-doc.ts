@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'ngx-prime/treeselect';
+import { TreeSelectModule } from '@wawjs/ngx-prime/treeselect';
 
 @Component({
     selector: 'app-virtualscroll-doc',

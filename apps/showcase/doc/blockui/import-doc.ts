@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BlockUIModule } from 'ngx-prime/blockui';`
+        typescript: `import { BlockUIModule } from '@wawjs/ngx-prime/blockui';`
     };
 }

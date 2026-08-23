@@ -1,7 +1,7 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Directive, ElementRef, inject, input, NgModule, PLATFORM_ID } from '@angular/core';
-import { BaseComponent } from 'ngx-prime/basecomponent';
-import { DomHandler } from 'ngx-prime/dom';
+import { BaseComponent } from '@wawjs/ngx-prime/basecomponent';
+import { DomHandler } from '@wawjs/ngx-prime/dom';
 
 /**
  * AutoFocus manages focus on focusable element on load.

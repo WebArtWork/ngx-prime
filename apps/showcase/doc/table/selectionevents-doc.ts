@@ -4,9 +4,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { MessageService } from 'ngx-prime/api';
-import { TableModule } from 'ngx-prime/table';
-import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-selectionevents-doc',

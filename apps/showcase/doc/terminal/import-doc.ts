@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TerminalModule } from 'ngx-prime/terminal';`
+        typescript: `import { TerminalModule } from '@wawjs/ngx-prime/terminal';`
     };
 }

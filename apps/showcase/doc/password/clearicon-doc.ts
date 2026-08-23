@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'ngx-prime/password';
+import { PasswordModule } from '@wawjs/ngx-prime/password';
 
 @Component({
     selector: 'app-clearicon-doc',

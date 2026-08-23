@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { CascadeSelectModule } from 'ngx-prime/cascadeselect';`
+        typescript: `import { CascadeSelectModule } from '@wawjs/ngx-prime/cascadeselect';`
     };
 }

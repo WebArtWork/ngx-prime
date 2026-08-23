@@ -1,11 +1,11 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, ViewChild } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
-import { InputGroupModule } from 'ngx-prime/inputgroup';
-import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { Popover, PopoverModule } from 'ngx-prime/popover';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { InputGroupModule } from '@wawjs/ngx-prime/inputgroup';
+import { InputGroupAddonModule } from '@wawjs/ngx-prime/inputgroupaddon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { Popover, PopoverModule } from '@wawjs/ngx-prime/popover';
 
 interface Member {
     name: string;

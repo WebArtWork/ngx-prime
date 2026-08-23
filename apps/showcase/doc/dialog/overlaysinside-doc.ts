@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DialogModule } from 'ngx-prime/dialog';
-import { ButtonModule } from 'ngx-prime/button';
-import { SelectModule } from 'ngx-prime/select';
+import { DialogModule } from '@wawjs/ngx-prime/dialog';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { SelectModule } from '@wawjs/ngx-prime/select';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

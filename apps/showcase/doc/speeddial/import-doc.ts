@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SpeedDialModule } from 'ngx-prime/speeddial';`
+        typescript: `import { SpeedDialModule } from '@wawjs/ngx-prime/speeddial';`
     };
 }

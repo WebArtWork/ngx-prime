@@ -1,9 +1,9 @@
 import { booleanAttribute, Directive, ElementRef, effect, forwardRef, inject, input, numberAttribute, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals } from '@wawjs/css-prime-utils';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind } from 'ngx-prime/bind';
-import type { ToggleSwitchChangeEvent, ToggleSwitchPassThrough } from 'ngx-prime/types/toggleswitch';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import type { ToggleSwitchChangeEvent, ToggleSwitchPassThrough } from '@wawjs/ngx-prime/types/toggleswitch';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 
 /** Adds switch semantics and Prime state attributes to a native checkbox. */

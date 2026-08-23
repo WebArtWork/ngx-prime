@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { ConfirmationService, MessageService } from 'ngx-prime/api';
-import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
-import { ToastModule } from 'ngx-prime/toast';
-import { ButtonModule } from 'ngx-prime/button';
+import { ConfirmationService, MessageService } from '@wawjs/ngx-prime/api';
+import { ConfirmDialogModule } from '@wawjs/ngx-prime/confirmdialog';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

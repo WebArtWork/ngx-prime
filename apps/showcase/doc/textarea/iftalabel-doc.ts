@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { IftaLabelModule } from 'ngx-prime/iftalabel';
-import { TextareaModule } from 'ngx-prime/textarea';
+import { IftaLabelModule } from '@wawjs/ngx-prime/iftalabel';
+import { TextareaModule } from '@wawjs/ngx-prime/textarea';
 
 @Component({
     selector: 'app-iftalabel-doc',

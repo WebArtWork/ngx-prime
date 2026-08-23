@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { FormsModule } from '@angular/forms';
-import { TreeDragDropService, TreeNode } from 'ngx-prime/api';
+import { TreeDragDropService, TreeNode } from '@wawjs/ngx-prime/api';
 import { Tree, UITreeNode } from './tree';
 
 // Test component for basic use cases

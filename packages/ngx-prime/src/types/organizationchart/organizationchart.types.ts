@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
-import { TreeNode } from 'ngx-prime/api';
+import type { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
+import { TreeNode } from '@wawjs/ngx-prime/api';
 
 /**
  * Custom pass-through(pt) options.

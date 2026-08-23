@@ -5,10 +5,10 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { MenuItem, MessageService } from 'ngx-prime/api';
-import { ContextMenuModule } from 'ngx-prime/contextmenu';
-import { TableModule } from 'ngx-prime/table';
-import { ToastModule } from 'ngx-prime/toast';
+import { MenuItem, MessageService } from '@wawjs/ngx-prime/api';
+import { ContextMenuModule } from '@wawjs/ngx-prime/contextmenu';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-contextmenu-doc',

@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { RadioButtonModule } from 'ngx-prime/radiobutton';`
+        typescript: `import { RadioButtonModule } from '@wawjs/ngx-prime/radiobutton';`
     };
 }

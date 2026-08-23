@@ -23,15 +23,15 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { addClass, removeClass } from '@wawjs/css-prime-utils';
-import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
-import { Badge } from 'ngx-prime/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { Button, ButtonProps } from 'ngx-prime/button';
-import { PlusIcon, TimesIcon, UploadIcon } from 'ngx-prime/icons';
-import { Message } from 'ngx-prime/message';
-import { ProgressBar } from 'ngx-prime/progressbar';
-import { VoidListener } from 'ngx-prime/ts-helpers';
+import { BlockableUI, PrimeTemplate, SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
+import { Badge } from '@wawjs/ngx-prime/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { Button, ButtonProps } from '@wawjs/ngx-prime/button';
+import { PlusIcon, TimesIcon, UploadIcon } from '@wawjs/ngx-prime/icons';
+import { Message } from '@wawjs/ngx-prime/message';
+import { ProgressBar } from '@wawjs/ngx-prime/progressbar';
+import { VoidListener } from '@wawjs/ngx-prime/ts-helpers';
 import {
     FileBeforeUploadEvent,
     FileProgressEvent,
@@ -46,7 +46,7 @@ import {
     FileUploadHeaderTemplateContext,
     FileUploadPassThrough,
     RemoveUploadedFileEvent
-} from 'ngx-prime/types/fileupload';
+} from '@wawjs/ngx-prime/types/fileupload';
 import { Subscription } from 'rxjs';
 import { FileUploadStyle } from './style/fileuploadstyle';
 import { FileUploadCancelDirective, FileUploadChooseDirective, FileUploadClearDirective, FileUploadDirective, FileUploadDropZoneDirective, FileUploadQueueDirective, FileUploadUploadDirective } from './nativefileupload';

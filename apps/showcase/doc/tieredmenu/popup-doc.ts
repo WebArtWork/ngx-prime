@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
+import { MenuItem } from '@wawjs/ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TieredMenuModule } from 'ngx-prime/tieredmenu';
-import { ButtonModule } from 'ngx-prime/button';
+import { TieredMenuModule } from '@wawjs/ngx-prime/tieredmenu';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'app-popup-doc',

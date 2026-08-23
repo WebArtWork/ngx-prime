@@ -1,10 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem, MessageService } from 'ngx-prime/api';
+import { MenuItem, MessageService } from '@wawjs/ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { SpeedDialModule } from 'ngx-prime/speeddial';
-import { ToastModule } from 'ngx-prime/toast';
+import { SpeedDialModule } from '@wawjs/ngx-prime/speeddial';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({

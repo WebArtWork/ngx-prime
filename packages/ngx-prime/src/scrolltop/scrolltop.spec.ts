@@ -1,11 +1,11 @@
 import { Component, DebugElement, PLATFORM_ID, provideZonelessChangeDetection } from '@angular/core';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { BaseComponent } from 'ngx-prime/basecomponent';
-import { Button } from 'ngx-prime/button';
-import { ZIndexUtils } from 'ngx-prime/utils';
+import { BaseComponent } from '@wawjs/ngx-prime/basecomponent';
+import { Button } from '@wawjs/ngx-prime/button';
+import { ZIndexUtils } from '@wawjs/ngx-prime/utils';
 import { ScrollTop, ScrollTopModule } from './scrolltop';
 
 @Component({

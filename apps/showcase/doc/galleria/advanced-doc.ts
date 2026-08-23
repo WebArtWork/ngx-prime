@@ -3,8 +3,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { PhotoService } from '@/service/photoservice';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
-import { Galleria, GalleriaModule } from 'ngx-prime/galleria';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { Galleria, GalleriaModule } from '@wawjs/ngx-prime/galleria';
 
 @Component({
     selector: 'app-advanced-doc',

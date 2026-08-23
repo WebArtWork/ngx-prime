@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { MessageService, PrimeTemplate, SharedModule, ToastMessageOptions } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { Toast, ToastItem } from './toast';
 
 // Test Components for different scenarios

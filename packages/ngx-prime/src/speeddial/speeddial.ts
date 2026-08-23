@@ -23,14 +23,14 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { find, findSingle, focus, hasClass, uuid } from '@wawjs/css-prime-utils';
-import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { ButtonModule, ButtonProps } from 'ngx-prime/button';
-import { PlusIcon } from 'ngx-prime/icons';
-import { Ripple } from 'ngx-prime/ripple';
-import { TooltipModule } from 'ngx-prime/tooltip';
-import { SpeedDialButtonTemplateContext, SpeedDialItemTemplateContext, SpeedDialPassThrough } from 'ngx-prime/types/speeddial';
+import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { ButtonModule, ButtonProps } from '@wawjs/ngx-prime/button';
+import { PlusIcon } from '@wawjs/ngx-prime/icons';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
+import { SpeedDialButtonTemplateContext, SpeedDialItemTemplateContext, SpeedDialPassThrough } from '@wawjs/ngx-prime/types/speeddial';
 import { asapScheduler } from 'rxjs';
 import { SpeedDialStyle } from './style/speeddialstyle';
 

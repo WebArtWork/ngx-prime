@@ -1,8 +1,8 @@
 import { booleanAttribute, Directive, ElementRef, forwardRef, inject, input, model, numberAttribute, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind } from 'ngx-prime/bind';
-import type { ToggleButtonChangeEvent, ToggleButtonPassThrough } from 'ngx-prime/types/togglebutton';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import type { ToggleButtonChangeEvent, ToggleButtonPassThrough } from '@wawjs/ngx-prime/types/togglebutton';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
 
 /** Adds toggle semantics to a native button. */

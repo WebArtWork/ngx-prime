@@ -4,9 +4,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TreeNode } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { TreeTableModule } from 'ngx-prime/treetable';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { TreeTableModule } from '@wawjs/ngx-prime/treetable';
 
 interface Column {
     field: string;

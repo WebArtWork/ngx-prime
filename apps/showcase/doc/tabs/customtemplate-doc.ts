@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TabsModule } from 'ngx-prime/tabs';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { BadgeModule } from 'ngx-prime/badge';
+import { TabsModule } from '@wawjs/ngx-prime/tabs';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
 
 @Component({
     selector: 'app-customtemplate-doc',

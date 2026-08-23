@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnInit, signal, inject } from '@angular/core';
-import { OrderListModule } from 'ngx-prime/orderlist';
+import { OrderListModule } from '@wawjs/ngx-prime/orderlist';
 import { ProductService } from '@/service/productservice';
 
 interface Product {

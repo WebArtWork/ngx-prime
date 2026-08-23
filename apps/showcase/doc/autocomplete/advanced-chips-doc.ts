@@ -5,8 +5,8 @@ import { ProductService } from '@/service/productservice';
 
 import { Component, OnInit, signal, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'ngx-prime/autocomplete';
-import { ChipModule } from 'ngx-prime/chip';
+import { AutoCompleteModule } from '@wawjs/ngx-prime/autocomplete';
+import { ChipModule } from '@wawjs/ngx-prime/chip';
 
 @Component({
     selector: 'app-advanced-chips-doc',

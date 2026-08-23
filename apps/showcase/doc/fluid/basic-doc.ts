@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { Fluid } from 'ngx-prime/fluid';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { Fluid } from '@wawjs/ngx-prime/fluid';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-basic-doc',

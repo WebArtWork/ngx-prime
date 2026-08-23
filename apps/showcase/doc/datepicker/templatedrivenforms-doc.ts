@@ -2,11 +2,11 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { DatePickerModule } from 'ngx-prime/datepicker';
-import { MessageModule } from 'ngx-prime/message';
-import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { DatePickerModule } from '@wawjs/ngx-prime/datepicker';
+import { MessageModule } from '@wawjs/ngx-prime/message';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-templatedrivenforms-doc',

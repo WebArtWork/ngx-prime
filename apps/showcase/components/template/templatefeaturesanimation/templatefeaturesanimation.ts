@@ -1,7 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, PLATFORM_ID, ViewEncapsulation, OnInit, OnDestroy, inject } from '@angular/core';
 import { TemplateFeaturesAnimationInline } from './templatefeaturesanimationinline';
-import { AnimateOnScrollModule } from 'ngx-prime/animateonscroll';
+import { AnimateOnScrollModule } from '@wawjs/ngx-prime/animateonscroll';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
     selector: 'app-template-features-animation',

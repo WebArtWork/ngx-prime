@@ -21,14 +21,14 @@ import {
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { $dt } from '@wawjs/css-prime-styled';
 import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@wawjs/css-prime-utils';
-import { OverlayService, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { ConnectedOverlayScrollHandler } from 'ngx-prime/dom';
-import { MotionModule } from 'ngx-prime/motion';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
-import { PopoverContentTemplateContext, PopoverPassThrough } from 'ngx-prime/types/popover';
-import { ZIndexUtils } from 'ngx-prime/utils';
+import { OverlayService, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { ConnectedOverlayScrollHandler } from '@wawjs/ngx-prime/dom';
+import { MotionModule } from '@wawjs/ngx-prime/motion';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
+import { PopoverContentTemplateContext, PopoverPassThrough } from '@wawjs/ngx-prime/types/popover';
+import { ZIndexUtils } from '@wawjs/ngx-prime/utils';
 import { Subscription } from 'rxjs';
 import { PopoverStyle } from './style/popoverstyle';
 

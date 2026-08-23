@@ -3,11 +3,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { MessageModule } from 'ngx-prime/message';
-import { ToastModule } from 'ngx-prime/toast';
-import { ToggleButtonModule } from 'ngx-prime/togglebutton';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { MessageModule } from '@wawjs/ngx-prime/message';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { ToggleButtonModule } from '@wawjs/ngx-prime/togglebutton';
 
 @Component({
     selector: 'app-templatedrivenforms-doc',

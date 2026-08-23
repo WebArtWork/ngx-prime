@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';`
+        typescript: `import { ToggleSwitchModule } from '@wawjs/ngx-prime/toggleswitch';`
     };
 }

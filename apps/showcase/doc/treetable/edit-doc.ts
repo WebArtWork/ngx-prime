@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeTableModule } from 'ngx-prime/treetable';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { TreeTableModule } from '@wawjs/ngx-prime/treetable';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 import { AppCodeComponent } from '@/components/doc/app.code.component';
 import { AppDocSectionTextComponent } from '@/components/doc/app.docsectiontext.component';
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { NodeService } from '@/service/nodeservice';
-import { TreeNode } from 'ngx-prime/api';
+import { TreeNode } from '@wawjs/ngx-prime/api';
 
 interface Column {
     field: string;

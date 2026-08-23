@@ -23,13 +23,13 @@ import {
 import { RouterModule } from '@angular/router';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { equals, findLast, findSingle, focus, getAttribute, isEmpty, isNotEmpty, isPrintableCharacter, resolve, uuid } from '@wawjs/css-prime-utils';
-import { MenuItem, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { ChevronDownIcon, ChevronRightIcon } from 'ngx-prime/icons';
-import { MotionModule } from 'ngx-prime/motion';
-import { TooltipModule } from 'ngx-prime/tooltip';
-import { PanelMenuItemTemplateContext, PanelMenuPassThrough } from 'ngx-prime/types/panelmenu';
+import { MenuItem, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { ChevronDownIcon, ChevronRightIcon } from '@wawjs/ngx-prime/icons';
+import { MotionModule } from '@wawjs/ngx-prime/motion';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
+import { PanelMenuItemTemplateContext, PanelMenuPassThrough } from '@wawjs/ngx-prime/types/panelmenu';
 import { PanelMenuStyle } from './style/panelmenustyle';
 
 const PANELMENU_INSTANCE = new InjectionToken<PanelMenu>('PANELMENU_INSTANCE');

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { MenuItem } from 'ngx-prime/api';
-import { DockModule } from 'ngx-prime/dock';
-import { RadioButtonModule } from 'ngx-prime/radiobutton';
-import { TooltipModule } from 'ngx-prime/tooltip';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { DockModule } from '@wawjs/ngx-prime/dock';
+import { RadioButtonModule } from '@wawjs/ngx-prime/radiobutton';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

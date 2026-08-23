@@ -1,5 +1,5 @@
 import type { MotionOptions } from '@wawjs/css-prime-motion';
-import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
+import type { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
 
 /**
  * Defines valid pass-through options in Stepper component.

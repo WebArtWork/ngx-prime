@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { StepperModule } from 'ngx-prime/stepper';`
+        typescript: `import { StepperModule } from '@wawjs/ngx-prime/stepper';`
     };
 }

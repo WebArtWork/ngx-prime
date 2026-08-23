@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { RadioButton } from './radiobutton';
 import { RadioButtonDirective } from './nativeradiobutton';
 
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 
 // Basic RadioButton test component
 @Component({

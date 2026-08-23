@@ -2,7 +2,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'ngx-prime/api';
+import { SharedModule } from '@wawjs/ngx-prime/api';
 import { Image, ImageModule } from './image';
 
 // Using image paths from photoservice.ts to ensure consistency

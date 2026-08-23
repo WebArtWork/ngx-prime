@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { MessageService } from 'ngx-prime/api';
+import { MessageService } from '@wawjs/ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'ngx-prime/select';
-import { ToastModule } from 'ngx-prime/toast';
-import { MessageModule } from 'ngx-prime/message';
-import { ButtonModule } from 'ngx-prime/button';
+import { SelectModule } from '@wawjs/ngx-prime/select';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { MessageModule } from '@wawjs/ngx-prime/message';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 interface City {
     name: string;

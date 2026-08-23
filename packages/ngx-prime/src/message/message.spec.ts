@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { Message } from './message';
 
 @Component({

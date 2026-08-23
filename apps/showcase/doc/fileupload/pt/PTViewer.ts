@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { FileUploadModule } from 'ngx-prime/fileupload';
+import { FileUploadModule } from '@wawjs/ngx-prime/fileupload';
 
 @Component({
     selector: 'app-fileupload-pt-viewer',

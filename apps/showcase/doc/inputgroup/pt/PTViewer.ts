@@ -2,9 +2,9 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputGroupModule } from 'ngx-prime/inputgroup';
-import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { InputGroupModule } from '@wawjs/ngx-prime/inputgroup';
+import { InputGroupAddonModule } from '@wawjs/ngx-prime/inputgroupaddon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-inputgroup-pt-viewer',

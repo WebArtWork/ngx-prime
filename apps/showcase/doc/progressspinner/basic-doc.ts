@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProgressSpinnerModule } from 'ngx-prime/progressspinner';
+import { ProgressSpinnerModule } from '@wawjs/ngx-prime/progressspinner';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -6,13 +6,13 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { RatingModule } from 'ngx-prime/rating';
-import { RippleModule } from 'ngx-prime/ripple';
-import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'ngx-prime/table';
-import { TagModule } from 'ngx-prime/tag';
-import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { RatingModule } from '@wawjs/ngx-prime/rating';
+import { RippleModule } from '@wawjs/ngx-prime/ripple';
+import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from '@wawjs/ngx-prime/table';
+import { TagModule } from '@wawjs/ngx-prime/tag';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-rowexpansion-doc',

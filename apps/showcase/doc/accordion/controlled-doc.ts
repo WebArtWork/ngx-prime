@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AccordionModule } from 'ngx-prime/accordion';
-import { ButtonModule } from 'ngx-prime/button';
+import { AccordionModule } from '@wawjs/ngx-prime/accordion';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

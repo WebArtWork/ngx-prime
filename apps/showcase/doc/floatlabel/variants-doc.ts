@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { FloatLabelModule } from 'ngx-prime/floatlabel';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { FloatLabelModule } from '@wawjs/ngx-prime/floatlabel';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-variants-doc',

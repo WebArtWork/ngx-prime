@@ -2,8 +2,8 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'ngx-prime/iftalabel';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { IftaLabelModule } from '@wawjs/ngx-prime/iftalabel';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-iftalabel-pt-viewer',

@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
-import { provideNgxPrime } from 'ngx-prime/config';
-import { ColorPickerChangeEvent } from 'ngx-prime/types/colorpicker';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
+import { ColorPickerChangeEvent } from '@wawjs/ngx-prime/types/colorpicker';
 import { ColorPicker, ColorPickerClearDirective, ColorPickerDirective } from './colorpicker';
 
 @Component({

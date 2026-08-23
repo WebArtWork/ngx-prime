@@ -17,7 +17,7 @@ import { AppCode } from '@/components/doc/app.code';
 export class DynamicDoc {
     code: Code = {
         typescript: `import { Component, OnInit } from '@angular/core';
-import { NgxPrime } from 'ngx-prime/config';
+import { NgxPrime } from '@wawjs/ngx-prime/config';
 
 @Component({
     selector: 'app-root',

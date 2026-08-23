@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { Confirmation, PassThrough, PassThroughOption } from 'ngx-prime/api';
-import { DialogPassThrough } from 'ngx-prime/types/dialog';
-import type { ButtonPassThrough } from 'ngx-prime/types/button';
+import type { Confirmation, PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
+import { DialogPassThrough } from '@wawjs/ngx-prime/types/dialog';
+import type { ButtonPassThrough } from '@wawjs/ngx-prime/types/button';
 
 /**
  * Custom pass-through(pt) options.

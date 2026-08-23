@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { RatingModule } from 'ngx-prime/rating';`
+        typescript: `import { RatingModule } from '@wawjs/ngx-prime/rating';`
     };
 }

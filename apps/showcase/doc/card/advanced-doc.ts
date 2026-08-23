@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'ngx-prime/button';
-import { CardModule } from 'ngx-prime/card';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { CardModule } from '@wawjs/ngx-prime/card';
 
 @Component({
     selector: 'app-advanced-doc',

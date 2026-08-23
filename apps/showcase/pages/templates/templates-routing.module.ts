@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TemplatesComponent } from './templates.component';
-import { ButtonModule } from 'ngx-prime/button';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @NgModule({
     imports: [

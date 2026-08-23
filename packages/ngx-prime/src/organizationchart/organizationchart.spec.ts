@@ -2,8 +2,8 @@ import { Component, provideZonelessChangeDetection, TemplateRef } from '@angular
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { TreeNode } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { OrganizationChart, OrganizationChartNode } from './organizationchart';
 
 // Test component for basic use cases

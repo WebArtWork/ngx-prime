@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MessageService } from 'ngx-prime/api';
-import { ColorPickerModule } from 'ngx-prime/colorpicker';
-import { ButtonModule } from 'ngx-prime/button';
-import { MessageModule } from 'ngx-prime/message';
-import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ColorPickerModule } from '@wawjs/ngx-prime/colorpicker';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { MessageModule } from '@wawjs/ngx-prime/message';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

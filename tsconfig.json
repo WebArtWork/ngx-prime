@@ -31,8 +31,8 @@
         "baseUrl": "./",                                     /* (UPDATED) Specify the base directory to resolve non-relative module names. */
         "ignoreDeprecations": "6.0",                         /* Required while retaining baseUrl-backed workspace path mappings on TypeScript 6. */
         "paths": {                                           /* (UPDATED) Specify a set of entries that re-map imports to additional lookup locations. */
-            "ngx-prime/types/*": ["./packages/ngx-prime/src/types/*/public_api"],
-            "ngx-prime/*": ["./packages/ngx-prime/src/*/public_api"],
+            "@wawjs/ngx-prime/types/*": ["./packages/ngx-prime/src/types/*/public_api"],
+            "@wawjs/ngx-prime/*": ["./packages/ngx-prime/src/*/public_api"],
             "@wawjs/ngx-prime-themes/*": ["./packages/themes/src/presets/*/index"],
             "@wawjs/ngx-prime-themes": ["./packages/themes/src/index"]
         },

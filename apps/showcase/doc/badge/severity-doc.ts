@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BadgeModule } from 'ngx-prime/badge';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

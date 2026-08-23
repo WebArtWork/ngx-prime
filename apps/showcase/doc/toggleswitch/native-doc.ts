@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitchDirective } from 'ngx-prime/toggleswitch';
+import { ToggleSwitchDirective } from '@wawjs/ngx-prime/toggleswitch';
 
 @Component({
     selector: 'app-toggleswitch-native-doc',

@@ -2,8 +2,8 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ScrollerModule } from 'ngx-prime/scroller';
-import { SkeletonModule } from 'ngx-prime/skeleton';
+import { ScrollerModule } from '@wawjs/ngx-prime/scroller';
+import { SkeletonModule } from '@wawjs/ngx-prime/skeleton';
 
 @Component({
     selector: 'app-template-doc',

@@ -3,7 +3,7 @@ import { AppConfigService } from '@/service/appconfigservice';
 
 import { afterNextRender, Component, computed, ElementRef, OnDestroy, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { DomHandler } from 'ngx-prime/dom';
+import { DomHandler } from '@wawjs/ngx-prime/dom';
 import { Subscription } from 'rxjs';
 import { AppMenuItemComponent } from './app.menuitem.component';
 

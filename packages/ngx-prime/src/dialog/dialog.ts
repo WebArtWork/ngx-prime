@@ -28,17 +28,17 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { addStyle, appendChild, getOuterHeight, getOuterWidth, getViewport, hasClass, removeClass, setAttribute, uuid } from '@wawjs/css-prime-utils';
-import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { Button, ButtonProps } from 'ngx-prime/button';
-import { blockBodyScroll, DomHandler, unblockBodyScroll } from 'ngx-prime/dom';
-import { FocusTrap } from 'ngx-prime/focustrap';
-import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from 'ngx-prime/icons';
-import { MotionModule } from 'ngx-prime/motion';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
-import { DialogPassThrough } from 'ngx-prime/types/dialog';
-import { ZIndexUtils } from 'ngx-prime/utils';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { Button, ButtonProps } from '@wawjs/ngx-prime/button';
+import { blockBodyScroll, DomHandler, unblockBodyScroll } from '@wawjs/ngx-prime/dom';
+import { FocusTrap } from '@wawjs/ngx-prime/focustrap';
+import { TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon } from '@wawjs/ngx-prime/icons';
+import { MotionModule } from '@wawjs/ngx-prime/motion';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
+import { DialogPassThrough } from '@wawjs/ngx-prime/types/dialog';
+import { ZIndexUtils } from '@wawjs/ngx-prime/utils';
 import { DialogStyle } from './style/dialogstyle';
 
 const DIALOG_INSTANCE = new InjectionToken<Dialog>('DIALOG_INSTANCE');

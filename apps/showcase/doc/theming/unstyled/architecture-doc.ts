@@ -1,7 +1,7 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'ngx-prime/select';
+import { SelectModule } from '@wawjs/ngx-prime/select';
 
 interface City {
     name: string;

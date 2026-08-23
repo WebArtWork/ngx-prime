@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InplaceModule } from 'ngx-prime/inplace';
+import { InplaceModule } from '@wawjs/ngx-prime/inplace';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -2,9 +2,9 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IconFieldModule } from 'ngx-prime/iconfield';
-import { InputIconModule } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { IconFieldModule } from '@wawjs/ngx-prime/iconfield';
+import { InputIconModule } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-iconfield-pt-viewer',

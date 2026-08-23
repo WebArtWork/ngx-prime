@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { SkeletonModule } from 'ngx-prime/skeleton';
-import { TableModule } from 'ngx-prime/table';
+import { SkeletonModule } from '@wawjs/ngx-prime/skeleton';
+import { TableModule } from '@wawjs/ngx-prime/table';
 
 @Component({
     selector: 'app-datatable-doc',

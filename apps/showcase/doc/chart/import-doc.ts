@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ChartModule } from 'ngx-prime/chart';`
+        typescript: `import { ChartModule } from '@wawjs/ngx-prime/chart';`
     };
 }

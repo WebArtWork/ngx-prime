@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AccordionModule } from 'ngx-prime/accordion';
+import { AccordionModule } from '@wawjs/ngx-prime/accordion';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

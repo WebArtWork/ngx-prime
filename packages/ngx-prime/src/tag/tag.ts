@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, inject, InjectionToken, input, NgModule, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { TagPassThrough } from 'ngx-prime/types/tag';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { TagPassThrough } from '@wawjs/ngx-prime/types/tag';
 import { TagStyle } from './style/tagstyle';
 
 const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');

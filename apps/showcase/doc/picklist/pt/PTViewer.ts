@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { PickListModule } from 'ngx-prime/picklist';
+import { PickListModule } from '@wawjs/ngx-prime/picklist';
 
 interface Product {
     id?: string;

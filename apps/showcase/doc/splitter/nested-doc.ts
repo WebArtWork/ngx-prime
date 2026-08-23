@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { SplitterModule } from 'ngx-prime/splitter';
+import { SplitterModule } from '@wawjs/ngx-prime/splitter';
 
 @Component({
     selector: 'app-nested-doc',

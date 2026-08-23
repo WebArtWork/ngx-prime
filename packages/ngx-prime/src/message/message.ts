@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ContentChild, inject, InjectionToken, input, NgModule, output, signal, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { MotionOptions } from '@wawjs/css-prime-motion';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { TimesIcon } from 'ngx-prime/icons';
-import { MotionModule } from 'ngx-prime/motion';
-import { Ripple } from 'ngx-prime/ripple';
-import { MessageContainerTemplateContext, MessagePassThrough } from 'ngx-prime/types/message';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { TimesIcon } from '@wawjs/ngx-prime/icons';
+import { MotionModule } from '@wawjs/ngx-prime/motion';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { MessageContainerTemplateContext, MessagePassThrough } from '@wawjs/ngx-prime/types/message';
 import { MessageStyle } from './style/messagestyle';
 
 const MESSAGE_INSTANCE = new InjectionToken<Message>('MESSAGE_INSTANCE');

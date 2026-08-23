@@ -2,7 +2,7 @@ import { Component, ElementRef, TemplateRef, provideZonelessChangeDetection, vie
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { TooltipOptions } from 'ngx-prime/api';
+import { TooltipOptions } from '@wawjs/ngx-prime/api';
 import { Tooltip } from './tooltip';
 
 @Component({

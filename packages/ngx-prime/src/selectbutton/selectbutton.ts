@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { ToggleButton } from 'ngx-prime/togglebutton';
-import { SelectButtonChangeEvent, SelectButtonItemTemplateContext, SelectButtonOptionClickEvent, SelectButtonPassThrough } from 'ngx-prime/types/selectbutton';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { ToggleButton } from '@wawjs/ngx-prime/togglebutton';
+import { SelectButtonChangeEvent, SelectButtonItemTemplateContext, SelectButtonOptionClickEvent, SelectButtonPassThrough } from '@wawjs/ngx-prime/types/selectbutton';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 import { SelectButtonDirective, SelectButtonOptionDirective } from './nativeselectbutton';
 

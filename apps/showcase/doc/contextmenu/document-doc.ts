@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
-import { ContextMenuModule } from 'ngx-prime/contextmenu';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { ContextMenuModule } from '@wawjs/ngx-prime/contextmenu';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

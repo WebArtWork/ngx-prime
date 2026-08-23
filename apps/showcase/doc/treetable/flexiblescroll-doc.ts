@@ -3,10 +3,10 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { TreeNode } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { DialogModule } from 'ngx-prime/dialog';
-import { TreeTableModule } from 'ngx-prime/treetable';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { DialogModule } from '@wawjs/ngx-prime/dialog';
+import { TreeTableModule } from '@wawjs/ngx-prime/treetable';
 
 @Component({
     selector: 'app-flexiblescroll-doc',

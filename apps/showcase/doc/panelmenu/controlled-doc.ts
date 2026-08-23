@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
-import { PanelMenu } from 'ngx-prime/panelmenu';
-import { ButtonModule } from 'ngx-prime/button';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { PanelMenu } from '@wawjs/ngx-prime/panelmenu';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

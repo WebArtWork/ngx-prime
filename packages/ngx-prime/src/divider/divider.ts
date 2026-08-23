@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
 import { DividerStyle } from './style/dividerstyle';
-import { DividerPassThrough } from 'ngx-prime/types/divider';
+import { DividerPassThrough } from '@wawjs/ngx-prime/types/divider';
 
 const DIVIDER_INSTANCE = new InjectionToken<Divider>('DIVIDER_INSTANCE');
 

@@ -23,14 +23,14 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findIndexInList, isEmpty, setAttribute, uuid } from '@wawjs/css-prime-utils';
-import { FilterService, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { ButtonModule, ButtonProps } from 'ngx-prime/button';
-import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from 'ngx-prime/icons';
-import { Listbox, ListboxChangeEvent } from 'ngx-prime/listbox';
-import { Ripple } from 'ngx-prime/ripple';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import { FilterService, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { ButtonModule, ButtonProps } from '@wawjs/ngx-prime/button';
+import { AngleDoubleDownIcon, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleDoubleUpIcon, AngleDownIcon, AngleLeftIcon, AngleRightIcon, AngleUpIcon } from '@wawjs/ngx-prime/icons';
+import { Listbox, ListboxChangeEvent } from '@wawjs/ngx-prime/listbox';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
 import {
     PickListFilterOptions,
     PickListFilterTemplateContext,
@@ -46,7 +46,7 @@ import {
     PickListTargetReorderEvent,
     PickListTargetSelectEvent,
     PickListTransferIconTemplateContext
-} from 'ngx-prime/types/picklist';
+} from '@wawjs/ngx-prime/types/picklist';
 import { PickListStyle } from './style/pickliststyle';
 
 const PICKLIST_INSTANCE = new InjectionToken<PickList>('PICKLIST_INSTANCE');

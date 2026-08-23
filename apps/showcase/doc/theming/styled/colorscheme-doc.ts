@@ -31,7 +31,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 export class ColorSchemeDoc {
     code1 = {
         typescript: `import { bootstrapApplication } from '@angular/platform-browser';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { definePreset } from '@wawjs/css-prime-themes';
 import Aura from '@wawjs/css-prime-themes/aura';
 import { AppComponent } from './app/app.component';

@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { AvatarGroupModule } from 'ngx-prime/avatargroup';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { AvatarGroupModule } from '@wawjs/ngx-prime/avatargroup';
 
 @Component({
     selector: 'app-avatar-pt-viewer',

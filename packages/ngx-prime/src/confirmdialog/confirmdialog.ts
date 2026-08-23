@@ -25,13 +25,13 @@ import {
     contentChildren
 } from '@angular/core';
 import { findSingle, setAttribute, uuid } from '@wawjs/css-prime-utils';
-import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { Button } from 'ngx-prime/button';
-import { Dialog } from 'ngx-prime/dialog';
-import { Nullable } from 'ngx-prime/ts-helpers';
-import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from 'ngx-prime/types/confirmdialog';
+import { Confirmation, ConfirmationService, ConfirmEventType, Footer, PrimeTemplate, SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { Button } from '@wawjs/ngx-prime/button';
+import { Dialog } from '@wawjs/ngx-prime/dialog';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
+import { ConfirmDialogHeadlessTemplateContext, ConfirmDialogMessageTemplateContext, ConfirmDialogPassThrough } from '@wawjs/ngx-prime/types/confirmdialog';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogStyle } from './style/confirmdialogstyle';
 

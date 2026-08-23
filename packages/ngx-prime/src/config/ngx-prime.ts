@@ -1,5 +1,5 @@
 import { ElementRef, inject, PLATFORM_ID, Service, signal, TemplateRef } from '@angular/core';
-import { FilterMatchMode, OverlayOptions, Translation } from 'ngx-prime/api';
+import { FilterMatchMode, OverlayOptions, Translation } from '@wawjs/ngx-prime/api';
 import { Subject } from 'rxjs';
 import type { NgxPrimeConfigType, ThemeConfigType, ZIndex } from './ngx-prime.types';
 import { ThemeProvider } from './themeprovider';

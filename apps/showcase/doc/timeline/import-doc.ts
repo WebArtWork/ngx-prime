@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TimelineModule } from 'ngx-prime/timeline';`
+        typescript: `import { TimelineModule } from '@wawjs/ngx-prime/timeline';`
     };
 }

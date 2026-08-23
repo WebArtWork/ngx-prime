@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
-import { ToggleButtonChangeEvent } from 'ngx-prime/types/togglebutton';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
+import { ToggleButtonChangeEvent } from '@wawjs/ngx-prime/types/togglebutton';
 import { ToggleButtonDirective } from './nativetogglebutton';
 import { ToggleButton } from './togglebutton';
 

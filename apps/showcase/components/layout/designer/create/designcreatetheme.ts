@@ -6,9 +6,9 @@ import Aura from '@wawjs/css-prime-themes/aura';
 import Lara from '@wawjs/css-prime-themes/lara';
 import Material from '@wawjs/css-prime-themes/material';
 import Nora from '@wawjs/css-prime-themes/nora';
-import { MessageService } from 'ngx-prime/api';
-import { DividerModule } from 'ngx-prime/divider';
-import { FileUploadModule } from 'ngx-prime/fileupload';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { DividerModule } from '@wawjs/ngx-prime/divider';
+import { FileUploadModule } from '@wawjs/ngx-prime/fileupload';
 
 const presets = {
     Aura,

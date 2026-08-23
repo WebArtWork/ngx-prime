@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { TreeNode } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { of } from 'rxjs';
 import { TreeTable, TreeTableModule } from './treetable';
 

@@ -6,8 +6,8 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { TableModule } from 'ngx-prime/table';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { TableModule } from '@wawjs/ngx-prime/table';
 
 @Component({
     selector: 'app-celledit-doc',

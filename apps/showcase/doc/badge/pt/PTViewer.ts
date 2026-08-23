@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { BadgeModule } from 'ngx-prime/badge';
-import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { OverlayBadgeModule } from '@wawjs/ngx-prime/overlaybadge';
 
 @Component({
     selector: 'app-badge-pt-viewer',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'ngx-prime/multiselect';
-import { ButtonModule } from 'ngx-prime/button';
+import { MultiSelectModule } from '@wawjs/ngx-prime/multiselect';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

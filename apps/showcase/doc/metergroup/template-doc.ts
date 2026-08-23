@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { MeterGroupModule } from 'ngx-prime/metergroup';
-import { CardModule } from 'ngx-prime/card';
-import { ButtonModule } from 'ngx-prime/button';
+import { MeterGroupModule } from '@wawjs/ngx-prime/metergroup';
+import { CardModule } from '@wawjs/ngx-prime/card';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'ngx-prime/select';
-import { FloatLabelModule } from 'ngx-prime/floatlabel';
+import { SelectModule } from '@wawjs/ngx-prime/select';
+import { FloatLabelModule } from '@wawjs/ngx-prime/floatlabel';
 import { RouterModule } from '@angular/router';
 
 interface City {

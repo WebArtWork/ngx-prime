@@ -1,6 +1,6 @@
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { TagModule } from 'ngx-prime/tag';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-v21-deprecations-doc',

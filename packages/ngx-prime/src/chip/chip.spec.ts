@@ -2,8 +2,8 @@ import { Component, input, provideZonelessChangeDetection, signal } from '@angul
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'ngx-prime/api';
-import { ChipProps } from 'ngx-prime/types/chip';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { ChipProps } from '@wawjs/ngx-prime/types/chip';
 import { Chip, ChipModule } from './chip';
 
 @Component({

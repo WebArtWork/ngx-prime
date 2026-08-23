@@ -393,10 +393,10 @@ import Aura from '@wawjs/css-prime-themes/aura';
 import Lara from '@wawjs/css-prime-themes/lara';
 import Material from '@wawjs/css-prime-themes/material';
 import Nora from '@wawjs/css-prime-themes/nora';
-import { NgxPrime } from 'ngx-prime/config';
-import { SelectButtonModule } from 'ngx-prime/selectbutton';
-import { StyleClassModule } from 'ngx-prime/styleclass';
-import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { NgxPrime } from '@wawjs/ngx-prime/config';
+import { SelectButtonModule } from '@wawjs/ngx-prime/selectbutton';
+import { StyleClassModule } from '@wawjs/ngx-prime/styleclass';
+import { ToggleSwitchModule } from '@wawjs/ngx-prime/toggleswitch';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 
 const presets = {
@@ -1015,7 +1015,7 @@ const getAngularApp = (props: Props = {}) => {
 import { ${componentName} } from './app/${selector}';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
   export const appConfig: ApplicationConfig = {

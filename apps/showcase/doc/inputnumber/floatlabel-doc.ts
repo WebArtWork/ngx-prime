@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { InputNumberModule } from 'ngx-prime/inputnumber';
-import { FloatLabelModule } from 'ngx-prime/floatlabel';
+import { InputNumberModule } from '@wawjs/ngx-prime/inputnumber';
+import { FloatLabelModule } from '@wawjs/ngx-prime/floatlabel';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

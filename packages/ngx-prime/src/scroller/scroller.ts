@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, output, TemplateRef, ViewChild, ViewEncapsulation, viewChild, contentChild, contentChildren } from '@angular/core';
 import { findSingle, getHeight, getWidth, isTouchDevice, isVisible } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, ScrollerOptions, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { SpinnerIcon } from 'ngx-prime/icons';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import { PrimeTemplate, ScrollerOptions, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { SpinnerIcon } from '@wawjs/ngx-prime/icons';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
 import {
     ScrollerContentTemplateContext,
     ScrollerItemTemplateContext,
@@ -16,7 +16,7 @@ import {
     ScrollerScrollIndexChangeEvent,
     ScrollerToType,
     VirtualScrollerPassThrough
-} from 'ngx-prime/types/scroller';
+} from '@wawjs/ngx-prime/types/scroller';
 import { ScrollerStyle } from './style/scrollerstyle';
 
 const SCROLLER_INSTANCE = new InjectionToken<Scroller>('SCROLLER_INSTANCE');

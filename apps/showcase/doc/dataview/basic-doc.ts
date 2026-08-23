@@ -4,9 +4,9 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal, OnInit } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
-import { DataViewModule } from 'ngx-prime/dataview';
-import { TagModule } from 'ngx-prime/tag';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { DataViewModule } from '@wawjs/ngx-prime/dataview';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-basic-doc',

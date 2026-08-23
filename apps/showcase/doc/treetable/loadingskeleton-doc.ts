@@ -3,9 +3,9 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/core';
-import { TreeNode } from 'ngx-prime/api';
-import { SkeletonModule } from 'ngx-prime/skeleton';
-import { TreeTableModule } from 'ngx-prime/treetable';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { SkeletonModule } from '@wawjs/ngx-prime/skeleton';
+import { TreeTableModule } from '@wawjs/ngx-prime/treetable';
 
 @Component({
     selector: 'app-loadingskeleton-doc',

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { AvatarGroupModule } from 'ngx-prime/avatargroup';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { AvatarGroupModule } from '@wawjs/ngx-prime/avatargroup';
 
 @Component({
     selector: 'app-avatargroup-doc',

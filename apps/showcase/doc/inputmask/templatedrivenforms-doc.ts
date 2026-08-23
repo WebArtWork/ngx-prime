@@ -1,13 +1,13 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { FluidModule } from 'ngx-prime/fluid';
-import { InputMaskModule } from 'ngx-prime/inputmask';
-import { InputText } from 'ngx-prime/inputtext';
-import { MessageModule } from 'ngx-prime/message';
-import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { FluidModule } from '@wawjs/ngx-prime/fluid';
+import { InputMaskModule } from '@wawjs/ngx-prime/inputmask';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { MessageModule } from '@wawjs/ngx-prime/message';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-templatedrivenforms-doc',

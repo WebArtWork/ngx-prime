@@ -1,5 +1,5 @@
 {
-    "name": "ngx-prime",
+    "name": "@wawjs/ngx-prime",
     "version": "22.0.0",
     "author": "Web Art Work",
     "description": "ngx-prime is an independent MIT-licensed Angular UI component library continuing from the ngx-prime v21.1.9 codebase.",

@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { FieldsetModule } from 'ngx-prime/fieldset';
+import { FieldsetModule } from '@wawjs/ngx-prime/fieldset';
 
 @Component({
     selector: 'app-fieldset-pt-viewer',

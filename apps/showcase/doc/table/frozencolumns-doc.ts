@@ -6,8 +6,8 @@ import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'ngx-prime/table';
-import { ToggleButtonModule } from 'ngx-prime/togglebutton';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { ToggleButtonModule } from '@wawjs/ngx-prime/togglebutton';
 
 @Component({
     selector: 'app-frozencolumns-doc',

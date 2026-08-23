@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { TieredMenuModule } from 'ngx-prime/tieredmenu';
+import { TieredMenuModule } from '@wawjs/ngx-prime/tieredmenu';
 
 @Component({
     selector: 'app-tieredmenu-pt-viewer',

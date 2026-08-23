@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as buttongroup_style } from '@wawjs/css-prime-styles/buttongroup';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${buttongroup_style}

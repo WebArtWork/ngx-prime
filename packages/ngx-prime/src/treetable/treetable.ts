@@ -47,17 +47,17 @@ import {
     reorderArray,
     resolveFieldData
 } from '@wawjs/css-prime-utils';
-import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'ngx-prime/api';
-import { Badge, BadgeModule } from 'ngx-prime/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { Checkbox } from 'ngx-prime/checkbox';
-import { DomHandler } from 'ngx-prime/dom';
-import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from 'ngx-prime/icons';
-import { Paginator, PaginatorModule } from 'ngx-prime/paginator';
-import { Ripple } from 'ngx-prime/ripple';
-import { Scroller } from 'ngx-prime/scroller';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from '@wawjs/ngx-prime/api';
+import { Badge, BadgeModule } from '@wawjs/ngx-prime/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { Checkbox } from '@wawjs/ngx-prime/checkbox';
+import { DomHandler } from '@wawjs/ngx-prime/dom';
+import { ArrowDownIcon, ArrowUpIcon, CheckIcon, ChevronDownIcon, ChevronRightIcon, SortAltIcon, SortAmountDownIcon, SortAmountUpAltIcon, SpinnerIcon } from '@wawjs/ngx-prime/icons';
+import { Paginator, PaginatorModule } from '@wawjs/ngx-prime/paginator';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { Scroller } from '@wawjs/ngx-prime/scroller';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
 import {
     TreeTableBodyTemplateContext,
     TreeTableCheckboxIconTemplateContext,
@@ -80,7 +80,7 @@ import {
     TreeTableSortEvent,
     TreeTableSortIconTemplateContext,
     TreeTableTogglerIconTemplateContext
-} from 'ngx-prime/types/treetable';
+} from '@wawjs/ngx-prime/types/treetable';
 import { Subject, Subscription } from 'rxjs';
 import { TreeTableStyle } from './style/treetablestyle';
 

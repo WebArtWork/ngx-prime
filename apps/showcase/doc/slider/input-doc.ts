@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SliderModule } from 'ngx-prime/slider';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { SliderModule } from '@wawjs/ngx-prime/slider';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 

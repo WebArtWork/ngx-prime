@@ -10,8 +10,8 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ProgressBarModule } from 'ngx-prime/progressbar';
+        typescript: `import { ProgressBarModule } from '@wawjs/ngx-prime/progressbar';
 // For dynamic progressbar demo
-import { ToastModule } from 'ngx-prime/toast';`
+import { ToastModule } from '@wawjs/ngx-prime/toast';`
     };
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as password_style } from '@wawjs/css-prime-styles/password';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
 ${password_style}

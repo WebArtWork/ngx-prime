@@ -2,8 +2,8 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { Component, OnInit, signal, inject } from '@angular/core';
-import { TreeNode } from 'ngx-prime/api';
-import { TreeModule } from 'ngx-prime/tree';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { TreeModule } from '@wawjs/ngx-prime/tree';
 
 @Component({
     selector: 'app-basic-doc',

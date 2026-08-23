@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputGroup } from './inputgroup';
-import { InputGroupAddon } from 'ngx-prime/inputgroupaddon';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { InputGroupAddon } from '@wawjs/ngx-prime/inputgroupaddon';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 
 @Component({
     standalone: true,

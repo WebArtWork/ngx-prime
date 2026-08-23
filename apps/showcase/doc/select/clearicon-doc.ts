@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
-import { Select } from 'ngx-prime/select';
+import { Select } from '@wawjs/ngx-prime/select';
 
 interface City {
     name: string;

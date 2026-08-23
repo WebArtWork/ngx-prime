@@ -4,9 +4,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
-import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'ngx-prime/types/editor';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
+import type { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from '@wawjs/ngx-prime/types/editor';
 import { Editor } from './editor';
 // Test Components for different scenarios
 @Component({

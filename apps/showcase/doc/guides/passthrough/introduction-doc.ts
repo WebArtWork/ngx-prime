@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Panel, PanelModule, PanelPassThrough } from 'ngx-prime/panel';
+import { Panel, PanelModule, PanelPassThrough } from '@wawjs/ngx-prime/panel';
 
 @Component({
     selector: 'app-introduction-doc',

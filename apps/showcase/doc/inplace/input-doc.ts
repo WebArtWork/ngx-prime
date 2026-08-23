@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { InplaceModule } from 'ngx-prime/inplace';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { AutoFocusModule } from 'ngx-prime/autofocus';
-import { ButtonModule } from 'ngx-prime/button';
+import { InplaceModule } from '@wawjs/ngx-prime/inplace';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { AutoFocusModule } from '@wawjs/ngx-prime/autofocus';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

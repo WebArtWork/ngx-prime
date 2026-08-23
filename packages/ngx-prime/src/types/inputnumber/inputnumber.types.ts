@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
-import type { InputTextPassThrough } from 'ngx-prime/types/inputtext';
+import type { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
+import type { InputTextPassThrough } from '@wawjs/ngx-prime/types/inputtext';
 
 /**
  * Custom pass-through(pt) options.

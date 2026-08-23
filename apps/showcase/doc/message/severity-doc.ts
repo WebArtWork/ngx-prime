@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageModule } from 'ngx-prime/message';
+import { MessageModule } from '@wawjs/ngx-prime/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

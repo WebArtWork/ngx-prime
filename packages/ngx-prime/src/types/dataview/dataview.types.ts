@@ -1,6 +1,6 @@
-import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
+import type { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
 import { TemplateRef } from '@angular/core';
-import { PaginatorPassThrough } from 'ngx-prime/types/paginator';
+import { PaginatorPassThrough } from '@wawjs/ngx-prime/types/paginator';
 
 /**
  * Custom pass-through(pt) options.

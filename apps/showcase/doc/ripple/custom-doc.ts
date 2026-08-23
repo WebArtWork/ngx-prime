@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RippleModule } from 'ngx-prime/ripple';
+import { RippleModule } from '@wawjs/ngx-prime/ripple';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -10,6 +10,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BindModule } from 'ngx-prime/bind'`
+        typescript: `import { BindModule } from '@wawjs/ngx-prime/bind'`
     };
 }

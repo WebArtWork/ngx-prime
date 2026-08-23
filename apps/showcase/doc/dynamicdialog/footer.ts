@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { DynamicDialogRef } from 'ngx-prime/dynamicdialog';
-import { ButtonModule } from 'ngx-prime/button';
+import { DynamicDialogRef } from '@wawjs/ngx-prime/dynamicdialog';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'app-footer',

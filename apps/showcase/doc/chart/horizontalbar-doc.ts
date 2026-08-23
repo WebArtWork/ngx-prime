@@ -4,7 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ChartModule } from 'ngx-prime/chart';
+import { ChartModule } from '@wawjs/ngx-prime/chart';
 
 @Component({
     selector: 'app-horizontalbar-doc',

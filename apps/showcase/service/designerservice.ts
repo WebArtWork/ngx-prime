@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { $dt, usePreset } from '@wawjs/css-prime-styled';
 import Aura from '@wawjs/css-prime-themes/aura';
-import { MessageService } from 'ngx-prime/api';
+import { MessageService } from '@wawjs/ngx-prime/api';
 
 export interface Theme {
     key: string;

@@ -2,8 +2,8 @@ import { Component, provideZonelessChangeDetection, signal } from '@angular/core
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'ngx-prime/api';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from 'ngx-prime/types/autocomplete';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from '@wawjs/ngx-prime/types/autocomplete';
 import { BehaviorSubject } from 'rxjs';
 import { AUTOCOMPLETE_VALUE_ACCESSOR, AutoComplete, AutoCompleteModule } from './autocomplete';
 

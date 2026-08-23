@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { PaginatorModule, PaginatorState } from 'ngx-prime/paginator';
+import { PaginatorModule, PaginatorState } from '@wawjs/ngx-prime/paginator';
 
 @Component({
     selector: 'app-images-doc',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as rating_style } from '@wawjs/css-prime-styles/rating';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${rating_style}

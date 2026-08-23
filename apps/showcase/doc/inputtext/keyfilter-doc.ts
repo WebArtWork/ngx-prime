@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { KeyFilterModule } from 'ngx-prime/keyfilter';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { KeyFilterModule } from '@wawjs/ngx-prime/keyfilter';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

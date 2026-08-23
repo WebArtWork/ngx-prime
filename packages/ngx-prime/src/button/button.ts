@@ -1,15 +1,15 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, Directive, effect, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, findSingle, isEmpty } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { BadgeModule } from 'ngx-prime/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { Fluid } from 'ngx-prime/fluid';
-import { SpinnerIcon } from 'ngx-prime/icons';
-import { Ripple } from 'ngx-prime/ripple';
-import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from 'ngx-prime/types/button';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { Fluid } from '@wawjs/ngx-prime/fluid';
+import { SpinnerIcon } from '@wawjs/ngx-prime/icons';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import type { ButtonIconTemplateContext, ButtonLoadingIconTemplateContext, ButtonPassThrough, ButtonProps, ButtonSeverity } from '@wawjs/ngx-prime/types/button';
 import { ButtonStyle } from './style/buttonstyle';
 
 const BUTTON_INSTANCE = new InjectionToken<Button>('BUTTON_INSTANCE');

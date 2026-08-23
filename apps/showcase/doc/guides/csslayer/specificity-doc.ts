@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputSwitchModule } from 'ngx-prime/inputswitch';
+import { InputSwitchModule } from '@wawjs/ngx-prime/inputswitch';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

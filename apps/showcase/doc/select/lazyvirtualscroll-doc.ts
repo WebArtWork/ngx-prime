@@ -1,8 +1,8 @@
 import { AppCode } from '@/components/doc/app.code';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ScrollerOptions, SelectItem } from 'ngx-prime/api';
-import { SelectModule } from 'ngx-prime/select';
+import { ScrollerOptions, SelectItem } from '@wawjs/ngx-prime/api';
+import { SelectModule } from '@wawjs/ngx-prime/select';
 
 @Component({
     selector: 'app-lazyvirtualscroll-doc',

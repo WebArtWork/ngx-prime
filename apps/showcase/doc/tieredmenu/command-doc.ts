@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuItem, MessageService } from 'ngx-prime/api';
+import { MenuItem, MessageService } from '@wawjs/ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TieredMenuModule } from 'ngx-prime/tieredmenu';
-import { ToastModule } from 'ngx-prime/toast';
+import { TieredMenuModule } from '@wawjs/ngx-prime/tieredmenu';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-command-doc',

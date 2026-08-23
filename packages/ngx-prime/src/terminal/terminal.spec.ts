@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { Terminal } from './terminal';
 import { TerminalService } from './terminalservice';
 

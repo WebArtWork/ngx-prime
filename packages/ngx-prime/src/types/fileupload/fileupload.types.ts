@@ -1,10 +1,10 @@
 import { HttpEvent } from '@angular/common/http';
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
-import type { BadgePassThrough } from 'ngx-prime/types/badge';
-import type { ButtonPassThrough } from 'ngx-prime/types/button';
-import type { MessagePassThrough } from 'ngx-prime/types/message';
-import type { ProgressBarPassThrough } from 'ngx-prime/types/progressbar';
+import type { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
+import type { BadgePassThrough } from '@wawjs/ngx-prime/types/badge';
+import type { ButtonPassThrough } from '@wawjs/ngx-prime/types/button';
+import type { MessagePassThrough } from '@wawjs/ngx-prime/types/message';
+import type { ProgressBarPassThrough } from '@wawjs/ngx-prime/types/progressbar';
 
 /**
  * Custom pass-through(pt) options.

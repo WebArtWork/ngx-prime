@@ -4,7 +4,7 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { PickListModule } from 'ngx-prime/picklist';
+import { PickListModule } from '@wawjs/ngx-prime/picklist';
 
 @Component({
     selector: 'app-template-doc',

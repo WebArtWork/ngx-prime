@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AnimateOnScrollModule } from 'ngx-prime/animateonscroll';`
+        typescript: `import { AnimateOnScrollModule } from '@wawjs/ngx-prime/animateonscroll';`
     };
 }

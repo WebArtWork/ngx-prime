@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as inputgroup_style } from '@wawjs/css-prime-styles/inputgroup';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${inputgroup_style}

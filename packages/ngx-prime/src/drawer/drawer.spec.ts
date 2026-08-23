@@ -2,7 +2,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate } from 'ngx-prime/api';
+import { PrimeTemplate } from '@wawjs/ngx-prime/api';
 import { Drawer } from './drawer';
 
 @Component({

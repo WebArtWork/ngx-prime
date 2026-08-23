@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { PickListModule } from 'ngx-prime/picklist';
+import { PickListModule } from '@wawjs/ngx-prime/picklist';
 
 @Component({
     selector: 'app-basic-doc',

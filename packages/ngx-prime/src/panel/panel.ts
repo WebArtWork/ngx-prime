@@ -20,13 +20,13 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { uuid } from '@wawjs/css-prime-utils';
-import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { ButtonModule } from 'ngx-prime/button';
-import { MinusIcon, PlusIcon } from 'ngx-prime/icons';
-import { MotionModule } from 'ngx-prime/motion';
-import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from 'ngx-prime/types/panel';
+import { BlockableUI, Footer, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { MinusIcon, PlusIcon } from '@wawjs/ngx-prime/icons';
+import { MotionModule } from '@wawjs/ngx-prime/motion';
+import type { PanelAfterToggleEvent, PanelBeforeToggleEvent, PanelHeaderIconsTemplateContext, PanelPassThrough } from '@wawjs/ngx-prime/types/panel';
 import { PanelStyle } from './style/panelstyle';
 
 const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');

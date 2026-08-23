@@ -5,7 +5,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { FormField, form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { InputNumber, InputNumberModule } from './inputnumber';
 import { InputNumberDirective } from './nativeinputnumber';
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as panelmenu_style } from '@wawjs/css-prime-styles/panelmenu';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${panelmenu_style}

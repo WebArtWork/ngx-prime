@@ -10,7 +10,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { IconFieldModule } from 'ngx-prime/iconfield';
-import { InputIconModule } from 'ngx-prime/inputicon';`
+        typescript: `import { IconFieldModule } from '@wawjs/ngx-prime/iconfield';
+import { InputIconModule } from '@wawjs/ngx-prime/inputicon';`
     };
 }

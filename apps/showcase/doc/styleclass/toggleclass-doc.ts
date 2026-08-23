@@ -1,9 +1,9 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { StyleClassModule } from 'ngx-prime/styleclass';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { StyleClassModule } from '@wawjs/ngx-prime/styleclass';
 
 @Component({
     selector: 'app-toggleclass-doc',

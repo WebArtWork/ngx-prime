@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MessageService } from 'ngx-prime/api';
+import { MessageService } from '@wawjs/ngx-prime/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'ngx-prime/button';
-import { MessageModule } from 'ngx-prime/message';
-import { TextareaModule } from 'ngx-prime/textarea';
-import { ToastModule } from 'ngx-prime/toast';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { MessageModule } from '@wawjs/ngx-prime/message';
+import { TextareaModule } from '@wawjs/ngx-prime/textarea';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-reactiveforms-doc',

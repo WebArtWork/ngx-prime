@@ -4,9 +4,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MessageService, TreeNode } from 'ngx-prime/api';
-import { ToastModule } from 'ngx-prime/toast';
-import { TreeTableModule } from 'ngx-prime/treetable';
+import { MessageService, TreeNode } from '@wawjs/ngx-prime/api';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { TreeTableModule } from '@wawjs/ngx-prime/treetable';
 
 interface Column {
     field: string;

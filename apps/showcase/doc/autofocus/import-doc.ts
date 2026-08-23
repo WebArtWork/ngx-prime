@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AutoFocusModule } from 'ngx-prime/autofocus';`
+        typescript: `import { AutoFocusModule } from '@wawjs/ngx-prime/autofocus';`
     };
 }

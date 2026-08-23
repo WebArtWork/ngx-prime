@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ClassNamesModule } from 'ngx-prime/classnames';
-import { ScrollerModule } from 'ngx-prime/scroller';
+import { ClassNamesModule } from '@wawjs/ngx-prime/classnames';
+import { ScrollerModule } from '@wawjs/ngx-prime/scroller';
 
 @Component({
     selector: 'app-scroller-pt-viewer',

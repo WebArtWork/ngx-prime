@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as stepper_style } from '@wawjs/css-prime-styles/stepper';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
 ${stepper_style}

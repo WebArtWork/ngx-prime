@@ -10,6 +10,6 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { InputOtpModule } from 'ngx-prime/inputotp';`
+        typescript: `import { InputOtpModule } from '@wawjs/ngx-prime/inputotp';`
     };
 }

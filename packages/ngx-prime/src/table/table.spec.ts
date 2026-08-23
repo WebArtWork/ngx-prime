@@ -4,8 +4,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'ngx-prime/api';
-import { Select } from 'ngx-prime/select';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { Select } from '@wawjs/ngx-prime/select';
 import { Table, TableModule, TableService } from './table';
 
 describe('Table', () => {

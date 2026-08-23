@@ -2,8 +2,8 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectItem } from 'ngx-prime/api';
-import { SelectModule } from 'ngx-prime/select';
+import { SelectItem } from '@wawjs/ngx-prime/api';
+import { SelectModule } from '@wawjs/ngx-prime/select';
 
 @Component({
     selector: 'app-virtualscroll-doc',

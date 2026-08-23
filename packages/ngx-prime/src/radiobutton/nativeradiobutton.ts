@@ -1,9 +1,9 @@
 import { booleanAttribute, computed, Directive, ElementRef, effect, forwardRef, inject, input, numberAttribute, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals } from '@wawjs/css-prime-utils';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind } from 'ngx-prime/bind';
-import type { RadioButtonClickEvent, RadioButtonPassThrough } from 'ngx-prime/types/radiobutton';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import type { RadioButtonClickEvent, RadioButtonPassThrough } from '@wawjs/ngx-prime/types/radiobutton';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 
 /**

@@ -2,8 +2,8 @@ import { NodeService } from '@/service/nodeservice';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TreeSelectModule } from 'ngx-prime/treeselect';
-import { FloatLabelModule } from 'ngx-prime/floatlabel';
+import { TreeSelectModule } from '@wawjs/ngx-prime/treeselect';
+import { FloatLabelModule } from '@wawjs/ngx-prime/floatlabel';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

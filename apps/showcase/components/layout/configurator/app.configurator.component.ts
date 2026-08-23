@@ -8,11 +8,11 @@ import Aura from '@wawjs/css-prime-themes/aura';
 import Lara from '@wawjs/css-prime-themes/lara';
 import Material from '@wawjs/css-prime-themes/material';
 import Nora from '@wawjs/css-prime-themes/nora';
-import { ButtonModule } from 'ngx-prime/button';
-import { NgxPrime } from 'ngx-prime/config';
-import { RadioButtonModule } from 'ngx-prime/radiobutton';
-import { SelectButton } from 'ngx-prime/selectbutton';
-import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { NgxPrime } from '@wawjs/ngx-prime/config';
+import { RadioButtonModule } from '@wawjs/ngx-prime/radiobutton';
+import { SelectButton } from '@wawjs/ngx-prime/selectbutton';
+import { ToggleSwitchModule } from '@wawjs/ngx-prime/toggleswitch';
 
 const presets = {
     Aura,

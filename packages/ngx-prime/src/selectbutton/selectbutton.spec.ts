@@ -4,8 +4,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { SelectButtonDirective, SelectButtonOptionDirective } from './nativeselectbutton';
 import { SelectButton, SelectButtonModule } from './selectbutton';
 

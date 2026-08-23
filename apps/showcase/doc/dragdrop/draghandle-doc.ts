@@ -1,8 +1,8 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { DragDropModule } from 'ngx-prime/dragdrop';
-import { PanelModule } from 'ngx-prime/panel';
+import { DragDropModule } from '@wawjs/ngx-prime/dragdrop';
+import { PanelModule } from '@wawjs/ngx-prime/panel';
 
 @Component({
     selector: 'app-draghandle-doc',

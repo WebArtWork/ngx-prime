@@ -1,9 +1,9 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChildren, inject, InjectionToken, input, NgModule, QueryList, TemplateRef, ViewEncapsulation, contentChild } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { ImageComparePassThrough } from 'ngx-prime/types/imagecompare';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { ImageComparePassThrough } from '@wawjs/ngx-prime/types/imagecompare';
 import { ImageCompareStyle } from './style/imagecomparestyle';
 
 const IMAGECOMPARE_INSTANCE = new InjectionToken<ImageCompare>('IMAGECOMPARE_INSTANCE');

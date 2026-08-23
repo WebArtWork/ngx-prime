@@ -18,7 +18,7 @@ export class RuntimeDoc {
     code: Code = {
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { NgxPrime } from 'ngx-prime/config';
+import { NgxPrime } from '@wawjs/ngx-prime/config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

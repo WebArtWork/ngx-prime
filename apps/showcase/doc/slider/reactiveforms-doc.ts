@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MessageService } from 'ngx-prime/api';
-import { SliderModule } from 'ngx-prime/slider';
-import { ToastModule } from 'ngx-prime/toast';
-import { MessageModule } from 'ngx-prime/message';
-import { ButtonModule } from 'ngx-prime/button';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { SliderModule } from '@wawjs/ngx-prime/slider';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { MessageModule } from '@wawjs/ngx-prime/message';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';

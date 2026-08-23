@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MultiSelectModule } from 'ngx-prime/multiselect';
-import { FloatLabelModule } from 'ngx-prime/floatlabel';
+import { MultiSelectModule } from '@wawjs/ngx-prime/multiselect';
+import { FloatLabelModule } from '@wawjs/ngx-prime/floatlabel';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

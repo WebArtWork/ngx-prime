@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { PanelModule } from 'ngx-prime/panel';
+import { PanelModule } from '@wawjs/ngx-prime/panel';
 
 @Component({
     selector: 'app-basic-doc',

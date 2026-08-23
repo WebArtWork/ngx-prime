@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'ngx-prime/metergroup';
+import { MeterGroupModule } from '@wawjs/ngx-prime/metergroup';
 
 @Component({
     selector: 'app-metergroup-pt-viewer',

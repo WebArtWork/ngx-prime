@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuItem, MessageService } from 'ngx-prime/api';
-import { MenuModule } from 'ngx-prime/menu';
+import { MenuItem, MessageService } from '@wawjs/ngx-prime/api';
+import { MenuModule } from '@wawjs/ngx-prime/menu';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

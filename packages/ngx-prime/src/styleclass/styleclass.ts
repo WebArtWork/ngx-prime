@@ -1,6 +1,6 @@
 import { booleanAttribute, Directive, ElementRef, input, NgModule, NgZone, OnDestroy, Renderer2, inject } from '@angular/core';
 import { addClass, getTargetElement, hasClass, isElement, removeClass } from '@wawjs/css-prime-utils';
-import { VoidListener } from 'ngx-prime/ts-helpers';
+import { VoidListener } from '@wawjs/ngx-prime/ts-helpers';
 
 /**
  * StyleClass manages css classes declaratively to during enter/leave animations or just to toggle classes on an element.

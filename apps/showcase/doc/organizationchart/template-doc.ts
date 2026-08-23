@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { TreeNode } from 'ngx-prime/api';
-import { OrganizationChartModule } from 'ngx-prime/organizationchart';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { OrganizationChartModule } from '@wawjs/ngx-prime/organizationchart';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

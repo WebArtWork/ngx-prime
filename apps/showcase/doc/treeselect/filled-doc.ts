@@ -1,7 +1,7 @@
 import { NodeService } from '@/service/nodeservice';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'ngx-prime/treeselect';
+import { TreeSelectModule } from '@wawjs/ngx-prime/treeselect';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

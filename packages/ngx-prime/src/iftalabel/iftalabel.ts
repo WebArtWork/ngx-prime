@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, ChangeDetectionStrategy, Component, inject, InjectionToken, NgModule, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { IftaLabelPassThrough } from 'ngx-prime/types/iftalabel';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { IftaLabelPassThrough } from '@wawjs/ngx-prime/types/iftalabel';
 import { IftaLabelStyle } from './style/iftalabelstyle';
 
 const IFTALABEL_INSTANCE = new InjectionToken<IftaLabel>('IFTALABEL_INSTANCE');

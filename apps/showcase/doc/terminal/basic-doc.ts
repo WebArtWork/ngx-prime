@@ -1,6 +1,6 @@
 import { Component, OnDestroy, inject } from '@angular/core';
-import { TerminalService } from 'ngx-prime/terminal';
-import { TerminalModule } from 'ngx-prime/terminal';
+import { TerminalService } from '@wawjs/ngx-prime/terminal';
+import { TerminalModule } from '@wawjs/ngx-prime/terminal';
 import { Subscription } from 'rxjs';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';

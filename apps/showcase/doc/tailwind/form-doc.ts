@@ -3,10 +3,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DatePickerModule } from 'ngx-prime/datepicker';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { SelectModule } from 'ngx-prime/select';
-import { TextareaModule } from 'ngx-prime/textarea';
+import { DatePickerModule } from '@wawjs/ngx-prime/datepicker';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { SelectModule } from '@wawjs/ngx-prime/select';
+import { TextareaModule } from '@wawjs/ngx-prime/textarea';
 
 @Component({
     selector: 'app-form-doc',

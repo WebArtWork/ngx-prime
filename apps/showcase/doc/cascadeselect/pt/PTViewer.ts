@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'ngx-prime/cascadeselect';
+import { CascadeSelectModule } from '@wawjs/ngx-prime/cascadeselect';
 
 @Component({
     selector: 'app-cascadeselect-pt-viewer',

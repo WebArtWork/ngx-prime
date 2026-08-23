@@ -4,11 +4,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NgForm, NgModel, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { BehaviorSubject, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { MultiSelect, MultiSelectModule } from './multiselect';
-import type { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFocusEvent } from 'ngx-prime/types/multiselect';
+import type { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFocusEvent } from '@wawjs/ngx-prime/types/multiselect';
 interface City {
     name: string;
     code: string;

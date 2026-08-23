@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Directive, effect, inject, NgModule, NgZone } from '@angular/core';
 import { addClass, getHeight, getOffset, getOuterHeight, getOuterWidth, getWidth, removeClass, remove as utils_remove } from '@wawjs/css-prime-utils';
-import { BaseComponent } from 'ngx-prime/basecomponent';
-import { VoidListener } from 'ngx-prime/ts-helpers';
+import { BaseComponent } from '@wawjs/ngx-prime/basecomponent';
+import { VoidListener } from '@wawjs/ngx-prime/ts-helpers';
 import { RippleStyle } from './style/ripplestyle';
 
 /**

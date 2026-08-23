@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection, inject as inject_1 } from '@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ConfirmationService, OverlayService } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { FocusTrap } from 'ngx-prime/focustrap';
+import { ConfirmationService, OverlayService } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { FocusTrap } from '@wawjs/ngx-prime/focustrap';
 import { ConfirmPopup } from './confirmpopup';
 
 // Basic ConfirmPopup Component Test

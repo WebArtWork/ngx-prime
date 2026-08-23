@@ -19,12 +19,12 @@ import {
     contentChildren
 } from '@angular/core';
 import { addClass, find, findSingle, getAttribute, removeClass, setAttribute, uuid } from '@wawjs/css-prime-utils';
-import { Footer, Header, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { ButtonModule, ButtonProps } from 'ngx-prime/button';
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from 'ngx-prime/icons';
-import { CarouselItemTemplateContext, CarouselPageEvent, CarouselResponsiveOptions } from 'ngx-prime/types/carousel';
+import { Footer, Header, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { ButtonModule, ButtonProps } from '@wawjs/ngx-prime/button';
+import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon } from '@wawjs/ngx-prime/icons';
+import { CarouselItemTemplateContext, CarouselPageEvent, CarouselResponsiveOptions } from '@wawjs/ngx-prime/types/carousel';
 import { CarouselStyle } from './style/carouselstyle';
 
 /**

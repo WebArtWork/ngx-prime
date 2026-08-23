@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-import { MessageService } from 'ngx-prime/api';
-import { CheckboxModule } from 'ngx-prime/checkbox';
-import { ButtonModule } from 'ngx-prime/button';
-import { ToastModule } from 'ngx-prime/toast';
-import { MessageModule } from 'ngx-prime/message';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { CheckboxModule } from '@wawjs/ngx-prime/checkbox';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { MessageModule } from '@wawjs/ngx-prime/message';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

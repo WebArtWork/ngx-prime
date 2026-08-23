@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RangeDirective } from 'ngx-prime/slider';
+import { RangeDirective } from '@wawjs/ngx-prime/slider';
 
 @Component({
     selector: 'app-slider-native-doc',

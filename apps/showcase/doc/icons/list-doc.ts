@@ -2,7 +2,7 @@ import { default as IconData } from '@/assets/data/icons.json';
 
 import { Component, OnInit } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-list-doc',

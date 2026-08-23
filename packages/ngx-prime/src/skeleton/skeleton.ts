@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { SkeletonPassThrough } from 'ngx-prime/types/skeleton';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { SkeletonPassThrough } from '@wawjs/ngx-prime/types/skeleton';
 import { SkeletonStyle } from './style/skeletonstyle';
 
 const SKELETON_INSTANCE = new InjectionToken<Skeleton>('SKELETON_INSTANCE');

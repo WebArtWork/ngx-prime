@@ -1,10 +1,10 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component, OnInit } from '@angular/core';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { ButtonModule } from 'ngx-prime/button';
-import { MenuModule } from 'ngx-prime/menu';
-import { PanelModule } from 'ngx-prime/panel';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { MenuModule } from '@wawjs/ngx-prime/menu';
+import { PanelModule } from '@wawjs/ngx-prime/panel';
 
 @Component({
     selector: 'app-template-doc',

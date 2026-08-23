@@ -48,16 +48,16 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { getUserAgent, isClient } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseInput } from 'ngx-prime/baseinput';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { TimesIcon } from 'ngx-prime/icons';
-import { InputText } from 'ngx-prime/inputtext';
-import { Nullable } from 'ngx-prime/ts-helpers';
-import type { Caret } from 'ngx-prime/types/inputmask';
-import { InputMaskPassThrough } from 'ngx-prime/types/inputmask';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseInput } from '@wawjs/ngx-prime/baseinput';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { TimesIcon } from '@wawjs/ngx-prime/icons';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
+import type { Caret } from '@wawjs/ngx-prime/types/inputmask';
+import { InputMaskPassThrough } from '@wawjs/ngx-prime/types/inputmask';
 import { InputMaskStyle } from './style/inputmaskstyle';
 
 const INPUTMASK_INSTANCE = new InjectionToken<InputMask>('INPUTMASK_INSTANCE');

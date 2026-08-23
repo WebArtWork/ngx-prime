@@ -10,6 +10,6 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { MeterGroupModule } from 'ngx-prime/metergroup';`
+        typescript: `import { MeterGroupModule } from '@wawjs/ngx-prime/metergroup';`
     };
 }

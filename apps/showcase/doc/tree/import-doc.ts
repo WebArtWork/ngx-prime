@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TreeModule } from 'ngx-prime/tree';`
+        typescript: `import { TreeModule } from '@wawjs/ngx-prime/tree';`
     };
 }

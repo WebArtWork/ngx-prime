@@ -4,8 +4,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, Component, ViewChild, inject } from '@angular/core';
-import { SortEvent } from 'ngx-prime/api';
-import { Table, TableModule } from 'ngx-prime/table';
+import { SortEvent } from '@wawjs/ngx-prime/api';
+import { Table, TableModule } from '@wawjs/ngx-prime/table';
 
 @Component({
     selector: 'app-removablesort-doc',

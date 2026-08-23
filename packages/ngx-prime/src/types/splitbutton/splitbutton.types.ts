@@ -1,7 +1,7 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
-import type { ButtonPassThrough } from 'ngx-prime/types/button';
-import { MenuPassThrough } from 'ngx-prime/types/menu';
+import type { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
+import type { ButtonPassThrough } from '@wawjs/ngx-prime/types/button';
+import { MenuPassThrough } from '@wawjs/ngx-prime/types/menu';
 
 /**
  * Custom pass-through(pt) options.

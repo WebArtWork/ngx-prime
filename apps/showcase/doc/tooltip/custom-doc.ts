@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'ngx-prime/button';
-import { TooltipModule } from 'ngx-prime/tooltip';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
 
 @Component({
     selector: 'app-custom-doc',

@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'ngx-prime/api';
-import { CheckboxChangeEvent } from 'ngx-prime/types/checkbox';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { CheckboxChangeEvent } from '@wawjs/ngx-prime/types/checkbox';
 import { Checkbox } from './checkbox';
 import { CheckboxContainerDirective, CheckboxDirective, CheckboxIconDirective } from './nativecheckbox';
 

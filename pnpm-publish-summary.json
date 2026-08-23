@@ -1,12 +1,2696 @@
 {
 	"publishedPackages": [
 		{
-			"name": "@ngx-prime/mcp",
-			"version": "21.1.9"
+			"id": "@wawjs/ngx-prime-mcp@22.0.0",
+			"name": "@wawjs/ngx-prime-mcp",
+			"version": "22.0.0",
+			"size": 359174,
+			"unpackedSize": 2926817,
+			"shasum": "b60497a5883726f64521249c7d90b49e5b921f32",
+			"integrity": "sha512-inPJCG80h6CwvUPbPFz9WaaHo/OPjQmU7e1dkPf28gbrryceWeS88HUD6tsIIC5KCf47y8sCLpHuL/AXmlMxWw==",
+			"filename": "wawjs-ngx-prime-mcp-22.0.0.tgz",
+			"files": [
+				{
+					"path": "dist/index.d.ts"
+				},
+				{
+					"path": "dist/index.js"
+				},
+				{
+					"path": "LICENSE.md"
+				},
+				{
+					"path": "package.json"
+				},
+				{
+					"path": "README.md"
+				}
+			],
+			"entryCount": 5,
+			"bundled": []
 		},
 		{
-			"name": "ngx-prime",
-			"version": "21.1.9"
+			"id": "@wawjs/ngx-prime@22.0.0",
+			"name": "@wawjs/ngx-prime",
+			"version": "22.0.0",
+			"size": 2053001,
+			"unpackedSize": 13240972,
+			"shasum": "69ae21e1e29a00099fd61430c6b294c64a5aba20",
+			"integrity": "sha512-mS17byuCEkflJC85bVe7RoS9lcWpt7xl0PyZW3OtSU+0c1z8GtFB180HVtSYJwAkbPHRV9WPrTo7IyLjwpLT1Q==",
+			"filename": "wawjs-ngx-prime-22.0.0.tgz",
+			"files": [
+				{
+					"path": "fesm2022/wawjs-ngx-prime-accordion.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-accordion.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-animateonscroll.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-animateonscroll.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-api.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-api.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-autocomplete.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-autocomplete.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-autofocus.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-autofocus.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-avatar.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-avatar.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-avatargroup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-avatargroup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-badge.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-badge.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-base.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-base.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-basecomponent.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-basecomponent.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-baseeditableholder.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-baseeditableholder.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-baseinput.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-baseinput.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-basemodelholder.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-basemodelholder.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-bind.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-bind.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-blockui.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-blockui.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-breadcrumb.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-breadcrumb.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-button.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-button.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-buttongroup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-buttongroup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-card.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-card.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-carousel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-carousel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-cascadeselect.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-cascadeselect.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-chart.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-chart.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-checkbox.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-checkbox.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-chip.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-chip.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-classnames.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-classnames.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-colorpicker.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-colorpicker.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-config.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-config.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-confirmdialog.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-confirmdialog.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-confirmpopup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-confirmpopup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-contextmenu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-contextmenu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dataview.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dataview.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-datepicker.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-datepicker.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dialog.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dialog.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-divider.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-divider.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dock.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dock.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dom.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dom.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dragdrop.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dragdrop.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-drawer.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-drawer.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dynamicdialog.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-dynamicdialog.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-editor.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-editor.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-fieldset.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-fieldset.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-fileupload.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-fileupload.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-floatlabel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-floatlabel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-fluid.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-fluid.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-focustrap.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-focustrap.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-galleria.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-galleria.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-iconfield.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-iconfield.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledoubledown.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledoubledown.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledoubleleft.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledoubleleft.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledoubleright.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledoubleright.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledoubleup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledoubleup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledown.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angledown.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angleleft.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angleleft.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angleright.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angleright.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angleup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-angleup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowdown.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowdown.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowdownleft.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowdownleft.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowdownright.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowdownright.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowleft.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowleft.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowright.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowright.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-arrowup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-ban.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-ban.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-bars.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-bars.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-baseicon.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-baseicon.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-blank.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-blank.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-calendar.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-calendar.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-caretleft.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-caretleft.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-caretright.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-caretright.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-check.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-check.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-chevrondown.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-chevrondown.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-chevronleft.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-chevronleft.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-chevronright.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-chevronright.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-chevronup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-chevronup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-exclamationtriangle.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-exclamationtriangle.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-eye.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-eye.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-eyeslash.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-eyeslash.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-filter.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-filter.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-filterfill.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-filterfill.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-filterslash.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-filterslash.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-home.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-home.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-infocircle.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-infocircle.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-minus.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-minus.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-pencil.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-pencil.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-plus.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-plus.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-refresh.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-refresh.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-search.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-search.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-searchminus.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-searchminus.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-searchplus.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-searchplus.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-sortalt.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-sortalt.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-sortamountdown.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-sortamountdown.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-sortamountupalt.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-sortamountupalt.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-spinner.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-spinner.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-star.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-star.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-starfill.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-starfill.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-thlarge.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-thlarge.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-times.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-times.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-timescircle.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-timescircle.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-trash.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-trash.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-undo.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-undo.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-upload.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-upload.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-windowmaximize.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-windowmaximize.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-windowminimize.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons-windowminimize.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icons.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-iftalabel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-iftalabel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-image.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-image.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-imagecompare.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-imagecompare.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inplace.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inplace.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputgroup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputgroup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputgroupaddon.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputgroupaddon.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputicon.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputicon.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputmask.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputmask.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputnumber.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputnumber.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputotp.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputotp.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputtext.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-inputtext.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-keyfilter.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-keyfilter.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-knob.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-knob.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-listbox.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-listbox.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-megamenu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-megamenu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-menu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-menu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-menubar.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-menubar.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-message.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-message.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-metergroup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-metergroup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-motion.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-motion.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-multiselect.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-multiselect.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-orderlist.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-orderlist.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-organizationchart.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-organizationchart.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-overlay.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-overlay.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-overlaybadge.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-overlaybadge.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-paginator.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-paginator.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-panel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-panel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-panelmenu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-panelmenu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-passthrough.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-passthrough.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-password.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-password.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-picklist.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-picklist.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-popover.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-popover.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-progressbar.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-progressbar.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-progressspinner.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-progressspinner.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-radiobutton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-radiobutton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-rating.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-rating.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-ripple.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-ripple.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-scroller.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-scroller.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-scrollpanel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-scrollpanel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-scrolltop.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-scrolltop.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-select.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-select.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-selectbutton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-selectbutton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-skeleton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-skeleton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-slider.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-slider.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-speeddial.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-speeddial.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-splitbutton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-splitbutton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-splitter.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-splitter.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-stepper.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-stepper.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-steps.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-steps.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-styleclass.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-styleclass.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-table.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-table.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tabs.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tabs.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tag.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tag.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-terminal.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-terminal.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-textarea.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-textarea.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tieredmenu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tieredmenu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-timeline.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-timeline.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-toast.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-toast.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-togglebutton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-togglebutton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-toggleswitch.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-toggleswitch.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-toolbar.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-toolbar.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tooltip.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tooltip.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tree.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-tree.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-treeselect.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-treeselect.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-treetable.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-treetable.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-ts-helpers.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-ts-helpers.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-accordion.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-accordion.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-autocomplete.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-autocomplete.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-avatar.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-avatar.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-avatargroup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-avatargroup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-badge.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-badge.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-blockui.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-blockui.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-breadcrumb.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-breadcrumb.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-button.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-button.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-card.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-card.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-carousel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-carousel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-cascadeselect.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-cascadeselect.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-chart.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-chart.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-checkbox.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-checkbox.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-chip.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-chip.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-colorpicker.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-colorpicker.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-confirmdialog.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-confirmdialog.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-confirmpopup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-confirmpopup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-contextmenu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-contextmenu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-dataview.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-dataview.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-datepicker.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-datepicker.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-dialog.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-dialog.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-divider.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-divider.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-dock.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-dock.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-drawer.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-drawer.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-editor.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-editor.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-fieldset.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-fieldset.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-fileupload.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-fileupload.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-floatlabel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-floatlabel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-fluid.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-fluid.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-galleria.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-galleria.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-iconfield.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-iconfield.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-iftalabel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-iftalabel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-image.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-image.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-imagecompare.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-imagecompare.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inplace.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inplace.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputgroup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputgroup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputgroupaddon.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputgroupaddon.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputicon.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputicon.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputmask.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputmask.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputnumber.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputnumber.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputotp.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputotp.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputtext.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-inputtext.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-knob.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-knob.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-listbox.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-listbox.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-megamenu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-megamenu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-menu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-menu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-menubar.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-menubar.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-message.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-message.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-metergroup.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-metergroup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-motion.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-motion.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-multiselect.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-multiselect.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-orderlist.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-orderlist.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-organizationchart.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-organizationchart.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-overlay.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-overlay.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-overlaybadge.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-overlaybadge.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-paginator.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-paginator.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-panel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-panel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-panelmenu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-panelmenu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-password.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-password.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-picklist.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-picklist.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-popover.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-popover.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-progressbar.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-progressbar.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-progressspinner.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-progressspinner.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-radiobutton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-radiobutton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-rating.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-rating.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-scroller.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-scroller.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-scrollpanel.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-scrollpanel.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-scrolltop.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-scrolltop.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-select.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-select.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-selectbutton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-selectbutton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-skeleton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-skeleton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-slider.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-slider.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-speeddial.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-speeddial.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-splitbutton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-splitbutton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-splitter.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-splitter.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-stepper.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-stepper.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-table.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-table.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tabs.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tabs.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tag.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tag.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-terminal.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-terminal.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-textarea.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-textarea.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tieredmenu.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tieredmenu.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-timeline.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-timeline.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-toast.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-toast.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-togglebutton.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-togglebutton.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-toggleswitch.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-toggleswitch.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-toolbar.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-toolbar.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tooltip.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tooltip.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tree.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-tree.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-treeselect.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-treeselect.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-treetable.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-treetable.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-usestyle.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-usestyle.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-utils.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-utils.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime.mjs.map"
+				},
+				{
+					"path": "LICENSE"
+				},
+				{
+					"path": "package.json"
+				},
+				{
+					"path": "README.md"
+				},
+				{
+					"path": "types/accordion/package.json"
+				},
+				{
+					"path": "types/autocomplete/package.json"
+				},
+				{
+					"path": "types/avatar/package.json"
+				},
+				{
+					"path": "types/avatargroup/package.json"
+				},
+				{
+					"path": "types/badge/package.json"
+				},
+				{
+					"path": "types/blockui/package.json"
+				},
+				{
+					"path": "types/breadcrumb/package.json"
+				},
+				{
+					"path": "types/button/package.json"
+				},
+				{
+					"path": "types/card/package.json"
+				},
+				{
+					"path": "types/carousel/package.json"
+				},
+				{
+					"path": "types/cascadeselect/package.json"
+				},
+				{
+					"path": "types/chart/package.json"
+				},
+				{
+					"path": "types/checkbox/package.json"
+				},
+				{
+					"path": "types/chip/package.json"
+				},
+				{
+					"path": "types/colorpicker/package.json"
+				},
+				{
+					"path": "types/confirmdialog/package.json"
+				},
+				{
+					"path": "types/confirmpopup/package.json"
+				},
+				{
+					"path": "types/contextmenu/package.json"
+				},
+				{
+					"path": "types/dataview/package.json"
+				},
+				{
+					"path": "types/datepicker/package.json"
+				},
+				{
+					"path": "types/dialog/package.json"
+				},
+				{
+					"path": "types/divider/package.json"
+				},
+				{
+					"path": "types/dock/package.json"
+				},
+				{
+					"path": "types/drawer/package.json"
+				},
+				{
+					"path": "types/editor/package.json"
+				},
+				{
+					"path": "types/fieldset/package.json"
+				},
+				{
+					"path": "types/fileupload/package.json"
+				},
+				{
+					"path": "types/floatlabel/package.json"
+				},
+				{
+					"path": "types/fluid/package.json"
+				},
+				{
+					"path": "types/galleria/package.json"
+				},
+				{
+					"path": "types/iconfield/package.json"
+				},
+				{
+					"path": "types/iftalabel/package.json"
+				},
+				{
+					"path": "types/image/package.json"
+				},
+				{
+					"path": "types/imagecompare/package.json"
+				},
+				{
+					"path": "types/inplace/package.json"
+				},
+				{
+					"path": "types/inputgroup/package.json"
+				},
+				{
+					"path": "types/inputgroupaddon/package.json"
+				},
+				{
+					"path": "types/inputicon/package.json"
+				},
+				{
+					"path": "types/inputmask/package.json"
+				},
+				{
+					"path": "types/inputnumber/package.json"
+				},
+				{
+					"path": "types/inputotp/package.json"
+				},
+				{
+					"path": "types/inputtext/package.json"
+				},
+				{
+					"path": "types/knob/package.json"
+				},
+				{
+					"path": "types/listbox/package.json"
+				},
+				{
+					"path": "types/megamenu/package.json"
+				},
+				{
+					"path": "types/menu/package.json"
+				},
+				{
+					"path": "types/menubar/package.json"
+				},
+				{
+					"path": "types/message/package.json"
+				},
+				{
+					"path": "types/metergroup/package.json"
+				},
+				{
+					"path": "types/motion/package.json"
+				},
+				{
+					"path": "types/multiselect/package.json"
+				},
+				{
+					"path": "types/orderlist/package.json"
+				},
+				{
+					"path": "types/organizationchart/package.json"
+				},
+				{
+					"path": "types/overlay/package.json"
+				},
+				{
+					"path": "types/overlaybadge/package.json"
+				},
+				{
+					"path": "types/paginator/package.json"
+				},
+				{
+					"path": "types/panel/package.json"
+				},
+				{
+					"path": "types/panelmenu/package.json"
+				},
+				{
+					"path": "types/password/package.json"
+				},
+				{
+					"path": "types/picklist/package.json"
+				},
+				{
+					"path": "types/popover/package.json"
+				},
+				{
+					"path": "types/progressbar/package.json"
+				},
+				{
+					"path": "types/progressspinner/package.json"
+				},
+				{
+					"path": "types/radiobutton/package.json"
+				},
+				{
+					"path": "types/rating/package.json"
+				},
+				{
+					"path": "types/scroller/package.json"
+				},
+				{
+					"path": "types/scrollpanel/package.json"
+				},
+				{
+					"path": "types/scrolltop/package.json"
+				},
+				{
+					"path": "types/select/package.json"
+				},
+				{
+					"path": "types/selectbutton/package.json"
+				},
+				{
+					"path": "types/skeleton/package.json"
+				},
+				{
+					"path": "types/slider/package.json"
+				},
+				{
+					"path": "types/speeddial/package.json"
+				},
+				{
+					"path": "types/splitbutton/package.json"
+				},
+				{
+					"path": "types/splitter/package.json"
+				},
+				{
+					"path": "types/stepper/package.json"
+				},
+				{
+					"path": "types/table/package.json"
+				},
+				{
+					"path": "types/tabs/package.json"
+				},
+				{
+					"path": "types/tag/package.json"
+				},
+				{
+					"path": "types/terminal/package.json"
+				},
+				{
+					"path": "types/textarea/package.json"
+				},
+				{
+					"path": "types/tieredmenu/package.json"
+				},
+				{
+					"path": "types/timeline/package.json"
+				},
+				{
+					"path": "types/toast/package.json"
+				},
+				{
+					"path": "types/togglebutton/package.json"
+				},
+				{
+					"path": "types/toggleswitch/package.json"
+				},
+				{
+					"path": "types/toolbar/package.json"
+				},
+				{
+					"path": "types/tooltip/package.json"
+				},
+				{
+					"path": "types/tree/package.json"
+				},
+				{
+					"path": "types/treeselect/package.json"
+				},
+				{
+					"path": "types/treetable/package.json"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-accordion.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-animateonscroll.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-api.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-autocomplete.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-autofocus.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-avatar.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-avatargroup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-badge.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-base.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-basecomponent.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-baseeditableholder.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-baseinput.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-basemodelholder.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-bind.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-blockui.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-breadcrumb.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-button.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-buttongroup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-card.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-carousel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-cascadeselect.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-chart.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-checkbox.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-chip.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-classnames.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-colorpicker.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-config.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-confirmdialog.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-confirmpopup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-contextmenu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-dataview.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-datepicker.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-dialog.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-divider.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-dock.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-dom.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-dragdrop.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-drawer.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-dynamicdialog.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-editor.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-fieldset.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-fileupload.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-floatlabel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-fluid.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-focustrap.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-galleria.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-iconfield.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-angledoubledown.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-angledoubleleft.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-angledoubleright.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-angledoubleup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-angledown.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-angleleft.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-angleright.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-angleup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-arrowdown.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-arrowdownleft.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-arrowdownright.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-arrowleft.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-arrowright.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-arrowup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-ban.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-bars.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-baseicon.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-blank.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-calendar.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-caretleft.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-caretright.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-check.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-chevrondown.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-chevronleft.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-chevronright.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-chevronup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-exclamationtriangle.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-eye.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-eyeslash.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-filter.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-filterfill.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-filterslash.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-home.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-infocircle.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-minus.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-pencil.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-plus.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-refresh.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-search.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-searchminus.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-searchplus.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-sortalt.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-sortamountdown.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-sortamountupalt.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-spinner.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-star.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-starfill.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-thlarge.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-times.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-timescircle.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-trash.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-undo.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-upload.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-windowmaximize.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons-windowminimize.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icons.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-iftalabel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-image.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-imagecompare.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-inplace.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-inputgroup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-inputgroupaddon.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-inputicon.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-inputmask.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-inputnumber.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-inputotp.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-inputtext.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-keyfilter.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-knob.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-listbox.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-megamenu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-menu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-menubar.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-message.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-metergroup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-motion.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-multiselect.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-orderlist.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-organizationchart.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-overlay.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-overlaybadge.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-paginator.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-panel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-panelmenu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-passthrough.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-password.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-picklist.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-popover.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-progressbar.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-progressspinner.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-radiobutton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-rating.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-ripple.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-scroller.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-scrollpanel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-scrolltop.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-select.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-selectbutton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-skeleton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-slider.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-speeddial.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-splitbutton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-splitter.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-stepper.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-steps.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-styleclass.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-table.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-tabs.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-tag.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-terminal.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-textarea.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-tieredmenu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-timeline.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-toast.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-togglebutton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-toggleswitch.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-toolbar.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-tooltip.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-tree.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-treeselect.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-treetable.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-ts-helpers.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-accordion.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-autocomplete.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-avatar.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-avatargroup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-badge.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-blockui.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-breadcrumb.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-button.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-card.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-carousel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-cascadeselect.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-chart.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-checkbox.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-chip.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-colorpicker.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-confirmdialog.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-confirmpopup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-contextmenu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-dataview.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-datepicker.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-dialog.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-divider.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-dock.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-drawer.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-editor.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-fieldset.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-fileupload.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-floatlabel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-fluid.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-galleria.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-iconfield.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-iftalabel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-image.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-imagecompare.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-inplace.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-inputgroup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-inputgroupaddon.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-inputicon.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-inputmask.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-inputnumber.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-inputotp.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-inputtext.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-knob.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-listbox.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-megamenu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-menu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-menubar.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-message.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-metergroup.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-motion.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-multiselect.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-orderlist.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-organizationchart.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-overlay.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-overlaybadge.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-paginator.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-panel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-panelmenu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-password.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-picklist.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-popover.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-progressbar.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-progressspinner.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-radiobutton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-rating.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-scroller.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-scrollpanel.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-scrolltop.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-select.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-selectbutton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-skeleton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-slider.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-speeddial.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-splitbutton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-splitter.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-stepper.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-table.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-tabs.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-tag.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-terminal.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-textarea.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-tieredmenu.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-timeline.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-toast.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-togglebutton.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-toggleswitch.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-toolbar.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-tooltip.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-tree.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-treeselect.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-types-treetable.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-usestyle.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-utils.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime.d.ts"
+				}
+			],
+			"entryCount": 883,
+			"bundled": []
 		}
 	]
 }

@@ -2,10 +2,10 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule } from 'ngx-prime/api';
+import { SharedModule } from '@wawjs/ngx-prime/api';
 import { Rating } from './rating';
 
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 
 // Basic Rating test component
 @Component({

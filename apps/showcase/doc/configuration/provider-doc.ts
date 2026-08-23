@@ -18,7 +18,7 @@ export class ProviderDoc {
     code: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [

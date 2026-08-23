@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, NgModule, ViewEncapsulation } from '@angular/core';
-import { BaseComponent } from 'ngx-prime/basecomponent';
+import { BaseComponent } from '@wawjs/ngx-prime/basecomponent';
 import { ButtonGroupStyle } from './style/buttongroupstyle';
 
 @Component({

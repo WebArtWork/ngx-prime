@@ -5,9 +5,9 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { Component, signal, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ButtonModule } from 'ngx-prime/button';
-import { DataViewModule } from 'ngx-prime/dataview';
-import { TagModule } from 'ngx-prime/tag';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { DataViewModule } from '@wawjs/ngx-prime/dataview';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-pagination-doc',

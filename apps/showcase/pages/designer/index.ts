@@ -1,9 +1,9 @@
 import { AppConfigService } from '@/service/appconfigservice';
 import { Component, computed, inject, signal } from '@angular/core';
-import { AnimateOnScrollModule } from 'ngx-prime/animateonscroll';
-import { ButtonModule } from 'ngx-prime/button';
-import { DialogModule } from 'ngx-prime/dialog';
-import { RippleModule } from 'ngx-prime/ripple';
+import { AnimateOnScrollModule } from '@wawjs/ngx-prime/animateonscroll';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { DialogModule } from '@wawjs/ngx-prime/dialog';
+import { RippleModule } from '@wawjs/ngx-prime/ripple';
 
 @Component({
     standalone: true,

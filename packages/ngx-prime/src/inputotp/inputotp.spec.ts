@@ -3,7 +3,7 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { FormsModule, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputOtp, InputOtpChangeEvent } from './inputotp';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 
 // Temel test component'i
 @Component({

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { CascadeSelectModule } from 'ngx-prime/cascadeselect';
-import { ButtonModule } from 'ngx-prime/button';
+import { CascadeSelectModule } from '@wawjs/ngx-prime/cascadeselect';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

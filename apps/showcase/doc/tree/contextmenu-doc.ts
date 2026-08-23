@@ -2,10 +2,10 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component, model, OnInit, signal, inject } from '@angular/core';
-import { MenuItem, MessageService, TreeNode } from 'ngx-prime/api';
-import { ContextMenuModule } from 'ngx-prime/contextmenu';
-import { ToastModule } from 'ngx-prime/toast';
-import { TreeModule } from 'ngx-prime/tree';
+import { MenuItem, MessageService, TreeNode } from '@wawjs/ngx-prime/api';
+import { ContextMenuModule } from '@wawjs/ngx-prime/contextmenu';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { TreeModule } from '@wawjs/ngx-prime/tree';
 
 @Component({
     selector: 'app-contextmenu-doc',

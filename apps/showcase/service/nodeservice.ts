@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TreeNode } from 'ngx-prime/api';
+import { TreeNode } from '@wawjs/ngx-prime/api';
 
 @Injectable()
 export class NodeService {

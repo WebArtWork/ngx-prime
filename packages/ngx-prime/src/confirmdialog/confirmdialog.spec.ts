@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection, inject } from '@angular/core
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ConfirmationService } from 'ngx-prime/api';
-import { Button } from 'ngx-prime/button';
-import { Dialog } from 'ngx-prime/dialog';
+import { ConfirmationService } from '@wawjs/ngx-prime/api';
+import { Button } from '@wawjs/ngx-prime/button';
+import { Dialog } from '@wawjs/ngx-prime/dialog';
 import { ConfirmDialog } from './confirmdialog';
 
 // Basic ConfirmDialog Component Test

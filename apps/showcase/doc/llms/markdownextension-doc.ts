@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonModule } from 'ngx-prime/button';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'app-markdownextension-doc',

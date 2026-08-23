@@ -3,8 +3,8 @@ import { DesignerService } from '@/service/designerservice';
 import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { usePreset } from '@wawjs/css-prime-styled';
-import { MessageService } from 'ngx-prime/api';
-import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-design-custom-tokens',

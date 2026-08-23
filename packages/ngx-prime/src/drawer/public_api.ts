@@ -1,3 +1,3 @@
-export * from 'ngx-prime/types/drawer';
+export * from '@wawjs/ngx-prime/types/drawer';
 export * from './drawer';
 export * from './style/drawerstyle';

@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { MenuItem } from 'ngx-prime/api';
-import { ButtonDirective } from 'ngx-prime/button';
-import { TieredMenu } from 'ngx-prime/tieredmenu';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { ButtonDirective } from '@wawjs/ngx-prime/button';
+import { TieredMenu } from '@wawjs/ngx-prime/tieredmenu';
 import { SplitButton } from './splitbutton';
 
 // Basic SplitButton Test Component

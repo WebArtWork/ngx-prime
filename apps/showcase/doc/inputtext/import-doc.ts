@@ -12,6 +12,6 @@ export class ImportDoc {
     value1: string;
 
     code: Code = {
-        typescript: `import { InputTextModule } from 'ngx-prime/inputtext';`
+        typescript: `import { InputTextModule } from '@wawjs/ngx-prime/inputtext';`
     };
 }

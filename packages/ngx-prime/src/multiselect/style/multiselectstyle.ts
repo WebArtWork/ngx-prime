@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as multiselect_style } from '@wawjs/css-prime-styles/multiselect';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${multiselect_style}

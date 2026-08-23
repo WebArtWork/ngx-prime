@@ -1,4 +1,4 @@
-import { PassThrough, PassThroughOption } from 'ngx-prime/api';
+import { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
 
 /**
  * Custom passthrough(pt) options.

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectItemGroup } from 'ngx-prime/api';
-import { MultiSelectModule } from 'ngx-prime/multiselect';
+import { SelectItemGroup } from '@wawjs/ngx-prime/api';
+import { MultiSelectModule } from '@wawjs/ngx-prime/multiselect';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

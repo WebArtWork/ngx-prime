@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { MessageService } from 'ngx-prime/api';
+import { MessageService } from '@wawjs/ngx-prime/api';
 import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'ngx-prime/inputotp';
-import { ButtonModule } from 'ngx-prime/button';
-import { ToastModule } from 'ngx-prime/toast';
-import { MessageModule } from 'ngx-prime/message';
+import { InputOtpModule } from '@wawjs/ngx-prime/inputotp';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { MessageModule } from '@wawjs/ngx-prime/message';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

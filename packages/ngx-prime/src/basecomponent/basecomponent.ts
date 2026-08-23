@@ -24,9 +24,9 @@ import {
 } from '@angular/core';
 import { Theme, ThemeService } from '@wawjs/css-prime-styled';
 import { cn, getKeyValue, isArray, isFunction, isNotEmpty, isString, mergeProps, resolve, toFlatCase, uuid } from '@wawjs/css-prime-utils';
-import type { Lifecycle, PassThroughOptions } from 'ngx-prime/api';
-import { Base, BaseStyle } from 'ngx-prime/base';
-import { NgxPrime } from 'ngx-prime/config';
+import type { Lifecycle, PassThroughOptions } from '@wawjs/ngx-prime/api';
+import { Base, BaseStyle } from '@wawjs/ngx-prime/base';
+import { NgxPrime } from '@wawjs/ngx-prime/config';
 import { BaseComponentStyle } from './style/basecomponentstyle';
 
 export const PARENT_INSTANCE = new InjectionToken<BaseComponent>('PARENT_INSTANCE');

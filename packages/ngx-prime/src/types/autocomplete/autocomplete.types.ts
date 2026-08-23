@@ -1,10 +1,10 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
-import { ScrollerOptions } from 'ngx-prime/api';
-import type { ChipPassThrough } from 'ngx-prime/types/chip';
-import type { InputTextPassThrough } from 'ngx-prime/types/inputtext';
-import type { OverlayPassThrough } from 'ngx-prime/types/overlay';
-import type { VirtualScrollerPassThrough } from 'ngx-prime/types/scroller';
+import type { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
+import { ScrollerOptions } from '@wawjs/ngx-prime/api';
+import type { ChipPassThrough } from '@wawjs/ngx-prime/types/chip';
+import type { InputTextPassThrough } from '@wawjs/ngx-prime/types/inputtext';
+import type { OverlayPassThrough } from '@wawjs/ngx-prime/types/overlay';
+import type { VirtualScrollerPassThrough } from '@wawjs/ngx-prime/types/scroller';
 
 /**
  * Custom pass-through(pt) options.

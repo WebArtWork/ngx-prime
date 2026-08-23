@@ -19,15 +19,15 @@ import {
     contentChildren
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Aria, PrimeTemplate, SelectItem, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { Select, SelectChangeEvent } from 'ngx-prime/select';
-import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon } from 'ngx-prime/icons';
-import { InputNumber } from 'ngx-prime/inputnumber';
-import { Ripple } from 'ngx-prime/ripple';
-import { Nullable } from 'ngx-prime/ts-helpers';
-import { PaginatorDropdownItemTemplateContext, PaginatorPassThrough, PaginatorState, PaginatorTemplateContext } from 'ngx-prime/types/paginator';
+import { Aria, PrimeTemplate, SelectItem, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { Select, SelectChangeEvent } from '@wawjs/ngx-prime/select';
+import { AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon } from '@wawjs/ngx-prime/icons';
+import { InputNumber } from '@wawjs/ngx-prime/inputnumber';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
+import { PaginatorDropdownItemTemplateContext, PaginatorPassThrough, PaginatorState, PaginatorTemplateContext } from '@wawjs/ngx-prime/types/paginator';
 import { PaginatorStyle } from './style/paginatorstyle';
 
 const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');

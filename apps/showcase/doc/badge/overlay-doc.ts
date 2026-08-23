@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
+import { OverlayBadgeModule } from '@wawjs/ngx-prime/overlaybadge';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

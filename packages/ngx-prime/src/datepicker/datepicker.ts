@@ -25,18 +25,18 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { absolutePosition, addClass, addStyle, appendChild, find, findSingle, getFocusableElements, getIndex, getOuterWidth, hasClass, isDate, isNotEmpty, isTouchDevice, relativePosition, setAttribute, uuid } from '@wawjs/css-prime-utils';
-import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseInput } from 'ngx-prime/baseinput';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { Button } from 'ngx-prime/button';
-import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from 'ngx-prime/dom';
-import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from 'ngx-prime/icons';
-import { InputText } from 'ngx-prime/inputtext';
-import { MotionModule } from 'ngx-prime/motion';
-import { Ripple } from 'ngx-prime/ripple';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import { OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseInput } from '@wawjs/ngx-prime/baseinput';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { Button } from '@wawjs/ngx-prime/button';
+import { blockBodyScroll, ConnectedOverlayScrollHandler, unblockBodyScroll } from '@wawjs/ngx-prime/dom';
+import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, TimesIcon } from '@wawjs/ngx-prime/icons';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { MotionModule } from '@wawjs/ngx-prime/motion';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
 import {
     DatePickerButtonBarTemplateContext,
     DatePickerDateTemplateContext,
@@ -51,9 +51,9 @@ import {
     LocaleSettings,
     Month,
     NavigationState
-} from 'ngx-prime/types/datepicker';
+} from '@wawjs/ngx-prime/types/datepicker';
 import { DatePickerDirective } from './nativedatepicker';
-import { ZIndexUtils } from 'ngx-prime/utils';
+import { ZIndexUtils } from '@wawjs/ngx-prime/utils';
 import { Subscription } from 'rxjs';
 import { DatePickerStyle } from './style/datepickerstyle';
 

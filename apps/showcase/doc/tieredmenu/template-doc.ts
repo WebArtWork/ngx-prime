@@ -2,10 +2,10 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
-import { BadgeModule } from 'ngx-prime/badge';
-import { RippleModule } from 'ngx-prime/ripple';
-import { TieredMenuModule } from 'ngx-prime/tieredmenu';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { RippleModule } from '@wawjs/ngx-prime/ripple';
+import { TieredMenuModule } from '@wawjs/ngx-prime/tieredmenu';
 
 @Component({
     selector: 'app-template-doc',

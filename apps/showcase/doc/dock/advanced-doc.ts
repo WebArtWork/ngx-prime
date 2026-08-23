@@ -1,16 +1,16 @@
 import { NodeService } from '@/service/nodeservice';
 import { PhotoService } from '@/service/photoservice';
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { MenuItem, MessageService } from 'ngx-prime/api';
-import { TerminalModule, TerminalService } from 'ngx-prime/terminal';
+import { MenuItem, MessageService } from '@wawjs/ngx-prime/api';
+import { TerminalModule, TerminalService } from '@wawjs/ngx-prime/terminal';
 import { Subscription } from 'rxjs';
-import { Dock } from 'ngx-prime/dock';
-import { DialogModule } from 'ngx-prime/dialog';
-import { GalleriaModule } from 'ngx-prime/galleria';
-import { MenubarModule } from 'ngx-prime/menubar';
-import { ToastModule } from 'ngx-prime/toast';
-import { TooltipModule } from 'ngx-prime/tooltip';
-import { TreeModule } from 'ngx-prime/tree';
+import { Dock } from '@wawjs/ngx-prime/dock';
+import { DialogModule } from '@wawjs/ngx-prime/dialog';
+import { GalleriaModule } from '@wawjs/ngx-prime/galleria';
+import { MenubarModule } from '@wawjs/ngx-prime/menubar';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
+import { TreeModule } from '@wawjs/ngx-prime/tree';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

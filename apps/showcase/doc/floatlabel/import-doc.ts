@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { FloatLabelModule } from 'ngx-prime/floatlabel';`
+        typescript: `import { FloatLabelModule } from '@wawjs/ngx-prime/floatlabel';`
     };
 }

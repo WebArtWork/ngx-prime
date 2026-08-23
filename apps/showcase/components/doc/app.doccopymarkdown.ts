@@ -1,9 +1,9 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, inject, input, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem, MessageService } from 'ngx-prime/api';
-import { SplitButtonModule } from 'ngx-prime/splitbutton';
-import { ToastModule } from 'ngx-prime/toast';
+import { MenuItem, MessageService } from '@wawjs/ngx-prime/api';
+import { SplitButtonModule } from '@wawjs/ngx-prime/splitbutton';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-doccopymarkdown',

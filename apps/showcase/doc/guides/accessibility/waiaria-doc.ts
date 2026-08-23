@@ -2,7 +2,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { CheckboxModule } from 'ngx-prime/checkbox';
+import { CheckboxModule } from '@wawjs/ngx-prime/checkbox';
 
 @Component({
     selector: 'app-waiaria-doc',

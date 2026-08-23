@@ -1,8 +1,8 @@
 import { Component, provideZonelessChangeDetection, inject } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DomHandler } from 'ngx-prime/dom';
-import { ZIndexUtils } from 'ngx-prime/utils';
+import { DomHandler } from '@wawjs/ngx-prime/dom';
+import { ZIndexUtils } from '@wawjs/ngx-prime/utils';
 import { Subject } from 'rxjs';
 import { DynamicDialog } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';

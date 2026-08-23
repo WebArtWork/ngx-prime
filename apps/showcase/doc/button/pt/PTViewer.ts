@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'app-button-pt-viewer',

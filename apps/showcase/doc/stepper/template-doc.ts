@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { StepperModule } from 'ngx-prime/stepper';
-import { ButtonModule } from 'ngx-prime/button';
-import { PasswordModule } from 'ngx-prime/password';
-import { ToggleButtonModule } from 'ngx-prime/togglebutton';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { StepperModule } from '@wawjs/ngx-prime/stepper';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { PasswordModule } from '@wawjs/ngx-prime/password';
+import { ToggleButtonModule } from '@wawjs/ngx-prime/togglebutton';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-template-doc',

@@ -1,9 +1,9 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, effect, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'ngx-prime/api';
-import { BadgeModule } from 'ngx-prime/badge';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { OverlayBadgePassThrough } from 'ngx-prime/types/overlaybadge';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { OverlayBadgePassThrough } from '@wawjs/ngx-prime/types/overlaybadge';
 import { OverlayBadgeStyle } from './style/overlaybadgestyle';
 
 const OVERLAYBADGE_INSTANCE = new InjectionToken<OverlayBadge>('OVERLAYBADGE_INSTANCE');

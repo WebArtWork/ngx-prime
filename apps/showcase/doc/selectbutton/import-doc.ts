@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SelectButtonDirective, SelectButtonOptionDirective } from 'ngx-prime/selectbutton';`
+        typescript: `import { SelectButtonDirective, SelectButtonOptionDirective } from '@wawjs/ngx-prime/selectbutton';`
     };
 }

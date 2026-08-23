@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Code } from '@/domain/code';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'app-verify-doc',
@@ -25,7 +25,7 @@ import { ButtonModule } from 'ngx-prime/button';
 export class VerifyDoc {
     code1: Code = {
         typescript: `import { Component } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'button-demo',

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { TooltipModule } from 'ngx-prime/tooltip';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
 
 @Component({
     selector: 'app-event-doc',

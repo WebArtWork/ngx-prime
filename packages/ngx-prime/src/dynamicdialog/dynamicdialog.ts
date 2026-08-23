@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ComponentRef, inject, InjectionToken, NgModule, Type, ViewChild, ViewEncapsulation, viewChild } from '@angular/core';
 import { uuid } from '@wawjs/css-prime-utils';
-import { SharedModule, TranslationKeys } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { Dialog, DialogPassThrough } from 'ngx-prime/dialog';
-import { Nullable } from 'ngx-prime/ts-helpers';
+import { SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { Dialog, DialogPassThrough } from '@wawjs/ngx-prime/dialog';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';

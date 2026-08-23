@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DragDropModule } from 'ngx-prime/dragdrop';`
+        typescript: `import { DragDropModule } from '@wawjs/ngx-prime/dragdrop';`
     };
 }

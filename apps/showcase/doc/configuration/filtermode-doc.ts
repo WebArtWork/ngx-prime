@@ -16,7 +16,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class FilterModeDoc {
     code: Code = {
-        typescript: `import { ngx-primeConfig } from 'ngx-prime/api';
+        typescript: `import { ngx-primeConfig } from '@wawjs/ngx-prime/api';
 
 @Component({
     selector: 'app-root',

@@ -21,16 +21,16 @@ import {
 } from '@angular/core';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { uuid } from '@wawjs/css-prime-utils';
-import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { ButtonDirective } from 'ngx-prime/button';
-import { ChevronDownIcon } from 'ngx-prime/icons';
-import { Ripple } from 'ngx-prime/ripple';
-import { TieredMenu } from 'ngx-prime/tieredmenu';
-import { TooltipModule } from 'ngx-prime/tooltip';
-import { ButtonProps, MenuButtonProps, SplitButtonPassThrough } from 'ngx-prime/types/splitbutton';
+import { MenuItem, PrimeTemplate, SharedModule, TooltipOptions } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { ButtonDirective } from '@wawjs/ngx-prime/button';
+import { ChevronDownIcon } from '@wawjs/ngx-prime/icons';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { TieredMenu } from '@wawjs/ngx-prime/tieredmenu';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
+import { ButtonProps, MenuButtonProps, SplitButtonPassThrough } from '@wawjs/ngx-prime/types/splitbutton';
 import { SplitButtonStyle } from './style/splitbuttonstyle';
 
 const SPLITBUTTON_INSTANCE = new InjectionToken<SplitButton>('SPLITBUTTON_INSTANCE');

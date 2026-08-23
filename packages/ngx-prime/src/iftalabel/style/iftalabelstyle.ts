@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as iftalabel_style } from '@wawjs/css-prime-styles/iftalabel';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${iftalabel_style}

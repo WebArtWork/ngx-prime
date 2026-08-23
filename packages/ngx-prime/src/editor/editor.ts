@@ -2,12 +2,12 @@ import { CommonModule, isPlatformServer } from '@angular/common';
 import { afterNextRender, ChangeDetectionStrategy, Component, ContentChild, effect, forwardRef, inject, InjectionToken, input, NgModule, output, TemplateRef, ViewEncapsulation, contentChild, contentChildren } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { findSingle } from '@wawjs/css-prime-utils';
-import { Header, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { Nullable } from 'ngx-prime/ts-helpers';
-import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from 'ngx-prime/types/editor';
+import { Header, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
+import { EditorBlurEvent, EditorChangeEvent, EditorFocusEvent, EditorInitEvent, EditorPassThrough, EditorSelectionChangeEvent, EditorTextChangeEvent } from '@wawjs/ngx-prime/types/editor';
 import { EditorStyle } from './style/editorstyle';
 
 const EDITOR_INSTANCE = new InjectionToken<Editor>('EDITOR_INSTANCE');

@@ -1,15 +1,15 @@
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, computed, Directive, effect, ElementRef, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, TemplateRef, ViewContainerRef } from '@angular/core';
 import { appendChild, createElement, fadeIn, findSingle, getOuterHeight, getOuterWidth, getViewport, getWindowScrollLeft, getWindowScrollTop, hasClass, removeChild, uuid } from '@wawjs/css-prime-utils';
-import { TooltipOptions } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BindModule } from 'ngx-prime/bind';
-import { ConnectedOverlayScrollHandler } from 'ngx-prime/dom';
-import { Nullable } from 'ngx-prime/ts-helpers';
-import { TooltipPassThroughOptions } from 'ngx-prime/types/tooltip';
-import { ZIndexUtils } from 'ngx-prime/utils';
+import { TooltipOptions } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BindModule } from '@wawjs/ngx-prime/bind';
+import { ConnectedOverlayScrollHandler } from '@wawjs/ngx-prime/dom';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
+import { TooltipPassThroughOptions } from '@wawjs/ngx-prime/types/tooltip';
+import { ZIndexUtils } from '@wawjs/ngx-prime/utils';
 import { TooltipStyle } from './style/tooltipstyle';
-import type { TooltipPassThrough } from 'ngx-prime/types/tooltip';
+import type { TooltipPassThrough } from '@wawjs/ngx-prime/types/tooltip';
 
 const TOOLTIP_INSTANCE = new InjectionToken<Tooltip>('TOOLTIP_INSTANCE');
 

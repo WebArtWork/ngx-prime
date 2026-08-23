@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ColorPickerModule } from 'ngx-prime/colorpicker';`
+        typescript: `import { ColorPickerModule } from '@wawjs/ngx-prime/colorpicker';`
     };
 }

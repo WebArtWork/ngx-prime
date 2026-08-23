@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseIcon } from 'ngx-prime/icons/baseicon';
+import { BaseIcon } from '@wawjs/ngx-prime/icons/baseicon';
 
 @Component({
     selector: '[data-p-icon="angle-right"]',

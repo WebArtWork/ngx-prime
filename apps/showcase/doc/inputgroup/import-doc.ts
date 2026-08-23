@@ -10,7 +10,7 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { InputGroupModule } from 'ngx-prime/inputgroup';
-import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';`
+        typescript: `import { InputGroupModule } from '@wawjs/ngx-prime/inputgroup';
+import { InputGroupAddonModule } from '@wawjs/ngx-prime/inputgroupaddon';`
     };
 }

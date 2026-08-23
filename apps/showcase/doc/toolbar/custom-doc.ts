@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToolbarModule } from 'ngx-prime/toolbar';
-import { ButtonModule } from 'ngx-prime/button';
-import { AvatarModule } from 'ngx-prime/avatar';
+import { ToolbarModule } from '@wawjs/ngx-prime/toolbar';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
 
 @Component({
     selector: 'app-custom-doc',

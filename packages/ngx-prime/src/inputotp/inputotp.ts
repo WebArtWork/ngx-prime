@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ContentChild, forwardRef, inject, InjectionToken, input, NgModule, output, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { InputText } from 'ngx-prime/inputtext';
-import { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpPassThrough } from 'ngx-prime/types/inputotp';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpPassThrough } from '@wawjs/ngx-prime/types/inputotp';
 import { InputOtpStyle } from './style/inputotpstyle';
 
 const INPUTOTP_INSTANCE = new InjectionToken<InputOtp>('INPUTOTP_INSTANCE');
@@ -19,7 +19,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
 };
 
 // Re-export interfaces from types for backwards compatibility
-export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEvents } from 'ngx-prime/types/inputotp';
+export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEvents } from '@wawjs/ngx-prime/types/inputotp';
 
 /**
  * Input Otp is used to enter one time passwords.

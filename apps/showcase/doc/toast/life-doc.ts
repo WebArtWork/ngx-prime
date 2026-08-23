@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { MessageService } from 'ngx-prime/api';
+import { MessageService } from '@wawjs/ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToastModule } from 'ngx-prime/toast';
-import { ButtonModule } from 'ngx-prime/button';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'app-life-doc',

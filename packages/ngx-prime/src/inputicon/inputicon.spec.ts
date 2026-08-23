@@ -3,9 +3,9 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { InputIcon } from './inputicon';
-import { IconField } from 'ngx-prime/iconfield';
-import { InputText } from 'ngx-prime/inputtext';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { IconField } from '@wawjs/ngx-prime/iconfield';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 
 @Component({
     standalone: true,

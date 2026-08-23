@@ -4,9 +4,9 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 
 import { Component, OnInit, inject } from '@angular/core';
-import { DragDropModule } from 'ngx-prime/dragdrop';
-import { TableModule } from 'ngx-prime/table';
-import { TagModule } from 'ngx-prime/tag';
+import { DragDropModule } from '@wawjs/ngx-prime/dragdrop';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-datatable-doc',

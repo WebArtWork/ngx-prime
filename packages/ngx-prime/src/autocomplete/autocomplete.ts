@@ -25,19 +25,19 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { equals, findLastIndex, findSingle, focus, isEmpty, isNotEmpty, resolveFieldData, uuid } from '@wawjs/css-prime-utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseInput } from 'ngx-prime/baseinput';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { Chip } from 'ngx-prime/chip';
-import { ConnectedOverlayScrollHandler } from 'ngx-prime/dom';
-import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from 'ngx-prime/icons';
-import { InputText } from 'ngx-prime/inputtext';
-import { Overlay } from 'ngx-prime/overlay';
-import { Ripple } from 'ngx-prime/ripple';
-import { Scroller } from 'ngx-prime/scroller';
-import { Nullable } from 'ngx-prime/ts-helpers';
+import { OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseInput } from '@wawjs/ngx-prime/baseinput';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { Chip } from '@wawjs/ngx-prime/chip';
+import { ConnectedOverlayScrollHandler } from '@wawjs/ngx-prime/dom';
+import { ChevronDownIcon, SpinnerIcon, TimesCircleIcon, TimesIcon } from '@wawjs/ngx-prime/icons';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { Overlay } from '@wawjs/ngx-prime/overlay';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { Scroller } from '@wawjs/ngx-prime/scroller';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
 import {
     AutoCompleteAddEvent,
     AutoCompleteCompleteEvent,
@@ -51,7 +51,7 @@ import {
     AutoCompleteSelectedItemTemplateContext,
     AutoCompleteSelectEvent,
     AutoCompleteUnselectEvent
-} from 'ngx-prime/types/autocomplete';
+} from '@wawjs/ngx-prime/types/autocomplete';
 import { AutoCompleteStyle } from './style/autocompletestyle';
 
 const AUTOCOMPLETE_INSTANCE = new InjectionToken<AutoComplete>('AUTOCOMPLETE_INSTANCE');

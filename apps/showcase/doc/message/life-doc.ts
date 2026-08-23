@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { MessageModule } from 'ngx-prime/message';
-import { ButtonModule } from 'ngx-prime/button';
+import { MessageModule } from '@wawjs/ngx-prime/message';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

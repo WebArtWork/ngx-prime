@@ -4,10 +4,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { MenuItem, MessageService, TreeNode } from 'ngx-prime/api';
-import { ContextMenuModule } from 'ngx-prime/contextmenu';
-import { ToastModule } from 'ngx-prime/toast';
-import { TreeTableModule } from 'ngx-prime/treetable';
+import { MenuItem, MessageService, TreeNode } from '@wawjs/ngx-prime/api';
+import { ContextMenuModule } from '@wawjs/ngx-prime/contextmenu';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { TreeTableModule } from '@wawjs/ngx-prime/treetable';
 
 interface Column {
     field: string;

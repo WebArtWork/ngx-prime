@@ -22,15 +22,15 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { getSelection } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseInput } from 'ngx-prime/baseinput';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { AngleDownIcon, AngleUpIcon, TimesIcon } from 'ngx-prime/icons';
-import { InputText } from 'ngx-prime/inputtext';
-import { Nullable } from 'ngx-prime/ts-helpers';
-import type { InputNumberInputEvent, InputNumberPassThrough } from 'ngx-prime/types/inputnumber';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseInput } from '@wawjs/ngx-prime/baseinput';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { AngleDownIcon, AngleUpIcon, TimesIcon } from '@wawjs/ngx-prime/icons';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
+import type { InputNumberInputEvent, InputNumberPassThrough } from '@wawjs/ngx-prime/types/inputnumber';
 import { InputNumberStyle } from './style/inputnumberstyle';
 import { InputNumberDirective } from './nativeinputnumber';
 

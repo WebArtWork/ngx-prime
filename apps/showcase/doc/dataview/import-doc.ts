@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DataViewModule } from 'ngx-prime/dataview';`
+        typescript: `import { DataViewModule } from '@wawjs/ngx-prime/dataview';`
     };
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MeterGroupModule } from 'ngx-prime/metergroup';
+import { MeterGroupModule } from '@wawjs/ngx-prime/metergroup';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

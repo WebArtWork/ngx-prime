@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { SelectItemGroup } from 'ngx-prime/api';
+import { SelectItemGroup } from '@wawjs/ngx-prime/api';
 import { FormsModule } from '@angular/forms';
-import { ListboxModule } from 'ngx-prime/listbox';
+import { ListboxModule } from '@wawjs/ngx-prime/listbox';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -5,10 +5,10 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { MessageService } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { TableModule } from 'ngx-prime/table';
-import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-columnselection-doc',

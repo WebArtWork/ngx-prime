@@ -2,9 +2,9 @@ import { AppConfigService } from '@/service/appconfigservice';
 
 import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BadgeModule } from 'ngx-prime/badge';
-import { Ripple } from 'ngx-prime/ripple';
-import { TooltipModule } from 'ngx-prime/tooltip';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
 
 @Component({
     selector: 'app-overview-doc',

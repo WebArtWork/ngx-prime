@@ -20,7 +20,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ZIndexDoc {
     code: Code = {
-        typescript: `import { NgxPrimeConfig } from 'ngx-prime/api';
+        typescript: `import { NgxPrimeConfig } from '@wawjs/ngx-prime/api';
 
 @Component({
     selector: 'app-root',

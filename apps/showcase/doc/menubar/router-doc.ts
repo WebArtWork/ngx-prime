@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuItem } from 'ngx-prime/api';
-import { MenubarModule } from 'ngx-prime/menubar';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { MenubarModule } from '@wawjs/ngx-prime/menubar';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

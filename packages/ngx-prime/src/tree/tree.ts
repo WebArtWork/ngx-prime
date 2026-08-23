@@ -24,18 +24,18 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { find, findSingle, focus, getOuterHeight, getOuterWidth, removeAccents, resolveFieldData } from '@wawjs/css-prime-utils';
-import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'ngx-prime/api';
-import { AutoFocusModule } from 'ngx-prime/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { Checkbox } from 'ngx-prime/checkbox';
-import { IconField } from 'ngx-prime/iconfield';
-import { ChevronDownIcon, ChevronRightIcon, SearchIcon, SpinnerIcon } from 'ngx-prime/icons';
-import { InputIcon } from 'ngx-prime/inputicon';
-import { InputText } from 'ngx-prime/inputtext';
-import { Ripple } from 'ngx-prime/ripple';
-import { Scroller } from 'ngx-prime/scroller';
-import { Nullable } from 'ngx-prime/ts-helpers';
+import { BlockableUI, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from '@wawjs/ngx-prime/api';
+import { AutoFocusModule } from '@wawjs/ngx-prime/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { Checkbox } from '@wawjs/ngx-prime/checkbox';
+import { IconField } from '@wawjs/ngx-prime/iconfield';
+import { ChevronDownIcon, ChevronRightIcon, SearchIcon, SpinnerIcon } from '@wawjs/ngx-prime/icons';
+import { InputIcon } from '@wawjs/ngx-prime/inputicon';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { Scroller } from '@wawjs/ngx-prime/scroller';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
 import {
     TreeCheckboxIconTemplateContext,
     TreeFilterEvent,
@@ -53,7 +53,7 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent,
     TreeTogglerIconTemplateContext
-} from 'ngx-prime/types/tree';
+} from '@wawjs/ngx-prime/types/tree';
 import { Subscription } from 'rxjs';
 import { TreeStyle } from './style/treestyle';
 

@@ -3,9 +3,9 @@ import { CommonModule, DOCUMENT, isPlatformBrowser, Location } from '@angular/co
 import { Component, DestroyRef, ElementRef, inject, input, OnInit, PLATFORM_ID, signal, ViewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { ButtonModule } from 'ngx-prime/button';
-import { DomHandler } from 'ngx-prime/dom';
-import { ObjectUtils } from 'ngx-prime/utils';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { DomHandler } from '@wawjs/ngx-prime/dom';
+import { ObjectUtils } from '@wawjs/ngx-prime/utils';
 import { fromEvent } from 'rxjs';
 
 @Component({

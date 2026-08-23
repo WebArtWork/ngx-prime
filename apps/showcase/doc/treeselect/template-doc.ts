@@ -1,8 +1,8 @@
 import { NodeService } from '@/service/nodeservice';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeSelectModule } from 'ngx-prime/treeselect';
-import { ButtonModule } from 'ngx-prime/button';
+import { TreeSelectModule } from '@wawjs/ngx-prime/treeselect';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectFilterOptions } from 'ngx-prime/select';
+import { SelectFilterOptions } from '@wawjs/ngx-prime/select';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'ngx-prime/select';
-import { InputGroupModule } from 'ngx-prime/inputgroup';
-import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';
-import { ButtonModule } from 'ngx-prime/button';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { SelectModule } from '@wawjs/ngx-prime/select';
+import { InputGroupModule } from '@wawjs/ngx-prime/inputgroup';
+import { InputGroupAddonModule } from '@wawjs/ngx-prime/inputgroupaddon';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 interface City {
     name: string;

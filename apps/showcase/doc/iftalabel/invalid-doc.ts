@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IftaLabelModule } from 'ngx-prime/iftalabel';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { IftaLabelModule } from '@wawjs/ngx-prime/iftalabel';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

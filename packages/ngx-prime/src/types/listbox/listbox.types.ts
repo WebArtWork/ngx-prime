@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import type { PassThrough, PassThroughOption, ScrollerOptions } from 'ngx-prime/api';
+import type { PassThrough, PassThroughOption, ScrollerOptions } from '@wawjs/ngx-prime/api';
 /**
  * Defines valid pass-through options in ListBox component.
  * @template I Type of instance.

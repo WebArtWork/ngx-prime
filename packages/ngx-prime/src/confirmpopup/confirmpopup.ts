@@ -25,16 +25,16 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@wawjs/css-prime-utils';
-import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { ButtonModule } from 'ngx-prime/button';
-import { ConnectedOverlayScrollHandler } from 'ngx-prime/dom';
-import { FocusTrap } from 'ngx-prime/focustrap';
-import { MotionModule } from 'ngx-prime/motion';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
-import { ConfirmPopupContentTemplateContext, ConfirmPopupHeadlessTemplateContext, ConfirmPopupPassThrough } from 'ngx-prime/types/confirmpopup';
-import { ZIndexUtils } from 'ngx-prime/utils';
+import { Confirmation, ConfirmationService, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { ConnectedOverlayScrollHandler } from '@wawjs/ngx-prime/dom';
+import { FocusTrap } from '@wawjs/ngx-prime/focustrap';
+import { MotionModule } from '@wawjs/ngx-prime/motion';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
+import { ConfirmPopupContentTemplateContext, ConfirmPopupHeadlessTemplateContext, ConfirmPopupPassThrough } from '@wawjs/ngx-prime/types/confirmpopup';
+import { ZIndexUtils } from '@wawjs/ngx-prime/utils';
 import { Subscription } from 'rxjs';
 import { ConfirmPopupStyle } from './style/confirmpopupstyle';
 

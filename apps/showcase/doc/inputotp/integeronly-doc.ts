@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputOtpModule } from 'ngx-prime/inputotp';
+import { InputOtpModule } from '@wawjs/ngx-prime/inputotp';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

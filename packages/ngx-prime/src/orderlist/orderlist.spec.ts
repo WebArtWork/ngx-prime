@@ -5,10 +5,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { SharedModule } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { ListboxModule } from 'ngx-prime/listbox';
-import { RippleModule } from 'ngx-prime/ripple';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { ListboxModule } from '@wawjs/ngx-prime/listbox';
+import { RippleModule } from '@wawjs/ngx-prime/ripple';
 import { OrderList } from './orderlist';
 
 interface Product {

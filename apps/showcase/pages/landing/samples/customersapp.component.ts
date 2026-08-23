@@ -3,20 +3,20 @@ import { ChangeDetectionStrategy, Component, inject, OnInit, PLATFORM_ID } from 
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { ButtonModule } from 'ngx-prime/button';
-import { ChartModule } from 'ngx-prime/chart';
-import { DividerModule } from 'ngx-prime/divider';
-import { DrawerModule } from 'ngx-prime/drawer';
-import { IconField } from 'ngx-prime/iconfield';
-import { InputIcon } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
-import { PopoverModule } from 'ngx-prime/popover';
-import { TableModule } from 'ngx-prime/table';
-import { Tag } from 'ngx-prime/tag';
-import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
-import { TooltipModule } from 'ngx-prime/tooltip';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { ChartModule } from '@wawjs/ngx-prime/chart';
+import { DividerModule } from '@wawjs/ngx-prime/divider';
+import { DrawerModule } from '@wawjs/ngx-prime/drawer';
+import { IconField } from '@wawjs/ngx-prime/iconfield';
+import { InputIcon } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { OverlayBadgeModule } from '@wawjs/ngx-prime/overlaybadge';
+import { PopoverModule } from '@wawjs/ngx-prime/popover';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { Tag } from '@wawjs/ngx-prime/tag';
+import { ToggleSwitchModule } from '@wawjs/ngx-prime/toggleswitch';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
 
 @Component({
     selector: 'app-customers-app',

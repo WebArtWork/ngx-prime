@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { ProgressBarModule } from 'ngx-prime/progressbar';
+import { ProgressBarModule } from '@wawjs/ngx-prime/progressbar';
 
 @Component({
     selector: 'app-progressbar-pt-viewer',

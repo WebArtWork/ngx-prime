@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ImageModule } from 'ngx-prime/image';
+import { ImageModule } from '@wawjs/ngx-prime/image';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

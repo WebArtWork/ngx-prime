@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as floatlabel_style } from '@wawjs/css-prime-styles/floatlabel';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${floatlabel_style}

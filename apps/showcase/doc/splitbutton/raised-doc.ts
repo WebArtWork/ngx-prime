@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { MenuItem, MessageService } from 'ngx-prime/api';
+import { MenuItem, MessageService } from '@wawjs/ngx-prime/api';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { SplitButtonModule } from 'ngx-prime/splitbutton';
-import { ToastModule } from 'ngx-prime/toast';
+import { SplitButtonModule } from '@wawjs/ngx-prime/splitbutton';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 import { RouterModule } from '@angular/router';
 
 @Component({

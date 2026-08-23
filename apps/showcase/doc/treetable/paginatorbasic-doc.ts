@@ -3,8 +3,8 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'ngx-prime/api';
-import { TreeTableModule } from 'ngx-prime/treetable';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { TreeTableModule } from '@wawjs/ngx-prime/treetable';
 
 interface Column {
     field: string;

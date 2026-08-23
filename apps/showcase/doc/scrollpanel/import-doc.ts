@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ScrollPanelModule } from 'ngx-prime/scrollpanel';`
+        typescript: `import { ScrollPanelModule } from '@wawjs/ngx-prime/scrollpanel';`
     };
 }

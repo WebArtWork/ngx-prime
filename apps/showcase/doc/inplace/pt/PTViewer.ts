@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { InplaceModule } from 'ngx-prime/inplace';
+import { InplaceModule } from '@wawjs/ngx-prime/inplace';
 
 @Component({
     selector: 'app-inplace-pt-viewer',

@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SkeletonModule } from 'ngx-prime/skeleton';`
+        typescript: `import { SkeletonModule } from '@wawjs/ngx-prime/skeleton';`
     };
 }

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { InputIconPassThrough } from 'ngx-prime/types/inputicon';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { InputIconPassThrough } from '@wawjs/ngx-prime/types/inputicon';
 import { InputIconStyle } from './style/inputiconstyle';
 
 const INPUTICON_INSTANCE = new InjectionToken<InputIcon>('INPUTICON_INSTANCE');

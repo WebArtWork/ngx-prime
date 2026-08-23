@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProgressBarModule } from 'ngx-prime/progressbar';
+import { ProgressBarModule } from '@wawjs/ngx-prime/progressbar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { AutoFocusModule } from 'ngx-prime/autofocus';
-import { ButtonModule } from 'ngx-prime/button';
-import { CheckboxModule } from 'ngx-prime/checkbox';
-import { FocusTrapModule } from 'ngx-prime/focustrap';
-import { IconFieldModule } from 'ngx-prime/iconfield';
-import { InputIconModule } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { AutoFocusModule } from '@wawjs/ngx-prime/autofocus';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { CheckboxModule } from '@wawjs/ngx-prime/checkbox';
+import { FocusTrapModule } from '@wawjs/ngx-prime/focustrap';
+import { IconFieldModule } from '@wawjs/ngx-prime/iconfield';
+import { InputIconModule } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-basic-doc',

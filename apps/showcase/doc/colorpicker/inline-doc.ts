@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { ColorPickerModule } from 'ngx-prime/colorpicker';
+import { ColorPickerModule } from '@wawjs/ngx-prime/colorpicker';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

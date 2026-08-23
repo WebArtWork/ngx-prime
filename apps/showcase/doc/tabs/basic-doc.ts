@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { TabsModule } from 'ngx-prime/tabs';
+import { TabsModule } from '@wawjs/ngx-prime/tabs';
 
 @Component({
     selector: 'app-basic-doc',

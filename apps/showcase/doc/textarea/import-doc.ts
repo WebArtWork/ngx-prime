@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TextareaModule } from 'ngx-prime/textarea';`
+        typescript: `import { TextareaModule } from '@wawjs/ngx-prime/textarea';`
     };
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as cascadeselect_style } from '@wawjs/css-prime-styles/cascadeselect';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${cascadeselect_style}

@@ -1,5 +1,5 @@
 import { booleanAttribute, Directive, ElementRef, inject, input, output } from '@angular/core';
-import type { ColorPickerChangeEvent } from 'ngx-prime/types/colorpicker';
+import type { ColorPickerChangeEvent } from '@wawjs/ngx-prime/types/colorpicker';
 
 /** Enhances a browser-native color input while preserving native color selection. */
 @Directive({

@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'ngx-prime/radiobutton';
+import { RadioButtonModule } from '@wawjs/ngx-prime/radiobutton';
 
 @Component({
     selector: 'app-radiobutton-pt-viewer',

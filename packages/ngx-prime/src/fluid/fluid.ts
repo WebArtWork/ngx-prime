@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, NgModule, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { FluidPassThrough } from 'ngx-prime/types/fluid';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { FluidPassThrough } from '@wawjs/ngx-prime/types/fluid';
 import { FluidStyle } from './style/fluidstyle';
 
 const FLUID_INSTANCE = new InjectionToken<Fluid>('FLUID_INSTANCE');

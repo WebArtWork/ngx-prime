@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PaginatorState, PaginatorModule } from 'ngx-prime/paginator';
+import { PaginatorState, PaginatorModule } from '@wawjs/ngx-prime/paginator';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

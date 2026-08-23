@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/menu';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const inlineStyles = {
     root: ({ instance }) => ({ position: instance.popup() ? 'absolute' : 'relative' })

@@ -1,13 +1,13 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, signal, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { $dt } from '@wawjs/css-prime-styled';
-import { SharedModule } from 'ngx-prime/api';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind } from 'ngx-prime/bind';
-import { BindModule } from 'ngx-prime/bind';
-import { VoidListener } from 'ngx-prime/ts-helpers';
-import { KnobPassThrough } from 'ngx-prime/types/knob';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { BindModule } from '@wawjs/ngx-prime/bind';
+import { VoidListener } from '@wawjs/ngx-prime/ts-helpers';
+import { KnobPassThrough } from '@wawjs/ngx-prime/types/knob';
 import { KnobStyle } from './style/knobstyle';
 
 const KNOB_INSTANCE = new InjectionToken<Knob>('KNOB_INSTANCE');

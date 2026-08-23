@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonDirective } from 'ngx-prime/radiobutton';
+import { RadioButtonDirective } from '@wawjs/ngx-prime/radiobutton';
 
 @Component({
     selector: 'app-radiobutton-native-doc',

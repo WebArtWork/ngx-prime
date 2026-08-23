@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ToolbarModule } from 'ngx-prime/toolbar';`
+        typescript: `import { ToolbarModule } from '@wawjs/ngx-prime/toolbar';`
     };
 }

@@ -4,7 +4,7 @@ import { FormsModule, FormControl, FormGroup, Validators, ReactiveFormsModule } 
 import { form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 import { InputMask, InputMaskModule, InputMaskDirective } from './inputmask';
-import { SharedModule } from 'ngx-prime/api';
+import { SharedModule } from '@wawjs/ngx-prime/api';
 import { CommonModule } from '@angular/common';
 
 // Test Components

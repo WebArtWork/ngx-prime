@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
-import { BreadcrumbModule } from 'ngx-prime/breadcrumb';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { BreadcrumbModule } from '@wawjs/ngx-prime/breadcrumb';
 import { RouterModule } from '@angular/router';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';

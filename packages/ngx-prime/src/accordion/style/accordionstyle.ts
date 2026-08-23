@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as accordion_style } from '@wawjs/css-prime-styles/accordion';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
 ${accordion_style}

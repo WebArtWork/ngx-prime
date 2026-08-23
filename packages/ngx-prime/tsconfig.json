@@ -8,8 +8,8 @@
         "baseUrl": "../../",
         "ignoreDeprecations": "6.0",
         "paths": {
-            "ngx-prime/types/*": ["./packages/ngx-prime/src/types/*/public_api"],
-            "ngx-prime/*": ["./packages/ngx-prime/src/*/public_api"],
+            "@wawjs/ngx-prime/types/*": ["./packages/ngx-prime/src/types/*/public_api"],
+            "@wawjs/ngx-prime/*": ["./packages/ngx-prime/src/*/public_api"],
             "@wawjs/ngx-prime-themes/*": ["./packages/themes/src/presets/*/index"],
             "@wawjs/ngx-prime-themes": ["./packages/themes/src/index"]
         },
@@ -34,7 +34,7 @@
         "strictInjectionParameters": true,
         "strictInputAccessModifiers": true,
         "flatModuleOutFile": "ngx-prime.js",
-        "flatModuleId": "ngx-prime",
+        "flatModuleId": "@wawjs/ngx-prime",
         "compilationMode": "partial"
     }
 }

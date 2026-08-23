@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ChipModule } from 'ngx-prime/chip';`
+        typescript: `import { ChipModule } from '@wawjs/ngx-prime/chip';`
     };
 }

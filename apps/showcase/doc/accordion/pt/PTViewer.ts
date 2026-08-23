@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { AccordionModule } from 'ngx-prime/accordion';
+import { AccordionModule } from '@wawjs/ngx-prime/accordion';
 
 @Component({
     selector: 'app-accordion-pt-viewer',

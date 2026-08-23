@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { ToggleButtonDirective } from 'ngx-prime/togglebutton';
+import { ToggleButtonDirective } from '@wawjs/ngx-prime/togglebutton';
 
 @Component({
     selector: 'app-togglebutton-native-doc',

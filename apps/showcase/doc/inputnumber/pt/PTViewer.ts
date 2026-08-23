@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputNumberModule } from 'ngx-prime/inputnumber';
+import { InputNumberModule } from '@wawjs/ngx-prime/inputnumber';
 
 @Component({
     selector: 'app-inputnumber-pt-viewer',

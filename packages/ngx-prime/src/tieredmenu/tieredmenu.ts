@@ -25,17 +25,17 @@ import {
 import { RouterModule } from '@angular/router';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { absolutePosition, addStyle, appendChild, findLastIndex, findSingle, focus, getOuterWidth, isEmpty, isNotEmpty, isPrintableCharacter, isTouchDevice, nestedPosition, relativePosition, resolve, uuid } from '@wawjs/css-prime-utils';
-import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { ConnectedOverlayScrollHandler } from 'ngx-prime/dom';
-import { AngleRightIcon } from 'ngx-prime/icons';
-import { MotionModule } from 'ngx-prime/motion';
-import { Ripple } from 'ngx-prime/ripple';
-import { TooltipModule } from 'ngx-prime/tooltip';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
-import { TieredMenuItemTemplateContext, TieredMenuPassThrough } from 'ngx-prime/types/tieredmenu';
-import { ZIndexUtils } from 'ngx-prime/utils';
+import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { ConnectedOverlayScrollHandler } from '@wawjs/ngx-prime/dom';
+import { AngleRightIcon } from '@wawjs/ngx-prime/icons';
+import { MotionModule } from '@wawjs/ngx-prime/motion';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
+import { TieredMenuItemTemplateContext, TieredMenuPassThrough } from '@wawjs/ngx-prime/types/tieredmenu';
+import { ZIndexUtils } from '@wawjs/ngx-prime/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
 
 const TIEREDMENU_INSTANCE = new InjectionToken<TieredMenu>('TIEREDMENU_INSTANCE');

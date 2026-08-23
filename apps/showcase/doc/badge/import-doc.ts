@@ -10,7 +10,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BadgeModule } from 'ngx-prime/badge';
-import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';`
+        typescript: `import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { OverlayBadgeModule } from '@wawjs/ngx-prime/overlaybadge';`
     };
 }

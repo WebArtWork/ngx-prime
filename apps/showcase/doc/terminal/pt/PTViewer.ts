@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
-import { TerminalModule, TerminalService } from 'ngx-prime/terminal';
+import { TerminalModule, TerminalService } from '@wawjs/ngx-prime/terminal';
 
 @Component({
     selector: 'app-terminal-pt-viewer',

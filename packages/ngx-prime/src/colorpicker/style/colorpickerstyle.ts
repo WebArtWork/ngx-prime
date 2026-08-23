@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/colorpicker';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const nativeStyle = `
 .p-colorpicker-input { inline-size: 2.5rem; block-size: 2.5rem; padding: .125rem; cursor: pointer; border-radius: dt('inputtext.border.radius'); }

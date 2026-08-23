@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/megamenu';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const inlineStyles = {
     rootList: ({ instance }) => ({ 'max-height': instance.scrollHeight(), overflow: 'auto' })

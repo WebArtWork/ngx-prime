@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as scrollpanel_style } from '@wawjs/css-prime-styles/scrollpanel';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${scrollpanel_style}

@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { FloatLabelModule } from 'ngx-prime/floatlabel';
-import { TextareaModule } from 'ngx-prime/textarea';
+import { FloatLabelModule } from '@wawjs/ngx-prime/floatlabel';
+import { TextareaModule } from '@wawjs/ngx-prime/textarea';
 
 @Component({
     selector: 'app-floatlabel-doc',

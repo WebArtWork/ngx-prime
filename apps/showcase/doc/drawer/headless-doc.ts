@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { Drawer } from 'ngx-prime/drawer';
+import { Drawer } from '@wawjs/ngx-prime/drawer';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { DrawerModule } from 'ngx-prime/drawer';
-import { ButtonModule } from 'ngx-prime/button';
+import { DrawerModule } from '@wawjs/ngx-prime/drawer';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { FormsModule } from '@angular/forms';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { RippleModule } from 'ngx-prime/ripple';
-import { StyleClassModule } from 'ngx-prime/styleclass';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { RippleModule } from '@wawjs/ngx-prime/ripple';
+import { StyleClassModule } from '@wawjs/ngx-prime/styleclass';
 
 @Component({
     selector: 'app-headless-doc',

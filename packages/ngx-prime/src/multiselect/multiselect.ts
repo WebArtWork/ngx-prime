@@ -26,23 +26,23 @@ import {
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { deepEquals, equals, findLastIndex, findSingle, focus, getFirstFocusableElement, getFocusableElements, getLastFocusableElement, isArray, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@wawjs/css-prime-utils';
-import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { Checkbox } from 'ngx-prime/checkbox';
-import { Chip } from 'ngx-prime/chip';
-import { DomHandler, unblockBodyScroll } from 'ngx-prime/dom';
-import { Fluid } from 'ngx-prime/fluid';
-import { IconField } from 'ngx-prime/iconfield';
-import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from 'ngx-prime/icons';
-import { InputIcon } from 'ngx-prime/inputicon';
-import { InputText } from 'ngx-prime/inputtext';
-import { Overlay } from 'ngx-prime/overlay';
-import { Scroller } from 'ngx-prime/scroller';
-import { Tooltip } from 'ngx-prime/tooltip';
-import { Nullable } from 'ngx-prime/ts-helpers';
+import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { Checkbox } from '@wawjs/ngx-prime/checkbox';
+import { Chip } from '@wawjs/ngx-prime/chip';
+import { DomHandler, unblockBodyScroll } from '@wawjs/ngx-prime/dom';
+import { Fluid } from '@wawjs/ngx-prime/fluid';
+import { IconField } from '@wawjs/ngx-prime/iconfield';
+import { CheckIcon, ChevronDownIcon, SearchIcon, TimesIcon } from '@wawjs/ngx-prime/icons';
+import { InputIcon } from '@wawjs/ngx-prime/inputicon';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { Overlay } from '@wawjs/ngx-prime/overlay';
+import { Scroller } from '@wawjs/ngx-prime/scroller';
+import { Tooltip } from '@wawjs/ngx-prime/tooltip';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
 import {
     MultiSelectBlurEvent,
     MultiSelectChangeEvent,
@@ -62,8 +62,8 @@ import {
     MultiSelectRemoveEvent,
     MultiSelectSelectAllChangeEvent,
     MultiSelectSelectedItemsTemplateContext
-} from 'ngx-prime/types/multiselect';
-import { ObjectUtils } from 'ngx-prime/utils';
+} from '@wawjs/ngx-prime/types/multiselect';
+import { ObjectUtils } from '@wawjs/ngx-prime/utils';
 import { MultiSelectStyle } from './style/multiselectstyle';
 
 const MULTISELECT_INSTANCE = new InjectionToken<MultiSelect>('MULTISELECT_INSTANCE');

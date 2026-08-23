@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ScrollerModule } from 'ngx-prime/scroller';`
+        typescript: `import { ScrollerModule } from '@wawjs/ngx-prime/scroller';`
     };
 }

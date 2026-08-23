@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { PaginatorModule } from 'ngx-prime/paginator';
+import { PaginatorModule } from '@wawjs/ngx-prime/paginator';
 
 @Component({
     selector: 'app-paginator-pt-viewer',

@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AutoCompleteModule } from 'ngx-prime/autocomplete';`
+        typescript: `import { AutoCompleteModule } from '@wawjs/ngx-prime/autocomplete';`
     };
 }

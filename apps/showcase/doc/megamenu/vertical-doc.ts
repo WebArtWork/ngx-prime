@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'ngx-prime/api';
-import { MegaMenuModule } from 'ngx-prime/megamenu';
+import { MegaMenuItem } from '@wawjs/ngx-prime/api';
+import { MegaMenuModule } from '@wawjs/ngx-prime/megamenu';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

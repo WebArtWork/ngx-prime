@@ -4,8 +4,8 @@ import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
 
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { FilterMatchMode, FilterService, SelectItem } from 'ngx-prime/api';
-import { TableModule } from 'ngx-prime/table';
+import { FilterMatchMode, FilterService, SelectItem } from '@wawjs/ngx-prime/api';
+import { TableModule } from '@wawjs/ngx-prime/table';
 
 @Component({
     selector: 'app-tableintegration-doc',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { DialogModule } from 'ngx-prime/dialog';
-import { ButtonModule } from 'ngx-prime/button';
+import { DialogModule } from '@wawjs/ngx-prime/dialog';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

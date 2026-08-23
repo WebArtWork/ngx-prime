@@ -1,7 +1,7 @@
 import { NodeService } from '@/service/nodeservice';
 import { ChangeDetectionStrategy, Component, inject, ViewChild } from '@angular/core';
-import { SortEvent, TreeNode } from 'ngx-prime/api';
-import { TreeTable, TreeTableModule } from 'ngx-prime/treetable';
+import { SortEvent, TreeNode } from '@wawjs/ngx-prime/api';
+import { TreeTable, TreeTableModule } from '@wawjs/ngx-prime/treetable';
 
 import { DeferredDemo } from '@/components/demo/deferreddemo';
 import { AppCode } from '@/components/doc/app.code';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/scrolltop';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => ['p-scrolltop', { 'p-scrolltop-sticky': instance.target() !== 'window' }],

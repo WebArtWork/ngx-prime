@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';`
+        typescript: `import { ConfirmDialogModule } from '@wawjs/ngx-prime/confirmdialog';`
     };
 }

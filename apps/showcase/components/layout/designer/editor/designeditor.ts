@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
 
-import { TabsModule } from 'ngx-prime/tabs';
+import { TabsModule } from '@wawjs/ngx-prime/tabs';
 import { DesignBorderRadius } from './primitive/designborderradius';
 import { DesignColors } from './primitive/designcolors';
 import { DesignSemantic } from './semantic/designsemantic';

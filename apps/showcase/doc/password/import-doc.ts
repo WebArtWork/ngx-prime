@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { PasswordModule } from 'ngx-prime/password';`
+        typescript: `import { PasswordModule } from '@wawjs/ngx-prime/password';`
     };
 }

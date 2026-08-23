@@ -2,9 +2,9 @@ import { Component, provideZonelessChangeDetection, signal } from '@angular/core
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { SharedModule, TreeNode } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
-import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from 'ngx-prime/types/treeselect';
+import { SharedModule, TreeNode } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
+import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from '@wawjs/ngx-prime/types/treeselect';
 import { BehaviorSubject } from 'rxjs';
 import { TreeSelect, TreeSelectModule } from './treeselect';
 

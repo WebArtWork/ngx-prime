@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/galleria';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const classes = {
     mask: 'p-galleria-mask p-overlay-mask',

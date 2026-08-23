@@ -1,14 +1,14 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, Injectable, InjectionToken, Injector, input, NgModule, numberAttribute, output, viewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { SharedModule } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind } from 'ngx-prime/bind';
-import { BindModule } from 'ngx-prime/bind';
-import { Nullable } from 'ngx-prime/ts-helpers';
-import { RadioButtonPassThrough } from 'ngx-prime/types/radiobutton';
-import type { RadioButtonClickEvent } from 'ngx-prime/types/radiobutton';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { BindModule } from '@wawjs/ngx-prime/bind';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
+import { RadioButtonPassThrough } from '@wawjs/ngx-prime/types/radiobutton';
+import type { RadioButtonClickEvent } from '@wawjs/ngx-prime/types/radiobutton';
 import { RadioButtonStyle } from './style/radiobuttonstyle';
 import { RadioButtonDirective } from './nativeradiobutton';
 

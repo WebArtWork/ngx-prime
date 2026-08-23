@@ -3,9 +3,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputMaskModule } from 'ngx-prime/inputmask';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { MessageModule } from 'ngx-prime/message';
+import { InputMaskModule } from '@wawjs/ngx-prime/inputmask';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { MessageModule } from '@wawjs/ngx-prime/message';
 
 @Component({
     selector: 'app-form-doc',

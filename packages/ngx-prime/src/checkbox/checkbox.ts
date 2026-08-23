@@ -22,14 +22,14 @@ import {
 } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { contains, equals } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { CheckIcon } from 'ngx-prime/icons/check';
-import { MinusIcon } from 'ngx-prime/icons/minus';
-import { Nullable } from 'ngx-prime/ts-helpers';
-import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from 'ngx-prime/types/checkbox';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { CheckIcon } from '@wawjs/ngx-prime/icons/check';
+import { MinusIcon } from '@wawjs/ngx-prime/icons/minus';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
+import { CheckboxChangeEvent, CheckboxIconTemplateContext, CheckboxPassThrough } from '@wawjs/ngx-prime/types/checkbox';
 import { CheckboxStyle } from './style/checkboxstyle';
 import { CheckboxContainerDirective, CheckboxDirective, CheckboxIconDirective } from './nativecheckbox';
 

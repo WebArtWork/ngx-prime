@@ -1,11 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
 import { equals, focus, getAttribute } from '@wawjs/css-prime-utils';
-import { SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { Ripple } from 'ngx-prime/ripple';
-import { TabPassThrough } from 'ngx-prime/types/tabs';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { TabPassThrough } from '@wawjs/ngx-prime/types/tabs';
 import { TabStyle } from './style/tabstyle';
 import { TabList } from './tablist';
 import { Tabs } from './tabs';

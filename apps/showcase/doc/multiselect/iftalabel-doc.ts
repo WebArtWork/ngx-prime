@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MultiSelectModule } from 'ngx-prime/multiselect';
-import { IftaLabelModule } from 'ngx-prime/iftalabel';
+import { MultiSelectModule } from '@wawjs/ngx-prime/multiselect';
+import { IftaLabelModule } from '@wawjs/ngx-prime/iftalabel';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DividerModule } from 'ngx-prime/divider';
+import { DividerModule } from '@wawjs/ngx-prime/divider';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

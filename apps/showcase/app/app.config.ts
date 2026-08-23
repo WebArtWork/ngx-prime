@@ -5,8 +5,8 @@ import Noir from '@/themes/app-theme';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
-import { ConfirmationService, MessageService } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { ConfirmationService, MessageService } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 
 function initializeDemoCode(demoCodeService: DemoCodeService) {
     return () => demoCodeService.loadDemos();

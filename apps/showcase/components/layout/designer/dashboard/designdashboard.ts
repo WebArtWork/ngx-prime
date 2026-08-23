@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, model, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ConfirmationService } from 'ngx-prime/api';
-import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';
-import { Menu, MenuModule } from 'ngx-prime/menu';
-import { ToastModule } from 'ngx-prime/toast';
+import { ConfirmationService } from '@wawjs/ngx-prime/api';
+import { ConfirmPopupModule } from '@wawjs/ngx-prime/confirmpopup';
+import { Menu, MenuModule } from '@wawjs/ngx-prime/menu';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-design-dashboard',

@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { NgxPrime } from 'ngx-prime/config';
-import { DomHandler } from 'ngx-prime/dom';
+import { NgxPrime } from '@wawjs/ngx-prime/config';
+import { DomHandler } from '@wawjs/ngx-prime/dom';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';

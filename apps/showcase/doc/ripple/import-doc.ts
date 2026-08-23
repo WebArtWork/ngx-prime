@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { RippleModule } from 'ngx-prime/ripple';`
+        typescript: `import { RippleModule } from '@wawjs/ngx-prime/ripple';`
     };
 }

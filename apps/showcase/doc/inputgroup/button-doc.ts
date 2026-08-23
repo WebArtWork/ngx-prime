@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
-import { InputGroupModule } from 'ngx-prime/inputgroup';
-import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { ButtonModule } from 'ngx-prime/button';
-import { MenuModule } from 'ngx-prime/menu';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { InputGroupModule } from '@wawjs/ngx-prime/inputgroup';
+import { InputGroupAddonModule } from '@wawjs/ngx-prime/inputgroupaddon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { MenuModule } from '@wawjs/ngx-prime/menu';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

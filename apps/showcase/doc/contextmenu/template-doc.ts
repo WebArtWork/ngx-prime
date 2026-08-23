@@ -2,10 +2,10 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
-import { BadgeModule } from 'ngx-prime/badge';
-import { ContextMenu, ContextMenuModule } from 'ngx-prime/contextmenu';
-import { Ripple } from 'ngx-prime/ripple';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { ContextMenu, ContextMenuModule } from '@wawjs/ngx-prime/contextmenu';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
 @Component({
     selector: 'app-template-doc',
     standalone: true,

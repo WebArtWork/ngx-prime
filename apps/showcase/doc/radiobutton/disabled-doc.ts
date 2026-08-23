@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RadioButtonModule } from 'ngx-prime/radiobutton';
+import { RadioButtonModule } from '@wawjs/ngx-prime/radiobutton';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

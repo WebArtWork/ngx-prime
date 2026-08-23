@@ -22,15 +22,15 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { findIndexInList, setAttribute, uuid } from '@wawjs/css-prime-utils';
-import { FilterService, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { ButtonModule, ButtonProps } from 'ngx-prime/button';
-import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from 'ngx-prime/icons';
-import { Listbox, ListboxChangeEvent } from 'ngx-prime/listbox';
-import { Ripple } from 'ngx-prime/ripple';
-import { Nullable } from 'ngx-prime/ts-helpers';
-import { OrderListFilterEvent, OrderListFilterOptions, OrderListFilterTemplateContext, OrderListItemTemplateContext, OrderListPassThrough, OrderListSelectionChangeEvent } from 'ngx-prime/types/orderlist';
+import { FilterService, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { ButtonModule, ButtonProps } from '@wawjs/ngx-prime/button';
+import { AngleDoubleDownIcon, AngleDoubleUpIcon, AngleDownIcon, AngleUpIcon } from '@wawjs/ngx-prime/icons';
+import { Listbox, ListboxChangeEvent } from '@wawjs/ngx-prime/listbox';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { Nullable } from '@wawjs/ngx-prime/ts-helpers';
+import { OrderListFilterEvent, OrderListFilterOptions, OrderListFilterTemplateContext, OrderListItemTemplateContext, OrderListPassThrough, OrderListSelectionChangeEvent } from '@wawjs/ngx-prime/types/orderlist';
 import { OrderListStyle } from './style/orderliststyle';
 
 const ORDERLIST_INSTANCE = new InjectionToken<OrderList>('ORDERLIST_INSTANCE');

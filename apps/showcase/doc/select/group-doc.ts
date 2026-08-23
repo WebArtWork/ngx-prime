@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { SelectItemGroup } from 'ngx-prime/api';
+import { SelectItemGroup } from '@wawjs/ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 import { FormsModule } from '@angular/forms';
-import { SelectModule } from 'ngx-prime/select';
+import { SelectModule } from '@wawjs/ngx-prime/select';
 
 @Component({
     selector: 'app-group-doc',

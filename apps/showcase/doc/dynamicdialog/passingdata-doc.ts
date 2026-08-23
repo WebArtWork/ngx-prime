@@ -1,6 +1,6 @@
 import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
+import { DialogService, DynamicDialogRef } from '@wawjs/ngx-prime/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
@@ -41,9 +41,9 @@ export class PassingDataDoc {
     code: Code = {
         typescript: `
 import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
+import { DialogService, DynamicDialogRef } from '@wawjs/ngx-prime/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
-import { ButtonModule } from 'ngx-prime/button';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     template: \`<p-button (click)="show()" label="Show" />\`,

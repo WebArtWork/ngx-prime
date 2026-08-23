@@ -2,18 +2,18 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { ButtonModule } from 'ngx-prime/button';
-import { Checkbox } from 'ngx-prime/checkbox';
-import { DividerModule } from 'ngx-prime/divider';
-import { IconField } from 'ngx-prime/iconfield';
-import { InputIcon } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { MenuModule } from 'ngx-prime/menu';
-import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
-import { ProgressBar } from 'ngx-prime/progressbar';
-import { TableModule } from 'ngx-prime/table';
-import { Tag } from 'ngx-prime/tag';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { Checkbox } from '@wawjs/ngx-prime/checkbox';
+import { DividerModule } from '@wawjs/ngx-prime/divider';
+import { IconField } from '@wawjs/ngx-prime/iconfield';
+import { InputIcon } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { MenuModule } from '@wawjs/ngx-prime/menu';
+import { OverlayBadgeModule } from '@wawjs/ngx-prime/overlaybadge';
+import { ProgressBar } from '@wawjs/ngx-prime/progressbar';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { Tag } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-inbox-app',

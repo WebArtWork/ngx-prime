@@ -1,8 +1,8 @@
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@wawjs/css-prime-motion';
-import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
-import type { InputTextPassThrough } from 'ngx-prime/types/inputtext';
-import type { OverlayPassThrough } from 'ngx-prime/types/overlay';
+import type { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
+import type { InputTextPassThrough } from '@wawjs/ngx-prime/types/inputtext';
+import type { OverlayPassThrough } from '@wawjs/ngx-prime/types/overlay';
 
 /**
  * Custom pass-through(pt) options.

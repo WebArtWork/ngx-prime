@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PasswordModule } from 'ngx-prime/password';
+import { PasswordModule } from '@wawjs/ngx-prime/password';
 
 @Component({
     selector: 'app-password-pt-viewer',

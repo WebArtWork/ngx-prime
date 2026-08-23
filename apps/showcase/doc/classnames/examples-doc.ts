@@ -2,7 +2,7 @@ import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component, computed, signal } from '@angular/core';
-import { ClassNamesModule } from 'ngx-prime/classnames';
+import { ClassNamesModule } from '@wawjs/ngx-prime/classnames';
 
 @Component({
     selector: 'app-examples-doc',

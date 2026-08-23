@@ -4,11 +4,11 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { IconFieldModule } from 'ngx-prime/iconfield';
-import { InputIconModule } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { TableModule } from 'ngx-prime/table';
-import { TagModule } from 'ngx-prime/tag';
+import { IconFieldModule } from '@wawjs/ngx-prime/iconfield';
+import { InputIconModule } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-stateful-doc',

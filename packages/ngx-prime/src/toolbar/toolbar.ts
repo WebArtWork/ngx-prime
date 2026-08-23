@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, inject, InjectionToken, input, NgModule, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
-import { BlockableUI, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
+import { BlockableUI, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
 import { ToolbarStyle } from './style/toolbarstyle';
-import { ToolbarPassThrough } from 'ngx-prime/types/toolbar';
+import { ToolbarPassThrough } from '@wawjs/ngx-prime/types/toolbar';
 
 const TOOLBAR_INSTANCE = new InjectionToken<Toolbar>('TOOLBAR_INSTANCE');
 

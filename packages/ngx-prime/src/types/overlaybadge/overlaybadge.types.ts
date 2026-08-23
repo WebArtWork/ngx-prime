@@ -1,5 +1,5 @@
-import type { BadgePassThrough } from 'ngx-prime/types/badge';
-import type { PassThrough, PassThroughOption } from 'ngx-prime/api';
+import type { BadgePassThrough } from '@wawjs/ngx-prime/types/badge';
+import type { PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
 
 /**
  * Custom pass-through(pt) options.

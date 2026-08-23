@@ -6,8 +6,8 @@ import { ProductService } from '@/service/productservice';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButtonModule } from 'ngx-prime/selectbutton';
-import { TableModule } from 'ngx-prime/table';
+import { SelectButtonModule } from '@wawjs/ngx-prime/selectbutton';
+import { TableModule } from '@wawjs/ngx-prime/table';
 
 @Component({
     selector: 'app-size-doc',

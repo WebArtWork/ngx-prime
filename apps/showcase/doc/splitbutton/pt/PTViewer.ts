@@ -1,9 +1,9 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
-import { SplitButtonModule } from 'ngx-prime/splitbutton';
-import { ToastModule } from 'ngx-prime/toast';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { SplitButtonModule } from '@wawjs/ngx-prime/splitbutton';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 
 @Component({
     selector: 'app-splitbutton-pt-viewer',

@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 
-import { MessageService } from 'ngx-prime/api';
-import { NgxPrime } from 'ngx-prime/config';
-import { FileUploadModule } from 'ngx-prime/fileupload';
-import { ToastModule } from 'ngx-prime/toast';
-import { ButtonModule } from 'ngx-prime/button';
-import { BadgeModule } from 'ngx-prime/badge';
-import { ProgressBarModule } from 'ngx-prime/progressbar';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { NgxPrime } from '@wawjs/ngx-prime/config';
+import { FileUploadModule } from '@wawjs/ngx-prime/fileupload';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { ProgressBarModule } from '@wawjs/ngx-prime/progressbar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

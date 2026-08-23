@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, Component, Input, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { StyleClass } from 'ngx-prime/styleclass';
-import { Tag } from 'ngx-prime/tag';
+import { StyleClass } from '@wawjs/ngx-prime/styleclass';
+import { Tag } from '@wawjs/ngx-prime/tag';
 import { MenuItem } from './app.menu.component';
 
 @Component({

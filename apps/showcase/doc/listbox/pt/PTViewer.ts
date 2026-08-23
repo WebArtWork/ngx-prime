@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Listbox } from 'ngx-prime/listbox';
+import { Listbox } from '@wawjs/ngx-prime/listbox';
 
 interface City {
     name: string;

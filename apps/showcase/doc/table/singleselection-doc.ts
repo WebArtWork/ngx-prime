@@ -5,8 +5,8 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'ngx-prime/table';
-import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { ToggleSwitchModule } from '@wawjs/ngx-prime/toggleswitch';
 
 @Component({
     selector: 'app-singleselection-doc',

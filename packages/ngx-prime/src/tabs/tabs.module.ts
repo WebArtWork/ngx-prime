@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BindModule } from 'ngx-prime/bind';
+import { BindModule } from '@wawjs/ngx-prime/bind';
 import { Tab } from './tab';
 import { TabList } from './tablist';
 import { TabPanel } from './tabpanel';

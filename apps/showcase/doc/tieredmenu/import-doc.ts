@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TieredMenuModule } from 'ngx-prime/tieredmenu';`
+        typescript: `import { TieredMenuModule } from '@wawjs/ngx-prime/tieredmenu';`
     };
 }

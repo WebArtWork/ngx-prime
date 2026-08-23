@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { DialogModule } from 'ngx-prime/dialog';
-import { ButtonModule } from 'ngx-prime/button';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { AvatarModule } from 'ngx-prime/avatar';
+import { DialogModule } from '@wawjs/ngx-prime/dialog';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

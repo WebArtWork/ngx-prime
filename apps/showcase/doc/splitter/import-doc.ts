@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SplitterModule } from 'ngx-prime/splitter';`
+        typescript: `import { SplitterModule } from '@wawjs/ngx-prime/splitter';`
     };
 }

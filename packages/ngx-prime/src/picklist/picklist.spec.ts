@@ -4,7 +4,7 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import {
     PickListMoveAllToSourceEvent,
     PickListMoveAllToTargetEvent,
@@ -14,7 +14,7 @@ import {
     PickListSourceSelectEvent,
     PickListTargetReorderEvent,
     PickListTargetSelectEvent
-} from 'ngx-prime/types/picklist';
+} from '@wawjs/ngx-prime/types/picklist';
 import { PickList } from './picklist';
 
 @Component({

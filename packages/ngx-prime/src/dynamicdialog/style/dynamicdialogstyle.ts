@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DialogStyle } from 'ngx-prime/dialog';
+import { DialogStyle } from '@wawjs/ngx-prime/dialog';
 
 @Injectable()
 export class DynamicDialogStyle extends DialogStyle {

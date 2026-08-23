@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { CheckboxModule } from 'ngx-prime/checkbox';`
+        typescript: `import { CheckboxModule } from '@wawjs/ngx-prime/checkbox';`
     };
 }

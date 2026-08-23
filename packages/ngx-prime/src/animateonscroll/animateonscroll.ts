@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, Directive, input, NgModule, numberAttribute } from '@angular/core';
 import { addClass, removeClass } from '@wawjs/css-prime-utils';
-import { BaseComponent } from 'ngx-prime/basecomponent';
+import { BaseComponent } from '@wawjs/ngx-prime/basecomponent';
 
 interface AnimateOnScrollOptions {
     root?: HTMLElement | null;

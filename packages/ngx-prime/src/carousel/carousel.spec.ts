@@ -3,10 +3,10 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { provideNgxPrime } from 'ngx-prime/config';
-import type { CarouselPageEvent, CarouselResponsiveOptions } from 'ngx-prime/types/carousel';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
+import type { CarouselPageEvent, CarouselResponsiveOptions } from '@wawjs/ngx-prime/types/carousel';
 import { Carousel } from './carousel';
 
 // Mock data for testing

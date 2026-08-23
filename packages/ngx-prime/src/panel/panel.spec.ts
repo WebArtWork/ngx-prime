@@ -2,9 +2,9 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'ngx-prime/button';
-import { MinusIcon, PlusIcon } from 'ngx-prime/icons';
-import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from 'ngx-prime/types/panel';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { MinusIcon, PlusIcon } from '@wawjs/ngx-prime/icons';
+import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from '@wawjs/ngx-prime/types/panel';
 import { Panel } from './panel';
 
 @Component({

@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, ViewChild, ViewEncapsulation, contentChildren } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { ToggleSwitchChangeEvent, ToggleSwitchHandleTemplateContext, ToggleSwitchPassThrough } from 'ngx-prime/types/toggleswitch';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { ToggleSwitchChangeEvent, ToggleSwitchHandleTemplateContext, ToggleSwitchPassThrough } from '@wawjs/ngx-prime/types/toggleswitch';
 import { ToggleSwitchStyle } from './style/toggleswitchstyle';
 import { ToggleSwitchDirective } from './nativetoggleswitch';
 

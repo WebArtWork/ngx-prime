@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
-import { BlockUIModule } from 'ngx-prime/blockui';
-import { ButtonModule } from 'ngx-prime/button';
+import { BlockUIModule } from '@wawjs/ngx-prime/blockui';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

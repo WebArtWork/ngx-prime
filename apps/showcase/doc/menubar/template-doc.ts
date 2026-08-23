@@ -2,12 +2,12 @@ import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { BadgeModule } from 'ngx-prime/badge';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { MenubarModule } from 'ngx-prime/menubar';
-import { Ripple } from 'ngx-prime/ripple';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { MenubarModule } from '@wawjs/ngx-prime/menubar';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
 
 @Component({
     selector: 'app-template-doc',

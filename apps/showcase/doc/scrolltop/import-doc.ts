@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ScrollTopModule } from 'ngx-prime/scrolltop';`
+        typescript: `import { ScrollTopModule } from '@wawjs/ngx-prime/scrolltop';`
     };
 }

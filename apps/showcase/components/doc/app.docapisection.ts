@@ -2,7 +2,7 @@ import APIDoc from '@/doc/apidoc/index.json';
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input, Input, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ObjectUtils } from 'ngx-prime/utils';
+import { ObjectUtils } from '@wawjs/ngx-prime/utils';
 import { AppDocApiTable } from './app.docapitable';
 import { AppDocSection } from './app.docsection';
 import { AppDocSectionNav } from './app.docsection-nav';

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'ngx-prime/autocomplete';
-import { IftaLabelModule } from 'ngx-prime/iftalabel';
+import { AutoCompleteModule } from '@wawjs/ngx-prime/autocomplete';
+import { IftaLabelModule } from '@wawjs/ngx-prime/iftalabel';
 import { RouterModule } from '@angular/router';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';

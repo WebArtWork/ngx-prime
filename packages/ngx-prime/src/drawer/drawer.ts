@@ -22,17 +22,17 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { addClass, appendChild, removeClass, setAttribute } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { Button, ButtonProps } from 'ngx-prime/button';
-import { blockBodyScroll, unblockBodyScroll } from 'ngx-prime/dom';
-import { FocusTrapModule } from 'ngx-prime/focustrap';
-import { TimesIcon } from 'ngx-prime/icons';
-import { MotionModule } from 'ngx-prime/motion';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
-import { DrawerPassThrough } from 'ngx-prime/types/drawer';
-import { ZIndexUtils } from 'ngx-prime/utils';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { Button, ButtonProps } from '@wawjs/ngx-prime/button';
+import { blockBodyScroll, unblockBodyScroll } from '@wawjs/ngx-prime/dom';
+import { FocusTrapModule } from '@wawjs/ngx-prime/focustrap';
+import { TimesIcon } from '@wawjs/ngx-prime/icons';
+import { MotionModule } from '@wawjs/ngx-prime/motion';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
+import { DrawerPassThrough } from '@wawjs/ngx-prime/types/drawer';
+import { ZIndexUtils } from '@wawjs/ngx-prime/utils';
 import { DrawerStyle } from './style/drawerstyle';
 
 const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');

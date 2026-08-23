@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MultiSelectModule } from 'ngx-prime/multiselect';
+import { MultiSelectModule } from '@wawjs/ngx-prime/multiselect';
 
 @Component({
     selector: 'app-multiselect-pt-viewer',

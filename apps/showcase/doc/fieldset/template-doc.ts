@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FieldsetModule } from 'ngx-prime/fieldset';
-import { AvatarModule } from 'ngx-prime/avatar';
+import { FieldsetModule } from '@wawjs/ngx-prime/fieldset';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

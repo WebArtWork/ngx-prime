@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { FluidModule } from 'ngx-prime/fluid';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { FluidModule } from '@wawjs/ngx-prime/fluid';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 
 @Component({
     selector: 'app-fluid-pt-viewer',

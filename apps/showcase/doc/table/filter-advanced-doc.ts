@@ -6,16 +6,16 @@ import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'ngx-prime/button';
-import { IconFieldModule } from 'ngx-prime/iconfield';
-import { InputIconModule } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { MultiSelectModule } from 'ngx-prime/multiselect';
-import { ProgressBarModule } from 'ngx-prime/progressbar';
-import { SelectModule } from 'ngx-prime/select';
-import { SliderModule } from 'ngx-prime/slider';
-import { Table, TableModule } from 'ngx-prime/table';
-import { TagModule } from 'ngx-prime/tag';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { IconFieldModule } from '@wawjs/ngx-prime/iconfield';
+import { InputIconModule } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { MultiSelectModule } from '@wawjs/ngx-prime/multiselect';
+import { ProgressBarModule } from '@wawjs/ngx-prime/progressbar';
+import { SelectModule } from '@wawjs/ngx-prime/select';
+import { SliderModule } from '@wawjs/ngx-prime/slider';
+import { Table, TableModule } from '@wawjs/ngx-prime/table';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-filter-advanced-doc',

@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TagModule } from 'ngx-prime/tag';`
+        typescript: `import { TagModule } from '@wawjs/ngx-prime/tag';`
     };
 }

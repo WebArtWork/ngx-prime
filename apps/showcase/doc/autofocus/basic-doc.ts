@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AutoFocusModule } from 'ngx-prime/autofocus';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { AutoFocusModule } from '@wawjs/ngx-prime/autofocus';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

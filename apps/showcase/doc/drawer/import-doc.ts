@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DrawerModule } from 'ngx-prime/drawer';`
+        typescript: `import { DrawerModule } from '@wawjs/ngx-prime/drawer';`
     };
 }

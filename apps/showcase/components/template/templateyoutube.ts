@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation, OnInit, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { DialogModule } from 'ngx-prime/dialog';
+import { DialogModule } from '@wawjs/ngx-prime/dialog';
 
 @Component({
     selector: 'app-template-youtube',

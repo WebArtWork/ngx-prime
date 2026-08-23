@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MenuItem, MessageService } from 'ngx-prime/api';
-import { PanelMenu } from 'ngx-prime/panelmenu';
-import { ToastModule } from 'ngx-prime/toast';
+import { MenuItem, MessageService } from '@wawjs/ngx-prime/api';
+import { PanelMenu } from '@wawjs/ngx-prime/panelmenu';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

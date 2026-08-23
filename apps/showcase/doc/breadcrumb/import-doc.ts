@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BreadcrumbModule } from 'ngx-prime/breadcrumb';`
+        typescript: `import { BreadcrumbModule } from '@wawjs/ngx-prime/breadcrumb';`
     };
 }

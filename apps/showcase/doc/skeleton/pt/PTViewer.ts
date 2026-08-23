@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { SkeletonModule } from 'ngx-prime/skeleton';
+import { SkeletonModule } from '@wawjs/ngx-prime/skeleton';
 
 @Component({
     selector: 'app-skeleton-pt-viewer',

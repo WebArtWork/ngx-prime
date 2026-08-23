@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { SharedModule } from 'ngx-prime/api';
-import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from 'ngx-prime/types/cascadeselect';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { CascadeSelectBeforeHideEvent, CascadeSelectBeforeShowEvent, CascadeSelectChangeEvent, CascadeSelectHideEvent, CascadeSelectShowEvent } from '@wawjs/ngx-prime/types/cascadeselect';
 import { BehaviorSubject } from 'rxjs';
 import { CASCADESELECT_VALUE_ACCESSOR, CascadeSelect, CascadeSelectModule } from './cascadeselect';
 

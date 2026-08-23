@@ -34,7 +34,7 @@ import { Component } from '@angular/core';
 export class PTOptionsDoc {
     codeGlobal: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -55,7 +55,7 @@ export const appConfig: ApplicationConfig = {
 
     codeComponent: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'ngx-prime/panel';
+import { Panel, PanelModule, PanelPassThrough } from '@wawjs/ngx-prime/panel';
 
 @Component({
     selector: 'ptoptions-doc',
@@ -83,7 +83,7 @@ export class PanelPtDemo {
 
     codeComponentTrueTrue: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'ngx-prime/panel';
+import { Panel, PanelModule, PanelPassThrough } from '@wawjs/ngx-prime/panel';
 
 @Component({
     selector: 'ptoptions-doc',
@@ -111,7 +111,7 @@ export class PanelPtDemo {
 
     codeComponentFalseTrue: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'ngx-prime/panel';
+import { Panel, PanelModule, PanelPassThrough } from '@wawjs/ngx-prime/panel';
 
 @Component({
     selector: 'ptoptions-doc',
@@ -137,7 +137,7 @@ export class PanelPtDemo {
 
     codeComponentFalseFalse: Code = {
         typescript: `import { Component } from '@angular/core';
-import { Panel, PanelModule, PanelPassThrough } from 'ngx-prime/panel';
+import { Panel, PanelModule, PanelPassThrough } from '@wawjs/ngx-prime/panel';
 
 @Component({
     selector: 'ptoptions-doc',

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { PasswordModule } from 'ngx-prime/password';
-import { IftaLabelModule } from 'ngx-prime/iftalabel';
+import { PasswordModule } from '@wawjs/ngx-prime/password';
+import { IftaLabelModule } from '@wawjs/ngx-prime/iftalabel';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

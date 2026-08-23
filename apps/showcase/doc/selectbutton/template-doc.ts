@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectButton } from 'ngx-prime/selectbutton';
+import { SelectButton } from '@wawjs/ngx-prime/selectbutton';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 

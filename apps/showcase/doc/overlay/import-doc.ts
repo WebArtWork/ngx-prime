@@ -14,6 +14,6 @@ export class ImportDoc {
     @Input() title: string;
 
     code: Code = {
-        typescript: `import { OverlayModule } from 'ngx-prime/overlay';`
+        typescript: `import { OverlayModule } from '@wawjs/ngx-prime/overlay';`
     };
 }

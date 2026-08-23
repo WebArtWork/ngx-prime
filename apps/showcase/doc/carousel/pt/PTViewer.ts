@@ -3,9 +3,9 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { Component, signal, OnInit, inject } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
-import { CarouselModule } from 'ngx-prime/carousel';
-import { TagModule } from 'ngx-prime/tag';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { CarouselModule } from '@wawjs/ngx-prime/carousel';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-carousel-pt-viewer',

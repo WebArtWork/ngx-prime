@@ -1,8 +1,8 @@
 import { Component, inject, InjectionToken, input, NgModule } from '@angular/core';
-import { SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { InputGroupAddonPassThrough } from 'ngx-prime/types/inputgroupaddon';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { InputGroupAddonPassThrough } from '@wawjs/ngx-prime/types/inputgroupaddon';
 import { InputGroupAddonStyle } from './style/inputgroupaddonstyle';
 
 const INPUTGROUPADDON_INSTANCE = new InjectionToken<InputGroupAddon>('INPUTGROUPADDON_INSTANCE');

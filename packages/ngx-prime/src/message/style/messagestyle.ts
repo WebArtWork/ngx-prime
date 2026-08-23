@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style } from '@wawjs/css-prime-styles/message';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const classes = {
     root: ({ instance }) => ['p-message p-component p-message-' + instance.severity(), instance.variant() && 'p-message-' + instance.variant(), { 'p-message-sm': instance.size() === 'small', 'p-message-lg': instance.size() === 'large' }],

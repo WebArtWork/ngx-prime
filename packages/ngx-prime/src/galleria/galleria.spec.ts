@@ -3,8 +3,8 @@ import { Component, provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { GalleriaResponsiveOptions } from 'ngx-prime/types/galleria';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { GalleriaResponsiveOptions } from '@wawjs/ngx-prime/types/galleria';
 import { Galleria, GalleriaModule } from './galleria';
 
 // Mock data for testing

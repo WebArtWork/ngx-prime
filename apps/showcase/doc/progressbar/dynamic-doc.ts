@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
-import { MessageService } from 'ngx-prime/api';
-import { ProgressBarModule } from 'ngx-prime/progressbar';
-import { ToastModule } from 'ngx-prime/toast';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ProgressBarModule } from '@wawjs/ngx-prime/progressbar';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

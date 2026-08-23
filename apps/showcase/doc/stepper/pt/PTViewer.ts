@@ -1,8 +1,8 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
-import { StepperModule } from 'ngx-prime/stepper';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { StepperModule } from '@wawjs/ngx-prime/stepper';
 
 @Component({
     selector: 'app-stepper-pt-viewer',

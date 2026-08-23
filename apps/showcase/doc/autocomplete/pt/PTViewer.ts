@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { AutoCompleteModule } from '@wawjs/ngx-prime/autocomplete';
 
 @Component({
     selector: 'app-autocomplete-pt-viewer',

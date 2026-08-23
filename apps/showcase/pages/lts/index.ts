@@ -4,8 +4,8 @@ import { Code } from '@/domain/code';
 import { Component, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { RippleModule } from 'ngx-prime/ripple';
-import { TagModule } from 'ngx-prime/tag';
+import { RippleModule } from '@wawjs/ngx-prime/ripple';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     standalone: true,
@@ -329,7 +329,7 @@ export class LTSDemo {
 
     code: Code = {
         typescript: `import { Component } from '@angular/core';
-import { LicenseManager } from 'ngx-prime/api';
+import { LicenseManager } from '@wawjs/ngx-prime/api';
 
 @Component({
     selector: 'app-root',

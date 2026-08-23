@@ -5,10 +5,10 @@ import { form } from '@angular/forms/signals';
 import { By } from '@angular/platform-browser';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { provideNgxPrime } from 'ngx-prime/config';
-import { ToggleSwitchChangeEvent } from 'ngx-prime/types/toggleswitch';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
+import { ToggleSwitchChangeEvent } from '@wawjs/ngx-prime/types/toggleswitch';
 import { ToggleSwitch, ToggleSwitchModule } from './toggleswitch';
 import { ToggleSwitchDirective } from './nativetoggleswitch';
 

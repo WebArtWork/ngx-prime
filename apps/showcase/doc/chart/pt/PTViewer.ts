@@ -4,7 +4,7 @@ import { DesignerService } from '@/service/designerservice';
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ChartModule } from 'ngx-prime/chart';
+import { ChartModule } from '@wawjs/ngx-prime/chart';
 
 @Component({
     selector: 'app-chart-pt-viewer',

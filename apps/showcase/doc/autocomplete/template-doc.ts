@@ -2,8 +2,8 @@ import { CountryService } from '@/service/countryservice';
 import { Component, OnInit, inject } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'ngx-prime/autocomplete';
-import { ButtonModule } from 'ngx-prime/button';
+import { AutoCompleteModule } from '@wawjs/ngx-prime/autocomplete';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 

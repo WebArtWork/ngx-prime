@@ -2,8 +2,8 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { TreeNode } from 'ngx-prime/api';
-import { TreeTableModule } from 'ngx-prime/treetable';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { TreeTableModule } from '@wawjs/ngx-prime/treetable';
 
 @Component({
     selector: 'app-treetable-pt-viewer',

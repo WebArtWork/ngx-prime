@@ -1,10 +1,10 @@
 import { booleanAttribute, computed, contentChildren, Directive, ElementRef, forwardRef, inject, input, model, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals } from '@wawjs/css-prime-utils';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind } from 'ngx-prime/bind';
-import type { SelectButtonChangeEvent, SelectButtonOptionClickEvent, SelectButtonPassThrough } from 'ngx-prime/types/selectbutton';
-import { ToggleButtonStyle } from 'ngx-prime/togglebutton';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import type { SelectButtonChangeEvent, SelectButtonOptionClickEvent, SelectButtonPassThrough } from '@wawjs/ngx-prime/types/selectbutton';
+import { ToggleButtonStyle } from '@wawjs/ngx-prime/togglebutton';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
 
 /** Manages selection for a group of native `button[pSelectButtonOption]` elements. */

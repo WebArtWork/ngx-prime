@@ -1,10 +1,10 @@
 import { booleanAttribute, computed, Directive, effect, inject, InjectionToken, input, NgModule } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseModelHolder } from 'ngx-prime/basemodelholder';
-import { Bind } from 'ngx-prime/bind';
-import { Fluid } from 'ngx-prime/fluid';
-import { InputTextPassThrough } from 'ngx-prime/types/inputtext';
+import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseModelHolder } from '@wawjs/ngx-prime/basemodelholder';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { Fluid } from '@wawjs/ngx-prime/fluid';
+import { InputTextPassThrough } from '@wawjs/ngx-prime/types/inputtext';
 import { InputTextStyle } from './style/inputtextstyle';
 
 const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');

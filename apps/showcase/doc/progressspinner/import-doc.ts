@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ProgressSpinnerModule } from 'ngx-prime/progressspinner';`
+        typescript: `import { ProgressSpinnerModule } from '@wawjs/ngx-prime/progressspinner';`
     };
 }

@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SelectButton } from 'ngx-prime/selectbutton';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { TooltipModule } from 'ngx-prime/tooltip';
-import { IconField } from 'ngx-prime/iconfield';
-import { InputIcon } from 'ngx-prime/inputicon';
-import { ButtonModule } from 'ngx-prime/button';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { ProgressBar } from 'ngx-prime/progressbar';
-import { Carousel } from 'ngx-prime/carousel';
-import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
+import { SelectButton } from '@wawjs/ngx-prime/selectbutton';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
+import { IconField } from '@wawjs/ngx-prime/iconfield';
+import { InputIcon } from '@wawjs/ngx-prime/inputicon';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { ProgressBar } from '@wawjs/ngx-prime/progressbar';
+import { Carousel } from '@wawjs/ngx-prime/carousel';
+import { OverlayBadgeModule } from '@wawjs/ngx-prime/overlaybadge';
 
 @Component({
     selector: 'app-movies-app',

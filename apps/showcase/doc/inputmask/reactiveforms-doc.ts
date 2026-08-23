@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MessageService } from 'ngx-prime/api';
-import { InputMaskModule } from 'ngx-prime/inputmask';
-import { InputText } from 'ngx-prime/inputtext';
-import { ButtonModule } from 'ngx-prime/button';
-import { ToastModule } from 'ngx-prime/toast';
-import { MessageModule } from 'ngx-prime/message';
-import { FluidModule } from 'ngx-prime/fluid';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { InputMaskModule } from '@wawjs/ngx-prime/inputmask';
+import { InputText } from '@wawjs/ngx-prime/inputtext';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { MessageModule } from '@wawjs/ngx-prime/message';
+import { FluidModule } from '@wawjs/ngx-prime/fluid';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -5,11 +5,11 @@ import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { Component, signal, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SelectItem } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { DataViewModule } from 'ngx-prime/dataview';
-import { SelectModule } from 'ngx-prime/select';
-import { TagModule } from 'ngx-prime/tag';
+import { SelectItem } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { DataViewModule } from '@wawjs/ngx-prime/dataview';
+import { SelectModule } from '@wawjs/ngx-prime/select';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-sorting-doc',

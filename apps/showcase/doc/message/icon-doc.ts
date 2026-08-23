@@ -1,8 +1,8 @@
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { MessageModule } from 'ngx-prime/message';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { MessageModule } from '@wawjs/ngx-prime/message';
 
 @Component({
     selector: 'app-icon-doc',

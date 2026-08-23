@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 import type { MotionOptions } from '@wawjs/css-prime-motion';
-import type { PassThrough, PassThroughOption, ToastMessageOptions } from 'ngx-prime/api';
+import type { PassThrough, PassThroughOption, ToastMessageOptions } from '@wawjs/ngx-prime/api';
 
 /**
  * Custom pass-through(pt) options for Toast.

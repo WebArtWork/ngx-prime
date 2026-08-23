@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy, Component, computed, inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { Drawer, DrawerModule } from 'ngx-prime/drawer';
+import { Drawer, DrawerModule } from '@wawjs/ngx-prime/drawer';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AppConfigService } from '@/service/appconfigservice';
-import { ToastModule } from 'ngx-prime/toast';
-import { NgxPrime } from 'ngx-prime/config';
-import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
+import { ToastModule } from '@wawjs/ngx-prime/toast';
+import { NgxPrime } from '@wawjs/ngx-prime/config';
+import { ConfirmDialogModule } from '@wawjs/ngx-prime/confirmdialog';
 import { DesignDashboard } from '@/components/layout/designer/dashboard/designdashboard';
 import { DesignCreateTheme } from '@/components/layout/designer/create/designcreatetheme';
 import { DesignEditor } from '@/components/layout/designer/editor/designeditor';
 import { DesignEditorFooter } from '@/components/layout/designer/editor/designeditorfooter';
-import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';
+import { ConfirmPopupModule } from '@wawjs/ngx-prime/confirmpopup';
 
 @Component({
     selector: 'app-designer',

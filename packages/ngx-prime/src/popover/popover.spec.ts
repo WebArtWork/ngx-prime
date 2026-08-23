@@ -3,7 +3,7 @@ import { Component, ElementRef, provideZonelessChangeDetection, viewChild } from
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { OverlayService, PrimeTemplate } from 'ngx-prime/api';
+import { OverlayService, PrimeTemplate } from '@wawjs/ngx-prime/api';
 import { Popover } from './popover';
 
 // function createMockAnimationEvent(toState: string, fromState: string = 'void'): AnimationEvent {

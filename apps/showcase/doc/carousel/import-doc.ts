@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { CarouselModule } from 'ngx-prime/carousel';`
+        typescript: `import { CarouselModule } from '@wawjs/ngx-prime/carousel';`
     };
 }

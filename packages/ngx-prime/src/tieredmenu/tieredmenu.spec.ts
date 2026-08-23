@@ -4,9 +4,9 @@ import { By } from '@angular/platform-browser';
 
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MenuItem } from 'ngx-prime/api';
-import { provideNgxPrime } from 'ngx-prime/config';
-import { Tooltip } from 'ngx-prime/tooltip';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
+import { Tooltip } from '@wawjs/ngx-prime/tooltip';
 import { TieredMenu } from './tieredmenu';
 
 @Component({

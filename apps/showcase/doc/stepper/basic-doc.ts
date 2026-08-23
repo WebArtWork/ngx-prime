@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { StepperModule } from 'ngx-prime/stepper';
-import { ButtonModule } from 'ngx-prime/button';
+import { StepperModule } from '@wawjs/ngx-prime/stepper';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'app-basic-doc',

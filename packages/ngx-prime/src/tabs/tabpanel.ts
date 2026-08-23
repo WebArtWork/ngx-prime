@@ -1,11 +1,11 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
 import { equals } from '@wawjs/css-prime-utils';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
 import { TabPanelStyle } from './style/tabpanelstyle';
 import { Tabs } from './tabs';
-import { TabPanelPassThrough } from 'ngx-prime/types/tabs';
+import { TabPanelPassThrough } from '@wawjs/ngx-prime/types/tabs';
 
 const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
 

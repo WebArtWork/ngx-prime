@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ConfirmPopupModule } from 'ngx-prime/confirmpopup';`
+        typescript: `import { ConfirmPopupModule } from '@wawjs/ngx-prime/confirmpopup';`
     };
 }

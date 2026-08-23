@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AccordionModule } from 'ngx-prime/accordion';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { BadgeModule } from 'ngx-prime/badge';
+import { AccordionModule } from '@wawjs/ngx-prime/accordion';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -10,6 +10,6 @@ import { Component } from '@angular/core';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ClassNamesModule } from 'ngx-prime/classnames'`
+        typescript: `import { ClassNamesModule } from '@wawjs/ngx-prime/classnames'`
     };
 }

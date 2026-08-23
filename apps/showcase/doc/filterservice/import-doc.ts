@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { FilterService } from 'ngx-prime/api';`
+        typescript: `import { FilterService } from '@wawjs/ngx-prime/api';`
     };
 }

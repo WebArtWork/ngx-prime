@@ -148,11 +148,11 @@ export const ROUTE_FILE_DEFINITIONS: Record<string, RouteFileDefinition> = {
         content: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
-import { MessageService } from 'ngx-prime/api';
-import { DialogService, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { DialogService, DynamicDialogRef } from '@wawjs/ngx-prime/dynamicdialog';
 import { InfoDemo } from './infodemo';
-import { TableModule } from 'ngx-prime/table'
-import { ButtonModule } from 'ngx-prime/button';
+import { TableModule } from '@wawjs/ngx-prime/table'
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     providers: [DialogService, MessageService, ProductService],
@@ -232,9 +232,9 @@ export class ProductListDemo implements OnInit {
         path: 'src/app/demo/infodemo.ts',
         name: 'InfoDemo',
         content: `import { Component} from '@angular/core';
-import { DialogService, DynamicDialog, DynamicDialogRef } from 'ngx-prime/dynamicdialog';
-import { MessageService } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
+import { DialogService, DynamicDialog, DynamicDialogRef } from '@wawjs/ngx-prime/dynamicdialog';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     providers: [DialogService, MessageService],
@@ -279,8 +279,8 @@ export class InfoDemo {
         path: 'src/app/demo/footer.ts',
         name: 'Footer',
         content: `import { Component } from '@angular/core';
-import { DynamicDialogRef } from 'ngx-prime/dynamicdialog';
-import { ButtonModule } from 'ngx-prime/button';
+import { DynamicDialogRef } from '@wawjs/ngx-prime/dynamicdialog';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'footer',

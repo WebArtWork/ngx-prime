@@ -1,7 +1,7 @@
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
-import { TabsModule } from 'ngx-prime/tabs';
+import { TabsModule } from '@wawjs/ngx-prime/tabs';
 
 @Component({
     selector: 'app-lazy-doc',

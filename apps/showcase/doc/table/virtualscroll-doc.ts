@@ -5,7 +5,7 @@ import { Car } from '@/domain/car';
 import { CarService } from '@/service/carservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { TableModule } from 'ngx-prime/table';
+import { TableModule } from '@wawjs/ngx-prime/table';
 
 interface Column {
     field: string;

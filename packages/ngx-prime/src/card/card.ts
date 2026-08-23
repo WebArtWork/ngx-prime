@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, effect, inject, InjectionToken, input, NgModule, signal, TemplateRef, ViewEncapsulation, contentChild, contentChildren } from '@angular/core';
 import { equals } from '@wawjs/css-prime-utils';
-import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
 import { CardStyle } from './style/cardstyle';
-import { CardPassThrough } from 'ngx-prime/types/card';
+import { CardPassThrough } from '@wawjs/ngx-prime/types/card';
 
 const CARD_INSTANCE = new InjectionToken<Card>('CARD_INSTANCE');
 

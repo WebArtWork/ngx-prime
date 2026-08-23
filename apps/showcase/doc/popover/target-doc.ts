@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PopoverModule } from 'ngx-prime/popover';
-import { ButtonModule } from 'ngx-prime/button';
+import { PopoverModule } from '@wawjs/ngx-prime/popover';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

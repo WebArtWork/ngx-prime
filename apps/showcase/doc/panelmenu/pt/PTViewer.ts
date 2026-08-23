@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { PanelMenuModule } from 'ngx-prime/panelmenu';
+import { PanelMenuModule } from '@wawjs/ngx-prime/panelmenu';
 
 @Component({
     selector: 'app-panelmenu-pt-viewer',

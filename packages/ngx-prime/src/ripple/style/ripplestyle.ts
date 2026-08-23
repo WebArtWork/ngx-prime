@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { style as ripple_style } from '@wawjs/css-prime-styles/ripple';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${ripple_style}

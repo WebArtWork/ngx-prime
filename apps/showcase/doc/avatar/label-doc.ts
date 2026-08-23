@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { OverlayBadgeModule } from '@wawjs/ngx-prime/overlaybadge';
 
 @Component({
     selector: 'app-label-doc',

@@ -1,9 +1,9 @@
 import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { BaseComponent } from 'ngx-prime/basecomponent';
+import { BaseComponent } from '@wawjs/ngx-prime/basecomponent';
 import { Skeleton, SkeletonModule } from './skeleton';
 
 @Component({

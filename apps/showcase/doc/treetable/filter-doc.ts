@@ -5,12 +5,12 @@ import { NodeService } from '@/service/nodeservice';
 
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TreeNode } from 'ngx-prime/api';
-import { IconFieldModule } from 'ngx-prime/iconfield';
-import { InputIconModule } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { SelectButtonModule } from 'ngx-prime/selectbutton';
-import { TreeTableModule } from 'ngx-prime/treetable';
+import { TreeNode } from '@wawjs/ngx-prime/api';
+import { IconFieldModule } from '@wawjs/ngx-prime/iconfield';
+import { InputIconModule } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { SelectButtonModule } from '@wawjs/ngx-prime/selectbutton';
+import { TreeTableModule } from '@wawjs/ngx-prime/treetable';
 
 interface Column {
     field: string;

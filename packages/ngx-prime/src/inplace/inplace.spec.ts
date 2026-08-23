@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { SharedModule } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 import { Inplace, InplaceContent, InplaceDisplay, InplaceModule } from './inplace';
 
 @Component({

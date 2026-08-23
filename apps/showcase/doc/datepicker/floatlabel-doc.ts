@@ -3,8 +3,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DatePickerModule } from 'ngx-prime/datepicker';
-import { FloatLabelModule } from 'ngx-prime/floatlabel';
+import { DatePickerModule } from '@wawjs/ngx-prime/datepicker';
+import { FloatLabelModule } from '@wawjs/ngx-prime/floatlabel';
 
 @Component({
     selector: 'app-floatlabel-doc',

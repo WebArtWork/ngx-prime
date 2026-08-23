@@ -1,9 +1,9 @@
 import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, Component, effect, ElementRef, inject, InjectionToken, input, NgModule, OnDestroy, ViewEncapsulation, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind } from 'ngx-prime/bind';
-import { TerminalPassThrough } from 'ngx-prime/types/terminal';
+import { SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { TerminalPassThrough } from '@wawjs/ngx-prime/types/terminal';
 import { Subscription } from 'rxjs';
 import { TerminalStyle } from './style/terminalstyle';
 import { TerminalService } from './terminalservice';

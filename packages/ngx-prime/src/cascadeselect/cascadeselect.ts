@@ -24,16 +24,16 @@ import {
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { calculateScrollbarWidth, equals, findLastIndex, findSingle, focus, getHiddenElementOuterWidth, getOffset, getOuterWidth, getViewport, isEmpty, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@wawjs/css-prime-utils';
-import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from 'ngx-prime/api';
-import { AutoFocus } from 'ngx-prime/autofocus';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { BaseEditableHolder } from 'ngx-prime/baseeditableholder';
-import { Bind } from 'ngx-prime/bind';
-import { Fluid } from 'ngx-prime/fluid';
-import { AngleRightIcon, ChevronDownIcon, TimesIcon } from 'ngx-prime/icons';
-import { Overlay } from 'ngx-prime/overlay';
-import { Ripple } from 'ngx-prime/ripple';
-import { Nullable, VoidListener } from 'ngx-prime/ts-helpers';
+import { OverlayOptions, OverlayService, PrimeTemplate, SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
+import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import { Fluid } from '@wawjs/ngx-prime/fluid';
+import { AngleRightIcon, ChevronDownIcon, TimesIcon } from '@wawjs/ngx-prime/icons';
+import { Overlay } from '@wawjs/ngx-prime/overlay';
+import { Ripple } from '@wawjs/ngx-prime/ripple';
+import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
 import {
     CascadeSelectBeforeHideEvent,
     CascadeSelectBeforeShowEvent,
@@ -43,7 +43,7 @@ import {
     CascadeSelectPassThrough,
     CascadeSelectShowEvent,
     CascadeSelectValueTemplateContext
-} from 'ngx-prime/types/cascadeselect';
+} from '@wawjs/ngx-prime/types/cascadeselect';
 import { CascadeSelectStyle } from './style/cascadeselectstyle';
 
 const CASCADESELECT_INSTANCE = new InjectionToken<CascadeSelect>('CASCADESELECT_INSTANCE');

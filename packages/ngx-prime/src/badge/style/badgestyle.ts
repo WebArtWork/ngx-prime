@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { style as badge_style } from '@wawjs/css-prime-styles/badge';
 import { isEmpty, isNotEmpty } from '@wawjs/css-prime-utils';
-import { BaseStyle } from 'ngx-prime/base';
+import { BaseStyle } from '@wawjs/ngx-prime/base';
 
 const style = /*css*/ `
     ${badge_style}

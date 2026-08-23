@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, InjectionToken, ViewEncapsulation } from '@angular/core';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
 import { TabPanelsStyle } from './style/tabpanelsstyle';
-import { TabPanelsPassThrough } from 'ngx-prime/types/tabs';
+import { TabPanelsPassThrough } from '@wawjs/ngx-prime/types/tabs';
 
 const TABPANELS_INSTANCE = new InjectionToken<TabPanels>('TABPANELS_INSTANCE');
 

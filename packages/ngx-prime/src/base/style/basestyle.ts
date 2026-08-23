@@ -2,7 +2,7 @@ import { inject, Service } from '@angular/core';
 import { css as Css, dt, Theme } from '@wawjs/css-prime-styled';
 import { style as base_style } from '@wawjs/css-prime-styles/base';
 import { minifyCSS, resolve } from '@wawjs/css-prime-utils';
-import { UseStyle } from 'ngx-prime/usestyle';
+import { UseStyle } from '@wawjs/ngx-prime/usestyle';
 
 const css = /*css*/ `
 .p-hidden-accessible {

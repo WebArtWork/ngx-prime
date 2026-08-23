@@ -1,9 +1,9 @@
 import { TemplateRef } from '@angular/core';
-import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption, SortMeta, TreeNode, TreeTableNode } from 'ngx-prime/api';
-import type { BadgePassThrough } from 'ngx-prime/types/badge';
-import type { CheckboxPassThrough } from 'ngx-prime/types/checkbox';
-import type { PaginatorPassThrough } from 'ngx-prime/types/paginator';
-import type { VirtualScrollerPassThrough } from 'ngx-prime/types/scroller';
+import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption, SortMeta, TreeNode, TreeTableNode } from '@wawjs/ngx-prime/api';
+import type { BadgePassThrough } from '@wawjs/ngx-prime/types/badge';
+import type { CheckboxPassThrough } from '@wawjs/ngx-prime/types/checkbox';
+import type { PaginatorPassThrough } from '@wawjs/ngx-prime/types/paginator';
+import type { VirtualScrollerPassThrough } from '@wawjs/ngx-prime/types/scroller';
 
 /**
  * Custom pass-through(pt) options.

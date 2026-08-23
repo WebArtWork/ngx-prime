@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ButtonGroupModule } from 'ngx-prime/buttongroup';
-import { ButtonModule } from 'ngx-prime/button';
+import { ButtonGroupModule } from '@wawjs/ngx-prime/buttongroup';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
 
 @Component({
     selector: 'app-buttongroup-doc',

@@ -10,6 +10,6 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TabsModule } from 'ngx-prime/tabs';`
+        typescript: `import { TabsModule } from '@wawjs/ngx-prime/tabs';`
     };
 }

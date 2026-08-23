@@ -3,7 +3,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { AutoCompleteModule } from '@wawjs/ngx-prime/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;

@@ -4,21 +4,21 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, inject, PLATFORM_ID, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuItem } from 'ngx-prime/api';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { ButtonModule } from 'ngx-prime/button';
-import { ChartModule } from 'ngx-prime/chart';
-import { DatePickerModule } from 'ngx-prime/datepicker';
-import { IconFieldModule } from 'ngx-prime/iconfield';
-import { InputIconModule } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { MenuModule } from 'ngx-prime/menu';
-import { MeterGroupModule } from 'ngx-prime/metergroup';
-import { OverlayBadgeModule } from 'ngx-prime/overlaybadge';
-import { SelectButtonModule } from 'ngx-prime/selectbutton';
-import { TableModule } from 'ngx-prime/table';
-import { TagModule } from 'ngx-prime/tag';
-import { TooltipModule } from 'ngx-prime/tooltip';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { ChartModule } from '@wawjs/ngx-prime/chart';
+import { DatePickerModule } from '@wawjs/ngx-prime/datepicker';
+import { IconFieldModule } from '@wawjs/ngx-prime/iconfield';
+import { InputIconModule } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { MenuModule } from '@wawjs/ngx-prime/menu';
+import { MeterGroupModule } from '@wawjs/ngx-prime/metergroup';
+import { OverlayBadgeModule } from '@wawjs/ngx-prime/overlaybadge';
+import { SelectButtonModule } from '@wawjs/ngx-prime/selectbutton';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { TagModule } from '@wawjs/ngx-prime/tag';
+import { TooltipModule } from '@wawjs/ngx-prime/tooltip';
 
 @Component({
     selector: 'app-overview-app',

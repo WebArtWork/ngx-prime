@@ -2,18 +2,18 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuItem } from 'ngx-prime/api';
-import { BadgeModule } from 'ngx-prime/badge';
-import { ChartModule } from 'ngx-prime/chart';
-import { SelectButton } from 'ngx-prime/selectbutton';
-import { AvatarModule } from 'ngx-prime/avatar';
-import { IconField } from 'ngx-prime/iconfield';
-import { InputIcon } from 'ngx-prime/inputicon';
-import { ButtonModule } from 'ngx-prime/button';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { MenuModule } from 'ngx-prime/menu';
-import { Textarea } from 'ngx-prime/textarea';
-import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { MenuItem } from '@wawjs/ngx-prime/api';
+import { BadgeModule } from '@wawjs/ngx-prime/badge';
+import { ChartModule } from '@wawjs/ngx-prime/chart';
+import { SelectButton } from '@wawjs/ngx-prime/selectbutton';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
+import { IconField } from '@wawjs/ngx-prime/iconfield';
+import { InputIcon } from '@wawjs/ngx-prime/inputicon';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { MenuModule } from '@wawjs/ngx-prime/menu';
+import { Textarea } from '@wawjs/ngx-prime/textarea';
+import { ToggleSwitchModule } from '@wawjs/ngx-prime/toggleswitch';
 
 @Component({
     selector: 'app-chat-app',

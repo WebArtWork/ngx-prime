@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'ngx-prime/api';
+import { MenuItem } from '@wawjs/ngx-prime/api';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
-import { ToolbarModule } from 'ngx-prime/toolbar';
-import { ButtonModule } from 'ngx-prime/button';
-import { SplitButtonModule } from 'ngx-prime/splitbutton';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { IconFieldModule } from 'ngx-prime/iconfield';
-import { InputIconModule } from 'ngx-prime/inputicon';
+import { ToolbarModule } from '@wawjs/ngx-prime/toolbar';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { SplitButtonModule } from '@wawjs/ngx-prime/splitbutton';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { IconFieldModule } from '@wawjs/ngx-prime/iconfield';
+import { InputIconModule } from '@wawjs/ngx-prime/inputicon';
 
 @Component({
     selector: 'app-basic-doc',

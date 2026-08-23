@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { PopoverModule } from 'ngx-prime/popover';
-import { ButtonModule } from 'ngx-prime/button';
-import { InputGroupModule } from 'ngx-prime/inputgroup';
-import { InputGroupAddonModule } from 'ngx-prime/inputgroupaddon';
-import { InputTextModule } from 'ngx-prime/inputtext';
+import { PopoverModule } from '@wawjs/ngx-prime/popover';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { InputGroupModule } from '@wawjs/ngx-prime/inputgroup';
+import { InputGroupAddonModule } from '@wawjs/ngx-prime/inputgroupaddon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

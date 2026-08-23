@@ -5,8 +5,8 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { afterNextRender, booleanAttribute, Component, computed, ElementRef, Input, OnDestroy, Renderer2, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { DomHandler } from 'ngx-prime/dom';
-import { StyleClass } from 'ngx-prime/styleclass';
+import { DomHandler } from '@wawjs/ngx-prime/dom';
+import { StyleClass } from '@wawjs/ngx-prime/styleclass';
 
 @Component({
     selector: 'app-topbar',

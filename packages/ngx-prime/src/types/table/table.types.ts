@@ -1,13 +1,13 @@
 import { TemplateRef } from '@angular/core';
-import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption } from 'ngx-prime/api';
-import type { ButtonPassThrough, ButtonProps } from 'ngx-prime/types/button';
-import type { CheckboxPassThrough } from 'ngx-prime/types/checkbox';
-import type { PaginatorPassThrough } from 'ngx-prime/types/paginator';
-import type { VirtualScrollerPassThrough } from 'ngx-prime/types/scroller';
-import type { InputTextPassThrough } from 'ngx-prime/types/inputtext';
-import type { SelectPassThrough } from 'ngx-prime/types/select';
-import type { InputNumberPassThrough } from 'ngx-prime/types/inputnumber';
-import type { DatePickerPassThrough } from 'ngx-prime/types/datepicker';
+import type { FilterMetadata, LazyLoadMeta, PassThrough, PassThroughOption } from '@wawjs/ngx-prime/api';
+import type { ButtonPassThrough, ButtonProps } from '@wawjs/ngx-prime/types/button';
+import type { CheckboxPassThrough } from '@wawjs/ngx-prime/types/checkbox';
+import type { PaginatorPassThrough } from '@wawjs/ngx-prime/types/paginator';
+import type { VirtualScrollerPassThrough } from '@wawjs/ngx-prime/types/scroller';
+import type { InputTextPassThrough } from '@wawjs/ngx-prime/types/inputtext';
+import type { SelectPassThrough } from '@wawjs/ngx-prime/types/select';
+import type { InputNumberPassThrough } from '@wawjs/ngx-prime/types/inputnumber';
+import type { DatePickerPassThrough } from '@wawjs/ngx-prime/types/datepicker';
 import type { MotionOptions } from '@wawjs/css-prime-motion';
 
 /**

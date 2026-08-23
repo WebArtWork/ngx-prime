@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { AnimateOnScrollModule } from 'ngx-prime/animateonscroll';
+import { AnimateOnScrollModule } from '@wawjs/ngx-prime/animateonscroll';
 
 @Component({
     selector: 'app-template-configuration',

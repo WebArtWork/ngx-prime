@@ -1,7 +1,7 @@
 import { booleanAttribute, DestroyRef, Directive, ElementRef, inject, input, model, numberAttribute, OnInit, output } from '@angular/core';
-import { BaseModelHolder } from 'ngx-prime/basemodelholder';
-import { Bind } from 'ngx-prime/bind';
-import type { FileSelectEvent, FileUploadPassThrough, NativeFileUploadValidationErrorEvent } from 'ngx-prime/types/fileupload';
+import { BaseModelHolder } from '@wawjs/ngx-prime/basemodelholder';
+import { Bind } from '@wawjs/ngx-prime/bind';
+import type { FileSelectEvent, FileUploadPassThrough, NativeFileUploadValidationErrorEvent } from '@wawjs/ngx-prime/types/fileupload';
 import { FileUploadStyle } from './style/fileuploadstyle';
 
 /**

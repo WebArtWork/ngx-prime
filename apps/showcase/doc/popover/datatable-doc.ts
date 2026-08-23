@@ -4,11 +4,11 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 
 import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
-import { MessageService } from 'ngx-prime/api';
-import { ButtonModule } from 'ngx-prime/button';
-import { Popover, PopoverModule } from 'ngx-prime/popover';
-import { TableModule } from 'ngx-prime/table';
-import { TagModule } from 'ngx-prime/tag';
+import { MessageService } from '@wawjs/ngx-prime/api';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { Popover, PopoverModule } from '@wawjs/ngx-prime/popover';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-datatable-doc',

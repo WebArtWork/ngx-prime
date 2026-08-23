@@ -2,9 +2,9 @@ import { PhotoService } from '@/service/photoservice';
 import { Component, inject, model, OnInit } from '@angular/core';
 
 import { FormsModule } from '@angular/forms';
-import { GalleriaModule } from 'ngx-prime/galleria';
-import { RadioButtonModule } from 'ngx-prime/radiobutton';
-import { CheckboxModule } from 'ngx-prime/checkbox';
+import { GalleriaModule } from '@wawjs/ngx-prime/galleria';
+import { RadioButtonModule } from '@wawjs/ngx-prime/radiobutton';
+import { CheckboxModule } from '@wawjs/ngx-prime/checkbox';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

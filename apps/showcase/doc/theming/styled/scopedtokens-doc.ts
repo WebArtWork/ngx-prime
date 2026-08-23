@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
-import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
+import { ToggleSwitchModule } from '@wawjs/ngx-prime/toggleswitch';
 
 @Component({
     selector: 'app-scopedtokens-doc',
@@ -58,7 +58,7 @@ export class ScopedTokensDoc {
     code = {
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ToggleSwitch } from 'ngx-prime/toggleswitch';
+import { ToggleSwitch } from '@wawjs/ngx-prime/toggleswitch';
 
 @Component({
     template: \`

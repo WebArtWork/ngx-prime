@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { AnimateOnScrollModule } from 'ngx-prime/animateonscroll';
-import { AvatarModule } from 'ngx-prime/avatar';
+import { AnimateOnScrollModule } from '@wawjs/ngx-prime/animateonscroll';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

@@ -10,6 +10,6 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { InputMaskModule } from 'ngx-prime/inputmask';`
+        typescript: `import { InputMaskModule } from '@wawjs/ngx-prime/inputmask';`
     };
 }

@@ -4,9 +4,9 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
-import { DialogModule } from 'ngx-prime/dialog';
-import { TableModule } from 'ngx-prime/table';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { DialogModule } from '@wawjs/ngx-prime/dialog';
+import { TableModule } from '@wawjs/ngx-prime/table';
 
 @Component({
     selector: 'app-flexiblescroll-doc',

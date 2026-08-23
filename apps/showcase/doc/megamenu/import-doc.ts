@@ -10,6 +10,6 @@ import { AppCodeModule } from '@/components/doc/app.code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { MegaMenuModule } from 'ngx-prime/megamenu';`
+        typescript: `import { MegaMenuModule } from '@wawjs/ngx-prime/megamenu';`
     };
 }

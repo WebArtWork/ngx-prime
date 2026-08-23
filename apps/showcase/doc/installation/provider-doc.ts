@@ -17,7 +17,7 @@ import { AppCode } from '@/components/doc/app.code';
 export class ProviderDoc {
     code: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
-import { provideNgxPrime } from 'ngx-prime/config';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {

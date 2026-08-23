@@ -2,8 +2,8 @@ import { Component, DebugElement, provideZonelessChangeDetection } from '@angula
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { provideNgxPrime } from 'ngx-prime/config';
-import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from 'ngx-prime/types/fieldset';
+import { provideNgxPrime } from '@wawjs/ngx-prime/config';
+import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from '@wawjs/ngx-prime/types/fieldset';
 import { Fieldset } from './fieldset';
 
 @Component({

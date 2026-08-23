@@ -1,7 +1,7 @@
 import { AppConfigService } from '@/service/appconfigservice';
 
 import { Component, inject } from '@angular/core';
-import { AnimateOnScrollModule } from 'ngx-prime/animateonscroll';
+import { AnimateOnScrollModule } from '@wawjs/ngx-prime/animateonscroll';
 
 @Component({
     selector: 'app-features-section',

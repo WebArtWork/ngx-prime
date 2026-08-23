@@ -5,9 +5,9 @@ import { Product } from '@/domain/product';
 import { ProductService } from '@/service/productservice';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { RatingModule } from 'ngx-prime/rating';
-import { TableModule } from 'ngx-prime/table';
-import { TagModule } from 'ngx-prime/tag';
+import { RatingModule } from '@wawjs/ngx-prime/rating';
+import { TableModule } from '@wawjs/ngx-prime/table';
+import { TagModule } from '@wawjs/ngx-prime/tag';
 
 interface Column {
     field: string;

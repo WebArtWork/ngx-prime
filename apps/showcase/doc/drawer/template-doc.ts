@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { DrawerModule } from 'ngx-prime/drawer';
-import { ButtonModule } from 'ngx-prime/button';
-import { AvatarModule } from 'ngx-prime/avatar';
+import { DrawerModule } from '@wawjs/ngx-prime/drawer';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { AvatarModule } from '@wawjs/ngx-prime/avatar';
 import { AppCode } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

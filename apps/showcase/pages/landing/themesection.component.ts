@@ -4,13 +4,13 @@ import { AppConfigService } from '@/service/appconfigservice';
 import { CustomerService } from '@/service/customerservice';
 import { CommonModule } from '@angular/common';
 import { Component, inject, PLATFORM_ID, ViewChild, OnInit } from '@angular/core';
-import { ButtonModule } from 'ngx-prime/button';
-import { IconField } from 'ngx-prime/iconfield';
-import { InputIcon } from 'ngx-prime/inputicon';
-import { InputTextModule } from 'ngx-prime/inputtext';
-import { ProgressBar } from 'ngx-prime/progressbar';
-import { Table, TableModule } from 'ngx-prime/table';
-import { Tag } from 'ngx-prime/tag';
+import { ButtonModule } from '@wawjs/ngx-prime/button';
+import { IconField } from '@wawjs/ngx-prime/iconfield';
+import { InputIcon } from '@wawjs/ngx-prime/inputicon';
+import { InputTextModule } from '@wawjs/ngx-prime/inputtext';
+import { ProgressBar } from '@wawjs/ngx-prime/progressbar';
+import { Table, TableModule } from '@wawjs/ngx-prime/table';
+import { Tag } from '@wawjs/ngx-prime/tag';
 
 @Component({
     selector: 'app-theme-section',

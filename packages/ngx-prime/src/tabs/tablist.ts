@@ -1,14 +1,14 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, ContentChild, effect, ElementRef, forwardRef, inject, InjectionToken, signal, TemplateRef, ViewEncapsulation, contentChildren, viewChild } from '@angular/core';
 import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@wawjs/css-prime-utils';
-import { PrimeTemplate, SharedModule } from 'ngx-prime/api';
-import { BaseComponent, PARENT_INSTANCE } from 'ngx-prime/basecomponent';
-import { Bind, BindModule } from 'ngx-prime/bind';
-import { ChevronLeftIcon, ChevronRightIcon } from 'ngx-prime/icons';
-import { RippleModule } from 'ngx-prime/ripple';
+import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
+import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
+import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
+import { ChevronLeftIcon, ChevronRightIcon } from '@wawjs/ngx-prime/icons';
+import { RippleModule } from '@wawjs/ngx-prime/ripple';
 import { TabListStyle } from './style/tabliststyle';
 import { Tabs } from './tabs';
-import { TabListPassThrough } from 'ngx-prime/types/tabs';
+import { TabListPassThrough } from '@wawjs/ngx-prime/types/tabs';
 
 const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
 

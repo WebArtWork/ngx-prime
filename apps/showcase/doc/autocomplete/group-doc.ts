@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FilterService, SelectItemGroup } from 'ngx-prime/api';
+import { FilterService, SelectItemGroup } from '@wawjs/ngx-prime/api';
 
 import { FormsModule } from '@angular/forms';
-import { AutoCompleteModule } from 'ngx-prime/autocomplete';
+import { AutoCompleteModule } from '@wawjs/ngx-prime/autocomplete';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 import { AppCode } from '@/components/doc/app.code';
 

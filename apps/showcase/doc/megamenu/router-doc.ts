@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MegaMenuItem } from 'ngx-prime/api';
-import { MegaMenuModule } from 'ngx-prime/megamenu';
+import { MegaMenuItem } from '@wawjs/ngx-prime/api';
+import { MegaMenuModule } from '@wawjs/ngx-prime/megamenu';
 import { AppCodeModule } from '@/components/doc/app.code';
 import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
 

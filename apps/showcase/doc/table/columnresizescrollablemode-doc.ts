@@ -4,7 +4,7 @@ import { Customer } from '@/domain/customer';
 import { CustomerService } from '@/service/customerservice';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { TableModule } from 'ngx-prime/table';
+import { TableModule } from '@wawjs/ngx-prime/table';
 
 @Component({
     selector: 'app-columnresizescrollablemode-doc',

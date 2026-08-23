@@ -2,7 +2,7 @@ import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { EditorModule } from 'ngx-prime/editor';
+import { EditorModule } from '@wawjs/ngx-prime/editor';
 
 @Component({
     selector: 'app-editor-pt-viewer',

@@ -1,7 +1,7 @@
 import { AppDocPtViewer, getPTOptions } from '@/components/doc/app.docptviewer';
 
 import { Component } from '@angular/core';
-import { MegaMenuModule } from 'ngx-prime/megamenu';
+import { MegaMenuModule } from '@wawjs/ngx-prime/megamenu';
 
 @Component({
     selector: 'app-megamenu-pt-viewer',
