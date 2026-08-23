@@ -64,7 +64,7 @@ export class DatePickerDirective extends BaseDatePicker {
         this.element.nativeElement.focus(options);
     }
 
-    private handleBlur(event: Event) {
+    handleBlur(event: Event) {
         this.touch.emit();
         this.onBlur.emit(event);
     }

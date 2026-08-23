@@ -44542,9 +44542,9 @@
         {
           "id": "provider-",
           "label": "Provider-",
-          "description": "Add providengx-prime to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.",
+          "description": "Add provideNgxPrime to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { providengx-prime } from 'ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        providengx-prime({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideNgxPrime } from 'ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideNgxPrime({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -44552,7 +44552,7 @@
           "label": "Theme-",
           "description": "Configure ngx-prime to use a theme like Aura.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providengx-prime } from 'ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providengx-prime({\n            theme: Aura\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideNgxPrime } from 'ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideNgxPrime({\n            theme: Aura\n        })\n    ]\n};"
           }
         },
         {
@@ -44580,7 +44580,7 @@
           "label": "Csp-",
           "description": "The nonce value to use on dynamically generated style elements in core.",
           "examples": {
-            "typescript": "providengx-prime({ \n    csp: {\n        nonce: '...'\n    }\n})"
+            "typescript": "provideNgxPrime({ \n    csp: {\n        nonce: '...'\n    }\n})"
           }
         },
         {
@@ -44630,7 +44630,7 @@
           "label": "Translation",
           "description": "A translation is specified using the translation property during initialization.",
           "examples": {
-            "typescript": "providengx-prime({ \n    translation: {\n        accept: 'Aceptar',\n        reject: 'Rechazar',\n        //translations\n    }\n})"
+            "typescript": "provideNgxPrime({ \n    translation: {\n        accept: 'Aceptar',\n        reject: 'Rechazar',\n        //translations\n    }\n})"
           }
         },
         {
@@ -44642,9 +44642,9 @@
         {
           "id": "provider-",
           "label": "Provider-",
-          "description": "The initial configuration is defined by the providengx-prime provider during application startup.",
+          "description": "The initial configuration is defined by the provideNgxPrime provider during application startup.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providengx-prime } from 'ngx-prime/config';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providengx-prime({ /* options */ })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideNgxPrime } from 'ngx-prime/config';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideNgxPrime({ /* options */ })\n    ]\n};"
           }
         },
         {
@@ -44652,7 +44652,7 @@
           "label": "Ripple-",
           "description": "Ripple is an optional animation for the supported components such as buttons. It is disabled by default.",
           "examples": {
-            "typescript": "providengx-prime({ \n    ripple: true\n})"
+            "typescript": "provideNgxPrime({ \n    ripple: true\n})"
           }
         },
         {
@@ -44660,7 +44660,7 @@
           "label": "Theme-",
           "description": "ngx-prime provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { providengx-prime } from 'ngx-prime/config';\n\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        providengx-prime({\n            theme: {\n                preset: Aura,\n                options: {\n                    prefix: 'p',\n                    darkModeSelector: 'system',\n                    cssLayer: false\n                }\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideNgxPrime } from 'ngx-prime/config';\n\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideNgxPrime({\n            theme: {\n                preset: Aura,\n                options: {\n                    prefix: 'p',\n                    darkModeSelector: 'system',\n                    cssLayer: false\n                }\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -44822,7 +44822,7 @@
           "label": "Theme-",
           "description": "The theme property is used to customize the initial theme.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { providengx-prime } from 'ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        providengx-prime({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideNgxPrime } from 'ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideNgxPrime({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -44874,7 +44874,7 @@
           "label": "Global-",
           "description": "A global configuration can be created at application level to avoid repetition via the global pt option so that the styles can be shared from a single location. A particular component can still override a global configuration with its own pt property.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        providengx-prime({\n            unstyled: true,\n            pt: {\n                button: {\n                    root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',\n                    label: 'text-white font-bold text-lg',\n                    icon: 'text-white !text-xl'\n                }\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideNgxPrime({\n            unstyled: true,\n            pt: {\n                button: {\n                    root: 'bg-teal-500 hover:bg-teal-700 active:bg-teal-900 cursor-pointer py-2 px-4 rounded-full border-0 flex gap-2',\n                    label: 'text-white font-bold text-lg',\n                    icon: 'text-white !text-xl'\n                }\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -45006,7 +45006,7 @@
         {
           "id": "global-",
           "label": "Global-",
-          "description": "PassThrough object can also be defined at a global level to apply all components in an application using the providengx-prime provider. For example, with the configuration here all panel headers have the bg-primary style class and all autocomplete components have a fixed width. These settings can be overridden by a particular component as components pt property has higher precedence over global pt by default.",
+          "description": "PassThrough object can also be defined at a global level to apply all components in an application using the provideNgxPrime provider. For example, with the configuration here all panel headers have the bg-primary style class and all autocomplete components have a fixed width. These settings can be overridden by a particular component as components pt property has higher precedence over global pt by default.",
           "examples": null
         },
         {
@@ -45322,7 +45322,7 @@
         {
           "id": "breakingchanges",
           "label": "Breakingchanges",
-          "description": "Configuration The ngx-primeConfig has been replaced by ngx-prime and the initial configuration is now done via the providengx-prime provider during startup. See the installation section for an example. SASS Themes The styled mode theming has been reimplemented from scratch based on an all-new architecture. The theme.css and the ngx-prime/resources do not exist anymore, so any imports of these assets needs to be removed. If you had a custom theme for v17, the theme needs to be recreated using the new APIs. See the customization section at styled mode for details. Removed Components TriStateCheckbox | Use Checkbox with indeterminate option. DataViewLayoutOptions | Use SelectButton instead. pAnimate | Use pAnimateOnScroll instead. Removed Files Themes under the ngx-prime/resources path, migration to new styled mode is necessary. Messages and Message Messages component is deprecated due to unnecessary role of being just a wrapper around multiple message instances and it's replaced with the new Message . Instead of message, users now need to loop through their custom array to display multiple messages to achieve same behavior. The spacing, closable and life properties of the Message have breaking changes to provide Message functionality. Default margin is removed, closable is false by default and messages do not disappear automatically. Message Interface Message interface in ngx-prime/api is renamed as ToastMessageOptions due to name collision with the Message component. Removed Features Sidebar/Drawer size property is removed, use a responsive class utilty as replacement, demos have new examples. Removed Style Classes .p-link , use a button in link mode. .p-highlight , each component have its own class such as .p-select-option-selected . .p-fluid , use the new built-in fluid property of the supported components or the Fluid component. PrimeFlex CSS In case you are using PrimeFlex CSS library, upgrade to PrimeFlex v4 since PrimeFlex v3 is not compatible with ngx-prime v18+",
+          "description": "Configuration The ngx-primeConfig has been replaced by ngx-prime and the initial configuration is now done via the provideNgxPrime provider during startup. See the installation section for an example. SASS Themes The styled mode theming has been reimplemented from scratch based on an all-new architecture. The theme.css and the ngx-prime/resources do not exist anymore, so any imports of these assets needs to be removed. If you had a custom theme for v17, the theme needs to be recreated using the new APIs. See the customization section at styled mode for details. Removed Components TriStateCheckbox | Use Checkbox with indeterminate option. DataViewLayoutOptions | Use SelectButton instead. pAnimate | Use pAnimateOnScroll instead. Removed Files Themes under the ngx-prime/resources path, migration to new styled mode is necessary. Messages and Message Messages component is deprecated due to unnecessary role of being just a wrapper around multiple message instances and it's replaced with the new Message . Instead of message, users now need to loop through their custom array to display multiple messages to achieve same behavior. The spacing, closable and life properties of the Message have breaking changes to provide Message functionality. Default margin is removed, closable is false by default and messages do not disappear automatically. Message Interface Message interface in ngx-prime/api is renamed as ToastMessageOptions due to name collision with the Message component. Removed Features Sidebar/Drawer size property is removed, use a responsive class utilty as replacement, demos have new examples. Removed Style Classes .p-link , use a button in link mode. .p-highlight , each component have its own class such as .p-select-option-selected . .p-fluid , use the new built-in fluid property of the supported components or the Fluid component. PrimeFlex CSS In case you are using PrimeFlex CSS library, upgrade to PrimeFlex v4 since PrimeFlex v3 is not compatible with ngx-prime v18+",
           "examples": null
         },
         {

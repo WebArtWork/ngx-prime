@@ -9,7 +9,7 @@ import Lara from '@wawjs/css-prime-themes/lara';
 import Material from '@wawjs/css-prime-themes/material';
 import Nora from '@wawjs/css-prime-themes/nora';
 import { ButtonModule } from 'ngx-prime/button';
-import { ngx-prime } from 'ngx-prime/config';
+import { NgxPrime } from 'ngx-prime/config';
 import { RadioButtonModule } from 'ngx-prime/radiobutton';
 import { SelectButton } from 'ngx-prime/selectbutton';
 import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
@@ -98,7 +98,7 @@ export class AppConfiguratorComponent {
         return this.configService.appState().RTL;
     }
 
-    config: ngx-prime = inject(ngx-prime);
+    config: NgxPrime = inject(NgxPrime);
 
     configService: AppConfigService = inject(AppConfigService);
 

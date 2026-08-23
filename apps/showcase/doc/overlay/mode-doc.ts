@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
 export class ModeDoc {
     code2 = {
         typescript: `import { OverlayOptions, ResponsiveOverlayDirectionType } from 'ngx-prime/api';
-import { ngx-prime } from 'ngx-prime/config';
+import { NgxPrime } from 'ngx-prime/config';
 
 const responsiveOptions: ResponsiveOverlayOptions = {
     // style?: any;                                     // Style of component in given breakpoint or media query
@@ -30,7 +30,7 @@ const responsiveOptions: ResponsiveOverlayOptions = {
     // hideOnEscape?: boolean;                          // Hides overlay when escape key pressed.
 }
 
-this.ngx-prime.overlayOptions: OverlayOptions = {
+this.NgxPrime.overlayOptions: OverlayOptions = {
     responsive: responsiveOptions
 };`
     };

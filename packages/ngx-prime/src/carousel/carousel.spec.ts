@@ -960,6 +960,7 @@ describe('Carousel', () => {
 
     describe('PassThrough (PT) Tests', () => {
         let carouselInstance: Carousel;
+
         describe('Case 1: Simple string classes', () => {
             let fixture: ComponentFixture<Carousel>;
             let carouselInstance: Carousel;

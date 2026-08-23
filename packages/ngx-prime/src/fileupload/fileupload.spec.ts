@@ -133,7 +133,6 @@ describe('FileUpload', () => {
 
             const basicFileInput = component.basicFileInput();
 
-
             if (basicFileInput?.nativeElement) {
                 spyOn(basicFileInput.nativeElement, 'click');
                 component.onBasicUploaderClick();

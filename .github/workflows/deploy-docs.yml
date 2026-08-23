@@ -39,7 +39,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build the component library
-        run: pnpm --filter primeng build
+        run: pnpm --filter ngx-prime build
 
       - name: Build the documentation site
         run: pnpm --filter showcase build

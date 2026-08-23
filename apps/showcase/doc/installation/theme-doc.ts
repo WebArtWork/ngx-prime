@@ -14,13 +14,13 @@ export class ThemeDoc {
     code: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providengx-prime({
+        provideNgxPrime({
             theme: Aura
         })
     ]

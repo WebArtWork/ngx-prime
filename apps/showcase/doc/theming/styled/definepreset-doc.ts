@@ -30,12 +30,12 @@ export MyPreset;`
 
     code2: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import MyPreset from './mypreset';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providengx-prime({
+        provideNgxPrime({
             theme: {
                 preset: MyPreset
             }

@@ -9,7 +9,7 @@ import { AppCode } from '@/components/doc/app.code';
     imports: [AppDocSectionText, AppCode],
     template: `
         <app-docsectiontext>
-            <p>The initial configuration is defined by the <i>providengx-prime</i> provider during application startup.</p>
+            <p>The initial configuration is defined by the <i>provideNgxPrime</i> provider during application startup.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     `
@@ -18,12 +18,12 @@ export class ProviderDoc {
     code: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providengx-prime({ /* options */ })
+        provideNgxPrime({ /* options */ })
     ]
 };`
     };

@@ -17,7 +17,7 @@ import { AppCode } from '@/components/doc/app.code';
 export class DynamicDoc {
     code: Code = {
         typescript: `import { Component, OnInit } from '@angular/core';
-import { ngx-prime } from 'ngx-prime/config';
+import { NgxPrime } from 'ngx-prime/config';
 
 @Component({
     selector: 'app-root',
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     constructor(private ngx-prime: ngx-prime) {}
 
     ngOnInit() {
-        this.ngx-prime.ripple.set(true);
+        this.NgxPrime.ripple.set(true);
     }
 }`
     };

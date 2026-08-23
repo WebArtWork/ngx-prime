@@ -24,16 +24,16 @@ Welcome to the Prime UI Ecosystem! Once you have ngx-prime up and running, we re
 
 ## Provider-
 
-Add providengx-prime to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
+Add provideNgxPrime to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providengx-prime({
+        provideNgxPrime({
             theme: {
                 preset: Aura
             }
@@ -49,13 +49,13 @@ Configure ngx-prime to use a theme like Aura.
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providengx-prime({
+        provideNgxPrime({
             theme: Aura
         })
     ]
@@ -81,7 +81,7 @@ Application wide configuration for ngx-prime.
 The nonce value to use on dynamically generated style elements in core.
 
 ```typescript
-providengx-prime({ 
+provideNgxPrime({ 
     csp: {
         nonce: '...'
     }
@@ -180,7 +180,7 @@ export class AppComponent implements OnInit {
 A translation is specified using the translation property during initialization.
 
 ```typescript
-providengx-prime({ 
+provideNgxPrime({ 
     translation: {
         accept: 'Aceptar',
         reject: 'Rechazar',
@@ -195,17 +195,17 @@ Defines the default location of the overlays; self refers to the host element an
 
 ## Provider-
 
-The initial configuration is defined by the providengx-prime provider during application startup.
+The initial configuration is defined by the provideNgxPrime provider during application startup.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providengx-prime({ /* options */ })
+        provideNgxPrime({ /* options */ })
     ]
 };
 ```
@@ -215,7 +215,7 @@ export const appConfig: ApplicationConfig = {
 Ripple is an optional animation for the supported components such as buttons. It is disabled by default.
 
 ```typescript
-providengx-prime({ 
+provideNgxPrime({ 
     ripple: true
 })
 ```
@@ -227,14 +227,14 @@ ngx-prime provides 4 predefined themes out of the box; Aura, Material, Lara and 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providengx-prime({
+        provideNgxPrime({
             theme: {
                 preset: Aura,
                 options: {
@@ -378,12 +378,12 @@ The theme property is used to customize the initial theme.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providengx-prime({
+        provideNgxPrime({
             theme: {
                 preset: Aura
             }
@@ -431,7 +431,7 @@ import { ApplicationConfig } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providengx-prime({
+        provideNgxPrime({
             unstyled: true,
             pt: {
                 button: {
@@ -555,7 +555,7 @@ Each component has a special pt property to define an object with keys correspon
 
 ## Global-
 
-PassThrough object can also be defined at a global level to apply all components in an application using the providengx-prime provider. For example, with the configuration here all panel headers have the bg-primary style class and all autocomplete components have a fixed width. These settings can be overridden by a particular component as components pt property has higher precedence over global pt by default.
+PassThrough object can also be defined at a global level to apply all components in an application using the provideNgxPrime provider. For example, with the configuration here all panel headers have the bg-primary style class and all autocomplete components have a fixed width. These settings can be overridden by a particular component as components pt property has higher precedence over global pt by default.
 
 ## Instance-
 
@@ -816,7 +816,7 @@ Migration guide to ngx-prime v19.
 
 ## Breakingchanges
 
-Configuration The ngx-primeConfig has been replaced by ngx-prime and the initial configuration is now done via the providengx-prime provider during startup. See the installation section for an example. SASS Themes The styled mode theming has been reimplemented from scratch based on an all-new architecture. The theme.css and the ngx-prime/resources do not exist anymore, so any imports of these assets needs to be removed. If you had a custom theme for v17, the theme needs to be recreated using the new APIs. See the customization section at styled mode for details. Removed Components TriStateCheckbox | Use Checkbox with indeterminate option. DataViewLayoutOptions | Use SelectButton instead. pAnimate | Use pAnimateOnScroll instead. Removed Files Themes under the ngx-prime/resources path, migration to new styled mode is necessary. Messages and Message Messages component is deprecated due to unnecessary role of being just a wrapper around multiple message instances and it's replaced with the new Message . Instead of message, users now need to loop through their custom array to display multiple messages to achieve same behavior. The spacing, closable and life properties of the Message have breaking changes to provide Message functionality. Default margin is removed, closable is false by default and messages do not disappear automatically. Message Interface Message interface in ngx-prime/api is renamed as ToastMessageOptions due to name collision with the Message component. Removed Features Sidebar/Drawer size property is removed, use a responsive class utilty as replacement, demos have new examples. Removed Style Classes .p-link , use a button in link mode. .p-highlight , each component have its own class such as .p-select-option-selected . .p-fluid , use the new built-in fluid property of the supported components or the Fluid component. PrimeFlex CSS In case you are using PrimeFlex CSS library, upgrade to PrimeFlex v4 since PrimeFlex v3 is not compatible with ngx-prime v18+
+Configuration The ngx-primeConfig has been replaced by ngx-prime and the initial configuration is now done via the provideNgxPrime provider during startup. See the installation section for an example. SASS Themes The styled mode theming has been reimplemented from scratch based on an all-new architecture. The theme.css and the ngx-prime/resources do not exist anymore, so any imports of these assets needs to be removed. If you had a custom theme for v17, the theme needs to be recreated using the new APIs. See the customization section at styled mode for details. Removed Components TriStateCheckbox | Use Checkbox with indeterminate option. DataViewLayoutOptions | Use SelectButton instead. pAnimate | Use pAnimateOnScroll instead. Removed Files Themes under the ngx-prime/resources path, migration to new styled mode is necessary. Messages and Message Messages component is deprecated due to unnecessary role of being just a wrapper around multiple message instances and it's replaced with the new Message . Instead of message, users now need to loop through their custom array to display multiple messages to achieve same behavior. The spacing, closable and life properties of the Message have breaking changes to provide Message functionality. Default margin is removed, closable is false by default and messages do not disappear automatically. Message Interface Message interface in ngx-prime/api is renamed as ToastMessageOptions due to name collision with the Message component. Removed Features Sidebar/Drawer size property is removed, use a responsive class utilty as replacement, demos have new examples. Removed Style Classes .p-link , use a button in link mode. .p-highlight , each component have its own class such as .p-select-option-selected . .p-fluid , use the new built-in fluid property of the supported components or the Fluid component. PrimeFlex CSS In case you are using PrimeFlex CSS library, upgrade to PrimeFlex v4 since PrimeFlex v3 is not compatible with ngx-prime v18+
 
 ## Deprecatedcomponents
 

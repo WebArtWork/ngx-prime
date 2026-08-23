@@ -4,7 +4,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { DesignerService } from '@/service/designerservice';
 import { AppConfigService } from '@/service/appconfigservice';
 import { ToastModule } from 'ngx-prime/toast';
-import { ngx-prime } from 'ngx-prime/config';
+import { NgxPrime } from 'ngx-prime/config';
 import { ConfirmDialogModule } from 'ngx-prime/confirmdialog';
 import { DesignDashboard } from '@/components/layout/designer/dashboard/designdashboard';
 import { DesignCreateTheme } from '@/components/layout/designer/create/designcreatetheme';
@@ -69,7 +69,7 @@ export class AppDesigner implements OnInit {
 
     configService = inject(AppConfigService);
 
-    config: ngx-prime = inject(ngx-prime);
+    config: NgxPrime = inject(NgxPrime);
 
     activeView = computed(() => this.designerService.designer().activeView);
 

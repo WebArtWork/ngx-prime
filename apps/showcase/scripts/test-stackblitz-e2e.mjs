@@ -107,7 +107,7 @@ function generateStackBlitzProject(demo, selector) {
             '@angular/router': '^21.0.0',
             '@wawjs/css-prime-themes': '^2.0.2',
             primeicons: '^7.0.0',
-            ngx-prime: '21.0.0',
+            'ngx-prime': '21.0.0',
             rxjs: '~7.8.0',
             tailwindcss: '^3.4.10',
             'tailwindcss-primeui': '^0.6.1',
@@ -127,13 +127,13 @@ function generateStackBlitzProject(demo, selector) {
 import { ${componentName} } from './app/${selector}';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideHttpClient(withFetch()),
-        providengx-prime({
+        provideNgxPrime({
             theme: { preset: Aura, options: { darkModeSelector: '.p-dark' } },
         }),
     ],

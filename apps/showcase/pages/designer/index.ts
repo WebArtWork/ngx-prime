@@ -422,8 +422,8 @@ import { RippleModule } from 'ngx-prime/ripple';
                 <li>
                     <div class="font-bold mb-4">10. Contact Information</div>
                     <p>
-                        For any questions regarding these Terms and Conditions, please contact us through our official channels as listed on our website. By using the ngx-prime Theme Designer, you acknowledge that you have read and agree to these Terms
-                        and Conditions.
+                        For any questions regarding these Terms and Conditions, please contact us through our official channels as listed on our website. By using the ngx-prime Theme Designer, you acknowledge that you have read and agree to these
+                        Terms and Conditions.
                     </p>
                 </li>
             </ol>

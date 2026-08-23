@@ -100,12 +100,12 @@ The theme property is used to customize the initial theme.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providengx-prime({
+        provideNgxPrime({
             theme: {
                 preset: Aura
             }

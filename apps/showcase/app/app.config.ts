@@ -6,7 +6,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { ConfirmationService, MessageService } from 'ngx-prime/api';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 function initializeDemoCode(demoCodeService: DemoCodeService) {
     return () => demoCodeService.loadDemos();
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
         provideZonelessChangeDetection(),
         provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })), // withEnabledBlockingInitialNavigation()
         provideHttpClient(withFetch()),
-        providengx-prime({
+        provideNgxPrime({
             theme: Noir,
             ripple: false
         }),

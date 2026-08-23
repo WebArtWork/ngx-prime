@@ -1322,6 +1322,7 @@ export class Select extends BaseInput<SelectPassThrough> implements AfterViewIni
 
     allowModelChange() {
         const modelValue = this.modelValue();
+
         return !!modelValue && !this.placeholder() && (modelValue === undefined || modelValue === null) && !this.editable() && !!this._options()?.length;
     }
 

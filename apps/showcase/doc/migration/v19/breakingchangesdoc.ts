@@ -10,14 +10,14 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-docsectiontext>
             <h4>Configuration</h4>
             <p>
-                The <i>ngx-primeConfig</i> has been replaced by <i>ngx-prime</i> and the initial configuration is now done via the <i>providengx-prime</i> provider during startup. See the <a href="/installation" class="">installation</a> section for an
-                example.
+                The <i>ngx-primeConfig</i> has been replaced by <i>ngx-prime</i> and the initial configuration is now done via the <i>provideNgxPrime</i> provider during startup. See the <a href="/installation" class="">installation</a> section for
+                an example.
             </p>
 
             <h4>SASS Themes</h4>
             <p>
-                The styled mode theming has been reimplemented from scratch based on an all-new architecture. The <i>theme.css</i> and the <i>ngx-prime/resources</i> do not exist anymore, so any imports of these assets needs to be removed. If you had a
-                custom theme for v17, the theme needs to be recreated using the new APIs. See the customization section at <a href="/theming" class="">styled mode</a> for details.
+                The styled mode theming has been reimplemented from scratch based on an all-new architecture. The <i>theme.css</i> and the <i>ngx-prime/resources</i> do not exist anymore, so any imports of these assets needs to be removed. If you had
+                a custom theme for v17, the theme needs to be recreated using the new APIs. See the customization section at <a href="/theming" class="">styled mode</a> for details.
             </p>
             <h4>Removed Components</h4>
             <ul class="flex flex-col gap-2 leading-normal">

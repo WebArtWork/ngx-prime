@@ -1754,7 +1754,6 @@ describe('MultiSelect Virtual Scrolling', () => {
         // Virtual scroller should emit lazy load events
         const scroller = multiSelect.scroller();
 
-
         if (scroller) {
             scroller.onLazyLoad.emit({
                 first: 0,
@@ -1775,7 +1774,6 @@ describe('MultiSelect Virtual Scrolling', () => {
 
         // First check if scroller exists and if scrollInView method exists
         const scroller = multiSelect.scroller();
-
 
         if (scroller && typeof scroller.scrollToIndex === 'function') {
             const scrollSpy = spyOn(scroller, 'scrollToIndex');
@@ -2653,7 +2651,6 @@ describe('MultiSelect Dynamic Data Sources', () => {
 
             const asyncMultiSelect = component.asyncMultiSelect();
 
-
             expect(asyncMultiSelect.options?.length).toBe(2);
             expect(asyncMultiSelect.options?.[0].name).toBe('Observable City 1');
         });
@@ -2668,7 +2665,6 @@ describe('MultiSelect Dynamic Data Sources', () => {
             await fixture.whenStable();
 
             const asyncMultiSelect = component.asyncMultiSelect();
-
 
             expect(asyncMultiSelect.options?.length).toBe(3);
             expect(asyncMultiSelect.options?.[0].name).toBe('Updated Observable 1');
@@ -2953,7 +2949,6 @@ describe('MultiSelect Comprehensive Form Integration', () => {
             // Should be invalid initially due to required
             const citiesModel = component.citiesModel();
 
-
             expect(citiesModel?.invalid).toBe(true);
             expect(citiesModel?.errors?.['required']).toBe(true);
 
@@ -2971,7 +2966,6 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
             const citiesModel = component.citiesModel();
 
-
             expect(citiesModel?.hasError('required')).toBe(true);
 
             component.ngModelValue = [component.allCities[0]];
@@ -2987,7 +2981,6 @@ describe('MultiSelect Comprehensive Form Integration', () => {
 
             // Initially should be invalid due to required fields
             const templateForm = component.templateForm();
-
 
             expect(templateForm?.valid).toBe(false);
 

@@ -22,7 +22,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 consistent naming between CSS class names and sections. An example would be the <i>option</i> element of a Select component that uses <i>p-select-option</i> for the class name.
             </p>
             <p>
-                Components have been utilized more within other components, for instance Dialog close button is not actually a ngx-prime button so that <i>closeButtonProps</i> can be used to enable the features of button like outlined, raised and more.
+                Components have been utilized more within other components, for instance Dialog close button is not actually a ngx-prime button so that <i>closeButtonProps</i> can be used to enable the features of button like outlined, raised and
+                more.
             </p>
         </app-docsectiontext>
     `

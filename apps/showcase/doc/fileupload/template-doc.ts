@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 
 import { MessageService } from 'ngx-prime/api';
-import { ngx-prime } from 'ngx-prime/config';
+import { NgxPrime } from 'ngx-prime/config';
 import { FileUploadModule } from 'ngx-prime/fileupload';
 import { ToastModule } from 'ngx-prime/toast';
 import { ButtonModule } from 'ngx-prime/button';
@@ -91,7 +91,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [MessageService]
 })
 export class TemplateDoc {
-    private config = inject(ngx-prime);
+    private config = inject(ngx - prime);
     private messageService = inject(MessageService);
 
     files = [];

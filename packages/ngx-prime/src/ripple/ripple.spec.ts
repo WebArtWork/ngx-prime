@@ -449,6 +449,7 @@ describe('Ripple', () => {
             expect(rippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);
 
             const component = fixture.componentInstance;
+
             fixture.detectChanges();
 
             expect(rippleElement.nativeElement.classList.contains('p-ripple')).toBe(true);

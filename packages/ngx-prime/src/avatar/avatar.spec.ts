@@ -98,7 +98,9 @@ class TestContentAvatarComponent {}
 
 @Component({
     selector: 'test-dynamic-avatar',
-    template: ` <p-avatar [label]="label()" [icon]="icon()" [image]="image()" [size]="size()" [shape]="shape()" [styleClass]="styleClass()" [ariaLabel]="ariaLabel()" [ariaLabelledBy]="ariaLabelledBy()" (onImageError)="onImageError($event)"> </p-avatar> `,
+    template: `
+        <p-avatar [label]="label()" [icon]="icon()" [image]="image()" [size]="size()" [shape]="shape()" [styleClass]="styleClass()" [ariaLabel]="ariaLabel()" [ariaLabelledBy]="ariaLabelledBy()" (onImageError)="onImageError($event)"> </p-avatar>
+    `,
     imports: [AvatarModule, SharedModule]
 })
 class TestDynamicAvatarComponent {

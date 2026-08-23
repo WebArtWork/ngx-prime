@@ -373,7 +373,7 @@ const DATEPICKER_INSTANCE = new InjectionToken<DatePicker>('DATEPICKER_INSTANCE'
                         }
                     </ng-container>
                 }
-                @if ((showTime || timeOnly()) && currentView === 'date') {
+                @if ((_showTime || timeOnly()) && currentView === 'date') {
                     <div [class]="cx('timePicker')" [pBind]="ptm('timePicker')">
                         <div [class]="cx('hourPicker')" [pBind]="ptm('hourPicker')">
                             <p-button

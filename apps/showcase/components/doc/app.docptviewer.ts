@@ -3,7 +3,7 @@ import APIDoc from '@/doc/apidoc/index.json';
 import { ChangeDetectorRef, Component, computed, ElementRef, inject, input, InputSignal, viewChild, AfterViewChecked } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { addClass, find, removeClass } from '@wawjs/css-prime-utils/dom';
-import { ngx-prime } from 'ngx-prime/config';
+import { NgxPrime } from 'ngx-prime/config';
 import { AppDocSectionText } from './app.docsectiontext';
 
 interface DocItem {
@@ -117,7 +117,7 @@ export class AppDocPtViewer implements AfterViewChecked {
 
     container = viewChild<ElementRef>('container');
 
-    ngx-prime: ngx-prime = inject(ngx-prime);
+    ngxPrime: NgxPrime = inject(NgxPrime);
 
     hoveredElements: any[] = [];
 
@@ -140,7 +140,7 @@ export class AppDocPtViewer implements AfterViewChecked {
 
         if (label.includes('pc')) {
             let reservedNames = ['Decrement', 'File', 'Increment', 'JumpToPage', 'Maximize', 'Node', 'Option', 'Prev', 'Remove', 'RowPerPage', 'Source', 'Target', 'MoveAllTo', 'MoveAll', 'MoveTop', 'MoveTo'];
-            let whiteList = [...reservedNames, ...Object.keys(this.ngx-prime.translation), ...Object.keys(this.ngx-prime.translation.aria)];
+            let whiteList = [...reservedNames, ...Object.keys(this.NgxPrime.translation), ...Object.keys(this.NgxPrime.translation.aria)];
             let elemName = label.replace('pc', '');
 
             if (elemName.includes('FilterContainer')) elemName = elemName.replace('FilterContainer', 'IconField');

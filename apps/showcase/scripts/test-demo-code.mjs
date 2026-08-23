@@ -302,8 +302,8 @@ function testContentMatching(demos) {
             allPassed &= logTest('TypeScript has inline template', hasTemplate);
 
             // Check for ngx-prime component in template
-            const hasngx-primeComponent = /p-[\w-]+/.test(typescript);
-            allPassed &= logTest('Template contains ngx-prime component', hasngx-primeComponent);
+            const hasNgxPrimeComponent = /p-[\w-]+/.test(typescript);
+            allPassed &= logTest('Template contains ngx-prime component', hasNgxPrimeComponent);
         }
 
         // Test: Component class name matches selector

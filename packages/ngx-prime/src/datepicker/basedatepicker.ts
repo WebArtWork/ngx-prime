@@ -1,6 +1,7 @@
-import { booleanAttribute, input, numberAttribute, signal } from '@angular/core';
+import { booleanAttribute, Directive, input, numberAttribute, signal } from '@angular/core';
 
 /** Shared state and date constraints for native DatePicker building blocks. */
+@Directive()
 export abstract class BaseDatePicker {
     invalid = input(false, { transform: booleanAttribute });
     disabled = input(false, { transform: booleanAttribute });

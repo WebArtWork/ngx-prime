@@ -34,11 +34,11 @@ import { Component } from '@angular/core';
 export class PTOptionsDoc {
     codeGlobal: Code = {
         typescript: `import { ApplicationConfig } from '@angular/core';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providengx-prime({
+        provideNgxPrime({
             pt: {
                 panel: {
                     header: {

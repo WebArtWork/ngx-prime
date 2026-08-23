@@ -980,6 +980,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         this.msgs = this.msgs || [];
 
         const accept = this.accept();
+
         if (accept && !this.isFileTypeValid(file)) {
             const text = `${this.invalidFileTypeMessageSummary().replace('{0}', file.name)} ${this.invalidFileTypeMessageDetail().replace('{0}', accept)}`;
 
@@ -992,6 +993,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         }
 
         const maxFileSize = this.maxFileSize();
+
         if (maxFileSize && file.size > maxFileSize) {
             const text = `${this.invalidFileSizeMessageSummary().replace('{0}', file.name)} ${this.invalidFileSizeMessageDetail().replace('{0}', this.formatSize(maxFileSize))}`;
 
@@ -1177,6 +1179,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
         const totalFileCount = isAutoMode ? this.files.length : this.files.length + this.uploadedFileCount;
 
         const fileLimit = this.fileLimit();
+
         if (fileLimit && fileLimit <= totalFileCount && this.focus) {
             this.focus = false;
         }
@@ -1186,6 +1189,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
     isChooseDisabled() {
         const fileLimit = this.fileLimit();
+
         if (this.auto()) {
             return fileLimit && fileLimit <= this.files.length;
         } else {

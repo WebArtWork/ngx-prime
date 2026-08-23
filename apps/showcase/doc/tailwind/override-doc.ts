@@ -45,7 +45,7 @@ export class OverrideDoc {
     };
 
     code3 = {
-        typescript: `providengx-prime({
+        typescript: `provideNgxPrime({
     theme: {
         preset: Aura,
         options: {
@@ -64,7 +64,7 @@ export class OverrideDoc {
     };
 
     code5 = {
-        typescript: `providengx-prime({
+        typescript: `provideNgxPrime({
     theme: {
         preset: Aura,
         options: {

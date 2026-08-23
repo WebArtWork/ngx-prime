@@ -19,7 +19,7 @@ import { ApplicationConfig } from '@angular/core';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providengx-prime({
+        provideNgxPrime({
             unstyled: true,
             pt: {
                 button: {

@@ -16,7 +16,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class TranslationDoc {
     code: Code = {
-        typescript: `providengx-prime({ 
+        typescript: `provideNgxPrime({ 
     translation: {
         accept: 'Aceptar',
         reject: 'Rechazar',

@@ -288,7 +288,6 @@ describe('RadioButton', () => {
         it('should programmatically focus', () => {
             const inputViewChild = radioInstance.inputViewChild();
 
-
             spyOn(inputViewChild.nativeElement, 'focus');
 
             radioInstance.focus();

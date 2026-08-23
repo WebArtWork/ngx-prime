@@ -300,7 +300,6 @@ describe('ScrollPanel', () => {
             // Mock scrollTop behavior since test environment doesn't scroll
             const contentViewChild = scrollPanel.contentViewChild();
 
-
             if (contentViewChild) {
                 Object.defineProperty(contentViewChild.nativeElement, 'scrollHeight', { value: 600, writable: true });
                 Object.defineProperty(contentViewChild.nativeElement, 'clientHeight', { value: 200, writable: true });
@@ -320,7 +319,6 @@ describe('ScrollPanel', () => {
             await new Promise((resolve) => setTimeout(resolve, 100));
             await fixture.whenStable();
             const contentViewChild = scrollPanel.contentViewChild();
-
 
             expect(contentViewChild?.nativeElement.scrollTop).toBe(0);
 
@@ -864,7 +862,6 @@ describe('ScrollPanel', () => {
         it('should handle zero dimensions gracefully', async () => {
             // Mock content with zero dimensions
             const contentViewChild = scrollPanel.contentViewChild();
-
 
             if (contentViewChild) {
                 Object.defineProperty(contentViewChild.nativeElement, 'scrollWidth', { value: 0, writable: true });

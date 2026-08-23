@@ -7,7 +7,7 @@ Application wide configuration for ngx-prime.
 The nonce value to use on dynamically generated style elements in core.
 
 ```typescript
-providengx-prime({ 
+provideNgxPrime({ 
     csp: {
         nonce: '...'
     }
@@ -106,7 +106,7 @@ export class AppComponent implements OnInit {
 A translation is specified using the translation property during initialization.
 
 ```typescript
-providengx-prime({ 
+provideNgxPrime({ 
     translation: {
         accept: 'Aceptar',
         reject: 'Rechazar',
@@ -121,17 +121,17 @@ Defines the default location of the overlays; self refers to the host element an
 
 ## Provider-
 
-The initial configuration is defined by the providengx-prime provider during application startup.
+The initial configuration is defined by the provideNgxPrime provider during application startup.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providengx-prime({ /* options */ })
+        provideNgxPrime({ /* options */ })
     ]
 };
 ```
@@ -141,7 +141,7 @@ export const appConfig: ApplicationConfig = {
 Ripple is an optional animation for the supported components such as buttons. It is disabled by default.
 
 ```typescript
-providengx-prime({ 
+provideNgxPrime({ 
     ripple: true
 })
 ```
@@ -153,14 +153,14 @@ ngx-prime provides 4 predefined themes out of the box; Aura, Material, Lara and 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providengx-prime({
+        provideNgxPrime({
             theme: {
                 preset: Aura,
                 options: {

@@ -3652,7 +3652,7 @@ export class TTCheckbox extends BaseComponent {
 @Component({
     selector: 'p-treeTableHeaderCheckbox, p-tree-table-header-checkbox, p-treetableheadercheckbox',
     template: `
-        <p-checkbox [ngModel]="checked" [pt]="ptm('pcHeaderCheckbox')" (onChange)="onClick($event)" [binary]="true" [disabled]="!tt.value() || tt.value().length === 0" [unstyled]="unstyled()">
+        <p-checkbox [ngModel]="checked" [pt]="ptm('pcHeaderCheckbox')" (onChange)="onClick($event)" [binary]="true" [disabled]="!tt.value() || tt.value()!.length === 0" [unstyled]="unstyled()">
             @if (tt.headerCheckboxIconTemplate || tt._headerCheckboxIconTemplate) {
                 <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="tt.headerCheckboxIconTemplate || tt._headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>

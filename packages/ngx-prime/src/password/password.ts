@@ -661,9 +661,9 @@ export const Password_VALUE_ACCESSOR: any = {
         '[class]': "cn(cx('root'), styleClass())",
         '[style]': "sx('root')",
         '[attr.data-p]': 'containerDataP',
-        '(focus)': 'onFocus()',
-        '(blur)': 'onBlur()',
-        '(keyup)': 'onKeyup($event)'
+        '(focus)': 'onFocus.emit($event)',
+        '(blur)': 'onBlur.emit($event)',
+        '(keyup)': 'onKeyUp($event)'
     },
     hostDirectives: [Bind]
 })

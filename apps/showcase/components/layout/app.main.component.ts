@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { ngx-prime } from 'ngx-prime/config';
+import { NgxPrime } from 'ngx-prime/config';
 import { DomHandler } from 'ngx-prime/dom';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
@@ -33,7 +33,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
 export class AppMainComponent {
     configService: AppConfigService = inject(AppConfigService);
 
-    ngx-prime: ngx-prime = inject(ngx-prime);
+    ngxPrime: NgxPrime = inject(NgxPrime);
 
     isNewsActive = computed(() => false);
 

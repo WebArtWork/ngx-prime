@@ -27,16 +27,16 @@ Welcome to the Prime UI Ecosystem! Once you have ngx-prime up and running, we re
 
 ## Provider-
 
-Add providengx-prime to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
+Add provideNgxPrime to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.
 
 ```typescript
 import { ApplicationConfig } from '@angular/core';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        providengx-prime({
+        provideNgxPrime({
             theme: {
                 preset: Aura
             }
@@ -52,13 +52,13 @@ Configure ngx-prime to use a theme like Aura.
 ```typescript
 import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providengx-prime } from 'ngx-prime/config';
+import { provideNgxPrime } from 'ngx-prime/config';
 import Aura from '@wawjs/css-prime-themes/aura';
 
 export const appConfig: ApplicationConfig = {
     providers: [
         provideAnimationsAsync(),
-        providengx-prime({
+        provideNgxPrime({
             theme: Aura
         })
     ]

@@ -576,7 +576,11 @@ describe('Dialog', () => {
         });
 
         it('should handle mask click when dismissableMask is true', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.dismissableMask = true;
                 c.closable = true;
             });
@@ -678,7 +682,11 @@ describe('Dialog', () => {
         });
 
         it('should handle disabled focus trap', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.focusTrap = false;
             });
 
@@ -736,7 +744,11 @@ describe('Dialog', () => {
         });
 
         it('should support custom close ARIA label', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.closeAriaLabel = 'Custom Close Label';
             });
 
@@ -775,7 +787,11 @@ describe('Dialog', () => {
         });
 
         it('should have proper tabindex for close button', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.closeTabindex = '1';
             });
 
@@ -818,7 +834,11 @@ describe('Dialog', () => {
         });
 
         it('should not close dialog on Escape key when closeOnEscape is false', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.closeOnEscape = false;
             });
 
@@ -1190,7 +1210,11 @@ describe('Dialog', () => {
 
     describe('CSS Classes and Styling', () => {
         it('should apply custom styleClass', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.styleClass = 'my-custom-dialog';
             });
 
@@ -1202,7 +1226,11 @@ describe('Dialog', () => {
         });
 
         it('should apply custom maskStyleClass', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.maskStyleClass = 'my-custom-mask';
             });
 
@@ -1214,7 +1242,11 @@ describe('Dialog', () => {
         });
 
         it('should apply inline styles', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.style = { backgroundColor: 'red', width: '500px' };
             });
 
@@ -1226,7 +1258,11 @@ describe('Dialog', () => {
         });
 
         it('should apply content styles', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.contentStyle = { padding: '20px' };
                 c.contentStyleClass = 'custom-content-class';
             });
@@ -1240,7 +1276,11 @@ describe('Dialog', () => {
         });
 
         it('should apply mask styles', async () => {
-            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+            const {
+                component: freshComponent,
+                fixture: freshFixture,
+                dialogInstance: freshDialogInstance
+            } = await createConfiguredFixture((c) => {
                 c.maskStyle = { backgroundColor: 'rgba(0,0,0,0.8)' };
             });
 
