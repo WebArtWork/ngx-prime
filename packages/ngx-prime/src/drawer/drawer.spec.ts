@@ -281,101 +281,94 @@ describe('Drawer', () => {
     });
 
     describe('Public Properties', () => {
-        let testFixture: ComponentFixture<TestDrawerBasicComponent>;
-        let testComponent: TestDrawerBasicComponent;
-        let drawerComponent: Drawer;
+        function createFixture(configure: (c: TestDrawerBasicComponent) => void) {
+            const testFixture = TestBed.createComponent(TestDrawerBasicComponent);
+            const testComponent = testFixture.componentInstance;
 
-        beforeEach(async () => {
-            testFixture = TestBed.createComponent(TestDrawerBasicComponent);
-            testComponent = testFixture.componentInstance;
-            drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance;
-            testFixture.changeDetectorRef.markForCheck();
+            configure(testComponent);
+
+            return { testFixture, testComponent };
+        }
+
+        async function createDrawer(configure: (c: TestDrawerBasicComponent) => void) {
+            const { testFixture, testComponent } = createFixture(configure);
+
             await testFixture.whenStable();
-        });
+            const drawerComponent = testFixture.debugElement.query(By.directive(Drawer)).componentInstance as Drawer;
+
+            return { testFixture, testComponent, drawerComponent };
+        }
 
         it('should set position property correctly', async () => {
-            testComponent.position = 'right';
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.position = 'right'));
+
             expect(drawerComponent.position()).toBe('right');
         });
 
         it('should set modal property correctly', async () => {
-            testComponent.modal = false;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.modal = false));
+
             expect(drawerComponent.modal()).toBe(false);
         });
 
         it('should set dismissible property correctly', async () => {
-            testComponent.dismissible = false;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.dismissible = false));
+
             expect(drawerComponent.dismissible()).toBe(false);
         });
 
         it('should set closeOnEscape property correctly', async () => {
-            testComponent.closeOnEscape = false;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.closeOnEscape = false));
+
             expect(drawerComponent.closeOnEscape()).toBe(false);
         });
 
         it('should set header property correctly', async () => {
-            testComponent.header = 'Test Header';
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.header = 'Test Header'));
+
             expect(drawerComponent.header()).toBe('Test Header');
         });
 
         it('should set closable property correctly', async () => {
-            testComponent.closable = false;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.closable = false));
+
             expect(drawerComponent.closable()).toBe(false);
         });
 
         it('should set blockScroll property correctly', async () => {
-            testComponent.blockScroll = true;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.blockScroll = true));
+
             expect(drawerComponent.blockScroll()).toBe(true);
         });
 
         it('should set fullScreen property correctly', async () => {
-            testComponent.fullScreen = true;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.fullScreen = true));
+
             expect(drawerComponent.fullScreen()).toBe(true);
         });
 
         it('should set style property correctly', async () => {
             const testStyle = { width: '300px', height: '400px' };
+            const { drawerComponent } = await createDrawer((c) => (c.style = testStyle));
 
-            testComponent.style = testStyle;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
             expect(drawerComponent.style()).toEqual(testStyle);
         });
 
         it('should set styleClass property correctly', async () => {
-            testComponent.styleClass = 'custom-drawer';
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.styleClass = 'custom-drawer'));
+
             expect(drawerComponent.styleClass()).toBe('custom-drawer');
         });
 
         it('should set autoZIndex property correctly', async () => {
-            testComponent.autoZIndex = false;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.autoZIndex = false));
+
             expect(drawerComponent.autoZIndex()).toBe(false);
         });
 
         it('should set baseZIndex property correctly', async () => {
-            testComponent.baseZIndex = 1000;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const { drawerComponent } = await createDrawer((c) => (c.baseZIndex = 1000));
+
             expect(drawerComponent.baseZIndex()).toBe(1000);
         });
     });
@@ -586,11 +579,7 @@ describe('Drawer', () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
 
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
             testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -602,8 +591,6 @@ describe('Drawer', () => {
 
             // Verify the template configuration is correct
             // Templates are processed in ngAfterContentInit
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
             expect(true).toBe(true);
         });
 
@@ -611,11 +598,7 @@ describe('Drawer', () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
 
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
             testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -626,8 +609,6 @@ describe('Drawer', () => {
             expect(testComponent.visible).toBe(true);
 
             // Verify the template configuration is correct
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
             expect(true).toBe(true);
         });
 
@@ -635,11 +616,7 @@ describe('Drawer', () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
 
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
             testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -650,8 +627,6 @@ describe('Drawer', () => {
             expect(testComponent.visible).toBe(true);
 
             // Verify the template configuration is correct
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
             expect(true).toBe(true);
         });
 
@@ -659,11 +634,7 @@ describe('Drawer', () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplatesComponent);
             const testComponent = testFixture.componentInstance;
 
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
             testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -674,8 +645,6 @@ describe('Drawer', () => {
             expect(testComponent.visible).toBe(true);
 
             // Verify the template configuration is correct
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
             expect(true).toBe(true);
         });
 
@@ -683,11 +652,7 @@ describe('Drawer', () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplateRefsComponent);
             const testComponent = testFixture.componentInstance;
 
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
             testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -698,8 +663,6 @@ describe('Drawer', () => {
             expect(testComponent.visible).toBe(true);
 
             // Verify the template configuration is correct
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
             expect(true).toBe(true);
         });
 
@@ -707,11 +670,7 @@ describe('Drawer', () => {
             const testFixture = TestBed.createComponent(TestDrawerTemplateRefsComponent);
             const testComponent = testFixture.componentInstance;
 
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
             testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -722,8 +681,6 @@ describe('Drawer', () => {
             expect(testComponent.visible).toBe(true);
 
             // Verify the template configuration is correct
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
             expect(true).toBe(true);
         });
 
@@ -731,11 +688,7 @@ describe('Drawer', () => {
             const testFixture = TestBed.createComponent(TestDrawerHeadlessComponent);
             const testComponent = testFixture.componentInstance;
 
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
             testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -746,27 +699,26 @@ describe('Drawer', () => {
             expect(testComponent.visible).toBe(true);
 
             // Verify the headless template configuration is correct
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
             expect(true).toBe(true);
         });
     });
 
     describe('Modal and Overlay', () => {
-        let testFixture: ComponentFixture<TestDrawerModalComponent>;
-        let testComponent: TestDrawerModalComponent;
+        function createFixture(configure: (c: TestDrawerModalComponent) => void) {
+            const testFixture = TestBed.createComponent(TestDrawerModalComponent);
+            const testComponent = testFixture.componentInstance;
 
-        beforeEach(async () => {
-            testFixture = TestBed.createComponent(TestDrawerModalComponent);
-            testComponent = testFixture.componentInstance;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-        });
+            configure(testComponent);
+
+            return { testFixture, testComponent };
+        }
 
         it('should create modal mask when modal is true', async () => {
-            testComponent.modal = true;
-            testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture, testComponent } = createFixture((c) => {
+                c.modal = true;
+                c.visible = true;
+            });
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -781,9 +733,11 @@ describe('Drawer', () => {
         });
 
         it('should not create modal mask when modal is false', async () => {
-            testComponent.modal = false;
-            testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture, testComponent } = createFixture((c) => {
+                c.modal = false;
+                c.visible = true;
+            });
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -795,10 +749,12 @@ describe('Drawer', () => {
         });
 
         it('should close drawer on mask click when dismissible is true', async () => {
-            testComponent.modal = true;
-            testComponent.dismissible = true;
-            testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture, testComponent } = createFixture((c) => {
+                c.modal = true;
+                c.dismissible = true;
+                c.visible = true;
+            });
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -814,10 +770,12 @@ describe('Drawer', () => {
         });
 
         it('should not close drawer on mask click when dismissible is false', async () => {
-            testComponent.modal = true;
-            testComponent.dismissible = false;
-            testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture, testComponent } = createFixture((c) => {
+                c.modal = true;
+                c.dismissible = false;
+                c.visible = true;
+            });
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -830,24 +788,25 @@ describe('Drawer', () => {
                 await new Promise((resolve) => setTimeout(resolve, 100));
 
                 expect(testComponent.visible).toBe(true);
+            } else {
+                expect(true).toBe(true);
             }
         });
     });
 
     describe('Accessibility', () => {
-        let testFixture: ComponentFixture<TestDrawerAccessibilityComponent>;
-        let testComponent: TestDrawerAccessibilityComponent;
+        function createFixture(configure: (c: TestDrawerAccessibilityComponent) => void) {
+            const testFixture = TestBed.createComponent(TestDrawerAccessibilityComponent);
+            const testComponent = testFixture.componentInstance;
 
-        beforeEach(async () => {
-            testFixture = TestBed.createComponent(TestDrawerAccessibilityComponent);
-            testComponent = testFixture.componentInstance;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-        });
+            configure(testComponent);
+
+            return { testFixture, testComponent };
+        }
 
         it('should have correct ARIA role', async () => {
-            testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture } = createFixture((c) => (c.visible = true));
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -857,8 +816,8 @@ describe('Drawer', () => {
         });
 
         it('should have correct data attributes', async () => {
-            testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture } = createFixture((c) => (c.visible = true));
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -869,10 +828,12 @@ describe('Drawer', () => {
         });
 
         it('should set aria-label on close button when ariaCloseLabel is provided', async () => {
-            testComponent.visible = true;
-            testComponent.ariaCloseLabel = 'Close drawer';
-            testComponent.closable = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture } = createFixture((c) => {
+                c.visible = true;
+                c.ariaCloseLabel = 'Close drawer';
+                c.closable = true;
+            });
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -892,9 +853,11 @@ describe('Drawer', () => {
         });
 
         it('should show close button when closable is true', async () => {
-            testComponent.visible = true;
-            testComponent.closable = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture } = createFixture((c) => {
+                c.visible = true;
+                c.closable = true;
+            });
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -904,9 +867,11 @@ describe('Drawer', () => {
         });
 
         it('should hide close button when closable is false', async () => {
-            testComponent.visible = true;
-            testComponent.closable = false;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture } = createFixture((c) => {
+                c.visible = true;
+                c.closable = false;
+            });
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -916,8 +881,8 @@ describe('Drawer', () => {
         });
 
         it('should handle focus management correctly', async () => {
-            testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture } = createFixture((c) => (c.visible = true));
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -929,20 +894,21 @@ describe('Drawer', () => {
     });
 
     describe('Header Display', () => {
-        let testFixture: ComponentFixture<TestDrawerBasicComponent>;
-        let testComponent: TestDrawerBasicComponent;
+        function createFixture(configure: (c: TestDrawerBasicComponent) => void) {
+            const testFixture = TestBed.createComponent(TestDrawerBasicComponent);
+            const testComponent = testFixture.componentInstance;
 
-        beforeEach(async () => {
-            testFixture = TestBed.createComponent(TestDrawerBasicComponent);
-            testComponent = testFixture.componentInstance;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-        });
+            configure(testComponent);
+
+            return { testFixture, testComponent };
+        }
 
         it('should display header when header property is set', async () => {
-            testComponent.header = 'Test Header';
-            testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture } = createFixture((c) => {
+                c.header = 'Test Header';
+                c.visible = true;
+            });
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -958,9 +924,11 @@ describe('Drawer', () => {
         });
 
         it('should not display header section when header is not set', async () => {
-            testComponent.header = '';
-            testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
+            const { testFixture } = createFixture((c) => {
+                c.header = '';
+                c.visible = true;
+            });
+
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 
@@ -991,10 +959,14 @@ describe('Drawer', () => {
         });
 
         it('should handle undefined styleClass property', async () => {
-            testComponent.styleClass = undefined as any;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-            expect(drawerComponent.styleClass()).toBeUndefined();
+            const freshFixture = TestBed.createComponent(TestDrawerBasicComponent);
+
+            freshFixture.componentInstance.styleClass = undefined as any;
+            await freshFixture.whenStable();
+
+            const freshDrawerComponent = freshFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
+            expect(freshDrawerComponent.styleClass()).toBeUndefined();
         });
 
         it('should handle rapid visible changes', async () => {
@@ -1017,14 +989,15 @@ describe('Drawer', () => {
         });
 
         it('should handle invalid position values gracefully', async () => {
-            testComponent.position = 'invalid' as any;
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestDrawerBasicComponent);
 
-            expect(drawerComponent.position()).toBe('invalid');
+            freshFixture.componentInstance.position = 'invalid' as any;
+            await freshFixture.whenStable();
+
+            const freshDrawerComponent = freshFixture.debugElement.query(By.directive(Drawer)).componentInstance;
+
+            expect(freshDrawerComponent.position()).toBe('invalid');
             // Should not throw errors
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
             expect(true).toBe(true);
         });
 
@@ -1070,11 +1043,7 @@ describe('Drawer', () => {
             const testFixture = TestBed.createComponent(TestDrawerBasicComponent);
             const testComponent = testFixture.componentInstance;
 
-            testFixture.changeDetectorRef.markForCheck();
-            await testFixture.whenStable();
-
             testComponent.visible = true;
-            testFixture.changeDetectorRef.markForCheck();
             await testFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 100));
 

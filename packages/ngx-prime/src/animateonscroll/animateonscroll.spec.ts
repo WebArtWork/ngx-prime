@@ -1,4 +1,4 @@
-import { Component, DebugElement, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { AnimateOnScroll, AnimateOnScrollModule } from './animateonscroll';
@@ -101,14 +101,19 @@ class TestOnceAnimateOnScrollComponent {}
 class TestAdvancedConfigComponent {}
 
 @Component({
-    template: ` <div pAnimateOnScroll [enterClass]="enterClass" [leaveClass]="leaveClass" [once]="once" [threshold]="threshold">Dynamic Config Element</div> `,
+    template: ` <div pAnimateOnScroll [enterClass]="enterClass()" [leaveClass]="leaveClass()" [once]="once()" [threshold]="threshold()">Dynamic Config Element</div> `,
     imports: [AnimateOnScrollModule]
 })
 class TestDynamicConfigComponent {
-    enterClass = 'initial-enter';
-    leaveClass = 'initial-leave';
-    once = false;
-    threshold = 0.5;
+    // These are signals (rather than plain fields) so that changes made from a
+    // test propagate through change detection: with zoneless change detection
+    // (`provideZonelessChangeDetection()`), only signal writes are guaranteed to
+    // schedule/refresh a re-render; mutating a plain field and calling
+    // `fixture.detectChanges()`/`markForCheck()` afterwards is not reliable.
+    enterClass = signal('initial-enter');
+    leaveClass = signal('initial-leave');
+    once = signal(false);
+    threshold = signal(0.5);
 }
 
 describe('AnimateOnScroll', () => {
@@ -314,15 +319,22 @@ describe('AnimateOnScroll', () => {
         let component: TestCustomAnimateOnScrollComponent;
         let directive: AnimateOnScroll;
 
-        beforeEach(async () => {
+        // NOTE: with zoneless change detection, mutating a plain (non-signal) host
+        // property *after* the fixture has already been rendered once does not
+        // reliably re-run the template's property bindings via
+        // `fixture.detectChanges()`/`markForCheck()` (only signal writes are
+        // guaranteed to propagate under `provideZonelessChangeDetection()`). So each
+        // configuration value is set on the component *before* the first render.
+        function createFixture(setup: (c: TestCustomAnimateOnScrollComponent) => void) {
             fixture = TestBed.createComponent(TestCustomAnimateOnScrollComponent);
             component = fixture.componentInstance;
-            await fixture.whenStable();
-        });
+            setup(component);
+
+            return fixture;
+        }
 
         it('should use custom threshold', async () => {
-            component.threshold = 0.8;
-            fixture.detectChanges();
+            fixture = createFixture((c) => (c.threshold = 0.8));
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -330,8 +342,7 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should use custom rootMargin', async () => {
-            component.rootMargin = '10px';
-            fixture.detectChanges();
+            fixture = createFixture((c) => (c.rootMargin = '10px'));
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -341,8 +352,7 @@ describe('AnimateOnScroll', () => {
         it('should use custom root element', async () => {
             const rootElement = document.createElement('div');
 
-            component.root = rootElement;
-            fixture.detectChanges();
+            fixture = createFixture((c) => (c.root = rootElement));
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -350,8 +360,7 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should default threshold to 0.5 when undefined', async () => {
-            component.threshold = undefined as any;
-            fixture.detectChanges();
+            fixture = createFixture((c) => (c.threshold = undefined as any));
             await fixture.whenStable();
 
             directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
@@ -390,17 +399,26 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should not unbind observer when once is false', async () => {
-            component.once = false;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            // Use a fresh fixture with `once` set to false from the start: under
+            // zoneless change detection, flipping a plain (non-signal) host
+            // property after the fixture already rendered once is not guaranteed
+            // to propagate through `fixture.detectChanges()`.
+            const onceFalseFixture = TestBed.createComponent(TestCustomAnimateOnScrollComponent);
 
-            spyOn(directive, 'unbindIntersectionObserver');
+            onceFalseFixture.componentInstance.enterClass = 'fade-in';
+            onceFalseFixture.componentInstance.once = false;
+            await onceFalseFixture.whenStable();
 
-            const mockObserver = mockIntersectionObserverInstances[0];
+            const onceFalseDirectiveEl = onceFalseFixture.debugElement.query(By.directive(AnimateOnScroll));
+            const onceFalseDirective = onceFalseDirectiveEl.injector.get(AnimateOnScroll);
 
-            mockObserver.triggerIntersection(directiveEl.nativeElement, true, { top: 100 });
+            spyOn(onceFalseDirective, 'unbindIntersectionObserver');
 
-            expect(directive.unbindIntersectionObserver).not.toHaveBeenCalled();
+            const mockObserver = mockIntersectionObserverInstances[mockIntersectionObserverInstances.length - 1];
+
+            mockObserver.triggerIntersection(onceFalseDirectiveEl.nativeElement, true, { top: 100 });
+
+            expect(onceFalseDirective.unbindIntersectionObserver).not.toHaveBeenCalled();
         });
     });
 
@@ -514,16 +532,14 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should handle dynamic enterClass changes', async () => {
-            component.enterClass = 'new-enter-class';
-            fixture.detectChanges();
+            component.enterClass.set('new-enter-class');
             await fixture.whenStable();
 
             expect(directive.enterClass()).toBe('new-enter-class');
         });
 
         it('should handle dynamic threshold changes', async () => {
-            component.threshold = 0.9;
-            fixture.detectChanges();
+            component.threshold.set(0.9);
             await fixture.whenStable();
 
             expect(directive.threshold()).toBe(0.9);
@@ -531,8 +547,7 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should handle dynamic once property changes', async () => {
-            component.once = true;
-            fixture.detectChanges();
+            component.once.set(true);
             await fixture.whenStable();
 
             expect(directive.once()).toBe(true);
@@ -596,11 +611,15 @@ describe('AnimateOnScroll', () => {
         });
 
         it('should handle null root element', async () => {
-            component.root = null as any;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            // Fresh fixture with `root` set before the first render: mutating it
+            // after the shared `beforeEach` fixture already rendered would not
+            // reliably propagate under zoneless change detection (see note above).
+            const nullRootFixture = TestBed.createComponent(TestCustomAnimateOnScrollComponent);
 
-            const directive = fixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
+            nullRootFixture.componentInstance.root = null as any;
+            await nullRootFixture.whenStable();
+
+            const directive = nullRootFixture.debugElement.query(By.directive(AnimateOnScroll)).injector.get(AnimateOnScroll);
 
             expect(directive.options.root).toBeNull();
         });

@@ -252,12 +252,12 @@ describe('DataView', () => {
         });
 
         it('should accept custom values', async () => {
-            component.paginator = true;
-            component.rows = 5;
-            component.pageLinks = 3;
-            component.paginatorPosition = 'top';
-            component.layout = 'grid';
-            component.emptyMessage = 'Custom empty message';
+            component.paginator.set(true);
+            component.rows.set(5);
+            component.pageLinks.set(3);
+            component.paginatorPosition.set('top');
+            component.layout.set('grid');
+            component.emptyMessage.set('Custom empty message');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -281,7 +281,7 @@ describe('DataView', () => {
 
     describe('Public Methods', () => {
         it('should paginate programmatically', async () => {
-            component.paginator = true;
+            component.paginator.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -304,8 +304,8 @@ describe('DataView', () => {
         });
 
         it('should sort data', async () => {
-            component.sortField = 'price';
-            component.sortOrder = 1;
+            component.sortField.set('price');
+            component.sortOrder.set(1);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -325,8 +325,8 @@ describe('DataView', () => {
         });
 
         it('should sort data in descending order', async () => {
-            component.sortField = 'price';
-            component.sortOrder = -1;
+            component.sortField.set('price');
+            component.sortOrder.set(-1);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -339,14 +339,14 @@ describe('DataView', () => {
         });
 
         it('should handle null values in sorting', async () => {
-            component.products = [
+            component.products.set([
                 { id: 1, name: 'Product 1', price: null, category: 'Category A', inventoryStatus: 'INSTOCK' },
                 { id: 2, name: 'Product 2', price: 200, category: 'Category B', inventoryStatus: 'INSTOCK' },
                 { id: 3, name: 'Product 3', price: null, category: 'Category C', inventoryStatus: 'INSTOCK' },
                 { id: 4, name: 'Product 4', price: 100, category: 'Category D', inventoryStatus: 'INSTOCK' }
-            ] as any;
-            component.sortField = 'price';
-            component.sortOrder = 1;
+            ] as any);
+            component.sortField.set('price');
+            component.sortOrder.set(1);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -363,7 +363,7 @@ describe('DataView', () => {
         it('should check if data is empty', async () => {
             expect(dataview.isEmpty()).toBe(false);
 
-            component.products = [];
+            component.products.set([]);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -371,7 +371,7 @@ describe('DataView', () => {
         });
 
         it('should filter data', async () => {
-            component.filterBy = 'name,category';
+            component.filterBy.set('name,category');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -383,7 +383,7 @@ describe('DataView', () => {
         });
 
         it('should filter with different match modes', async () => {
-            component.filterBy = 'name';
+            component.filterBy.set('name');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -393,7 +393,7 @@ describe('DataView', () => {
         });
 
         it('should reset filteredValue when filter matches all items', async () => {
-            component.filterBy = 'category';
+            component.filterBy.set('category');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -403,7 +403,7 @@ describe('DataView', () => {
         });
 
         it('should check if filter is active', async () => {
-            component.filterBy = 'name';
+            component.filterBy.set('name');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -486,7 +486,7 @@ describe('DataView', () => {
         });
 
         it('should emit onPage event when paginating', async () => {
-            component.paginator = true;
+            component.paginator.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -501,8 +501,8 @@ describe('DataView', () => {
         });
 
         it('should emit onSort event when sorting', async () => {
-            component.sortField = 'name';
-            component.sortOrder = 1;
+            component.sortField.set('name');
+            component.sortOrder.set(1);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -519,7 +519,7 @@ describe('DataView', () => {
         it('should emit onChangeLayout event when layout changes', async () => {
             spyOn(component, 'onChangeLayoutEvent');
 
-            component.layout = 'grid';
+            component.layout.set('grid');
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -530,8 +530,8 @@ describe('DataView', () => {
         });
 
         it('should emit onLazyLoad when paginating in lazy mode', async () => {
-            component.lazy = true;
-            component.paginator = true;
+            component.lazy.set(true);
+            component.paginator.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -543,8 +543,8 @@ describe('DataView', () => {
         });
 
         it('should emit onLazyLoad when sorting in lazy mode', async () => {
-            component.lazy = true;
-            component.sortField = 'name';
+            component.lazy.set(true);
+            component.sortField.set('name');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -565,7 +565,7 @@ describe('DataView', () => {
         });
 
         it('should render grid template when layout is grid', async () => {
-            component.layout = 'grid';
+            component.layout.set('grid');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -604,7 +604,7 @@ describe('DataView', () => {
         });
 
         it('should render empty message when no data', async () => {
-            component.products = [];
+            component.products.set([]);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -672,8 +672,8 @@ describe('DataView', () => {
 
     describe('Pagination', () => {
         beforeEach(async () => {
-            component.paginator = true;
-            component.rows = 2;
+            component.paginator.set(true);
+            component.rows.set(2);
             fixture.detectChanges();
             await fixture.whenStable();
         });
@@ -692,7 +692,7 @@ describe('DataView', () => {
         });
 
         it('should render paginator at top when position is top', async () => {
-            component.paginatorPosition = 'top';
+            component.paginatorPosition.set('top');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -703,7 +703,7 @@ describe('DataView', () => {
         });
 
         it('should render paginator at both positions when position is both', async () => {
-            component.paginatorPosition = 'both';
+            component.paginatorPosition.set('both');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -734,9 +734,9 @@ describe('DataView', () => {
         });
 
         it('should pass correct props to paginator', async () => {
-            component.rowsPerPageOptions = [2, 5, 10];
-            component.showCurrentPageReport = true;
-            component.currentPageReportTemplate = 'Page {currentPage} of {totalPages}';
+            component.rowsPerPageOptions.set([2, 5, 10]);
+            component.showCurrentPageReport.set(true);
+            component.currentPageReportTemplate.set('Page {currentPage} of {totalPages}');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -771,8 +771,8 @@ describe('DataView', () => {
 
     describe('Sorting and Filtering', () => {
         it('should sort string fields correctly', async () => {
-            component.sortField = 'name';
-            component.sortOrder = 1;
+            component.sortField.set('name');
+            component.sortOrder.set(1);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -785,8 +785,8 @@ describe('DataView', () => {
         });
 
         it('should sort number fields correctly', async () => {
-            component.sortField = 'price';
-            component.sortOrder = -1;
+            component.sortField.set('price');
+            component.sortOrder.set(-1);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -799,7 +799,7 @@ describe('DataView', () => {
         });
 
         it('should filter across multiple fields', async () => {
-            component.filterBy = 'name,category';
+            component.filterBy.set('name,category');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -810,8 +810,8 @@ describe('DataView', () => {
         });
 
         it('should update totalRecords when filtering with pagination', async () => {
-            component.paginator = true;
-            component.filterBy = 'name';
+            component.paginator.set(true);
+            component.filterBy.set('name');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -822,8 +822,8 @@ describe('DataView', () => {
         });
 
         it('should reset first index when sorting', async () => {
-            component.first = 2;
-            component.sortField = 'name';
+            component.first.set(2);
+            component.sortField.set('name');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -833,9 +833,9 @@ describe('DataView', () => {
         });
 
         it('should apply filter after sorting', async () => {
-            component.sortField = 'price';
-            component.sortOrder = 1;
-            component.filterBy = 'category';
+            component.sortField.set('price');
+            component.sortOrder.set(1);
+            component.filterBy.set('category');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -851,7 +851,7 @@ describe('DataView', () => {
 
     describe('Loading State', () => {
         it('should show loading indicator when loading is true', async () => {
-            component.loading = true;
+            component.loading.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -861,8 +861,8 @@ describe('DataView', () => {
         });
 
         it('should show custom loading icon', async () => {
-            component.loading = true;
-            component.loadingIcon = ' pi-spinner';
+            component.loading.set(true);
+            component.loadingIcon.set(' pi-spinner');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -873,8 +873,8 @@ describe('DataView', () => {
         });
 
         it('should hide content when loading', async () => {
-            component.loading = true;
-            component.products = [];
+            component.loading.set(true);
+            component.products.set([]);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -884,7 +884,7 @@ describe('DataView', () => {
         });
 
         it('should show default loading icon when no custom icon specified', async () => {
-            component.loading = true;
+            component.loading.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -896,7 +896,7 @@ describe('DataView', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values gracefully', async () => {
-            component.products = null as any;
+            component.products.set(null as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -905,7 +905,7 @@ describe('DataView', () => {
         });
 
         it('should handle empty array', async () => {
-            component.products = [];
+            component.products.set([]);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -921,17 +921,17 @@ describe('DataView', () => {
 
             dataview.onChangeLayout.subscribe(() => changeCount++);
 
-            component.layout = 'grid';
+            component.layout.set('grid');
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            component.layout = 'list';
+            component.layout.set('list');
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            component.layout = 'grid';
+            component.layout.set('grid');
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -940,7 +940,7 @@ describe('DataView', () => {
         });
 
         it('should handle filtering with empty filterBy', async () => {
-            component.filterBy = '';
+            component.filterBy.set('');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -948,7 +948,7 @@ describe('DataView', () => {
         });
 
         it('should handle sorting without sortField', async () => {
-            component.sortField = undefined as any;
+            component.sortField.set(undefined as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -969,7 +969,7 @@ describe('DataView', () => {
 
             const startTime = performance.now();
 
-            component.products = largeData;
+            component.products.set(largeData);
             fixture.detectChanges();
             await fixture.whenStable();
             const endTime = performance.now();
@@ -979,14 +979,14 @@ describe('DataView', () => {
         });
 
         it('should maintain filter when value changes', async () => {
-            component.filterBy = 'name';
+            component.filterBy.set('name');
             fixture.detectChanges();
             await fixture.whenStable();
 
             dataview.filter('Product 1');
             expect(dataview.filteredValue?.length).toBe(1);
 
-            component.products = [...component.products, { id: 6, name: 'Product 10', price: 600, category: 'Category D', inventoryStatus: 'INSTOCK' }];
+            component.products.set([...component.products, { id: 6, name: 'Product 10', price: 600, category: 'Category D', inventoryStatus: 'INSTOCK' }]);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -994,7 +994,7 @@ describe('DataView', () => {
         });
 
         it('should handle undefined in template context', async () => {
-            component.products = undefined as any;
+            component.products.set(undefined as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1004,7 +1004,7 @@ describe('DataView', () => {
 
     describe('CSS Classes and Styling', () => {
         it('should apply custom styleClass', async () => {
-            component.styleClass = 'custom-dataview-class';
+            component.styleClass.set('custom-dataview-class');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1014,8 +1014,8 @@ describe('DataView', () => {
         });
 
         it('should apply gridStyleClass', async () => {
-            component.gridStyleClass = 'custom-grid-class';
-            component.layout = 'grid';
+            component.gridStyleClass.set('custom-grid-class');
+            component.layout.set('grid');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1023,7 +1023,7 @@ describe('DataView', () => {
         });
 
         it('should apply correct classes for loading state', async () => {
-            component.loading = true;
+            component.loading.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1033,8 +1033,8 @@ describe('DataView', () => {
         });
 
         it('should apply paginator style class', async () => {
-            component.paginator = true;
-            component.paginatorStyleClass = 'custom-paginator';
+            component.paginator.set(true);
+            component.paginatorStyleClass.set('custom-paginator');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1062,7 +1062,7 @@ describe('DataView', () => {
         it('should handle onChanges for value', async () => {
             const newProducts = [{ id: 10, name: 'New Product', price: 1000, category: 'New Category', inventoryStatus: 'INSTOCK' }];
 
-            component.products = newProducts;
+            component.products.set(newProducts);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1132,7 +1132,7 @@ describe('DataView', () => {
         it('should handle paginator property changes', async () => {
             expect(dataview.paginator()).toBe(false);
 
-            component.paginator = true;
+            component.paginator.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1142,7 +1142,7 @@ describe('DataView', () => {
         it('should handle rows property changes', async () => {
             expect(dataview._rows).toBe(3);
 
-            component.rows = 5;
+            component.rows.set(5);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1152,7 +1152,7 @@ describe('DataView', () => {
         it('should handle totalRecords property', async () => {
             expect(dataview._totalRecords).toBe(5); // auto-calculated from value
 
-            component.totalRecords = 100;
+            component.totalRecords.set(100);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1162,7 +1162,7 @@ describe('DataView', () => {
         it('should handle pageLinks property', async () => {
             expect(dataview.pageLinks()).toBe(5);
 
-            component.pageLinks = 7;
+            component.pageLinks.set(7);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1172,7 +1172,7 @@ describe('DataView', () => {
         it('should handle rowsPerPageOptions property', async () => {
             const options = [5, 10, 20, { showAll: 'All' }];
 
-            component.rowsPerPageOptions = options;
+            component.rowsPerPageOptions.set(options);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1182,7 +1182,7 @@ describe('DataView', () => {
         it('should handle paginatorPosition property', async () => {
             expect(dataview.paginatorPosition()).toBe('bottom');
 
-            component.paginatorPosition = 'top';
+            component.paginatorPosition.set('top');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1190,7 +1190,7 @@ describe('DataView', () => {
         });
 
         it('should handle paginatorStyleClass property', async () => {
-            component.paginatorStyleClass = 'custom-paginator';
+            component.paginatorStyleClass.set('custom-paginator');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1200,7 +1200,7 @@ describe('DataView', () => {
         it('should handle alwaysShowPaginator property', async () => {
             expect(dataview.alwaysShowPaginator()).toBe(true);
 
-            component.alwaysShowPaginator = false;
+            component.alwaysShowPaginator.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1210,7 +1210,7 @@ describe('DataView', () => {
         it('should handle paginatorDropdownAppendTo property', async () => {
             const element = document.createElement('div');
 
-            component.paginatorDropdownAppendTo = element;
+            component.paginatorDropdownAppendTo.set(element);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1220,7 +1220,7 @@ describe('DataView', () => {
         it('should handle paginatorDropdownScrollHeight property', async () => {
             expect(dataview.paginatorDropdownScrollHeight()).toBe('200px');
 
-            component.paginatorDropdownScrollHeight = '300px';
+            component.paginatorDropdownScrollHeight.set('300px');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1230,7 +1230,7 @@ describe('DataView', () => {
         it('should handle currentPageReportTemplate property', async () => {
             const template = 'Page {currentPage} of {totalPages}';
 
-            component.currentPageReportTemplate = template;
+            component.currentPageReportTemplate.set(template);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1240,7 +1240,7 @@ describe('DataView', () => {
         it('should handle showCurrentPageReport property', async () => {
             expect(dataview.showCurrentPageReport()).toBe(false);
 
-            component.showCurrentPageReport = true;
+            component.showCurrentPageReport.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1250,7 +1250,7 @@ describe('DataView', () => {
         it('should handle showJumpToPageDropdown property', async () => {
             expect(dataview.showJumpToPageDropdown()).toBe(false);
 
-            component.showJumpToPageDropdown = true;
+            component.showJumpToPageDropdown.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1260,7 +1260,7 @@ describe('DataView', () => {
         it('should handle showFirstLastIcon property', async () => {
             expect(dataview.showFirstLastIcon()).toBe(true);
 
-            component.showFirstLastIcon = false;
+            component.showFirstLastIcon.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1270,7 +1270,7 @@ describe('DataView', () => {
         it('should handle showPageLinks property', async () => {
             expect(dataview.showPageLinks()).toBe(true);
 
-            component.showPageLinks = false;
+            component.showPageLinks.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1280,7 +1280,7 @@ describe('DataView', () => {
         it('should handle lazy property', async () => {
             expect(dataview.lazy()).toBe(false);
 
-            component.lazy = true;
+            component.lazy.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1290,7 +1290,7 @@ describe('DataView', () => {
         it('should handle lazyLoadOnInit property', async () => {
             expect(dataview.lazyLoadOnInit()).toBe(true);
 
-            component.lazyLoadOnInit = false;
+            component.lazyLoadOnInit.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1300,7 +1300,7 @@ describe('DataView', () => {
         it('should handle emptyMessage property', async () => {
             expect(dataview.emptyMessage()).toBe('No products found');
 
-            component.emptyMessage = 'Custom empty message';
+            component.emptyMessage.set('Custom empty message');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1308,7 +1308,7 @@ describe('DataView', () => {
         });
 
         it('should handle styleClass property', async () => {
-            component.styleClass = 'custom-dataview-class';
+            component.styleClass.set('custom-dataview-class');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1318,7 +1318,7 @@ describe('DataView', () => {
         it('should handle gridStyleClass property', async () => {
             expect(dataview.gridStyleClass()).toBe('' as any);
 
-            component.gridStyleClass = 'custom-grid-class';
+            component.gridStyleClass.set('custom-grid-class');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1328,7 +1328,7 @@ describe('DataView', () => {
         it('should handle trackBy property', async () => {
             const customTrackBy = (index: number, item: any) => item.id;
 
-            component.trackBy = customTrackBy;
+            component.trackBy.set(customTrackBy);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1338,7 +1338,7 @@ describe('DataView', () => {
         it('should handle filterBy property', async () => {
             expect(dataview.filterBy()).toBe('name,category');
 
-            component.filterBy = 'price';
+            component.filterBy.set('price');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1346,7 +1346,7 @@ describe('DataView', () => {
         });
 
         it('should handle filterLocale property', async () => {
-            component.filterLocale = 'en-US';
+            component.filterLocale.set('en-US');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1356,7 +1356,7 @@ describe('DataView', () => {
         it('should handle loading property', async () => {
             expect(dataview.loading()).toBe(false);
 
-            component.loading = true;
+            component.loading.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1364,7 +1364,7 @@ describe('DataView', () => {
         });
 
         it('should handle loadingIcon property', async () => {
-            component.loadingIcon = 'pi pi-spinner';
+            component.loadingIcon.set('pi pi-spinner');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1374,7 +1374,7 @@ describe('DataView', () => {
         it('should handle first property', async () => {
             expect(dataview._first).toBe(0);
 
-            component.first = 5;
+            component.first.set(5);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1382,7 +1382,7 @@ describe('DataView', () => {
         });
 
         it('should handle sortField property', async () => {
-            component.sortField = 'name';
+            component.sortField.set('name');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1390,7 +1390,7 @@ describe('DataView', () => {
         });
 
         it('should handle sortOrder property', async () => {
-            component.sortOrder = 1;
+            component.sortOrder.set(1);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1400,7 +1400,7 @@ describe('DataView', () => {
         it('should handle layout property', async () => {
             expect(dataview.layout()).toBe('list');
 
-            component.layout = 'grid';
+            component.layout.set('grid');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1412,7 +1412,7 @@ describe('DataView', () => {
 
             const newProducts = [{ id: 10, name: 'New Product', price: 1000, category: 'New Category', inventoryStatus: 'INSTOCK' }];
 
-            component.products = newProducts;
+            component.products.set(newProducts);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1421,13 +1421,13 @@ describe('DataView', () => {
 
         it('should handle boolean attributes transformation', async () => {
             // Test boolean transformation for paginator
-            component.paginator = 'true' as any;
+            component.paginator.set('true' as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
             expect(dataview.paginator()).toBe(true);
 
-            component.paginator = '' as any;
+            component.paginator.set('' as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1436,7 +1436,7 @@ describe('DataView', () => {
 
         it('should handle number attributes transformation', async () => {
             // Test number transformation for rows
-            component.rows = '10' as any;
+            component.rows.set('10' as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1446,10 +1446,10 @@ describe('DataView', () => {
 
         it('should handle edge case values for numeric inputs', async () => {
             // Test zero values
-            component.rows = 0;
-            component.totalRecords = 0;
-            component.pageLinks = 0;
-            component.first = 0;
+            component.rows.set(0);
+            component.totalRecords.set(0);
+            component.pageLinks.set(0);
+            component.first.set(0);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1460,9 +1460,9 @@ describe('DataView', () => {
         });
 
         it('should handle negative values for numeric inputs', async () => {
-            component.rows = -5;
-            component.sortOrder = -1;
-            component.first = -10;
+            component.rows.set(-5);
+            component.sortOrder.set(-1);
+            component.first.set(-10);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -1486,7 +1486,7 @@ describe('DataView', () => {
         });
 
         it('should handle dynamic value changes', async () => {
-            expect(dynamicDataView.value?.length).toBe(5);
+            expect(dynamicDataView.value()?.length).toBe(5);
 
             // Change value dynamically
             dynamicComponent.updateValue([
@@ -1497,13 +1497,13 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.value?.length).toBe(2);
-            expect(dynamicDataView.totalRecords).toBe(2);
+            expect(dynamicDataView.value()?.length).toBe(2);
+            expect(dynamicDataView._totalRecords).toBe(2);
         });
 
         it('should handle dynamic pagination settings', async () => {
-            expect(dynamicDataView.paginator).toBe(false);
-            expect(dynamicDataView.rows).toBe(3);
+            expect(dynamicDataView.paginator()).toBe(false);
+            expect(dynamicDataView._rows).toBe(3);
 
             // Change pagination settings dynamically
             dynamicComponent.updatePaginationSettings(true, 5);
@@ -1511,12 +1511,12 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.paginator).toBe(true);
-            expect(dynamicDataView.rows).toBe(5);
+            expect(dynamicDataView.paginator()).toBe(true);
+            expect(dynamicDataView._rows).toBe(5);
         });
 
         it('should handle dynamic layout changes', async () => {
-            expect(dynamicDataView.layout).toBe('list');
+            expect(dynamicDataView.layout()).toBe('list');
 
             // Toggle layout
             dynamicComponent.toggleLayout();
@@ -1524,18 +1524,18 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.layout).toBe('grid');
+            expect(dynamicDataView.layout()).toBe('grid');
 
             dynamicComponent.toggleLayout();
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.layout).toBe('list');
+            expect(dynamicDataView.layout()).toBe('list');
         });
 
         it('should handle dynamic loading state changes', async () => {
-            expect(dynamicDataView.loading).toBe(false);
+            expect(dynamicDataView.loading()).toBe(false);
 
             // Toggle loading state
             dynamicComponent.toggleLoading();
@@ -1543,19 +1543,19 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.loading).toBe(true);
+            expect(dynamicDataView.loading()).toBe(true);
 
             dynamicComponent.toggleLoading();
             dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.loading).toBe(false);
+            expect(dynamicDataView.loading()).toBe(false);
         });
 
         it('should handle dynamic sorting changes', async () => {
-            expect(dynamicDataView.sortField).toBeUndefined();
-            expect(dynamicDataView.sortOrder || undefined).toBeUndefined();
+            expect(dynamicDataView.sortField()).toBeUndefined();
+            expect(dynamicDataView.sortOrder() || undefined).toBeUndefined();
 
             // Change sorting settings
             dynamicComponent.updateSorting('price', -1);
@@ -1563,8 +1563,8 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.sortField).toBe('price');
-            expect(dynamicDataView.sortOrder).toBe(-1);
+            expect(dynamicDataView.sortField()).toBe('price');
+            expect(dynamicDataView.sortOrder()).toBe(-1);
         });
 
         it('should handle dynamic filtering changes', async () => {
@@ -1574,7 +1574,7 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.filterBy).toBe('name');
+            expect(dynamicDataView.filterBy()).toBe('name');
         });
 
         it('should handle dynamic rowsPerPageOptions changes', async () => {
@@ -1584,7 +1584,7 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.rowsPerPageOptions).toEqual([5, 10, 15]);
+            expect(dynamicDataView.rowsPerPageOptions()).toEqual([5, 10, 15]);
 
             // Update with showAll option
             dynamicComponent.updateRowsPerPageOptions([10, 20, 30, { showAll: 'All' }]);
@@ -1592,7 +1592,7 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.rowsPerPageOptions).toEqual([10, 20, 30, { showAll: 'All' }]);
+            expect(dynamicDataView.rowsPerPageOptions()).toEqual([10, 20, 30, { showAll: 'All' }]);
         });
 
         it('should handle multiple simultaneous changes', async () => {
@@ -1602,10 +1602,10 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.value?.length).toBe(1);
-            expect(dynamicDataView.paginator).toBe(true);
-            expect(dynamicDataView.rows).toBe(2);
-            expect(dynamicDataView.layout).toBe('grid');
+            expect(dynamicDataView.value()?.length).toBe(1);
+            expect(dynamicDataView.paginator()).toBe(true);
+            expect(dynamicDataView._rows).toBe(2);
+            expect(dynamicDataView.layout()).toBe('grid');
         });
 
         it('should handle observable values from services', async () => {
@@ -1616,8 +1616,8 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.value?.length).toBe(10);
-            expect(dynamicDataView.rows).toBe(5);
+            expect(dynamicDataView.value()?.length).toBe(10);
+            expect(dynamicDataView._rows).toBe(5);
         });
 
         it('should handle async property updates with delays', async () => {
@@ -1634,12 +1634,12 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.value?.length).toBe(2);
-            expect(dynamicDataView.rows).toBe(10);
+            expect(dynamicDataView.value()?.length).toBe(2);
+            expect(dynamicDataView._rows).toBe(10);
         });
 
         it('should maintain component state during rapid changes', async () => {
-            const initialLayout = dynamicDataView.layout;
+            const initialLayout = dynamicDataView.layout();
 
             // Perform rapid changes
             for (let i = 0; i < 5; i++) {
@@ -1649,8 +1649,8 @@ describe('DataView', () => {
                 await dynamicFixture.whenStable();
             }
 
-            expect(dynamicDataView.value?.length).toBe(1);
-            expect(dynamicDataView.layout).toBe(initialLayout); // Should maintain layout
+            expect(dynamicDataView.value()?.length).toBe(1);
+            expect(dynamicDataView.layout()).toBe(initialLayout); // Should maintain layout
         });
 
         it('should handle edge case: empty value becomes populated', async () => {
@@ -1669,7 +1669,7 @@ describe('DataView', () => {
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dynamicDataView.isEmpty()).toBe(false);
-            expect(dynamicDataView.value?.length).toBe(1);
+            expect(dynamicDataView.value()?.length).toBe(1);
         });
 
         it('should handle dynamic template property changes', async () => {
@@ -1679,7 +1679,7 @@ describe('DataView', () => {
             await dynamicFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dynamicDataView.emptyMessage).toBe('Custom dynamic empty message');
+            expect(dynamicDataView.emptyMessage()).toBe('Custom dynamic empty message');
         });
     });
 });

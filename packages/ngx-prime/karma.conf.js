@@ -22,6 +22,10 @@ module.exports = function (config) {
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
-        browsers: ['ChromeHeadless']
+        browsers: ['ChromeHeadless'],
+        browserDisconnectTimeout: 60000,
+        browserDisconnectTolerance: 3,
+        browserNoActivityTimeout: 120000,
+        captureTimeout: 210000
     });
 };

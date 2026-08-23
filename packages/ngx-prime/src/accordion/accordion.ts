@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, ContentChild, forwardRef, inject, InjectionToken, input, InputSignalWithTransform, model, NgModule, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { findSingle, focus, getAttribute, uuid } from '@wawjs/css-prime-utils';
@@ -112,7 +113,7 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
  */
 @Component({
     selector: 'p-accordion-header, p-accordionheader',
-    imports: [ChevronDownIcon, ChevronUpIcon, BindModule],
+    imports: [ChevronDownIcon, ChevronUpIcon, BindModule, NgTemplateOutlet],
     standalone: true,
     template: `
         <ng-content />

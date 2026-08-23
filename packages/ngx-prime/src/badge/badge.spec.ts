@@ -1,4 +1,4 @@
-import { Component, DebugElement, ElementRef, input, provideZonelessChangeDetection, viewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, input, provideZonelessChangeDetection, signal, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from 'ngx-prime/api';
@@ -13,98 +13,98 @@ class TestBasicBadgeComponent {}
 
 @Component({
     selector: 'test-value-badge',
-    template: `<p-badge [value]="value"></p-badge>`,
+    template: `<p-badge [value]="value()"></p-badge>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestValueBadgeComponent {
-    value: string | number | null = '2';
+    value = signal<string | number | null>('2');
 }
 
 @Component({
     selector: 'test-size-badge',
-    template: `<p-badge [badgeSize]="badgeSize" value="1"></p-badge>`,
+    template: `<p-badge [badgeSize]="badgeSize()" value="1"></p-badge>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestSizeBadgeComponent {
-    badgeSize: 'small' | 'large' | 'xlarge' | null = null as any;
+    badgeSize = signal<'small' | 'large' | 'xlarge' | null>(null as any);
 }
 
 @Component({
     selector: 'test-severity-badge',
-    template: `<p-badge [severity]="severity" value="1"></p-badge>`,
+    template: `<p-badge [severity]="severity()" value="1"></p-badge>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestSeverityBadgeComponent {
-    severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null = null as any;
+    severity = signal<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null>(null as any);
 }
 
 @Component({
     selector: 'test-disabled-badge',
-    template: `<p-badge [badgeDisabled]="disabled" value="1"></p-badge>`,
+    template: `<p-badge [badgeDisabled]="disabled()" value="1"></p-badge>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestDisabledBadgeComponent {
-    disabled = false;
+    disabled = signal(false);
 }
 
 @Component({
     selector: 'test-style-class-badge',
-    template: `<p-badge [styleClass]="styleClass" value="1"></p-badge>`,
+    template: `<p-badge [styleClass]="styleClass()" value="1"></p-badge>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestStyleClassBadgeComponent {
-    styleClass = 'custom-badge';
+    styleClass = signal('custom-badge');
 }
 
 @Component({
     selector: 'test-directive-badge',
-    template: `<button #button pBadge [value]="value">Button</button>`,
+    template: `<button #button pBadge [value]="value()">Button</button>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveBadgeComponent {
     readonly button = viewChild.required<ElementRef>('button');
-    value: string | number | undefined = '5';
+    value = signal<string | number | undefined>('5');
 }
 
 @Component({
     selector: 'test-directive-size-badge',
-    template: `<button pBadge [value]="value" [size]="size">Button</button>`,
+    template: `<button pBadge [value]="value()" [size]="size()">Button</button>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveSizeBadgeComponent {
-    value: string | number = '1';
-    size: 'large' | 'xlarge' | 'small' | null | undefined;
+    value = signal<string | number>('1');
+    size = signal<'large' | 'xlarge' | 'small' | null | undefined>(undefined);
 }
 
 @Component({
     selector: 'test-directive-severity-badge',
-    template: `<button pBadge [value]="value" [severity]="severity">Button</button>`,
+    template: `<button pBadge [value]="value()" [severity]="severity()">Button</button>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveSeverityBadgeComponent {
-    value: string | number = '1';
-    severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null | undefined;
+    value = signal<string | number>('1');
+    severity = signal<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null | undefined>(undefined);
 }
 
 @Component({
     selector: 'test-directive-disabled-badge',
-    template: `<button pBadge [value]="value" [badgeDisabled]="disabled">Button</button>`,
+    template: `<button pBadge [value]="value()" [badgeDisabled]="disabled()">Button</button>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveDisabledBadgeComponent {
-    value: string | number = '1';
-    disabled = false;
+    value = signal<string | number>('1');
+    disabled = signal(false);
 }
 
 @Component({
     selector: 'test-directive-style-badge',
-    template: `<button pBadge [value]="value" [badgeStyle]="badgeStyle" [badgeStyleClass]="badgeStyleClass">Button</button>`,
+    template: `<button pBadge [value]="value()" [badgeStyle]="badgeStyle()" [badgeStyleClass]="badgeStyleClass()">Button</button>`,
     imports: [BadgeModule, SharedModule]
 })
 class TestDirectiveStyleBadgeComponent {
-    value: string | number = '1';
-    badgeStyle: { [key: string]: any } | null = null as any;
-    badgeStyleClass = '';
+    value = signal<string | number>('1');
+    badgeStyle = signal<{ [key: string]: any } | null>(null as any);
+    badgeStyleClass = signal('');
 }
 
 @Component({
@@ -119,15 +119,15 @@ class TestDeprecatedSizeBadgeComponent {
 
 @Component({
     selector: 'test-dynamic-badge',
-    template: ` <p-badge [value]="value" [badgeSize]="badgeSize" [severity]="severity" [badgeDisabled]="disabled" [styleClass]="styleClass"> </p-badge> `,
+    template: ` <p-badge [value]="value()" [badgeSize]="badgeSize()" [severity]="severity()" [badgeDisabled]="disabled()" [styleClass]="styleClass()"> </p-badge> `,
     imports: [BadgeModule, SharedModule]
 })
 class TestDynamicBadgeComponent {
-    value: string | number | null = '1';
-    badgeSize: 'small' | 'large' | 'xlarge' | null = null as any;
-    severity: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null = null as any;
-    disabled = false;
-    styleClass = '';
+    value = signal<string | number | null>('1');
+    badgeSize = signal<'small' | 'large' | 'xlarge' | null>(null as any);
+    severity = signal<'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null>(null as any);
+    disabled = signal(false);
+    styleClass = signal('');
 }
 
 describe('Badge', () => {
@@ -215,16 +215,14 @@ describe('Badge', () => {
             });
 
             it('should display numeric value', async () => {
-                component.value = 10;
-                fixture.detectChanges();
+                component.value.set(10);
                 await fixture.whenStable();
 
                 expect(element.textContent?.trim()).toBe('10');
             });
 
             it('should apply circle class for single character', async () => {
-                component.value = '1';
-                fixture.detectChanges();
+                component.value.set('1');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-circle')).toBe(true);
@@ -232,8 +230,7 @@ describe('Badge', () => {
             });
 
             it('should not apply circle class for multiple characters', async () => {
-                component.value = '10';
-                fixture.detectChanges();
+                component.value.set('10');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-circle')).toBe(false);
@@ -241,8 +238,7 @@ describe('Badge', () => {
             });
 
             it('should apply dot class when value is null', async () => {
-                component.value = null as any;
-                fixture.detectChanges();
+                component.value.set(null as any);
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-dot')).toBe(true);
@@ -251,8 +247,7 @@ describe('Badge', () => {
             });
 
             it('should handle zero value', async () => {
-                component.value = 0;
-                fixture.detectChanges();
+                component.value.set(0);
                 await fixture.whenStable();
 
                 expect(element.textContent?.trim()).toBe('0');
@@ -260,8 +255,7 @@ describe('Badge', () => {
             });
 
             it('should handle empty string', async () => {
-                component.value = '';
-                fixture.detectChanges();
+                component.value.set('');
                 await fixture.whenStable();
 
                 expect(element.textContent?.trim()).toBe('' as any);
@@ -283,37 +277,32 @@ describe('Badge', () => {
             });
 
             it('should apply small size class', async () => {
-                component.badgeSize = 'small';
-                fixture.detectChanges();
+                component.badgeSize.set('small');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-sm')).toBe(true);
             });
 
             it('should apply large size class', async () => {
-                component.badgeSize = 'large';
-                fixture.detectChanges();
+                component.badgeSize.set('large');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-lg')).toBe(true);
             });
 
             it('should apply xlarge size class', async () => {
-                component.badgeSize = 'xlarge';
-                fixture.detectChanges();
+                component.badgeSize.set('xlarge');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-xl')).toBe(true);
             });
 
             it('should change size dynamically', async () => {
-                component.badgeSize = 'large';
-                fixture.detectChanges();
+                component.badgeSize.set('large');
                 await fixture.whenStable();
                 expect(element.classList.contains('p-badge-lg')).toBe(true);
 
-                component.badgeSize = 'small';
-                fixture.detectChanges();
+                component.badgeSize.set('small');
                 await fixture.whenStable();
                 expect(element.classList.contains('p-badge-lg')).toBe(false);
                 expect(element.classList.contains('p-badge-sm')).toBe(true);
@@ -334,61 +323,53 @@ describe('Badge', () => {
             });
 
             it('should apply info severity class', async () => {
-                component.severity = 'info';
-                fixture.detectChanges();
+                component.severity.set('info');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-info')).toBe(true);
             });
 
             it('should apply success severity class', async () => {
-                component.severity = 'success';
-                fixture.detectChanges();
+                component.severity.set('success');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-success')).toBe(true);
             });
 
             it('should apply warn severity class', async () => {
-                component.severity = 'warn';
-                fixture.detectChanges();
+                component.severity.set('warn');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-warn')).toBe(true);
             });
 
             it('should apply danger severity class', async () => {
-                component.severity = 'danger';
-                fixture.detectChanges();
+                component.severity.set('danger');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-danger')).toBe(true);
             });
 
             it('should apply secondary severity class', async () => {
-                component.severity = 'secondary';
-                fixture.detectChanges();
+                component.severity.set('secondary');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-secondary')).toBe(true);
             });
 
             it('should apply contrast severity class', async () => {
-                component.severity = 'contrast';
-                fixture.detectChanges();
+                component.severity.set('contrast');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('p-badge-contrast')).toBe(true);
             });
 
             it('should change severity dynamically', async () => {
-                component.severity = 'info';
-                fixture.detectChanges();
+                component.severity.set('info');
                 await fixture.whenStable();
                 expect(element.classList.contains('p-badge-info')).toBe(true);
 
-                component.severity = 'danger';
-                fixture.detectChanges();
+                component.severity.set('danger');
                 await fixture.whenStable();
                 expect(element.classList.contains('p-badge-info')).toBe(false);
                 expect(element.classList.contains('p-badge-danger')).toBe(true);
@@ -413,21 +394,18 @@ describe('Badge', () => {
             });
 
             it('should be hidden when disabled', async () => {
-                component.disabled = true;
-                fixture.detectChanges();
+                component.disabled.set(true);
                 await fixture.whenStable();
 
                 expect(element.style.display).toBe('none');
             });
 
             it('should toggle visibility dynamically', async () => {
-                component.disabled = true;
-                fixture.detectChanges();
+                component.disabled.set(true);
                 await fixture.whenStable();
                 expect(element.style.display).toBe('none');
 
-                component.disabled = false;
-                fixture.detectChanges();
+                component.disabled.set(false);
                 await fixture.whenStable();
                 expect(element.style.display).toBe('' as any);
             });
@@ -451,8 +429,7 @@ describe('Badge', () => {
             });
 
             it('should update style class dynamically', async () => {
-                component.styleClass = 'new-custom-class';
-                fixture.detectChanges();
+                component.styleClass.set('new-custom-class');
                 await fixture.whenStable();
 
                 expect(element.classList.contains('new-custom-class')).toBe(true);
@@ -500,8 +477,7 @@ describe('Badge', () => {
             });
 
             it('should update badge value dynamically', async () => {
-                component.value = '10';
-                fixture.detectChanges();
+                component.value.set('10');
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
@@ -510,8 +486,7 @@ describe('Badge', () => {
             });
 
             it('should handle null value with dot class', async () => {
-                component.value = undefined as any;
-                fixture.detectChanges();
+                component.value.set(undefined as any);
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
@@ -521,8 +496,7 @@ describe('Badge', () => {
             });
 
             it('should apply circle class for single character', async () => {
-                component.value = '1';
-                fixture.detectChanges();
+                component.value.set('1');
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
@@ -539,8 +513,7 @@ describe('Badge', () => {
             beforeEach(async () => {
                 fixture = TestBed.createComponent(TestDirectiveSizeBadgeComponent);
                 component = fixture.componentInstance;
-                component.size = 'large'; // Set initial size to ensure badge creation
-                fixture.detectChanges();
+                component.size.set('large'); // Set initial size to ensure badge creation
                 await fixture.whenStable();
 
                 buttonElement = fixture.debugElement.query(By.directive(BadgeDirective)).nativeElement;
@@ -555,8 +528,7 @@ describe('Badge', () => {
             });
 
             it('should apply xlarge size class', async () => {
-                component.size = 'xlarge';
-                fixture.detectChanges();
+                component.size.set('xlarge');
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
@@ -573,8 +545,7 @@ describe('Badge', () => {
                 expect(badgeElement?.classList.contains('p-badge-lg')).toBe(true);
                 expect(badgeElement?.classList.contains('p-badge-xl')).toBe(false);
 
-                component.size = 'xlarge';
-                fixture.detectChanges();
+                component.size.set('xlarge');
                 await fixture.whenStable();
 
                 badgeElement = buttonElement.querySelector('.p-badge');
@@ -597,8 +568,7 @@ describe('Badge', () => {
             });
 
             it('should apply info severity class', async () => {
-                component.severity = 'info';
-                fixture.detectChanges();
+                component.severity.set('info');
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
@@ -607,8 +577,7 @@ describe('Badge', () => {
             });
 
             it('should apply success severity class', async () => {
-                component.severity = 'success';
-                fixture.detectChanges();
+                component.severity.set('success');
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
@@ -617,16 +586,14 @@ describe('Badge', () => {
             });
 
             it('should change severity classes dynamically', async () => {
-                component.severity = 'warn';
-                fixture.detectChanges();
+                component.severity.set('warn');
                 await fixture.whenStable();
 
                 let badgeElement = buttonElement.querySelector('.p-badge');
 
                 expect(badgeElement?.classList.contains('p-badge-warn')).toBe(true);
 
-                component.severity = 'danger';
-                fixture.detectChanges();
+                component.severity.set('danger');
                 await fixture.whenStable();
 
                 badgeElement = buttonElement.querySelector('.p-badge');
@@ -655,8 +622,7 @@ describe('Badge', () => {
             });
 
             it('should hide badge when disabled', async () => {
-                component.disabled = true;
-                fixture.detectChanges();
+                component.disabled.set(true);
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
@@ -665,13 +631,11 @@ describe('Badge', () => {
             });
 
             it('should toggle badge visibility dynamically', async () => {
-                component.disabled = true;
-                fixture.detectChanges();
+                component.disabled.set(true);
                 await fixture.whenStable();
                 expect(buttonElement.querySelector('.p-badge')).toBeFalsy();
 
-                component.disabled = false;
-                fixture.detectChanges();
+                component.disabled.set(false);
                 await fixture.whenStable();
                 expect(buttonElement.querySelector('.p-badge')).toBeTruthy();
             });
@@ -691,8 +655,7 @@ describe('Badge', () => {
             });
 
             it('should apply custom styles', async () => {
-                component.badgeStyle = { backgroundColor: 'red', color: 'white' };
-                fixture.detectChanges();
+                component.badgeStyle.set({ backgroundColor: 'red', color: 'white' });
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge') as HTMLElement;
@@ -702,8 +665,7 @@ describe('Badge', () => {
             });
 
             it('should apply custom CSS classes', async () => {
-                component.badgeStyleClass = 'custom-badge-class';
-                fixture.detectChanges();
+                component.badgeStyleClass.set('custom-badge-class');
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
@@ -712,8 +674,7 @@ describe('Badge', () => {
             });
 
             it('should apply multiple CSS classes', async () => {
-                component.badgeStyleClass = 'class1 class2 class3';
-                fixture.detectChanges();
+                component.badgeStyleClass.set('class1 class2 class3');
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge');
@@ -724,9 +685,8 @@ describe('Badge', () => {
             });
 
             it('should handle both style and class together', async () => {
-                component.badgeStyle = { fontSize: '14px' };
-                component.badgeStyleClass = 'styled-badge';
-                fixture.detectChanges();
+                component.badgeStyle.set({ fontSize: '14px' });
+                component.badgeStyleClass.set('styled-badge');
                 await fixture.whenStable();
 
                 const badgeElement = buttonElement.querySelector('.p-badge') as HTMLElement;
@@ -751,11 +711,10 @@ describe('Badge', () => {
         });
 
         it('should handle combined property changes', async () => {
-            component.value = '99';
-            component.badgeSize = 'large';
-            component.severity = 'danger';
-            component.styleClass = 'urgent';
-            fixture.detectChanges();
+            component.value.set('99');
+            component.badgeSize.set('large');
+            component.severity.set('danger');
+            component.styleClass.set('urgent');
             await fixture.whenStable();
 
             expect(element.textContent?.trim()).toBe('99');
@@ -766,57 +725,48 @@ describe('Badge', () => {
 
         it('should handle transitions between different states', async () => {
             // Start with single character (circle)
-            component.value = '1';
-            fixture.detectChanges();
+            component.value.set('1');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-circle')).toBe(true);
 
             // Change to multiple characters (no circle)
-            component.value = '99';
-            fixture.detectChanges();
+            component.value.set('99');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-circle')).toBe(false);
 
             // Change to null (dot)
-            component.value = null as any;
-            fixture.detectChanges();
+            component.value.set(null as any);
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-dot')).toBe(true);
             expect(element.classList.contains('p-badge-circle')).toBe(false);
         });
 
         it('should handle severity transitions', async () => {
-            component.severity = 'info';
-            fixture.detectChanges();
+            component.severity.set('info');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-info')).toBe(true);
 
-            component.severity = 'success';
-            fixture.detectChanges();
+            component.severity.set('success');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-info')).toBe(false);
             expect(element.classList.contains('p-badge-success')).toBe(true);
 
-            component.severity = null as any;
-            fixture.detectChanges();
+            component.severity.set(null as any);
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-success')).toBe(false);
         });
 
         it('should handle size transitions', async () => {
-            component.badgeSize = 'large';
-            fixture.detectChanges();
+            component.badgeSize.set('large');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-lg')).toBe(true);
 
-            component.badgeSize = 'xlarge';
-            fixture.detectChanges();
+            component.badgeSize.set('xlarge');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-lg')).toBe(false);
             expect(element.classList.contains('p-badge-xl')).toBe(true);
 
-            component.badgeSize = null as any;
-            fixture.detectChanges();
+            component.badgeSize.set(null as any);
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-xl')).toBe(false);
             expect(element.classList.contains('p-badge-lg')).toBe(false);
@@ -828,8 +778,7 @@ describe('Badge', () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
 
-            component.value = 0;
-            fixture.detectChanges();
+            component.value.set(0);
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
@@ -843,8 +792,7 @@ describe('Badge', () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
 
-            component.value = -5;
-            fixture.detectChanges();
+            component.value.set(-5);
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
@@ -857,8 +805,7 @@ describe('Badge', () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
 
-            component.value = '!';
-            fixture.detectChanges();
+            component.value.set('!');
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
@@ -871,8 +818,7 @@ describe('Badge', () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
 
-            component.value = '999999999';
-            fixture.detectChanges();
+            component.value.set('999999999');
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
@@ -886,8 +832,7 @@ describe('Badge', () => {
             const fixture = TestBed.createComponent(TestValueBadgeComponent);
             const component = fixture.componentInstance;
 
-            component.value = '  ';
-            fixture.detectChanges();
+            component.value.set('  ');
             await fixture.whenStable();
 
             const element = fixture.debugElement.query(By.directive(Badge)).nativeElement;
@@ -912,11 +857,10 @@ describe('Badge', () => {
         });
 
         it('should maintain base classes with all variants', async () => {
-            component.value = '1';
-            component.badgeSize = 'large';
-            component.severity = 'danger';
-            component.styleClass = 'custom';
-            fixture.detectChanges();
+            component.value.set('1');
+            component.badgeSize.set('large');
+            component.severity.set('danger');
+            component.styleClass.set('custom');
             await fixture.whenStable();
 
             // Base classes
@@ -931,38 +875,32 @@ describe('Badge', () => {
         });
 
         it('should handle conflicting size classes correctly', async () => {
-            component.badgeSize = 'small';
-            fixture.detectChanges();
+            component.badgeSize.set('small');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-sm')).toBe(true);
 
-            component.badgeSize = 'large';
-            fixture.detectChanges();
+            component.badgeSize.set('large');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-sm')).toBe(false);
             expect(element.classList.contains('p-badge-lg')).toBe(true);
 
-            component.badgeSize = 'xlarge';
-            fixture.detectChanges();
+            component.badgeSize.set('xlarge');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-lg')).toBe(false);
             expect(element.classList.contains('p-badge-xl')).toBe(true);
         });
 
         it('should handle conflicting severity classes correctly', async () => {
-            component.severity = 'info';
-            fixture.detectChanges();
+            component.severity.set('info');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-info')).toBe(true);
 
-            component.severity = 'success';
-            fixture.detectChanges();
+            component.severity.set('success');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-info')).toBe(false);
             expect(element.classList.contains('p-badge-success')).toBe(true);
 
-            component.severity = 'warn';
-            fixture.detectChanges();
+            component.severity.set('warn');
             await fixture.whenStable();
             expect(element.classList.contains('p-badge-success')).toBe(false);
             expect(element.classList.contains('p-badge-warn')).toBe(true);

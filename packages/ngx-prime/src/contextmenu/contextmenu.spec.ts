@@ -1,4 +1,4 @@
-import { Component, DebugElement, provideZonelessChangeDetection, viewChild } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, signal, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -184,22 +184,22 @@ class TestMinimalContextMenuComponent {}
 
 @Component({
     selector: 'test-dynamic-contextmenu',
-    template: ` <p-contextmenu [model]="dynamicModel"></p-contextmenu> `,
+    template: ` <p-contextmenu [model]="dynamicModel()"></p-contextmenu> `,
     imports: [ContextMenu, TestTargetComponent, SharedModule]
 })
 class TestDynamicContextMenuComponent {
-    dynamicModel: MenuItem[] = [];
+    dynamicModel = signal<MenuItem[]>([]);
 
     addItem(item: MenuItem) {
-        this.dynamicModel.push(item);
+        this.dynamicModel.update((items) => [...items, item]);
     }
 
     clearItems() {
-        this.dynamicModel = [];
+        this.dynamicModel.set([]);
     }
 
     removeItem(index: number) {
-        this.dynamicModel.splice(index, 1);
+        this.dynamicModel.update((items) => items.filter((_, i) => i !== index));
     }
 }
 
@@ -210,6 +210,20 @@ class TestDynamicContextMenuComponent {
 })
 class TestDisabledItemsComponent {
     disabledModel: MenuItem[] = [{ label: 'Enabled Item' }, { label: 'Disabled Item', disabled: true }, { separator: true }, { label: 'Another Enabled Item' }];
+}
+
+// Dedicated host with signal-backed inputs used for the one test that needs to observe
+// a *live* re-render (a value changing mid-test), as opposed to tests that just check
+// whether a static initial configuration takes effect (those use createConfiguredFixture).
+@Component({
+    selector: 'test-live-update-contextmenu',
+    template: ` <p-contextmenu [model]="model()" [styleClass]="styleClass()" [autoZIndex]="autoZIndex()"></p-contextmenu> `,
+    imports: [ContextMenu, SharedModule]
+})
+class TestLiveUpdateContextMenuComponent {
+    model = signal<MenuItem[] | undefined>(undefined);
+    styleClass = signal<string | undefined>(undefined);
+    autoZIndex = signal<boolean>(true);
 }
 
 describe('ContextMenu', () => {
@@ -239,7 +253,8 @@ describe('ContextMenu', () => {
                 TestStyledContextMenuComponent,
                 TestMinimalContextMenuComponent,
                 TestDynamicContextMenuComponent,
-                TestDisabledItemsComponent
+                TestDisabledItemsComponent,
+                TestLiveUpdateContextMenuComponent
             ],
             providers: [provideZonelessChangeDetection()]
         }).compileComponents();
@@ -250,6 +265,19 @@ describe('ContextMenu', () => {
         contextMenuInstance = contextMenuElement.componentInstance;
         await fixture.whenStable();
     });
+
+    // Under zoneless change detection (`provideZonelessChangeDetection()`), mutating a
+    // plain (non-signal) host property *after* a fixture has already rendered once does
+    // not reliably re-render via `fixture.detectChanges()`/`markForCheck()` + `whenStable()`.
+    // So for tests that only need a specific static configuration to take effect, create a
+    // fresh fixture, apply the desired configuration *before* the first render, then render once.
+    function createConfiguredFixture(setup: (c: TestBasicContextMenuComponent) => void) {
+        const fresh = TestBed.createComponent(TestBasicContextMenuComponent);
+
+        setup(fresh.componentInstance);
+
+        return fresh;
+    }
 
     describe('Component Initialization', () => {
         it('should create the component', () => {
@@ -388,27 +416,37 @@ describe('ContextMenu', () => {
         });
 
         it('should update breakpoint input', async () => {
-            component.breakpoint = '768px';
-            fixture.detectChanges();
-            await fixture.whenStable();
-            expect(contextMenuInstance.breakpoint()).toBe('768px');
+            const freshFixture = createConfiguredFixture((c) => (c.breakpoint = '768px'));
+
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            expect(freshContextMenu.breakpoint()).toBe('768px');
         });
 
         it('should update ariaLabel and ariaLabelledBy inputs', async () => {
-            component.ariaLabel = 'Test Menu';
-            component.ariaLabelledBy = 'menu-label';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = createConfiguredFixture((c) => {
+                c.ariaLabel = 'Test Menu';
+                c.ariaLabelledBy = 'menu-label';
+            });
 
-            expect(contextMenuInstance.ariaLabel()).toBe('Test Menu');
-            expect(contextMenuInstance.ariaLabelledBy()).toBe('menu-label');
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            expect(freshContextMenu.ariaLabel()).toBe('Test Menu');
+            expect(freshContextMenu.ariaLabelledBy()).toBe('menu-label');
         });
 
         it('should update pressDelay with numberAttribute transform', async () => {
-            component.pressDelay = 1000;
-            fixture.detectChanges();
-            await fixture.whenStable();
-            expect(contextMenuInstance.pressDelay()).toBe(1000);
+            const freshFixture = createConfiguredFixture((c) => (c.pressDelay = 1000));
+
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            expect(freshContextMenu.pressDelay()).toBe(1000);
         });
     });
 
@@ -628,41 +666,48 @@ describe('ContextMenu', () => {
                 }
             ];
 
-            component.model = model;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = createConfiguredFixture((c) => (c.model = model));
 
-            expect(contextMenuInstance.processedItems).toBeTruthy();
-            expect(contextMenuInstance.processedItems.length).toBe(2);
-            expect(contextMenuInstance.processedItems[1].items).toBeTruthy();
-            expect(contextMenuInstance.processedItems[1].items.length).toBe(2);
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            expect(freshContextMenu.processedItems).toBeTruthy();
+            expect(freshContextMenu.processedItems.length).toBe(2);
+            expect(freshContextMenu.processedItems[1].items).toBeTruthy();
+            expect(freshContextMenu.processedItems[1].items.length).toBe(2);
         });
 
         it('should handle empty model', async () => {
-            component.model = [];
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = createConfiguredFixture((c) => (c.model = []));
 
-            expect(contextMenuInstance.processedItems).toEqual([]);
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            expect(freshContextMenu.processedItems).toEqual([]);
         });
 
         it('should handle undefined model', async () => {
-            component.model = undefined as any;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = createConfiguredFixture((c) => (c.model = undefined as any));
 
-            expect(contextMenuInstance.model()).toBeUndefined();
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            expect(freshContextMenu.model()).toBeUndefined();
         });
 
         it('should handle items with separators', async () => {
             const modelWithSeparator = [{ label: 'Item 1' }, { separator: true }, { label: 'Item 2' }];
+            const freshFixture = createConfiguredFixture((c) => (c.model = modelWithSeparator));
 
-            component.model = modelWithSeparator;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            await freshFixture.whenStable();
 
-            expect(contextMenuInstance.processedItems.length).toBe(3);
-            expect(contextMenuInstance.isItemSeparator(modelWithSeparator[1])).toBe(true);
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            expect(freshContextMenu.processedItems.length).toBe(3);
+            expect(freshContextMenu.isItemSeparator(modelWithSeparator[1])).toBe(true);
         });
 
         it('should handle disabled items', async () => {
@@ -800,21 +845,23 @@ describe('ContextMenu', () => {
 
     describe('CSS Classes and Styling', () => {
         it('should apply styleClass when visible', async () => {
-            component.styleClass = 'custom-contextmenu-class';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = createConfiguredFixture((c) => (c.styleClass = 'custom-contextmenu-class'));
 
-            contextMenuInstance.visible.set(true);
-            fixture.detectChanges();
-            await fixture.whenStable();
+            await freshFixture.whenStable();
 
-            const containerElement = fixture.debugElement.query(By.css('[data-pc-name="contextmenu"]'));
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            freshContextMenu.visible.set(true);
+            freshFixture.changeDetectorRef.markForCheck();
+            await freshFixture.whenStable();
+
+            const containerElement = freshFixture.debugElement.query(By.css('[data-pc-name="contextmenu"]'));
 
             if (containerElement) {
                 expect(containerElement.nativeElement.classList.contains('custom-contextmenu-class')).toBe(true);
             } else {
                 // If not visible in test, just check that property is set
-                expect(contextMenuInstance.styleClass()).toBe('custom-contextmenu-class');
+                expect(freshContextMenu.styleClass()).toBe('custom-contextmenu-class');
             }
         });
 
@@ -865,13 +912,17 @@ describe('ContextMenu', () => {
 
     describe('Accessibility Tests', () => {
         it('should have proper ARIA attributes', async () => {
-            component.ariaLabel = 'Context menu';
-            component.ariaLabelledBy = 'menu-title';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = createConfiguredFixture((c) => {
+                c.ariaLabel = 'Context menu';
+                c.ariaLabelledBy = 'menu-title';
+            });
 
-            expect(contextMenuInstance.ariaLabel()).toBe('Context menu');
-            expect(contextMenuInstance.ariaLabelledBy()).toBe('menu-title');
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            expect(freshContextMenu.ariaLabel()).toBe('Context menu');
+            expect(freshContextMenu.ariaLabelledBy()).toBe('menu-title');
         });
 
         it('should handle focus and blur events', () => {
@@ -959,27 +1010,31 @@ describe('ContextMenu', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined model', async () => {
-            component.model = undefined as any;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = createConfiguredFixture((c) => (c.model = undefined as any));
+
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
 
             expect(async () => {
-                fixture.detectChanges();
-                await fixture.whenStable();
+                freshFixture.detectChanges();
+                await freshFixture.whenStable();
             }).not.toThrow();
-            expect(contextMenuInstance.model()).toBeUndefined();
+            expect(freshContextMenu.model()).toBeUndefined();
         });
 
         it('should handle empty model array', async () => {
-            component.model = [];
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = createConfiguredFixture((c) => (c.model = []));
+
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
 
             expect(async () => {
-                fixture.detectChanges();
-                await fixture.whenStable();
+                freshFixture.detectChanges();
+                await freshFixture.whenStable();
             }).not.toThrow();
-            expect(contextMenuInstance.model()).toEqual([]);
+            expect(freshContextMenu.model()).toEqual([]);
         });
 
         it('should handle items without labels', async () => {
@@ -1012,12 +1067,14 @@ describe('ContextMenu', () => {
                 }
             ];
 
-            component.model = deeplyNestedModel;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = createConfiguredFixture((c) => (c.model = deeplyNestedModel));
 
-            expect(contextMenuInstance.processedItems.length).toBe(1);
-            expect(contextMenuInstance.processedItems[0].items[0].items[0].items.length).toBe(1);
+            await freshFixture.whenStable();
+
+            const freshContextMenu = freshFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
+
+            expect(freshContextMenu.processedItems.length).toBe(1);
+            expect(freshContextMenu.processedItems[0].items[0].items[0].items.length).toBe(1);
         });
 
         it('should handle rapid show/hide calls', () => {
@@ -1065,10 +1122,10 @@ describe('ContextMenu', () => {
             const instance1 = fixture1.debugElement.query(By.directive(ContextMenu)).componentInstance;
             const instance2 = fixture2.debugElement.query(By.directive(ContextMenu)).componentInstance;
 
-            expect(instance1.model?.[0]?.label).toBe('Menu 1');
-            expect(instance1.styleClass).toBe('menu-1');
-            expect(instance2.model?.[0]?.label).toBe('Menu 2');
-            expect(instance2.styleClass).toBe('menu-2');
+            expect(instance1.model()?.[0]?.label).toBe('Menu 1');
+            expect(instance1.styleClass()).toBe('menu-1');
+            expect(instance2.model()?.[0]?.label).toBe('Menu 2');
+            expect(instance2.styleClass()).toBe('menu-2');
             expect(instance1).not.toBe(instance2);
         });
     });
@@ -1109,7 +1166,6 @@ describe('ContextMenu', () => {
             // Add items dynamically
             dynamicComponent.addItem({ label: 'Dynamic 1', icon: 'pi pi-file' });
             dynamicComponent.addItem({ label: 'Dynamic 2', icon: 'pi pi-edit' });
-            dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
             expect(dynamicContextMenu.model().length).toBe(2);
@@ -1117,7 +1173,6 @@ describe('ContextMenu', () => {
 
             // Clear items
             dynamicComponent.clearItems();
-            dynamicFixture.changeDetectorRef.markForCheck();
             await dynamicFixture.whenStable();
 
             expect(dynamicContextMenu.model().length).toBe(0);
@@ -1137,23 +1192,26 @@ describe('ContextMenu', () => {
         });
 
         it('should maintain state across property changes', async () => {
-            component.model = [{ label: 'Initial' }];
-            component.styleClass = 'initial-class';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const liveFixture = TestBed.createComponent(TestLiveUpdateContextMenuComponent);
+            const liveComponent = liveFixture.componentInstance;
 
-            expect(contextMenuInstance.model()?.[0]?.label).toBe('Initial');
-            expect(contextMenuInstance.styleClass()).toBe('initial-class');
+            liveComponent.model.set([{ label: 'Initial' }]);
+            liveComponent.styleClass.set('initial-class');
+            await liveFixture.whenStable();
 
-            component.model = [{ label: 'Updated' }];
-            component.styleClass = 'updated-class';
-            component.autoZIndex = false;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const liveContextMenu = liveFixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
 
-            expect(contextMenuInstance.model()?.[0]?.label).toBe('Updated');
-            expect(contextMenuInstance.styleClass()).toBe('updated-class');
-            expect(contextMenuInstance.autoZIndex()).toBe(false);
+            expect(liveContextMenu.model()?.[0]?.label).toBe('Initial');
+            expect(liveContextMenu.styleClass()).toBe('initial-class');
+
+            liveComponent.model.set([{ label: 'Updated' }]);
+            liveComponent.styleClass.set('updated-class');
+            liveComponent.autoZIndex.set(false);
+            await liveFixture.whenStable();
+
+            expect(liveContextMenu.model()?.[0]?.label).toBe('Updated');
+            expect(liveContextMenu.styleClass()).toBe('updated-class');
+            expect(liveContextMenu.autoZIndex()).toBe(false);
         });
     });
 

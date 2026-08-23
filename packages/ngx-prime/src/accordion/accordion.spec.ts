@@ -1,4 +1,4 @@
-import { Component, DebugElement, provideZonelessChangeDetection, input } from '@angular/core';
+import { Component, DebugElement, provideZonelessChangeDetection, input, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion';
@@ -8,17 +8,18 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, Accordion
     imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
     template: `
         <p-accordion
-            [(value)]="value"
-            [multiple]="multiple"
-            [selectOnFocus]="selectOnFocus"
-            [expandIcon]="expandIcon"
-            [collapseIcon]="collapseIcon"
-            [transitionOptions]="transitionOptions"
-            [styleClass]="styleClass"
+            [value]="value()"
+            (valueChange)="value.set($event)"
+            [multiple]="multiple()"
+            [selectOnFocus]="selectOnFocus()"
+            [expandIcon]="expandIcon()"
+            [collapseIcon]="collapseIcon()"
+            [transitionOptions]="transitionOptions()"
+            [styleClass]="styleClass()"
             (onOpen)="onOpen($event)"
             (onClose)="onClose($event)"
         >
-            <p-accordion-panel [value]="'tab1'" [disabled]="tab1Disabled">
+            <p-accordion-panel [value]="'tab1'" [disabled]="tab1Disabled()">
                 <p-accordion-header>
                     <span class="header-text">Tab 1 Header</span>
                 </p-accordion-header>
@@ -27,7 +28,7 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, Accordion
                 </p-accordion-content>
             </p-accordion-panel>
 
-            <p-accordion-panel [value]="'tab2'" [disabled]="tab2Disabled">
+            <p-accordion-panel [value]="'tab2'" [disabled]="tab2Disabled()">
                 <p-accordion-header>
                     <span class="header-text">Tab 2 Header</span>
                 </p-accordion-header>
@@ -36,7 +37,7 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, Accordion
                 </p-accordion-content>
             </p-accordion-panel>
 
-            <p-accordion-panel [value]="'tab3'" [disabled]="tab3Disabled">
+            <p-accordion-panel [value]="'tab3'" [disabled]="tab3Disabled()">
                 <p-accordion-header>
                     <span class="header-text">Tab 3 Header</span>
                 </p-accordion-header>
@@ -48,16 +49,16 @@ import { Accordion, AccordionContent, AccordionHeader, AccordionPanel, Accordion
     `
 })
 class TestAccordionComponent {
-    value: undefined | null | string | number | string[] | number[] = undefined as any;
-    multiple = false;
-    selectOnFocus = false;
-    expandIcon?: string;
-    collapseIcon?: string;
-    transitionOptions = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    styleClass?: string;
-    tab1Disabled = false;
-    tab2Disabled = false;
-    tab3Disabled = false;
+    readonly value = signal<undefined | null | string | number | string[] | number[]>(undefined);
+    readonly multiple = signal(false);
+    readonly selectOnFocus = signal(false);
+    readonly expandIcon = signal<string | undefined>(undefined);
+    readonly collapseIcon = signal<string | undefined>(undefined);
+    readonly transitionOptions = signal('400ms cubic-bezier(0.86, 0, 0.07, 1)');
+    readonly styleClass = signal<string | undefined>(undefined);
+    readonly tab1Disabled = signal(false);
+    readonly tab2Disabled = signal(false);
+    readonly tab3Disabled = signal(false);
 
     openEvent?: AccordionTabOpenEvent;
     closeEvent?: AccordionTabCloseEvent;
@@ -75,8 +76,8 @@ class TestAccordionComponent {
     standalone: true,
     imports: [Accordion, AccordionPanel, AccordionHeader, AccordionContent],
     template: `
-        <p-accordion [(value)]="value" [multiple]="true">
-            @for (tab of tabs; track tab.id) {
+        <p-accordion [value]="value()" (valueChange)="value.set($event)" [multiple]="true">
+            @for (tab of tabs(); track tab.id) {
                 <p-accordion-panel [value]="tab.id">
                     <p-accordion-header>{{ tab.header }}</p-accordion-header>
                     <p-accordion-content>{{ tab.content }}</p-accordion-content>
@@ -86,12 +87,12 @@ class TestAccordionComponent {
     `
 })
 class TestDynamicAccordionComponent {
-    value: string[] = [];
-    tabs = [
+    readonly value = signal<string[]>([]);
+    readonly tabs = signal([
         { id: '1', header: 'Dynamic Tab 1', content: 'Dynamic Content 1' },
         { id: '2', header: 'Dynamic Tab 2', content: 'Dynamic Content 2' },
         { id: '3', header: 'Dynamic Tab 3', content: 'Dynamic Content 3' }
-    ];
+    ]);
 }
 
 @Component({
@@ -170,13 +171,13 @@ describe('Accordion', () => {
         });
 
         it('should accept custom values', async () => {
-            component.value = 'tab1';
-            component.multiple = true;
-            component.selectOnFocus = true;
-            component.expandIcon = 'pi pi-plus';
-            component.collapseIcon = 'pi pi-minus';
-            component.transitionOptions = '200ms ease-in';
-            component.styleClass = 'custom-accordion';
+            component.value.set('tab1');
+            component.multiple.set(true);
+            component.selectOnFocus.set(true);
+            component.expandIcon.set('pi pi-plus');
+            component.collapseIcon.set('pi pi-minus');
+            component.transitionOptions.set('200ms ease-in');
+            component.styleClass.set('custom-accordion');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -213,7 +214,7 @@ describe('Accordion', () => {
 
     describe('Single Selection Mode', () => {
         beforeEach(async () => {
-            component.multiple = false;
+            component.multiple.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
         });
@@ -229,7 +230,7 @@ describe('Accordion', () => {
         });
 
         it('should collapse active panel when clicked again', async () => {
-            component.value = 'tab1';
+            component.value.set('tab1');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -261,7 +262,7 @@ describe('Accordion', () => {
 
     describe('Multiple Selection Mode', () => {
         beforeEach(async () => {
-            component.multiple = true;
+            component.multiple.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
         });
@@ -281,7 +282,7 @@ describe('Accordion', () => {
         });
 
         it('should remove panel from value when collapsed', async () => {
-            component.value = ['tab1', 'tab2'];
+            component.value.set(['tab1', 'tab2']);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -295,7 +296,7 @@ describe('Accordion', () => {
         });
 
         it('should handle empty array initialization', async () => {
-            component.value = [];
+            component.value.set([]);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -321,7 +322,7 @@ describe('Accordion', () => {
         });
 
         it('should emit onClose event when panel is closed', async () => {
-            component.value = 'tab1';
+            component.value.set('tab1');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -336,7 +337,7 @@ describe('Accordion', () => {
         });
 
         it('should not emit events when clicking disabled panels', async () => {
-            component.tab1Disabled = true;
+            component.tab1Disabled.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -439,7 +440,7 @@ describe('Accordion', () => {
         });
 
         it('should skip disabled panels during navigation', async () => {
-            component.tab2Disabled = true;
+            component.tab2Disabled.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -490,7 +491,7 @@ describe('Accordion', () => {
 
     describe('Disabled Panels', () => {
         it('should not expand disabled panels', async () => {
-            component.tab1Disabled = true;
+            component.tab1Disabled.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -504,7 +505,7 @@ describe('Accordion', () => {
         });
 
         it('should have tabindex -1 when disabled', async () => {
-            component.tab1Disabled = true;
+            component.tab1Disabled.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -514,7 +515,7 @@ describe('Accordion', () => {
         });
 
         it('should not trigger events for disabled panels', async () => {
-            component.tab1Disabled = true;
+            component.tab1Disabled.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -529,7 +530,7 @@ describe('Accordion', () => {
 
     describe('SelectOnFocus', () => {
         it('should not expand panel on focus when selectOnFocus is false', async () => {
-            component.selectOnFocus = false;
+            component.selectOnFocus.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -555,7 +556,7 @@ describe('Accordion', () => {
         });
 
         it('should update value correctly in multiple mode', async () => {
-            component.multiple = true;
+            component.multiple.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -570,8 +571,8 @@ describe('Accordion', () => {
         });
 
         it('should handle updateValue with non-array initial value in multiple mode', async () => {
-            component.multiple = true;
-            component.value = null as any;
+            component.multiple.set(true);
+            component.value.set(null as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -588,7 +589,7 @@ describe('Accordion', () => {
 
     describe('Accessibility', () => {
         it('should have proper ARIA attributes', async () => {
-            component.value = 'tab1';
+            component.value.set('tab1');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -625,7 +626,7 @@ describe('Accordion', () => {
                 expect(header.nativeElement.getAttribute('tabindex')).toBe('0');
             });
 
-            component.tab1Disabled = true;
+            component.tab1Disabled.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -636,7 +637,7 @@ describe('Accordion', () => {
 
     describe('Animation', () => {
         it('should apply transition options', async () => {
-            component.transitionOptions = '300ms ease-out';
+            component.transitionOptions.set('300ms ease-out');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -653,7 +654,7 @@ describe('Accordion', () => {
 
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('false');
 
-            component.value = 'tab1';
+            component.value.set('tab1');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -663,8 +664,8 @@ describe('Accordion', () => {
 
     describe('Custom Icons', () => {
         it('should use custom expand/collapse icons', async () => {
-            component.expandIcon = 'pi pi-plus';
-            component.collapseIcon = 'pi pi-minus';
+            component.expandIcon.set('pi pi-plus');
+            component.collapseIcon.set('pi pi-minus');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -718,12 +719,7 @@ describe('Accordion', () => {
 
             expect(panels.length).toBe(3);
 
-            dynamicFixture.componentInstance.tabs.push({
-                id: '4',
-                header: 'Dynamic Tab 4',
-                content: 'Dynamic Content 4'
-            });
-            dynamicFixture.changeDetectorRef.markForCheck();
+            dynamicFixture.componentInstance.tabs.update((tabs) => [...tabs, { id: '4', header: 'Dynamic Tab 4', content: 'Dynamic Content 4' }]);
             await dynamicFixture.whenStable();
 
             const updatedPanels = dynamicFixture.debugElement.queryAll(By.directive(AccordionPanel));
@@ -734,12 +730,10 @@ describe('Accordion', () => {
         it('should handle dynamically removed panels', async () => {
             const dynamicFixture = TestBed.createComponent(TestDynamicAccordionComponent);
 
-            dynamicFixture.componentInstance.value = ['1', '2'];
-            dynamicFixture.changeDetectorRef.markForCheck();
+            dynamicFixture.componentInstance.value.set(['1', '2']);
             await dynamicFixture.whenStable();
 
-            dynamicFixture.componentInstance.tabs.splice(1, 1);
-            dynamicFixture.changeDetectorRef.markForCheck();
+            dynamicFixture.componentInstance.tabs.update((tabs) => tabs.filter((tab) => tab.id !== '2'));
             await dynamicFixture.whenStable();
 
             const panels = dynamicFixture.debugElement.queryAll(By.directive(AccordionPanel));
@@ -756,7 +750,7 @@ describe('Accordion', () => {
 
     describe('Edge Cases', () => {
         it('should handle null value gracefully', async () => {
-            component.value = null as any;
+            component.value.set(null as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -771,7 +765,7 @@ describe('Accordion', () => {
         });
 
         it('should handle undefined value gracefully', async () => {
-            component.value = undefined as any;
+            component.value.set(undefined as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -797,9 +791,9 @@ describe('Accordion', () => {
         });
 
         it('should handle all panels disabled', async () => {
-            component.tab1Disabled = true;
-            component.tab2Disabled = true;
-            component.tab3Disabled = true;
+            component.tab1Disabled.set(true);
+            component.tab2Disabled.set(true);
+            component.tab3Disabled.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -815,7 +809,7 @@ describe('Accordion', () => {
 
         it('should handle empty accordion', async () => {
             // Test empty accordion by clearing panels
-            component.value = undefined as any;
+            component.value.set(undefined as any);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -899,7 +893,7 @@ describe('Accordion', () => {
 
     describe('CSS Classes and Styling', () => {
         it('should apply custom style class', async () => {
-            component.styleClass = 'custom-accordion';
+            component.styleClass.set('custom-accordion');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -931,7 +925,7 @@ describe('Accordion', () => {
 
             expect(panels[0].nativeElement.getAttribute('data-p-active')).toBe('false');
 
-            component.value = 'tab1';
+            component.value.set('tab1');
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -943,7 +937,7 @@ describe('Accordion', () => {
 
             expect(panels[0].nativeElement.getAttribute('data-p-disabled')).toBe('false');
 
-            component.tab1Disabled = true;
+            component.tab1Disabled.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -962,10 +956,9 @@ describe('Accordion', () => {
         });
 
         it('should apply simple string classes to PT sections', async () => {
-            (ptComponent as any).pt = () => ({
+            ptFixture.componentRef.setInput('pt', {
                 root: 'ROOT_CLASS'
             });
-            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
@@ -975,7 +968,7 @@ describe('Accordion', () => {
         });
 
         it('should apply object-based PT options with class and attributes', async () => {
-            (ptComponent as any).pt = () => ({
+            ptFixture.componentRef.setInput('pt', {
                 root: {
                     class: 'PT_ROOT_CLASS',
                     'data-test': 'accordion-test',
@@ -983,7 +976,6 @@ describe('Accordion', () => {
                     'data-role': 'accordion-role'
                 }
             });
-            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
@@ -995,13 +987,12 @@ describe('Accordion', () => {
         });
 
         it('should apply mixed object and string PT values', async () => {
-            (ptComponent as any).pt = () => ({
+            ptFixture.componentRef.setInput('pt', {
                 root: {
                     class: 'PT_ROOT_CLASS',
                     'data-custom': 'custom-value'
                 }
             });
-            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
@@ -1011,13 +1002,12 @@ describe('Accordion', () => {
         });
 
         it('should use instance variables in PT functions', async () => {
-            (ptComponent as any).pt = () => ({
+            ptFixture.componentRef.setInput('pt', {
                 root: ({ instance }) => ({
                     class: instance?.multiple() ? 'MULTIPLE' : 'SINGLE',
                     'data-select-on-focus': instance?.selectOnFocus()
                 })
             });
-            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));
@@ -1029,14 +1019,13 @@ describe('Accordion', () => {
         it('should handle event binding in PT options', async () => {
             let clicked = false;
 
-            (ptComponent as any).pt = () => ({
+            ptFixture.componentRef.setInput('pt', {
                 root: {
                     onclick: () => {
                         clicked = true;
                     }
                 }
             });
-            ptFixture.changeDetectorRef.markForCheck();
             await ptFixture.whenStable();
 
             const accordionEl = ptFixture.debugElement.query(By.css('p-accordion'));

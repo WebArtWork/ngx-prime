@@ -1,4 +1,4 @@
-import { Component, provideZonelessChangeDetection } from '@angular/core';
+import { Component, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -10,7 +10,8 @@ import { Dialog } from './dialog';
 @Component({
     template: `
         <p-dialog
-            [(visible)]="visible"
+            [visible]="visible()"
+            (visibleChange)="visible.set($event)"
             [header]="header"
             [modal]="modal"
             [draggable]="draggable"
@@ -58,7 +59,7 @@ import { Dialog } from './dialog';
     imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestBasicDialogComponent {
-    visible = false;
+    visible = signal(false);
     header = 'Test Dialog';
     modal = true;
     draggable = true;
@@ -103,7 +104,7 @@ class TestBasicDialogComponent {
     visibleChangeEvent: any = null as any;
 
     showDialog() {
-        this.visible = true;
+        this.visible.set(true);
     }
 
     onShowEvent(event: any) {
@@ -138,7 +139,7 @@ class TestBasicDialogComponent {
 // Dialog with pTemplate Templates
 @Component({
     template: `
-        <p-dialog [(visible)]="visible" [modal]="true">
+        <p-dialog [visible]="visible()" (visibleChange)="visible.set($event)" [modal]="true">
             <ng-template pTemplate="header">
                 <div class="custom-header">Custom Header with pTemplate</div>
             </ng-template>
@@ -162,13 +163,13 @@ class TestBasicDialogComponent {
     imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestPTemplateDialogComponent {
-    visible = false;
+    visible = signal(false);
 }
 
 // Dialog with #template Templates
 @Component({
     template: `
-        <p-dialog [(visible)]="visible" [modal]="true" [maximizable]="true">
+        <p-dialog [visible]="visible()" (visibleChange)="visible.set($event)" [modal]="true" [maximizable]="true">
             <ng-template #header>
                 <div class="custom-header">Custom Header with #template</div>
             </ng-template>
@@ -192,18 +193,18 @@ class TestPTemplateDialogComponent {
     imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestHashTemplateDialogComponent {
-    visible = false;
+    visible = signal(false);
 }
 
 // Dialog with Headless Template
 @Component({
     template: `
-        <p-dialog [(visible)]="visible">
+        <p-dialog [visible]="visible()" (visibleChange)="visible.set($event)">
             <ng-template #headless>
                 <div class="custom-headless">
                     <h3>Headless Dialog</h3>
                     <p>This is a completely custom dialog</p>
-                    <button (click)="visible = false">Close</button>
+                    <button (click)="visible.set(false)">Close</button>
                 </div>
             </ng-template>
         </p-dialog>
@@ -211,7 +212,7 @@ class TestHashTemplateDialogComponent {
     imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestHeadlessDialogComponent {
-    visible = false;
+    visible = signal(false);
 }
 
 // Dialog for Position Testing
@@ -231,14 +232,14 @@ class TestPositionDialogComponent {
 // Dialog for Maximizable Testing
 @Component({
     template: `
-        <p-dialog [(visible)]="visible" [maximizable]="maximizable" header="Maximizable Test" (onMaximize)="onMaximize($event)">
+        <p-dialog [visible]="visible()" (visibleChange)="visible.set($event)" [maximizable]="maximizable" header="Maximizable Test" (onMaximize)="onMaximize($event)">
             <div>Testing maximize functionality</div>
         </p-dialog>
     `,
     imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestMaximizableDialogComponent {
-    visible = false;
+    visible = signal(false);
     maximizable = true;
     maximizeEvent: any = null as any;
 
@@ -250,7 +251,7 @@ class TestMaximizableDialogComponent {
 // Dialog for Accessibility Testing
 @Component({
     template: `
-        <p-dialog [(visible)]="visible" [modal]="true" header="Accessibility Test" [closeAriaLabel]="closeAriaLabel" [role]="role" [focusTrap]="focusTrap">
+        <p-dialog [visible]="visible()" (visibleChange)="visible.set($event)" [modal]="true" header="Accessibility Test" [closeAriaLabel]="closeAriaLabel" [role]="role" [focusTrap]="focusTrap">
             <div>Testing accessibility features</div>
             <button class="focusable-element">Focusable Button</button>
         </p-dialog>
@@ -258,7 +259,7 @@ class TestMaximizableDialogComponent {
     imports: [Dialog, ButtonModule, FocusTrap]
 })
 class TestAccessibilityDialogComponent {
-    visible = false;
+    visible = signal(false);
     closeAriaLabel = 'Close Dialog';
     role = 'dialog';
     focusTrap = true;
@@ -293,6 +294,17 @@ describe('Dialog', () => {
         dialogInstance = fixture.debugElement.query(By.directive(Dialog)).componentInstance;
     });
 
+    async function createConfiguredFixture(configure: (c: TestBasicDialogComponent) => void) {
+        const freshFixture = TestBed.createComponent(TestBasicDialogComponent);
+
+        configure(freshFixture.componentInstance);
+        await freshFixture.whenStable();
+
+        const freshDialogInstance: Dialog = freshFixture.debugElement.query(By.directive(Dialog)).componentInstance;
+
+        return { fixture: freshFixture, component: freshFixture.componentInstance, dialogInstance: freshDialogInstance };
+    }
+
     describe('Component Initialization', () => {
         it('should create the dialog component', () => {
             expect(component).toBeTruthy();
@@ -321,19 +333,19 @@ describe('Dialog', () => {
         });
 
         it('should accept custom input values', async () => {
-            component.header = 'Custom Header';
-            component.modal = false;
-            component.draggable = false;
-            component.maximizable = true;
-            component.position = 'top';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.header = 'Custom Header';
+                c.modal = false;
+                c.draggable = false;
+                c.maximizable = true;
+                c.position = 'top';
+            });
 
-            expect(dialogInstance.header()).toBe('Custom Header');
-            expect(dialogInstance.modal()).toBe(false);
-            expect(dialogInstance.draggable()).toBe(false);
-            expect(dialogInstance.maximizable()).toBe(true);
-            expect(dialogInstance.position()).toBe('top');
+            expect(freshDialogInstance.header()).toBe('Custom Header');
+            expect(freshDialogInstance.modal()).toBe(false);
+            expect(freshDialogInstance.draggable()).toBe(false);
+            expect(freshDialogInstance.maximizable()).toBe(true);
+            expect(freshDialogInstance.position()).toBe('top');
         });
     });
 
@@ -366,7 +378,7 @@ describe('Dialog', () => {
         it('should show dialog programmatically via visible property', async () => {
             expect(dialogInstance.visible()).toBe(false);
 
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -376,14 +388,14 @@ describe('Dialog', () => {
         });
 
         it('should hide dialog programmatically via visible property', async () => {
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
             expect(dialogInstance.visible()).toBe(true);
 
-            component.visible = false;
+            component.visible.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -392,7 +404,7 @@ describe('Dialog', () => {
         });
 
         it('should close dialog programmatically', async () => {
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -410,7 +422,7 @@ describe('Dialog', () => {
 
         it('should maximize dialog when maximizable is true', async () => {
             component.maximizable = true;
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -427,7 +439,7 @@ describe('Dialog', () => {
 
         it('should restore dialog from maximized state', async () => {
             component.maximizable = true;
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -456,7 +468,7 @@ describe('Dialog', () => {
             component.showEvent = null;
 
             // Set visible and trigger change detection
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
 
             // Wait for animation to complete and onAfterEnter to be called
@@ -467,7 +479,7 @@ describe('Dialog', () => {
 
         it('should emit onHide event when dialog is hidden', async () => {
             // First show the dialog
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 300));
@@ -476,7 +488,7 @@ describe('Dialog', () => {
             component.hideEvent = null;
 
             // Now hide the dialog
-            component.visible = false;
+            component.visible.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -487,7 +499,7 @@ describe('Dialog', () => {
         });
 
         it('should emit visibleChange event when close method is called', async () => {
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -502,7 +514,7 @@ describe('Dialog', () => {
         it('should emit onMaximize event when maximize button is clicked', async () => {
             spyOn(component, 'onMaximizeEvent');
             component.maximizable = true;
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -518,7 +530,7 @@ describe('Dialog', () => {
         it('should emit onResizeInit event when resizing starts', async () => {
             spyOn(component, 'onResizeInitEvent');
 
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -533,7 +545,7 @@ describe('Dialog', () => {
         it('should emit onDragEnd event when dragging ends', async () => {
             spyOn(component, 'onDragEndEvent');
 
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -546,7 +558,7 @@ describe('Dialog', () => {
         });
 
         it('should close dialog when close button is clicked', async () => {
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -564,40 +576,41 @@ describe('Dialog', () => {
         });
 
         it('should handle mask click when dismissableMask is true', async () => {
-            component.dismissableMask = true;
-            component.closable = true;
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.dismissableMask = true;
+                c.closable = true;
+            });
+
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible()).toBe(true);
+            expect(freshDialogInstance.visible()).toBe(true);
 
             // Wait for wrapper to be created
             await new Promise((resolve) => setTimeout(resolve, 200));
 
             // Test enableModality which should set up mask click listener
-            if (dialogInstance.enableModality && dialogInstance.wrapper) {
-                dialogInstance.enableModality();
+            if (freshDialogInstance.enableModality && freshDialogInstance.wrapper) {
+                freshDialogInstance.enableModality();
                 await new Promise((resolve) => setTimeout(resolve, 50));
 
                 // Simulate mousedown on wrapper (which is what the mask click listener listens to)
                 const mouseDownEvent = new MouseEvent('mousedown', { bubbles: true });
 
                 Object.defineProperty(mouseDownEvent, 'target', {
-                    value: dialogInstance.wrapper,
+                    value: freshDialogInstance.wrapper,
                     enumerable: true
                 });
 
-                dialogInstance.wrapper.dispatchEvent(mouseDownEvent);
+                freshDialogInstance.wrapper.dispatchEvent(mouseDownEvent);
                 await new Promise((resolve) => setTimeout(resolve, 50));
-                fixture.detectChanges();
-                await fixture.whenStable();
+                await freshFixture.whenStable();
 
-                expect(component.visibleChangeEvent).toBe(false);
+                expect(freshComponent.visibleChangeEvent).toBe(false);
             } else {
                 // If no wrapper, just test that dismissableMask property is set correctly
-                expect(dialogInstance.dismissableMask()).toBe(true);
+                expect(freshDialogInstance.dismissableMask()).toBe(true);
             }
         });
     });
@@ -605,19 +618,19 @@ describe('Dialog', () => {
     describe('Edge Cases and Error Handling', () => {
         it('should handle multiple rapid show/hide calls', async () => {
             // Rapid calls
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
-            component.visible = false;
+            component.visible.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
-            component.visible = false;
+            component.visible.set(false);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -632,14 +645,14 @@ describe('Dialog', () => {
         });
 
         it('should handle null/undefined header gracefully', async () => {
-            component.header = undefined as any;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.header = undefined as any;
+            });
 
             expect(() => {
-                fixture.detectChanges();
+                freshFixture.detectChanges();
             }).not.toThrow();
-            expect(dialogInstance.header()).toBeUndefined();
+            expect(freshDialogInstance.header()).toBeUndefined();
         });
 
         it('should handle invalid position values', async () => {
@@ -665,16 +678,15 @@ describe('Dialog', () => {
         });
 
         it('should handle disabled focus trap', async () => {
-            component.focusTrap = false;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.focusTrap = false;
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.focusTrap()).toBe(false);
+            expect(freshDialogInstance.focusTrap()).toBe(false);
         });
 
         it('should handle maximizing when not maximizable', async () => {
@@ -682,7 +694,7 @@ describe('Dialog', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -700,7 +712,7 @@ describe('Dialog', () => {
 
             const accessibilityComponent = accessibilityFixture.componentInstance;
 
-            accessibilityComponent.visible = true;
+            accessibilityComponent.visible.set(true);
             accessibilityFixture.changeDetectorRef.markForCheck();
             await accessibilityFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -713,7 +725,7 @@ describe('Dialog', () => {
         });
 
         it('should have focus trap enabled by default', async () => {
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -724,16 +736,15 @@ describe('Dialog', () => {
         });
 
         it('should support custom close ARIA label', async () => {
-            component.closeAriaLabel = 'Custom Close Label';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.closeAriaLabel = 'Custom Close Label';
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.closeAriaLabel()).toBe('Custom Close Label');
+            expect(freshDialogInstance.closeAriaLabel()).toBe('Custom Close Label');
         });
 
         it('should manage focus properly on show', async () => {
@@ -741,7 +752,7 @@ describe('Dialog', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -750,31 +761,29 @@ describe('Dialog', () => {
         });
 
         it('should handle custom role attribute', async () => {
-            component.role = 'alertdialog';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture } = await createConfiguredFixture((c) => {
+                c.role = 'alertdialog';
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            const dialogElement = fixture.debugElement.query(By.css('[role="alertdialog"]'));
+            const dialogElement = freshFixture.debugElement.query(By.css('[role="alertdialog"]'));
 
             expect(dialogElement).toBeTruthy();
         });
 
         it('should have proper tabindex for close button', async () => {
-            component.closeTabindex = '1';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.closeTabindex = '1';
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.closeTabindex()).toBe('1');
+            expect(freshDialogInstance.closeTabindex()).toBe('1');
         });
     });
 
@@ -785,7 +794,7 @@ describe('Dialog', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
 
@@ -809,31 +818,30 @@ describe('Dialog', () => {
         });
 
         it('should not close dialog on Escape key when closeOnEscape is false', async () => {
-            component.closeOnEscape = false;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.closeOnEscape = false;
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.visible()).toBe(true);
+            expect(freshDialogInstance.visible()).toBe(true);
 
             const escapeEvent = new KeyboardEvent('keydown', {
                 key: 'Escape',
                 code: 'Escape'
             });
 
-            spyOn(dialogInstance, 'close');
+            spyOn(freshDialogInstance, 'close');
             document.dispatchEvent(escapeEvent);
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.close).not.toHaveBeenCalled();
+            expect(freshDialogInstance.close).not.toHaveBeenCalled();
         });
 
         it('should handle Enter key on close button', async () => {
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -858,7 +866,7 @@ describe('Dialog', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -879,7 +887,7 @@ describe('Dialog', () => {
         });
 
         it('should handle Tab key navigation within dialog', async () => {
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -910,7 +918,7 @@ describe('Dialog', () => {
             });
 
             it('should render custom header with pTemplate', async () => {
-                pTemplateComponent.visible = true;
+                pTemplateComponent.visible.set(true);
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -922,7 +930,7 @@ describe('Dialog', () => {
             });
 
             it('should render custom content with pTemplate', async () => {
-                pTemplateComponent.visible = true;
+                pTemplateComponent.visible.set(true);
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -934,7 +942,7 @@ describe('Dialog', () => {
             });
 
             it('should render custom footer with pTemplate', async () => {
-                pTemplateComponent.visible = true;
+                pTemplateComponent.visible.set(true);
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -946,7 +954,7 @@ describe('Dialog', () => {
             });
 
             it('should render custom close icon with pTemplate', async () => {
-                pTemplateComponent.visible = true;
+                pTemplateComponent.visible.set(true);
                 pTemplateFixture.changeDetectorRef.markForCheck();
                 await pTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -981,7 +989,7 @@ describe('Dialog', () => {
             });
 
             it('should render custom header with #template', async () => {
-                hashTemplateComponent.visible = true;
+                hashTemplateComponent.visible.set(true);
                 hashTemplateFixture.changeDetectorRef.markForCheck();
                 await hashTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -993,7 +1001,7 @@ describe('Dialog', () => {
             });
 
             it('should render custom content with #template', async () => {
-                hashTemplateComponent.visible = true;
+                hashTemplateComponent.visible.set(true);
                 hashTemplateFixture.changeDetectorRef.markForCheck();
                 await hashTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1005,7 +1013,7 @@ describe('Dialog', () => {
             });
 
             it('should render custom footer with #template', async () => {
-                hashTemplateComponent.visible = true;
+                hashTemplateComponent.visible.set(true);
                 hashTemplateFixture.changeDetectorRef.markForCheck();
                 await hashTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1017,7 +1025,7 @@ describe('Dialog', () => {
             });
 
             it('should render maximize/minimize icons with #template', async () => {
-                hashTemplateComponent.visible = true;
+                hashTemplateComponent.visible.set(true);
                 hashTemplateFixture.changeDetectorRef.markForCheck();
                 await hashTemplateFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1044,7 +1052,7 @@ describe('Dialog', () => {
             });
 
             it('should render headless template', async () => {
-                headlessComponent.visible = true;
+                headlessComponent.visible.set(true);
                 headlessFixture.changeDetectorRef.markForCheck();
                 await headlessFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1056,7 +1064,7 @@ describe('Dialog', () => {
             });
 
             it('should handle headless template close button', async () => {
-                headlessComponent.visible = true;
+                headlessComponent.visible.set(true);
                 headlessFixture.changeDetectorRef.markForCheck();
                 await headlessFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1070,13 +1078,13 @@ describe('Dialog', () => {
                 await headlessFixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
 
-                expect(headlessComponent.visible).toBe(false);
+                expect(headlessComponent.visible()).toBe(false);
             });
         });
 
         describe('Template Fallback Behavior', () => {
             it('should handle missing templates gracefully', async () => {
-                component.visible = true;
+                component.visible.set(true);
                 fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1087,7 +1095,7 @@ describe('Dialog', () => {
             });
 
             it('should use fallback content when no templates are provided', async () => {
-                component.visible = true;
+                component.visible.set(true);
                 fixture.detectChanges();
                 await fixture.whenStable();
                 await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1114,7 +1122,7 @@ describe('Dialog', () => {
         });
 
         it('should show maximize button when maximizable is true', async () => {
-            maximizableComponent.visible = true;
+            maximizableComponent.visible.set(true);
             maximizableFixture.changeDetectorRef.markForCheck();
             await maximizableFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1143,7 +1151,7 @@ describe('Dialog', () => {
         });
 
         it('should emit onMaximize event', async () => {
-            maximizableComponent.visible = true;
+            maximizableComponent.visible.set(true);
             maximizableFixture.changeDetectorRef.markForCheck();
             await maximizableFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1157,7 +1165,7 @@ describe('Dialog', () => {
         });
 
         it('should toggle maximized state', async () => {
-            maximizableComponent.visible = true;
+            maximizableComponent.visible.set(true);
             maximizableFixture.changeDetectorRef.markForCheck();
             await maximizableFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1182,70 +1190,65 @@ describe('Dialog', () => {
 
     describe('CSS Classes and Styling', () => {
         it('should apply custom styleClass', async () => {
-            component.styleClass = 'my-custom-dialog';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.styleClass = 'my-custom-dialog';
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.styleClass()).toBe('my-custom-dialog');
+            expect(freshDialogInstance.styleClass()).toBe('my-custom-dialog');
         });
 
         it('should apply custom maskStyleClass', async () => {
-            component.maskStyleClass = 'my-custom-mask';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.maskStyleClass = 'my-custom-mask';
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.maskStyleClass()).toBe('my-custom-mask');
+            expect(freshDialogInstance.maskStyleClass()).toBe('my-custom-mask');
         });
 
         it('should apply inline styles', async () => {
-            component.style = { backgroundColor: 'red', width: '500px' };
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.style = { backgroundColor: 'red', width: '500px' };
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance._style).toEqual({ backgroundColor: 'red', width: '500px' });
+            expect(freshDialogInstance._style).toEqual({ backgroundColor: 'red', width: '500px' });
         });
 
         it('should apply content styles', async () => {
-            component.contentStyle = { padding: '20px' };
-            component.contentStyleClass = 'custom-content-class';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.contentStyle = { padding: '20px' };
+                c.contentStyleClass = 'custom-content-class';
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.contentStyle()).toEqual({ padding: '20px' });
-            expect(dialogInstance.contentStyleClass()).toBe('custom-content-class');
+            expect(freshDialogInstance.contentStyle()).toEqual({ padding: '20px' });
+            expect(freshDialogInstance.contentStyleClass()).toBe('custom-content-class');
         });
 
         it('should apply mask styles', async () => {
-            component.maskStyle = { backgroundColor: 'rgba(0,0,0,0.8)' };
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const { component: freshComponent, fixture: freshFixture, dialogInstance: freshDialogInstance } = await createConfiguredFixture((c) => {
+                c.maskStyle = { backgroundColor: 'rgba(0,0,0,0.8)' };
+            });
 
-            component.visible = true;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshComponent.visible.set(true);
+            await freshFixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
 
-            expect(dialogInstance.maskStyle()).toEqual({ backgroundColor: 'rgba(0,0,0,0.8)' });
+            expect(freshDialogInstance.maskStyle()).toEqual({ backgroundColor: 'rgba(0,0,0,0.8)' });
         });
     });
 
@@ -1292,7 +1295,7 @@ describe('Dialog', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));
@@ -1314,7 +1317,7 @@ describe('Dialog', () => {
             fixture.detectChanges();
             await fixture.whenStable();
 
-            component.visible = true;
+            component.visible.set(true);
             fixture.detectChanges();
             await fixture.whenStable();
             await new Promise((resolve) => setTimeout(resolve, 0));

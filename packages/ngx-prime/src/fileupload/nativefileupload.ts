@@ -117,7 +117,7 @@ export class FileUploadDirective extends BaseModelHolder<FileUploadPassThrough> 
         if (!this.disabled()) this.element.nativeElement.click();
     }
 
-    private onInputBlur(event: FocusEvent) {
+    onInputBlur(event: FocusEvent) {
         this.touch.emit();
         this.onBlur.emit(event);
     }

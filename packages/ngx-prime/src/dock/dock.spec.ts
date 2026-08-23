@@ -1,4 +1,4 @@
-import { Component, DebugElement, NO_ERRORS_SCHEMA, provideZonelessChangeDetection } from '@angular/core';
+import { Component, DebugElement, NO_ERRORS_SCHEMA, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -132,22 +132,22 @@ class TestMinimalDockComponent {}
 
 @Component({
     selector: 'test-dynamic-dock',
-    template: ` <p-dock [model]="dynamicModel"></p-dock> `,
+    template: ` <p-dock [model]="dynamicModel()"></p-dock> `,
     imports: [Dock, TestTargetComponent, SharedModule]
 })
 class TestDynamicDockComponent {
-    dynamicModel: MenuItem[] = [];
+    dynamicModel = signal<MenuItem[]>([]);
 
     addItem(item: MenuItem) {
-        this.dynamicModel.push(item);
+        this.dynamicModel.update((items) => [...items, item]);
     }
 
     clearItems() {
-        this.dynamicModel = [];
+        this.dynamicModel.set([]);
     }
 
     removeItem(index: number) {
-        this.dynamicModel.splice(index, 1);
+        this.dynamicModel.update((items) => items.filter((_, i) => i !== index));
     }
 }
 
@@ -277,51 +277,83 @@ describe('Dock', () => {
         it('should update model input', async () => {
             const newModel = [{ label: 'New Item' }];
 
-            component.model = newModel;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+            const freshComponent = freshFixture.componentInstance;
 
-            expect(dockInstance.model()).toBe(newModel);
+            freshComponent.model = newModel;
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
+
+            expect(freshDock.model()).toBe(newModel);
         });
 
         it('should update position input', async () => {
-            component.position = 'left';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+            const freshComponent = freshFixture.componentInstance;
 
-            expect(dockInstance.position()).toBe('left');
+            freshComponent.position = 'left';
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
+
+            expect(freshDock.position()).toBe('left');
         });
 
         it('should update styleClass input', async () => {
-            component.styleClass = 'test-class';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+            const freshComponent = freshFixture.componentInstance;
 
-            expect(dockInstance.styleClass()).toBe('test-class');
+            freshComponent.styleClass = 'test-class';
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
+
+            expect(freshDock.styleClass()).toBe('test-class');
         });
 
         it('should update ariaLabel and ariaLabelledBy inputs', async () => {
-            component.ariaLabel = 'Test Dock';
-            component.ariaLabelledBy = 'dock-label';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+            const freshComponent = freshFixture.componentInstance;
 
-            expect(dockInstance.ariaLabel()).toBe('Test Dock');
-            expect(dockInstance.ariaLabelledBy()).toBe('dock-label');
+            freshComponent.ariaLabel = 'Test Dock';
+            freshComponent.ariaLabelledBy = 'dock-label';
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
+
+            expect(freshDock.ariaLabel()).toBe('Test Dock');
+            expect(freshDock.ariaLabelledBy()).toBe('dock-label');
         });
 
         it('should update breakpoint input', async () => {
-            component.breakpoint = '768px';
-            fixture.detectChanges();
-            await fixture.whenStable();
-            expect(dockInstance.breakpoint()).toBe('768px');
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+            const freshComponent = freshFixture.componentInstance;
+
+            freshComponent.breakpoint = '768px';
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
+
+            expect(freshDock.breakpoint()).toBe('768px');
         });
 
         it('should update id input', async () => {
-            component.id = 'custom-dock-id';
-            fixture.detectChanges();
-            await fixture.whenStable();
-            expect(dockInstance.id()).toBe('custom-dock-id');
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+            const freshComponent = freshFixture.componentInstance;
+
+            freshComponent.id = 'custom-dock-id';
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
+
+            expect(freshDock.id()).toBe('custom-dock-id');
         });
     });
 
@@ -348,35 +380,41 @@ describe('Dock', () => {
         });
 
         it('should hide items when visible is false', async () => {
-            component.model = [
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+
+            freshFixture.componentInstance.model = [
                 { label: 'Visible Item', visible: true },
                 { label: 'Hidden Item', visible: false },
                 { label: 'Default Item' } // visible undefined = true
             ];
-            fixture.detectChanges();
-            await fixture.whenStable();
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
 
-            const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+            const items = freshFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
 
             expect(items.length).toBe(2); // Only visible items
         });
 
         it('should handle empty model', async () => {
-            component.model = [];
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
 
-            const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+            freshFixture.componentInstance.model = [];
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const items = freshFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
 
             expect(items.length).toBe(0);
         });
 
         it('should handle null model', async () => {
-            component.model = null as any;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
 
-            const items = fixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
+            freshFixture.componentInstance.model = null as any;
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const items = freshFixture.debugElement.queryAll(By.css('li[role="menuitem"]'));
 
             expect(items.length).toBe(0);
         });
@@ -603,34 +641,42 @@ describe('Dock', () => {
         });
 
         it('should handle arrow down key for vertical positions', async () => {
-            component.position = 'left';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+
+            freshFixture.componentInstance.position = 'left';
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
 
             spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onArrowDownKey');
+            spyOn(freshDock, 'onArrowDownKey');
 
-            dockInstance.onListKeyDown(keyEvent);
+            freshDock.onListKeyDown(keyEvent);
 
-            expect(dockInstance.onArrowDownKey).toHaveBeenCalled();
+            expect(freshDock.onArrowDownKey).toHaveBeenCalled();
             expect(keyEvent.preventDefault).toHaveBeenCalled();
         });
 
         it('should handle arrow up key for vertical positions', async () => {
-            component.position = 'right';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+
+            freshFixture.componentInstance.position = 'right';
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
 
             const keyEvent = new KeyboardEvent('keydown', { code: 'ArrowUp' });
 
             spyOn(keyEvent, 'preventDefault');
-            spyOn(dockInstance, 'onArrowUpKey');
+            spyOn(freshDock, 'onArrowUpKey');
 
-            dockInstance.onListKeyDown(keyEvent);
+            freshDock.onListKeyDown(keyEvent);
 
-            expect(dockInstance.onArrowUpKey).toHaveBeenCalled();
+            expect(freshDock.onArrowUpKey).toHaveBeenCalled();
             expect(keyEvent.preventDefault).toHaveBeenCalled();
         });
 
@@ -824,21 +870,25 @@ describe('Dock', () => {
         });
 
         it('should set aria-label when provided', async () => {
-            component.ariaLabel = 'Main Navigation Dock';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
 
-            const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+            freshFixture.componentInstance.ariaLabel = 'Main Navigation Dock';
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const listElement = freshFixture.debugElement.query(By.css('ul[role="menu"]'));
 
             expect(listElement.nativeElement.getAttribute('aria-label')).toBe('Main Navigation Dock');
         });
 
         it('should set aria-labelledby when provided', async () => {
-            component.ariaLabelledBy = 'dock-heading';
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
 
-            const listElement = fixture.debugElement.query(By.css('ul[role="menu"]'));
+            freshFixture.componentInstance.ariaLabelledBy = 'dock-heading';
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const listElement = freshFixture.debugElement.query(By.css('ul[role="menu"]'));
 
             expect(listElement.nativeElement.getAttribute('aria-labelledby')).toBe('dock-heading');
         });
@@ -962,34 +1012,42 @@ describe('Dock', () => {
 
     describe('Edge Cases', () => {
         it('should handle null/undefined values gracefully', async () => {
-            component.model = undefined as any;
-            component.ariaLabel = undefined as any;
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
+
+            freshFixture.componentInstance.model = undefined as any;
+            freshFixture.componentInstance.ariaLabel = undefined as any;
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const freshDock = freshFixture.debugElement.query(By.directive(Dock)).componentInstance;
 
             expect(async () => {
-                fixture.detectChanges();
-                await fixture.whenStable();
+                freshFixture.detectChanges();
+                await freshFixture.whenStable();
             }).not.toThrow();
-            expect(dockInstance.model()).toBeUndefined();
+            expect(freshDock.model()).toBeUndefined();
         });
 
         it('should handle items without icons', async () => {
-            component.model = [{ label: 'No Icon Item' }, { label: 'Icon Item', icon: 'pi pi-check' }];
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
 
-            const iconElements = fixture.debugElement.queryAll(By.css('span[class*="pi-"]'));
+            freshFixture.componentInstance.model = [{ label: 'No Icon Item' }, { label: 'Icon Item', icon: 'pi pi-check' }];
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const iconElements = freshFixture.debugElement.queryAll(By.css('span[class*="pi-"]'));
 
             expect(iconElements.length).toBe(1); // Only one item has icon
         });
 
         it('should handle items with custom styleClass', async () => {
-            component.model = [{ label: 'Custom Style', styleClass: 'custom-item-class' }];
-            fixture.detectChanges();
-            await fixture.whenStable();
+            const freshFixture = TestBed.createComponent(TestBasicDockComponent);
 
-            const itemElement = fixture.debugElement.query(By.css('li[role="menuitem"]'));
+            freshFixture.componentInstance.model = [{ label: 'Custom Style', styleClass: 'custom-item-class' }];
+            freshFixture.detectChanges();
+            await freshFixture.whenStable();
+
+            const itemElement = freshFixture.debugElement.query(By.css('li[role="menuitem"]'));
 
             expect(itemElement?.nativeElement.classList.contains('custom-item-class')).toBe(true);
         });

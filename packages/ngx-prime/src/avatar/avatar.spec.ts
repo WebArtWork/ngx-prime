@@ -1,4 +1,4 @@
-import { Component, input, provideZonelessChangeDetection } from '@angular/core';
+import { Component, input, provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { SharedModule } from 'ngx-prime/api';
@@ -13,29 +13,29 @@ class TestBasicAvatarComponent {}
 
 @Component({
     selector: 'test-label-avatar',
-    template: `<p-avatar [label]="label"></p-avatar>`,
+    template: `<p-avatar [label]="label()"></p-avatar>`,
     imports: [AvatarModule, SharedModule]
 })
 class TestLabelAvatarComponent {
-    label = 'JD';
+    label = signal('JD');
 }
 
 @Component({
     selector: 'test-icon-avatar',
-    template: `<p-avatar [icon]="icon"></p-avatar>`,
+    template: `<p-avatar [icon]="icon()"></p-avatar>`,
     imports: [AvatarModule, SharedModule]
 })
 class TestIconAvatarComponent {
-    icon = 'pi pi-user';
+    icon = signal('pi pi-user');
 }
 
 @Component({
     selector: 'test-image-avatar',
-    template: `<p-avatar [image]="image" [ariaLabel]="ariaLabel" (onImageError)="onImageError($event)"></p-avatar>`,
+    template: `<p-avatar [image]="image()" [ariaLabel]="ariaLabel" (onImageError)="onImageError($event)"></p-avatar>`,
     imports: [AvatarModule, SharedModule]
 })
 class TestImageAvatarComponent {
-    image = '/path/to/avatar.jpg';
+    image = signal('/path/to/avatar.jpg');
     ariaLabel = 'User Avatar';
     imageError: Event | null = null as any;
 
@@ -46,43 +46,43 @@ class TestImageAvatarComponent {
 
 @Component({
     selector: 'test-size-avatar',
-    template: `<p-avatar [label]="label" [size]="size"></p-avatar>`,
+    template: `<p-avatar [label]="label" [size]="size()"></p-avatar>`,
     imports: [AvatarModule, SharedModule]
 })
 class TestSizeAvatarComponent {
     label = 'AB';
-    size: 'normal' | 'large' | 'xlarge' = 'normal';
+    size = signal<'normal' | 'large' | 'xlarge'>('normal');
 }
 
 @Component({
     selector: 'test-shape-avatar',
-    template: `<p-avatar [label]="label" [shape]="shape"></p-avatar>`,
+    template: `<p-avatar [label]="label" [shape]="shape()"></p-avatar>`,
     imports: [AvatarModule, SharedModule]
 })
 class TestShapeAvatarComponent {
     label = 'CD';
-    shape: 'square' | 'circle' = 'square';
+    shape = signal<'square' | 'circle'>('square');
 }
 
 @Component({
     selector: 'test-style-class-avatar',
-    template: `<p-avatar [label]="label" [styleClass]="styleClass"></p-avatar>`,
+    template: `<p-avatar [label]="label" [styleClass]="styleClass()"></p-avatar>`,
     imports: [AvatarModule, SharedModule]
 })
 class TestStyleClassAvatarComponent {
     label = 'EF';
-    styleClass = 'custom-avatar';
+    styleClass = signal('custom-avatar');
 }
 
 @Component({
     selector: 'test-aria-avatar',
-    template: `<p-avatar [label]="label" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy"></p-avatar>`,
+    template: `<p-avatar [label]="label" [ariaLabel]="ariaLabel()" [ariaLabelledBy]="ariaLabelledBy()"></p-avatar>`,
     imports: [AvatarModule, SharedModule]
 })
 class TestAriaAvatarComponent {
     label = 'GH';
-    ariaLabel = 'Avatar Label';
-    ariaLabelledBy = 'label-id';
+    ariaLabel = signal<string | undefined>('Avatar Label');
+    ariaLabelledBy = signal<string | undefined>('label-id');
 }
 
 @Component({
@@ -98,18 +98,18 @@ class TestContentAvatarComponent {}
 
 @Component({
     selector: 'test-dynamic-avatar',
-    template: ` <p-avatar [label]="label" [icon]="icon" [image]="image" [size]="size" [shape]="shape" [styleClass]="styleClass" [ariaLabel]="ariaLabel" [ariaLabelledBy]="ariaLabelledBy" (onImageError)="onImageError($event)"> </p-avatar> `,
+    template: ` <p-avatar [label]="label()" [icon]="icon()" [image]="image()" [size]="size()" [shape]="shape()" [styleClass]="styleClass()" [ariaLabel]="ariaLabel()" [ariaLabelledBy]="ariaLabelledBy()" (onImageError)="onImageError($event)"> </p-avatar> `,
     imports: [AvatarModule, SharedModule]
 })
 class TestDynamicAvatarComponent {
-    label: string | undefined;
-    icon: string | undefined;
-    image: string | undefined;
-    size: 'normal' | 'large' | 'xlarge' | undefined = 'normal';
-    shape: 'square' | 'circle' | undefined = 'square';
-    styleClass: string | undefined;
-    ariaLabel: string | undefined;
-    ariaLabelledBy: string | undefined;
+    label = signal<string | undefined>(undefined);
+    icon = signal<string | undefined>(undefined);
+    image = signal<string | undefined>(undefined);
+    size = signal<'normal' | 'large' | 'xlarge' | undefined>('normal');
+    shape = signal<'square' | 'circle' | undefined>('square');
+    styleClass = signal<string | undefined>(undefined);
+    ariaLabel = signal<string | undefined>(undefined);
+    ariaLabelledBy = signal<string | undefined>(undefined);
     imageError: Event | null = null as any;
 
     onImageError(event: Event) {
@@ -223,8 +223,7 @@ describe('Avatar', () => {
         });
 
         it('should update label dynamically', async () => {
-            component.label = 'AB';
-            fixture.detectChanges();
+            component.label.set('AB');
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -233,8 +232,7 @@ describe('Avatar', () => {
         });
 
         it('should not display label when undefined', async () => {
-            component.label = undefined as any;
-            fixture.detectChanges();
+            component.label.set(undefined as any);
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -243,8 +241,7 @@ describe('Avatar', () => {
         });
 
         it('should handle empty label', async () => {
-            component.label = '';
-            fixture.detectChanges();
+            component.label.set('');
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -257,8 +254,7 @@ describe('Avatar', () => {
         });
 
         it('should handle long labels', async () => {
-            component.label = 'ABCDEFGH';
-            fixture.detectChanges();
+            component.label.set('ABCDEFGH');
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -288,8 +284,7 @@ describe('Avatar', () => {
         });
 
         it('should update icon dynamically', async () => {
-            component.icon = 'pi pi-star';
-            fixture.detectChanges();
+            component.icon.set('pi pi-star');
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -299,8 +294,7 @@ describe('Avatar', () => {
         });
 
         it('should not display icon when undefined', async () => {
-            component.icon = undefined as any;
-            fixture.detectChanges();
+            component.icon.set(undefined as any);
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -309,8 +303,7 @@ describe('Avatar', () => {
         });
 
         it('should handle icon with multiple classes', async () => {
-            component.icon = 'pi pi-user custom-icon';
-            fixture.detectChanges();
+            component.icon.set('pi pi-user custom-icon');
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -345,8 +338,7 @@ describe('Avatar', () => {
         });
 
         it('should update image src dynamically', async () => {
-            component.image = '/new/path/avatar.png';
-            fixture.detectChanges();
+            component.image.set('/new/path/avatar.png');
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -365,7 +357,6 @@ describe('Avatar', () => {
             const errorEvent = new Event('error');
 
             imageElement.nativeElement.dispatchEvent(errorEvent);
-            fixture.detectChanges();
             await fixture.whenStable();
 
             expect(component.imageError).toBe(errorEvent);
@@ -382,8 +373,7 @@ describe('Avatar', () => {
         });
 
         it('should not display image when undefined', async () => {
-            component.image = undefined as any;
-            fixture.detectChanges();
+            component.image.set(undefined as any);
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -396,8 +386,7 @@ describe('Avatar', () => {
         });
 
         it('should remove p-avatar-image class when image is removed', async () => {
-            component.image = undefined as any;
-            fixture.detectChanges();
+            component.image.set(undefined as any);
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-image')).toBe(false);
@@ -422,8 +411,7 @@ describe('Avatar', () => {
         });
 
         it('should apply large size class', async () => {
-            component.size = 'large';
-            fixture.detectChanges();
+            component.size.set('large');
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
@@ -431,8 +419,7 @@ describe('Avatar', () => {
         });
 
         it('should apply xlarge size class', async () => {
-            component.size = 'xlarge';
-            fixture.detectChanges();
+            component.size.set('xlarge');
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-lg')).toBe(false);
@@ -440,19 +427,16 @@ describe('Avatar', () => {
         });
 
         it('should switch between sizes correctly', async () => {
-            component.size = 'large';
-            fixture.detectChanges();
+            component.size.set('large');
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
 
-            component.size = 'xlarge';
-            fixture.detectChanges();
+            component.size.set('xlarge');
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(false);
             expect(element.classList.contains('p-avatar-xl')).toBe(true);
 
-            component.size = 'normal';
-            fixture.detectChanges();
+            component.size.set('normal');
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(false);
             expect(element.classList.contains('p-avatar-xl')).toBe(false);
@@ -476,21 +460,18 @@ describe('Avatar', () => {
         });
 
         it('should apply circle shape class', async () => {
-            component.shape = 'circle';
-            fixture.detectChanges();
+            component.shape.set('circle');
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-circle')).toBe(true);
         });
 
         it('should switch between shapes correctly', async () => {
-            component.shape = 'circle';
-            fixture.detectChanges();
+            component.shape.set('circle');
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-circle')).toBe(true);
 
-            component.shape = 'square';
-            fixture.detectChanges();
+            component.shape.set('square');
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-circle')).toBe(false);
         });
@@ -513,8 +494,7 @@ describe('Avatar', () => {
         });
 
         it('should update style class dynamically', async () => {
-            component.styleClass = 'new-custom-class';
-            fixture.detectChanges();
+            component.styleClass.set('new-custom-class');
             await fixture.whenStable();
 
             expect(element.classList.contains('new-custom-class')).toBe(true);
@@ -527,8 +507,7 @@ describe('Avatar', () => {
         });
 
         it('should handle multiple custom classes', async () => {
-            component.styleClass = 'class1 class2 class3';
-            fixture.detectChanges();
+            component.styleClass.set('class1 class2 class3');
             await fixture.whenStable();
 
             expect(element.classList.contains('class1')).toBe(true);
@@ -537,8 +516,7 @@ describe('Avatar', () => {
         });
 
         it('should handle undefined style class', async () => {
-            component.styleClass = undefined as any;
-            fixture.detectChanges();
+            component.styleClass.set(undefined as any);
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar')).toBe(true);
@@ -567,25 +545,22 @@ describe('Avatar', () => {
         });
 
         it('should update aria-label dynamically', async () => {
-            component.ariaLabel = 'New Label';
-            fixture.detectChanges();
+            component.ariaLabel.set('New Label');
             await fixture.whenStable();
 
             expect(element.getAttribute('aria-label')).toBe('New Label');
         });
 
         it('should update aria-labelledby dynamically', async () => {
-            component.ariaLabelledBy = 'new-label-id';
-            fixture.detectChanges();
+            component.ariaLabelledBy.set('new-label-id');
             await fixture.whenStable();
 
             expect(element.getAttribute('aria-labelledby')).toBe('new-label-id');
         });
 
         it('should handle undefined aria attributes', async () => {
-            component.ariaLabel = undefined as any;
-            component.ariaLabelledBy = undefined as any;
-            fixture.detectChanges();
+            component.ariaLabel.set(undefined);
+            component.ariaLabelledBy.set(undefined);
             await fixture.whenStable();
 
             // When ariaLabel is undefined, no fallback is used
@@ -630,10 +605,9 @@ describe('Avatar', () => {
         });
 
         it('should prioritize label over icon and image', async () => {
-            component.label = 'AB';
-            component.icon = 'pi pi-user';
-            component.image = '/path/to/image.jpg';
-            fixture.detectChanges();
+            component.label.set('AB');
+            component.icon.set('pi pi-user');
+            component.image.set('/path/to/image.jpg');
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -646,9 +620,8 @@ describe('Avatar', () => {
         });
 
         it('should show label when both label and icon are present', async () => {
-            component.label = 'AB';
-            component.icon = 'pi pi-user';
-            fixture.detectChanges();
+            component.label.set('AB');
+            component.icon.set('pi pi-user');
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -659,8 +632,7 @@ describe('Avatar', () => {
         });
 
         it('should show icon when no label is present', async () => {
-            component.icon = 'pi pi-user';
-            fixture.detectChanges();
+            component.icon.set('pi pi-user');
             await fixture.whenStable();
 
             const iconElement = fixture.debugElement.query(By.css('.p-avatar-icon'));
@@ -671,8 +643,7 @@ describe('Avatar', () => {
         });
 
         it('should show image when no label or icon is present', async () => {
-            component.image = '/path/to/image.jpg';
-            fixture.detectChanges();
+            component.image.set('/path/to/image.jpg');
             await fixture.whenStable();
 
             const imageElement = fixture.debugElement.query(By.css('img'));
@@ -685,11 +656,10 @@ describe('Avatar', () => {
         });
 
         it('should apply multiple configurations correctly', async () => {
-            component.label = 'XY';
-            component.size = 'large';
-            component.shape = 'circle';
-            component.styleClass = 'custom-class';
-            fixture.detectChanges();
+            component.label.set('XY');
+            component.size.set('large');
+            component.shape.set('circle');
+            component.styleClass.set('custom-class');
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
@@ -715,45 +685,38 @@ describe('Avatar', () => {
         });
 
         it('should keep showing label when icon is added', async () => {
-            component.label = 'AB';
-            fixture.detectChanges();
+            component.label.set('AB');
             await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('.p-avatar-label'))).toBeTruthy();
 
-            component.icon = 'pi pi-user';
-            fixture.detectChanges();
+            component.icon.set('pi pi-user');
             await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('.p-avatar-label'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('.p-avatar-icon'))).toBeFalsy();
         });
 
         it('should show image only when no label and no icon', async () => {
-            component.image = '/path/to/image.jpg';
-            fixture.detectChanges();
+            component.image.set('/path/to/image.jpg');
             await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('img'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('.p-avatar-icon'))).toBeFalsy();
             expect(fixture.debugElement.query(By.css('.p-avatar-label'))).toBeFalsy();
 
             // Adding icon should hide image
-            component.icon = 'pi pi-user';
-            fixture.detectChanges();
+            component.icon.set('pi pi-user');
             await fixture.whenStable();
             expect(fixture.debugElement.query(By.css('.p-avatar-icon'))).toBeTruthy();
             expect(fixture.debugElement.query(By.css('img'))).toBeFalsy();
         });
 
         it('should handle rapid property changes', async () => {
-            component.label = 'A';
-            fixture.detectChanges();
+            component.label.set('A');
             await fixture.whenStable();
 
-            component.label = 'B';
-            fixture.detectChanges();
+            component.label.set('B');
             await fixture.whenStable();
 
-            component.label = 'C';
-            fixture.detectChanges();
+            component.label.set('C');
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -762,15 +725,14 @@ describe('Avatar', () => {
         });
 
         it('should handle all properties being undefined', async () => {
-            component.label = undefined as any;
-            component.icon = undefined as any;
-            component.image = undefined as any;
-            component.size = undefined as any;
-            component.shape = undefined as any;
-            component.styleClass = undefined as any;
-            component.ariaLabel = undefined as any;
-            component.ariaLabelledBy = undefined as any;
-            fixture.detectChanges();
+            component.label.set(undefined as any);
+            component.icon.set(undefined as any);
+            component.image.set(undefined as any);
+            component.size.set(undefined as any);
+            component.shape.set(undefined as any);
+            component.styleClass.set(undefined as any);
+            component.ariaLabel.set(undefined as any);
+            component.ariaLabelledBy.set(undefined as any);
             await fixture.whenStable();
 
             expect(avatarComponent.label()).toBeUndefined();
@@ -795,10 +757,9 @@ describe('Avatar', () => {
         });
 
         it('should handle empty string values', async () => {
-            component.label = '';
-            component.icon = '';
-            component.image = '';
-            fixture.detectChanges();
+            component.label.set('');
+            component.icon.set('');
+            component.image.set('');
             await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.p-avatar-label'))).toBeFalsy();
@@ -807,8 +768,7 @@ describe('Avatar', () => {
         });
 
         it('should handle whitespace-only label', async () => {
-            component.label = '   ';
-            fixture.detectChanges();
+            component.label.set('   ');
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -818,11 +778,10 @@ describe('Avatar', () => {
         });
 
         it('should handle null values gracefully', async () => {
-            component.label = null as any;
-            component.icon = null as any;
-            component.image = null as any;
-            component.styleClass = null as any;
-            fixture.detectChanges();
+            component.label.set(null as any);
+            component.icon.set(null as any);
+            component.image.set(null as any);
+            component.styleClass.set(null as any);
             await fixture.whenStable();
 
             expect(fixture.debugElement.query(By.css('.p-avatar-label'))).toBeFalsy();
@@ -831,8 +790,7 @@ describe('Avatar', () => {
         });
 
         it('should handle invalid size values', async () => {
-            component.size = 'invalid' as any;
-            fixture.detectChanges();
+            component.size.set('invalid' as any);
             await fixture.whenStable();
 
             // Should not apply any size classes for invalid values
@@ -841,8 +799,7 @@ describe('Avatar', () => {
         });
 
         it('should handle invalid shape values', async () => {
-            component.shape = 'invalid' as any;
-            fixture.detectChanges();
+            component.shape.set('invalid' as any);
             await fixture.whenStable();
 
             // Should not apply circle class for invalid values
@@ -850,8 +807,7 @@ describe('Avatar', () => {
         });
 
         it('should handle special characters in label', async () => {
-            component.label = '<>&"\'';
-            fixture.detectChanges();
+            component.label.set('<>&"\'');
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -860,8 +816,7 @@ describe('Avatar', () => {
         });
 
         it('should handle very long labels', async () => {
-            component.label = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            fixture.detectChanges();
+            component.label.set('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
             await fixture.whenStable();
 
             const labelElement = fixture.debugElement.query(By.css('.p-avatar-label'));
@@ -895,11 +850,10 @@ describe('Avatar', () => {
         });
 
         it('should combine all applicable classes correctly', async () => {
-            component.image = '/path/to/image.jpg';
-            component.size = 'large';
-            component.shape = 'circle';
-            component.styleClass = 'custom-1 custom-2';
-            fixture.detectChanges();
+            component.image.set('/path/to/image.jpg');
+            component.size.set('large');
+            component.shape.set('circle');
+            component.styleClass.set('custom-1 custom-2');
             await fixture.whenStable();
 
             expect(element.classList.contains('p-avatar')).toBe(true);
@@ -912,13 +866,11 @@ describe('Avatar', () => {
         });
 
         it('should remove p-avatar-image class when image is removed', async () => {
-            component.image = '/path/to/image.jpg';
-            fixture.detectChanges();
+            component.image.set('/path/to/image.jpg');
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-image')).toBe(true);
 
-            component.image = undefined as any;
-            fixture.detectChanges();
+            component.image.set(undefined as any);
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-image')).toBe(false);
         });
@@ -929,17 +881,15 @@ describe('Avatar', () => {
             expect(element.classList.contains('p-avatar-circle')).toBe(false);
 
             // Change to large circle
-            component.size = 'large';
-            component.shape = 'circle';
-            fixture.detectChanges();
+            component.size.set('large');
+            component.shape.set('circle');
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(true);
             expect(element.classList.contains('p-avatar-circle')).toBe(true);
 
             // Change to xlarge square
-            component.size = 'xlarge';
-            component.shape = 'square';
-            fixture.detectChanges();
+            component.size.set('xlarge');
+            component.shape.set('square');
             await fixture.whenStable();
             expect(element.classList.contains('p-avatar-lg')).toBe(false);
             expect(element.classList.contains('p-avatar-xl')).toBe(true);
@@ -1172,7 +1122,7 @@ describe('Avatar', () => {
 
                 fixture.componentRef.setInput('pt', {
                     root: ({ instance }: any) => ({
-                        class: instance?.size === 'large' ? 'LARGE_SIZE' : 'NORMAL_SIZE'
+                        class: instance?.size?.() === 'large' ? 'LARGE_SIZE' : 'NORMAL_SIZE'
                     })
                 });
                 fixture.detectChanges();
@@ -1188,7 +1138,7 @@ describe('Avatar', () => {
                 fixture.componentRef.setInput('pt', {
                     label: ({ instance }: any) => ({
                         style: {
-                            'background-color': instance?.shape === 'circle' ? 'yellow' : 'red'
+                            'background-color': instance?.shape?.() === 'circle' ? 'yellow' : 'red'
                         }
                     })
                 });
@@ -1207,7 +1157,7 @@ describe('Avatar', () => {
                 fixture.componentRef.setInput('pt', {
                     icon: ({ instance }: any) => ({
                         class: {
-                            HAS_LABEL: !!instance?.label
+                            HAS_LABEL: !!instance?.label?.()
                         }
                     })
                 });
@@ -1232,7 +1182,7 @@ describe('Avatar', () => {
                 await fixture.whenStable();
                 fixture.componentRef.setInput('pt', {
                     image: ({ instance }: any) => ({
-                        'data-has-aria': instance?.ariaLabel ? 'true' : 'false'
+                        'data-has-aria': instance?.ariaLabel?.() ? 'true' : 'false'
                     })
                 });
                 fixture.detectChanges();
