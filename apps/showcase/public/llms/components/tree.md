@@ -129,9 +129,11 @@ export class TreeContextmenuDemo implements OnInit {
             if (n.key === key) {
                 return updatedNode;
             }
+        
             if (n.children) {
                 return { ...n, children: this.updateNodeInTree(n.children, key, updatedNode) };
             }
+        
             return n;
         });
     }
@@ -175,11 +177,13 @@ export class TreeControlledDemo implements OnInit {
 
     expandAll() {
         const updatedFiles = this.files().map((node) => this.expandRecursive(node, true));
+        
         this.files.set(updatedFiles);
     }
 
     collapseAll() {
         const updatedFiles = this.files().map((node) => this.expandRecursive(node, false));
+        
         this.files.set(updatedFiles);
     }
 }
@@ -343,6 +347,7 @@ export class TreeLazyDemo implements OnInit {
             setTimeout(() => {
                 const _nodes = this.nodes();
                 let _node = { ...event.node };
+        
                 _node.children = [];
         
                 for (let i = 0; i < 3; i++) {
@@ -353,6 +358,7 @@ export class TreeLazyDemo implements OnInit {
                 }
         
                 const key = parseInt(_node.key, 10);
+        
                 _nodes[key] = { ..._node, loading: false };
                 this.nodes.set([..._nodes]);
             }, 500);

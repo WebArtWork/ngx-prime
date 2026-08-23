@@ -511,7 +511,7 @@ export class CardsApp implements OnInit {
 
     items: any;
 
-    private config = inject(ngx - prime);
+    private config = inject(NgxPrime);
     private messageService = inject(MessageService);
 
     ngOnInit() {

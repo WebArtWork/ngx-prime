@@ -449,7 +449,7 @@ export class MultiselectIftalabelDemo implements OnInit {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -571,6 +571,7 @@ export class MultiselectReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
             this.exampleForm.reset();
@@ -580,6 +581,7 @@ export class MultiselectReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }
@@ -784,8 +786,12 @@ import { MultiSelectModule } from 'ngx-prime/multiselect';
                 #ms
             >
                 <ng-template #headercheckboxicon let-allSelected="checked" let-partialSelected="partialSelected">
-                    <i class="pi pi-check" *ngIf="allSelected"></i>
-                    <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                    @if (allSelected) {
+                        <i class="pi pi-check"></i>
+                    }
+                    @if (partialSelected) {
+                        <i class="pi pi-minus" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                    }
                 </ng-template>
             </p-multiselect>
         </div>

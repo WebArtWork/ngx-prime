@@ -29,6 +29,10 @@ import { MessageService } from 'ngx-prime/api';
 })
 export class ToastBasicDemo {
     private messageService = inject(MessageService);
+
+    show() {
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
+    }
 }
 ```
 
@@ -56,6 +60,10 @@ import { MessageService } from 'ngx-prime/api';
 })
 export class ToastClearDemo {
     private messageService = inject(MessageService);
+
+    show() {
+        this.messageService.add({ key: 'myKey', severity: 'success', summary: 'Message 1', detail: 'Message Content' });
+    }
 
     clear() {
         this.messageService.clear();
@@ -168,6 +176,10 @@ import { MessageService } from 'ngx-prime/api';
 export class ToastLifeDemo {
     private messageService = inject(MessageService);
 
+    showLife() {
+        this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 10000ms' });
+    }
+
     showLifeLong() {
         this.messageService.add({ severity: 'info', summary: 'Life', detail: 'I show for 20000ms', life: 20000 });
     }
@@ -198,6 +210,15 @@ import { MessageService } from 'ngx-prime/api';
 })
 export class ToastMultipleDemo {
     private messageService = inject(MessageService);
+
+    show() {
+        this.messageService.addAll([
+            { severity: 'success', summary: 'Message 1', detail: 'Message Content' },
+            { severity: 'info', summary: 'Message 2', detail: 'Message Content' },
+            { severity: 'warn', summary: 'Message 3', detail: 'Message Content' },
+            { severity: 'error', summary: 'Message 4', detail: 'Message Content' }
+        ]);
+    }
 }
 ```
 
@@ -231,6 +252,16 @@ import { MessageService } from 'ngx-prime/api';
 })
 export class ToastPositionDemo {
     private messageService = inject(MessageService);
+
+    showTopLeft() {
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Info Message',
+            detail: 'Message Content',
+            key: 'tl',
+            life: 3000
+        });
+    }
 
     showBottomLeft() {
         this.messageService.add({
@@ -277,6 +308,10 @@ import { MessageService } from 'ngx-prime/api';
 })
 export class ToastResponsiveDemo {
     private messageService = inject(MessageService);
+
+    show() {
+        this.messageService.add({ severity: 'contrast', summary: 'Success', detail: 'Message Content' });
+    }
 }
 ```
 
@@ -309,6 +344,10 @@ import { MessageService } from 'ngx-prime/api';
 })
 export class ToastSeverityDemo {
     private messageService = inject(MessageService);
+
+    showSuccess() {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+    }
 
     showInfo() {
         this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content' });
@@ -360,6 +399,10 @@ import { MessageService } from 'ngx-prime/api';
 export class ToastStickyDemo {
     private messageService = inject(MessageService);
 
+    show() {
+        this.messageService.add({ severity: 'info', summary: 'Sticky', detail: 'Message Content', sticky: true });
+    }
+
     clear() {
         this.messageService.clear();
     }
@@ -391,6 +434,11 @@ import { MessageService } from 'ngx-prime/api';
 })
 export class ToastTargetDemo {
     private messageService = inject(MessageService);
+
+    showToast1() {
+        this.messageService.clear();
+        this.messageService.add({ key: 'toast1', severity: 'success', summary: 'Success', detail: 'key: toast1' });
+    }
 
     showToast2() {
         this.messageService.clear();
@@ -434,6 +482,12 @@ import { MessageService } from 'ngx-prime/api';
 })
 export class ToastTemplateDemo {
     private messageService = inject(MessageService);
+    visible: boolean = false;
+
+    onConfirm() {
+        this.messageService.clear('confirm');
+        this.visible = false;
+    }
 
     onReject() {
         this.messageService.clear('confirm');

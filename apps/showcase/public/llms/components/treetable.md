@@ -18,27 +18,31 @@ import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
-        <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header>
-                <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Type</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    <td>
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <span>{{ rowData.name }}</span>
-                        </div>
-                    </td>
-                    <td>{{ rowData.size }}</td>
-                    <td>{{ rowData.type }}</td>
-                </tr>
-            </ng-template>
-        </p-treetable>
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span>{{ rowData.name }}</span>
+                                </div>
+                            </td>
+                            <td>{{ rowData.size }}</td>
+                            <td>{{ rowData.type }}</td>
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -64,45 +68,49 @@ import { Product } from '@/domain/product';
 
 @Component({
     template: `
-        <p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header>
-                <tr>
-                    <th rowspan="3">Brand</th>
-                    <th colspan="4">Sale Rate</th>
-                </tr>
-                <tr>
-                    <th colspan="2">Sales</th>
-                    <th colspan="2">Profits</th>
-                </tr>
-                <tr>
-                    <th>Last Year</th>
-                    <th>This Year</th>
-                    <th>Last Year</th>
-                    <th>This Year</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    <td>
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <span>{{ rowData.brand }}</span>
-                        </div>
-                    </td>
-                    <td>{{ rowData.lastYearSale }}</td>
-                    <td>{{ rowData.thisYearSale }}</td>
-                    <td>{{ rowData.lastYearProfit }}</td>
-                    <td>{{ rowData.thisYearProfit }}</td>
-                </tr>
-            </ng-template>
-            <ng-template #footer>
-                <tr>
-                    <td colspan="3">Totals</td>
-                    <td>$3,283,772</td>
-                    <td>$2,126,925</td>
-                </tr>
-            </ng-template>
-        </p-treetable>
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header>
+                        <tr>
+                            <th rowspan="3">Brand</th>
+                            <th colspan="4">Sale Rate</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Sales</th>
+                            <th colspan="2">Profits</th>
+                        </tr>
+                        <tr>
+                            <th>Last Year</th>
+                            <th>This Year</th>
+                            <th>Last Year</th>
+                            <th>This Year</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span>{{ rowData.brand }}</span>
+                                </div>
+                            </td>
+                            <td>{{ rowData.lastYearSale }}</td>
+                            <td>{{ rowData.thisYearSale }}</td>
+                            <td>{{ rowData.lastYearProfit }}</td>
+                            <td>{{ rowData.thisYearProfit }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #footer>
+                        <tr>
+                            <td colspan="3">Totals</td>
+                            <td>$3,283,772</td>
+                            <td>$2,126,925</td>
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule]
@@ -384,33 +392,37 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th ttResizableColumn>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand" showGridlines>
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th ttResizableColumn>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -449,33 +461,37 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th ttResizableColumn>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th ttResizableColumn>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -515,40 +531,44 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
-            <ng-template #colgroup let-columns>
-                <colgroup>
-                    @for (col of columns; track col) {
-                        <col />
-                    }
-                </colgroup>
-            </ng-template>
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th ttResizableColumn>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
+                    <ng-template #colgroup let-columns>
+                        <colgroup>
+                            @for (col of columns; track col) {
+                                <col />
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </colgroup>
+                    </ng-template>
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th ttResizableColumn>
+                                    {{ col.header }}
+                                </th>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -589,38 +609,42 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #caption>
-                <div style="text-align:left">
-                    <p-multiselect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" placeholder="Choose Columns" display="chip" />
-                </div>
-            </ng-template>
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #caption>
+                        <div style="text-align:left">
+                            <p-multiselect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" placeholder="Choose Columns" display="chip" />
+                        </div>
+                    </ng-template>
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [MultiSelectModule, TreeTableModule, FormsModule],
@@ -661,33 +685,37 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ngClass]="{ '!bg-surface-100 dark:!bg-surface-800': rowData.size.endsWith('kb') }">
-                    @for (col of columns; let first = $first; track col) {
-                        <td [class]="{ 'line-through': col.field === 'size' && rowData.size.endsWith('kb') }">
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ngClass]="{ '!bg-surface-100 dark:!bg-surface-800': rowData.size.endsWith('kb') }">
+                            @for (col of columns; let first = $first; track col) {
+                                <td [class]="{ 'line-through': col.field === 'size' && rowData.size.endsWith('kb') }">
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -715,6 +743,8 @@ TreeTable has exclusive integration with contextmenu component. In order to atta
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
+import { ContextMenuModule } from 'ngx-prime/contextmenu';
+import { ToastModule } from 'ngx-prime/toast';
 import { TreeTable, TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, MenuItem, MessageService } from 'ngx-prime/api';
@@ -727,36 +757,42 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <p-toast [style]="{ marginTop: '80px' }" />
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+            <p-contextmenu #cm [model]="items" />
+        </div>
     `,
     standalone: true,
-    imports: [TreeTableModule],
+    imports: [ContextMenuModule, ToastModule, TreeTableModule],
     providers: [NodeService, MessageService]
 })
 export class TreetableContextmenuDemo implements OnInit {
@@ -775,8 +811,8 @@ export class TreetableContextmenuDemo implements OnInit {
             { field: 'type', header: 'Type' }
         ];
         this.items = [
-            { label: 'View', icon: 'pi pi-search', command: (event) => this.viewFile(this.selectedNode) },
-            { label: 'Toggle', icon: 'pi pi-sort', command: (event) => this.toggleFile(this.selectedNode) }
+            { label: 'View', icon: 'pi pi-search', command: () => this.viewFile(this.selectedNode) },
+            { label: 'Toggle', icon: 'pi pi-sort', command: () => this.toggleFile(this.selectedNode) }
         ];
     }
 
@@ -797,36 +833,42 @@ Expansion state is controlled with expandedKeys property.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
+import { ButtonModule } from 'ngx-prime/button';
 import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
-        <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header>
-                <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Type</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    <td>
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <span>{{ rowData.name }}</span>
-                        </div>
-                    </td>
-                    <td>{{ rowData.size }}</td>
-                    <td>{{ rowData.type }}</td>
-                </tr>
-            </ng-template>
-        </p-treetable>
+        <div class="card">
+            <p-button (click)="toggleApplications()" label="Toggle Applications" class="block mb-4" />
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span>{{ rowData.name }}</span>
+                                </div>
+                            </td>
+                            <td>{{ rowData.size }}</td>
+                            <td>{{ rowData.type }}</td>
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
-    imports: [TreeTableModule],
+    imports: [ButtonModule, TreeTableModule],
     providers: [NodeService]
 })
 export class TreetableControlledDemo implements OnInit {
@@ -842,6 +884,7 @@ export class TreetableControlledDemo implements OnInit {
     toggleApplications() {
         if (this.files && this.files.length > 0) {
             const newFiles = [...this.files];
+        
             newFiles[0] = { ...newFiles[0], expanded: !newFiles[0].expanded };
             this.files = newFiles;
         }
@@ -866,33 +909,37 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -933,28 +980,38 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns">
-                        {{ col.header }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index" ttEditableColumn [ttEditableColumnDisabled]="i == 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        <p-treetableCellEditor>
-                            <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
-                            </ng-template>
-                            <ng-template pTemplate="output">{{ rowData[col.field] }}</ng-template>
-                        </p-treetableCellEditor>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-treetable>
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; track col; let i = $index) {
+                                <td ttEditableColumn [ttEditableColumnDisabled]="i === 0" [ngClass]="{ 'p-toggler-column': i === 0 }">
+                                    @if (i === 0) {
+                                        <p-treeTableToggler [rowNode]="rowNode" />
+                                    }
+                                    <p-treetableCellEditor>
+                                        <ng-template pTemplate="input">
+                                            <input pInputText type="text" [(ngModel)]="rowData[col.field]" />
+                                        </ng-template>
+                                        <ng-template pTemplate="output">{{ rowData[col.field] }}</ng-template>
+                                    </p-treetableCellEditor>
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule, InputTextModule, FormsModule],
@@ -982,8 +1039,10 @@ The filterMode specifies the filtering strategy, in lenient mode when the query 
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { IconFieldModule } from 'ngx-prime/iconfield';
 import { InputIconModule } from 'ngx-prime/inputicon';
+import { SelectButtonModule } from 'ngx-prime/selectbutton';
 import { TreeTableModule } from 'ngx-prime/treetable';
 import { InputTextModule } from 'ngx-prime/inputtext';
 import { NodeService } from '@/service/nodeservice';
@@ -996,56 +1055,63 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #caption>
-                <div class="flex justify-end items-center">
-                    <p-iconfield>
-                        <p-inputicon class="pi pi-search" />
-                        <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
-                    </p-iconfield>
-                </div>
-            </ng-template>
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    @for (col of cols; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <div class="flex justify-center mb-6">
+                <p-selectbutton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
+            </div>
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #caption>
+                        <div class="flex justify-end items-center">
+                            <p-iconfield>
+                                <p-inputicon class="pi pi-search" />
+                                <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
+                            </p-iconfield>
+                        </div>
+                    </ng-template>
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #emptymessage>
-                <tr>
-                    <td [attr.colspan]="cols?.length">No data found.</td>
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    <input pInputText [placeholder]="'Filter by ' + col.field" type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
+                                </th>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            @for (col of cols; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template #emptymessage>
+                        <tr>
+                            <td [attr.colspan]="cols?.length">No data found.</td>
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
-    imports: [IconFieldModule, InputIconModule, TreeTableModule, InputTextModule],
+    imports: [IconFieldModule, InputIconModule, SelectButtonModule, TreeTableModule, InputTextModule, FormsModule],
     providers: [NodeService]
 })
 export class TreetableFilterDemo implements OnInit {
@@ -1080,35 +1146,39 @@ import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
-        <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
-        <p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
-            <ng-template #content>
-                <p-treetable [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template #header>
-                        <tr>
-                            <th>Name</th>
-                            <th>Size</th>
-                            <th>Type</th>
-                        </tr>
+        <div class="card flex justify-center">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
+                <p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">
+                    <ng-template #content>
+                        <p-treetable [value]="files" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+                            <ng-template #header>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Size</th>
+                                    <th>Type</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template #body let-rowNode let-rowData="rowData">
+                                <tr [ttRow]="rowNode">
+                                    <td>
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode" />
+                                            <span>{{ rowData.name }}</span>
+                                        </div>
+                                    </td>
+                                    <td>{{ rowData.size }}</td>
+                                    <td>{{ rowData.type }}</td>
+                                </tr>
+                            </ng-template>
+                        </p-treetable>
                     </ng-template>
-                    <ng-template #body let-rowNode let-rowData="rowData">
-                        <tr [ttRow]="rowNode">
-                            <td>
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode" />
-                                    <span>{{ rowData.name }}</span>
-                                </div>
-                            </td>
-                            <td>{{ rowData.size }}</td>
-                            <td>{{ rowData.type }}</td>
-                        </tr>
+                    <ng-template #footer>
+                        <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
                     </ng-template>
-                </p-treetable>
-            </ng-template>
-            <ng-template #footer>
-                <p-button label="Ok" icon="pi pi-check" (onClick)="dialogVisible = false" />
-            </ng-template>
-        </p-dialog>
+                </p-dialog>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, DialogModule, TreeTableModule],
@@ -1139,27 +1209,33 @@ import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
-        <p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header>
-                <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Type</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    <td>
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <span>{{ rowData.name }}</span>
-                        </div>
-                    </td>
-                    <td>{{ rowData.size }}</td>
-                    <td>{{ rowData.type }}</td>
-                </tr>
-            </ng-template>
-        </p-treetable>
+        <section class="py-6">
+            <div class="card">
+                <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                    <p-treetable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template #header>
+                            <tr>
+                                <th>Name</th>
+                                <th>Size</th>
+                                <th>Type</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-rowNode let-rowData="rowData">
+                            <tr [ttRow]="rowNode">
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <p-treetable-toggler [rowNode]="rowNode" />
+                                        <span>{{ rowData.name }}</span>
+                                    </div>
+                                </td>
+                                <td>{{ rowData.size }}</td>
+                                <td>{{ rowData.type }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-treetable>
+                </app-p-deferred-demo>
+            </div>
+        </section>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1273,6 +1349,7 @@ export class TreetableLazyloadDemo implements OnInit {
         
                 this.files.push(node);
             }
+        
             this.loading = false;
             this.cd.markForCheck();
         }, 1000);
@@ -1321,29 +1398,31 @@ import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
-        <div class="card">
-            <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
-                <ng-template #header>
-                    <tr>
-                        <th>Name</th>
-                        <th>Size</th>
-                        <th>Type</th>
-                    </tr>
-                </ng-template>
-                <ng-template #body let-rowNode let-rowData="rowData">
-                    <tr [ttRow]="rowNode">
-                        <td>
-                            <div class="flex items-center gap-2">
-                                <p-treetable-toggler [rowNode]="rowNode" />
-                                <span>{{ rowData.name }}</span>
-                            </div>
-                        </td>
-                        <td>{{ rowData.size }}</td>
-                        <td>{{ rowData.type }}</td>
-                    </tr>
-                </ng-template>
-            </p-treetable>
-        </div>
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
+            <div class="card">
+                <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [loading]="true">
+                    <ng-template #header>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span>{{ rowData.name }}</span>
+                                </div>
+                            </td>
+                            <td>{{ rowData.size }}</td>
+                            <td>{{ rowData.type }}</td>
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </div>
+        </app-p-deferred-demo>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1372,24 +1451,26 @@ import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
-        <div class="card">
-            <p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template #header>
-                    <tr>
-                        <th>Name</th>
-                        <th>Size</th>
-                        <th>Type</th>
-                    </tr>
-                </ng-template>
-                <ng-template #body>
-                    <tr>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                        <td><p-skeleton /></td>
-                    </tr>
-                </ng-template>
-            </p-treetable>
-        </div>
+        <app-p-deferred-demo (demoLoad)="loadDemoData()">
+            <div class="card">
+                <p-treetable [value]="files()" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header>
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body>
+                        <tr>
+                            <td><p-skeleton /></td>
+                            <td><p-skeleton /></td>
+                            <td><p-skeleton /></td>
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </div>
+        </app-p-deferred-demo>
     `,
     standalone: true,
     imports: [SkeletonModule, TreeTableModule],
@@ -1421,33 +1502,37 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule]
@@ -1504,39 +1589,43 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #paginatorleft>
-                <p-button icon="pi pi-refresh" text />
-            </ng-template>
-            <ng-template #paginatorright>
-                <p-button icon="pi pi-download" text />
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template #paginatorleft>
+                        <p-button icon="pi pi-refresh" text />
+                    </ng-template>
+                    <ng-template #paginatorright>
+                        <p-button icon="pi pi-download" text />
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, TreeTableModule]
@@ -1592,33 +1681,37 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th ttReorderableColumn>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [reorderableColumns]="true" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th ttReorderableColumn>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1657,43 +1750,47 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #colgroup let-columns>
-                <colgroup>
-                    @for (col of columns; track col) {
-                        <col style="width:250px" />
-                    }
-                </colgroup>
-            </ng-template>
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" style="height: 57px">
-                    @for (col of columns; track col) {
-                        <td>
-                            {{ rowData[col.field] }}
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #frozenbody let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode" style="height: 57px">
-                    <td>
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <span class="font-bold">{{ rowData.name }}</span>
-                        </div>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-treetable>
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #colgroup let-columns>
+                        <colgroup>
+                            @for (col of columns; track col) {
+                                <col style="width:250px" />
+                            }
+                        </colgroup>
+                    </ng-template>
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" style="height: 57px">
+                            @for (col of columns; track col) {
+                                <td>
+                                    {{ rowData[col.field] }}
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template #frozenbody let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode" style="height: 57px">
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <p-treetable-toggler [rowNode]="rowNode" />
+                                    <span class="font-bold">{{ rowData.name }}</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1743,40 +1840,44 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #colgroup let-columns>
-                <colgroup>
-                    @for (col of columns; track col) {
-                        <col style="width:500px" />
-                    }
-                </colgroup>
-            </ng-template>
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="250px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #colgroup let-columns>
+                        <colgroup>
+                            @for (col of columns; track col) {
+                                <col style="width:500px" />
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </colgroup>
+                    </ng-template>
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1815,33 +1916,37 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [scrollable]="true" scrollHeight="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1880,34 +1985,38 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode" />
-                                    <p-treetable-checkbox [value]="rowNode" />
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card mt-4">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode" />
+                                            <p-treetable-checkbox [value]="rowNode" />
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -1956,6 +2065,7 @@ TreeTable provides onNodeSelect and onNodeUnselect events to listen selection ev
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
+import { ToastModule } from 'ngx-prime/toast';
 import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode, MessageService } from 'ngx-prime/api';
@@ -1972,46 +2082,51 @@ interface NodeEvent {
 
 @Component({
     template: `
-        <p-treetable
-            [value]="files"
-            [columns]="cols"
-            selectionMode="single"
-            [(selection)]="selectedNode"
-            dataKey="name"
-            (onNodeSelect)="nodeSelect($event)"
-            (onNodeUnselect)="nodeUnselect($event)"
-            [scrollable]="true"
-            [tableStyle]="{ 'min-width': '50rem' }"
-        >
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <p-toast />
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable
+                    [value]="files"
+                    [columns]="cols"
+                    selectionMode="single"
+                    [(selection)]="selectedNode"
+                    dataKey="name"
+                    (onNodeSelect)="nodeSelect($event)"
+                    (onNodeUnselect)="nodeUnselect($event)"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
-    imports: [TreeTableModule],
+    imports: [ToastModule, TreeTableModule],
     providers: [NodeService, MessageService]
 })
 export class TreetableSelectioneventscDemo implements OnInit {
@@ -2046,6 +2161,8 @@ More than one node is selectable by setting selectionMode to multiple . By defau
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 import { TreeTable, TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'ngx-prime/api';
@@ -2058,36 +2175,44 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <div class="flex gap-4 items-center justify-center mb-6">
+                <p-toggleswitch [(ngModel)]="metaKeySelection" />
+                <span>Metakey</span>
+            </div>
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
-    imports: [TreeTableModule],
+    imports: [ToggleSwitchModule, TreeTableModule, FormsModule],
     providers: [NodeService]
 })
 export class TreetableSelectionmultipleDemo implements OnInit {
@@ -2114,6 +2239,8 @@ Single node selection is configured by setting selectionMode as single along wit
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'ngx-prime/api';
@@ -2125,36 +2252,44 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th>
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <div class="flex gap-4 items-center justify-center mb-6">
+                <p-toggleswitch [(ngModel)]="metaKeySelection" />
+                <span>Metakey</span>
+            </div>
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" selectionMode="single" [metaKeySelection]="metaKeySelection" [(selection)]="selectedNode" dataKey="name" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th>
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
-    imports: [TreeTableModule],
+    imports: [ToggleSwitchModule, TreeTableModule, FormsModule],
     providers: [NodeService]
 })
 export class TreetableSelectionsingleDemo implements OnInit {
@@ -2181,36 +2316,47 @@ In addition to a regular treetable, alternatives with alternative sizes are avai
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButtonModule } from 'ngx-prime/selectbutton';
 import { TreeTableModule } from 'ngx-prime/treetable';
 import { NodeService } from '@/service/nodeservice';
 import { TreeNode } from 'ngx-prime/api';
 
 @Component({
     template: `
-        <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [class]="selectedSize">
-            <ng-template #header>
-                <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Type</th>
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    <td>
-                        <div class="flex items-center gap-2">
-                            <p-treetable-toggler [rowNode]="rowNode" />
-                            <span>{{ rowData.name }}</span>
-                        </div>
-                    </td>
-                    <td>{{ rowData.size }}</td>
-                    <td>{{ rowData.type }}</td>
-                </tr>
-            </ng-template>
-        </p-treetable>
+        <section class="py-6">
+            <div class="card">
+                <div class="flex justify-center mb-4">
+                    <p-selectbutton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
+                </div>
+                <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                    <p-treetable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [class]="selectedSize">
+                        <ng-template #header>
+                            <tr>
+                                <th>Name</th>
+                                <th>Size</th>
+                                <th>Type</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template #body let-rowNode let-rowData="rowData">
+                            <tr [ttRow]="rowNode">
+                                <td>
+                                    <div class="flex items-center gap-2">
+                                        <p-treetable-toggler [rowNode]="rowNode" />
+                                        <span>{{ rowData.name }}</span>
+                                    </div>
+                                </td>
+                                <td>{{ rowData.size }}</td>
+                                <td>{{ rowData.type }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-treetable>
+                </app-p-deferred-demo>
+            </div>
+        </section>
     `,
     standalone: true,
-    imports: [TreeTableModule],
+    imports: [SelectButtonModule, TreeTableModule, FormsModule],
     providers: [NodeService]
 })
 export class TreetableSizeDemo implements OnInit {
@@ -2247,36 +2393,40 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th [ttSortableColumn]="col.field">
-                            <div class="flex items-center gap-2">
-                                {{ col.header }}
-                                <p-treetable-sort-icon [field]="col.field" />
-                            </div>
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" sortMode="multiple" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th [ttSortableColumn]="col.field">
+                                    <div class="flex items-center gap-2">
+                                        {{ col.header }}
+                                        <p-treetable-sort-icon [field]="col.field" />
+                                    </div>
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2316,36 +2466,46 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable
-            #tt
-            [value]="files"
-            (sortFunction)="customSort($event)"
-            [customSort]="true"
-            [columns]="cols"
-            selectionMode="single"
-            [metaKeySelection]="metaKeySelection"
-            [(selection)]="selectedNode"
-            dataKey="name"
-            [scrollable]="true"
-            [tableStyle]="{ 'min-width': '50rem' }"
-        >
-            <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th *ngFor="let col of columns" [ttSortableColumn]="col.field">
-                        {{ col.header }}
-                        <p-treetableSortIcon [field]="col.field" />
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                    <td *ngFor="let col of columns; let i = index">
-                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
-                        {{ rowData[col.field] }}
-                    </td>
-                </tr>
-            </ng-template>
-        </p-treetable>
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable
+                    #tt
+                    [value]="files"
+                    (sortFunction)="customSort($event)"
+                    [customSort]="true"
+                    [columns]="cols"
+                    selectionMode="single"
+                    [metaKeySelection]="metaKeySelection"
+                    [(selection)]="selectedNode"
+                    dataKey="name"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th [ttSortableColumn]="col.field">
+                                    {{ col.header }}
+                                    <p-treetableSortIcon [field]="col.field" />
+                                </th>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                            @for (col of columns; track col; let i = $index) {
+                                <td>
+                                    @if (i === 0) {
+                                        <p-treeTableToggler [rowNode]="rowNode" />
+                                    }
+                                    {{ rowData[col.field] }}
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2391,6 +2551,7 @@ export class TreetableSortremovableDemo implements OnInit {
             let value1 = data1.data[event.field];
             let value2 = data2.data[event.field];
             let result = null;
+        
             if (value1 == null && value2 != null) result = -1;
             else if (value1 != null && value2 == null) result = 1;
             else if (value1 == null && value2 == null) result = 0;
@@ -2420,36 +2581,40 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; track col) {
-                        <th [ttSortableColumn]="col.field">
-                            <div class="flex items-center gap-2">
-                                {{ col.header }}
-                                <p-treetable-sort-icon [field]="col.field" />
-                            </div>
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else {
-                                {{ rowData[col.field] }}
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; track col) {
+                                <th [ttSortableColumn]="col.field">
+                                    <div class="flex items-center gap-2">
+                                        {{ col.header }}
+                                        <p-treetable-sort-icon [field]="col.field" />
+                                    </div>
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode"></p-treetable-toggler>
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else {
+                                        {{ rowData[col.field] }}
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [TreeTableModule],
@@ -2489,44 +2654,48 @@ interface Column {
 
 @Component({
     template: `
-        <p-treetable [value]="files" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template #caption><div class="text-xl font-bold">File Viewer</div> </ng-template>
-            <ng-template #header let-columns>
-                <tr>
-                    @for (col of columns; let last = $last; track col) {
-                        <th [class]="{ 'w-40': last }">
-                            {{ col.header }}
-                        </th>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
-                <tr [ttRow]="rowNode">
-                    @for (col of columns; let first = $first; let last = $last; track col) {
-                        <td>
-                            @if (first) {
-                                <div class="flex items-center gap-2">
-                                    <p-treetable-toggler [rowNode]="rowNode" />
-                                    <span>{{ rowData[col.field] }}</span>
-                                </div>
-                            } @else if (last) {
-                                <div class="flex flex-wrap gap-2">
-                                    <p-button icon="pi pi-search" rounded="true" severity="secondary" />
-                                    <p-button icon="pi pi-pencil" rounded="true" severity="secondary" />
-                                </div>
-                            } @else {
-                                <span>{{ rowData[col.field] }}</span>
+        <div class="card">
+            <app-p-deferred-demo (demoLoad)="loadDemoData()">
+                <p-treetable [value]="files" [columns]="cols" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template #caption><div class="text-xl font-bold">File Viewer</div> </ng-template>
+                    <ng-template #header let-columns>
+                        <tr>
+                            @for (col of columns; let last = $last; track col) {
+                                <th [class]="{ 'w-40': last }">
+                                    {{ col.header }}
+                                </th>
                             }
-                        </td>
-                    }
-                </tr>
-            </ng-template>
-            <ng-template #summary>
-                <div style="text-align:left">
-                    <p-button icon="pi pi-refresh" label="Reload" severity="warn" />
-                </div>
-            </ng-template>
-        </p-treetable>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            @for (col of columns; let first = $first; let last = $last; track col) {
+                                <td>
+                                    @if (first) {
+                                        <div class="flex items-center gap-2">
+                                            <p-treetable-toggler [rowNode]="rowNode" />
+                                            <span>{{ rowData[col.field] }}</span>
+                                        </div>
+                                    } @else if (last) {
+                                        <div class="flex flex-wrap gap-2">
+                                            <p-button icon="pi pi-search" rounded="true" severity="secondary" />
+                                            <p-button icon="pi pi-pencil" rounded="true" severity="secondary" />
+                                        </div>
+                                    } @else {
+                                        <span>{{ rowData[col.field] }}</span>
+                                    }
+                                </td>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template #summary>
+                        <div style="text-align:left">
+                            <p-button icon="pi pi-refresh" label="Reload" severity="warn" />
+                        </div>
+                    </ng-template>
+                </p-treetable>
+            </app-p-deferred-demo>
+        </div>
     `,
     standalone: true,
     imports: [ButtonModule, TreeTableModule],

@@ -10,8 +10,8 @@
         "paths": {
             "ngx-prime/types/*": ["./packages/ngx-prime/src/types/*/public_api"],
             "ngx-prime/*": ["./packages/ngx-prime/src/*/public_api"],
-            "@ngx-prime/themes/*": ["./packages/themes/src/presets/*/index"],
-            "@ngx-prime/themes": ["./packages/themes/src/index"]
+            "@wawjs/ngx-prime-themes/*": ["./packages/themes/src/presets/*/index"],
+            "@wawjs/ngx-prime-themes": ["./packages/themes/src/index"]
         },
         "resolveJsonModule": true,
         "esModuleInterop": true,

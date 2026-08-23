@@ -210,7 +210,9 @@ interface EventItem {
                 </ng-template>
                 <ng-template #content let-event>
                     <p-card [header]="event.status" [subheader]="event.date">
-                        <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                        @if (event.image) {
+                            <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
+                        }
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
                             neque quas!

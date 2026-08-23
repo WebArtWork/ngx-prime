@@ -33,8 +33,8 @@
         "paths": {                                           /* (UPDATED) Specify a set of entries that re-map imports to additional lookup locations. */
             "ngx-prime/types/*": ["./packages/ngx-prime/src/types/*/public_api"],
             "ngx-prime/*": ["./packages/ngx-prime/src/*/public_api"],
-            "@ngx-prime/themes/*": ["./packages/themes/src/presets/*/index"],
-            "@ngx-prime/themes": ["./packages/themes/src/index"]
+            "@wawjs/ngx-prime-themes/*": ["./packages/themes/src/presets/*/index"],
+            "@wawjs/ngx-prime-themes": ["./packages/themes/src/index"]
         },
         // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
         // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */

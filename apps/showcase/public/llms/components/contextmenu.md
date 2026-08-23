@@ -62,18 +62,19 @@ interface Users {
         <div class="card flex sm:justify-center">
             <p-toast />
             <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
-                <li
-                    *ngFor="let user of users"
-                    class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
-                    [ngClass]="{ 'border-primary': selectedId === user.id }"
-                    (contextmenu)="onContextMenu($event, user)"
-                >
-                    <div class="flex flex-1 items-center gap-2">
-                        <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/avatar/' + user.image" />
-                        <span class="font-bold">{{ user.name }}</span>
-                    </div>
-                    <p-tag [value]="user.role" [severity]="getBadge(user)" />
-                </li>
+                @for (user of users; track user) {
+                    <li
+                        class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+                        [ngClass]="{ 'border-primary': selectedId === user.id }"
+                        (contextmenu)="onContextMenu($event, user)"
+                    >
+                        <div class="flex flex-1 items-center gap-2">
+                            <img class="w-8 h-8" [alt]="user.name" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/avatar/' + user.image" />
+                            <span class="font-bold">{{ user.name }}</span>
+                        </div>
+                        <p-tag [value]="user.role" [severity]="getBadge(user)" />
+                    </li>
+                }
             </ul>
             <p-contextmenu #cm [model]="items" (onHide)="onHide()" />
         </div>
@@ -300,33 +301,40 @@ import { ContextMenu } from 'ngx-prime/contextmenu';
     template: `
         <div class="card flex md:justify-center">
             <ul class="m-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]">
-                <li
-                    *ngFor="let product of data"
-                    class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
-                    [ngClass]="{ 'border-primary': selectedId === product.id }"
-                    (contextmenu)="onContextMenu($event)"
-                >
-                    <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.name" />
-                        <div class="flex-1 flex flex-col gap-1">
-                            <span class="font-bold">{{ product.name }}</span>
-                            <div class="flex items-center gap-2">
-                                <i class="pi pi-tag text-sm"></i>
-                                <span>{{ product.category }}</span>
+                @for (product of data; track product) {
+                    <li
+                        class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
+                        [ngClass]="{ 'border-primary': selectedId === product.id }"
+                        (contextmenu)="onContextMenu($event)"
+                    >
+                        <div class="flex flex-wrap p-2 items-center gap-4">
+                            <img class="w-16 shrink-0 rounded" src="https://primefaces.org/cdn/ngx-prime/images/demo/product/{{ product.image }}" [alt]="product.name" />
+                            <div class="flex-1 flex flex-col gap-1">
+                                <span class="font-bold">{{ product.name }}</span>
+                                <div class="flex items-center gap-2">
+                                    <i class="pi pi-tag text-sm"></i>
+                                    <span>{{ product.category }}</span>
+                                </div>
                             </div>
+                            <span class="font-bold ml-8">&#36;{{ product.price }}</span>
                         </div>
-                        <span class="font-bold ml-8">&#36;{{ product.price }}</span>
-                    </div>
-                </li>
+                    </li>
+                }
             </ul>
             <p-contextmenu #cm [model]="items" (onHide)="onHide()">
                 <ng-template #item let-item>
                     <a pRipple class="flex items-center px-4 py-3 cursor-pointer">
                         <span [class]="item.icon"></span>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="item.items" class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
+                        @if (item.badge) {
+                            <p-badge class="ms-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
+                        @if (item.items) {
+                            <i class="pi pi-angle-right ms-auto rotate-90 lg:rotate-0"></i>
+                        }
                     </a>
                 </ng-template>
             </p-contextmenu>

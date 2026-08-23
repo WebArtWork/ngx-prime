@@ -67,10 +67,12 @@ import { CheckboxModule } from 'ngx-prime/checkbox';
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
-                <div *ngFor="let category of categories" class="flex items-center">
-                    <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
-                    <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
-                </div>
+                @for (category of categories; track category) {
+                    <div class="flex items-center">
+                        <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
+                        <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
+                    </div>
+                }
             </div>
         </div>
     `,
@@ -135,7 +137,7 @@ export class CheckboxIndeterminateDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -276,6 +278,7 @@ export class CheckboxReactiveformsDemo {
     atLeastOneSelectedValidator(group: FormGroup) {
         [key: string]: any } | null {
         const anySelected = Object.values(group.controls).some((control) => control.value === true);
+        
         return anySelected ? null : { atLeastOneRequired: true };
     }
 
@@ -285,6 +288,7 @@ export class CheckboxReactiveformsDemo {
 
     isInvalid(controlName: string): boolean {
         const control = this.exampleForm.get(controlName);
+        
         return this.formSubmitted && this.exampleForm.hasError('atLeastOneRequired') && control?.value === false;
     }
 

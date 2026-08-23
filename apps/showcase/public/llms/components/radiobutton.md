@@ -43,10 +43,12 @@ import { RadioButtonModule } from 'ngx-prime/radiobutton';
     template: `
         <div class="card flex justify-center">
             <div class="flex flex-col gap-4">
-                <div *ngFor="let category of categories" class="field-checkbox">
-                    <p-radiobutton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
-                    <label [for]="category.key" class="ml-2">{{ category.name }}</label>
-                </div>
+                @for (category of categories; track category) {
+                    <div class="field-checkbox">
+                        <p-radiobutton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
+                        <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+                    </div>
+                }
             </div>
         </div>
     `,
@@ -128,7 +130,7 @@ export class RadiobuttonGroupDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -146,6 +148,36 @@ import { RadioButtonModule } from 'ngx-prime/radiobutton';
 })
 export class RadiobuttonInvalidDemo {
     value: boolean = false;
+}
+```
+
+## Native Input
+
+Use pRadioButton on a native radio input. Native browser grouping, keyboard navigation, labels, and Angular forms remain available.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <div class="flex flex-wrap gap-4">
+                @for (option of options; track option) {
+                    <div class="flex items-center">
+                        <input type="radio" pRadioButton name="native-pizza" [value]="option" [(ngModel)]="ingredient" [id]="'native-' + option" />
+                        <label [for]="'native-' + option" class="ml-2">{{ option }}</label>
+                    </div>
+                }
+            </div>
+        </div>
+    `,
+    standalone: true,
+    imports: [FormsModule]
+})
+export class RadiobuttonNativeDemo {
+    options: any[] = ['Cheese', 'Mushroom', 'Pepper', 'Onion'];
+    ingredient: any = this.options[0];
 }
 ```
 
@@ -203,6 +235,7 @@ export class RadiobuttonReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && this.formSubmitted;
     }
 

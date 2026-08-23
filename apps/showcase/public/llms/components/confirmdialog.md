@@ -34,6 +34,36 @@ export class ConfirmdialogBasicDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
 
+    confirm1(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Are you sure that you want to proceed?',
+            header: 'Confirmation',
+            closable: true,
+            closeOnEscape: true,
+            icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Save'
+            },
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+            },
+            reject: () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Rejected',
+                    detail: 'You have rejected',
+                    life: 3000
+                });
+            }
+        });
+    }
+
     confirm2(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
@@ -104,6 +134,19 @@ import { MessageService, ConfirmationService } from 'ngx-prime/api';
 export class ConfirmdialogHeadlessDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
+
+    confirm() {
+        this.confirmationService.confirm({
+            header: 'Are you sure?',
+            message: 'Please confirm to proceed.',
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'info', summary: 'Rejected', detail: 'You have rejected' });
+            }
+        });
+    }
 }
 ```
 
@@ -147,6 +190,38 @@ import { Dialog } from 'ngx-prime/dialog';
 export class ConfirmdialogPositionDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
+
+    confirmPosition(position: 'left' | 'right' | 'top' | 'bottom' | 'center' | 'topleft' | 'topright' | 'bottomleft' | 'bottomright') {
+        this.position = position;
+        
+        this.confirmationService.confirm({
+            message: 'Are you sure you want to proceed?',
+            header: 'Confirmation',
+            icon: 'pi pi-info-circle',
+            rejectButtonStyleClass: 'p-button-text',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                text: true
+            },
+            acceptButtonProps: {
+                label: 'Save',
+                text: true
+            },
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Request submitted' });
+            },
+            reject: () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Rejected',
+                    detail: 'Process incomplete',
+                    life: 3000
+                });
+            },
+            key: 'positionDialog'
+        });
+    }
 }
 ```
 
@@ -185,6 +260,31 @@ import { MessageService, ConfirmationService } from 'ngx-prime/api';
 export class ConfirmdialogTemplateDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
+
+    confirm() {
+        this.confirmationService.confirm({
+            header: 'Confirmation',
+            message: 'Please confirm to proceed moving forward.',
+            icon: 'pi pi-exclamation-circle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                icon: 'pi pi-times',
+                variant: 'outlined',
+                size: 'small'
+            },
+            acceptButtonProps: {
+                label: 'Save',
+                icon: 'pi pi-check',
+                size: 'small'
+            },
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            }
+        });
+    }
 }
 ```
 

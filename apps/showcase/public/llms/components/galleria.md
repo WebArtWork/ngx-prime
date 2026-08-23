@@ -57,11 +57,13 @@ import { PhotoService } from '@/service/photoservice';
                             (click)="toggleAutoSlide()"
                             class="bg-transparent border-none rounded-none hover:bg-white/10 text-white inline-flex justify-center items-center cursor-pointer px-3"
                         ></button>
-                        <span *ngIf="images()" class="flex items-center gap-4 ml-3">
-                            <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
-                            <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
-                            <span class="text-sm">{{ images()[activeIndex].alt }}</span>
-                        </span>
+                        @if (images()) {
+                            <span class="flex items-center gap-4 ml-3">
+                                <span class="text-sm">{{ activeIndex + 1 }}/{{ images().length }}</span>
+                                <span class="font-bold text-sm">{{ images()[activeIndex].title }}</span>
+                                <span class="text-sm">{{ images()[activeIndex].alt }}</span>
+                            </span>
+                        }
                         <button
                             type="button"
                             pButton
@@ -113,6 +115,7 @@ export class GalleriaAdvancedDemo implements OnInit {
 
     openPreviewFullScreen() {
         let elem = this.galleria?.element.nativeElement.querySelector('.p-galleria');
+        
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
         } else if (elem['mozRequestFullScreen']) {
@@ -397,10 +400,12 @@ import { PhotoService } from '@/service/photoservice';
     template: `
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
-                <div *ngFor="let option of positionOptions" class="flex items-center">
-                    <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
-                    <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
-                </div>
+                @for (option of positionOptions; track option) {
+                    <div class="flex items-center">
+                        <p-radiobutton [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="option.label" />
+                        <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+                    </div>
+                }
             </div>
             <p-galleria [value]="images()" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template #item let-item>

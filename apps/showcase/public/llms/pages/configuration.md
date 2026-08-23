@@ -20,7 +20,7 @@ Inject the ngx-prime to your application to update the initial configuration at 
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ngx-prime } from 'ngx-prime/config';
+import { NgxPrime } from 'ngx-prime/config';
 
 @Component({
     selector: 'app-root',
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     constructor(private ngx-prime: ngx-prime) {}
 
     ngOnInit() {
-        this.ngx-prime.ripple.set(true);
+        this.NgxPrime.ripple.set(true);
     }
 }
 ```
@@ -79,7 +79,7 @@ The translations can be changed dynamically at runtime, here is an example with 
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
-import { ngx-prime } from 'ngx-prime/config';
+import { NgxPrime } from 'ngx-prime/config';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -96,7 +96,7 @@ export class AppComponent implements OnInit {
 
     translate(lang: string) {
         this.translateService.use(lang);
-        this.translateService.get('ngx-prime').subscribe(res => this.ngx-prime.setTranslation(res));
+        this.translateService.get('ngx-prime').subscribe(res => this.NgxPrime.setTranslation(res));
     }
 }
 ```

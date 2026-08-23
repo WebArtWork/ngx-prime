@@ -91,7 +91,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     providers: [MessageService]
 })
 export class TemplateDoc {
-    private config = inject(ngx - prime);
+    private config = inject(NgxPrime);
     private messageService = inject(MessageService);
 
     files = [];

@@ -24,38 +24,40 @@ import { Product } from '@/domain/product';
             <p-dataview #dv [value]="products()">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                        <div class="col-span-12" *ngFor="let item of items; let first = first">
-                            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-                                <div class="md:w-40 relative">
-                                    <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
-                                </div>
-                                <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
-                                    <div class="flex flex-row md:flex-col justify-between items-start gap-2">
-                                        <div>
-                                            <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
-                                            <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
-                                        </div>
-                                        <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
-                                            <div
-                                                class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
-                                                style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
-                                            >
-                                                <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
-                                                <i class="pi pi-star-fill text-yellow-500"></i>
+                        @for (item of items; track item; let first = $first) {
+                            <div class="col-span-12">
+                                <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
+                                    <div class="md:w-40 relative">
+                                        <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + item.image" [alt]="item.name" />
+                                        <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                    </div>
+                                    <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
+                                        <div class="flex flex-row md:flex-col justify-between items-start gap-2">
+                                            <div>
+                                                <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
+                                                <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
+                                            </div>
+                                            <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
+                                                <div
+                                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                                                    style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
+                                                >
+                                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
+                                                    <i class="pi pi-star-fill text-yellow-500"></i>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="flex flex-col md:items-end gap-8">
-                                        <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
-                                        <div class="flex flex-row-reverse md:flex-row gap-2">
-                                            <p-button icon="pi pi-heart" [outlined]="true" />
-                                            <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                        <div class="flex flex-col md:items-end gap-8">
+                                            <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
+                                            <div class="flex flex-row-reverse md:flex-row gap-2">
+                                                <p-button icon="pi pi-heart" [outlined]="true" />
+                                                <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </ng-template>
             </p-dataview>
@@ -123,69 +125,73 @@ import { Product } from '@/domain/product';
                     </div>
                 </ng-template>
                 <ng-template #list let-items>
-                    <div *ngFor="let item of items; let first = first">
-                        <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-                            <div class="md:w-40 relative">
-                                <img class="block xl:block mx-auto rounded w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + item.image" [alt]="item.name" />
-                                <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
-                            </div>
-                            <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
-                                <div class="flex flex-row md:flex-col justify-between items-start gap-2">
-                                    <div>
-                                        <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ item.category }}</span>
-                                        <div class="text-lg font-medium mt-2">{{ item.name }}</div>
-                                    </div>
-                                    <div class="bg-surface-100 p-1" style="border-radius: 30px">
-                                        <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                            <span class="text-surface-900 font-medium text-sm">{{ item.rating }}</span>
-                                            <i class="pi pi-star-fill text-yellow-500"></i>
-                                        </div>
-                                    </div>
+                    @for (item of items; track item; let first = $first) {
+                        <div>
+                            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
+                                <div class="md:w-40 relative">
+                                    <img class="block xl:block mx-auto rounded w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + item.image" [alt]="item.name" />
+                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
-                                <div class="flex flex-col md:items-end gap-8">
-                                    <span class="text-xl font-semibold">{{ item.price | currency: 'USD' }}</span>
-                                    <div class="flex flex-row-reverse md:flex-row gap-2">
-                                        <button pButton icon="pi pi-heart" [outlined]="true"></button>
-                                        <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap"></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-                <ng-template #grid let-items>
-                    <div class="grid grid-cols-12 gap-4">
-                        <div *ngFor="let product of items" class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2">
-                            <div class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col">
-                                <div class="bg-surface-50 flex justify-center rounded p-4">
-                                    <div class="relative mx-auto">
-                                        <img class="rounded w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.name" style="max-width: 300px" />
-                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
-                                    </div>
-                                </div>
-                                <div class="pt-6">
-                                    <div class="flex flex-row justify-between products-start gap-2">
+                                <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
+                                    <div class="flex flex-row md:flex-col justify-between items-start gap-2">
                                         <div>
-                                            <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ product.category }}</span>
-                                            <div class="text-lg font-medium mt-1">{{ product.name }}</div>
+                                            <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ item.category }}</span>
+                                            <div class="text-lg font-medium mt-2">{{ item.name }}</div>
                                         </div>
-                                        <div class="bg-surface-100 p-1" style="border-radius: 30px; height:100%">
-                                            <div class="bg-surface-0 flex products-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                                <span class="text-surface-900 font-medium text-sm">{{ product.rating }}</span>
+                                        <div class="bg-surface-100 p-1" style="border-radius: 30px">
+                                            <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                                <span class="text-surface-900 font-medium text-sm">{{ item.rating }}</span>
                                                 <i class="pi pi-star-fill text-yellow-500"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex flex-col gap-6 mt-6">
-                                        <span class="text-2xl font-semibold">{{ product.price | currency: 'USD' }}</span>
-                                        <div class="flex gap-2">
-                                            <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto whitespace-nowrap"></button>
-                                            <button pButton icon="pi pi-heart" outlined></button>
+                                    <div class="flex flex-col md:items-end gap-8">
+                                        <span class="text-xl font-semibold">{{ item.price | currency: 'USD' }}</span>
+                                        <div class="flex flex-row-reverse md:flex-row gap-2">
+                                            <button pButton icon="pi pi-heart" [outlined]="true"></button>
+                                            <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto md:flex-initial whitespace-nowrap"></button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    }
+                </ng-template>
+                <ng-template #grid let-items>
+                    <div class="grid grid-cols-12 gap-4">
+                        @for (product of items; track product) {
+                            <div class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2">
+                                <div class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded flex flex-col">
+                                    <div class="bg-surface-50 flex justify-center rounded p-4">
+                                        <div class="relative mx-auto">
+                                            <img class="rounded w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + product.image" [alt]="product.name" style="max-width: 300px" />
+                                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                        </div>
+                                    </div>
+                                    <div class="pt-6">
+                                        <div class="flex flex-row justify-between products-start gap-2">
+                                            <div>
+                                                <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ product.category }}</span>
+                                                <div class="text-lg font-medium mt-1">{{ product.name }}</div>
+                                            </div>
+                                            <div class="bg-surface-100 p-1" style="border-radius: 30px; height:100%">
+                                                <div class="bg-surface-0 flex products-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                                    <span class="text-surface-900 font-medium text-sm">{{ product.rating }}</span>
+                                                    <i class="pi pi-star-fill text-yellow-500"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col gap-6 mt-6">
+                                            <span class="text-2xl font-semibold">{{ product.price | currency: 'USD' }}</span>
+                                            <div class="flex gap-2">
+                                                <button pButton icon="pi pi-shopping-cart" label="Buy Now" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'" class="flex-auto whitespace-nowrap"></button>
+                                                <button pButton icon="pi pi-heart" outlined></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                     </div>
                 </ng-template>
             </p-dataview>
@@ -204,6 +210,22 @@ export class DataviewLayoutDemo implements OnInit {
         this.productService.getProducts().then((data) => {
             this.products.set([...data.slice(0, 12)]);
         });
+    }
+
+    getSeverity(product: Product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+        
+            case 'LOWSTOCK':
+                return 'warn';
+        
+            case 'OUTOFSTOCK':
+                return 'danger';
+        
+            default:
+                return null;
+        }
     }
 }
 ```
@@ -236,46 +258,50 @@ import { Product } from '@/domain/product';
                 </ng-template>
                 <ng-template #list let-items>
                     <div class="flex flex-col">
-                        <div *ngFor="let i of counterArray(6); let first = first">
-                            <div class="flex flex-col xl:flex-row xl:items-start p-6 gap-6" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-                                <p-skeleton class="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
-                                <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
-                                    <div class="flex flex-col items-center sm:items-start gap-4">
-                                        <p-skeleton width="8rem" height="2rem" />
-                                        <p-skeleton width="6rem" height="1rem" />
-                                        <div class="flex items-center gap-4">
+                        @for (i of counterArray(6); track i; let first = $first) {
+                            <div>
+                                <div class="flex flex-col xl:flex-row xl:items-start p-6 gap-6" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
+                                    <p-skeleton class="!w-9/12 sm:!w-64 xl:!w-40 !h-24 mx-auto" />
+                                    <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
+                                        <div class="flex flex-col items-center sm:items-start gap-4">
+                                            <p-skeleton width="8rem" height="2rem" />
                                             <p-skeleton width="6rem" height="1rem" />
-                                            <p-skeleton width="3rem" height="1rem" />
+                                            <div class="flex items-center gap-4">
+                                                <p-skeleton width="6rem" height="1rem" />
+                                                <p-skeleton width="3rem" height="1rem" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="flex sm:flex-col items-center sm:items-end gap-4 sm:gap-2">
-                                        <p-skeleton width="4rem" height="2rem" />
-                                        <p-skeleton size="3rem" shape="circle" />
+                                        <div class="flex sm:flex-col items-center sm:items-end gap-4 sm:gap-2">
+                                            <p-skeleton width="4rem" height="2rem" />
+                                            <p-skeleton size="3rem" shape="circle" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </ng-template>
                 <ng-template #grid let-items>
                     <div class="grid grid-cols-12 gap-4">
-                        <div *ngFor="let i of counterArray(6); let first = first" class="col-span-12 sm:col-span-6 xl:col-span-4 p-2">
-                            <div class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded">
-                                <div class="flex flex-wrap items-center justify-between gap-2">
-                                    <p-skeleton width="6rem" height="2rem" />
-                                    <p-skeleton width="3rem" height="1rem" />
-                                </div>
-                                <div class="flex flex-col items-center gap-4 py-8">
-                                    <p-skeleton height="10rem" class="w-3/4" class="w-3/4" />
-                                    <p-skeleton width="8rem" height="2rem" />
-                                    <p-skeleton width="6rem" height="1rem" />
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <p-skeleton width="4rem" height="2rem" />
-                                    <p-skeleton width="6rem" height="1rem" shape="circle" size="3rem" />
+                        @for (i of counterArray(6); track i; let first = $first) {
+                            <div class="col-span-12 sm:col-span-6 xl:col-span-4 p-2">
+                                <div class="p-6 border border-surface-200 dark:border-surface-700 bg-surface-0 dark:bg-surface-900 rounded">
+                                    <div class="flex flex-wrap items-center justify-between gap-2">
+                                        <p-skeleton width="6rem" height="2rem" />
+                                        <p-skeleton width="3rem" height="1rem" />
+                                    </div>
+                                    <div class="flex flex-col items-center gap-4 py-8">
+                                        <p-skeleton height="10rem" class="w-3/4" class="w-3/4" />
+                                        <p-skeleton width="8rem" height="2rem" />
+                                        <p-skeleton width="6rem" height="1rem" />
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <p-skeleton width="4rem" height="2rem" />
+                                        <p-skeleton width="6rem" height="1rem" shape="circle" size="3rem" />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </ng-template>
             </p-dataview>
@@ -292,6 +318,22 @@ export class DataviewLoadingDemo implements OnInit {
 
     ngOnInit() {
         this.productService.getProducts().then((data) => this.products.set([...data.slice(0, 12)]));
+    }
+
+    getSeverity(product: Product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+        
+            case 'LOWSTOCK':
+                return 'warning';
+        
+            case 'OUTOFSTOCK':
+                return 'danger';
+        
+            default:
+                return null;
+        }
     }
 
     counterArray(n: number): any[] {
@@ -318,38 +360,40 @@ import { Product } from '@/domain/product';
             <p-dataview #dv [value]="products()" [rows]="5" [paginator]="true">
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                        <div class="col-span-12" *ngFor="let item of items; let first = first">
-                            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-                                <div class="md:w-40 relative">
-                                    <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
-                                </div>
-                                <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
-                                    <div class="flex flex-row md:flex-col justify-between items-start gap-2">
-                                        <div>
-                                            <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
-                                            <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
-                                        </div>
-                                        <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
-                                            <div
-                                                class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
-                                                style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
-                                            >
-                                                <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
-                                                <i class="pi pi-star-fill text-yellow-500"></i>
+                        @for (item of items; track item; let first = $first) {
+                            <div class="col-span-12">
+                                <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
+                                    <div class="md:w-40 relative">
+                                        <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + item.image" [alt]="item.name" />
+                                        <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
+                                    </div>
+                                    <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
+                                        <div class="flex flex-row md:flex-col justify-between items-start gap-2">
+                                            <div>
+                                                <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
+                                                <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
+                                            </div>
+                                            <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
+                                                <div
+                                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                                                    style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
+                                                >
+                                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
+                                                    <i class="pi pi-star-fill text-yellow-500"></i>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="flex flex-col md:items-end gap-8">
-                                        <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
-                                        <div class="flex flex-row-reverse md:flex-row gap-2">
-                                            <p-button icon="pi pi-heart" [outlined]="true" />
-                                            <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                        <div class="flex flex-col md:items-end gap-8">
+                                            <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
+                                            <div class="flex flex-row-reverse md:flex-row gap-2">
+                                                <p-button icon="pi pi-heart" [outlined]="true" />
+                                                <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </ng-template>
             </p-dataview>
@@ -367,6 +411,22 @@ export class DataviewPaginationDemo implements OnInit {
         this.productService.getProducts().then((data) => {
             this.products.set(data);
         });
+    }
+
+    getSeverity(product: Product) {
+        switch (product.inventoryStatus) {
+            case 'INSTOCK':
+                return 'success';
+        
+            case 'LOWSTOCK':
+                return 'warn';
+        
+            case 'OUTOFSTOCK':
+                return 'danger';
+        
+            default:
+                return null;
+        }
     }
 }
 ```
@@ -397,38 +457,40 @@ import { Product } from '@/domain/product';
                 </ng-template>
                 <ng-template #list let-items>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
-                        <div class="col-span-12" *ngFor="let item of items; let first = first">
-                            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
-                                <div class="md:w-40 relative">
-                                    <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + item.image" [alt]="item.name" />
-                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="dark:!bg-surface-900 absolute" [style.left.px]="4" [style.top.px]="4" />
-                                </div>
-                                <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
-                                    <div class="flex flex-row md:flex-col justify-between items-start gap-2">
-                                        <div>
-                                            <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
-                                            <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
-                                        </div>
-                                        <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
-                                            <div
-                                                class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
-                                                style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
-                                            >
-                                                <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
-                                                <i class="pi pi-star-fill text-yellow-500"></i>
+                        @for (item of items; track item; let first = $first) {
+                            <div class="col-span-12">
+                                <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-t border-surface-200 dark:border-surface-700': !first }">
+                                    <div class="md:w-40 relative">
+                                        <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + item.image" [alt]="item.name" />
+                                        <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="dark:!bg-surface-900 absolute" [style.left.px]="4" [style.top.px]="4" />
+                                    </div>
+                                    <div class="flex flex-col md:flex-row justify-between md:items-center flex-1 gap-6">
+                                        <div class="flex flex-row md:flex-col justify-between items-start gap-2">
+                                            <div>
+                                                <span class="font-medium text-secondary text-sm">{{ item.category }}</span>
+                                                <div class="text-lg font-medium text-surface-900 dark:text-surface-0 mt-2">{{ item.name }}</div>
+                                            </div>
+                                            <div class="bg-surface-100 dark:bg-surface-700 p-1" style="border-radius: 30px">
+                                                <div
+                                                    class="bg-surface-0 dark:bg-surface-900 flex items-center gap-2 justify-center py-1 px-2"
+                                                    style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)"
+                                                >
+                                                    <span class="text-surface-900 dark:text-surface-0 font-medium text-sm">{{ item.rating }}</span>
+                                                    <i class="pi pi-star-fill text-yellow-500"></i>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="flex flex-col md:items-end gap-8">
-                                        <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
-                                        <div class="flex flex-row-reverse md:flex-row gap-2">
-                                            <p-button icon="pi pi-heart" [outlined]="true" />
-                                            <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                        <div class="flex flex-col md:items-end gap-8">
+                                            <span class="text-xl font-semibold text-surface-900 dark:text-surface-0">{{ '$' + item.price }}</span>
+                                            <div class="flex flex-row-reverse md:flex-row gap-2">
+                                                <p-button icon="pi pi-heart" [outlined]="true" />
+                                                <p-button icon="pi pi-shopping-cart" class="flex-auto md:flex-initial whitespace-nowrap" label="Buy Now" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                 </ng-template>
             </p-dataview>
@@ -451,6 +513,18 @@ export class DataviewSortingDemo implements OnInit {
             { label: 'Price High to Low', value: '!price' },
             { label: 'Price Low to High', value: 'price' }
         ];
+    }
+
+    onSortChange(event: any) {
+        let value = event.value;
+        
+        if (value.indexOf('!') === 0) {
+            this.sortOrder = -1;
+            this.sortField = value.substring(1, value.length);
+        } else {
+            this.sortOrder = 1;
+            this.sortField = value;
+        }
     }
 
     getSeverity(product: Product) {

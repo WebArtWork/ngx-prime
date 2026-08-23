@@ -116,39 +116,41 @@ import { Product } from '@/domain/product';
             </p-table>
             <p-popover #op (onHide)="selectedProduct.set(null)">
                 <ng-template #content>
-                    <div *ngIf="selectedProduct()" class="rounded flex flex-col">
-                        <div class="flex justify-center rounded">
-                            <div class="relative mx-auto">
-                                <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
-                                <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
-                            </div>
-                        </div>
-                        <div class="pt-4">
-                            <div class="flex flex-row justify-between items-start gap-2 mb-4">
-                                <div>
-                                    <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct().category }}</span>
-                                    <div class="text-lg font-medium mt-1">{{ selectedProduct().name }}</div>
+                    @if (selectedProduct()) {
+                        <div class="rounded flex flex-col">
+                            <div class="flex justify-center rounded">
+                                <div class="relative mx-auto">
+                                    <img class="rounded w-44 sm:w-64" [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/product/' + selectedProduct().image" [alt]="selectedProduct().name" />
+                                    <p-tag [value]="selectedProduct().inventoryStatus" [severity]="getSeverity(selectedProduct())" class="absolute dark:!bg-surface-900" [style.left.px]="4" [style.top.px]="4" />
                                 </div>
-                                <div class="bg-surface-100 p-1" style="border-radius: 30px">
-                                    <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
-                                        <span class="text-surface-900 font-medium text-sm">{{ selectedProduct().rating }}</span>
-                                        <i class="pi pi-star-fill text-yellow-500"></i>
+                            </div>
+                            <div class="pt-4">
+                                <div class="flex flex-row justify-between items-start gap-2 mb-4">
+                                    <div>
+                                        <span class="font-medium text-surface-500 dark:text-surface-400 text-sm">{{ selectedProduct().category }}</span>
+                                        <div class="text-lg font-medium mt-1">{{ selectedProduct().name }}</div>
+                                    </div>
+                                    <div class="bg-surface-100 p-1" style="border-radius: 30px">
+                                        <div class="bg-surface-0 flex items-center gap-2 justify-center py-1 px-2" style="border-radius: 30px; box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.04), 0px 1px 2px 0px rgba(0, 0, 0, 0.06)">
+                                            <span class="text-surface-900 font-medium text-sm">{{ selectedProduct().rating }}</span>
+                                            <i class="pi pi-star-fill text-yellow-500"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="flex gap-2">
-                                <p-button
-                                    icon="pi pi-shopping-cart"
-                                    [label]="'Buy Now | $' + selectedProduct().price"
-                                    [disabled]="selectedProduct().inventoryStatus === 'OUTOFSTOCK'"
-                                    class="flex-auto"
-                                    styleClass="w-full whitespace-nowrap"
-                                    (onClick)="hidePopover()"
-                                />
-                                <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
+                                <div class="flex gap-2">
+                                    <p-button
+                                        icon="pi pi-shopping-cart"
+                                        [label]="'Buy Now | $' + selectedProduct().price"
+                                        [disabled]="selectedProduct().inventoryStatus === 'OUTOFSTOCK'"
+                                        class="flex-auto"
+                                        styleClass="w-full whitespace-nowrap"
+                                        (onClick)="hidePopover()"
+                                    />
+                                    <p-button icon="pi pi-heart" outlined (onClick)="hidePopover()" />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    }
                 </ng-template>
             </p-popover>
         </div>
@@ -223,13 +225,15 @@ import { Popover, PopoverModule } from 'ngx-prime/popover';
                     <div>
                         <span class="font-medium block mb-2">Team Members</span>
                         <ul class="list-none p-0 m-0 flex flex-col">
-                            <li *ngFor="let member of members" class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
-                                <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/avatar/' + member.image" style="width: 32px" />
-                                <div>
-                                    <span class="font-medium">{{ member.name }}</span>
-                                    <div class="text-sm text-surface-500 dark:text-surface-400">{{ member.email }}</div>
-                                </div>
-                            </li>
+                            @for (member of members; track member) {
+                                <li class="flex items-center gap-2 px-2 py-3 hover:bg-emphasis cursor-pointer rounded-border" (click)="selectMember(member)">
+                                    <img [src]="'https://primefaces.org/cdn/ngx-prime/images/demo/avatar/' + member.image" style="width: 32px" />
+                                    <div>
+                                        <span class="font-medium">{{ member.name }}</span>
+                                        <div class="text-sm text-surface-500 dark:text-surface-400">{{ member.email }}</div>
+                                    </div>
+                                </li>
+                            }
                         </ul>
                     </div>
                 </div>

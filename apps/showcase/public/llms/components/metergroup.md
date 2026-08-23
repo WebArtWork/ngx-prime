@@ -132,7 +132,7 @@ import { MeterGroupModule } from 'ngx-prime/metergroup';
             <p-metergroup [value]="value" labelPosition="start">
                 <ng-template #label>
                     <div class="flex flex-wrap gap-4">
-                        <ng-container *ngFor="let meterItem of value; let index = index">
+                        @for (meterItem of value; track meterItem; let index = $index) {
                             <p-card class="flex-1" styleClass="border border-surface shadow-none">
                                 <div class="flex justify-between gap-8">
                                     <div class="flex flex-col gap-1">
@@ -144,7 +144,7 @@ import { MeterGroupModule } from 'ngx-prime/metergroup';
                                     </span>
                                 </div>
                             </p-card>
-                        </ng-container>
+                        }
                     </div>
                 </ng-template>
                 <ng-template #meter let-value let-class="class" let-width="size">

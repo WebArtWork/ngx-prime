@@ -222,7 +222,7 @@ export class InputtextIftalabelDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -322,6 +322,7 @@ export class InputtextReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
             this.exampleForm.reset();
@@ -331,6 +332,7 @@ export class InputtextReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }

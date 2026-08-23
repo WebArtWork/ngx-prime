@@ -140,7 +140,7 @@ export class AppDocPtViewer implements AfterViewChecked {
 
         if (label.includes('pc')) {
             let reservedNames = ['Decrement', 'File', 'Increment', 'JumpToPage', 'Maximize', 'Node', 'Option', 'Prev', 'Remove', 'RowPerPage', 'Source', 'Target', 'MoveAllTo', 'MoveAll', 'MoveTop', 'MoveTo'];
-            let whiteList = [...reservedNames, ...Object.keys(this.NgxPrime.translation), ...Object.keys(this.NgxPrime.translation.aria)];
+            let whiteList = [...reservedNames, ...Object.keys(this.ngxPrime.translation), ...Object.keys(this.ngxPrime.translation.aria)];
             let elemName = label.replace('pc', '');
 
             if (elemName.includes('FilterContainer')) elemName = elemName.replace('FilterContainer', 'IconField');

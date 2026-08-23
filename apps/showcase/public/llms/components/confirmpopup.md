@@ -34,6 +34,28 @@ export class ConfirmpopupBasicDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
 
+    confirm1(event: Event) {
+        this.confirmationService.confirm({
+            target: event.currentTarget as EventTarget,
+            message: 'Are you sure you want to proceed?',
+            icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Save'
+            },
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            }
+        });
+    }
+
     confirm2(event: Event) {
         this.confirmationService.confirm({
             target: event.currentTarget as EventTarget,
@@ -207,6 +229,19 @@ import { MessageService, ConfirmationService } from 'ngx-prime/api';
 export class ConfirmpopupHeadlessDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
+
+    confirm(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Save your current process?',
+            accept: () => {
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+            },
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            }
+        });
+    }
 }
 ```
 
@@ -313,6 +348,39 @@ import { MessageService, ConfirmationService } from 'ngx-prime/api';
 export class ConfirmpopupTemplateDemo {
     private confirmationService = inject(ConfirmationService);
     private messageService = inject(MessageService);
+
+    confirm(event: Event) {
+        this.confirmationService.confirm({
+            target: event.target as EventTarget,
+            message: 'Please confirm to proceed moving forward.',
+            icon: 'pi pi-exclamation-circle',
+            rejectButtonProps: {
+                icon: 'pi pi-times',
+                label: 'Cancel',
+                outlined: true
+            },
+            acceptButtonProps: {
+                icon: 'pi pi-check',
+                label: 'Confirm'
+            },
+            accept: () => {
+                this.messageService.add({
+                    severity: 'info',
+                    summary: 'Confirmed',
+                    detail: 'You have accepted',
+                    life: 3000
+                });
+            },
+            reject: () => {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Rejected',
+                    detail: 'You have rejected',
+                    life: 3000
+                });
+            }
+        });
+    }
 }
 ```
 

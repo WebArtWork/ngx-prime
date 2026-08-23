@@ -152,6 +152,10 @@ export class InplaceLazyDemo implements OnInit {
 
     ngOnInit() {
     }
+
+    loadData() {
+        this.productService.getProductsMini().then((products) => (this.products = products));
+    }
 }
 ```
 

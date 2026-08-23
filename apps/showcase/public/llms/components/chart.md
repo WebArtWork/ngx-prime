@@ -29,6 +29,7 @@ export class ChartBasicDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -117,6 +118,7 @@ export class ChartComboDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -216,6 +218,7 @@ export class ChartDoughnutDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -276,6 +279,7 @@ export class ChartHorizontalbarDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -370,6 +374,7 @@ export class ChartLineDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -462,6 +467,7 @@ export class ChartLinestyleDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -603,6 +609,7 @@ export class ChartMultiaxisDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -711,6 +718,7 @@ export class ChartPieDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -771,6 +779,7 @@ export class ChartPolarareaDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -920,6 +929,7 @@ export class ChartRadarDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -972,6 +982,7 @@ export class ChartRadarDemo implements OnInit {
                 }
             };
         }
+        
         this.cd.markForCheck();
     }
 }
@@ -1000,6 +1011,7 @@ export class ChartStackedbarDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();
@@ -1102,6 +1114,7 @@ export class ChartVerticalbarDemo implements OnInit {
     platformId = inject(PLATFORM_ID);
     configService = inject(AppConfigService);
     designerService = inject(DesignerService);
+    themeEffect: any;
 
     ngOnInit() {
         this.initChart();

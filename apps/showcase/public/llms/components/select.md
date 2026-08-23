@@ -577,7 +577,7 @@ export class SelectIftalabelDemo implements OnInit {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -754,6 +754,7 @@ export class SelectReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -763,6 +764,7 @@ export class SelectReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }
@@ -826,10 +828,12 @@ import { SelectModule } from 'ngx-prime/select';
         <div class="card flex justify-center">
             <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" placeholder="Select a country" class="w-full md:w-56">
                 <ng-template #selectedItem let-selectedOption>
-                    <div class="flex items-center gap-2" *ngIf="selectedOption">
-                        <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ selectedOption.name }}</div>
-                    </div>
+                    @if (selectedOption) {
+                        <div class="flex items-center gap-2">
+                            <img src="https://primefaces.org/cdn/ngx-prime/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
+                            <div>{{ selectedOption.name }}</div>
+                        </div>
+                    }
                 </ng-template>
                 <ng-template let-country #item>
                     <div class="flex items-center gap-2">

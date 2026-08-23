@@ -20,7 +20,7 @@ import { AppCode } from '@/components/doc/app.code';
 })
 export class ZIndexDoc {
     code: Code = {
-        typescript: `import { ngx-primeConfig } from 'ngx-prime/api';
+        typescript: `import { NgxPrimeConfig } from 'ngx-prime/api';
 
 @Component({
     selector: 'app-root',
@@ -28,10 +28,10 @@ export class ZIndexDoc {
 })
 export class AppComponent implements OnInit {
 
-    constructor(private ngx-primeConfig: ngx-primeConfig) {}
+    constructor(private NgxPrimeConfig: NgxPrimeConfig) {}
 
     ngOnInit() {
-        this.ngx-primeConfig.zIndex = {
+        this.NgxPrimeConfig.zIndex = {
             modal: 1100,    // dialog, sidebar
             overlay: 1000,  // dropdown, overlaypanel
             menu: 1000,     // overlay menus

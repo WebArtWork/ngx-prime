@@ -105,8 +105,11 @@ import { DatePickerModule } from 'ngx-prime/datepicker';
         <div class="card flex justify-center">
             <p-datepicker [(ngModel)]="date">
                 <ng-template #date let-date>
-                    <strong *ngIf="date.day > 10 && date.day < 15; else elseBlock" style="text-decoration: line-through">{{ date.day }}</strong>
-                    <ng-template #elseBlock>{{ date.day }}</ng-template>
+                    @if (date.day > 10 && date.day < 15) {
+                        <strong style="text-decoration: line-through">{{ date.day }}</strong>
+                    } @else {
+                        {{ date.day }}
+                    }
                 </ng-template>
             </p-datepicker>
         </div>
@@ -435,7 +438,7 @@ export class DatepickerInlineDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -697,6 +700,7 @@ export class DatepickerReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -706,6 +710,7 @@ export class DatepickerReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }

@@ -28,5 +28,5 @@ A UI component may also use other UI components, in this case section names are 
 
 ## Ptoptions-
 
-The â ptOptions property determines how a component's local PassThrough configuration merges with the global PT configuration, as demonstrated in the following examples using both global and component-level settings. The mergeSections defines whether the sections from the main configuration gets added and the mergeProps controls whether to override or merge the defined props. Defaults are true for mergeSections and false for mergeProps . Global Configuration mergeSections: true, mergeProps: false (default) mergeSections: true, mergeProps: true mergeSections: false, mergeProps: true mergeSections: false, mergeProps: false
+The â ptOptions property determines how a component's local PassThrough configuration merges with the global PT configuration, as demonstrated in the following examples using both global and component-level settings. The mergeSections defines whether the sections from the main configuration gets added and the mergeProps controls whether to override or merge the defined props. Defaults are true for mergeSections and false for mergeProps . Global Configuration mergeSections: true, mergeProps: false (default) mergeSections: true, mergeProps: true mergeSections: false, mergeProps: true mergeSections: false, mergeProps: false
 

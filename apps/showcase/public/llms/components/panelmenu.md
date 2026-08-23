@@ -302,6 +302,7 @@ export class PanelmenuControlledDemo implements OnInit {
 
     toggleAll() {
         const expanded = !this.areAllItemsExpanded();
+        
         this.items = this.toggleAllRecursive(this.items, expanded);
     }
 }
@@ -502,8 +503,12 @@ import { PanelMenu } from 'ngx-prime/panelmenu';
                     <a pRipple class="flex items-center px-4 py-2 cursor-pointer group">
                         <i [class]="item.icon + ' text-primary group-hover:text-inherit'"></i>
                         <span class="ms-2">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ms-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        @if (item.badge) {
+                            <p-badge class="ms-auto" [value]="item.badge" />
+                        }
+                        @if (item.shortcut) {
+                            <span class="ms-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        }
                     </a>
                 </ng-template>
             </p-panelmenu>
@@ -583,6 +588,7 @@ export class PanelmenuTemplateDemo implements OnInit {
 
     toggleAll() {
         const expanded = !this.areAllItemsExpanded();
+        
         this.items = this.toggleAllRecursive(this.items, expanded);
     }
 }

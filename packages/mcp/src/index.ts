@@ -62,7 +62,7 @@ function formatMigrationContent(guide: (typeof migrationGuides)[keyof typeof mig
 
 // Run ngx-prime MCP server with core + Angular-specific tools
 runPrimeMcpServer({
-    name: '@ngx-prime/mcp',
+    name: '@wawjs/ngx-prime-mcp',
     version: pkg.version,
     baseUrl: 'https://github.com/WebArtWork/ngx-prime',
     frameworkName: 'ngx-prime',

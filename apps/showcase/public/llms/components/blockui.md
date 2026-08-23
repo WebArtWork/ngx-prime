@@ -59,6 +59,14 @@ import { ButtonModule } from 'ngx-prime/button';
 })
 export class BlockuiDocumentDemo {
     blockedDocument: boolean = false;
+
+    blockDocument() {
+        this.blockedDocument = true;
+        setTimeout(() => {
+            this.blockedDocument = false;
+            this.cd.markForCheck();
+        }, 3000);
+    }
 }
 ```
 

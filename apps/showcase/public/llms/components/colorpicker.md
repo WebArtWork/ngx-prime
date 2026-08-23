@@ -114,6 +114,27 @@ export class ColorpickerInlineDemo {
 }
 ```
 
+## Native Input
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    template: `
+        <app-docsectiontext
+            ><p>Use <i>pColorPicker</i> with a native color input. Values are normalized to uppercase hex; picker UI is browser controlled.</p></app-docsectiontext
+        >
+        <div class="card flex gap-2"><input type="color" pColorPicker #picker="pColorPicker" [(ngModel)]="color" aria-label="Theme color" /><button [pColorPickerClear]="picker">Reset</button></div>
+    `,
+    standalone: true,
+    imports: [FormsModule]
+})
+export class ColorpickerNativeDemo {
+    color: string = '#0EA5E9';
+}
+```
+
 ## reactiveforms-doc
 
 ColorPicker can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
@@ -158,6 +179,7 @@ export class ColorpickerReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -167,6 +189,7 @@ export class ColorpickerReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && this.formSubmitted;
     }
 }

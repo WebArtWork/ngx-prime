@@ -1,10 +1,10 @@
 {
-    "name": "@ngx-prime/themes",
+    "name": "@wawjs/ngx-prime-themes",
     "version": "22.0.0",
     "author": "Web Art Work",
     "description": "",
     "homepage": "https://github.com/WebArtWork/ngx-prime",
-    "license": "SEE LICENSE IN LICENSE.md",
+    "license": "MIT",
     "repository": {
         "type": "git",
         "url": "https://github.com/WebArtWork/ngx-prime.git",

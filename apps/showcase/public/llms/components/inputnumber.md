@@ -248,7 +248,7 @@ export class InputnumberIftalabelDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -309,6 +309,28 @@ export class InputnumberLocaleDemo {
     value2: number = 115744;
     value3: number = 635524;
     value4: number = 732762;
+}
+```
+
+## Native Input
+
+Use pInputNumber on a native input type="number" instead of the deprecated p-inputnumber component. Native min , max , step , validation and forms work without a wrapper. Locale and currency formatting, prefixes, suffixes, and custom spinner buttons are wrapper-only features. Keep the legacy component where those capabilities are required during the v22 compatibility period.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <input type="number" pInputNumber [(ngModel)]="quantity" min="0" max="100" step="1" aria-label="Quantity" />
+        </div>
+    `,
+    standalone: true,
+    imports: [FormsModule]
+})
+export class InputnumberNativeDemo {
+    quantity: number = 1;
 }
 ```
 
@@ -438,6 +460,7 @@ export class InputnumberReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
             this.exampleForm.reset();
@@ -447,6 +470,7 @@ export class InputnumberReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }

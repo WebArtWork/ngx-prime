@@ -333,7 +333,7 @@ export class TreeselectIftalabelDemo implements OnInit {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component, OnInit, inject } from '@angular/core';
@@ -437,6 +437,7 @@ export class TreeselectLazyDemo implements OnInit {
             setTimeout(() => {
                 const _nodes = this.nodes();
                 let _node = { ...event.node };
+        
                 _node.children = [];
         
                 for (let i = 0; i < 3; i++) {
@@ -447,6 +448,7 @@ export class TreeselectLazyDemo implements OnInit {
                 }
         
                 const key = parseInt(_node.key, 10);
+        
                 _nodes[key] = { ..._node, loading: false };
                 this.nodes.set([..._nodes]);
             }, 500);
@@ -541,6 +543,7 @@ export class TreeselectReactiveformsDemo implements OnInit {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -550,6 +553,7 @@ export class TreeselectReactiveformsDemo implements OnInit {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && this.formSubmitted;
     }
 }

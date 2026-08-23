@@ -1,6 +1,6 @@
 # Angular SelectButton Component
 
-SelectButton is used to choose single or multiple items from a list using buttons.
+Use native pSelectButton directives to choose single or multiple values with buttons. The legacy SelectButton component is deprecated and remains available through v22.
 
 ## Accessibility
 
@@ -8,7 +8,7 @@ Screen Reader The container element that wraps the buttons has a group role wher
 
 ## Basic
 
-SelectButton requires a value to bind and a collection of options.
+p-selectbutton , p-selectButton , and p-select-button are deprecated. Use native pSelectButton and pSelectButtonOption for new groups; the legacy component remains available through v22 for its options renderer and templates. SelectButton requires a value to bind and a collection of options.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -83,7 +83,7 @@ export class SelectbuttonFluidDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -126,6 +126,30 @@ import { SelectButtonModule } from 'ngx-prime/selectbutton';
 export class SelectbuttonMultipleDemo {
     paymentOptions: any[];
     value!: number;
+}
+```
+
+## Native Buttons
+
+Use pSelectButton with native button pSelectButtonOption elements. Single-select groups use radio semantics and arrow-key navigation; add multiple for independently pressed toggle buttons. Native groups use explicit buttons and their value inputs instead of the deprecated component's options renderer. Compose labels, icons, and custom content directly inside each button.
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <div pSelectButton [(value)]="value" aria-label="Trip type">
+                <button pSelectButtonOption value="one-way">One-Way</button>
+                <button pSelectButtonOption value="return">Return</button>
+            </div>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class SelectbuttonNativeDemo {
+    value: string = 'one-way';
 }
 ```
 
@@ -174,6 +198,7 @@ export class SelectbuttonReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -183,6 +208,7 @@ export class SelectbuttonReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }

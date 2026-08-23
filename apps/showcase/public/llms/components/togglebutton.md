@@ -1,6 +1,6 @@
 # Angular ToggleButton Component
 
-ToggleButton is used to select a boolean value using a button.
+Use the native pToggleButton directive to select a boolean value with a button. The legacy ToggleButton component is deprecated and remains available through v22.
 
 ## Accessibility
 
@@ -8,7 +8,7 @@ Screen Reader ToggleButton component uses an element with button role and update
 
 ## Basic
 
-Two-way binding to a boolean property is defined using the standard ngModel directive.
+p-togglebutton , p-toggleButton , and p-toggle-button are deprecated. Use native button pToggleButton for new controls; the legacy component remains available through v22 for compatibility and wrapper templates. Two-way binding to a boolean property is defined using the standard ngModel directive.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -100,7 +100,7 @@ export class TogglebuttonFluidDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -118,6 +118,29 @@ import { ToggleButtonModule } from 'ngx-prime/togglebutton';
 })
 export class TogglebuttonInvalidDemo {
     checked: boolean = false;
+}
+```
+
+## Native Button
+
+Use pToggleButton on a native button for new toggle controls. It exposes a two-way pressed model, native keyboard activation, Forms support, and aria-pressed . The native button defaults to type="button" . Compose labels, icons, and loading content directly from the pressed state; the deprecated p-togglebutton component remains available through v22 for its wrapper templates.
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <button pToggleButton [(pressed)]="pressed" aria-label="Pin item">
+                {{ pressed ? 'Pinned' : 'Pin' }}
+            </button>
+        </div>
+    `,
+    standalone: true,
+    imports: []
+})
+export class TogglebuttonNativeDemo {
+    pressed: boolean = false;
 }
 ```
 
@@ -165,6 +188,7 @@ export class TogglebuttonReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -174,6 +198,7 @@ export class TogglebuttonReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }

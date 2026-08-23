@@ -187,7 +187,7 @@ export class PasswordIftalabelDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -256,6 +256,30 @@ export class PasswordMeterDemo {
 }
 ```
 
+## Native Input
+
+Use pPassword on a native password input instead of the deprecated p-password component. The input keeps normal browser validation, autocomplete, and Angular forms behavior. Compose optional controls next to the input. Projected wrapper templates are replaced by ordinary Angular content around the native field.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    template: `
+        <div class="card flex flex-wrap items-center gap-2 justify-center">
+            <input type="password" pPassword #password="pPassword" [(ngModel)]="value" autocomplete="new-password" placeholder="New password" aria-label="New password" />
+            <button type="button" [pPasswordToggleMask]="password">{{ password.visible() ? 'Hide' : 'Show' }}</button>
+            <button type="button" [pPasswordClear]="password">Clear</button>
+        </div>
+    `,
+    standalone: true,
+    imports: [FormsModule]
+})
+export class PasswordNativeDemo {
+    value: string = '';
+}
+```
+
 ## reactiveforms-doc
 
 Password can also be used with reactive forms. In this case, the formControlName property is used to bind the component to a form control.
@@ -302,6 +326,7 @@ export class PasswordReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -311,6 +336,7 @@ export class PasswordReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }

@@ -74,6 +74,7 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
         
         for (let i = 0; i < this.products().length; i++) {
             let product = this.products()[i];
+        
             if (product.name?.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(product);
             }
@@ -86,6 +87,7 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
         if (typeof product === 'string') {
             return product;
         }
+        
         return product?.name || '';
     }
 
@@ -93,6 +95,7 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
         if (typeof product === 'string') {
             return { name: product, custom: true };
         }
+        
         return {
             id: product.id,
             name: product.name,
@@ -105,7 +108,7 @@ export class AutocompleteAdvancedChipsDemo implements OnInit {
 
 ## basic-chips-doc
 
-With â multiple enabled, the AutoComplete component behaves like a chips or tags input. Use addOnBlur , â addOnTab , and â separator properties to customize the keystroke behavior for adding items.
+With â multiple enabled, the AutoComplete component behaves like a chips or tags input. Use addOnBlur , â addOnTab , and â separator properties to customize the keystroke behavior for adding items.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -428,6 +431,7 @@ export class AutocompleteForceSelectionDemo implements OnInit {
         
         for (let i = 0; i < (this.countries as any[]).length; i++) {
             let country = (this.countries as any[])[i];
+        
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
@@ -515,6 +519,7 @@ export class AutocompleteGroupDemo implements OnInit {
         
         for (let optgroup of this.groupedCities as SelectItemGroup[]) {
             let filteredSubOptions = this.filterService.filter(optgroup.items, ['label'], query, 'contains');
+        
             if (filteredSubOptions && filteredSubOptions.length) {
                 filteredGroups.push({
                     label: optgroup.label,
@@ -568,7 +573,7 @@ export class AutocompleteIftaLabelDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -603,7 +608,7 @@ export class AutocompleteInvalidDemo {
 
 ## Multiple
 
-Enable multiple selection mode using the â multiple property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.
+Enable multiple selection mode using the â multiple property to allow users to select more than one value from the autocomplete. When enabled, the value reference must be an array.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -682,6 +687,7 @@ export class AutocompleteObjectsDemo implements OnInit {
         
         for (let i = 0; i < (this.countries as any[]).length; i++) {
             let country = (this.countries as any[])[i];
+        
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
@@ -746,6 +752,7 @@ export class AutocompleteReactiveFormsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -755,6 +762,7 @@ export class AutocompleteReactiveFormsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }
@@ -851,10 +859,12 @@ export class AutocompleteTemplateDemo implements OnInit {
         
         for (let i = 0; i < (this.countries as any[]).length; i++) {
             let country = (this.countries as any[])[i];
+        
             if (country.name.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(country);
             }
         }
+        
         this.filteredCountries = filtered;
     }
 }
@@ -949,6 +959,7 @@ export class AutocompleteVirtualScrollDemo implements OnInit {
         
         for (let i = 0; i < (this.items as any[]).length; i++) {
             let item = (this.items as any[])[i];
+        
             if (item.label.toLowerCase().indexOf(query.toLowerCase()) == 0) {
                 filtered.push(item);
             }

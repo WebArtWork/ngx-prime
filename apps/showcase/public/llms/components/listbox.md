@@ -310,7 +310,7 @@ export class ListboxGroupDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component, OnInit } from '@angular/core';
@@ -443,6 +443,7 @@ export class ListboxReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -452,6 +453,7 @@ export class ListboxReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && this.formSubmitted;
     }
 }
@@ -613,6 +615,7 @@ export class ListboxVirtualscrollDemo {
 
     onChange(event) {
         const { value } = event;
+        
         if (value) this.selectAll = value.length === this.items.length;
     }
 }

@@ -52,14 +52,13 @@
 - [Angular Dynamic Dialog Component](https://ngx-prime.org/dynamicdialog): Dialogs can be created dynamically with any component as the content using a DialogService.
 - [Angular Editor Component](https://ngx-prime.org/editor): Editor is rich text editor component based on Quill.
 - [Angular Fieldset Component](https://ngx-prime.org/fieldset): Fieldset is a grouping component with a content toggle feature.
-- [Angular FileUpload Component](https://ngx-prime.org/fileupload): FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.
+- [Angular FileUpload Component](https://ngx-prime.org/fileupload): Use the native file input directive for selection, or the FileUpload component for its advanced upload workflow.
 - [Angular Float Label Component](https://ngx-prime.org/floatlabel): FloatLabel appears on top of the input field when focused.
 - [Angular Fluid Component](https://ngx-prime.org/fluid): Fluid is a layout component to make descendant components span full width of their container.
 - [Angular Focus Trap Component](https://ngx-prime.org/focustrap): Focus Trap keeps focus within a certain DOM element while tabbing.
 - [Angular Gallery Component](https://ngx-prime.org/galleria): Galleria is an advanced content gallery component.
 - [Angular IconField Component](https://ngx-prime.org/iconfield): IconField wraps an input and an icon.
 - [Angular Ifta Label Component](https://ngx-prime.org/iftalabel): IftaLabel is used to create infield top aligned labels.
-- [Angular Image Component](https://ngx-prime.org/image): Displays an image with preview and tranformation options.
 - [Angular ImageCompare Component](https://ngx-prime.org/imagecompare): Compare two images side by side with a slider.
 - [Angular Inplace Component](https://ngx-prime.org/inplace): Inplace provides an easy to do editing and display at the same time where clicking the output displays the actual content.
 - [Angular InputGroup Component](https://ngx-prime.org/inputgroup): Text, icon, buttons and other content can be grouped next to an input.
@@ -92,7 +91,7 @@
 - [Angular Scroll Panel Component](https://ngx-prime.org/scrollpanel): ScrollPanel is a cross browser, lightweight and skinnable alternative to native browser scrollbar.
 - [Angular Scroll Top Component](https://ngx-prime.org/scrolltop): ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
 - [Angular Select Component](https://ngx-prime.org/select): Select is used to choose an item from a collection of options.
-- [Angular SelectButton Component](https://ngx-prime.org/selectbutton): SelectButton is used to choose single or multiple items from a list using buttons.
+- [Angular SelectButton Component](https://ngx-prime.org/selectbutton): Use native pSelectButton directives to choose single or multiple values with buttons. The legacy SelectButton component is deprecated and remains available through v22.
 - [Angular Skeleton Component](https://ngx-prime.org/skeleton): Skeleton is a placeholder to display instead of the actual content.
 - [Angular Slider Component](https://ngx-prime.org/slider): Slider is a component to provide input with a drag handle.
 - [Angular Speed Dial Component](https://ngx-prime.org/speeddial): SpeedDial is a floating button with a popup menu.
@@ -108,7 +107,7 @@
 - [Angular TieredMenu Component](https://ngx-prime.org/tieredmenu): TieredMenu displays submenus in nested overlays.
 - [Angular Timeline Component](https://ngx-prime.org/timeline): Timeline visualizes a series of chained events.
 - [Angular Toast Component](https://ngx-prime.org/toast): Toast is used to display messages in an overlay.
-- [Angular ToggleButton Component](https://ngx-prime.org/togglebutton): ToggleButton is used to select a boolean value using a button.
+- [Angular ToggleButton Component](https://ngx-prime.org/togglebutton): Use the native pToggleButton directive to select a boolean value with a button. The legacy ToggleButton component is deprecated and remains available through v22.
 - [Angular ToggleSwitch Component](https://ngx-prime.org/toggleswitch): ToggleSwitch is used to select a boolean value.
 - [Angular Toolbar Component](https://ngx-prime.org/toolbar): Toolbar is a grouping component for buttons and other content.
 - [Angular Tooltip Component](https://ngx-prime.org/tooltip): Tooltip directive provides advisory information for a component. Tooltip is integrated within various ngx-prime components.

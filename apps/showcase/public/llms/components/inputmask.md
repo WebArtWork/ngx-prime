@@ -193,7 +193,7 @@ export class InputmaskIftalabelDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -251,6 +251,29 @@ export class InputmaskMaskDemo {
     value1: string | undefined;
     value2: string | undefined;
     value3: string | undefined;
+}
+```
+
+## Native Input
+
+Use pInputMask on a native input instead of the deprecated p-inputmask component. Use standard input attributes for presentation and accessibility.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputMaskModule } from 'ngx-prime/inputmask';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <input pInputMask="99-999999" [(ngModel)]="value" placeholder="99-999999" aria-label="Account number" />
+        </div>
+    `,
+    standalone: true,
+    imports: [InputMaskModule, FormsModule]
+})
+export class InputmaskNativeDemo {
+    value: string = '';
 }
 ```
 
@@ -324,6 +347,7 @@ export class InputmaskReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -333,6 +357,7 @@ export class InputmaskReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }

@@ -8,7 +8,7 @@ Screen Reader Slider element component uses slider role on the handle in additio
 
 ## Basic
 
-Two-way binding is defined using the standard ngModel directive.
+p-slider and p-range are deprecated. Use native input type="range" pRange for new single-value sliders; this legacy component remains available through v22 for compatibility and two-handle ranges. Two-way binding is defined using the standard ngModel directive.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -86,6 +86,28 @@ export class SliderInputDemo {
 }
 ```
 
+## Native Input
+
+Use pRange on a native input type="range" for a lightweight, accessible single-value slider. Native min, max, step, validation and Angular forms work without a wrapper. A native range input has one thumb. The legacy p-slider and p-range selectors are deprecated and remain only through v22 for existing two-handle ranges or custom rendering.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <input type="range" pRange [(ngModel)]="value" min="0" max="100" step="5" aria-label="Volume" />
+        </div>
+    `,
+    standalone: true,
+    imports: [FormsModule]
+})
+export class SliderNativeDemo {
+    value: number = 50;
+}
+```
+
 ## Range
 
 When range property is present, slider provides two handles to define two values. In range mode, value should be an array instead of a single value.
@@ -153,6 +175,7 @@ export class SliderReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -162,6 +185,7 @@ export class SliderReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }

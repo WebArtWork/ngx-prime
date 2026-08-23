@@ -54,7 +54,7 @@ export class ToggleswitchDisabledDemo {
 
 ## Invalid
 
-The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
+The invalid state is applied using the â invalid property to indicate failed validation, which can be integrated with Angular Forms.
 
 ```typescript
 import { Component } from '@angular/core';
@@ -72,6 +72,31 @@ import { ToggleSwitchModule } from 'ngx-prime/toggleswitch';
 })
 export class ToggleswitchInvalidDemo {
     checked: boolean = false;
+}
+```
+
+## Native Input
+
+Use pToggleSwitch on a native checkbox instead of the deprecated p-toggleswitch component. The element keeps native form and keyboard behavior while exposing switch semantics to assistive technology.
+
+```typescript
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+@Component({
+    template: `
+        <div class="card flex justify-center">
+            <div class="flex items-center gap-2">
+                <input id="native-toggle" type="checkbox" pToggleSwitch [(ngModel)]="enabled" />
+                <label for="native-toggle">Enable notifications</label>
+            </div>
+        </div>
+    `,
+    standalone: true,
+    imports: [FormsModule]
+})
+export class ToggleswitchNativeDemo {
+    enabled: boolean = false;
 }
 ```
 
@@ -142,6 +167,7 @@ export class ToggleswitchReactiveformsDemo {
 
     onSubmit() {
         this.formSubmitted = true;
+        
         if (this.exampleForm.valid) {
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
             this.exampleForm.reset();
@@ -151,6 +177,7 @@ export class ToggleswitchReactiveformsDemo {
 
     isInvalid(controlName: string) {
         const control = this.exampleForm.get(controlName);
+        
         return control?.invalid && (control.touched || this.formSubmitted);
     }
 }
