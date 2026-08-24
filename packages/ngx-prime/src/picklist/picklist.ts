@@ -1064,25 +1064,25 @@ export class PickList extends BaseComponent {
      * Custom move up icon template.
      * @group Templates
      */
-    readonly moveUpIconTemplate = contentChild.required<TemplateRef<void>>('moveupicon', { descendants: false });
+    readonly moveUpIconTemplate = contentChild<TemplateRef<void>>('moveupicon', { descendants: false });
 
     /**
      * Custom move top icon template.
      * @group Templates
      */
-    readonly moveTopIconTemplate = contentChild.required<TemplateRef<void>>('movetopicon', { descendants: false });
+    readonly moveTopIconTemplate = contentChild<TemplateRef<void>>('movetopicon', { descendants: false });
 
     /**
      * Custom move down icon template.
      * @group Templates
      */
-    readonly moveDownIconTemplate = contentChild.required<TemplateRef<void>>('movedownicon', { descendants: false });
+    readonly moveDownIconTemplate = contentChild<TemplateRef<void>>('movedownicon', { descendants: false });
 
     /**
      * Custom move bottom icon template.
      * @group Templates
      */
-    readonly moveBottomIconTemplate = contentChild.required<TemplateRef<void>>('movebottomicon', { descendants: false });
+    readonly moveBottomIconTemplate = contentChild<TemplateRef<void>>('movebottomicon', { descendants: false });
 
     /**
      * Custom move to target icon template.
@@ -1090,7 +1090,7 @@ export class PickList extends BaseComponent {
      * @see {@link PickListTransferIconTemplateContext}
      * @group Templates
      */
-    readonly moveToTargetIconTemplate = contentChild.required<TemplateRef<PickListTransferIconTemplateContext>>('movetotargeticon', { descendants: false });
+    readonly moveToTargetIconTemplate = contentChild<TemplateRef<PickListTransferIconTemplateContext>>('movetotargeticon', { descendants: false });
 
     /**
      * Custom move all to target icon template.
@@ -1098,7 +1098,7 @@ export class PickList extends BaseComponent {
      * @see {@link PickListTransferIconTemplateContext}
      * @group Templates
      */
-    readonly moveAllToTargetIconTemplate = contentChild.required<TemplateRef<PickListTransferIconTemplateContext>>('movealltotargeticon', { descendants: false });
+    readonly moveAllToTargetIconTemplate = contentChild<TemplateRef<PickListTransferIconTemplateContext>>('movealltotargeticon', { descendants: false });
 
     /**
      * Custom move to source icon template.
@@ -1106,7 +1106,7 @@ export class PickList extends BaseComponent {
      * @see {@link PickListTransferIconTemplateContext}
      * @group Templates
      */
-    readonly moveToSourceIconTemplate = contentChild.required<TemplateRef<PickListTransferIconTemplateContext>>('movetosourceicon', { descendants: false });
+    readonly moveToSourceIconTemplate = contentChild<TemplateRef<PickListTransferIconTemplateContext>>('movetosourceicon', { descendants: false });
 
     /**
      * Custom move all to source icon template.
@@ -1114,7 +1114,7 @@ export class PickList extends BaseComponent {
      * @see {@link PickListTransferIconTemplateContext}
      * @group Templates
      */
-    readonly moveAllToSourceIconTemplate = contentChild.required<TemplateRef<PickListTransferIconTemplateContext>>('movealltosourceicon', { descendants: false });
+    readonly moveAllToSourceIconTemplate = contentChild<TemplateRef<PickListTransferIconTemplateContext>>('movealltosourceicon', { descendants: false });
 
     /**
      * Custom target filter icon template.
