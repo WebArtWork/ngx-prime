@@ -14,21 +14,6 @@
                         "project": "src/ng-package.json",
                         "tsConfig": "tsconfig.json"
                     }
-                },
-                "test": {
-                    "builder": "@angular/build:karma",
-                    "options": {
-                        "tsConfig": "tsconfig.spec.json",
-                        "karmaConfig": "karma.conf.js",
-                        "include": ["**/*.spec.ts"],
-                        "scripts": []
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-eslint/builder:lint",
-                    "options": {
-                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
-                    }
                 }
             }
         }

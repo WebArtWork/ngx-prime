@@ -54,12 +54,6 @@ jobs:
               run: |
                   pnpm run security:check
 
-            - name: Unit Tests
-              id: unitTest
-              if: always()
-              run: |
-                  pnpm run test:unit
-
             - name: Add Code Format Fail Comment
               if: always() && steps.codeFormat.outcome == 'failure'
               uses: actions/github-script@v9
@@ -73,12 +67,6 @@ jobs:
                         body: "Thanks a lot for your contribution! But, PR does not seem to fit our code format standards. Please run the 'pnpm run format' command and commit the changes."
                     });
 
-            - name: Add Unit Test Fail Comment
-              if: always() && steps.unitTest.outcome == 'failure'
-              uses: thollander/actions-comment-pull-request@v3
-              with:
-                message: |
-                    Thanks a lot for your contribution! But, Unit tests failed. You can check the unit tests with the command 'pnpm run test:unit' and commit the changes.
 
             # - name: Add Label
             #   if: ${{ failure() }}

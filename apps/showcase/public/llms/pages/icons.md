@@ -16,7 +16,7 @@ Constants API is available to reference icons easily when used programmatically.
 
 ```typescript
 import { Component } from '@angular/core';
-import { PrimeIcons, MenuItem } from 'ngx-prime/api';
+import { PrimeIcons, MenuItem } from '@wawjs/ngx-prime/api';
 
 @Component({
     selector: 'prime-icons-constants-demo',

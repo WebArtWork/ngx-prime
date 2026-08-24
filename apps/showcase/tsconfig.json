@@ -6,7 +6,8 @@
         "types": ["node"],
         "strict": false,
         "paths": {
-            "ngx-prime/*": ["../../packages/ngx-prime/src/*/public_api"],
+            "@wawjs/ngx-prime/types/*": ["../../packages/ngx-prime/src/types/*/public_api"],
+            "@wawjs/ngx-prime/*": ["../../packages/ngx-prime/src/*/public_api"],
             "@wawjs/css-prime-styled/*": ["../../../../packages/styled/dist/*"],
             "@wawjs/css-prime-styles/*": ["../../../../packages/styles/dist/*"],
             "@wawjs/css-prime-themes/*": ["../../../../packages/themes/dist/*"],

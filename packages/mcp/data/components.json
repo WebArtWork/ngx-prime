@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generatedAt": "2026-08-23",
+  "generatedAt": "2026-08-24",
   "components": [
     {
       "name": "accordion",
@@ -44080,7 +44080,7 @@
           "label": "Provider-",
           "description": "Add provideNgxPrime to the list of providers in your app.config.ts and use the theme property to configure a theme such as Aura.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideNgxPrime } from 'ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideNgxPrime({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideNgxPrime } from '@wawjs/ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideNgxPrime({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -44088,7 +44088,7 @@
           "label": "Theme-",
           "description": "Configure ngx-prime to use a theme like Aura.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideNgxPrime } from 'ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideNgxPrime({\n            theme: Aura\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideNgxPrime } from '@wawjs/ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideNgxPrime({\n            theme: Aura\n        })\n    ]\n};"
           }
         },
         {
@@ -44124,7 +44124,7 @@
           "label": "Dynamic-",
           "description": "Inject the ngx-prime to your application to update the initial configuration at runtime.",
           "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { NgxPrime } from 'ngx-prime/config';\n\n@Component({\n    selector: 'app-root',\n    templateUrl: './app.component.html'\n})\nexport class AppComponent implements OnInit {\n\n    constructor(private ngx-prime: ngx-prime) {}\n\n    ngOnInit() {\n        this.NgxPrime.ripple.set(true);\n    }\n}"
+            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { NgxPrime } from '@wawjs/ngx-prime/config';\n\n@Component({\n    selector: 'app-root',\n    templateUrl: './app.component.html'\n})\nexport class AppComponent implements OnInit {\n\n    constructor(private ngx-prime: ngx-prime) {}\n\n    ngOnInit() {\n        this.NgxPrime.ripple.set(true);\n    }\n}"
           }
         },
         {
@@ -44132,7 +44132,7 @@
           "label": "Filtermode-",
           "description": "Default filter modes to display on DataTable filter menus.",
           "examples": {
-            "typescript": "import { ngx-primeConfig } from 'ngx-prime/api';\n\n@Component({\n    selector: 'app-root',\n    templateUrl: './app.component.html'\n})\nexport class AppComponent implements OnInit {\n\n    constructor(private ngx-primeConfig: ngx-primeConfig) {}\n\n    ngOnInit() {\n        ngx-primeConfig.filterMatchModeOptions = {\n            text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],\n            numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],\n            date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]\n        };\n    }\n}"
+            "typescript": "import { ngx-primeConfig } from '@wawjs/ngx-prime/api';\n\n@Component({\n    selector: 'app-root',\n    templateUrl: './app.component.html'\n})\nexport class AppComponent implements OnInit {\n\n    constructor(private ngx-primeConfig: ngx-primeConfig) {}\n\n    ngOnInit() {\n        ngx-primeConfig.filterMatchModeOptions = {\n            text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],\n            numeric: [FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS, FilterMatchMode.LESS_THAN, FilterMatchMode.LESS_THAN_OR_EQUAL_TO, FilterMatchMode.GREATER_THAN, FilterMatchMode.GREATER_THAN_OR_EQUAL_TO],\n            date: [FilterMatchMode.DATE_IS, FilterMatchMode.DATE_IS_NOT, FilterMatchMode.DATE_BEFORE, FilterMatchMode.DATE_AFTER]\n        };\n    }\n}"
           }
         },
         {
@@ -44158,7 +44158,7 @@
           "label": "Runtime",
           "description": "The translations can be changed dynamically at runtime, here is an example with ngx-translate.",
           "examples": {
-            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { NgxPrime } from 'ngx-prime/config';\nimport { TranslateService } from '@ngx-translate/core';\n\n@Component({\n    selector: 'app-root',\n    templateUrl: './app.component.html'\n})\nexport class AppComponent implements OnInit {\n\n    constructor(private config: ngx-prime, private translateService: TranslateService) {}\n\n    ngOnInit() {\n        this.translateService.setDefaultLang('en');\n    }\n\n    translate(lang: string) {\n        this.translateService.use(lang);\n        this.translateService.get('ngx-prime').subscribe(res => this.NgxPrime.setTranslation(res));\n    }\n}"
+            "typescript": "import { Component, OnInit } from '@angular/core';\nimport { NgxPrime } from '@wawjs/ngx-prime/config';\nimport { TranslateService } from '@ngx-translate/core';\n\n@Component({\n    selector: 'app-root',\n    templateUrl: './app.component.html'\n})\nexport class AppComponent implements OnInit {\n\n    constructor(private config: ngx-prime, private translateService: TranslateService) {}\n\n    ngOnInit() {\n        this.translateService.setDefaultLang('en');\n    }\n\n    translate(lang: string) {\n        this.translateService.use(lang);\n        this.translateService.get('ngx-prime').subscribe(res => this.NgxPrime.setTranslation(res));\n    }\n}"
           }
         },
         {
@@ -44180,7 +44180,7 @@
           "label": "Provider-",
           "description": "The initial configuration is defined by the provideNgxPrime provider during application startup.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideNgxPrime } from 'ngx-prime/config';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideNgxPrime({ /* options */ })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideNgxPrime } from '@wawjs/ngx-prime/config';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideNgxPrime({ /* options */ })\n    ]\n};"
           }
         },
         {
@@ -44196,7 +44196,7 @@
           "label": "Theme-",
           "description": "ngx-prime provides 4 predefined themes out of the box; Aura, Material, Lara and Nora. See the theming documentation for details.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideNgxPrime } from 'ngx-prime/config';\n\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideNgxPrime({\n            theme: {\n                preset: Aura,\n                options: {\n                    prefix: 'p',\n                    darkModeSelector: 'system',\n                    cssLayer: false\n                }\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideAnimationsAsync } from '@angular/platform-browser/animations/async';\nimport { provideNgxPrime } from '@wawjs/ngx-prime/config';\n\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideAnimationsAsync(),\n        provideNgxPrime({\n            theme: {\n                preset: Aura,\n                options: {\n                    prefix: 'p',\n                    darkModeSelector: 'system',\n                    cssLayer: false\n                }\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -44204,7 +44204,7 @@
           "label": "Zindex-",
           "description": "ZIndexes are managed automatically to make sure layering of overlay components work seamlessly when combining multiple components. Still there may be cases where you'd like to configure the configure default values such as a custom layout where header section is fixed. In a case like this, dropdown needs to be displayed below the application header but a modal dialog should be displayed above. ngx-prime configuration offers the zIndex property to customize the default values for components categories. Default values are described below and can be customized when setting up ngx-prime.",
           "examples": {
-            "typescript": "import { ngx-primeConfig } from 'ngx-prime/api';\n\n@Component({\n    selector: 'app-root',\n    templateUrl: './app.component.html'\n})\nexport class AppComponent implements OnInit {\n\n    constructor(private ngx-primeConfig: ngx-primeConfig) {}\n\n    ngOnInit() {\n        this.ngx-primeConfig.zIndex = {\n            modal: 1100,    // dialog, sidebar\n            overlay: 1000,  // dropdown, overlaypanel\n            menu: 1000,     // overlay menus\n            tooltip: 1100   // tooltip\n        };\n    }\n}"
+            "typescript": "import { NgxPrimeConfig } from '@wawjs/ngx-prime/api';\n\n@Component({\n    selector: 'app-root',\n    templateUrl: './app.component.html'\n})\nexport class AppComponent implements OnInit {\n\n    constructor(private NgxPrimeConfig: NgxPrimeConfig) {}\n\n    ngOnInit() {\n        this.NgxPrimeConfig.zIndex = {\n            modal: 1100,    // dialog, sidebar\n            overlay: 1000,  // dropdown, overlaypanel\n            menu: 1000,     // overlay menus\n            tooltip: 1100   // tooltip\n        };\n    }\n}"
           }
         }
       ]
@@ -44358,7 +44358,7 @@
           "label": "Theme-",
           "description": "The theme property is used to customize the initial theme.",
           "examples": {
-            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideNgxPrime } from 'ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideNgxPrime({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
+            "typescript": "import { ApplicationConfig } from '@angular/core';\nimport { provideNgxPrime } from '@wawjs/ngx-prime/config';\nimport Aura from '@wawjs/css-prime-themes/aura';\n\nexport const appConfig: ApplicationConfig = {\n    providers: [\n        provideNgxPrime({\n            theme: {\n                preset: Aura\n            }\n        })\n    ]\n};"
           }
         },
         {
@@ -44450,7 +44450,7 @@
           "label": "Constants-",
           "description": "Constants API is available to reference icons easily when used programmatically.",
           "examples": {
-            "typescript": "import { Component } from '@angular/core';\nimport { PrimeIcons, MenuItem } from 'ngx-prime/api';\n\n@Component({\n    selector: 'prime-icons-constants-demo',\n    templateUrl: './prime-icons-constants-demo.html'\n})\nexport class PrimeIconsConstantsDemo {\n    items: MenuItem[];\n\n    ngOnInit() {\n        this.items = [\n            {\n                label: 'New',\n                icon: PrimeIcons.PLUS,\n            },\n            {\n                label: 'Delete',\n                icon: PrimeIcons.TRASH\n            }\n        ];\n    }\n}"
+            "typescript": "import { Component } from '@angular/core';\nimport { PrimeIcons, MenuItem } from '@wawjs/ngx-prime/api';\n\n@Component({\n    selector: 'prime-icons-constants-demo',\n    templateUrl: './prime-icons-constants-demo.html'\n})\nexport class PrimeIconsConstantsDemo {\n    items: MenuItem[];\n\n    ngOnInit() {\n        this.items = [\n            {\n                label: 'New',\n                icon: PrimeIcons.PLUS,\n            },\n            {\n                label: 'Delete',\n                icon: PrimeIcons.TRASH\n            }\n        ];\n    }\n}"
           }
         },
         {

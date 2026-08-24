@@ -317,7 +317,7 @@ export class TreeTableService {
         '[attr.data-scrollselectors]': "'.p-treetable-scrollable-body'"
     },
     hostDirectives: [Bind],
-    imports: [Bind, SpinnerIcon, NgTemplateOutlet, Paginator, PrimeTemplate, NgClass, NgStyle, forwardRef(() => TTBody), forwardRef(() => TTScrollableView), ArrowDownIcon, ArrowUpIcon, forwardRef(() => TreeTableModule)]
+    imports: [Bind, SpinnerIcon, NgTemplateOutlet, Paginator, PrimeTemplate, NgClass, NgStyle, forwardRef(() => TTBody), forwardRef(() => TTScrollableView), ArrowDownIcon, ArrowUpIcon]
 })
 export class TreeTable extends BaseComponent<TreeTablePassThrough> implements BlockableUI {
     componentName = 'TreeTable';

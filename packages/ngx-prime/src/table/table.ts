@@ -400,7 +400,7 @@ export class TableService {
         '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind],
-    imports: [Bind, SpinnerIcon, NgTemplateOutlet, Paginator, PrimeTemplate, NgStyle, Scroller, forwardRef(() => TableBody), NgClass, ArrowDownIcon, ArrowUpIcon, forwardRef(() => TableModule)]
+    imports: [Bind, SpinnerIcon, NgTemplateOutlet, Paginator, PrimeTemplate, NgStyle, Scroller, forwardRef(() => TableBody), NgClass, ArrowDownIcon, ArrowUpIcon]
 })
 export class Table<RowData = any> extends BaseComponent<TablePassThrough> implements BlockableUI, AfterViewChecked {
     componentName = 'DataTable';
