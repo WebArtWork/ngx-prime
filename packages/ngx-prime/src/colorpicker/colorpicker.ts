@@ -1,4 +1,4 @@
-import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, InjectionToken, input, NgModule, output, TemplateRef, ViewChild, ViewEncapsulation, viewChild } from '@angular/core';
+import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, InjectionToken, input, isDevMode, NgModule, output, TemplateRef, ViewChild, ViewEncapsulation, viewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MotionOptions } from '@wawjs/css-prime-motion';
 import { OverlayOptions, OverlayService, SharedModule, TranslationKeys } from '@wawjs/ngx-prime/api';
@@ -108,6 +108,18 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    constructor() {
+        super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-colorpicker>` is deprecated and will be removed in a future major version. ' +
+                    'Use a native `<input type="color" pColorPicker>` instead.'
+            );
+        }
     }
 
     /**

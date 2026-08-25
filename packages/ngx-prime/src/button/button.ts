@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, Directive, effect, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, contentChildren, Directive, effect, inject, InjectionToken, input, isDevMode, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, findSingle, isEmpty } from '@wawjs/css-prime-utils';
 import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
 import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
@@ -632,6 +632,18 @@ export class Button extends BaseComponent<ButtonPassThrough> {
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
+    constructor() {
+        super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-button>` is deprecated and will be removed in a future major version. ' +
+                    'Use a plain `<button pButton>` (or `<a pButton>`) with the `pButton` styling directive instead.'
+            );
+        }
     }
 
     /**

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
+import { AfterViewChecked, booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, forwardRef, inject, InjectionToken, input, isDevMode, NgModule, numberAttribute, output, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { equals, resolveFieldData } from '@wawjs/css-prime-utils';
 import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
@@ -64,6 +64,19 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 })
 export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> implements AfterViewChecked {
     componentName = 'SelectButton';
+
+    constructor() {
+        super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-selectbutton>` is deprecated and will be removed in a future major version. ' +
+                    'Use the native `pSelectButton`/`pSelectButtonOption` directives instead.'
+            );
+        }
+    }
+
     /**
      * An array of selectitems to display as the available options.
      * @group Props

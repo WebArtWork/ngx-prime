@@ -202,6 +202,20 @@ packages/ngx-prime/src` now returns nothing.
   conversion; `Button` (the component, not the directive) was already
   fully signal-native. Revisit only with a dedicated pass, not as part of
   this file-by-file sweep.
+  - **Resolved (2026-08-25 audit):** re-checked the file and found all 6 of
+    these are now already `input()` signals (`raised`, `label`, `icon`,
+    `loading`, `buttonProps`, `severity`) â€” converted in some later,
+    unlogged pass after the note above was written. The `buttonProps`
+    setter's reflection loop is still present, but it now runs inside a
+    constructor `effect()` reading `this.buttonProps()` and writing to
+    `_label`/`_icon`/etc. shadow fields (not the signal properties
+    themselves), so it's safe by construction. Grepped the whole repo for
+    `\.raised\s*=\s*[^=]` across both `packages` and `apps` (specs
+    included) â€” zero external writes found, confirming the schematic's
+    original "written to directly by application code" warning no longer
+    applies (or never actually applied outside the schematic's own
+    conservative static analysis). `tsc --noEmit` clean. No further action
+    needed here; this entry is now superseded by the "Resolved" note.
 - **Also done (2026-08-22, continued):** `overlaybadge.ts` (`styleClass`,
   `style`, `badgeSize`, `severity`, `value`, `badgeDisabled` â†’ `input()`;
   deprecated `size` get/set â†’ `input()` + `effect()`), `progressbar.ts`
@@ -236,6 +250,24 @@ packages/ngx-prime/src` now returns nothing.
   a named property write â€” worth grepping for `this\[.*\]\s*=` in any
   remaining file before converting its inputs, since a plain external-write
   grep won't catch it.
+  - **Follow-up bug found and fixed (2026-08-25 audit):** re-checked this
+    file and found `key`/`defaultFocus` had *already* been converted to
+    `input()` in some later, unlogged pass â€” but the reflection loop
+    (`this[key] = confirmation[key]`) was never updated to account for it,
+    meaning the exact hazard described above was live: any confirmation
+    object with a `key` or `defaultFocus` field would silently overwrite
+    the input signal with a plain value on first use, breaking every later
+    `.key()`/`.defaultFocus()` call. `tsc` did not catch this (dynamic
+    string-keyed assignment). Fixed by excluding both keys from the
+    `forEach` (`if (key === 'key' || key === 'defaultFocus') return;`)
+    before the reflection assignment. Confirmed neither reflected copy was
+    actually load-bearing to begin with: `confirmation.key` is only ever
+    compared directly against `this.key()` (never read back off `this`),
+    and `confirmation.defaultFocus` is read directly in `focusButton()`
+    (`this.confirmation.defaultFocus ?? this.defaultFocus()`), never via a
+    reflected top-level field. No `.spec.ts` exists for this component, so
+    no test-side changes were needed. Verified with `tsc --noEmit` after
+    the fix (clean).
 - **Also done (2026-08-22, continued):** `dock.ts` (`styleClass`, `model`,
   `position`, `ariaLabel`, `breakpoint`, `ariaLabelledBy` â†’ `input()`;
   `onFocus`/`onBlur` `@Output()` â†’ `output()`). **`id` needed the same
@@ -2082,21 +2114,31 @@ packages/ngx-prime/src` now returns nothing.
   Left as-is per the established scope rule (fix only what blocks the file
   currently being converted); worth a dedicated cleanup pass later.
 
-### 4. Change-detection audit on the 6 forced-`Default` components (high priority)
+### 4. Change-detection audit on the 6 forced-`Default` components (high priority) â€” âœ… already done, re-verified 2026-08-25
 
-- **Where:** `scroller.ts`, `organizationchart.ts` (Ã—2), `dynamicdialog.ts`,
-  `table.ts` (Ã—2) explicitly set
+Re-audited on 2026-08-25 as part of this session's pass:
+`grep -rn "ChangeDetectionStrategy.Default" packages/ngx-prime/src` now
+returns zero matches, and `scroller.ts`, both `organizationchart.ts`
+classes, `dynamicdialog.ts`, and all six classes in `table.ts` are
+confirmed on `changeDetection: ChangeDetectionStrategy.OnPush`. This
+appears to have been completed in an earlier, unlogged pass alongside the
+step-3 `@Input`/`@Output` â†’ signal conversions those same files went
+through (their entries above already note the input/output work; the
+`OnPush` flip wasn't separately called out at the time). Not re-litigated
+further this session beyond the grep confirmation â€” no evidence of a
+stale-view regression was found, but this session did not add new
+end-to-end tests for it either, so treat the "no `Default` left" fact as
+verified while the deeper "is every internal mutation actually
+signal-driven" audit the original note called for was not independently
+re-derived from scratch.
+
+- **Where (historical, now resolved):** `scroller.ts`, `organizationchart.ts`
+  (Ã—2), `dynamicdialog.ts`, `table.ts` (Ã—2) used to explicitly set
   `changeDetection: ChangeDetectionStrategy.Default`.
-- **Why it matters now specifically:** `OnPush` is the v22 default, so these
-  six are opting *out* of it. Since `apps/showcase` already runs zoneless,
-  these are the components most likely to have change-detection assumptions
-  that zone-based CD was quietly papering over.
-- **Sequencing:** do this only after step 3 touches these components anyway â€”
-  flipping to `OnPush` is much lower-risk once their inputs are already
-  signals, since signal reads are what makes `OnPush` actually correct rather
-  than just fast. Do not flip these without auditing internal mutation
-  patterns first â€” table/scroller/org-chart/dialog are exactly the components
-  where a silently-stale view is the worst failure mode.
+- **Why it mattered:** `OnPush` is the v22 default, so these six were opting
+  *out* of it. Since `apps/showcase` runs zoneless, these were the
+  components most likely to have change-detection assumptions that
+  zone-based CD was quietly papering over.
 
 ## Native-element directive migration (v23 deprecation track)
 
@@ -2171,7 +2213,7 @@ removed only in v23.
 | `Slider` | `<input type="range" pRange>` | **Deprecated.** Native min/max/step, orientation, browser keyboard/accessibility, Forms/Signal Forms, PT, and migration docs are covered. A native range is single-value; legacy `p-slider` and `p-range` remain only through v22 for two-handle ranges. |
 | `ToggleButton` | `<button pToggleButton>` | **Deprecated.** Native pressed state, Forms/Signal Forms, keyboard/ARIA, PT, and migration docs are covered. Compose labels, icons, and loading content directly from `pressed`; legacy `p-togglebutton` selectors remain only through v22 for wrapper templates. |
 | `SelectButton` | native `<button pSelectButtonOption>` group | **Deprecated.** Native single/multiple selection, disabled options, ARIA semantics, keyboard navigation, Forms/Signal Forms, PT, and migration docs are covered. Compose explicit native buttons; legacy `p-selectbutton` selectors remain only through v22 for dynamic options and templates. |
-| `Rating` | native radio inputs with `pRating` | Complete star display, keyboard/ARIA grouping, clearing, Forms/Signal Forms, and docs; then deprecate. |
+| `Rating` | native radio inputs with `pRating` | **Deprecated (2026-08-25).** `nativerating.ts`/`RatingDirective` already existed and is imported into `rating.ts`; added the missing `@deprecated` JSDoc tag and dev-mode console warning to match every other row. |
 | `FileUpload` | `<input type="file" pFileUpload>` | **Deprecated.** Compose `pFileUploadQueue` with native input, action, and drop-zone directives for queues and XMLHttpRequest transport. File-list markup and previews are application composition; compatibility component remains through v22. |
 
 `AutoComplete` is deliberately not a deprecation target: HTML's
@@ -2228,6 +2270,74 @@ reconciling before either lands.
   ships and has doc/example coverage â€” a deprecation notice with no working
   replacement to point to just frustrates consumers.
 
+#### Naming reconciliation gap â€” resolved (2026-08-25 audit)
+
+Re-checked the "no directive with a matching name" note above against the
+current tree: it's stale. `[pButton]` (`ButtonDirective`, defined inside
+`button.ts` itself, full implementation, not a stub), `[pInputMask]`
+(`InputMaskDirective` inside `inputmask.ts`), and `input[pPassword]`
+(`PasswordDirective` inside `password.ts`) all already exist and are
+functional â€” they just live inline in their component's own file rather
+than a separate `native*.ts` file the way the checkbox/radiobutton/etc.
+directives do, which is why an earlier grep for `native*.ts` files alone
+missed them. **Decision: all three are ready replacements**, no further
+reconciliation needed.
+
+#### Dev-mode deprecation warnings â€” added (2026-08-25)
+
+Audited every row in the table above plus `Rating` and found: every listed
+component already had its `@deprecated` JSDoc (added in an earlier,
+unlogged pass â€” this roadmap's "Also done" trail for step 3 above doesn't
+mention it, but the JSDoc was already in the tree before this session
+touched anything). What was **actually missing** was the dev-mode
+`console.warn` half of the pattern â€” grepped the whole package
+(`grep -rn "console.warn" packages/ngx-prime/src`) and got zero hits
+anywhere, meaning the "matching whatever pattern `badge.ts`'s `size`
+deprecation already uses" instruction pointed at a pattern that no longer
+exists in the tree (also since-removed/simplified in an unlogged pass).
+Added a `constructor() { super(); if (isDevMode()) console.warn(...); }`
+block (adding a constructor where none existed, or inserting at the top of
+an existing one before other effects) to: `Button`, `Checkbox`,
+`RadioButton`, `InputMask`, `InputNumber`, `Password`, `ColorPicker`,
+`Slider`, `ToggleSwitch`, `ToggleButton`, `SelectButton`, `FileUpload`, and
+`Rating` (13 components â€” the full list above minus `AutoComplete` and
+`DatePicker`, both excluded per the existing notes: `AutoComplete` has no
+native equivalent by design, and `DatePicker`'s directive doesn't share the
+calendar/overlay engine yet, see below). `Rating` additionally needed the
+`@deprecated` JSDoc tag itself added (the table above still said "Complete
+... then deprecate" â€” `nativerating.ts`/`RatingDirective` already exists
+and is imported into `rating.ts`, so feature parity is done; deprecating it
+now, updated the table). Verified with `tsc --noEmit -p
+packages/ngx-prime/tsconfig.json` after the full batch â€” clean, only the
+expected "'Rating' is deprecated" self-reference hint inside `rating.ts`
+itself (the class using its own deprecated name in a type position),
+which is cosmetic and matches the same self-reference every other
+`@deprecated` component in this codebase produces. Grepped every touched
+component's `.spec.ts` for `spyOn(console` / `console.warn).not` assertions
+that a new unconditional warn could break â€” none found. No component,
+module export, or public API was removed; this is JSDoc + a side-effect-only
+constructor addition, matching the `Don't` rule above.
+
+**`DatePicker` explicitly NOT deprecated â€” engine-sharing gap confirmed
+real:** `nativedatepicker.ts`'s `DatePickerDirective extends BaseDatePicker`
+(a small, separate abstract class in `basedatepicker.ts`) while the
+`DatePicker` *component* extends `BaseInput`, a completely different base.
+The directive only tracks an `overlayVisible` boolean and toggles
+ARIA/`open()`/`close()` state on the host input â€” it does not render any
+calendar panel content at all. This confirms the task's up-front caution
+was correct: the native directive exists in the tree but does **not**
+share the calendar/overlay engine with `<p-datepicker>`, so it is not
+feature-complete and must not be presented to consumers as a ready
+replacement yet. Left `DatePicker` undeprecated, no JSDoc/warn added,
+matching the existing table row's "Not a deprecation target" note â€” this
+is a real, not just theoretical, engine-sharing gap and building it out is
+a dedicated feature-parity task, not part of this pass.
+
+**`AutoComplete` confirmed still has no native directive** (no
+`native*.ts` file, no inline `[pAutoComplete]` selector anywhere in
+`autocomplete.ts`) â€” consistent with the existing "deliberately not a
+deprecation target" note; no action taken, nothing to reconcile.
+
 ## Independent, low-risk, opportunistic work
 
 No dedicated effort needed â€” good to pick up whenever already in a given file
@@ -2267,16 +2377,17 @@ for other reasons.
   updated on 2026-08-22; the generated build copy is regenerated by the docs build.
   DNS and the GitHub Pages custom-domain setting still need to be updated externally.
   `.github/workflows/deploy-docs.yml` has no hardcoded domain reference.
-- **Re-enable husky pre-commit and commit-msg hooks** â€” both temporarily
-  disabled (renamed to `.husky/pre-commit.disabled` and
-  `.husky/commit-msg.disabled`) because of a broken/incomplete pnpm install:
-  `node_modules/lint-staged` was missing its `bin/` folder, and
-  `node_modules/@commitlint/cli` was missing entirely, so every commit failed
-  with `MODULE_NOT_FOUND`. Before restoring: run `pnpm install` (or
-  `pnpm install --force`) so `lint-staged` and `@commitlint/cli` resolve
-  correctly, verify `npx --no-install lint-staged` and
-  `npx --no-install commitlint --edit .git/COMMIT_EDITMSG` both run clean,
-  then rename both files back (drop the `.disabled` suffix).
+- **Re-enable husky pre-commit and commit-msg hooks** â€” âœ… done (2026-08-25).
+  Ran `pnpm install` at the repo root (no `--force` needed); it resolved
+  cleanly and, notably, *removed* 210 stray packages that a prior broken
+  install had left behind, which was presumably the root cause of the
+  missing `lint-staged/bin` and missing `@commitlint/cli` in the first
+  place. Verified `npx --no-install lint-staged --version` (12.5.0) and
+  `npx --no-install commitlint --edit <file>` both run without
+  `MODULE_NOT_FOUND` (commitlint correctly warned on a test message with an
+  empty `references` field, exit code 0 â€” expected, not an error). Renamed
+  both hooks back: `.husky/pre-commit.disabled` â†’ `.husky/pre-commit`,
+  `.husky/commit-msg.disabled` â†’ `.husky/commit-msg`.
 
 ## Notes
 

@@ -307,7 +307,19 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
                 this.confirmation = confirmation;
                 const keys = Object.keys(confirmation);
 
+                // `key` and `defaultFocus` are now signal `input()`s (see below) and must
+                // never be reflected onto `this` here: assigning a plain value over a
+                // signal function would silently break every later `.key()`/`.defaultFocus()`
+                // call with no compile-time warning. Neither reflected copy was actually
+                // load-bearing anyway — `confirmation.key` is only ever compared directly
+                // against `this.key()` above, and `confirmation.defaultFocus` is read
+                // directly (with `this.defaultFocus()` only as a fallback) in
+                // `focusButton()`, never via a reflected top-level field.
                 keys.forEach((key) => {
+                    if (key === 'key' || key === 'defaultFocus') {
+                        return;
+                    }
+
                     this[key] = confirmation[key];
                 });
 

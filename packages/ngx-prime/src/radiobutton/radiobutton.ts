@@ -1,4 +1,4 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, Injectable, InjectionToken, Injector, input, NgModule, numberAttribute, output, viewChild } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, ElementRef, forwardRef, inject, Injectable, InjectionToken, Injector, input, isDevMode, NgModule, numberAttribute, output, viewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { SharedModule } from '@wawjs/ngx-prime/api';
 import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
@@ -105,6 +105,18 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    constructor() {
+        super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-radioButton>` is deprecated and will be removed in a future major version. ' +
+                    'Use a native `<input type="radio" pRadioButton>` instead.'
+            );
+        }
     }
 
     /**

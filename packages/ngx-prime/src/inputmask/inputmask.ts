@@ -39,6 +39,7 @@ import {
     inject,
     InjectionToken,
     input,
+    isDevMode,
     NgModule,
     output,
     TemplateRef,
@@ -994,6 +995,14 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
     constructor() {
         super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-inputmask>` is deprecated and will be removed in a future major version. ' +
+                    'Use a native `<input pInputMask>` instead.'
+            );
+        }
 
         effect(() => {
             const maskValue = this.mask();

@@ -12,6 +12,7 @@ import {
     inject,
     InjectionToken,
     input,
+    isDevMode,
     NgModule,
     NgZone,
     numberAttribute,
@@ -676,6 +677,18 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    constructor() {
+        super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-password>` is deprecated and will be removed in a future major version. ' +
+                    'Use a native `<input type="password" pPassword>` instead.'
+            );
+        }
     }
 
     /**

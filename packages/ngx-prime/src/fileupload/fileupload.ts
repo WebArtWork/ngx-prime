@@ -10,6 +10,7 @@ import {
     inject,
     InjectionToken,
     input,
+    isDevMode,
     NgModule,
     NgZone,
     numberAttribute,
@@ -414,6 +415,18 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptm('host'));
+    }
+
+    constructor() {
+        super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-fileupload>` is deprecated and will be removed in a future major version. ' +
+                    'Compose `pFileUpload`, `pFileUploadQueue`, and its companion directives instead.'
+            );
+        }
     }
 
     /**

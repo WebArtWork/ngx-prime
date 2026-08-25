@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, forwardRef, inject, InjectionToken, input, NgModule, NgZone, numberAttribute, output, ViewChild, ViewEncapsulation, viewChild } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ElementRef, forwardRef, inject, InjectionToken, input, isDevMode, NgModule, NgZone, numberAttribute, output, ViewChild, ViewEncapsulation, viewChild } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { addClass, getWindowScrollLeft, getWindowScrollTop, isRTL, removeClass } from '@wawjs/css-prime-utils';
 import { SharedModule } from '@wawjs/ngx-prime/api';
@@ -164,6 +164,18 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    constructor() {
+        super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-slider>` is deprecated and will be removed in a future major version. ' +
+                    'Use a native `<input type="range" pRange>` for single-value sliders instead.'
+            );
+        }
     }
 
     /**

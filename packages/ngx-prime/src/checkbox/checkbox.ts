@@ -10,6 +10,7 @@ import {
     inject,
     InjectionToken,
     input,
+    isDevMode,
     NgModule,
     numberAttribute,
     output,
@@ -247,6 +248,15 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
 
     constructor() {
         super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-checkbox>` is deprecated and will be removed in a future major version. ' +
+                    'Use a native `<input type="checkbox" pCheckbox>` instead.'
+            );
+        }
+
         effect(() => {
             this._indeterminate.set(this.indeterminate());
         });

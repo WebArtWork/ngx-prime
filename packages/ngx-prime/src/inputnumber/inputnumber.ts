@@ -11,6 +11,7 @@ import {
     InjectionToken,
     input,
     Injector,
+    isDevMode,
     NgModule,
     numberAttribute,
     output,
@@ -505,6 +506,14 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
     constructor() {
         super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-inputnumber>` is deprecated and will be removed in a future major version. ' +
+                    'Use a native `<input type="number" pInputNumber>` instead.'
+            );
+        }
 
         effect(() => {
             this.locale();

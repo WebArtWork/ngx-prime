@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, signal, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, forwardRef, inject, InjectionToken, input, isDevMode, NgModule, numberAttribute, output, signal, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { focus, getFirstFocusableElement, uuid } from '@wawjs/css-prime-utils';
 import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
@@ -24,6 +24,10 @@ export const RATING_VALUE_ACCESSOR: any = {
 };
 /**
  * Rating is an extension to standard radio button element with theming.
+ *
+ * @deprecated Use a native `<input type="radio" pRating>` instead. This
+ * component remains available for compatibility and is planned for removal
+ * in v23.
  * @group Components
  */
 @Component({
@@ -92,6 +96,17 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
     $pcRating: Rating | undefined = inject(RATING_INSTANCE, { optional: true, skipSelf: true }) ?? undefined;
 
     bindDirectiveInstance = inject(Bind, { self: true });
+
+    constructor() {
+        super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-rating>` is deprecated and will be removed in a future major version. ' + 'Use a native `<input type="radio" pRating>` instead.'
+            );
+        }
+    }
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));

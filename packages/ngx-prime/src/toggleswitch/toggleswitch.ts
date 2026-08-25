@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, forwardRef, inject, InjectionToken, input, NgModule, numberAttribute, output, TemplateRef, ViewChild, ViewEncapsulation, contentChildren } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, ContentChild, ElementRef, forwardRef, inject, InjectionToken, input, isDevMode, NgModule, numberAttribute, output, TemplateRef, ViewChild, ViewEncapsulation, contentChildren } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
 import { AutoFocus } from '@wawjs/ngx-prime/autofocus';
@@ -80,6 +80,18 @@ export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
+    }
+
+    constructor() {
+        super();
+
+        if (isDevMode()) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`<p-toggleswitch>` is deprecated and will be removed in a future major version. ' +
+                    'Use a native `<input type="checkbox" pToggleSwitch>` instead.'
+            );
+        }
     }
 
     /**
