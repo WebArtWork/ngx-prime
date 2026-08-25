@@ -1,14 +1,14 @@
 {
 	"publishedPackages": [
 		{
-			"id": "@wawjs/ngx-prime-mcp@22.0.0",
+			"id": "@wawjs/ngx-prime-mcp@22.0.2",
 			"name": "@wawjs/ngx-prime-mcp",
-			"version": "22.0.0",
-			"size": 359174,
-			"unpackedSize": 2926817,
-			"shasum": "b60497a5883726f64521249c7d90b49e5b921f32",
-			"integrity": "sha512-inPJCG80h6CwvUPbPFz9WaaHo/OPjQmU7e1dkPf28gbrryceWeS88HUD6tsIIC5KCf47y8sCLpHuL/AXmlMxWw==",
-			"filename": "wawjs-ngx-prime-mcp-22.0.0.tgz",
+			"version": "22.0.2",
+			"size": 359189,
+			"unpackedSize": 2926883,
+			"shasum": "6e0403369a2ff177d1b21708a91e1dd034343698",
+			"integrity": "sha512-dHFrZRTCkgC1RrnQxL2NJzvNwLfuP3ZR/6H6YH4MY49vTGEZ1qzsI0TbxASylBTrV0mEXQkExuzdxy3fdTEcng==",
+			"filename": "wawjs-ngx-prime-mcp-22.0.2.tgz",
 			"files": [
 				{
 					"path": "dist/index.d.ts"
@@ -30,14 +30,14 @@
 			"bundled": []
 		},
 		{
-			"id": "@wawjs/ngx-prime@22.0.0",
+			"id": "@wawjs/ngx-prime@22.0.2",
 			"name": "@wawjs/ngx-prime",
-			"version": "22.0.0",
-			"size": 2053001,
-			"unpackedSize": 13240972,
-			"shasum": "69ae21e1e29a00099fd61430c6b294c64a5aba20",
-			"integrity": "sha512-mS17byuCEkflJC85bVe7RoS9lcWpt7xl0PyZW3OtSU+0c1z8GtFB180HVtSYJwAkbPHRV9WPrTo7IyLjwpLT1Q==",
-			"filename": "wawjs-ngx-prime-22.0.0.tgz",
+			"version": "22.0.2",
+			"size": 2067949,
+			"unpackedSize": 13293145,
+			"shasum": "19b0cc2d8b279225c0b8b711e3eeb6d6ec833f7f",
+			"integrity": "sha512-bsZfgIF2nSeHlf4QVUh5Gjb+XJ6W1p//IYbOpLIBJegvS6VeyOhc5Ds5gjuj4vTIYRSBTTVS1gK4/4F4itn4Ww==",
+			"filename": "wawjs-ngx-prime-22.0.2.tgz",
 			"files": [
 				{
 					"path": "fesm2022/wawjs-ngx-prime-accordion.mjs"
@@ -146,6 +146,12 @@
 				},
 				{
 					"path": "fesm2022/wawjs-ngx-prime-buttongroup.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-buylicense.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-buylicense.mjs.map"
 				},
 				{
 					"path": "fesm2022/wawjs-ngx-prime-card.mjs"
@@ -314,6 +320,12 @@
 				},
 				{
 					"path": "fesm2022/wawjs-ngx-prime-galleria.mjs.map"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icon.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-icon.mjs.map"
 				},
 				{
 					"path": "fesm2022/wawjs-ngx-prime-iconfield.mjs"
@@ -1954,6 +1966,9 @@
 					"path": "types/wawjs-ngx-prime-buttongroup.d.ts"
 				},
 				{
+					"path": "types/wawjs-ngx-prime-buylicense.d.ts"
+				},
+				{
 					"path": "types/wawjs-ngx-prime-card.d.ts"
 				},
 				{
@@ -2036,6 +2051,9 @@
 				},
 				{
 					"path": "types/wawjs-ngx-prime-galleria.d.ts"
+				},
+				{
+					"path": "types/wawjs-ngx-prime-icon.d.ts"
 				},
 				{
 					"path": "types/wawjs-ngx-prime-iconfield.d.ts"
@@ -2689,7 +2707,7 @@
 					"path": "types/wawjs-ngx-prime.d.ts"
 				}
 			],
-			"entryCount": 883,
+			"entryCount": 889,
 			"bundled": []
 		}
 	]
