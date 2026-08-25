@@ -102,9 +102,7 @@ export class Rating extends BaseEditableHolder<RatingPassThrough> {
 
         if (isDevMode()) {
             // eslint-disable-next-line no-console
-            console.warn(
-                '`<p-rating>` is deprecated and will be removed in a future major version. ' + 'Use a native `<input type="radio" pRating>` instead.'
-            );
+            console.warn('`<p-rating>` is deprecated and will be removed in a future major version. ' + 'Use a native `<input type="radio" pRating>` instead.');
         }
     }
 

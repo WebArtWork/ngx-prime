@@ -112,10 +112,7 @@ export class RadioButton extends BaseEditableHolder<RadioButtonPassThrough> {
 
         if (isDevMode()) {
             // eslint-disable-next-line no-console
-            console.warn(
-                '`<p-radioButton>` is deprecated and will be removed in a future major version. ' +
-                    'Use a native `<input type="radio" pRadioButton>` instead.'
-            );
+            console.warn('`<p-radioButton>` is deprecated and will be removed in a future major version. ' + 'Use a native `<input type="radio" pRadioButton>` instead.');
         }
     }
 

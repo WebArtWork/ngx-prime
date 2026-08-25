@@ -509,10 +509,7 @@ export class InputNumber extends BaseInput<InputNumberPassThrough> {
 
         if (isDevMode()) {
             // eslint-disable-next-line no-console
-            console.warn(
-                '`<p-inputnumber>` is deprecated and will be removed in a future major version. ' +
-                    'Use a native `<input type="number" pInputNumber>` instead.'
-            );
+            console.warn('`<p-inputnumber>` is deprecated and will be removed in a future major version. ' + 'Use a native `<input type="number" pInputNumber>` instead.');
         }
 
         effect(() => {

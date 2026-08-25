@@ -251,10 +251,7 @@ export class Checkbox extends BaseEditableHolder<CheckboxPassThrough> {
 
         if (isDevMode()) {
             // eslint-disable-next-line no-console
-            console.warn(
-                '`<p-checkbox>` is deprecated and will be removed in a future major version. ' +
-                    'Use a native `<input type="checkbox" pCheckbox>` instead.'
-            );
+            console.warn('`<p-checkbox>` is deprecated and will be removed in a future major version. ' + 'Use a native `<input type="checkbox" pCheckbox>` instead.');
         }
 
         effect(() => {

@@ -77,10 +77,7 @@ export class ToggleButton extends BaseEditableHolder<ToggleButtonPassThrough> {
 
         if (isDevMode()) {
             // eslint-disable-next-line no-console
-            console.warn(
-                '`<p-togglebutton>` is deprecated and will be removed in a future major version. ' +
-                    'Use a native `<button pToggleButton>` instead.'
-            );
+            console.warn('`<p-togglebutton>` is deprecated and will be removed in a future major version. ' + 'Use a native `<button pToggleButton>` instead.');
         }
     }
 

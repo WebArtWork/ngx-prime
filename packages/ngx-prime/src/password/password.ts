@@ -684,10 +684,7 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
         if (isDevMode()) {
             // eslint-disable-next-line no-console
-            console.warn(
-                '`<p-password>` is deprecated and will be removed in a future major version. ' +
-                    'Use a native `<input type="password" pPassword>` instead.'
-            );
+            console.warn('`<p-password>` is deprecated and will be removed in a future major version. ' + 'Use a native `<input type="password" pPassword>` instead.');
         }
     }
 

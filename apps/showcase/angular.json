@@ -107,7 +107,9 @@
                 },
                 "serve": {
                     "builder": "@angular/build:dev-server",
-                    "options": {},
+                    "options": {
+                        "port": 4200
+                    },
                     "configurations": {
                         "production": {
                             "buildTarget": "showcase:build:production"

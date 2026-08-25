@@ -422,10 +422,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
 
         if (isDevMode()) {
             // eslint-disable-next-line no-console
-            console.warn(
-                '`<p-fileupload>` is deprecated and will be removed in a future major version. ' +
-                    'Compose `pFileUpload`, `pFileUploadQueue`, and its companion directives instead.'
-            );
+            console.warn('`<p-fileupload>` is deprecated and will be removed in a future major version. ' + 'Compose `pFileUpload`, `pFileUploadQueue`, and its companion directives instead.');
         }
     }
 

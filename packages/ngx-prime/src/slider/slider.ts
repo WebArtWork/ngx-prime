@@ -171,10 +171,7 @@ export class Slider extends BaseEditableHolder<SliderPassThrough> {
 
         if (isDevMode()) {
             // eslint-disable-next-line no-console
-            console.warn(
-                '`<p-slider>` is deprecated and will be removed in a future major version. ' +
-                    'Use a native `<input type="range" pRange>` for single-value sliders instead.'
-            );
+            console.warn('`<p-slider>` is deprecated and will be removed in a future major version. ' + 'Use a native `<input type="range" pRange>` for single-value sliders instead.');
         }
     }
 

@@ -998,10 +998,7 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
 
         if (isDevMode()) {
             // eslint-disable-next-line no-console
-            console.warn(
-                '`<p-inputmask>` is deprecated and will be removed in a future major version. ' +
-                    'Use a native `<input pInputMask>` instead.'
-            );
+            console.warn('`<p-inputmask>` is deprecated and will be removed in a future major version. ' + 'Use a native `<input pInputMask>` instead.');
         }
 
         effect(() => {

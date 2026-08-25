@@ -1125,7 +1125,7 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
     changeActiveItem(event, item, index?: number, selfActive = false) {
         if (!this.isItemDisabled(item)) {
-            const activeItem = selfActive ? item : this.activeItem && equals(item, this.activeItem) ? null : item;
+            const activeItem = selfActive ? item : this.activeItem() && equals(item, this.activeItem()) ? null : item;
 
             this.activeItem.set(activeItem);
         }
@@ -1226,6 +1226,7 @@ export class PanelMenu extends BaseComponent<PanelMenuPassThrough> {
 
         item.expanded = !item.expanded;
         this.changeActiveItem(event, item, index);
+        this.cd.markForCheck();
         focus(event.currentTarget as HTMLElement);
     }
 
