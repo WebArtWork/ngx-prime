@@ -1273,7 +1273,7 @@ export class MultiSelect extends BaseEditableHolder<MultiSelectPassThrough> {
     }
 
     private getAllVisibleAndNonVisibleOptions() {
-        return this.group() ? this.flatOptions(this.options) : this.options || [];
+        return this.group() ? this.flatOptions(this._options()) : this._options() || [];
     }
 
     visibleOptions = computed(() => {

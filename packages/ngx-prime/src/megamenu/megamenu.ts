@@ -1285,16 +1285,18 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
     }
 
     bindResizeListener() {
-        if (!this.resizeListener) {
-            this.resizeListener = (event) => {
-                if (!isTouchDevice()) {
-                    this.hide(event, true);
-                }
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.resizeListener) {
+                this.resizeListener = (event) => {
+                    if (!isTouchDevice()) {
+                        this.hide(event, true);
+                    }
 
-                this.mobileActive = false;
-            };
+                    this.mobileActive = false;
+                };
 
-            window.addEventListener('resize', this.resizeListener);
+                window.addEventListener('resize', this.resizeListener);
+            }
         }
     }
 
@@ -1320,7 +1322,7 @@ export class MegaMenu extends BaseComponent<MegaMenuPassThrough> {
     }
 
     unbindResizeListener() {
-        if (this.resizeListener) {
+        if (isPlatformBrowser(this.platformId) && this.resizeListener) {
             window.removeEventListener('resize', this.resizeListener);
             this.resizeListener = null!;
         }

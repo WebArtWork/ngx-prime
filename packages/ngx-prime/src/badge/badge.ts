@@ -1,3 +1,4 @@
+import { isPlatformBrowser } from '@angular/common';
 import { booleanAttribute, ChangeDetectionStrategy, Component, Directive, effect, inject, InjectionToken, input, NgModule, ViewEncapsulation } from '@angular/core';
 import { addClass, createElement, hasClass, isNotEmpty, removeClass, uuid } from '@wawjs/css-prime-utils';
 import { SharedModule } from '@wawjs/ngx-prime/api';
@@ -157,8 +158,10 @@ export class BadgeDirective extends BaseComponent {
     private prevSeverity?: 'secondary' | 'info' | 'success' | 'warn' | 'danger' | 'contrast' | null;
 
     onAfterViewInit(): void {
-        this.id = uuid('pn_id_') + '_badge';
-        this.renderBadgeContent();
+        if (isPlatformBrowser(this.platformId)) {
+            this.id = uuid('pn_id_') + '_badge';
+            this.renderBadgeContent();
+        }
     }
 
     private setValue(element?: HTMLElement): void {

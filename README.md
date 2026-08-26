@@ -37,10 +37,8 @@ Our intended versioning follows Angular releases:
 
 ### Current status
 
-ngx-prime v22 is available as an Angular 22-compatible continuation of the
-final MIT-licensed ngx-prime v21 codebase.
-
-Angular 22 support is in progress and should not yet be considered complete or production-ready.
+ngx-prime v22 supports Angular 22 as a continuation of the final
+MIT-licensed ngx-prime v21 codebase.
 
 ### Installation
 

@@ -765,7 +765,7 @@ export class FileUpload extends BaseComponent<FileUploadPassThrough> implements 
             let file = files[i];
 
             if (this.validate(file)) {
-                if (this.isImage(file)) {
+                if (this.isImage(file) && isPlatformBrowser(this.platformId)) {
                     (<any>file).objectURL = this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(files[i]));
                 }
 
