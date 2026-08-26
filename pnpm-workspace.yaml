@@ -10,12 +10,12 @@ onlyBuiltDependencies:
   - msgpackr-extract
 
 catalog:
-  '@wawjs/css-prime-styled': ^1.0.0
-  '@wawjs/css-prime-utils': ^1.0.0
-  '@wawjs/css-prime-styles': ^1.0.0
-  '@wawjs/css-prime-themes': ^1.0.0
-  '@wawjs/css-prime-motion': ^1.0.0
-  '@wawjs/css-prime-mcp': ^1.0.0
+  '@wawjs/css-prime-styled': ^1.1.0
+  '@wawjs/css-prime-utils': ^1.1.0
+  '@wawjs/css-prime-styles': ^1.1.0
+  '@wawjs/css-prime-themes': ^1.1.0
+  '@wawjs/css-prime-motion': ^1.1.0
+  '@wawjs/css-prime-mcp': ^1.1.0
   'tailwindcss-primeui': ^0.6.1
   'primeicons': ^7.0.0
 
@@ -59,9 +59,9 @@ overrides:
   postcss: '>=8.5.18'
 
 minimumReleaseAgeExclude:
-  - '@wawjs/css-prime-mcp@1.0.0'
-  - '@wawjs/css-prime-motion@1.0.0'
-  - '@wawjs/css-prime-styled@1.0.0'
-  - '@wawjs/css-prime-styles@1.0.0'
-  - '@wawjs/css-prime-themes@1.0.0'
-  - '@wawjs/css-prime-utils@1.0.0'
+  - '@wawjs/css-prime-mcp@1.0.0 || 1.1.0'
+  - '@wawjs/css-prime-motion@1.0.0 || 1.1.0'
+  - '@wawjs/css-prime-styled@1.0.0 || 1.1.0'
+  - '@wawjs/css-prime-styles@1.0.0 || 1.1.0'
+  - '@wawjs/css-prime-themes@1.0.0 || 1.1.0'
+  - '@wawjs/css-prime-utils@1.0.0 || 1.1.0'

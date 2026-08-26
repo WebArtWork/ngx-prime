@@ -1,6 +1,6 @@
 {
     "name": "@wawjs/ngx-prime-monorepo",
-    "version": "22.0.2",
+    "version": "22.0.3",
     "author": "Web Art Work",
     "description": "ngx-prime is an independent MIT-licensed Angular UI component library continuing from the ngx-prime v21.1.9 codebase.",
     "homepage": "https://github.com/WebArtWork/ngx-prime",
@@ -68,7 +68,11 @@
     },
     "packageManager": "pnpm@11.22.0",
     "lint-staged": {
-        "packages/**/*.{js,mjs,mts,d.ts}": ["prettier --write"],
-        "apps/**/*.{js,mjs,mts,d.ts}": ["prettier --write"]
+        "packages/**/*.{js,mjs,mts,d.ts}": [
+            "prettier --write"
+        ],
+        "apps/**/*.{js,mjs,mts,d.ts}": [
+            "prettier --write"
+        ]
     }
 }

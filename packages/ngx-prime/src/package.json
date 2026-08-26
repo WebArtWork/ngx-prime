@@ -1,6 +1,6 @@
 {
     "name": "@wawjs/ngx-prime",
-    "version": "22.0.2",
+    "version": "22.0.3",
     "author": "Web Art Work",
     "description": "ngx-prime is an independent MIT-licensed Angular UI component library continuing from the ngx-prime v21.1.9 codebase.",
     "homepage": "https://github.com/WebArtWork/ngx-prime",
@@ -42,9 +42,9 @@
         "rxjs": "^6.0.0 || ^7.8.1"
     },
     "dependencies": {
-        "@wawjs/css-prime-styled": "^1.0.0",
-        "@wawjs/css-prime-utils": "^1.0.0",
-        "@wawjs/css-prime-styles": "^1.0.0",
-        "@wawjs/css-prime-motion": "^1.0.0"
+        "@wawjs/css-prime-styled": "^1.1.0",
+        "@wawjs/css-prime-utils": "^1.1.0",
+        "@wawjs/css-prime-styles": "^1.1.0",
+        "@wawjs/css-prime-motion": "^1.1.0"
     }
 }

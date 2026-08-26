@@ -59,17 +59,17 @@ catalogs:
       version: 6.0.3
   default:
     '@wawjs/css-prime-mcp':
-      specifier: ^1.0.0
-      version: 1.0.0
+      specifier: ^1.1.0
+      version: 1.1.0
     '@wawjs/css-prime-styled':
-      specifier: ^1.0.0
-      version: 1.0.0
+      specifier: ^1.1.0
+      version: 1.1.0
     '@wawjs/css-prime-themes':
-      specifier: ^1.0.0
-      version: 1.0.0
+      specifier: ^1.1.0
+      version: 1.1.0
     '@wawjs/css-prime-utils':
-      specifier: ^1.0.0
-      version: 1.0.0
+      specifier: ^1.1.0
+      version: 1.1.0
     primeicons:
       specifier: ^7.0.0
       version: 7.0.0
@@ -214,13 +214,13 @@ importers:
         version: 18.3.28
       '@wawjs/css-prime-styled':
         specifier: 'catalog:'
-        version: 1.0.0
+        version: 1.1.0
       '@wawjs/css-prime-themes':
         specifier: 'catalog:'
-        version: 1.0.0
+        version: 1.1.0
       '@wawjs/css-prime-utils':
         specifier: 'catalog:'
-        version: 1.0.0
+        version: 1.1.0
       '@wawjs/ngx-prime':
         specifier: workspace:*
         version: link:../../packages/ngx-prime
@@ -271,7 +271,7 @@ importers:
     dependencies:
       '@wawjs/css-prime-mcp':
         specifier: 'catalog:'
-        version: 1.0.0(supports-color@9.4.0)
+        version: 1.1.0(supports-color@9.4.0)
     devDependencies:
       tsup:
         specifier: ^8.1.0
@@ -298,17 +298,17 @@ importers:
         specifier: ^22.1.2
         version: 22.1.2(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(@angular/platform-browser@22.1.2(@angular/animations@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)))(@angular/common@22.1.2(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@22.1.2(@angular/compiler@22.1.2)(rxjs@7.8.2)))(rxjs@7.8.2)
       '@wawjs/css-prime-motion':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.1.0
+        version: 1.1.0
       '@wawjs/css-prime-styled':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.1.0
+        version: 1.1.0
       '@wawjs/css-prime-styles':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.1.0
+        version: 1.1.0
       '@wawjs/css-prime-utils':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.1.0
+        version: 1.1.0
       rxjs:
         specifier: ^6.0.0 || ^7.8.1
         version: 7.8.2
@@ -328,10 +328,10 @@ importers:
     dependencies:
       '@wawjs/css-prime-styled':
         specifier: 'catalog:'
-        version: 1.0.0
+        version: 1.1.0
       '@wawjs/css-prime-themes':
         specifier: 'catalog:'
-        version: 1.0.0
+        version: 1.1.0
     publishDirectory: dist
 
 packages:
@@ -3133,28 +3133,28 @@ packages:
     peerDependencies:
       vite: ^6.0.0 || ^7.0.0 || ^8.0.0
 
-  '@wawjs/css-prime-mcp@1.0.0':
-    resolution: {integrity: sha512-XFyZjSjQTea0HEwYOlAzDwTSwCGxCqQYAq/OgT+xntZ4YQw++5Ru3J97IXiU6OkpZOw2UmrF4xKIiiQsoCYGpA==}
+  '@wawjs/css-prime-mcp@1.1.0':
+    resolution: {integrity: sha512-DYnSXMgWM0dsphIUCfCOu/+Fa+dI5RATpRil6tJIQAqhLuqEYTPP7EpfVnbD32ijDYMAPVbS5D5zf4Jb/Wmb3A==}
     engines: {node: '>=24 <25'}
 
-  '@wawjs/css-prime-motion@1.0.0':
-    resolution: {integrity: sha512-pJZ1T78fxVpjee92ypM10+KTLy1WjIeelHvZotRPRqZCJTvHc7LWjYPPukmZXZm30Nv9POwOFw2NC8yhJlYNWw==}
+  '@wawjs/css-prime-motion@1.1.0':
+    resolution: {integrity: sha512-xBTHdx+1tS45/ouKIpR0pM4b8ncNexl95P+kajqSJOSzXQSnYttI+pNxIGHjIVKLLOuJtnWdpCJOtivFF8J1Hg==}
     engines: {node: '>=24 <25'}
 
-  '@wawjs/css-prime-styled@1.0.0':
-    resolution: {integrity: sha512-b/+/vgspnnkYR305H/2+lDr3/VNEpFlHAfmA/Hy7RbCEG9XpORzHUzub9zrGIfpqczLu7md71mw7BSmm/2fLjg==}
+  '@wawjs/css-prime-styled@1.1.0':
+    resolution: {integrity: sha512-tjCVf/1bG8s2TEf8Z2a9jR+793Le45QfvOFuJ7U+RXYlzgiZrEMizeasZ5rCeSyluq42o59c0S8kV8LZmPwx/w==}
     engines: {node: '>=24 <25'}
 
-  '@wawjs/css-prime-styles@1.0.0':
-    resolution: {integrity: sha512-1fqnuUhMKDVg2awyWXQjqRJDFvQJUV2S6E6d/dSgiW6arEOqAvEA2AY1kRJgmLZWej1zVWg8CBG9quSmjQpGOg==}
+  '@wawjs/css-prime-styles@1.1.0':
+    resolution: {integrity: sha512-4yJZHzCXZEP02NExurv96jKr3OKOkY17/9zuzVbsBiXIn4c+oaJdobquAxnSwYcNgRQ43ztXt2HX1Pc6O4MhxQ==}
     engines: {node: '>=24 <25'}
 
-  '@wawjs/css-prime-themes@1.0.0':
-    resolution: {integrity: sha512-/crA94YC/Jk4G9s0Rb1+vCv4GM9ZAbYbDRsBeFfTG6opULa6QTfFoKvyFN2995u2pdPnsChvKdghM5Bb0lkdPQ==}
+  '@wawjs/css-prime-themes@1.1.0':
+    resolution: {integrity: sha512-pzWX+yWLGylAvB/r34M1COwBo0O4hOuXKyaLuSe+Xa9U+ZIDOkMF91TtsPgGh+ly4t5e9BRlN8BSyGvZAFxTnQ==}
     engines: {node: '>=24 <25'}
 
-  '@wawjs/css-prime-utils@1.0.0':
-    resolution: {integrity: sha512-b48i378Rx0yuMz8nRdKtydzWbpHCLqVwoCu5fprY1LBzBRRGLBOSMqPCanjfy7LUw1G7j1TUzUM8aPlVJMoIEQ==}
+  '@wawjs/css-prime-utils@1.1.0':
+    resolution: {integrity: sha512-Vl2CBa7/pxOtB5T5CAn+U1IM566M5kkiAWWI6dl6smk3arO5OdwTXoGErDVFk+rUUYo489LY8igYnkVSzh5mqQ==}
     engines: {node: '>=24 <25'}
 
   '@webassemblyjs/ast@1.14.1':
@@ -9231,7 +9231,7 @@ snapshots:
     dependencies:
       vite: 8.1.5(@types/node@22.19.19)(esbuild@0.28.2)(jiti@2.7.0)(less@4.6.7)(sass@1.101.0)(terser@5.49.0)(yaml@2.9.0)
 
-  '@wawjs/css-prime-mcp@1.0.0(supports-color@9.4.0)':
+  '@wawjs/css-prime-mcp@1.1.0(supports-color@9.4.0)':
     dependencies:
       '@modelcontextprotocol/sdk': 1.30.0(supports-color@9.4.0)(zod@3.25.76)
       zod: 3.25.76
@@ -9239,23 +9239,23 @@ snapshots:
       - '@cfworker/json-schema'
       - supports-color
 
-  '@wawjs/css-prime-motion@1.0.0':
+  '@wawjs/css-prime-motion@1.1.0':
     dependencies:
-      '@wawjs/css-prime-utils': 1.0.0
+      '@wawjs/css-prime-utils': 1.1.0
 
-  '@wawjs/css-prime-styled@1.0.0':
+  '@wawjs/css-prime-styled@1.1.0':
     dependencies:
-      '@wawjs/css-prime-utils': 1.0.0
+      '@wawjs/css-prime-utils': 1.1.0
 
-  '@wawjs/css-prime-styles@1.0.0':
+  '@wawjs/css-prime-styles@1.1.0':
     dependencies:
-      '@wawjs/css-prime-styled': 1.0.0
+      '@wawjs/css-prime-styled': 1.1.0
 
-  '@wawjs/css-prime-themes@1.0.0':
+  '@wawjs/css-prime-themes@1.1.0':
     dependencies:
-      '@wawjs/css-prime-styled': 1.0.0
+      '@wawjs/css-prime-styled': 1.1.0
 
-  '@wawjs/css-prime-utils@1.0.0': {}
+  '@wawjs/css-prime-utils@1.1.0': {}
 
   '@webassemblyjs/ast@1.14.1':
     dependencies:
