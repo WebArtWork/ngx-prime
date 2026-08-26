@@ -1,14 +1,14 @@
 {
 	"publishedPackages": [
 		{
-			"id": "@wawjs/ngx-prime-mcp@22.0.2",
+			"id": "@wawjs/ngx-prime-mcp@22.0.3",
 			"name": "@wawjs/ngx-prime-mcp",
-			"version": "22.0.2",
+			"version": "22.0.3",
 			"size": 359189,
 			"unpackedSize": 2926883,
-			"shasum": "6e0403369a2ff177d1b21708a91e1dd034343698",
-			"integrity": "sha512-dHFrZRTCkgC1RrnQxL2NJzvNwLfuP3ZR/6H6YH4MY49vTGEZ1qzsI0TbxASylBTrV0mEXQkExuzdxy3fdTEcng==",
-			"filename": "wawjs-ngx-prime-mcp-22.0.2.tgz",
+			"shasum": "4addc028e55590e2c2a59160f329ac250c610033",
+			"integrity": "sha512-58FHzqDegfH44LgSsF42Q/bO/eHuV3BQfOrKAnm9aUztGPksRGg1/9mdKRBzgvlxYkQK2ECKNRy9Q1yvVxwCcQ==",
+			"filename": "wawjs-ngx-prime-mcp-22.0.3.tgz",
 			"files": [
 				{
 					"path": "dist/index.d.ts"
@@ -30,14 +30,14 @@
 			"bundled": []
 		},
 		{
-			"id": "@wawjs/ngx-prime@22.0.2",
+			"id": "@wawjs/ngx-prime@22.0.3",
 			"name": "@wawjs/ngx-prime",
-			"version": "22.0.2",
-			"size": 2067949,
-			"unpackedSize": 13293145,
-			"shasum": "19b0cc2d8b279225c0b8b711e3eeb6d6ec833f7f",
-			"integrity": "sha512-bsZfgIF2nSeHlf4QVUh5Gjb+XJ6W1p//IYbOpLIBJegvS6VeyOhc5Ds5gjuj4vTIYRSBTTVS1gK4/4F4itn4Ww==",
-			"filename": "wawjs-ngx-prime-22.0.2.tgz",
+			"version": "22.0.3",
+			"size": 2073665,
+			"unpackedSize": 13325300,
+			"shasum": "07797d9501ec1a77e5153afd43ea8e39420ffab1",
+			"integrity": "sha512-MadfkX3y9WRN6FlR8FuccpZbGZYna7zj0plNaAOJUSpN2MVyepqVVhpe+KCHM+rPndYDQHjKBi4Np8vkR9sHTQ==",
+			"filename": "wawjs-ngx-prime-22.0.3.tgz",
 			"files": [
 				{
 					"path": "fesm2022/wawjs-ngx-prime-accordion.mjs"
@@ -748,6 +748,12 @@
 					"path": "fesm2022/wawjs-ngx-prime-knob.mjs.map"
 				},
 				{
+					"path": "fesm2022/wawjs-ngx-prime-link.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-link.mjs.map"
+				},
+				{
 					"path": "fesm2022/wawjs-ngx-prime-listbox.mjs"
 				},
 				{
@@ -1324,6 +1330,12 @@
 					"path": "fesm2022/wawjs-ngx-prime-types-knob.mjs.map"
 				},
 				{
+					"path": "fesm2022/wawjs-ngx-prime-types-link.mjs"
+				},
+				{
+					"path": "fesm2022/wawjs-ngx-prime-types-link.mjs.map"
+				},
+				{
 					"path": "fesm2022/wawjs-ngx-prime-types-listbox.mjs"
 				},
 				{
@@ -1766,6 +1778,9 @@
 				},
 				{
 					"path": "types/knob/package.json"
+				},
+				{
+					"path": "types/link/package.json"
 				},
 				{
 					"path": "types/listbox/package.json"
@@ -2266,6 +2281,9 @@
 					"path": "types/wawjs-ngx-prime-knob.d.ts"
 				},
 				{
+					"path": "types/wawjs-ngx-prime-link.d.ts"
+				},
+				{
 					"path": "types/wawjs-ngx-prime-listbox.d.ts"
 				},
 				{
@@ -2554,6 +2572,9 @@
 					"path": "types/wawjs-ngx-prime-types-knob.d.ts"
 				},
 				{
+					"path": "types/wawjs-ngx-prime-types-link.d.ts"
+				},
+				{
 					"path": "types/wawjs-ngx-prime-types-listbox.d.ts"
 				},
 				{
@@ -2707,7 +2728,7 @@
 					"path": "types/wawjs-ngx-prime.d.ts"
 				}
 			],
-			"entryCount": 889,
+			"entryCount": 896,
 			"bundled": []
 		}
 	]
