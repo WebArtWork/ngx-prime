@@ -1,14 +1,14 @@
 {
 	"publishedPackages": [
 		{
-			"id": "@wawjs/ngx-prime-mcp@22.0.3",
+			"id": "@wawjs/ngx-prime-mcp@22.0.4",
 			"name": "@wawjs/ngx-prime-mcp",
-			"version": "22.0.3",
+			"version": "22.0.4",
 			"size": 359189,
 			"unpackedSize": 2926883,
-			"shasum": "4addc028e55590e2c2a59160f329ac250c610033",
-			"integrity": "sha512-58FHzqDegfH44LgSsF42Q/bO/eHuV3BQfOrKAnm9aUztGPksRGg1/9mdKRBzgvlxYkQK2ECKNRy9Q1yvVxwCcQ==",
-			"filename": "wawjs-ngx-prime-mcp-22.0.3.tgz",
+			"shasum": "3f1075c536ac9b487452db26d7a8d6f1fbd58fda",
+			"integrity": "sha512-wqP2Nlg7v5e3lrvaGywm6GRq2JwLwCOXE8XMBvpFh5SFC7mxJ4byLtws7FFija24awjtkCoF28KZsxQ6uzec5Q==",
+			"filename": "wawjs-ngx-prime-mcp-22.0.4.tgz",
 			"files": [
 				{
 					"path": "dist/index.d.ts"
@@ -30,14 +30,14 @@
 			"bundled": []
 		},
 		{
-			"id": "@wawjs/ngx-prime@22.0.3",
+			"id": "@wawjs/ngx-prime@22.0.4",
 			"name": "@wawjs/ngx-prime",
-			"version": "22.0.3",
-			"size": 2073665,
-			"unpackedSize": 13325300,
-			"shasum": "07797d9501ec1a77e5153afd43ea8e39420ffab1",
-			"integrity": "sha512-MadfkX3y9WRN6FlR8FuccpZbGZYna7zj0plNaAOJUSpN2MVyepqVVhpe+KCHM+rPndYDQHjKBi4Np8vkR9sHTQ==",
-			"filename": "wawjs-ngx-prime-22.0.3.tgz",
+			"version": "22.0.4",
+			"size": 2073659,
+			"unpackedSize": 13325352,
+			"shasum": "dbe01524371448bd64885206b2a74fa6b5674920",
+			"integrity": "sha512-1nUSQckhlurRMdG6kPuaXaTiNHsBUqdXBw9ijqN0mCHGDPqNAl3UOehST44PqGZlIk+S7GGnv4jl49OoJ67udQ==",
+			"filename": "wawjs-ngx-prime-22.0.4.tgz",
 			"files": [
 				{
 					"path": "fesm2022/wawjs-ngx-prime-accordion.mjs"
