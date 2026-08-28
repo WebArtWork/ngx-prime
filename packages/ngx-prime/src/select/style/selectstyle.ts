@@ -58,7 +58,7 @@ const classes = {
         'p-select-option',
         {
             'p-select-option-selected': instance.selected && !instance.checkmark,
-            'p-disabled': instance.disabled,
+            'p-disabled': instance.disabled(),
             'p-focus': instance.focused
         }
     ],

@@ -1,6 +1,6 @@
 {
     "name": "@wawjs/ngx-prime-mcp",
-    "version": "22.0.3",
+    "version": "22.0.4",
     "author": "Web Art Work",
     "description": "Model Context Protocol (MCP) server for ngx-prime Angular component documentation.",
     "homepage": "https://github.com/WebArtWork/ngx-prime",
