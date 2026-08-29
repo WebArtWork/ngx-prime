@@ -9,8 +9,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Scrollbars of the ScrollPanel has a <i>scrollbar</i> role along with the <i>aria-controls</i> attribute that refers to the id of the scrollable content container and the <i>aria-orientation</i> to indicate the orientation of
-                scrolling.
+                Scrollbars of the ScrollPanel has a <i>scrollbar</i> role along with the <i>aria-controls</i> attribute that refers to the id of the scrollable content container, <i>aria-orientation</i> to indicate the orientation of scrolling, and
+                <i>aria-valuenow</i>/<i>aria-valuemin</i>/<i>aria-valuemax</i> to expose the current scroll position as a percentage.
             </p>
             <h3>Header Keyboard Support</h3>
             <div class="doc-tablewrapper">

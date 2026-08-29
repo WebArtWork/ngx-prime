@@ -20,7 +20,7 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
     imports: [CommonModule, SharedModule, BindModule],
     template: `
         <div [pBind]="ptm('contentContainer')" [class]="cx('contentContainer')">
-            <div #content [pBind]="ptm('content')" [class]="cx('content')" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
+            <div #content [attr.id]="contentId" [pBind]="ptm('content')" [class]="cx('content')" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
                 @if (!contentTemplate() && !_contentTemplate) {
                     <ng-content></ng-content>
                 }
@@ -35,6 +35,8 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
             role="scrollbar"
             [attr.aria-orientation]="'horizontal'"
             [attr.aria-valuenow]="lastScrollLeft"
+            [attr.aria-valuemin]="0"
+            [attr.aria-valuemax]="100"
             [attr.aria-controls]="contentId"
             [attr.data-pc-group-section]="'bar'"
             (mousedown)="onXBarMouseDown($event)"
@@ -51,6 +53,8 @@ const SCROLLPANEL_INSTANCE = new InjectionToken<ScrollPanel>('SCROLLPANEL_INSTAN
             role="scrollbar"
             [attr.aria-orientation]="'vertical'"
             [attr.aria-valuenow]="lastScrollTop"
+            [attr.aria-valuemin]="0"
+            [attr.aria-valuemax]="100"
             [attr.aria-controls]="contentId"
             (mousedown)="onYBarMouseDown($event)"
             (keydown)="onKeyDown($event)"
