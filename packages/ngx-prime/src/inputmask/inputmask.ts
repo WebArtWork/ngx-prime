@@ -771,6 +771,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             [attr.tabindex]="tabindex()"
             [attr.aria-label]="ariaLabel()"
             [attr.aria-labelledBy]="ariaLabelledBy()"
+            [attr.aria-describedby]="ariaDescribedBy()"
+            [attr.aria-invalid]="invalid() || null"
             [attr.aria-required]="ariaRequired()"
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly() ? '' : undefined"
@@ -879,6 +881,11 @@ export class InputMask extends BaseInput<InputMaskPassThrough> {
      * @group Props
      */
     ariaLabelledBy = input<string>();
+    /**
+     * Establishes relationships between the component and its description where its value should be one or more element IDs.
+     * @group Props
+     */
+    ariaDescribedBy = input<string>();
     /**
      * Used to indicate that user input is required on an element before a form can be submitted.
      * @group Props
