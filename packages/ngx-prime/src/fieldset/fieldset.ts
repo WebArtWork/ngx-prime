@@ -56,7 +56,7 @@ const FIELDSET_INSTANCE = new InjectionToken<Fieldset>('FIELDSET_INSTANCE');
                     >
                         @if (collapsed()) {
                             @if (!expandIconTemplate && !_expandIconTemplate) {
-                                <svg data-p-icon="plus" [class]="cx('toggleIcon')" [pBind]="ptm('toggleIcon')" />
+                                <svg data-p-icon="plus" [class]="cx('toggleIcon')" [attr.aria-hidden]="true" [pBind]="ptm('toggleIcon')" />
                             }
                             @if (expandIconTemplate || _expandIconTemplate) {
                                 <span [class]="cx('toggleIcon')" [pBind]="ptm('toggleIcon')">
