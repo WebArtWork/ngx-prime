@@ -143,6 +143,21 @@ import { CarouselStyle } from './style/carouselstyle';
                         </ng-template>
                     </p-button>
                 }
+                @if (autoplayInterval()) {
+                    <button
+                        type="button"
+                        [class]="cx('pcNextButton')"
+                        [attr.aria-label]="allowAutoplay ? ariaPauseLabel() : ariaPlayLabel()"
+                        [attr.aria-pressed]="!allowAutoplay"
+                        (click)="toggleAutoplay()"
+                    >
+                        @if (allowAutoplay) {
+                            <span aria-hidden="true">&#10073;&#10073;</span>
+                        } @else {
+                            <span aria-hidden="true">&#9654;</span>
+                        }
+                    </button>
+                }
             </div>
             @if (showIndicators()) {
                 <ul #indicatorContent [class]="cx('indicatorList')" [ngStyle]="indicatorsContentStyle()" (keydown)="onIndicatorKeydown($event)" [pBind]="ptm('indicatorList')">
@@ -484,7 +499,7 @@ export class Carousel extends BaseComponent {
         this.id = uuid('pn_id_');
 
         if (isPlatformBrowser(this.platformId)) {
-            this.allowAutoplay = !!this.autoplayInterval();
+            this.allowAutoplay = !!this.autoplayInterval() && !this.prefersReducedMotion();
 
             if (this.circular()) {
                 this.setCloneItems();
@@ -928,7 +943,23 @@ export class Carousel extends BaseComponent {
         this.cd.markForCheck();
     }
 
+    prefersReducedMotion(): boolean {
+        return isPlatformBrowser(this.platformId) && !!this.document.defaultView?.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    toggleAutoplay() {
+        if (this.allowAutoplay) {
+            this.stopAutoplay();
+        } else {
+            this.startAutoplay();
+        }
+    }
+
     startAutoplay() {
+        if (this.prefersReducedMotion()) {
+            return;
+        }
+
         this.interval = setInterval(() => {
             if (this.totalDots() > 0) {
                 if (this._page === this.totalDots() - 1) {
@@ -1021,6 +1052,14 @@ export class Carousel extends BaseComponent {
 
     ariaSlideNumber(value) {
         return this.config.translation.aria ? this.config.translation.aria?.slideNumber?.replace(/{slideNumber}/g, value) : undefined;
+    }
+
+    ariaPauseLabel() {
+        return 'Pause automatic slide rotation';
+    }
+
+    ariaPlayLabel() {
+        return 'Start automatic slide rotation';
     }
 
     ariaPageLabel(value) {
