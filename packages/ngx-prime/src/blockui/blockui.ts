@@ -77,6 +77,9 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
 
     animationEndListener: VoidFunction | null | undefined;
 
+    /** Sibling elements of the mask (inside the blocked target) that were made inert while blocked, so they can be restored on unblock. */
+    private _inertedSiblings: HTMLElement[] = [];
+
     _componentStyle = inject(BlockUiStyle);
 
     constructor() {
@@ -144,6 +147,11 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
 
             this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask');
             this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask-enter-active');
+
+            // The mask visually covers the blocked content, but without this its focusable
+            // descendants remain reachable by keyboard/AT (WCAG 2.4.3/1.3.1). Make everything
+            // else in the blocked container inert while blocked.
+            this.setSiblingsInert();
         }
     }
 
@@ -157,7 +165,23 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
 
             this.renderer.removeClass(this.el.nativeElement, 'p-overlay-mask-enter-active');
             this.renderer.addClass(this.el.nativeElement, 'p-overlay-mask-leave-active');
+
+            this.clearSiblingsInert();
         }
+    }
+
+    private setSiblingsInert(): void {
+        const maskEl = (this.el as ElementRef).nativeElement as HTMLElement;
+        const container: HTMLElement = this.target() ? this.target().getBlockableElement() : this.document.body;
+
+        this._inertedSiblings = Array.from(container.children).filter((child) => child !== maskEl && !(child as HTMLElement).hasAttribute('inert')) as HTMLElement[];
+
+        this._inertedSiblings.forEach((sibling) => this.renderer.setAttribute(sibling, 'inert', ''));
+    }
+
+    private clearSiblingsInert(): void {
+        this._inertedSiblings.forEach((sibling) => this.renderer.removeAttribute(sibling, 'inert'));
+        this._inertedSiblings = [];
     }
 
     destroyModal() {
@@ -190,6 +214,8 @@ export class BlockUI extends BaseComponent<BlockUIPassThrough> {
         if (this._blocked) {
             // Skip animation on destroy, just cleanup
             this._blocked = false;
+
+            this.clearSiblingsInert();
 
             if (this.el && isPlatformBrowser(this.platformId)) {
                 ZIndexUtils.clear(this.el.nativeElement);
