@@ -22,11 +22,35 @@ const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
             role="img"
             [attr.aria-label]="ariaLabel()"
             [attr.aria-labelledby]="ariaLabelledBy()"
+            [attr.aria-describedby]="data() ? dataTableId : null"
             [attr.width]="responsive() && !width() ? null : width()"
             [attr.height]="responsive() && !height() ? null : height()"
             (click)="onCanvasClick($event)"
             [pBind]="ptm('canvas')"
         ></canvas>
+        @if (data(); as chartData) {
+            <table [id]="dataTableId" class="p-chart-data-table" [style]="{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0 0 0 0)', 'white-space': 'nowrap' }">
+                <caption>{{ ariaLabel() || 'Chart data' }}</caption>
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        @for (dataset of chartData.datasets; track dataset.label) {
+                            <th scope="col">{{ dataset.label }}</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (label of chartData.labels; track label; let i = $index) {
+                        <tr>
+                            <th scope="row">{{ label }}</th>
+                            @for (dataset of chartData.datasets; track dataset.label) {
+                                <td>{{ dataset.data[i] }}</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -107,6 +131,8 @@ export class UIChart extends BaseComponent<ChartPassThrough> {
     initialized: boolean | undefined;
 
     chart: any;
+
+    dataTableId = `p-chart-data-${Math.random().toString(36).slice(2, 9)}`;
 
     _componentStyle = inject(ChartStyle);
 

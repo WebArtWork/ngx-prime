@@ -15,6 +15,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                     <a class="text-primary font-medium hover:underline" href="https://www.chartjs.org/docs/latest/general/accessibility.html">Chart.js accessibility</a>
                     guide for more information.
                 </p>
+                <p>
+                    Since a canvas has no text content, the <i>canvas</i> element is given <i>role="img"</i> with <i>aria-label</i>/<i>aria-labelledby</i>, and its <i>aria-describedby</i> points to a visually-hidden data table generated from the
+                    <i>data</i> input (labels as row headers, dataset labels as column headers) so screen reader users can read the underlying values instead of only a generic image label.
+                </p>
             </div>
         </app-docsectiontext>
         <app-code [hideToggleCode]="true"></app-code>
