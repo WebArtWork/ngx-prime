@@ -2676,15 +2676,44 @@ Proposed phasing:
       element"/"no interactive elements" â€” corrected to describe the
       actual plain-div + `tabindex` behavior. message and splitbutton
       already compliant.
-  - **Note on scope:** of the ~95 components in the "no equivalent" list,
-    roughly two dozen are base classes / utility directives with no own
-    template or DOM surface (`base`, `basecomponent`, `baseeditableholder`,
-    `baseinput`, `basemodelholder`, `bind`, `classnames`, `config`, `dom`,
-    `focustrap`, `motion`, `passthrough`, `ripple`, `ts-helpers`, `types`,
-    `usestyle`, `utils`, `autofocus`, `icons`, `animateonscroll`,
-    `dragdrop`, `styleclass`, `scrolltop`) â€” these have nothing to audit
-    for ARIA and are excluded from per-component tracking below; flag any
-    that turn out to render their own DOM if that assumption is ever wrong.
+  - **Note on scope (corrected 2026-08-29):** of the ~95 components in the
+    "no equivalent" list, most base classes / utility directives genuinely
+    have no own template or DOM surface (`base`, `basecomponent`,
+    `baseeditableholder`, `baseinput`, `basemodelholder`, `bind`,
+    `classnames`, `config`, `dom`, `focustrap`, `passthrough`, `ripple`,
+    `ts-helpers`, `types`, `usestyle`, `utils`, `autofocus`, `icons`,
+    `animateonscroll`, `dragdrop`, `styleclass`) and are excluded from
+    per-component tracking. **Two were wrongly excluded on the original
+    pass** â€” both do render their own DOM and have now been fixed:
+    - **`scrolltop`** â€” has a real template (a `p-button` wrapper with a
+      chevron icon). Already had a `buttonAriaLabel` input wired correctly;
+      the only gap was the decorative icon glyphs not being
+      `aria-hidden`, now fixed for consistency with every other icon fix
+      in this pass.
+    - **`motion`** â€” a transparent `<ng-content>` transition wrapper, but a
+      load-bearing one: it's the shared primitive that `dialog`, `drawer`,
+      `popover`, `overlay`, `message`, `scrolltop`, and every other
+      animated component in the library goes through via `pMotion`. Found
+      that neither `motion.component.ts` nor the underlying
+      `@wawjs/css-prime-motion` package (external, not editable from this
+      repo) had **any `prefers-reduced-motion` handling at all** â€” a
+      cross-cutting WCAG 2.3.3/2.2.2 gap affecting every animation in the
+      library, not just one component. Fixed at the `Motion` wrapper level
+      (the only seam editable here): a live `matchMedia('(prefers-reduced-
+      motion: reduce)')` listener forces transition/animation `duration`
+      to `0` when the preference is set â€” enter/leave still fire (so
+      mount/unmount timing and lifecycle callbacks are preserved), just
+      without visible animation. If `@wawjs/css-prime-motion` is ever
+      forked into this repo or gains its own reduced-motion support, this
+      wrapper-level fix should be reconciled with it rather than doubled up.
+    - **Verification done (2026-08-29):** ran `grep -l "template:"` across
+      all 19 remaining excluded directories (`base`, `basecomponent`,
+      `baseeditableholder`, `baseinput`, `basemodelholder`, `bind`,
+      `classnames`, `config`, `dom`, `focustrap`, `passthrough`, `ripple`,
+      `ts-helpers`, `types`, `usestyle`, `utils`, `autofocus`, `icons`,
+      `animateonscroll`, `dragdrop`, `styleclass`) â€” confirmed zero have a
+      template. The exclusion list is now fully verified accurate, not
+      just assumed.
 
 ### Part B â€” full WCAG 2.2 AA / EN 301 549 / WAI-ARIA APG compliance sweep
 
