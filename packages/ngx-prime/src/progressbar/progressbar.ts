@@ -36,10 +36,12 @@ const PROGRESSBAR_INSTANCE = new InjectionToken<ProgressBar>('PROGRESSBAR_INSTAN
     providers: [ProgressBarStyle, { provide: PROGRESSBAR_INSTANCE, useExisting: ProgressBar }, { provide: PARENT_INSTANCE, useExisting: ProgressBar }],
     host: {
         role: 'progressbar',
-        '[attr.aria-valuemin]': '0',
-        '[attr.aria-valuenow]': 'value()',
-        '[attr.aria-valuemax]': '100',
-        '[attr.aria-level]': 'value() + unit()',
+        '[attr.aria-valuemin]': "mode() === 'determinate' ? 0 : null",
+        '[attr.aria-valuenow]': "mode() === 'determinate' ? value() : null",
+        '[attr.aria-valuemax]': "mode() === 'determinate' ? 100 : null",
+        '[attr.aria-valuetext]': "mode() === 'determinate' ? value() + unit() : null",
+        '[attr.aria-label]': 'ariaLabel()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
         '[class]': "cn(cx('root'), styleClass())",
         '[attr.data-p]': 'dataP'
     },
@@ -89,6 +91,16 @@ export class ProgressBar extends BaseComponent<ProgressBarPassThrough> {
      * @group Props
      */
     color = input<string>();
+    /**
+     * Defines a string that labels the component for accessibility.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Specifies one or more IDs in the DOM that labels the component.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
     /**
      * Template of the content.
      * @param {ProgressBarContentTemplateContext} context - content context.

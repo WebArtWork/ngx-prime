@@ -11,8 +11,8 @@ import { Component } from '@angular/core';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                ProgressBar components uses <i>progressbar</i> role along with <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. Value to describe the component can be defined using<i>aria-labelledby</i> and
-                <i>aria-label</i> props.
+                ProgressBar components uses <i>progressbar</i> role along with <i>aria-valuemin</i>, <i>aria-valuemax</i>, <i>aria-valuenow</i> and <i>aria-valuetext</i> attributes. In <i>indeterminate</i> mode these value attributes are omitted per
+                the WAI-ARIA progressbar pattern, since no bounded value is available. Value to describe the component can be defined using the <i>ariaLabelledBy</i> and <i>ariaLabel</i> props.
             </p>
         </app-docsectiontext>
 
