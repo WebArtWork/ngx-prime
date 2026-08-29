@@ -20,11 +20,12 @@ import {
 } from '@angular/core';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
 import { $dt } from '@wawjs/css-prime-styled';
-import { absolutePosition, addClass, appendChild, findSingle, getOffset, isIOS, isTouchDevice } from '@wawjs/css-prime-utils';
+import { absolutePosition, addClass, appendChild, findSingle, focus, getOffset, isIOS, isTouchDevice } from '@wawjs/css-prime-utils';
 import { OverlayService, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
 import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
 import { Bind } from '@wawjs/ngx-prime/bind';
 import { ConnectedOverlayScrollHandler } from '@wawjs/ngx-prime/dom';
+import { FocusTrap } from '@wawjs/ngx-prime/focustrap';
 import { MotionModule } from '@wawjs/ngx-prime/motion';
 import { Nullable, VoidListener } from '@wawjs/ngx-prime/ts-helpers';
 import { PopoverContentTemplateContext, PopoverPassThrough } from '@wawjs/ngx-prime/types/popover';
@@ -41,7 +42,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
 @Component({
     selector: 'p-popover',
     standalone: true,
-    imports: [CommonModule, SharedModule, Bind, MotionModule],
+    imports: [CommonModule, SharedModule, Bind, MotionModule, FocusTrap],
     providers: [PopoverStyle, { provide: POPOVER_INSTANCE, useExisting: Popover }, { provide: PARENT_INSTANCE, useExisting: Popover }],
     host: {
         '(document:keydown.escape)': 'onEscapeKeydown()'
@@ -56,6 +57,7 @@ const POPOVER_INSTANCE = new InjectionToken<Popover>('POPOVER_INSTANCE');
                 [ngStyle]="style()"
                 (click)="onOverlayClick($event)"
                 role="dialog"
+                pFocusTrap
                 [attr.aria-modal]="overlayVisible"
                 [attr.aria-label]="ariaLabel()"
                 [attr.aria-labelledBy]="ariaLabelledBy()"
@@ -417,8 +419,14 @@ export class Popover extends BaseComponent<PopoverPassThrough> {
      * @group Method
      */
     hide() {
+        const wasVisible = this.overlayVisible;
+
         this.overlayVisible = false;
         this.cd.markForCheck();
+
+        if (wasVisible && this.target) {
+            focus(this.target);
+        }
     }
 
     onCloseClick(event: MouseEvent) {
