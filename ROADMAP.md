@@ -2706,6 +2706,10 @@ Proposed phasing:
       without visible animation. If `@wawjs/css-prime-motion` is ever
       forked into this repo or gains its own reduced-motion support, this
       wrapper-level fix should be reconciled with it rather than doubled up.
+      The same gap and fix also applied to `MotionDirective`
+      (`motion.directive.ts`, the `[pMotion]` attribute form used
+      directly by `scrolltop`/`tooltip`/others rather than through the
+      `<p-motion>` component wrapper) â€” both are now fixed identically.
     - **Verification done (2026-08-29):** ran `grep -l "template:"` across
       all 19 remaining excluded directories (`base`, `basecomponent`,
       `baseeditableholder`, `baseinput`, `basemodelholder`, `bind`,
