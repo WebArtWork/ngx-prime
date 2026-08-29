@@ -21,7 +21,10 @@ const AVATARGROUP_INSTANCE = new InjectionToken<AvatarGroup>('AVATARGROUP_INSTAN
     providers: [AvatarGroupStyle, { provide: AVATARGROUP_INSTANCE, useExisting: AvatarGroup }, { provide: PARENT_INSTANCE, useExisting: AvatarGroup }],
     host: {
         '[class]': "cn(cx('root'), styleClass())",
-        '[style]': 'style()'
+        '[style]': 'style()',
+        role: 'group',
+        '[attr.aria-label]': 'ariaLabel()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()'
     },
     hostDirectives: [Bind]
 })
@@ -46,6 +49,16 @@ export class AvatarGroup extends BaseComponent<AvatarGroupPassThrough> {
      * @group Props
      */
     style = input<{ [klass: string]: any } | null>();
+    /**
+     * Establishes a string value that labels the component.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
 
     _componentStyle = inject(AvatarGroupStyle);
 }
