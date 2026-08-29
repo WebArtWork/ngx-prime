@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
             <h3>Screen Reader</h3>
             <p>
                 Textarea component renders a native textarea element that implicitly includes any passed prop. Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>aria-labelledby</i>,
-                <i>aria-label</i> props.
+                <i>aria-label</i> props. When <i>invalid</i> is enabled, <i>aria-invalid</i> is set on the textarea; use the <i>ariaDescribedBy</i> prop to associate validation error text so it is announced when the field receives focus.
             </p>
         </app-docsectiontext>
 
@@ -47,6 +47,10 @@ export class AccessibilityDoc {
 <span id="address2">Address 2</span>
 <textarea pTextarea aria-labelledby="address2"></textarea>
 
-<textarea pTextarea aria-label="Address Details"></textarea>`
+<textarea pTextarea aria-label="Address Details"></textarea>
+
+<label for="address3">Address 3</label>
+<textarea pTextarea id="address3" invalid [ariaDescribedBy]="'address3-error'"></textarea>
+<span id="address3-error">Address is required</span>`
     };
 }

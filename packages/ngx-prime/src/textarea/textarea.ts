@@ -19,6 +19,8 @@ const TEXTAREA_INSTANCE = new InjectionToken<Textarea>('TEXTAREA_INSTANCE');
     standalone: true,
     host: {
         '[class]': "cx('root')",
+        '[attr.aria-invalid]': 'invalid() || null',
+        '[attr.aria-describedby]': 'ariaDescribedBy() || null',
         '(input)': 'onInput($event)'
     },
     providers: [TextareaStyle, { provide: TEXTAREA_INSTANCE, useExisting: Textarea }, { provide: PARENT_INSTANCE, useExisting: Textarea }],
@@ -72,6 +74,11 @@ export class Textarea extends BaseModelHolder<TextareaPassThrough> {
      * @group Props
      */
     invalid = input(undefined, { transform: booleanAttribute });
+    /**
+     * Establishes a relationship between the component and the element(s) that describe it, e.g. validation error text.
+     * @group Props
+     */
+    ariaDescribedBy = input<string>();
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
     /**
