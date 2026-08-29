@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <h3>Screen Reader</h3>
             <p>
                 Button component renders a native button element that implicitly includes any passed prop. Text to describe the button is defined with the <i>aria-label</i> prop, if not present <i>label</i> prop is used as the value. If the button is
-                icon only or custom templating is used, it is recommended to use <i>aria-label</i> so that screen readers would be able to read the element properly.
+                icon only or custom templating is used, it is recommended to use <i>aria-label</i> so that screen readers would be able to read the element properly. While <i>loading</i>, the button gets <i>aria-busy="true"</i> (both on
+                <i>p-button</i> and on a native <i>button pButton</i>) so the state isn't communicated by its spinner/opacity styling alone.
             </p>
         </app-docsectiontext>
 

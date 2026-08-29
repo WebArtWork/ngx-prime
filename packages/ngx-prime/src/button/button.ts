@@ -251,6 +251,14 @@ export class ButtonDirective extends BaseComponent {
                 this.updateIcon();
                 this.setStyleClass();
             }
+
+            // Loading is otherwise only communicated visually (via CSS classes); expose it
+            // to assistive tech as well so it isn't conveyed by appearance alone.
+            if (this._loading) {
+                this.renderer.setAttribute(this.htmlElement, 'aria-busy', 'true');
+            } else {
+                this.renderer.removeAttribute(this.htmlElement, 'aria-busy');
+            }
         });
 
         effect(() => {
@@ -598,6 +606,7 @@ export class ButtonDirective extends BaseComponent {
             pRipple
             [attr.tabindex]="tabindex() || buttonProps()?.tabindex"
             [pAutoFocus]="autofocus() || buttonProps()?.autofocus"
+            [attr.aria-busy]="(loading() || buttonProps()?.loading) || null"
             [pBind]="ptm('root')"
             [attr.data-p]="dataP"
             [attr.data-p-disabled]="disabled() || loading() || buttonProps()?.disabled"
