@@ -77,6 +77,7 @@ const IMAGE_INSTANCE = new InjectionToken<Image>('IMAGE_INSTANCE');
                 #mask
                 [class]="cx('mask')"
                 [attr.aria-modal]="maskVisible"
+                [attr.aria-label]="zoomImageAriaLabel || alt() || 'Image preview'"
                 role="dialog"
                 (click)="onMaskClick()"
                 (keydown)="onMaskKeydown($event)"
