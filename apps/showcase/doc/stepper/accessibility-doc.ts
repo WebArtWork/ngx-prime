@@ -10,8 +10,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <h3>Screen Reader</h3>
             <p>
                 Stepper container is defined with the <i>tablist</i> role, as any attribute is passed to the container element <i>aria-labelledby</i> can be optionally used to specify an element to describe the Stepper. Each stepper header has a
-                <i>tab</i> role and <i>aria-controls</i> to refer to the corresponding stepper content element. The content element of each stepper has <i>tabpanel</i> role, an id to match the <i>aria-controls</i> of the header and
-                <i>aria-labelledby</i> reference to the header as the accessible name.
+                <i>tab</i> role, <i>aria-selected</i> reflecting whether it's the active step, and <i>aria-controls</i> to refer to the corresponding stepper content element; the active step is additionally marked with <i>aria-current="step"</i>.
+                The content element of each stepper has <i>tabpanel</i> role, an id to match the <i>aria-controls</i> of the header and <i>aria-labelledby</i> reference to the header as the accessible name.
             </p>
 
             <h3>Tab Header Keyboard Support</h3>

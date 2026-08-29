@@ -201,6 +201,7 @@ export class StepItem extends BaseComponent<StepItemPassThrough> {
                 [pBind]="ptm('header')"
                 [attr.role]="'tab'"
                 [tabindex]="isStepDisabled() ? -1 : undefined"
+                [attr.aria-selected]="active()"
                 [attr.aria-controls]="ariaControls()"
                 [disabled]="isStepDisabled()"
                 (click)="onStepClick()"
