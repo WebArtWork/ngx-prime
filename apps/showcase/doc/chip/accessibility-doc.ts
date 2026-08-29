@@ -11,7 +11,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <h3>Screen Reader</h3>
                 <p>
                     Chip uses the <i>label</i> property as the default <i>aria-label</i>, since any attribute is passed to the root element <i>aria-labelledby</i> or <i>aria-label</i> can be used to override the default behavior. Removable chips have
-                    a <i>tabindex</i> and focusable with the tab key.
+                    a <i>tabindex</i> and are focusable with the tab key; the remove control exposes <i>role="button"</i> and can be activated with the keyboard as well as the mouse.
                 </p>
                 <h3>Keyboard Support</h3>
                 <div class="doc-tablewrapper">
@@ -29,6 +29,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                             </tr>
                             <tr>
                                 <td><i>enter</i></td>
+                                <td>Hides removable.</td>
+                            </tr>
+                            <tr>
+                                <td><i>space</i></td>
                                 <td>Hides removable.</td>
                             </tr>
                         </tbody>

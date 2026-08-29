@@ -194,9 +194,14 @@ export class Chip extends BaseComponent<ChipPassThrough> {
         this.onRemove.emit(event);
     }
 
-    onKeydown(event) {
+    onKeydown(event: KeyboardEvent) {
         if (event.key === 'Enter' || event.key === 'Backspace') {
-            this.close(event);
+            this.close(event as unknown as MouseEvent);
+        } else if (event.key === ' ' || event.key === 'Spacebar') {
+            // role="button" is exposed on a non-native element, so Space must be handled
+            // explicitly (and its default scroll behavior suppressed) to match native button semantics.
+            event.preventDefault();
+            this.close(event as unknown as MouseEvent);
         }
     }
 
