@@ -464,6 +464,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
 
         this.container = createElement('div', { class: this.cx('root'), 'p-bind': this.ptm('root'), 'data-pc-section': 'root' });
         this.container.setAttribute('role', 'tooltip');
+        this.container.setAttribute('id', this.getOption('id'));
         let tooltipArrow = createElement('div', { class: this.cx('arrow'), 'p-bind': this.ptm('arrow'), 'data-pc-section': 'arrow' });
 
         this.container.appendChild(tooltipArrow);
@@ -518,6 +519,7 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
         }
 
         this.create();
+        this.activeElement?.setAttribute?.('aria-describedby', this.getOption('id'));
 
         const nativeElement = this.el.nativeElement;
         const pDialogWrapper = nativeElement.closest('p-dialog');
@@ -773,6 +775,8 @@ export class Tooltip extends BaseComponent<TooltipPassThroughOptions> {
     }
 
     remove() {
+        this.activeElement?.removeAttribute?.('aria-describedby');
+
         if (this.container && this.container.parentElement) {
             if (this.getOption('appendTo') === 'body') document.body.removeChild(this.container);
             else if (this.getOption('appendTo') === 'target') this.el.nativeElement.removeChild(this.container);
