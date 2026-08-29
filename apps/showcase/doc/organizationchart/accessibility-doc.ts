@@ -8,8 +8,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
-            Component currently uses a table based implementation and does not provide high level of screen reader support, a nested list implementation replacement is planned with aria roles and attributes aligned to a tree widget for high level of
-            reader support in the upcoming versions.
+            The underlying markup still uses nested <i>table</i> elements for layout, but every <i>table</i>/<i>tbody</i>/<i>tr</i>/<i>td</i> used purely for layout now carries
+            <i>role="presentation"</i> so screen readers no longer announce spurious data-table semantics (rows/columns) for what is a diagram, not tabular data. The chart root
+            exposes <i>role="tree"</i> (with an accessible name via <i>ariaLabel</i>/<i>ariaLabelledBy</i>, and <i>aria-multiselectable</i> when <i>selectionMode</i> is
+            <i>"multiple"</i>), each node exposes <i>role="treeitem"</i> with <i>aria-selected</i> (when selectable) and <i>aria-expanded</i> (when collapsible), and each
+            expand/collapse toggle exposes <i>aria-expanded</i> and an <i>aria-label</i> ("Expand"/"Collapse"). A full nested-list (<i>ul</i>/<i>li</i>) rewrite remains a
+            longer-term option, but is no longer required for correct tree semantics.
         </p>
         <h3>Keyboard Support</h3>
         <div class="doc-tablewrapper">
@@ -23,15 +27,15 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                 <tbody>
                     <tr>
                         <td><i>tab</i></td>
-                        <td>Moves focus through the focusable elements within the chart.</td>
+                        <td>Moves focus through the focusable elements within the chart, including selectable nodes and expand/collapse toggles.</td>
                     </tr>
                     <tr>
                         <td><i>enter</i></td>
-                        <td>Toggles the expanded state of a node.</td>
+                        <td>Toggles the expanded state of a node, or selects a focused node when <i>selectionMode</i> is set.</td>
                     </tr>
                     <tr>
                         <td><i>space</i></td>
-                        <td>Toggles the expanded state of a node.</td>
+                        <td>Toggles the expanded state of a node, or selects a focused node when <i>selectionMode</i> is set.</td>
                     </tr>
                 </tbody>
             </table>

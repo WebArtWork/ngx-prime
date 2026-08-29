@@ -36,10 +36,21 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
     imports: [CommonModule, ChevronDownIcon, ChevronUpIcon, SharedModule, BindModule],
     template: `
         @if (node()) {
-            <tbody [pBind]="ptm('body')">
-                <tr [pBind]="ptm('row')">
-                    <td [attr.colspan]="colspan" [pBind]="ptm('cell')">
-                        <div [class]="cn(cx('node'), node().styleClass)" (click)="onNodeClick($event, node())" [pBind]="getPTOptions('node')">
+            <tbody [pBind]="ptm('body')" role="presentation">
+                <tr [pBind]="ptm('row')" role="presentation">
+                    <td [attr.colspan]="colspan" [pBind]="ptm('cell')" role="presentation">
+                        <div
+                            [class]="cn(cx('node'), node().styleClass)"
+                            role="treeitem"
+                            [attr.aria-label]="chart.getTemplateForNode(node()) ? undefined : node().label"
+                            [attr.aria-selected]="chart.selectionMode() && node().selectable !== false ? isSelected() : undefined"
+                            [attr.aria-expanded]="!leaf && collapsible() ? !!node().expanded : undefined"
+                            [attr.tabindex]="chart.selectionMode() && node().selectable !== false ? 0 : undefined"
+                            (click)="onNodeClick($event, node())"
+                            (keydown.enter)="onNodeClick($event, node())"
+                            (keydown.space)="onNodeClick($event, node())"
+                            [pBind]="getPTOptions('node')"
+                        >
                             @if (!chart.getTemplateForNode(node())) {
                                 <div>{{ node().label }}</div>
                             }
@@ -53,6 +64,8 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
                                     <a
                                         tabindex="0"
                                         [class]="cx('nodeToggleButton')"
+                                        [attr.aria-label]="node().expanded ? 'Collapse' : 'Expand'"
+                                        [attr.aria-expanded]="!!node().expanded"
                                         (click)="toggleNode($event, node())"
                                         (keydown.enter)="toggleNode($event, node())"
                                         (keydown.space)="toggleNode($event, node())"
@@ -60,14 +73,14 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
                                     >
                                         @if (!chart.togglerIconTemplate && !chart._togglerIconTemplate) {
                                             @if (node().expanded) {
-                                                <svg data-p-icon="chevron-down" [class]="cx('nodeToggleButtonIcon')" [pBind]="getPTOptions('nodeToggleButtonIcon')" />
+                                                <svg data-p-icon="chevron-down" [class]="cx('nodeToggleButtonIcon')" [pBind]="getPTOptions('nodeToggleButtonIcon')" aria-hidden="true" />
                                             }
                                             @if (!node().expanded) {
-                                                <svg data-p-icon="chevron-up" [class]="cx('nodeToggleButtonIcon')" [pBind]="getPTOptions('nodeToggleButtonIcon')" />
+                                                <svg data-p-icon="chevron-up" [class]="cx('nodeToggleButtonIcon')" [pBind]="getPTOptions('nodeToggleButtonIcon')" aria-hidden="true" />
                                             }
                                         }
                                         @if (chart.togglerIconTemplate || chart._togglerIconTemplate) {
-                                            <span [class]="cx('nodeToggleButtonIcon')" [pBind]="getPTOptions('nodeToggleButtonIcon')">
+                                            <span [class]="cx('nodeToggleButtonIcon')" [pBind]="getPTOptions('nodeToggleButtonIcon')" aria-hidden="true">
                                                 <ng-template *ngTemplateOutlet="chart.togglerIconTemplate || chart._togglerIconTemplate; context: { $implicit: node().expanded }"></ng-template>
                                             </span>
                                         }
@@ -77,28 +90,28 @@ const ORGANIZATIONCHART_INSTANCE = new InjectionToken<OrganizationChart>('ORGANI
                         </div>
                     </td>
                 </tr>
-                <tr [ngStyle]="getChildStyle(node())" [class]="cx('connectors')" [pBind]="ptm('connectors')">
-                    <td [pBind]="ptm('lineCell')" [attr.colspan]="colspan">
+                <tr [ngStyle]="getChildStyle(node())" [class]="cx('connectors')" [pBind]="ptm('connectors')" role="presentation">
+                    <td [pBind]="ptm('lineCell')" [attr.colspan]="colspan" role="presentation">
                         <div [pBind]="ptm('connectorDown')" [class]="cx('connectorDown')"></div>
                     </td>
                 </tr>
-                <tr [ngStyle]="getChildStyle(node())" [class]="cx('connectors')" [pBind]="ptm('connectors')">
+                <tr [ngStyle]="getChildStyle(node())" [class]="cx('connectors')" [pBind]="ptm('connectors')" role="presentation">
                     @if (node().children && node().children.length === 1) {
-                        <td [pBind]="ptm('lineCell')" [attr.colspan]="colspan">
+                        <td [pBind]="ptm('lineCell')" [attr.colspan]="colspan" role="presentation">
                             <div [pBind]="ptm('connectorDown')" [class]="cx('connectorDown')"></div>
                         </td>
                     }
                     @if (node().children && node().children.length > 1) {
                         @for (child of node().children; track child; let first = $first; let last = $last; let index = $index) {
-                            <td [class]="cx('connectorLeft', { first })" [pBind]="getNodeOptions(!(index === 0), 'connectorLeft')">&nbsp;</td>
-                            <td [class]="cx('connectorRight', { last })" [pBind]="getNodeOptions(!(index === node().children.length - 1), 'connectorRight')">&nbsp;</td>
+                            <td [class]="cx('connectorLeft', { first })" role="presentation" [pBind]="getNodeOptions(!(index === 0), 'connectorLeft')">&nbsp;</td>
+                            <td [class]="cx('connectorRight', { last })" role="presentation" [pBind]="getNodeOptions(!(index === node().children.length - 1), 'connectorRight')">&nbsp;</td>
                         }
                     }
                 </tr>
-                <tr [ngStyle]="getChildStyle(node())" [class]="cx('nodeChildren')" [pBind]="ptm('nodeChildren')">
+                <tr [ngStyle]="getChildStyle(node())" [class]="cx('nodeChildren')" [pBind]="ptm('nodeChildren')" role="presentation">
                     @for (child of node().children; track child) {
-                        <td colspan="2" [pBind]="ptm('nodeCell')">
-                            <table [class]="cx('table')" pOrganizationChartNode [unstyled]="unstyled()" [pt]="pt" [node]="child" [collapsible]="node().children && node().children.length > 0 && collapsible()"></table>
+                        <td colspan="2" [pBind]="ptm('nodeCell')" role="presentation">
+                            <table [class]="cx('table')" role="presentation" pOrganizationChartNode [unstyled]="unstyled()" [pt]="pt" [node]="child" [collapsible]="node().children && node().children.length > 0 && collapsible()"></table>
                         </td>
                     }
                 </tr>
@@ -212,13 +225,17 @@ export class OrganizationChartNode extends BaseComponent {
     imports: [CommonModule, OrganizationChartNode, SharedModule, BindModule],
     template: `
         @if (root) {
-            <table [class]="cx('table')" [collapsible]="collapsible()" pOrganizationChartNode [pt]="pt" [unstyled]="unstyled()" [node]="root" [pBind]="ptm('table')"></table>
+            <table [class]="cx('table')" role="presentation" [collapsible]="collapsible()" pOrganizationChartNode [pt]="pt" [unstyled]="unstyled()" [node]="root" [pBind]="ptm('table')"></table>
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [OrganizationChartStyle, { provide: ORGANIZATIONCHART_INSTANCE, useExisting: OrganizationChart }, { provide: PARENT_INSTANCE, useExisting: OrganizationChart }],
     host: {
-        '[class]': "cn(cx('root'), styleClass())"
+        '[class]': "cn(cx('root'), styleClass())",
+        '[attr.role]': "'tree'",
+        '[attr.aria-label]': 'ariaLabelledBy() ? undefined : ariaLabel()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
+        '[attr.aria-multiselectable]': "selectionMode() === 'multiple' ? 'true' : undefined"
     },
     hostDirectives: [Bind]
 })
@@ -255,6 +272,16 @@ export class OrganizationChart extends BaseComponent<OrganizationChartPassThroug
      * @group Props
      */
     preserveSpace = input(true, { transform: booleanAttribute });
+    /**
+     * Establishes an accessible name for the chart as a whole.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Establishes relationships between the chart and the element(s) that label it.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
     /**
      * A single treenode instance or an array to refer to the selections.
      * @group Props
