@@ -79,6 +79,16 @@ export class BadgeDirective extends BaseComponent {
      * @group Props
      */
     badgeStyleClass = input<string>();
+    /**
+     * Establishes a string value that labels the badge, useful for dot/value-less badges whose meaning is otherwise conveyed by color alone.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Establishes relationships between the badge and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
 
     private id!: string;
 
@@ -151,6 +161,16 @@ export class BadgeDirective extends BaseComponent {
 
             if (this.canUpdateBadge) {
                 this.applyStyles();
+            }
+        });
+
+        effect(() => {
+            const ariaLabel = this.ariaLabel();
+            const ariaLabelledBy = this.ariaLabelledBy();
+
+            if (this.canUpdateBadge && this.badgeEl) {
+                ariaLabel ? this.renderer.setAttribute(this.badgeEl, 'aria-label', ariaLabel) : this.renderer.removeAttribute(this.badgeEl, 'aria-label');
+                ariaLabelledBy ? this.renderer.setAttribute(this.badgeEl, 'aria-labelledby', ariaLabelledBy) : this.renderer.removeAttribute(this.badgeEl, 'aria-labelledby');
             }
         });
     }
@@ -243,6 +263,17 @@ export class BadgeDirective extends BaseComponent {
         this.renderer.appendChild(el, badge);
         this.badgeEl = badge;
         this.applyStyles();
+
+        const ariaLabel = this.ariaLabel();
+        const ariaLabelledBy = this.ariaLabelledBy();
+
+        if (ariaLabel) {
+            this.renderer.setAttribute(badge, 'aria-label', ariaLabel);
+        }
+
+        if (ariaLabelledBy) {
+            this.renderer.setAttribute(badge, 'aria-labelledby', ariaLabelledBy);
+        }
     }
 
     private applyStyles(): void {
@@ -308,7 +339,9 @@ export class BadgeDirective extends BaseComponent {
     host: {
         '[class]': "cn(cx('root'), styleClass())",
         '[style.display]': 'badgeDisabled() ? "none" : null',
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP',
+        '[attr.aria-label]': 'ariaLabel()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()'
     },
     hostDirectives: [Bind]
 })
@@ -353,6 +386,16 @@ export class Badge extends BaseComponent<BadgePassThrough> {
      * @group Props
      */
     badgeDisabled = input<boolean, boolean>(false, { transform: booleanAttribute });
+    /**
+     * Establishes a string value that labels the component, useful for dot/value-less badges whose meaning is otherwise conveyed by color alone.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
 
     _componentStyle = inject(BadgeStyle);
 
