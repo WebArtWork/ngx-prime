@@ -2389,6 +2389,387 @@ for other reasons.
   both hooks back: `.husky/pre-commit.disabled` â†’ `.husky/pre-commit`,
   `.husky/commit-msg.disabled` â†’ `.husky/commit-msg`.
 
+## Accessibility (WCAG 2.2 AA / EN 301 549 / WAI-ARIA APG)
+
+Status: PLANNING (2026-08-28). Decided now, before external adoption grows,
+because the public API can still change freely â€” once other projects depend
+on ngx-prime, breaking ARIA/DOM-shape changes get much more expensive.
+
+### Target definition (European ICT accessibility context)
+
+ngx-prime's implementation target is exactly three technical specs:
+
+> **WCAG 2.2 AA + EN 301 549 + WAI-ARIA APG**
+
+- **EN 301 549** â€” the harmonised European ICT accessibility standard.
+  Currently harmonised version is **v3.2.1** (incorporates WCAG 2.1 AA); a
+  **v4.1.0** draft exists incorporating WCAG 2.2 AA directly, but the
+  European Commission still names v3.2.1 as currently harmonised. Target
+  WCAG 2.2 AA as the implementation bar regardless â€” it's backward-compatible
+  with 2.1 AA, so it satisfies the harmonised v3.2.1 baseline today and
+  v4.1.0 once/if that supersedes it.
+- **WCAG 2.2 Level AA** â€” the actual success-criteria checklist to implement
+  and test against (see requirements list below).
+  **WAI-ARIA Authoring Practices Guide (APG)** â€” the implementation
+  reference for each composite widget's roles/states/keyboard pattern.
+- **EAA (Directive (EU) 2019/882)** and the **Web Accessibility Directive
+  (EU) 2016/2102)** are *legislation*, not additional specs to implement
+  â€” ngx-prime supports applications that need to satisfy them, it does not
+  itself implement them. Public-sector consumers in particular rely on EN
+  301 549 conformance for Directive 2016/2102.
+
+### Why now
+Current state (from a 2026-08-28 scan): ARIA is implemented manually per
+component via template `role`/`aria-*` bindings, with zero usage of
+`@angular/cdk/a11y` (no `FocusMonitor`, `LiveAnnouncer`, `AriaDescriber`,
+`cdkTrapFocus`) and no use of the new official `@angular/aria` package.
+Focus trapping is a custom directive (`src/focustrap/focustrap.ts`) instead
+of a CDK/`@angular/aria` primitive. Most interactive widgets already have
+*some* manual ARIA; three components have **none**: `organizationchart`,
+`timeline`, `inputotp`.
+
+### Part A â€” adopt `@angular/aria` (headless WAI-ARIA pattern directives)
+
+`npm install @angular/aria`. Provides headless directives implementing
+common WAI-ARIA APG patterns (keyboard interaction, ARIA attributes, focus
+management, screen-reader support) so components only need to supply HTML
+structure/CSS/business logic.
+
+Pattern â†’ import path â†’ matching ngx-prime component(s):
+
+| # | Pattern | `@angular/aria` import path | Key directives | ngx-prime component(s) |
+|---|---|---|---|---|
+| 1 | Accordion | `@angular/aria/accordion` | `AccordionGroup`, `AccordionTrigger`, `AccordionPanel`, `AccordionContent` | `accordion` |
+| 2 | Tabs | `@angular/aria/tabs` | `Tab`, `Tabs`, `TabList`, `TabPanel`, `TabContent` | `tabs` |
+| 3 | Combobox | `@angular/aria/combobox` | `Combobox`, `ComboboxPopup`, `ComboboxWidget` | `autocomplete`, `cascadeselect` |
+| 4 | Autocomplete | Combobox + Listbox composed | same as above | `autocomplete` |
+| 5 | Listbox | `@angular/aria/listbox` | `Listbox`, `Option` | `listbox`, `orderlist`, `picklist` |
+| 6 | Select | Combobox + Listbox composed (no dedicated export set confirmed yet â€” re-verify `/guide/aria/select`) | â€” | `select`, `dropdown` |
+| 7 | Multiselect | Listbox (`multi`/`selectionMode`) + Combobox for popup (re-verify `/guide/aria/multiselect`) | â€” | `multiselect` |
+| 8 | Menu | `@angular/aria/menu` (+ `/menu/testing`: `MenuHarness`, `MenuItemHarness`) | `Menu`, `MenuItem` | `menu`, `contextmenu`, `tieredmenu`, `megamenu`, `panelmenu`, `speeddial` |
+| 9 | Menubar | `@angular/aria/menubar` (built on Menu primitives) | â€” | `menubar` |
+| 10 | Toolbar | `@angular/aria/toolbar` | `Toolbar`, `ToolbarWidget`, `ToolbarWidgetGroup` | `toolbar` |
+| 11 | Tree | `@angular/aria/tree` | `Tree` (`multi`, `selectionMode`, `focusMode`, `scrollActiveItemIntoView()`) | `tree`, `treeselect`, `treetable` |
+| 12 | Grid | `@angular/aria/grid` | `Grid`, `GridRow`, `GridCell`, `GridCellWidget` | `table`, `treetable` (dual w/ Tree), `dataview` |
+
+Angular's own grouping: *search & selection* = Autocomplete, Listbox,
+Select, Multiselect, Combobox Â· *navigation & actions* = Menu, Menubar,
+Toolbar Â· *content organization* = Accordion, Tabs, Tree, Grid.
+
+**Resolved (2026-08-28):** confirmed via `/guide/aria/combobox` docs â€” Select
+and Multiselect are *not* separate directive sets. Combobox is documented as
+"the primitive directive for multiple UI patterns: Autocomplete ..., Select
+(single selection dropdown on non-editable button triggers), and Multiselect
+(multiple selection on non-editable triggers with a multi-enabled Listbox)."
+So `select`/`dropdown` and `multiselect` phases both compose
+`@angular/aria/combobox` + `@angular/aria/listbox` directly â€” no additional
+import path to wait on.
+
+Components with **no** `@angular/aria` pattern (keep/improve manual ARIA,
+prefer native HTML semantics first): animateonscroll, autofocus, avatar,
+avatargroup, badge, base, basecomponent, baseeditableholder, baseinput,
+basemodelholder, bind, blockui, breadcrumb, button, buttongroup,
+buylicense, card, carousel, chart, checkbox, chip, classnames, colorpicker,
+config, confirmdialog, confirmpopup, datepicker, dialog, divider, dock,
+dom, dragdrop, drawer, dynamicdialog, editor, fieldset, fileupload,
+floatlabel, fluid, focustrap, galleria, icon, iconfield, icons, iftalabel,
+image, imagecompare, inplace, inputgroup, inputgroupaddon, inputicon,
+inputmask, inputnumber, inputotp, inputtext, keyfilter, knob, link,
+message, metergroup, motion, organizationchart, overlay, overlaybadge,
+paginator, panel, passthrough, password, popover, progressbar,
+progressspinner, radiobutton, rating, ripple, scroller, scrollpanel,
+scrolltop, selectbutton, skeleton, slider, splitbutton, splitter, stepper,
+steps, styleclass, tag, terminal, textarea, timeline, toast, togglebutton,
+toggleswitch, tooltip, ts-helpers, types, usestyle, utils.
+
+**Phase 1-3 architecture finding (2026-08-28):** before starting `tabs`
+(first Phase 1 item), read its full source (`tabs.ts`, `tab.ts`,
+`tablist.ts`, `tabpanel.ts`, `tabpanels.ts`) end to end. Swapping it onto
+`@angular/aria/tabs` is **not** an attribute-level fix like the Phase 4
+work above â€” `TabList` alone owns scroll-navigation buttons (prev/next with
+`ResizeObserver`-driven enable/disable state), an animated ink-bar synced
+via `MutationObserver`, the shared passthrough/theming (`pt`/`ptm`) system,
+and `Ripple` integration, all layered on the exact selection/keyboard state
+`@angular/aria`'s headless directives would take over. The existing manual
+keyboard handling in `tab.ts` is already fully APG-correct (see the earlier
+back-and-forth in this session), so the only genuine win here is long-term
+maintenance consistency, not a correctness fix â€” but the rewrite risk is
+real: a wrong swap breaks scroll nav, the ink-bar, or theming silently,
+and **none of `tabs`/`select`/`menu`/`listbox`/`tree` have `.spec.ts` files**
+to catch a regression. The same coupling almost certainly exists in the
+other 11 patterns (menu's badge/submenu positioning, tree's virtual
+scrolling, select's overlay/filter panel, etc.) â€” this is a from-scratch
+component reimplementation per pattern, not a mechanical migration.
+
+**Recommendation:** do NOT batch-delegate Phase 1-3 the way Phase 4 was
+batched. Each pattern needs: (1) a design pass mapping the existing
+component's *non-ARIA* behavior (scrolling, animation, theming, templates)
+that must be preserved, (2) an incremental implementation with a new
+`.spec.ts` written alongside it (there is none today, so regressions are
+otherwise invisible), (3) manual keyboard/screen-reader verification before
+merging, one pattern at a time, starting with the lowest-usage/lowest-risk
+pattern rather than `tabs`/`select` first. This is genuinely the
+multi-week/multi-quarter part of this initiative flagged when the target
+was first scoped â€” treat it as its own planned project, not a continuation
+of the Phase 4 sweep.
+
+Proposed phasing:
+- **Phase 0:** âœ… done (2026-08-28) â€” Select/Multiselect open item resolved
+  (see above); `@angular/aria` pinned at exact `22.1.4` (matching the rest of
+  the `angular22` pnpm catalog, no `^` ranges) in `pnpm-workspace.yaml`,
+  added as a `peerDependency` of `packages/ngx-prime` (both the root
+  `package.json` and the `src/package.json` ng-packagr publishes) and as a
+  `devDependency` of `packages/ngx-prime` and `apps/showcase` so it actually
+  installs. Also bumped the rest of the `angular22` catalog to their latest
+  stable patch versions while in there (`@angular/core` et al. 22.1.2 â†’
+  22.1.4, `@angular/cli`/`@angular/build`/`@angular-devkit/build-angular`/
+  `@angular/ssr` 22.1.4 â†’ 22.1.6), all pinned exact per house style â€” no
+  caret ranges. `pnpm install` clean (only pre-existing, unrelated peer
+  warnings: `jspdf`/`typedoc`Ã—`typescript`). `tsc --noEmit` on
+  `packages/ngx-prime` clean after the bump.
+- **Phase 1** (highest usage / highest risk if wrong): `select`, `dropdown`, `tabs`, `menu`, `listbox`.
+- **Phase 2:** `tree`, `treeselect`, `treetable`, `table`/`dataview` (Grid), `accordion`, `autocomplete`, `cascadeselect`.
+- **Phase 3:** `contextmenu`, `tieredmenu`, `megamenu`, `panelmenu`, `speeddial`, `menubar`, `toolbar`, `multiselect`, `orderlist`, `picklist`.
+- **Phase 4:** improve manual-ARIA-only components, starting with the
+  current zero-ARIA ones (`organizationchart`, `timeline`, `inputotp`),
+  then sweep the rest of the "no equivalent" list above.
+  - **`inputotp`** â€” âœ… done (2026-08-28). Host now `role="group"` with
+    `ariaLabel`/`ariaLabelledBy` inputs (new, no pre-existing equivalent to
+    conflict with); each digit input gets its own `aria-label` ("One-time
+    code, digit N of length"), `aria-invalid`, `aria-required`, and
+    `autocomplete="one-time-code"` (disabled when `mask` is set) per WCAG
+    2.2 SC 3.3.8 Accessible Authentication / Redundant Entry. Doc page
+    (`apps/showcase/doc/inputotp/accessibility-doc.ts`) updated in the same
+    pass. No spec file exists for this component. `tsc --noEmit` clean.
+  - **`timeline`** â€” âœ… done (2026-08-28). Prefers native semantics per the
+    project's own stated policy: host gets `role="list"` (plus new
+    `ariaLabel`/`ariaLabelledBy` inputs) and each event `role="listitem"` â€”
+    no headless directive needed since this is purely presentational
+    (non-interactive). Corrected the doc page's screen-reader section,
+    which had incorrectly claimed the markup was a real `<ol>` (it's plain
+    `div`s) â€” now describes the actual `role="list"`/`role="listitem"`
+    behavior. No spec file exists. `tsc --noEmit` clean.
+  - **`organizationchart`** â€” âœ… done (2026-08-28). Two issues fixed, not
+    just the missing-ARIA one: (1) the nested `<table>` elements used
+    purely for diagram layout would have been announced by screen readers
+    as real data tables (row/column noise) â€” every layout `table`/`tbody`/
+    `tr`/`td` now carries `role="presentation"`; (2) node **selection was
+    click-only with no keyboard equivalent** (a real WCAG 2.1.1 failure)
+    when `selectionMode` is set â€” selectable nodes now get `tabindex="0"`
+    plus `Enter`/`Space` handlers calling the same `onNodeClick`. Added
+    `role="tree"` + `ariaLabel`/`ariaLabelledBy` inputs + conditional
+    `aria-multiselectable` on the root; `role="treeitem"` + `aria-selected`
+    + `aria-expanded` on each node; `aria-expanded`/`aria-label`
+    ("Expand"/"Collapse") on the existing toggle button (which already had
+    correct keyboard handling); `aria-hidden="true"` on the decorative
+    toggle icons. Doc page corrected (it had honestly self-flagged the gap
+    already â€” now describes the actual fix instead of "planned for a
+    future version"). No spec file exists. `tsc --noEmit` clean.
+  - **Remaining ~70 real UI components** â€” âœ… done (2026-08-28), via 6
+    parallel batches (A-F). All verified with `tsc --noEmit -p
+    packages/ngx-prime/tsconfig.json` clean at the end (a transient
+    `galleria.ts` error seen mid-run was batch C editing that file
+    concurrently with batch D/F reporting on it â€” resolved once C finished,
+    not a real regression). Doc pages (`accessibility-doc.ts`) updated in
+    the same pass wherever they exist, per the Part C "critical, not a
+    follow-up" rule. No `.spec.ts` files exist for almost all of these
+    components, so spec impact was minimal throughout.
+    - **Batch A (dialogs/overlays):** confirmdialog, confirmpopup, dialog,
+      drawer, dynamicdialog, overlay, overlaybadge, popover, tooltip,
+      toast. Real bugs fixed, not just gaps: `dialog.ts` had **no focus
+      restoration on close at all** (inherited by confirmdialog and
+      dynamicdialog, which wrap it); `confirmdialog.ts` had
+      `acceptAriaLabel`/`rejectAriaLabel` inputs already declared but never
+      actually wired to the buttons (dead props); `tooltip.ts` had the core
+      APG tooltip gap â€” the container never got its generated id set and
+      the trigger never got a matching `aria-describedby`, despite the doc
+      page already (incorrectly) claiming this worked; `popover.ts` had
+      `role="dialog"` with no focus trap at all, now uses `pFocusTrap`;
+      `drawer.ts` had a static `dialog` role even in non-modal
+      (`complementary`) use, now switches correctly with `aria-modal` only
+      when modal. `dynamicdialog`/`overlay`/`toast` already compliant.
+    - **Batch B (buttons/badges/basic display):** avatar, avatargroup,
+      badge, blockui, breadcrumb, button, buttongroup, buylicense, card,
+      chip, dock, link, tag. Notable fix: `blockui.ts` only visually
+      masked content underneath while blocked â€” focusable elements stayed
+      reachable by keyboard; now applies the native `inert` attribute to
+      sibling content while blocked. `breadcrumb.ts` closed a doc/code
+      mismatch (doc already claimed `aria-current="page"` + nav landmark
+      existed; now actually does). `button`/`ButtonDirective` gained
+      `aria-busy` for the `loading` state (previously visual-only). card,
+      dock, link audited with no real gaps found.
+    - **Batch C (data/visual):** carousel, chart, divider, galleria, icon,
+      iftalabel, image, imagecompare, knob, metergroup, panel, progressbar,
+      progressspinner, skeleton, stepper, steps. Real bugs found beyond the
+      expected gaps: `progressbar.ts` had `aria-level` (a heading-level
+      attribute) where `aria-valuetext` was clearly intended, plus stray
+      `aria-valuemin/max/now` left on in indeterminate mode; `panel.ts` had
+      a **duplicate-id bug breaking `aria-labelledby` resolution** (title
+      span and toggle button shared one id); `imagecompare.ts` had its
+      `aria-label`/`tabindex` on the non-interactive wrapper instead of the
+      actual `<input type="range">`; `steps.ts` used an invalid,
+      non-functional `[attr.ariaCurrentWhenActive]` instead of
+      `aria-current`. Also: carousel/galleria now respect
+      `prefers-reduced-motion` for autoplay with a pause/play toggle (WCAG
+      2.2.2); chart gained a hidden data-table alternative (canvas content
+      is otherwise invisible to AT). divider and iftalabel already fine.
+    - **Batch D (form inputs 1):** checkbox, colorpicker, datepicker,
+      fieldset, fileupload, floatlabel, fluid, inputgroup, inputgroupaddon,
+      inputicon. Real fix: `colorpicker.ts`'s saturation/brightness pad and
+      hue track were **pointer/touch-only with zero keyboard operability**
+      â€” a genuine WCAG 2.1.1 failure, its doc page had falsely claimed
+      keyboard support existed; now has slider roles/ARIA values and full
+      arrow-key operation plus focus-into-panel/focus-restore. `checkbox`
+      gained a real `[indeterminate]` DOM-property binding (was
+      visually-only before). `fileupload` gained `aria-live` status regions
+      and confirmed its drag-and-drop already had a keyboard alternative.
+      datepicker already fully compliant; floatlabel/fluid/inputgroup/
+      inputgroupaddon/inputicon are presentational wrappers, nothing to fix.
+    - **Batch E (form inputs 2):** inputmask, inputnumber, inputtext,
+      keyfilter, slider, textarea, togglebutton, toggleswitch, password,
+      radiobutton, rating, selectbutton. Recurring theme: several
+      components had an `invalid`/`invalid()` input already driving CSS
+      classes but never exposed as `aria-invalid` â€” fixed across
+      inputmask, inputnumber (+ native variant), inputtext, slider (+
+      native variant), togglebutton (+ native variant). `password.ts`'s
+      inline show/hide and clear icons were **click-only**, unreachable and
+      unnamed for keyboard/AT â€” now `role="button"`, `tabindex="0"`,
+      `aria-label`, Enter/Space handlers; its strength meter gained
+      `role="status" aria-live="polite"`. `selectbutton.ts`'s host `role`
+      was hardcoded `"group"` even in single-select mode â€” now correctly
+      switches to `radiogroup`. `keyfilter` and `radiobutton` audited,
+      already correctly scoped/compliant (keyfilter has no DOM of its own;
+      radiobutton correctly prefers native `type="radio"` grouping over
+      `role="radiogroup"`).
+    - **Batch F (misc):** editor, inplace, message, paginator, scroller,
+      scrollpanel, splitbutton, splitter, terminal. Real fixes:
+      `inplace.ts`'s `role="button"` div handled `Enter` but not `Space`
+      (APG button pattern requires both); `paginator.ts`'s root had no
+      navigation landmark despite docs claiming one â€” added
+      `role="navigation"` + `aria-label`; `scrollpanel.ts`'s
+      `aria-controls` pointed at a content-div id that was **never actually
+      set** (a broken relationship, now fixed); `splitter.ts` had
+      `role="separator"` on the non-focusable outer wrapper while the real
+      keyboard-interactive handle had no role at all â€” moved to the correct
+      element. `scroller`'s doc page falsely claimed "semantic list
+      element"/"no interactive elements" â€” corrected to describe the
+      actual plain-div + `tabindex` behavior. message and splitbutton
+      already compliant.
+  - **Note on scope:** of the ~95 components in the "no equivalent" list,
+    roughly two dozen are base classes / utility directives with no own
+    template or DOM surface (`base`, `basecomponent`, `baseeditableholder`,
+    `baseinput`, `basemodelholder`, `bind`, `classnames`, `config`, `dom`,
+    `focustrap`, `motion`, `passthrough`, `ripple`, `ts-helpers`, `types`,
+    `usestyle`, `utils`, `autofocus`, `icons`, `animateonscroll`,
+    `dragdrop`, `styleclass`, `scrolltop`) â€” these have nothing to audit
+    for ARIA and are excluded from per-component tracking below; flag any
+    that turn out to render their own DOM if that assumption is ever wrong.
+
+### Part B â€” full WCAG 2.2 AA / EN 301 549 / WAI-ARIA APG compliance sweep
+
+Broader than the `@angular/aria` swap â€” applies to every component,
+including the ones with no headless-directive equivalent. Prefer semantic
+native HTML over ARIA whenever native semantics can express the same
+behavior; use ARIA only where necessary, with correct roles, states,
+properties, relationships, and accessible names. Do not add redundant or
+conflicting ARIA to native elements. **Note:** this makes ngx-prime
+*support* apps aiming for WCAG 2.2 AA/EN 301 549 â€” it does not by itself
+make a consuming application legally compliant, which also depends on that
+app's structure, content, configuration, and usage.
+
+Requirements to cover, by area:
+
+- **Keyboard:** full keyboard access for every interactive component;
+  logical Tab/Shift+Tab order; correct Arrow/Home/End/Enter/Space/Escape
+  behavior per WAI-ARIA APG pattern; no keyboard traps.
+- **Focus:** proper focus trapping in modals; restore focus after
+  dialogs/menus/overlays/similar close; clearly visible focus indicators;
+  focus must not be obscured by overlays/sticky elements/content (WCAG 2.2
+  Focus Not Obscured, Focus Appearance where applicable); correct
+  programmatic focus management.
+- **Semantics & naming:** every interactive element has an accessible
+  name; correct labels, descriptions, headings, landmarks, groups,
+  relationships; correct `aria-expanded`, `aria-controls`, `aria-selected`,
+  `aria-checked`, `aria-current`, `aria-disabled`, `aria-invalid`,
+  `aria-describedby`, `aria-labelledby`, etc. where applicable; accessibility
+  preserved across disabled/loading/selected/expanded/collapsed/checked/
+  invalid/readonly/required/busy/indeterminate states.
+- **Live updates:** dynamic status/async updates announced appropriately;
+  live regions used only when required, avoiding excessive announcements.
+- **Contrast & non-text:** normal text â‰¥4.5:1, large text â‰¥3:1; sufficient
+  contrast for meaningful non-text UI (controls, borders, states, focus
+  indicators); never communicate state/validation/selection/success/
+  warning/error via color alone.
+- **Zoom/reflow/spacing:** usable at 200% zoom; responsive reflow without
+  loss of information/functionality; avoid unnecessary 2D scrolling;
+  increased text spacing must not break layout or hide content.
+- **Pointer/touch/dragging (WCAG 2.2):** keyboard alternative for every
+  pointer/touch interaction; nothing hover-only; drag-based functionality
+  needs a non-dragging alternative (Dragging Movements); target sizes meet
+  WCAG 2.2 AA Target Size.
+- **Forms:** persistent accessible labels (never placeholder-as-label);
+  required state exposed programmatically; validation errors identified in
+  text and programmatically associated with their control; understandable
+  error text/instructions for AT; appropriate autocomplete/input-purpose
+  metadata; avoid re-asking for previously supplied info (Redundant Entry);
+  authentication flows meet WCAG 2.2 Accessible Authentication.
+- **Motion:** respect `prefers-reduced-motion`; essential info never
+  animation-only; no threshold-violating flashing; user control over
+  auto-moving/updating/disappearing content where required.
+- **Predictability:** consistent behavior for identical functionality
+  across components; predictable labels/states for opening controls; state
+  changes don't unexpectedly change context; instructions never rely solely
+  on position/shape/color/sound/orientation.
+- **Composite widgets:** tables, trees, tree tables, grids, lists, tabs,
+  accordions, menus, listboxes, comboboxes, radio groups, sliders,
+  switches, checkboxes, buttons, dialogs, and other composites follow their
+  WAI-ARIA APG keyboard/semantic pattern.
+- **Floating UI:** overlays, dialogs, menus, dropdowns, tooltips, popovers,
+  autocomplete panels, context menus need correct focus behavior, dismissal
+  behavior, keyboard interaction, ownership/relationship semantics,
+  screen-reader announcements, and stacking that doesn't obscure focused
+  content.
+- **Testing:** don't rely on automated testing alone; add axe-core (or
+  equivalent) automated checks where practical, plus keyboard-navigation
+  tests, focus-management tests, and accessible-name/ARIA-state tests;
+  components should also be manually verifiable with NVDA, VoiceOver, and
+  TalkBack where relevant.
+
+### Part C â€” document and communicate the compliance claim
+
+Implementing the requirements isn't sufficient by itself â€” conformance
+needs to be *stated and evidenced*, or nobody (an app team, an auditor, a
+public-sector procurer) can rely on it. This is its own workstream, not a
+byproduct of Parts A/B:
+
+- **Accessibility conformance statement** â€” a docs page declaring the
+  target (WCAG 2.2 AA + EN 301 549 + WAI-ARIA APG), explicitly scoped to
+  "ngx-prime supports building conformant applications; it does not by
+  itself make a consuming application legally compliant" (final compliance
+  depends on that app's structure, content, configuration, and usage).
+- **Accessibility Conformance Report (ACR/VPAT)** â€” the standard
+  per-criterion format (Supports / Partially Supports / Does Not Support /
+  Not Applicable) that procurement and legal teams expect, especially for
+  EAA/Directive 2016/2102 public-sector consumers. Needs to be kept in sync
+  as components move through Phases 1â€“4 above.
+- **Per-component accessibility notes â€” CRITICAL, not a follow-up task.**
+  Every component touched in Parts A/B must have its `apps/showcase` doc
+  page updated *in the same change* that implements the a11y work, not
+  batched into a later pass: supported keyboard interactions (a table, per
+  APG convention), ARIA roles/states/properties actually used, accessible
+  name source (label/`aria-label`/`aria-labelledby`), and any known
+  limitations. An implemented-but-undocumented component is not counted as
+  done for Phase tracking purposes â€” "implemented" means code + doc page
+  both updated and the doc page's own examples verified accessible (not
+  just copied from before).
+- **Changelog discipline** â€” every accessibility-relevant change (new APG
+  pattern adopted, gap closed, breaking ARIA/DOM change) gets called out
+  explicitly in `CHANGELOG.md`, not folded silently into "misc fixes".
+- **Test evidence** â€” the axe-core/keyboard/focus/ARIA-state tests from
+  Part B's Testing section double as the evidence backing the ACR's
+  per-criterion claims; link or reference them rather than asserting
+  compliance from implementation alone.
+
 ## Notes
 
 - This roadmap was generated from a read-only audit. As of 2026-08-21, steps
