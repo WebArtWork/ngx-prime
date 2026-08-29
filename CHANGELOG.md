@@ -2,6 +2,43 @@
 
 Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
+## [Unreleased]
+
+**Accessibility:** first pass of a WCAG 2.2 AA / EN 301 549 / WAI-ARIA APG
+compliance effort (see `ROADMAP.md`'s Accessibility section for the full
+target, phasing, and per-component detail). Added `@angular/aria` as a
+peer/dev dependency ahead of a planned headless-directive migration for
+composite widgets (tabs, select, menu, listbox, tree, accordion, and others).
+
+Fixed real, pre-existing accessibility bugs across ~73 components,
+including: `dialog` (and everything built on it, e.g. `confirmdialog`,
+`dynamicdialog`) had no focus restoration on close at all; `tooltip`'s
+`aria-describedby` relationship between trigger and tooltip was silently
+broken; `colorpicker`'s saturation/hue controls were pointer-only with no
+keyboard path (WCAG 2.1.1 failure); `panel` had a duplicate-id bug breaking
+`aria-labelledby` resolution; `blockui` only visually masked content while
+leaving it keyboard-reachable underneath (now uses `inert`);
+`organizationchart`'s nested layout tables would have been announced as
+real data tables by screen readers (now `role="presentation"`) and node
+selection had no keyboard equivalent; `scrollpanel`'s `aria-controls`
+pointed at an id that was never actually set; `progressbar` had
+`aria-level` where `aria-valuetext` was intended.
+
+Also added missing accessible names, `aria-invalid`/`aria-disabled`
+reflection, decorative-icon `aria-hidden`, `prefers-reduced-motion` support
+for carousel/galleria autoplay, and other targeted fixes across avatar,
+avatargroup, badge, breadcrumb, button, buttongroup, buylicense, carousel,
+chart, checkbox, chip, confirmpopup, drawer, editor, fieldset, fileupload,
+icon, image, imagecompare, inplace, inputmask, inputnumber, inputotp,
+inputtext, knob, metergroup, overlaybadge, paginator, password, popover,
+progressspinner, rating, selectbutton, skeleton, slider, splitter, stepper,
+steps, tag, terminal, textarea, timeline, togglebutton, toggleswitch.
+
+Full per-component detail, what was already compliant, and the still-open
+Phase 1-3 `@angular/aria` directive migration (deliberately not started
+yet, pending test coverage this library currently lacks) are tracked in
+`ROADMAP.md`.
+
 ## [22.0.0](https://github.com/WebArtWork/ngx-prime/releases/tag/v22.0.0) (2026-08-22)
 
 First ngx-prime release: an independent MIT-licensed continuation of the
