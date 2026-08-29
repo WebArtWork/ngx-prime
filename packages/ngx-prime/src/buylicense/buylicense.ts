@@ -16,8 +16,8 @@ const CART_URL = 'https://prime.webart.work/cart';
     standalone: true,
     template: `
         @if (href(); as url) {
-            <a [href]="url" target="_blank" rel="noopener" class="p-buy-license">
-                <i class="pi pi-shopping-cart p-buy-license-icon"></i>
+            <a [href]="url" target="_blank" rel="noopener" class="p-buy-license" aria-label="Buy License (opens in a new tab)">
+                <i class="pi pi-shopping-cart p-buy-license-icon" aria-hidden="true"></i>
                 <span class="p-buy-license-label">Buy License</span>
             </a>
         }
