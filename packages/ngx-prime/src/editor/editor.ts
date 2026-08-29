@@ -143,6 +143,16 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
      */
     readonly = input(false);
     /**
+     * Establishes a string value that labels the editable content area for accessibility.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Establishes relationships between the editable content area and its label(s) for accessibility.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
+    /**
      * Callback to invoke when the quill modules are loaded.
      * @param {EditorInitEvent} event - custom event.
      * @group Emits
@@ -362,6 +372,14 @@ export class Editor extends BaseEditableHolder<EditorPassThrough> {
         });
 
         const editorEl = this.quill.root;
+
+        if (this.ariaLabel()) {
+            editorEl.setAttribute('aria-label', this.ariaLabel() as string);
+        }
+
+        if (this.ariaLabelledBy()) {
+            editorEl.setAttribute('aria-labelledby', this.ariaLabelledBy() as string);
+        }
 
         this.focusListener = () => {
             this.onFocus.emit({
