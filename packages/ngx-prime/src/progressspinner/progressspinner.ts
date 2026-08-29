@@ -24,7 +24,7 @@ const PROGRESSSPINNER_INSTANCE = new InjectionToken<ProgressSpinner>('PROGRESSSP
     encapsulation: ViewEncapsulation.None,
     providers: [ProgressSpinnerStyle, { provide: PROGRESSSPINNER_INSTANCE, useExisting: ProgressSpinner }, { provide: PARENT_INSTANCE, useExisting: ProgressSpinner }],
     host: {
-        '[attr.aria-label]': 'ariaLabel()',
+        '[attr.aria-label]': "ariaLabel() || 'Loading'",
         '[attr.role]': "'progressbar'",
         '[attr.aria-busy]': 'true',
         '[class]': "cn(cx('root'), styleClass())"
