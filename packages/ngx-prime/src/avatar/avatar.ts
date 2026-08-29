@@ -22,10 +22,10 @@ const AVATAR_INSTANCE = new InjectionToken<Avatar>('AVATAR_INSTANCE');
             <span [pBind]="ptm('label')" [class]="cx('label')" [attr.data-p]="dataP">{{ label() }}</span>
         } @else {
             @if (icon()) {
-                <span [pBind]="ptm('icon')" [class]="icon()" [ngClass]="cx('icon')" [attr.data-p]="dataP"></span>
+                <span [pBind]="ptm('icon')" [class]="icon()" [ngClass]="cx('icon')" [attr.data-p]="dataP" [attr.aria-hidden]="true"></span>
             } @else {
                 @if (image()) {
-                    <img [pBind]="ptm('image')" [src]="image()" (error)="imageError($event)" [attr.aria-label]="ariaLabel()" [attr.data-p]="dataP" />
+                    <img [pBind]="ptm('image')" [src]="image()" (error)="imageError($event)" [attr.alt]="ariaLabel() ?? ''" [attr.data-p]="dataP" />
                 }
             }
         }
