@@ -41,8 +41,11 @@ export const KNOB_VALUE_ACCESSOR: any = {
             [attr.aria-valuemax]="max()"
             [attr.required]="required() ? '' : undefined"
             [attr.aria-valuenow]="_value"
+            [attr.aria-valuetext]="valueToDisplay()"
             [attr.aria-labelledby]="ariaLabelledBy()"
             [attr.aria-label]="ariaLabel()"
+            [attr.aria-disabled]="$disabled() ? true : null"
+            [attr.aria-readonly]="readonly() ? true : null"
             [attr.tabindex]="readonly() || $disabled() ? -1 : tabindex()"
             [pBind]="ptm('svg')"
         >
