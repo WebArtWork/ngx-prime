@@ -51,7 +51,6 @@ const PANEL_INSTANCE = new InjectionToken<Panel>('PANEL_INSTANCE');
                     <ng-template *ngTemplateOutlet="iconsTemplate() || _iconsTemplate"></ng-template>
                     @if (toggleable()) {
                         <p-button
-                            [attr.id]="id() + '_header'"
                             severity="secondary"
                             [text]="true"
                             [rounded]="true"
