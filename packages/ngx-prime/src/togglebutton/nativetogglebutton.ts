@@ -16,6 +16,7 @@ import { ToggleButtonStyle } from './style/togglebuttonstyle';
         '[attr.data-p-checked]': 'checked() || null',
         '[attr.data-p-disabled]': '$disabled() || null',
         '[attr.data-p-invalid]': 'invalid() || null',
+        '[attr.aria-invalid]': 'invalid() || null',
         '[attr.type]': 'type()',
         '[attr.aria-pressed]': 'checked()',
         '[attr.aria-label]': 'ariaLabel() || null',

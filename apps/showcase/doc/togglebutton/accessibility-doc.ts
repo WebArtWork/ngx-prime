@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
             <p>
                 ToggleButton component uses an element with <i>button</i> role and updates <i>aria-pressed</i> state for screen readers. Value to describe the component can be defined with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props, it is highly
                 suggested to use either of these props as the component changes the label displayed which will result in screen readers to read different labels when the component receives focus. To prevent this, always provide an aria label that
-                does not change related to state.
+                does not change related to state. The disabled and invalid states are exposed to assistive technology via <i>aria-disabled</i> and <i>aria-invalid</i>, since the component is rendered as a non-native element with
+                <i>role="button"</i>.
             </p>
         </app-docsectiontext>
 

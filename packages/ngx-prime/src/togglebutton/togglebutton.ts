@@ -34,6 +34,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
         '[attr.aria-labelledby]': 'ariaLabelledBy()',
         '[attr.aria-label]': 'ariaLabel()',
         '[attr.aria-pressed]': 'checked ? "true" : "false"',
+        '[attr.aria-disabled]': '$disabled() || null',
+        '[attr.aria-invalid]': 'invalid() || null',
         '[attr.role]': '"button"',
         '[attr.tabindex]': 'tabindex() !== undefined ? tabindex() : (!$disabled() ? 0 : -1)',
         '[attr.data-pc-name]': "'togglebutton'",
