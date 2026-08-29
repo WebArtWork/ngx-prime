@@ -2513,6 +2513,27 @@ multi-week/multi-quarter part of this initiative flagged when the target
 was first scoped â€” treat it as its own planned project, not a continuation
 of the Phase 4 sweep.
 
+**Blocking discovery (2026-08-29): there is no test infrastructure at all
+in `packages/ngx-prime`.** A repo-wide search found **zero** `.spec.ts`
+files anywhere (not just for tabs/select/menu/listbox/tree â€” the entire
+library), and no jest/karma config wired to the `ngx-prime` package itself
+(`jest` only appears as a dependency of `apps/showcase`, unconfigured for
+the library). This contradicts the very detailed spec-fixing narrative
+earlier in this file's `@Input()`/`@Output()` migration section (step 3
+above), which describes extensive `.spec.ts` edits across dozens of
+components â€” those files no longer exist in the working tree today,
+for reasons not established by this audit (removed in a later pass?
+never actually committed? worth asking directly rather than assuming).
+**This means "write a `.spec.ts` alongside each Phase 1-3 migration" (the
+recommendation above) is blocked on a prior decision: which test runner
+(Jest vs Karma/Jasmine, given Angular 22) and how it's wired into the
+`ngx-prime` package's build/CI.** This is a monorepo-wide tooling choice,
+not a per-component one â€” do not have an agent guess at it. Needs a
+decision before Phase 1-3 implementation can safely start; also worth
+independently confirming whether Part C's "Test evidence" plan (using
+axe-core/keyboard/focus tests as ACR backing evidence) is even achievable
+given this gap.
+
 Proposed phasing:
 - **Phase 0:** âœ… done (2026-08-28) â€” Select/Multiselect open item resolved
   (see above); `@angular/aria` pinned at exact `22.1.4` (matching the rest of
