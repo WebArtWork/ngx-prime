@@ -4,6 +4,7 @@ import {
     booleanAttribute,
     ChangeDetectionStrategy,
     Component,
+    computed,
     ContentChild,
     forwardRef,
     inject,
@@ -73,8 +74,9 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('root')",
-        '[attr.role]': '"group"',
-        '[attr.aria-labelledby]': 'ariaLabelledBy()',
+        '[attr.role]': 'role()',
+        '[attr.aria-label]': 'ariaLabel() || null',
+        '[attr.aria-labelledby]': 'ariaLabelledBy() || null',
         '[attr.data-p]': 'dataP'
     },
     hostDirectives: [Bind]
@@ -142,6 +144,11 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
      */
     ariaLabelledBy = input<string>();
     /**
+     * Used to define a string that labels the group for accessibility.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
      * A property to uniquely identify a value in options.
      * @group Props
      */
@@ -184,6 +191,8 @@ export class SelectButton extends BaseEditableHolder<SelectButtonPassThrough> im
     @ContentChild('item', { descendants: false }) itemTemplate: TemplateRef<SelectButtonItemTemplateContext> | undefined;
 
     _itemTemplate: TemplateRef<SelectButtonItemTemplateContext> | undefined;
+
+    role = computed(() => (this.multiple() ? 'group' : 'radiogroup'));
 
     get equalityKey() {
         return this.optionValue() ? null : this.dataKey();
