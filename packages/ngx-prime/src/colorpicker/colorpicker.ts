@@ -95,12 +95,44 @@ const COLORPICKER_INSTANCE = new InjectionToken<ColorPicker>('COLORPICKER_INSTAN
             <ng-template #content>
                 <div [class]="cx('panel')" [pBind]="ptm('panel')">
                     <div [class]="cx('content')" [pBind]="ptm('content')">
-                        <div #colorSelector [class]="cx('colorSelector')" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [pBind]="ptm('colorSelector')">
+                        <div
+                            #colorSelector
+                            [class]="cx('colorSelector')"
+                            role="slider"
+                            tabindex="0"
+                            [attr.aria-label]="ariaLabel"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            [attr.aria-valuenow]="value.s"
+                            [attr.aria-valuetext]="'Saturation ' + value.s + '%, brightness ' + value.b + '%'"
+                            (touchstart)="onColorDragStart($event)"
+                            (touchmove)="onDrag($event)"
+                            (touchend)="onDragEnd()"
+                            (mousedown)="onColorMousedown($event)"
+                            (keydown)="onColorSelectorKeydown($event)"
+                            [pBind]="ptm('colorSelector')"
+                        >
                             <div [class]="cx('colorBackground')" [pBind]="ptm('colorBackground')">
                                 <div #colorHandle [class]="cx('colorHandle')" [pBind]="ptm('colorHandle')"></div>
                             </div>
                         </div>
-                        <div #hue [class]="cx('hue')" (mousedown)="onHueMousedown($event)" (touchstart)="onHueDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" [pBind]="ptm('hue')">
+                        <div
+                            #hue
+                            [class]="cx('hue')"
+                            role="slider"
+                            tabindex="0"
+                            aria-orientation="vertical"
+                            [attr.aria-label]="'Hue'"
+                            aria-valuemin="0"
+                            aria-valuemax="360"
+                            [attr.aria-valuenow]="value.h"
+                            (mousedown)="onHueMousedown($event)"
+                            (touchstart)="onHueDragStart($event)"
+                            (touchmove)="onDrag($event)"
+                            (touchend)="onDragEnd()"
+                            (keydown)="onHueKeydown($event)"
+                            [pBind]="ptm('hue')"
+                        >
                             <div #hueHandle [class]="cx('hueHandle')" [pBind]="ptm('hueHandle')"></div>
                         </div>
                     </div>
@@ -441,6 +473,80 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
             this.updateColorSelector();
             this.updateUI();
             this.onShow.emit({});
+
+            // Move focus into the panel for keyboard users, per WAI-ARIA APG dialog dismissal/focus pattern.
+            setTimeout(() => this.colorSelectorViewChild?.nativeElement?.focus(), 0);
+        }
+    }
+
+    onColorSelectorKeydown(event: KeyboardEvent) {
+        if (this.$disabled()) {
+            return;
+        }
+
+        const step = event.shiftKey ? 10 : 1;
+        let handled = true;
+
+        switch (event.key) {
+            case 'ArrowRight':
+                this.value = this.validateHSB({ h: this.value.h, s: this.value.s + step, b: this.value.b });
+                break;
+            case 'ArrowLeft':
+                this.value = this.validateHSB({ h: this.value.h, s: this.value.s - step, b: this.value.b });
+                break;
+            case 'ArrowUp':
+                this.value = this.validateHSB({ h: this.value.h, s: this.value.s, b: this.value.b + step });
+                break;
+            case 'ArrowDown':
+                this.value = this.validateHSB({ h: this.value.h, s: this.value.s, b: this.value.b - step });
+                break;
+            case 'Escape':
+                this.hide();
+                return;
+            default:
+                handled = false;
+                break;
+        }
+
+        if (handled) {
+            event.preventDefault();
+            this.updateUI();
+            this.updateModel();
+            this.onChange.emit({ originalEvent: event, value: this.getValueToUpdate() });
+        }
+    }
+
+    onHueKeydown(event: KeyboardEvent) {
+        if (this.$disabled()) {
+            return;
+        }
+
+        const step = event.shiftKey ? 10 : 1;
+        let handled = true;
+
+        switch (event.key) {
+            case 'ArrowUp':
+            case 'ArrowRight':
+                this.value = this.validateHSB({ h: this.value.h + step, s: this.value.s, b: this.value.b });
+                break;
+            case 'ArrowDown':
+            case 'ArrowLeft':
+                this.value = this.validateHSB({ h: this.value.h - step, s: this.value.s, b: this.value.b });
+                break;
+            case 'Escape':
+                this.hide();
+                return;
+            default:
+                handled = false;
+                break;
+        }
+
+        if (handled) {
+            event.preventDefault();
+            this.updateColorSelector();
+            this.updateUI();
+            this.updateModel();
+            this.onChange.emit({ originalEvent: event, value: this.getValueToUpdate() });
         }
     }
 
@@ -453,6 +559,11 @@ export class ColorPicker extends BaseEditableHolder<ColorPickerPassThrough> impl
     hide() {
         this.overlayVisible = false;
         this.cd.markForCheck();
+
+        // Restore focus to the trigger so keyboard users aren't dropped after the panel closes.
+        if (!this.inline()) {
+            this.inputViewChild()?.nativeElement?.focus();
+        }
     }
 
     onInputClick() {
