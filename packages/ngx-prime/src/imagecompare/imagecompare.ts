@@ -20,13 +20,21 @@ const IMAGECOMPARE_INSTANCE = new InjectionToken<ImageCompare>('IMAGECOMPARE_INS
         <ng-template *ngTemplateOutlet="leftTemplate() || _leftTemplate"></ng-template>
         <ng-template *ngTemplateOutlet="rightTemplate() || _rightTemplate"></ng-template>
 
-        <input type="range" min="0" max="100" value="50" (input)="onSlide($event)" [class]="cx('slider')" [pBind]="ptm('slider')" />
+        <input
+            type="range"
+            min="0"
+            max="100"
+            value="50"
+            (input)="onSlide($event)"
+            [class]="cx('slider')"
+            [attr.tabindex]="tabindex()"
+            [attr.aria-labelledby]="ariaLabelledby()"
+            [attr.aria-label]="ariaLabelledby() ? null : ariaLabel() || 'Image comparison slider'"
+            [pBind]="ptm('slider')"
+        />
     `,
     host: {
-        '[class]': "cx('root')",
-        '[attr.tabindex]': 'tabindex()',
-        '[attr.aria-labelledby]': 'ariaLabelledby()',
-        '[attr.aria-label]': 'ariaLabel()'
+        '[class]': "cx('root')"
     },
     hostDirectives: [Bind],
     changeDetection: ChangeDetectionStrategy.OnPush,
