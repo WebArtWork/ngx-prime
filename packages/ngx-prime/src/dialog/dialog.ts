@@ -623,6 +623,11 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
 
     private zIndexForLayering?: number;
 
+    /**
+     * Element that had focus before the dialog opened, restored to it on close (WCAG 2.2 focus management).
+     */
+    private previouslyFocusedElement: HTMLElement | null = null;
+
     get maximizeLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
     }
@@ -1121,6 +1126,10 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
     }
 
     onBeforeEnter(event: MotionEvent) {
+        if (isPlatformBrowser(this.platformId)) {
+            this.previouslyFocusedElement = this.document.activeElement as HTMLElement;
+        }
+
         this.container.set(event.element as HTMLDivElement);
         this.wrapper = this.container()?.parentElement;
         this.$attrSelector && this.container()?.setAttribute(this.$attrSelector, '');
@@ -1198,6 +1207,12 @@ export class Dialog extends BaseComponent<DialogPassThrough> implements OnInit, 
         this.wrapper = null;
 
         this._style = this.originalStyle ? { ...this.originalStyle } : {};
+
+        if (this.previouslyFocusedElement && typeof this.previouslyFocusedElement.focus === 'function') {
+            this.previouslyFocusedElement.focus();
+        }
+
+        this.previouslyFocusedElement = null;
     }
 
     destroyStyle() {
