@@ -11,6 +11,7 @@ import type { InputNumberInputEvent } from '@wawjs/ngx-prime/types/inputnumber';
         '[attr.data-pc-name]': "'inputnumber'",
         '[attr.data-pc-section]': "'input'",
         '[attr.data-p-invalid]': 'invalid() || null',
+        '[attr.aria-invalid]': 'invalid() || null',
         '[attr.aria-label]': 'ariaLabel() || null',
         '[attr.aria-labelledby]': 'ariaLabelledBy() || null',
         '[attr.aria-describedby]': 'ariaDescribedBy() || null',

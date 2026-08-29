@@ -73,6 +73,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             [attr.aria-label]="ariaLabel()"
             [attr.aria-labelledby]="ariaLabelledBy()"
             [attr.aria-describedby]="ariaDescribedBy()"
+            [attr.aria-invalid]="invalid() || null"
             [attr.title]="title()"
             [pSize]="size()"
             [attr.size]="inputSize()"
