@@ -33,7 +33,18 @@ const TERMINAL_INSTANCE = new InjectionToken<Terminal>('TERMINAL_INSTANCE');
         </div>
         <div [class]="cx('prompt')" [pBind]="ptm('prompt')">
             <span [class]="cx('promptLabel')" [pBind]="ptm('promptLabel')">{{ prompt() }}</span>
-            <input #in type="text" [(ngModel)]="command" [class]="cx('promptValue')" [pBind]="ptm('promptValue')" autocomplete="off" (keydown)="handleCommand($event)" autofocus />
+            <input
+                #in
+                type="text"
+                [(ngModel)]="command"
+                [class]="cx('promptValue')"
+                [pBind]="ptm('promptValue')"
+                autocomplete="off"
+                (keydown)="handleCommand($event)"
+                autofocus
+                [attr.aria-label]="ariaLabel()"
+                [attr.aria-labelledby]="ariaLabelledBy()"
+            />
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -74,6 +85,16 @@ export class Terminal extends BaseComponent<TerminalPassThrough> implements Afte
      * @group Props
      */
     response = input<string>();
+    /**
+     * Establishes a string value that labels the command input element for accessibility.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Establishes relationships between the command input element and its label(s) for accessibility.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
 
     commands: any[] = [];
 
