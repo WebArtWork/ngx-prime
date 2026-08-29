@@ -6,8 +6,11 @@ Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
 **Accessibility:** first pass of a WCAG 2.2 AA / EN 301 549 / WAI-ARIA APG
 compliance effort (see `ROADMAP.md`'s Accessibility section for the full
-target, phasing, and per-component detail). Added `@angular/aria` as a
-peer/dev dependency ahead of a planned headless-directive migration for
+target, phasing, and per-component detail). Added an accessibility
+Conformance section to the showcase's accessibility guide stating the
+target, scope, and the explicit disclaimer that ngx-prime does not by
+itself make a consuming application legally compliant. Added `@angular/aria`
+as a peer/dev dependency ahead of a planned headless-directive migration for
 composite widgets (tabs, select, menu, listbox, tree, accordion, and others).
 
 Fixed real, pre-existing accessibility bugs across ~73 components,
@@ -22,7 +25,13 @@ leaving it keyboard-reachable underneath (now uses `inert`);
 real data tables by screen readers (now `role="presentation"`) and node
 selection had no keyboard equivalent; `scrollpanel`'s `aria-controls`
 pointed at an id that was never actually set; `progressbar` had
-`aria-level` where `aria-valuetext` was intended.
+`aria-level` where `aria-valuetext` was intended; the shared `Motion`
+transition primitive underlying nearly every animated component (dialog,
+drawer, popover, overlay, message, scrolltop, and more) had **no
+`prefers-reduced-motion` support at all**, in ngx-prime or the underlying
+`@wawjs/css-prime-motion` package it wraps â€” now respects the OS/browser
+preference and forces animation duration to zero without skipping
+mount/unmount lifecycle callbacks.
 
 Also added missing accessible names, `aria-invalid`/`aria-disabled`
 reflection, decorative-icon `aria-hidden`, `prefers-reduced-motion` support
