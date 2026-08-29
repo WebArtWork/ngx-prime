@@ -259,7 +259,7 @@ export class FileContent extends BaseComponent {
                     ></ng-container>
                     <ng-container *ngTemplateOutlet="toolbarTemplate() || _toolbarTemplate"></ng-container>
                 </div>
-                <div #content [class]="cx('content')" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [pBind]="ptm('content')">
+                <div #content [class]="cx('content')" role="status" aria-live="polite" aria-atomic="false" (dragenter)="onDragEnter($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [pBind]="ptm('content')">
                     @if (contentTemplate || _contentTemplate) {
                         <ng-container
                             *ngTemplateOutlet="
@@ -392,7 +392,7 @@ export class FileContent extends BaseComponent {
                     </p-button>
                     @if (!auto()) {
                         @if (!fileLabelTemplate() && !_fileLabelTemplate) {
-                            <span>
+                            <span role="status" aria-live="polite">
                                 {{ basicFileChosenLabel() }}
                             </span>
                         } @else {
