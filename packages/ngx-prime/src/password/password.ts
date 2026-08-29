@@ -616,7 +616,17 @@ export const Password_VALUE_ACCESSOR: any = {
         @if (toggleMask()) {
             @if (unmasked) {
                 @if (!hideIconTemplate && !_hideIconTemplate) {
-                    <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" role="button" tabindex="0" [attr.aria-label]="hideIconAriaLabel" (click)="onMaskToggle()" (keydown.enter)="onMaskToggle()" (keydown.space)="onMaskToggleSpace($event)" />
+                    <svg
+                        data-p-icon="eyeslash"
+                        [class]="cx('maskIcon')"
+                        [pBind]="ptm('maskIcon')"
+                        role="button"
+                        tabindex="0"
+                        [attr.aria-label]="hideIconAriaLabel"
+                        (click)="onMaskToggle()"
+                        (keydown.enter)="onMaskToggle()"
+                        (keydown.space)="onMaskToggleSpace($event)"
+                    />
                 }
                 @if (hideIconTemplate || _hideIconTemplate) {
                     <span role="button" tabindex="0" [attr.aria-label]="hideIconAriaLabel" (click)="onMaskToggle()" (keydown.enter)="onMaskToggle()" (keydown.space)="onMaskToggleSpace($event)" [pBind]="ptm('maskIcon')">
@@ -626,7 +636,17 @@ export const Password_VALUE_ACCESSOR: any = {
             }
             @if (!unmasked) {
                 @if (!showIconTemplate && !_showIconTemplate) {
-                    <svg data-p-icon="eye" [class]="cx('unmaskIcon')" [pBind]="ptm('unmaskIcon')" role="button" tabindex="0" [attr.aria-label]="showIconAriaLabel" (click)="onMaskToggle()" (keydown.enter)="onMaskToggle()" (keydown.space)="onMaskToggleSpace($event)" />
+                    <svg
+                        data-p-icon="eye"
+                        [class]="cx('unmaskIcon')"
+                        [pBind]="ptm('unmaskIcon')"
+                        role="button"
+                        tabindex="0"
+                        [attr.aria-label]="showIconAriaLabel"
+                        (click)="onMaskToggle()"
+                        (keydown.enter)="onMaskToggle()"
+                        (keydown.space)="onMaskToggleSpace($event)"
+                    />
                 }
                 @if (showIconTemplate || _showIconTemplate) {
                     <span role="button" tabindex="0" [attr.aria-label]="showIconAriaLabel" (click)="onMaskToggle()" (keydown.enter)="onMaskToggle()" (keydown.space)="onMaskToggleSpace($event)" [pBind]="ptm('unmaskIcon')">

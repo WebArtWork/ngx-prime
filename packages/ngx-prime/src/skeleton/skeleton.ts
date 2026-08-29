@@ -22,7 +22,7 @@ const SKELETON_INSTANCE = new InjectionToken<Skeleton>('SKELETON_INSTANCE');
     host: {
         '[attr.aria-hidden]': '!ariaLabel()',
         '[attr.role]': "ariaLabel() ? 'progressbar' : null",
-        '[attr.aria-busy]': "ariaLabel() ? true : null",
+        '[attr.aria-busy]': 'ariaLabel() ? true : null',
         '[attr.aria-label]': 'ariaLabel()',
         '[class]': "cn(cx('root'), styleClass())",
         '[style]': 'containerStyle',

@@ -4,6 +4,8 @@ Long Term Support releases: [CHANGELOG-LTS](./changelog-lts/CHANGELOG-LTS.md)
 
 ## [Unreleased]
 
+## [22.0.5](https://github.com/WebArtWork/ngx-prime/releases/tag/v22.0.5) (2026-08-29)
+
 **Accessibility:** first pass of a WCAG 2.2 AA / EN 301 549 / WAI-ARIA APG
 compliance effort (see `ROADMAP.md`'s Accessibility section for the full
 target, phasing, and per-component detail). Added an accessibility

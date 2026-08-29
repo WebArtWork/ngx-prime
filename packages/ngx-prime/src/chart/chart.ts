@@ -30,7 +30,11 @@ const CHART_INSTANCE = new InjectionToken<UIChart>('CHART_INSTANCE');
         ></canvas>
         @if (data(); as chartData) {
             <table [id]="dataTableId" class="p-chart-data-table" [style]="{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(0 0 0 0)', 'white-space': 'nowrap' }">
-                <caption>{{ ariaLabel() || 'Chart data' }}</caption>
+                <caption>
+                    {{
+                        ariaLabel() || 'Chart data'
+                    }}
+                </caption>
                 <thead>
                     <tr>
                         <th scope="col"></th>

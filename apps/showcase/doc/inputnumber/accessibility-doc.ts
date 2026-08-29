@@ -12,8 +12,8 @@ import { Component } from '@angular/core';
             <h3>Screen Reader</h3>
             <p>
                 Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i>, <i>ariaDescribedBy</i> props. The input element uses
-                <i>spinbutton</i> role in addition to the <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. When <i>invalid</i> is enabled, <i>aria-invalid</i> is set on the input so assistive
-                technologies announce the validation state.
+                <i>spinbutton</i> role in addition to the <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. When <i>invalid</i> is enabled, <i>aria-invalid</i> is set on the input so assistive technologies announce the
+                validation state.
             </p>
         </app-docsectiontext>
 

@@ -36,9 +36,7 @@ import { Component } from '@angular/core';
                         <td>Moves focus to the input, then to the visibility toggle and clear icon when present.</td>
                     </tr>
                     <tr>
-                        <td>
-                            <i>enter</i> / <i>space</i>
-                        </td>
+                        <td><i>enter</i> / <i>space</i></td>
                         <td>Activates the focused visibility toggle or clear icon.</td>
                     </tr>
                     <tr>

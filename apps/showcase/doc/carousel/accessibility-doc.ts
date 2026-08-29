@@ -21,8 +21,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
         </p>
         <p>Quick navigation elements are button elements with an <i>aria-label</i> attribute referring to the <i>aria.pageLabel</i> of the <a href="/configuration/#locale">locale</a> API. Current page is marked with <i>aria-current</i>.</p>
         <p>
-            When <i>autoplayInterval</i> is set, a play/pause toggle button is rendered next to the navigators so users can stop the automatic rotation (WCAG 2.2.2 Pause, Stop, Hide). Autoplay is also skipped automatically when the user's
-            operating system has <i>prefers-reduced-motion: reduce</i> enabled.
+            When <i>autoplayInterval</i> is set, a play/pause toggle button is rendered next to the navigators so users can stop the automatic rotation (WCAG 2.2.2 Pause, Stop, Hide). Autoplay is also skipped automatically when the user's operating
+            system has <i>prefers-reduced-motion: reduce</i> enabled.
         </p>
 
         <h3>Next/Prev Keyboard Support</h3>

@@ -144,13 +144,7 @@ import { CarouselStyle } from './style/carouselstyle';
                     </p-button>
                 }
                 @if (autoplayInterval()) {
-                    <button
-                        type="button"
-                        [class]="cx('pcNextButton')"
-                        [attr.aria-label]="allowAutoplay ? ariaPauseLabel() : ariaPlayLabel()"
-                        [attr.aria-pressed]="!allowAutoplay"
-                        (click)="toggleAutoplay()"
-                    >
+                    <button type="button" [class]="cx('pcNextButton')" [attr.aria-label]="allowAutoplay ? ariaPauseLabel() : ariaPlayLabel()" [attr.aria-pressed]="!allowAutoplay" (click)="toggleAutoplay()">
                         @if (allowAutoplay) {
                             <span aria-hidden="true">&#10073;&#10073;</span>
                         } @else {

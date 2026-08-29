@@ -606,7 +606,7 @@ export class ButtonDirective extends BaseComponent {
             pRipple
             [attr.tabindex]="tabindex() || buttonProps()?.tabindex"
             [pAutoFocus]="autofocus() || buttonProps()?.autofocus"
-            [attr.aria-busy]="(loading() || buttonProps()?.loading) || null"
+            [attr.aria-busy]="loading() || buttonProps()?.loading || null"
             [pBind]="ptm('root')"
             [attr.data-p]="dataP"
             [attr.data-p-disabled]="disabled() || loading() || buttonProps()?.disabled"
