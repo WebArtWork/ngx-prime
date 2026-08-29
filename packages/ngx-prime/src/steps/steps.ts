@@ -52,7 +52,7 @@ import { StepsStyle } from './style/stepsstyle';
                                     [skipLocationChange]="item.skipLocationChange"
                                     [replaceUrl]="item.replaceUrl"
                                     [state]="item.state"
-                                    [attr.ariaCurrentWhenActive]="exact() ? 'step' : undefined"
+                                    [attr.aria-current]="isActive(item, i) ? 'step' : null"
                                 >
                                     <span [class]="cx('itemNumber')">{{ i + 1 }}</span>
                                     @if (item.escape !== false) {
@@ -72,7 +72,7 @@ import { StepsStyle } from './style/stepsstyle';
                                     [attr.tabindex]="getItemTabIndex(item, i)"
                                     [attr.aria-expanded]="i === activeIndex()"
                                     [attr.aria-disabled]="item.disabled || (readonly() && i !== activeIndex())"
-                                    [attr.ariaCurrentWhenActive]="exact() && (!item.disabled || readonly()) ? 'step' : undefined"
+                                    [attr.aria-current]="isActive(item, i) ? 'step' : null"
                                 >
                                     <span [class]="cx('itemNumber')">{{ i + 1 }}</span>
                                     @if (item.escape !== false) {
