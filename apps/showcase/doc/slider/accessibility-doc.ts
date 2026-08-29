@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <h3>Screen Reader</h3>
             <p>
                 Slider element component uses <i>slider</i> role on the handle in addition to the <i>aria-orientation</i>, <i>aria-valuemin</i>, <i>aria-valuemax</i> and <i>aria-valuenow</i> attributes. Value to describe the component can be defined
-                using <i>ariaLabelledBy</i> and <i>ariaLabel</i> props.
+                using <i>ariaLabelledBy</i> and <i>ariaLabel</i> props. The disabled and invalid states are exposed programmatically to assistive technology through <i>aria-disabled</i> and <i>aria-invalid</i> on the handle(s), since a
+                <i>role="slider"</i> element has no native disabled/invalid semantics of its own.
             </p>
         </app-docsectiontext>
 

@@ -15,6 +15,7 @@ import { SliderStyle } from './style/sliderstyle';
         '[attr.data-pc-section]': "'input'",
         '[class.p-invalid]': 'invalid()',
         '[attr.data-p-invalid]': 'invalid() || null',
+        '[attr.aria-invalid]': 'invalid() || null',
         '[attr.aria-label]': 'ariaLabel() || null',
         '[attr.aria-labelledby]': 'ariaLabelledBy() || null',
         '[attr.aria-describedby]': 'ariaDescribedBy() || null',
