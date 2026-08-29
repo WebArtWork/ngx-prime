@@ -21,7 +21,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
     standalone: true,
     imports: [CommonModule, RouterModule, RouterLink, RouterLinkActive, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule, Bind, Badge],
     template: `
-        <nav [pBind]="ptm('root')" [class]="cn(cx('root'), styleClass())" [style]="style()">
+        <nav [pBind]="ptm('root')" [class]="cn(cx('root'), styleClass())" [style]="style()" aria-label="Breadcrumb">
             <ol [class]="cx('list')" [pBind]="ptm('list')">
                 @if (home() && home()!.visible !== false) {
                     <li [attr.id]="home()!.id" [class]="cn(cx('homeItem'), home()!.styleClass)" [ngStyle]="home()!.style" pTooltip [tooltipOptions]="home()!.tooltipOptions" [pBind]="ptm('homeItem')" [unstyled]="unstyled()">
@@ -45,7 +45,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                                         <span [class]="cn(cx('itemIcon'), home()!.icon, home()!.iconClass)" [ngStyle]="home()!.iconStyle" [pBind]="ptm('itemIcon')"></span>
                                     }
                                     @if (!home()!.icon) {
-                                        <svg data-p-icon="home" [class]="cx('itemIcon')" [pBind]="ptm('itemIcon')" />
+                                        <svg data-p-icon="home" [class]="cx('itemIcon')" [pBind]="ptm('itemIcon')" aria-hidden="true" />
                                     }
                                     @if (home()!.label) {
                                         @if (home()!.escape !== false) {
@@ -85,7 +85,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                                         <span [class]="cn(cx('itemIcon'), home()!.icon, home()!.iconClass)" [ngStyle]="home()!.iconStyle" [pBind]="ptm('itemIcon')"></span>
                                     }
                                     @if (!home()!.icon) {
-                                        <svg data-p-icon="home" [class]="cx('itemIcon')" [pBind]="ptm('itemIcon')" />
+                                        <svg data-p-icon="home" [class]="cx('itemIcon')" [pBind]="ptm('itemIcon')" aria-hidden="true" />
                                     }
                                     @if (home()!.label) {
                                         @if (home()!.escape !== false) {
@@ -105,7 +105,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                 @if (model() && home()) {
                     <li [class]="cx('separator')" [pBind]="ptm('separator')">
                         @if (!separatorTemplate() && !_separatorTemplate) {
-                            <svg data-p-icon="chevron-right" [pBind]="ptm('separatorIcon')" />
+                            <svg data-p-icon="chevron-right" [pBind]="ptm('separatorIcon')" aria-hidden="true" />
                         }
                         <ng-template *ngTemplateOutlet="separatorTemplate() || _separatorTemplate"></ng-template>
                     </li>
@@ -134,6 +134,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                                         [attr.title]="menuitem?.title"
                                         [attr.tabindex]="menuitem?.disabled ? null : menuitem?.tabindex || '0'"
                                         [attr.data-automationid]="menuitem?.automationId"
+                                        [attr.aria-current]="end ? 'page' : null"
                                         [pBind]="getPTOptions(menuitem, i, 'itemLink')"
                                     >
                                         @if (!itemTemplate && !_itemTemplate) {
@@ -172,6 +173,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                                         [skipLocationChange]="menuitem?.skipLocationChange"
                                         [replaceUrl]="menuitem?.replaceUrl"
                                         [state]="menuitem?.state"
+                                        [attr.aria-current]="end ? 'page' : null"
                                         [pBind]="getPTOptions(menuitem, i, 'itemLink')"
                                     >
                                         @if (menuitem?.icon) {
@@ -195,7 +197,7 @@ const BREADCRUMB_INSTANCE = new InjectionToken<Breadcrumb>('BREADCRUMB_INSTANCE'
                     @if (!end && menuitem.visible !== false) {
                         <li [class]="cx('separator')" [pBind]="ptm('separator')">
                             @if (!separatorTemplate() && !_separatorTemplate) {
-                                <svg data-p-icon="chevron-right" [pBind]="ptm('separatorIcon')" />
+                                <svg data-p-icon="chevron-right" [pBind]="ptm('separatorIcon')" aria-hidden="true" />
                             }
                             <ng-template *ngTemplateOutlet="separatorTemplate() || _separatorTemplate"></ng-template>
                         </li>
