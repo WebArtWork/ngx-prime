@@ -1,5 +1,6 @@
 import { AppDoc } from '@/components/doc/app.doc';
 import { ColorsDoc } from '@/doc/guides/accessibility/colors-doc';
+import { ConformanceDoc } from '@/doc/guides/accessibility/conformance-doc';
 import { FormControlsDoc } from '@/doc/guides/accessibility/formcontrols-doc';
 import { IntroductionDoc } from '@/doc/guides/accessibility/introduction-doc';
 import { SemanticHTMLDoc } from '@/doc/guides/accessibility/semantichtml-doc';
@@ -14,7 +15,7 @@ import { Component } from '@angular/core';
     template: `<app-doc
         docTitle="Accessibility - ngx-prime"
         header="Accessibility"
-        description="ngx-prime targets AA level compliance on WCAG specification, refer to the accessibility documentation of each component for detailed information."
+        description="ngx-prime targets WCAG 2.2 AA, EN 301 549, and WAI-ARIA APG compliance; see the Conformance section for scope and current status, and each component's own accessibility documentation for details."
         [docs]="docs"
         docType="page"
     ></app-doc>`
@@ -30,6 +31,11 @@ export class AccessibilityDemoComponent {
             id: 'wcag',
             label: 'WCAG',
             component: WCAGDoc
+        },
+        {
+            id: 'conformance',
+            label: 'Conformance',
+            component: ConformanceDoc
         },
         {
             id: 'form-controls',
