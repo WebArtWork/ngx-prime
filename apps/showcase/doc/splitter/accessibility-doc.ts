@@ -8,7 +8,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>
-            <p>Splitter bar defines <i>separator</i> as the role with <i>aria-orientation</i> set to either horizontal or vertical.</p>
+            <p>
+                Splitter gutter handle, the focusable element that responds to the keyboard, defines <i>separator</i> as the role with <i>aria-orientation</i> set to either horizontal or vertical, and <i>aria-valuenow</i>/<i>aria-valuemin</i>/
+                <i>aria-valuemax</i> to expose the current panel size as a percentage.
+            </p>
             <h3>Keyboard Support</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">

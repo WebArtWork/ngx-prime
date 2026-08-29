@@ -28,7 +28,6 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
                 <div
                     [pBind]="ptm('gutter')"
                     [class]="cx('gutter')"
-                    role="separator"
                     tabindex="-1"
                     (mousedown)="onGutterMouseDown($event, i)"
                     (touchstart)="onGutterTouchStart($event, i)"
@@ -41,9 +40,12 @@ const SPLITTER_INSTANCE = new InjectionToken<Splitter>('SPLITTER_INSTANCE');
                         [pBind]="ptm('gutterHandle')"
                         [class]="cx('gutterHandle')"
                         tabindex="0"
+                        role="separator"
                         [ngStyle]="gutterStyle()"
                         [attr.aria-orientation]="layout()"
                         [attr.aria-valuenow]="prevSize"
+                        [attr.aria-valuemin]="0"
+                        [attr.aria-valuemax]="100"
                         (keyup)="onGutterKeyUp($event)"
                         (keydown)="onGutterKeyDown($event, i)"
                     ></div>
