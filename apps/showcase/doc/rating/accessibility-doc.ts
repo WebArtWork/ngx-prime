@@ -11,7 +11,7 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p>
                 Rating component internally uses radio buttons that are only visible to screen readers. The value to read for item is retrieved from the <a href="/configuration/#locale">locale</a> API via <i>star</i> and <i>stars</i> of the
                 <i>aria</i>
-                property.
+                property. The visible star icons are decorative and marked <i>aria-hidden</i> so assistive technology only announces the hidden radio's accessible name and checked state, not icon/color alone.
             </p>
         </app-docsectiontext>
 

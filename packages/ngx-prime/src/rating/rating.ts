@@ -60,10 +60,10 @@ export const RATING_VALUE_ACCESSOR: any = {
                         <ng-container *ngTemplateOutlet="onIconTemplate || _onIconTemplate; context: { $implicit: star + 1, class: cx('onIcon') }"></ng-container>
                     } @else {
                         @if (iconOnClass()) {
-                            <span [class]="cx('onIcon')" [ngStyle]="iconOnStyle()" [ngClass]="iconOnClass()" [pBind]="ptm('onIcon')"></span>
+                            <span aria-hidden="true" [class]="cx('onIcon')" [ngStyle]="iconOnStyle()" [ngClass]="iconOnClass()" [pBind]="ptm('onIcon')"></span>
                         }
                         @if (!iconOnClass()) {
-                            <svg data-p-icon="star-fill" [ngStyle]="iconOnStyle()" [class]="cx('onIcon')" [pBind]="ptm('onIcon')" />
+                            <svg data-p-icon="star-fill" aria-hidden="true" [ngStyle]="iconOnStyle()" [class]="cx('onIcon')" [pBind]="ptm('onIcon')" />
                         }
                     }
                 } @else {
@@ -71,10 +71,10 @@ export const RATING_VALUE_ACCESSOR: any = {
                         <ng-container *ngTemplateOutlet="offIconTemplate || _offIconTemplate; context: { $implicit: star + 1, class: cx('offIcon') }"></ng-container>
                     } @else {
                         @if (iconOffClass()) {
-                            <span [class]="cx('offIcon')" [ngStyle]="iconOffStyle()" [ngClass]="iconOffClass()" [pBind]="ptm('offIcon')"></span>
+                            <span aria-hidden="true" [class]="cx('offIcon')" [ngStyle]="iconOffStyle()" [ngClass]="iconOffClass()" [pBind]="ptm('offIcon')"></span>
                         }
                         @if (!iconOffClass()) {
-                            <svg data-p-icon="star" [ngStyle]="iconOffStyle()" [class]="cx('offIcon')" [pBind]="ptm('offIcon')" />
+                            <svg data-p-icon="star" aria-hidden="true" [ngStyle]="iconOffStyle()" [class]="cx('offIcon')" [pBind]="ptm('offIcon')" />
                         }
                     }
                 }
