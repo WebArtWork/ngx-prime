@@ -61,7 +61,10 @@ const DRAWER_INSTANCE = new InjectionToken<Drawer>('DRAWER_INSTANCE');
                 (pMotionOnAfterLeave)="onAfterLeave($event)"
                 [class]="cn(cx('root'), styleClass())"
                 [style]="style()"
-                role="complementary"
+                [attr.role]="modal() ? 'dialog' : 'complementary'"
+                [attr.aria-modal]="modal() ? true : null"
+                [attr.aria-label]="ariaLabel()"
+                [attr.aria-labelledby]="ariaLabelledBy()"
                 (keydown)="onKeyDown($event)"
                 pFocusTrap
                 [attr.data-p]="dataP"
@@ -159,6 +162,16 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
      * @group Props
      */
     ariaCloseLabel = input<string>();
+    /**
+     * Defines a string that labels the drawer region for accessibility.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Establishes relationships between the drawer and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
     /**
      * Whether to automatically manage layering.
      * @group Props
@@ -273,6 +286,11 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     documentEscapeListener: VoidListener;
 
     animationEndListener: VoidListener;
+
+    /**
+     * Element that had focus before the drawer opened, restored to it on close (WCAG 2.2 focus management).
+     */
+    private previouslyFocusedElement: HTMLElement | null = null;
 
     _componentStyle = inject(DrawerStyle);
 
@@ -458,6 +476,7 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
     }
 
     onBeforeEnter(event: MotionEvent) {
+        this.previouslyFocusedElement = this.document.activeElement as HTMLElement;
         this.container = event.element as HTMLDivElement;
         this.appendContainer();
         this.show();
@@ -473,6 +492,12 @@ export class Drawer extends BaseComponent<DrawerPassThrough> {
         this.unbindGlobalListeners();
         this.modalVisible = false;
         this.container = null;
+
+        if (this.previouslyFocusedElement && typeof this.previouslyFocusedElement.focus === 'function') {
+            this.previouslyFocusedElement.focus();
+        }
+
+        this.previouslyFocusedElement = null;
     }
 
     appendContainer() {
