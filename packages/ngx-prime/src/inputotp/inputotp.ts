@@ -46,8 +46,12 @@ export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEven
                     [attr.name]="name()"
                     [attr.tabindex]="tabindex()"
                     [attr.required]="required() ? '' : undefined"
+                    [attr.aria-required]="required() ? 'true' : undefined"
                     [attr.readonly]="readonly() ? '' : undefined"
                     [attr.disabled]="$disabled() ? '' : undefined"
+                    [attr.autocomplete]="mask() ? 'off' : 'one-time-code'"
+                    [attr.aria-label]="getInputAriaLabel(i)"
+                    [attr.aria-invalid]="invalid() ? 'true' : undefined"
                     (input)="onInput($event, i - 1)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
@@ -68,7 +72,11 @@ export { InputOtpChangeEvent, InputOtpInputTemplateContext, InputOtpTemplateEven
     providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle, { provide: INPUTOTP_INSTANCE, useExisting: InputOtp }, { provide: PARENT_INSTANCE, useExisting: InputOtp }],
     hostDirectives: [Bind],
     host: {
-        '[class]': "cx('root')"
+        '[class]': "cx('root')",
+        '[attr.role]': "'group'",
+        '[attr.aria-label]': 'ariaLabelledBy() ? undefined : groupAriaLabel()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()',
+        '[attr.aria-disabled]': '$disabled() ? "true" : undefined'
     }
 })
 export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements AfterViewChecked {
@@ -132,6 +140,17 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
      */
     size = input<'large' | 'small' | undefined>();
     /**
+     * Establishes an accessible name for the whole group of input fields.
+     * @defaultValue 'One-time code'
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Establishes relationships between the group of input fields and the element(s) that label it.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
+    /**
      * Callback to invoke on value change.
      * @group Emits
      */
@@ -165,6 +184,12 @@ export class InputOtp extends BaseEditableHolder<InputOtpPassThrough> implements
     value: any;
 
     $variant = computed(() => this.variant() || this.config.inputStyle() || this.config.inputVariant());
+
+    groupAriaLabel = computed(() => this.ariaLabel() || 'One-time code');
+
+    getInputAriaLabel(i: number): string {
+        return `${this.groupAriaLabel()}, digit ${i} of ${this.length()}`;
+    }
 
     get inputMode(): string {
         return this.integerOnly() ? 'numeric' : 'text';
