@@ -19,7 +19,17 @@ const OVERLAYBADGE_INSTANCE = new InjectionToken<OverlayBadge>('OVERLAYBADGE_INS
     template: `
         <div [class]="cx('root')" [pBind]="ptm('root')">
             <ng-content></ng-content>
-            <p-badge [pt]="ptm('pcBadge')" [styleClass]="styleClass()" [style]="style()" [badgeSize]="badgeSize()" [severity]="severity()" [value]="value()" [badgeDisabled]="badgeDisabled()" />
+            <p-badge
+                [pt]="ptm('pcBadge')"
+                [styleClass]="styleClass()"
+                [style]="style()"
+                [badgeSize]="badgeSize()"
+                [severity]="severity()"
+                [value]="value()"
+                [badgeDisabled]="badgeDisabled()"
+                [attr.aria-label]="ariaLabel()"
+                [attr.role]="ariaLabel() ? 'status' : null"
+            />
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -64,6 +74,11 @@ export class OverlayBadge extends BaseComponent<OverlayBadgePassThrough> {
      * @group Props
      */
     badgeDisabled = input(false, { transform: booleanAttribute });
+    /**
+     * Defines a string that labels the badge value for accessibility (e.g. "5 unread notifications"), since the value is otherwise conveyed visually only.
+     * @group Props
+     */
+    ariaLabel = input<string>();
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
