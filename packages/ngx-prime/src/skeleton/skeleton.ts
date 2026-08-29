@@ -20,7 +20,10 @@ const SKELETON_INSTANCE = new InjectionToken<Skeleton>('SKELETON_INSTANCE');
     encapsulation: ViewEncapsulation.None,
     providers: [SkeletonStyle, { provide: SKELETON_INSTANCE, useExisting: Skeleton }, { provide: PARENT_INSTANCE, useExisting: Skeleton }],
     host: {
-        '[attr.aria-hidden]': 'true',
+        '[attr.aria-hidden]': '!ariaLabel()',
+        '[attr.role]': "ariaLabel() ? 'progressbar' : null",
+        '[attr.aria-busy]': "ariaLabel() ? true : null",
+        '[attr.aria-label]': 'ariaLabel()',
         '[class]': "cn(cx('root'), styleClass())",
         '[style]': 'containerStyle',
         '[attr.data-p]': 'dataP'
@@ -73,6 +76,12 @@ export class Skeleton extends BaseComponent<SkeletonPassThrough> {
      * @group Props
      */
     height = input('1rem');
+    /**
+     * When set, exposes the skeleton to assistive technology as a busy progressbar with this
+     * accessible name (e.g. "Loading content") instead of hiding it as purely decorative.
+     * @group Props
+     */
+    ariaLabel = input<string>();
 
     _componentStyle = inject(SkeletonStyle);
 
