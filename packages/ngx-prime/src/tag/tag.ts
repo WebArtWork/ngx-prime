@@ -20,11 +20,11 @@ const TAG_INSTANCE = new InjectionToken<Tag>('TAG_INSTANCE');
         <ng-content></ng-content>
         @if (!iconTemplate && !_iconTemplate) {
             @if (icon()) {
-                <span [class]="cx('icon')" [ngClass]="icon()" [pBind]="ptm('icon')"></span>
+                <span [class]="cx('icon')" [ngClass]="icon()" [pBind]="ptm('icon')" aria-hidden="true"></span>
             }
         }
         @if (iconTemplate || _iconTemplate) {
-            <span [class]="cx('icon')" [pBind]="ptm('icon')">
+            <span [class]="cx('icon')" [pBind]="ptm('icon')" aria-hidden="true">
                 <ng-template *ngTemplateOutlet="iconTemplate || _iconTemplate"></ng-template>
             </span>
         }
