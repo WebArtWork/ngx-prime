@@ -175,7 +175,9 @@ const PAGINATOR_INSTANCE = new InjectionToken<Paginator>('PAGINATOR_INSTANCE');
     providers: [PaginatorStyle, { provide: PAGINATOR_INSTANCE, useExisting: Paginator }, { provide: PARENT_INSTANCE, useExisting: Paginator }],
     host: {
         '[class]': "cn(cx('paginator'), styleClass())",
-        '[style.display]': 'display'
+        '[style.display]': 'display',
+        role: 'navigation',
+        '[attr.aria-label]': "getAriaLabel('navigation')"
     },
     hostDirectives: [Bind]
 })

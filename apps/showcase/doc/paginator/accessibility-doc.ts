@@ -9,7 +9,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     template: ` <div>
         <app-docsectiontext>
             <h3>Screen Reader</h3>
-            <p>Paginator is placed inside a <i>nav</i> element to indicate a navigation section. All of the paginator elements can be customized using templating however the default behavious is listed below.</p>
+            <p>
+                Paginator root element has <i>navigation</i> role along with an <i>aria-label</i> that refers to the <i>aria.navigation</i> property of the <a href="/configuration/#locale">locale</a> API, exposing it as a navigation landmark. All of
+                the paginator elements can be customized using templating however the default behavious is listed below.
+            </p>
             <p>
                 First, previous, next and last page navigators elements with <i>aria-label</i> attributes referring to the <i>aria.firstPageLabel</i>, <i>aria.prevPageLabel</i>, <i>aria.nextPageLabel</i> and <i>aria.lastPageLabel</i>properties of the
                 <a href="/configuration/#locale">locale</a> API respectively.
