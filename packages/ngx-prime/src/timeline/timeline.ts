@@ -19,7 +19,7 @@ const TIMELINE_INSTANCE = new InjectionToken<Timeline>('TIMELINE_INSTANCE');
     imports: [CommonModule, SharedModule, Bind],
     template: `
         @for (event of value(); track event; let last = $last) {
-            <div [pBind]="ptm('event')" [class]="cx('event')" [attr.data-p]="dataP">
+            <div [pBind]="ptm('event')" [class]="cx('event')" [attr.data-p]="dataP" role="listitem">
                 <div [pBind]="ptm('eventOpposite')" [class]="cx('eventOpposite')" [attr.data-p]="dataP">
                     <ng-container *ngTemplateOutlet="oppositeTemplate() || _oppositeTemplate; context: { $implicit: event }"></ng-container>
                 </div>
@@ -44,7 +44,10 @@ const TIMELINE_INSTANCE = new InjectionToken<Timeline>('TIMELINE_INSTANCE');
     providers: [TimelineStyle, { provide: TIMELINE_INSTANCE, useExisting: Timeline }, { provide: PARENT_INSTANCE, useExisting: Timeline }],
     host: {
         '[class]': "cn(cx('root'), styleClass())",
-        '[attr.data-p]': 'dataP'
+        '[attr.data-p]': 'dataP',
+        '[attr.role]': "'list'",
+        '[attr.aria-label]': 'ariaLabelledBy() ? undefined : ariaLabel()',
+        '[attr.aria-labelledby]': 'ariaLabelledBy()'
     },
     hostDirectives: [Bind]
 })
@@ -79,6 +82,16 @@ export class Timeline extends BaseComponent<TimelinePassThrough> implements Bloc
      * @group Props
      */
     layout = input<'vertical' | 'horizontal'>('vertical');
+    /**
+     * Establishes an accessible name for the timeline as a whole.
+     * @group Props
+     */
+    ariaLabel = input<string>();
+    /**
+     * Establishes relationships between the timeline and the element(s) that label it.
+     * @group Props
+     */
+    ariaLabelledBy = input<string>();
     /**
      * Custom content template.
      * @param {TimelineItemTemplateContext} context - item context.
