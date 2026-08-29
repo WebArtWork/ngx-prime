@@ -32,6 +32,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
                             <td><i>enter</i></td>
                             <td>Switches to content.</td>
                         </tr>
+                        <tr>
+                            <td><i>space</i></td>
+                            <td>Switches to content.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

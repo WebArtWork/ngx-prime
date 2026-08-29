@@ -35,7 +35,16 @@ export class InplaceContent extends BaseComponent {}
     imports: [ButtonModule, TimesIcon, SharedModule, Ripple, Bind],
     template: `
         @if (!active()) {
-            <div [class]="cx('display')" [pBind]="ptm('display')" (click)="onActivateClick($event)" tabindex="0" role="button" (keydown)="onKeydown($event)" [attr.data-p-disabled]="disabled()">
+            <div
+                [class]="cx('display')"
+                [pBind]="ptm('display')"
+                (click)="onActivateClick($event)"
+                tabindex="0"
+                role="button"
+                (keydown)="onKeydown($event)"
+                [attr.data-p-disabled]="disabled()"
+                [attr.aria-disabled]="disabled()"
+            >
                 <ng-content select="[pInplaceDisplay]"></ng-content>
                 <ng-container *ngTemplateOutlet="displayTemplate() || _displayTemplate"></ng-container>
             </div>
@@ -186,7 +195,7 @@ export class Inplace extends BaseComponent<InplacePassThrough> {
     }
 
     onKeydown(event: KeyboardEvent) {
-        if (event.code === 'Enter') {
+        if (event.code === 'Enter' || event.code === 'Space') {
             this.activate(event);
             event.preventDefault();
         }
