@@ -1,3 +1,4 @@
+import { isPlatformBrowser } from '@angular/common';
 import { afterRenderEffect, Component, computed, effect, inject, InjectionToken, input, output, signal, untracked } from '@angular/core';
 import { type ClassNameOptions, createMotion, resolveDuration, type MotionEvent, type MotionInstance, type MotionOptions, type MotionPhase } from '@wawjs/css-prime-motion';
 import { nextFrame } from '@wawjs/css-prime-utils';
@@ -222,7 +223,7 @@ export class Motion extends BaseComponent<MotionPassThrough> {
             appear: false,
             enter: options.enter ?? this.enter(),
             leave: options.leave ?? this.leave(),
-            duration: options.duration ?? this.duration(),
+            duration: this.prefersReducedMotion() ? 0 : (options.duration ?? this.duration()),
             enterClass: {
                 from: options.enterClass?.from ?? (!options.name ? this.enterFromClass() : undefined),
                 to: options.enterClass?.to ?? (!options.name ? this.enterToClass() : undefined),
@@ -251,6 +252,15 @@ export class Motion extends BaseComponent<MotionPassThrough> {
 
     rendered = signal(false);
 
+    /**
+     * Tracks the user's `prefers-reduced-motion` OS/browser preference. When `true`, motion
+     * duration is forced to 0 so enter/leave still occur (preserving mount/unmount timing and
+     * lifecycle callbacks) without visible animation, per WCAG 2.3.3 / 2.2.2.
+     */
+    private prefersReducedMotion = signal(false);
+    private reducedMotionMediaQuery: MediaQueryList | undefined;
+    private reducedMotionListener: ((event: MediaQueryListEvent) => void) | undefined;
+
     private readonly handleBeforeEnter = (event?: MotionEvent) => !this.destroyed && this.onBeforeEnter.emit(event);
     private readonly handleEnter = (event?: MotionEvent) => !this.destroyed && this.onEnter.emit(event);
     private readonly handleAfterEnter = (event?: MotionEvent) => !this.destroyed && this.onAfterEnter.emit(event);
@@ -262,6 +272,14 @@ export class Motion extends BaseComponent<MotionPassThrough> {
 
     constructor() {
         super();
+
+        if (isPlatformBrowser(this.platformId) && typeof window.matchMedia === 'function') {
+            this.reducedMotionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            this.reducedMotionListener = (event) => this.prefersReducedMotion.set(event.matches);
+
+            this.prefersReducedMotion.set(this.reducedMotionMediaQuery.matches);
+            this.reducedMotionMediaQuery.addEventListener('change', this.reducedMotionListener);
+        }
 
         effect(() => {
             const hideStrategy = this.hideStrategy();
@@ -337,6 +355,10 @@ export class Motion extends BaseComponent<MotionPassThrough> {
     }
 
     onDestroy(): void {
+        if (this.reducedMotionMediaQuery && this.reducedMotionListener) {
+            this.reducedMotionMediaQuery.removeEventListener('change', this.reducedMotionListener);
+        }
+
         this.destroyed = true;
         this.cancelled = true;
 

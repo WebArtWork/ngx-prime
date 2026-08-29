@@ -44,10 +44,10 @@ const SCROLLTOP_INSTANCE = new InjectionToken<ScrollTop>('SCROLLTOP_INSTANCE');
                 <ng-template #icon>
                     @if (!iconTemplate() && !_iconTemplate) {
                         @if (_icon) {
-                            <span [class]="cn(cx('icon'), _icon)"></span>
+                            <span [class]="cn(cx('icon'), _icon)" aria-hidden="true"></span>
                         }
                         @if (!_icon) {
-                            <svg data-p-icon="chevron-up" [class]="cx('icon')" />
+                            <svg data-p-icon="chevron-up" [class]="cx('icon')" aria-hidden="true" />
                         }
                     }
                     @if (!icon()) {
