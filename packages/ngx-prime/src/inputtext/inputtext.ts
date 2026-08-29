@@ -19,6 +19,7 @@ const INPUTTEXT_INSTANCE = new InjectionToken<InputText>('INPUTTEXT_INSTANCE');
     host: {
         '[class]': "cx('root')",
         '[attr.data-p]': 'dataP',
+        '[attr.aria-invalid]': 'invalid() || null',
         '(input)': 'onInput()'
     },
     providers: [InputTextStyle, { provide: INPUTTEXT_INSTANCE, useExisting: InputText }, { provide: PARENT_INSTANCE, useExisting: InputText }],
