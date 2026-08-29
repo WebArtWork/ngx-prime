@@ -7,9 +7,12 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
     imports: [AppDocSectionText],
     template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
-        <p>VirtualScroller uses a semantic list element to list the items. No specific role is enforced, still you may use any aria role and attributes as any valid attribute is passed to the container element.</p>
+        <p>
+            VirtualScroller renders its items in a plain container element, no specific role is enforced by default, still you may use any aria role and attributes as any valid attribute is passed to the container element (e.g. <i>role="list"</i>
+            with <i>role="listitem"</i> on the item template when the content represents a list).
+        </p>
         <h4>Keyboard Support</h4>
-        <p>Component does not include any built-in interactive elements.</p>
+        <p>The scrollable container element has a <i>tabindex</i> (defaults to 0) so it can be reached and scrolled with the keyboard even when it has no interactive descendants.</p>
     </app-docsectiontext>`
 })
 export class AccessibilityDoc {}
