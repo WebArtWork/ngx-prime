@@ -42,17 +42,19 @@
         "dev:link": "pnpm link --global && npm link"
     },
     "devDependencies": {
+        "@angular/aria": "catalog:angular22",
         "chart.js": "4.4.2",
         "quill": "2.0.2",
         "tslib": "^2.8.1"
     },
     "peerDependencies": {
-        "@angular/cdk": "^22.1.2",
-        "@angular/common": "^22.1.2",
-        "@angular/core": "^22.1.2",
-        "@angular/forms": "^22.1.2",
-        "@angular/router": "^22.1.2",
-        "@angular/platform-browser": "^22.1.2",
+        "@angular/aria": "22.1.4",
+        "@angular/cdk": "22.1.4",
+        "@angular/common": "22.1.4",
+        "@angular/core": "22.1.4",
+        "@angular/forms": "22.1.4",
+        "@angular/router": "22.1.4",
+        "@angular/platform-browser": "22.1.4",
         "rxjs": "^6.0.0 || ^7.8.1"
     },
     "dependencies": {
