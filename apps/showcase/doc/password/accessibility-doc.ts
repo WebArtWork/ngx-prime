@@ -12,7 +12,8 @@ import { Component } from '@angular/core';
             <h3>Screen Reader</h3>
             <p>
                 Value to describe the component can either be provided via <i>label</i> tag combined with <i>id</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. Screen reader is notified about the changes to the strength of the
-                password using a section that has <i>aria-live</i> while typing.
+                password using a section that has <i>role="status"</i> and <i>aria-live="polite"</i> while typing. The built-in show/hide and clear icons expose <i>role="button"</i>, a fixed accessible name ("Show password" / "Hide password" /
+                "Clear"), and are reachable and operable from the keyboard (Enter and Space), not only by pointer.
             </p>
         </app-docsectiontext>
 
@@ -32,7 +33,13 @@ import { Component } from '@angular/core';
                         <td>
                             <i>tab</i>
                         </td>
-                        <td>Moves focus to the input.</td>
+                        <td>Moves focus to the input, then to the visibility toggle and clear icon when present.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i>enter</i> / <i>space</i>
+                        </td>
+                        <td>Activates the focused visibility toggle or clear icon.</td>
                     </tr>
                     <tr>
                         <td>

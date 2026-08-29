@@ -606,9 +606,9 @@ export const Password_VALUE_ACCESSOR: any = {
         />
         @if (showClear() && value != null) {
             @if (!clearIconTemplate() && !_clearIconTemplate) {
-                <svg data-p-icon="times" [class]="cx('clearIcon')" (click)="clear()" [pBind]="ptm('clearIcon')" />
+                <svg data-p-icon="times" [class]="cx('clearIcon')" role="button" tabindex="0" [attr.aria-label]="clearIconAriaLabel" (click)="clear()" (keydown.enter)="clear()" (keydown.space)="onClearSpace($event)" [pBind]="ptm('clearIcon')" />
             }
-            <span (click)="clear()" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')">
+            <span role="button" tabindex="0" [attr.aria-label]="clearIconAriaLabel" (click)="clear()" (keydown.enter)="clear()" (keydown.space)="onClearSpace($event)" [class]="cx('clearIcon')" [pBind]="ptm('clearIcon')">
                 <ng-template *ngTemplateOutlet="clearIconTemplate() || _clearIconTemplate"></ng-template>
             </span>
         }
@@ -616,20 +616,20 @@ export const Password_VALUE_ACCESSOR: any = {
         @if (toggleMask()) {
             @if (unmasked) {
                 @if (!hideIconTemplate && !_hideIconTemplate) {
-                    <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" (click)="onMaskToggle()" />
+                    <svg data-p-icon="eyeslash" [class]="cx('maskIcon')" [pBind]="ptm('maskIcon')" role="button" tabindex="0" [attr.aria-label]="hideIconAriaLabel" (click)="onMaskToggle()" (keydown.enter)="onMaskToggle()" (keydown.space)="onMaskToggleSpace($event)" />
                 }
                 @if (hideIconTemplate || _hideIconTemplate) {
-                    <span (click)="onMaskToggle()" [pBind]="ptm('maskIcon')">
+                    <span role="button" tabindex="0" [attr.aria-label]="hideIconAriaLabel" (click)="onMaskToggle()" (keydown.enter)="onMaskToggle()" (keydown.space)="onMaskToggleSpace($event)" [pBind]="ptm('maskIcon')">
                         <ng-template *ngTemplateOutlet="hideIconTemplate || _hideIconTemplate; context: { class: cx('maskIcon') }"></ng-template>
                     </span>
                 }
             }
             @if (!unmasked) {
                 @if (!showIconTemplate && !_showIconTemplate) {
-                    <svg data-p-icon="eye" [class]="cx('unmaskIcon')" [pBind]="ptm('unmaskIcon')" (click)="onMaskToggle()" />
+                    <svg data-p-icon="eye" [class]="cx('unmaskIcon')" [pBind]="ptm('unmaskIcon')" role="button" tabindex="0" [attr.aria-label]="showIconAriaLabel" (click)="onMaskToggle()" (keydown.enter)="onMaskToggle()" (keydown.space)="onMaskToggleSpace($event)" />
                 }
                 @if (showIconTemplate || _showIconTemplate) {
-                    <span (click)="onMaskToggle()" [pBind]="ptm('unmaskIcon')">
+                    <span role="button" tabindex="0" [attr.aria-label]="showIconAriaLabel" (click)="onMaskToggle()" (keydown.enter)="onMaskToggle()" (keydown.space)="onMaskToggleSpace($event)" [pBind]="ptm('unmaskIcon')">
                         <ng-template *ngTemplateOutlet="showIconTemplate || _showIconTemplate; context: { class: cx('unmaskIcon') }"></ng-template>
                     </span>
                 }
@@ -638,7 +638,7 @@ export const Password_VALUE_ACCESSOR: any = {
 
         <p-overlay #overlay [hostAttrSelector]="$attrSelector" [(visible)]="overlayVisible" [options]="overlayOptions()" [target]="'@parent'" [appendTo]="$appendTo()" [unstyled]="unstyled()" [pt]="ptm('pcOverlay')" [motionOptions]="motionOptions()">
             <ng-template #content>
-                <div [class]="cx('overlay')" [style]="sx('overlay')" (click)="onOverlayClick($event)" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
+                <div [class]="cx('overlay')" [style]="sx('overlay')" role="status" aria-live="polite" (click)="onOverlayClick($event)" [pBind]="ptm('overlay')" [attr.data-p]="overlayDataP">
                     <ng-container *ngTemplateOutlet="headerTemplate() || _headerTemplate"></ng-container>
                     @if (contentTemplate || _contentTemplate) {
                         <ng-container *ngTemplateOutlet="contentTemplate || _contentTemplate"></ng-container>
@@ -1055,6 +1055,30 @@ export class Password extends BaseInput<PasswordPassThrough> {
 
     onMaskToggle() {
         this.unmasked = !this.unmasked;
+    }
+
+    /** Handles Space on the icon-based mask toggle, preventing page scroll. */
+    onMaskToggleSpace(event: Event) {
+        event.preventDefault();
+        this.onMaskToggle();
+    }
+
+    /** Handles Space on the icon-based clear control, preventing page scroll. */
+    onClearSpace(event: Event) {
+        event.preventDefault();
+        this.clear();
+    }
+
+    get showIconAriaLabel() {
+        return 'Show password';
+    }
+
+    get hideIconAriaLabel() {
+        return 'Hide password';
+    }
+
+    get clearIconAriaLabel() {
+        return this.getTranslation(TranslationKeys.CLEAR) || 'Clear';
     }
 
     onOverlayClick(event: Event) {
