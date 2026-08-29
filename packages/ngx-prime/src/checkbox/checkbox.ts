@@ -61,6 +61,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             [attr.value]="value()"
             [attr.name]="name()"
             [checked]="checked"
+            [indeterminate]="!!_indeterminate()"
             [attr.tabindex]="tabindex()"
             [attr.required]="required() ? '' : undefined"
             [attr.readonly]="readonly() ? '' : undefined"

@@ -10,7 +10,8 @@ import { Component } from '@angular/core';
             <h3>Screen Reader</h3>
             <p>
                 Checkbox component uses a hidden native checkbox element internally that is only visible to screen readers. Value to describe the component can either be provided via <i>label</i> tag combined with <i>inputId</i> prop or using
-                <i>ariaLabelledBy</i>, <i>ariaLabel</i> props.
+                <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. The <i>indeterminate</i> state is exposed via the native <i>indeterminate</i> DOM property on the hidden checkbox so assistive technologies announce it correctly, in addition to the
+                visual icon swap.
             </p>
         </app-docsectiontext>
 
