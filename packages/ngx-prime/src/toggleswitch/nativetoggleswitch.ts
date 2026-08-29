@@ -16,8 +16,10 @@ import { ToggleSwitchStyle } from './style/toggleswitchstyle';
         '[attr.data-pc-name]': "'toggleswitch'",
         '[attr.data-pc-section]': "'input'",
         '[attr.data-p-invalid]': 'invalid() || null',
+        '[attr.aria-invalid]': 'invalid() || null',
         '[attr.aria-label]': 'ariaLabel() || null',
         '[attr.aria-labelledby]': 'ariaLabelledBy() || null',
+        '[attr.aria-describedby]': 'ariaDescribedBy() || null',
         '[attr.tabindex]': 'tabindex() ?? null',
         '[attr.id]': 'inputId() || null',
         '[autofocus]': 'autofocus()',
@@ -58,6 +60,7 @@ export class ToggleSwitchDirective extends BaseEditableHolder<ToggleSwitchPassTh
     readonly = input(false, { transform: booleanAttribute });
     ariaLabel = input<string>();
     ariaLabelledBy = input<string>();
+    ariaDescribedBy = input<string>();
     tabindex = input<number, unknown>(undefined, { transform: numberAttribute });
     inputId = input<string>();
     autofocus = input(false, { transform: booleanAttribute });

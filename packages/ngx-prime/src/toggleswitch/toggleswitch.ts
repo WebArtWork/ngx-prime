@@ -61,6 +61,8 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [attr.aria-checked]="checked()"
             [attr.aria-labelledby]="ariaLabelledBy()"
             [attr.aria-label]="ariaLabel()"
+            [attr.aria-describedby]="ariaDescribedBy()"
+            [attr.aria-invalid]="invalid() || undefined"
             [attr.name]="name()"
             [attr.tabindex]="tabindex()"
             (focus)="onFocus()"
@@ -156,6 +158,11 @@ export class ToggleSwitch extends BaseEditableHolder<ToggleSwitchPassThrough> {
      * @group Props
      */
     ariaLabelledBy = input<string>();
+    /**
+     * Establishes a relationship between the component and the element(s) that describe it, e.g. validation error text.
+     * @group Props
+     */
+    ariaDescribedBy = input<string>();
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props

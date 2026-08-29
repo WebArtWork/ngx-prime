@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
             <h3>Screen Reader</h3>
             <p>
                 InputSwitch component uses a hidden native checkbox element with <i>switch</i> role internally that is only visible to screen readers. Value to describe the component can either be provided via <i>label</i> tag combined with
-                <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props.
+                <i>inputId</i> prop or using <i>ariaLabelledBy</i>, <i>ariaLabel</i> props. The <i>ariaDescribedBy</i> prop associates validation error text, and <i>aria-invalid</i> is set automatically when <i>invalid</i> is enabled.
             </p>
         </app-docsectiontext>
 
