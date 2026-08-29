@@ -17,7 +17,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         @if (hasRouterLink()) {
             <a routerLinkActive="p-icon-active" [class.p-icon-icon-only]="!name()" [attr.aria-label]="!name() ? ariaLabel() || icon() : null" [routerLink]="routerLink()" class="p-icon">
                 <span class="p-icon-wrap">
-                    <i class="pi pi-{{ icon() }} p-icon-glyph"></i>
+                    <i class="pi pi-{{ icon() }} p-icon-glyph" aria-hidden="true"></i>
                 </span>
 
                 @if (name()) {
@@ -27,7 +27,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
         } @else {
             <span [class.p-icon-icon-only]="!name()" class="p-icon" role="button" tabindex="0" [attr.aria-label]="!name() ? ariaLabel() || icon() : null" (click)="onAction()" (keydown)="onKeydown($event)">
                 <span class="p-icon-wrap">
-                    <i class="pi pi-{{ icon() }} p-icon-glyph"></i>
+                    <i class="pi pi-{{ icon() }} p-icon-glyph" aria-hidden="true"></i>
                 </span>
 
                 @if (name()) {
