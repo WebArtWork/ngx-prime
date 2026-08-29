@@ -24,6 +24,10 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <i>aria-label</i> attribute of a quick navigation item refers to the <i>aria.pageLabel</i> of the <a href="/configuration/#locale">locale</a> API. Current page is marked with <i>aria-current</i>.
         </p>
         <p>In full screen mode, modal element uses <i>dialog</i> role with <i>aria-modal</i> enabled. The close button retrieves <i>aria-label</i> from the <i>aria.close</i> property of the <a href="/configuration/#locale">locale</a> API.</p>
+        <p>
+            When <i>autoPlay</i> is set, a play/pause toggle button is rendered so users can stop the automatic slideshow (WCAG 2.2.2 Pause, Stop, Hide). The slideshow is also skipped automatically when the user's operating system has
+            <i>prefers-reduced-motion: reduce</i> enabled.
+        </p>
 
         <h3>Next/Prev Keyboard Support</h3>
         <div class="doc-tablewrapper">

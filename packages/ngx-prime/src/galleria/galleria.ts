@@ -522,6 +522,11 @@ export class Galleria extends BaseComponent<GalleriaPassThrough> {
                     <ng-template *ngTemplateOutlet="galleria.closeIconTemplate || galleria._closeIconTemplate()"></ng-template>
                 </button>
             }
+            @if (galleria.autoPlay()) {
+                <button type="button" [class]="cx('closeButton')" (click)="toggleSlideShow()" [attr.aria-label]="slideShowActive ? pauseAriaLabel() : playAriaLabel()" [attr.aria-pressed]="!slideShowActive">
+                    <span aria-hidden="true">{{ slideShowActive ? '⏸' : '▶' }}</span>
+                </button>
+            }
             @if (galleria.templates && (galleria.headerFacet || galleria.headerTemplate())) {
                 <div pGalleriaItemSlot [unstyled]="unstyled()" type="header" [templates]="galleria.templates" [pBind]="getPTOptions('header')" [class]="cx('header')"></div>
             }
@@ -621,7 +626,7 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
 
     id: string;
 
-    slideShowActive: boolean = true;
+    slideShowActive: boolean = false;
 
     interval: any;
 
@@ -670,8 +675,20 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
         return (this.galleria.footerFacet && this.galleria.templates && this.galleria.templates.toArray().length > 0) || this.galleria.footerTemplate();
     }
 
+    toggleSlideShow() {
+        if (this.slideShowActive) {
+            if (this.interval) {
+                clearInterval(this.interval);
+            }
+
+            this.slideShowActive = false;
+        } else {
+            this.startSlideShow();
+        }
+    }
+
     startSlideShow() {
-        if (isPlatformBrowser(this.galleria.platformId)) {
+        if (isPlatformBrowser(this.galleria.platformId) && !this.document.defaultView?.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
             this.interval = setInterval(() => {
                 let activeIndex = this.galleria.circular() && this.value().length - 1 === this._activeIndexBacking ? 0 : this._activeIndexBacking + 1;
 
@@ -716,6 +733,14 @@ export class GalleriaContent extends BaseComponent<GalleriaPassThrough> {
 
     closeAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
+    }
+
+    pauseAriaLabel() {
+        return 'Pause automatic slideshow';
+    }
+
+    playAriaLabel() {
+        return 'Start automatic slideshow';
     }
 
     getPTOptions(key: string) {
