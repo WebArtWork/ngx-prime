@@ -116,7 +116,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                             [label]="rejectButtonLabel"
                             (onClick)="onReject()"
                             [styleClass]="getButtonStyleClass('pcRejectButton', 'rejectButtonStyleClass')"
-                            [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
+                            [ariaLabel]="rejectAriaLabel() || option('rejectButtonProps', 'ariaLabel')"
                             [buttonProps]="getRejectButtonProps()"
                             [unstyled]="unstyled()"
                         >
@@ -136,7 +136,7 @@ const CONFIRMDIALOG_INSTANCE = new InjectionToken<ConfirmDialog>('CONFIRMDIALOG_
                             [label]="acceptButtonLabel"
                             (onClick)="onAccept()"
                             [styleClass]="getButtonStyleClass('pcAcceptButton', 'acceptButtonStyleClass')"
-                            [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
+                            [ariaLabel]="acceptAriaLabel() || option('acceptButtonProps', 'ariaLabel')"
                             [buttonProps]="getAcceptButtonProps()"
                             [unstyled]="unstyled()"
                         >
