@@ -544,6 +544,7 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
                     if (this.container !== event.target && !this.container?.contains(event.target) && targetElement !== event.target && !targetElement.contains(event.target)) {
                         this.hide();
+                        focus(targetElement);
                     }
                 }
             });
@@ -559,7 +560,10 @@ export class ConfirmPopup extends BaseComponent<ConfirmPopupPassThrough> {
 
     onWindowResize() {
         if (this.computedVisible() && !isTouchDevice()) {
+            const target = this.confirmation?.target as HTMLElement | undefined;
+
             this.hide();
+            target && focus(target as any);
         }
     }
 
