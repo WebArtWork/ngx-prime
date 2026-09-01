@@ -35,14 +35,14 @@
         "types"
     ],
     "scripts": {
-        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ pnpm run build:package",
-        "build:package": "pnpm run build:prebuild && ng build ngx-prime && pnpm run build:postbuild",
+        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
+        "build:package": "npm run build:prebuild && ng build ngx-prime && npm run build:postbuild",
         "build:prebuild": "node ./scripts/prebuild.mjs",
         "build:postbuild": "node ./scripts/postbuild.mjs",
-        "dev:link": "pnpm link --global && npm link"
+        "dev:link": "npm link"
     },
     "devDependencies": {
-        "@angular/aria": "catalog:angular22",
+        "@angular/aria": "22.1.4",
         "chart.js": "4.4.2",
         "quill": "2.0.2",
         "tslib": "^2.8.1"

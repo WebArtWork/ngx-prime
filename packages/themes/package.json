@@ -41,15 +41,15 @@
         "access": "public"
     },
     "scripts": {
-        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ pnpm run build:package",
-        "build:package": "pnpm run build:prebuild && tsup && pnpm run build:postbuild",
+        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
+        "build:package": "npm run build:prebuild && tsup && npm run build:postbuild",
         "build:prebuild": "node ./scripts/prebuild.mjs",
         "build:postbuild": "node ./scripts/postbuild.mjs",
         "build:docs": "node ./scripts/build-docs.ts",
-        "dev:link": "pnpm link --global && npm link"
+        "dev:link": "npm link"
     },
     "dependencies": {
-        "@wawjs/css-prime-styled": "catalog:",
-        "@wawjs/css-prime-themes": "catalog:"
+        "@wawjs/css-prime-styled": "^1.1.0",
+        "@wawjs/css-prime-themes": "^1.1.0"
     }
 }

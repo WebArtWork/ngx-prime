@@ -45,13 +45,13 @@
         "LICENSE"
     ],
     "scripts": {
-        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ pnpm run build:package",
-        "build:package": "pnpm run build:prebuild && tsup",
+        "build": "cross-env NODE_ENV=production INPUT_DIR=src/ OUTPUT_DIR=dist/ npm run build:package",
+        "build:package": "npm run build:prebuild && tsup",
         "build:prebuild": "node ./scripts/prebuild.mjs",
-        "dev:link": "pnpm link --global && npm link"
+        "dev:link": "npm link"
     },
     "dependencies": {
-        "@wawjs/css-prime-mcp": "catalog:"
+        "@wawjs/css-prime-mcp": "^1.1.0"
     },
     "devDependencies": {
         "tsup": "^8.1.0"

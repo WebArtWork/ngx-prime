@@ -30,29 +30,26 @@ jobs:
                   message: 'Thanks a lot for your contribution! But, PR does not seem to be linked to any issues. Please [manually link to an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue#manually-linking-a-pull-request-or-branch-to-an-issue-using-the-issue-sidebar).'
 
             - uses: actions/checkout@v7
-            - uses: pnpm/action-setup@v6
-              with:
-                  run_install: false
 
             - name: Use Node.js ${{ matrix.node-version }}
               uses: actions/setup-node@v7
               with:
                   node-version: ${{ matrix.node-version }}
-                  cache: 'pnpm'
+                  cache: 'npm'
 
             - name: Install packages
               run: |
-                  pnpm install
+                  npm install
 
             - name: Code Format
               id: codeFormat
               run: |
-                  pnpm run format:check
+                  npm run format:check
 
             - name: Security Check
               if: always()
               run: |
-                  pnpm run security:check
+                  npm run security:check
 
             - name: Add Code Format Fail Comment
               if: always() && steps.codeFormat.outcome == 'failure'
@@ -64,7 +61,7 @@ jobs:
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         issue_number: context.payload.pull_request.number,
-                        body: "Thanks a lot for your contribution! But, PR does not seem to fit our code format standards. Please run the 'pnpm run format' command and commit the changes."
+                        body: "Thanks a lot for your contribution! But, PR does not seem to fit our code format standards. Please run the 'npm run format' command and commit the changes."
                     });
 
 

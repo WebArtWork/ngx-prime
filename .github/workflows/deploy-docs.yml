@@ -24,25 +24,20 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v7
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 11.22.0
-
       - name: Set up Node.js
         uses: actions/setup-node@v7
         with:
           node-version: 24
-          cache: pnpm
+          cache: npm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Build the component library
-        run: pnpm --filter ngx-prime build
+        run: npm run build:lib
 
       - name: Build the documentation site
-        run: pnpm --filter showcase build
+        run: npm run build:showcase
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5

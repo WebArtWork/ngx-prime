@@ -1,32 +1,46 @@
 {
-    "$schema": "../../node_modules/@angular/cli/lib/config/schema.json",
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
+        "ngx-prime": {
+            "root": "packages/ngx-prime",
+            "sourceRoot": "packages/ngx-prime/src",
+            "projectType": "library",
+            "architect": {
+                "build": {
+                    "builder": "@angular/build:ng-packagr",
+                    "options": {
+                        "project": "packages/ngx-prime/src/ng-package.json",
+                        "tsConfig": "packages/ngx-prime/tsconfig.json"
+                    }
+                }
+            }
+        },
         "showcase": {
             "projectType": "application",
+            "root": "apps/showcase",
+            "sourceRoot": "apps/showcase",
+            "prefix": "app",
             "schematics": {
                 "@schematics/angular:component": {
                     "style": "scss"
                 }
             },
-            "root": "",
-            "sourceRoot": "",
-            "prefix": "app",
             "architect": {
                 "build": {
                     "builder": "@angular/build:application",
                     "options": {
-                        "outputPath": "dist/showcase",
-                        "index": "index.html",
-                        "browser": "app/main.ts",
-                        "tsConfig": "./tsconfig.json",
+                        "outputPath": "apps/showcase/dist/showcase",
+                        "index": "apps/showcase/index.html",
+                        "browser": "apps/showcase/app/main.ts",
+                        "tsConfig": "apps/showcase/tsconfig.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
-                            "assets",
+                            "apps/showcase/assets",
                             {
                                 "glob": "**/*",
-                                "input": "public",
+                                "input": "apps/showcase/public",
                                 "output": "/"
                             }
                         ],
@@ -38,7 +52,7 @@
                             }
                         },
                         "styles": [
-                            "assets/styles/global.scss"
+                            "apps/showcase/assets/styles/global.scss"
                         ],
                         "scripts": [
                             "./node_modules/prismjs/prism.js",
@@ -61,13 +75,13 @@
                     "configurations": {
                         "production": {
                             "outputHashing": "all",
-                            "server": "server/main.server.ts",
+                            "server": "apps/showcase/server/main.server.ts",
                             "prerender": {
                                 "discoverRoutes": false,
-                                "routesFile": "router/routes.txt"
+                                "routesFile": "apps/showcase/router/routes.txt"
                             },
                             "ssr": {
-                                "entry": "server/server.ts"
+                                "entry": "apps/showcase/server/server.ts"
                             }
                         },
                         "development": {
@@ -77,8 +91,8 @@
                             "namedChunks": false,
                             "fileReplacements": [
                                 {
-                                    "replace": "./environments/environment.ts",
-                                    "with": "./environments/environment.development.ts"
+                                    "replace": "apps/showcase/environments/environment.ts",
+                                    "with": "apps/showcase/environments/environment.development.ts"
                                 }
                             ]
                         },
@@ -89,17 +103,17 @@
                             "namedChunks": false,
                             "fileReplacements": [
                                 {
-                                    "replace": "./environments/environment.ts",
-                                    "with": "./environments/environment.development.ts"
+                                    "replace": "apps/showcase/environments/environment.ts",
+                                    "with": "apps/showcase/environments/environment.development.ts"
                                 }
                             ],
-                            "server": "server/main.server.ts",
+                            "server": "apps/showcase/server/main.server.ts",
                             "prerender": {
                                 "discoverRoutes": false,
-                                "routesFile": "router/routes.txt"
+                                "routesFile": "apps/showcase/router/routes.txt"
                             },
                             "ssr": {
-                                "entry": "server/server.ts"
+                                "entry": "apps/showcase/server/server.ts"
                             }
                         }
                     },

@@ -22,14 +22,14 @@
     },
     "devDependencies": {
         "@algolia/client-search": "^4.19.1",
-        "@angular/aria": "catalog:angular22",
-        "@angular/ssr": "catalog:angular22",
+        "@angular/aria": "22.1.4",
+        "@angular/ssr": "22.1.6",
         "@docsearch/css": "^3.3.4",
         "@docsearch/js": "^3.3.4",
-        "@wawjs/css-prime-styled": "catalog:",
-        "@wawjs/css-prime-themes": "catalog:",
-        "@wawjs/css-prime-utils": "catalog:",
-        "@angular/cdk": "catalog:angular22",
+        "@wawjs/css-prime-styled": "^1.1.0",
+        "@wawjs/css-prime-themes": "^1.1.0",
+        "@wawjs/css-prime-utils": "^1.1.0",
+        "@angular/cdk": "22.1.4",
         "@stackblitz/sdk": "1.9.0",
         "@types/express": "^4.17.17",
         "@types/jest": "^29.5.14",
@@ -41,9 +41,9 @@
         "express": "^4.19.2",
         "file-saver": "^2.0.5",
         "jspdf": "^4.0.0",
-        "jspdf-autotable": "^3.5.28",
-        "primeicons": "catalog:",
-        "@wawjs/ngx-prime": "workspace:*",
+        "jspdf-autotable": "^5.0.8",
+        "primeicons": "^7.0.0",
+        "@wawjs/ngx-prime": "^22.0.5",
         "prismjs": "^1.29.0",
         "quill": "2.0.2",
         "rxjs": "~7.8.2",
@@ -55,6 +55,6 @@
         "autoprefixer": "^10.4.20",
         "postcss": "^8.4.41",
         "tailwindcss": "^3.4.10",
-        "tailwindcss-primeui": "catalog:"
+        "tailwindcss-primeui": "^0.6.1"
     }
 }
