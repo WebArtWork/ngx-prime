@@ -33,7 +33,16 @@ function ZIndexUtils() {
         },
         getCurrent: () => getCurrentZIndex(),
         generateZIndex,
-        revertZIndex
+        revertZIndex,
+        /**
+         * Resets the shared z-index stack. Needed when rendering multiple
+         * independent pages within the same process (e.g. static site
+         * generation), since this state is otherwise module-scoped and
+         * persists (and can accumulate stale entries) across renders.
+         */
+        reset: () => {
+            zIndexes = [];
+        }
     };
 }
 

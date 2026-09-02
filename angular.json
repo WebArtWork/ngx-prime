@@ -75,14 +75,8 @@
                     "configurations": {
                         "production": {
                             "outputHashing": "all",
-                            "server": "apps/showcase/server/main.server.ts",
-                            "prerender": {
-                                "discoverRoutes": false,
-                                "routesFile": "apps/showcase/router/routes.txt"
-                            },
-                            "ssr": {
-                                "entry": "apps/showcase/server/server.ts"
-                            }
+                            "outputMode": "static",
+                            "server": "apps/showcase/server/main.server.ts"
                         },
                         "development": {
                             "optimization": false,
@@ -107,14 +101,8 @@
                                     "with": "apps/showcase/environments/environment.development.ts"
                                 }
                             ],
-                            "server": "apps/showcase/server/main.server.ts",
-                            "prerender": {
-                                "discoverRoutes": false,
-                                "routesFile": "apps/showcase/router/routes.txt"
-                            },
-                            "ssr": {
-                                "entry": "apps/showcase/server/server.ts"
-                            }
+                            "outputMode": "static",
+                            "server": "apps/showcase/server/main.server.ts"
                         }
                     },
                     "defaultConfiguration": "production"
