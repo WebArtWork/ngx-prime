@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, model, ViewEncapsulation } from '@angular/core';
-import { equals } from '@wawjs/css-prime-utils';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, contentChild, forwardRef, inject, InjectionToken, input, ViewEncapsulation } from '@angular/core';
+import { TabPanel as AriaTabPanel } from '@angular/aria/tabs';
 import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
 import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
 import { TabPanelStyle } from './style/tabpanelstyle';
@@ -31,13 +31,10 @@ const TABPANEL_INSTANCE = new InjectionToken<TabPanel>('TABPANEL_INSTANCE');
     providers: [TabPanelStyle, { provide: TABPANEL_INSTANCE, useExisting: TabPanel }, { provide: PARENT_INSTANCE, useExisting: TabPanel }],
     host: {
         '[class]': 'cx("root")',
-        '[attr.id]': 'id()',
-        '[attr.role]': '"tabpanel"',
-        '[attr.aria-labelledby]': 'ariaLabelledby()',
         '[attr.data-p-active]': 'active()',
         '[hidden]': '!active()'
     },
-    hostDirectives: [Bind]
+    hostDirectives: [Bind, { directive: AriaTabPanel, inputs: ['value'] }]
 })
 export class TabPanel extends BaseComponent<TabPanelPassThrough> {
     componentName = 'TabPanel';
@@ -47,6 +44,9 @@ export class TabPanel extends BaseComponent<TabPanelPassThrough> {
     bindDirectiveInstance = inject(Bind, { self: true });
 
     pcTabs = inject<Tabs>(forwardRef(() => Tabs));
+
+    /** The `ngTabPanel` instance applied to this component's host, forwarding `value`. */
+    ariaTabPanel = inject(AriaTabPanel, { self: true });
 
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
@@ -60,22 +60,14 @@ export class TabPanel extends BaseComponent<TabPanelPassThrough> {
      */
     lazy = input(false, { transform: booleanAttribute });
     /**
-     * Value of the active tab.
-     * @defaultValue undefined
-     * @group Props
-     */
-    value = model<string | number | undefined>(undefined);
-    /**
      * Template for initializing complex content when lazy is enabled.
      * @group Templates
      */
     content = contentChild('content', { descendants: false });
 
-    id = computed(() => `${this.pcTabs.id()}_tabpanel_${this.value()}`);
+    value = computed(() => this.ariaTabPanel.value());
 
-    ariaLabelledby = computed(() => `${this.pcTabs.id()}_tab_${this.value()}`);
-
-    active = computed(() => equals(this.pcTabs.value(), this.value()));
+    active = computed(() => this.ariaTabPanel.visible());
 
     isLazyEnabled = computed(() => this.pcTabs.lazy() || this.lazy());
 

@@ -1,4 +1,5 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, inject, InjectionToken, input, model, numberAttribute, signal, ViewEncapsulation } from '@angular/core';
+import { Tabs as AriaTabs } from '@angular/aria/tabs';
 import { uuid } from '@wawjs/css-prime-utils';
 import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
 import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
@@ -23,7 +24,7 @@ const TABS_INSTANCE = new InjectionToken<Tabs>('TABS_INSTANCE');
         '[class]': 'cx("root")',
         '[attr.id]': 'id()'
     },
-    hostDirectives: [Bind]
+    hostDirectives: [Bind, AriaTabs]
 })
 export class Tabs extends BaseComponent<TabsPassThrough> {
     componentName = 'Tabs';

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, inject, InjectionToken, input, NgModule, TemplateRef, ViewEncapsulation, contentChildren } from '@angular/core';
+import { Toolbar as AriaToolbar } from '@angular/aria/toolbar';
 import { BlockableUI, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
 import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
 import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
@@ -39,10 +40,9 @@ const TOOLBAR_INSTANCE = new InjectionToken<Toolbar>('TOOLBAR_INSTANCE');
     providers: [ToolbarStyle, { provide: TOOLBAR_INSTANCE, useExisting: Toolbar }, { provide: PARENT_INSTANCE, useExisting: Toolbar }],
     host: {
         '[class]': 'cn(cx("root"), styleClass())',
-        role: 'toolbar',
         '[attr.aria-labelledby]': 'ariaLabelledBy()'
     },
-    hostDirectives: [Bind]
+    hostDirectives: [Bind, AriaToolbar]
 })
 export class Toolbar extends BaseComponent<ToolbarPassThrough> implements BlockableUI {
     componentName = 'Toolbar';

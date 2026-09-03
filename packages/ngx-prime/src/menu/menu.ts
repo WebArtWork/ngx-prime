@@ -25,8 +25,9 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { Menu as AriaMenu, MenuItem as AriaMenuItem } from '@angular/aria/menu';
 import { MotionEvent, MotionOptions } from '@wawjs/css-prime-motion';
-import { absolutePosition, addStyle, appendChild, find, findSingle, focus, isTouchDevice, uuid } from '@wawjs/css-prime-utils';
+import { absolutePosition, addStyle, appendChild, focus, isTouchDevice, uuid } from '@wawjs/css-prime-utils';
 import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
 import { BadgeModule } from '@wawjs/ngx-prime/badge';
 import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
@@ -166,7 +167,7 @@ export class MenuItemContent extends BaseComponent {
 @Component({
     selector: 'p-menu',
     standalone: true,
-    imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule, MotionModule],
+    imports: [CommonModule, RouterModule, MenuItemContent, TooltipModule, BadgeModule, SharedModule, SafeHtmlPipe, BindModule, MotionModule, AriaMenu, AriaMenuItem],
     template: `
         @if (!popup() || overlayVisible) {
             <div
@@ -193,18 +194,18 @@ export class MenuItemContent extends BaseComponent {
                 }
                 <ul
                     #list
+                    ngMenu
+                    (itemSelected)="onAriaItemSelected($event)"
                     [class]="cx('list')"
                     [pBind]="ptm('list')"
-                    role="menu"
-                    [attr.id]="resolvedId + '_list'"
-                    [attr.tabindex]="getTabIndexValue()"
+                    [id]="resolvedId + '_list'"
                     [attr.data-pc-section]="'menu'"
-                    [attr.aria-activedescendant]="activedescendant()"
                     [attr.aria-label]="ariaLabel()"
                     [attr.aria-labelledBy]="ariaLabelledBy()"
                     (focus)="onListFocus($event)"
                     (blur)="onListBlur($event)"
-                    (keydown)="onListKeyDown($event)"
+                    (keydown.escape)="onPopupCloseKey($event)"
+                    (keydown.tab)="onPopupCloseKey($event)"
                 >
                     @if (hasSubMenu()) {
                         @for (submenu of model(); track submenu; let i = $index) {
@@ -239,6 +240,11 @@ export class MenuItemContent extends BaseComponent {
                                 }
                                 @if (!item.separator && item.visible !== false && (item.visible !== undefined || submenu.visible !== false)) {
                                     <li
+                                        ngMenuItem
+                                        #mi="ngMenuItem"
+                                        [id]="menuitemId(item, resolvedId, i, j)"
+                                        [value]="menuitemId(item, resolvedId, i, j)"
+                                        [disabled]="disabled(item.disabled)"
                                         [class]="cn(cx('item', { item, id: menuitemId(item, resolvedId, i, j) }), item?.styleClass)"
                                         [pBind]="ptm('item')"
                                         [pMenuItemContent]="item"
@@ -251,12 +257,9 @@ export class MenuItemContent extends BaseComponent {
                                         [tooltipOptions]="item.tooltipOptions"
                                         [pTooltipUnstyled]="unstyled()"
                                         [unstyled]="unstyled()"
-                                        role="menuitem"
                                         [attr.aria-label]="label(item.label)"
-                                        [attr.data-p-focused]="isItemFocused(menuitemId(item, resolvedId, i, j))"
+                                        [attr.data-p-focused]="mi.active()"
                                         [attr.data-p-disabled]="disabled(item.disabled)"
-                                        [attr.aria-disabled]="disabled(item.disabled)"
-                                        [attr.id]="menuitemId(item, resolvedId, i, j)"
                                     ></li>
                                 }
                             }
@@ -269,6 +272,11 @@ export class MenuItemContent extends BaseComponent {
                             }
                             @if (!item.separator && item.visible !== false) {
                                 <li
+                                    ngMenuItem
+                                    #mi="ngMenuItem"
+                                    [id]="menuitemId(item, resolvedId, i)"
+                                    [value]="menuitemId(item, resolvedId, i)"
+                                    [disabled]="disabled(item.disabled)"
                                     [class]="cn(cx('item', { item, id: menuitemId(item, resolvedId, i) }), item?.styleClass)"
                                     [pBind]="ptm('item')"
                                     [pMenuItemContent]="item"
@@ -281,12 +289,9 @@ export class MenuItemContent extends BaseComponent {
                                     [tooltipOptions]="item.tooltipOptions"
                                     [unstyled]="unstyled()"
                                     [pTooltipUnstyled]="unstyled()"
-                                    role="menuitem"
                                     [attr.aria-label]="label(item.label)"
-                                    [attr.data-p-focused]="isItemFocused(menuitemId(item, resolvedId, i))"
+                                    [attr.data-p-focused]="mi.active()"
                                     [attr.data-p-disabled]="disabled(item.disabled)"
-                                    [attr.aria-disabled]="disabled(item.disabled)"
-                                    [attr.id]="menuitemId(item, resolvedId, i)"
                                 ></li>
                             }
                         }
@@ -653,14 +658,9 @@ export class Menu extends BaseComponent<MenuPassThrough> {
         return typeof disabled === 'function' ? disabled() : typeof disabled === 'undefined' ? false : disabled;
     }
 
-    activedescendant() {
-        return this.focused ? this.focusedOptionId() : undefined;
-    }
-
     onListFocus(event: Event) {
         if (!this.focused) {
             this.focused = true;
-            !this.popup() && this.changeFocusedOptionIndex(0);
             this.onFocus.emit(event);
         }
     }
@@ -668,124 +668,68 @@ export class Menu extends BaseComponent<MenuPassThrough> {
     onListBlur(event: FocusEvent | MouseEvent) {
         if (this.focused) {
             this.focused = false;
-            this.changeFocusedOptionIndex(-1);
-            this.selectedOptionIndex.set(-1);
-            this.focusedOptionIndex.set(-1);
             this.onBlur.emit(event);
         }
     }
 
-    onListKeyDown(event) {
-        switch (event.code) {
-            case 'ArrowDown':
-                this.onArrowDownKey(event);
-                break;
-
-            case 'ArrowUp':
-                this.onArrowUpKey(event);
-                break;
-
-            case 'Home':
-                this.onHomeKey(event);
-                break;
-
-            case 'End':
-                this.onEndKey(event);
-                break;
-
-            case 'Enter':
-                this.onEnterKey(event);
-                break;
-
-            case 'NumpadEnter':
-                this.onEnterKey(event);
-                break;
-
-            case 'Space':
-                this.onSpaceKey(event);
-                break;
-
-            case 'Escape':
-            case 'Tab':
-                if (this.popup()) {
-                    focus(this.target);
-                    this.hide();
-                }
-
-                this.overlayVisible && this.hide();
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    onArrowDownKey(event) {
-        const optionIndex = this.findNextOptionIndex(this.focusedOptionIndex());
-
-        this.changeFocusedOptionIndex(optionIndex);
-        event.preventDefault();
-    }
-
-    onArrowUpKey(event) {
-        if (event.altKey && this.popup()) {
+    onPopupCloseKey(event: KeyboardEvent) {
+        if (this.popup()) {
             focus(this.target);
             this.hide();
-            event.preventDefault();
-        } else {
-            const optionIndex = this.findPrevOptionIndex(this.focusedOptionIndex());
+        }
 
-            this.changeFocusedOptionIndex(optionIndex);
-            event.preventDefault();
+        this.overlayVisible && this.hide();
+    }
+
+    /**
+     * Fired by `ngMenu` when a menu item is selected via keyboard (Enter/Space) or mouse click
+     * handled internally by `@angular/aria`. Mouse clicks also fire the native `(onMenuItemClick)`
+     * handler on `MenuItemContent` (see `itemClick`), which carries the real `originalEvent`;
+     * this handler exists to invoke the same command for keyboard-only activation, where no real
+     * DOM click event is available.
+     */
+    onAriaItemSelected(id: string) {
+        const item = this.findItemById(id);
+
+        if (!item || item.disabled) {
+            return;
+        }
+
+        if (item.command) {
+            item.command({ originalEvent: undefined as unknown as Event, item });
+        }
+
+        if (this.popup()) {
+            this.hide();
         }
     }
 
-    onHomeKey(event) {
-        this.changeFocusedOptionIndex(0);
-        event.preventDefault();
-    }
-
-    onEndKey(event) {
-        this.changeFocusedOptionIndex(find(this.containerViewChild()?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]').length - 1);
-        event.preventDefault();
-    }
-
-    onEnterKey(event) {
-        const element = <any>findSingle(this.containerViewChild()?.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
-        const anchorElement = element && (<any>findSingle(element, '[data-pc-section="itemlink"]') || findSingle(element, 'a,button'));
-
-        this.popup() && focus(this.target);
-        anchorElement ? anchorElement.click() : element && element.click();
-
-        event.preventDefault();
-    }
-
-    onSpaceKey(event) {
-        this.onEnterKey(event);
-    }
-
-    findNextOptionIndex(index) {
-        const links = find(this.containerViewChild()?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
-        const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
-    }
-
-    findPrevOptionIndex(index) {
-        const links = find(this.containerViewChild()?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
-        const matchedOptionIndex = [...links].findIndex((link) => link.id === index);
-
-        return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
-    }
-
-    changeFocusedOptionIndex(index) {
-        const links = find(this.containerViewChild()?.nativeElement, 'li[data-pc-section="item"][data-p-disabled="false"]');
-
-        if (links.length > 0) {
-            let order = index >= links.length ? links.length - 1 : index < 0 ? 0 : index;
-
-            order > -1 && this.focusedOptionIndex.set(links[order].getAttribute('id'));
+    private findItemById(id: string, items = this.model(), parentIndex?: number): MenuItem | undefined {
+        if (!items) {
+            return undefined;
         }
+
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+
+            if (item.items) {
+                const found = this.findItemById(id, item.items, i);
+
+                if (found) {
+                    return found;
+                }
+
+                continue;
+            }
+
+            const itemId = parentIndex !== undefined ? this.menuitemId(item, this.resolvedId, parentIndex, i) : this.menuitemId(item, this.resolvedId, i);
+
+            if (itemId === id) {
+                return item;
+            }
+        }
+
+        return undefined;
     }
 
     itemClick(event: any, id: string) {

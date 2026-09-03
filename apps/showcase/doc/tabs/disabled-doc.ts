@@ -17,7 +17,7 @@ import { TabsModule } from '@wawjs/ngx-prime/tabs';
                     <p-tab value="0">Header I</p-tab>
                     <p-tab value="1">Header II</p-tab>
                     <p-tab value="2">Header III</p-tab>
-                    <p-tab disabled>Header IV</p-tab>
+                    <p-tab value="3" disabled>Header IV</p-tab>
                 </p-tablist>
                 <p-tabpanels>
                     <p-tabpanel value="0">

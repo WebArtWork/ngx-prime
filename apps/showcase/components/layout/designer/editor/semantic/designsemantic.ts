@@ -19,8 +19,8 @@ const SEMANTIC_ORDER = ['primary', 'surface', 'focusRing', 'formField', 'list', 
         <section>
             <p-accordion [value]="['0', '1']" [multiple]="true">
                 <p-accordion-panel value="0">
-                    <p-accordion-header>Common</p-accordion-header>
-                    <p-accordion-content>
+                    <p-accordion-header [panel]="c0">Common</p-accordion-header>
+                    <p-accordion-content #c0="ngAccordionPanel">
                         <div>
                             <form (keydown)="onKeyDown($event)" class="flex flex-col gap-3">
                                 @if (hasCommonPrimitives()) {
@@ -43,8 +43,8 @@ const SEMANTIC_ORDER = ['primary', 'surface', 'focusRing', 'formField', 'list', 
                 </p-accordion-panel>
 
                 <p-accordion-panel value="1">
-                    <p-accordion-header>Color Scheme</p-accordion-header>
-                    <p-accordion-content>
+                    <p-accordion-header [panel]="c1">Color Scheme</p-accordion-header>
+                    <p-accordion-content #c1="ngAccordionPanel">
                         <p-tabs [value]="activeColorScheme()" (valueChange)="onColorSchemeChange($event)">
                             <p-tablist>
                                 <p-tab value="cs-0">Light</p-tab>

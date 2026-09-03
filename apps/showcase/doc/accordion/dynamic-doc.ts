@@ -15,8 +15,8 @@ import { AppDocSectionText } from '@/components/doc/app.docsectiontext';
             <p-accordion [value]="['0']">
                 @for (tab of tabs; track tab.title) {
                     <p-accordion-panel [value]="tab.value">
-                        <p-accordion-header>{{ tab.title }}</p-accordion-header>
-                        <p-accordion-content>
+                        <p-accordion-header [panel]="content">{{ tab.title }}</p-accordion-header>
+                        <p-accordion-content #content="ngAccordionPanel">
                             <p class="m-0">{{ tab.content }}</p>
                         </p-accordion-content>
                     </p-accordion-panel>

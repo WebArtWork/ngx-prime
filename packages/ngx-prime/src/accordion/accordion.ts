@@ -1,7 +1,8 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, ContentChild, forwardRef, inject, InjectionToken, input, InputSignalWithTransform, model, NgModule, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ContentChild, effect, forwardRef, inject, InjectionToken, input, InputSignalWithTransform, model, NgModule, output, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AccordionGroup as AriaAccordionGroup, AccordionPanel as AriaAccordionPanel, AccordionTrigger as AriaAccordionTrigger } from '@angular/aria/accordion';
 import { MotionOptions } from '@wawjs/css-prime-motion';
-import { findSingle, focus, getAttribute, uuid } from '@wawjs/css-prime-utils';
+import { uuid } from '@wawjs/css-prime-utils';
 import { BlockableUI, SharedModule } from '@wawjs/ngx-prime/api';
 import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
 import { Bind, BindModule } from '@wawjs/ngx-prime/bind';
@@ -19,9 +20,10 @@ import { AccordionStyle } from './style/accordionstyle';
  */
 export interface AccordionTabOpenEvent {
     /**
-     * Browser event.
+     * Browser event, when available. `@angular/aria` handles click/keyboard interaction
+     * centrally on the accordion group, so the originating event isn't always accessible here.
      */
-    originalEvent: Event;
+    originalEvent?: Event;
     /**
      * Opened tab index.
      */
@@ -142,21 +144,12 @@ export class AccordionPanel extends BaseComponent<AccordionPanelPassThrough> {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': "cx('header')",
-        '[attr.id]': 'id()',
-        '[attr.aria-expanded]': 'active()',
-        '[attr.aria-controls]': 'ariaControls()',
-        '[attr.aria-disabled]': 'disabled()',
-        '[attr.role]': '"button"',
-        '[attr.tabindex]': 'disabled()?"-1":"0"',
         '[attr.data-p-active]': 'active()',
         '[attr.data-p-disabled]': 'disabled()',
         '[style.user-select]': '"none"',
-        '[attr.data-p]': 'dataP',
-        '(click)': 'onClick($event)',
-        '(focus)': 'onFocus()',
-        '(keydown)': 'onKeydown($event)'
+        '[attr.data-p]': 'dataP'
     },
-    hostDirectives: [Ripple, Bind],
+    hostDirectives: [Ripple, Bind, { directive: AriaAccordionTrigger, inputs: ['panel', 'disabled'] }],
     providers: [AccordionStyle, { provide: ACCORDION_HEADER_INSTANCE, useExisting: AccordionHeader }, { provide: PARENT_INSTANCE, useExisting: AccordionHeader }]
 })
 export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
@@ -174,13 +167,37 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
 
     pcAccordionPanel = inject(forwardRef(() => AccordionPanel));
 
-    id = computed(() => `${this.pcAccordion.id()}_accordionheader_${this.pcAccordionPanel.value()}`);
+    ariaTrigger = inject(AriaAccordionTrigger, { self: true });
+
+    /**
+     * The `AccordionContent`'s `ngAccordionPanel` instance this header controls, forwarded to
+     * `AriaAccordionTrigger`'s required `panel` input via `hostDirectives`.
+     * @example
+     * ```html
+     * <p-accordion-header [panel]="content">Header</p-accordion-header>
+     * <p-accordion-content #content>Content</p-accordion-content>
+     * ```
+     * @group Props
+     */
 
     active = computed(() => this.pcAccordionPanel.active());
 
     disabled = computed(() => this.pcAccordionPanel.disabled());
 
-    ariaControls = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
+    /** Keeps the accordion's `value` model in sync when the trigger toggles via click/keyboard. */
+    private syncExpandedEffect = effect(() => {
+        const expanded = this.ariaTrigger.expanded();
+
+        if (expanded !== this.active()) {
+            this.changeActiveValue();
+        }
+    });
+
+    /** Reflects `Accordion`'s `value` model back onto the aria trigger's `expanded` state. */
+    private syncActiveEffect = effect(() => {
+        this.ariaTrigger.expanded.set(this.active());
+    });
+
     /**
      * Toggle icon template.
      * @type {TemplateRef<AccordionToggleIconTemplateContext>} context - Context of the template
@@ -193,127 +210,22 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
      */
     @ContentChild('toggleicon') toggleicon: TemplateRef<AccordionToggleIconTemplateContext> | undefined;
 
-    onClick(event?: MouseEvent | KeyboardEvent) {
-        if (this.disabled()) {
-            return;
-        }
-
-        const wasActive = this.active();
-
-        this.changeActiveValue();
-
-        const isActive = this.active();
-        const index = this.pcAccordionPanel.value();
-
-        if (!wasActive && isActive) {
-            this.pcAccordion.onOpen.emit({ originalEvent: event, index });
-        } else if (wasActive && !isActive) {
-            this.pcAccordion.onClose.emit({ originalEvent: event, index });
-        }
-    }
-
-    onFocus() {
-        if (!this.disabled() && this.pcAccordion.selectOnFocus()) {
-            this.changeActiveValue();
-        }
-    }
-
-    onKeydown(event: KeyboardEvent) {
-        switch (event.code) {
-            case 'ArrowDown':
-                this.arrowDownKey(event);
-                break;
-            case 'ArrowUp':
-                this.arrowUpKey(event);
-                break;
-            case 'Home':
-                this.onHomeKey(event);
-                break;
-            case 'End':
-                this.onEndKey(event);
-                break;
-            case 'Enter':
-            case 'Space':
-            case 'NumpadEnter':
-                this.onEnterKey(event);
-                break;
-            default:
-                break;
-        }
-    }
-
     _componentStyle = inject(AccordionStyle);
 
+    /** Invoked from `syncExpandedEffect` when the aria trigger's `expanded` state flips. */
     changeActiveValue() {
-        this.pcAccordion.updateValue(this.pcAccordionPanel.value());
-    }
+        const wasActive = this.active();
+        const index = this.pcAccordionPanel.value();
 
-    private findPanel(headerElement) {
-        return headerElement?.closest('[data-pc-name="accordionpanel"]');
-    }
+        this.pcAccordion.updateValue(index);
 
-    private findHeader(panelElement) {
-        return findSingle(panelElement, '[data-pc-name="accordionheader"]');
-    }
+        const isActive = this.active();
 
-    private findNextPanel(panelElement, selfCheck = false) {
-        const element = selfCheck ? panelElement : panelElement.nextElementSibling;
-
-        return element ? (getAttribute(element, 'data-p-disabled') ? this.findNextPanel(element) : this.findHeader(element)) : null;
-    }
-
-    private findPrevPanel(panelElement, selfCheck = false) {
-        const element = selfCheck ? panelElement : panelElement.previousElementSibling;
-
-        return element ? (getAttribute(element, 'data-p-disabled') ? this.findPrevPanel(element) : this.findHeader(element)) : null;
-    }
-
-    private findFirstPanel() {
-        return this.findNextPanel(this.pcAccordion.el.nativeElement.firstElementChild, true);
-    }
-
-    private findLastPanel() {
-        return this.findPrevPanel(this.pcAccordion.el.nativeElement.lastElementChild, true);
-    }
-
-    private changeFocusedPanel(event, element) {
-        focus(element);
-    }
-
-    private arrowDownKey(event: KeyboardEvent) {
-        const nextPanel = this.findNextPanel(this.findPanel(event.currentTarget));
-
-        nextPanel ? this.changeFocusedPanel(event, nextPanel) : this.onHomeKey(event);
-        event.preventDefault();
-    }
-
-    private arrowUpKey(event: KeyboardEvent) {
-        const prevPanel = this.findPrevPanel(this.findPanel(event.currentTarget));
-
-        prevPanel ? this.changeFocusedPanel(event, prevPanel) : this.onEndKey(event);
-        event.preventDefault();
-    }
-
-    private onHomeKey(event: KeyboardEvent) {
-        const firstPanel = this.findFirstPanel();
-
-        this.changeFocusedPanel(event, firstPanel);
-        event.preventDefault();
-    }
-
-    private onEndKey(event: KeyboardEvent) {
-        const lastPanel = this.findLastPanel();
-
-        this.changeFocusedPanel(event, lastPanel);
-        event.preventDefault();
-    }
-
-    private onEnterKey(event: KeyboardEvent) {
-        if (!this.disabled()) {
-            this.changeActiveValue();
+        if (!wasActive && isActive) {
+            this.pcAccordion.onOpen.emit({ index });
+        } else if (wasActive && !isActive) {
+            this.pcAccordion.onClose.emit({ index });
         }
-
-        event.preventDefault();
     }
 
     get dataP() {
@@ -340,12 +252,9 @@ export class AccordionHeader extends BaseComponent<AccordionHeaderPassThrough> {
     encapsulation: ViewEncapsulation.None,
     host: {
         '[class]': 'cx("contentContainer")',
-        '[attr.id]': 'id()',
-        '[attr.role]': '"region"',
-        '[attr.data-p-active]': 'active()',
-        '[attr.aria-labelledby]': 'ariaLabelledby()'
+        '[attr.data-p-active]': 'active()'
     },
-    hostDirectives: [Bind],
+    hostDirectives: [Bind, AriaAccordionPanel],
     providers: [AccordionStyle, { provide: ACCORDION_CONTENT_INSTANCE, useExisting: AccordionContent }, { provide: PARENT_INSTANCE, useExisting: AccordionContent }]
 })
 export class AccordionContent extends BaseComponent<AccordionContentPassThrough> {
@@ -363,11 +272,10 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
 
     pcAccordionPanel = inject(forwardRef(() => AccordionPanel));
 
+    /** The `ngAccordionPanel` instance applied to this component's host, exported as `#content="ngAccordionPanel"`. */
+    ariaPanel = inject(AriaAccordionPanel, { self: true });
+
     active = computed(() => this.pcAccordionPanel.active());
-
-    ariaLabelledby = computed(() => `${this.pcAccordion.id()}_accordionheader_${this.pcAccordionPanel.value()}`);
-
-    id = computed(() => `${this.pcAccordion.id()}_accordioncontent_${this.pcAccordionPanel.value()}`);
 
     _componentStyle = inject(AccordionStyle);
 
@@ -389,10 +297,9 @@ export class AccordionContent extends BaseComponent<AccordionContentPassThrough>
     imports: [SharedModule, BindModule],
     template: ` <ng-content />`,
     host: {
-        '[class]': "cn(cx('root'), styleClass())",
-        '(keydown)': 'onKeydown($event)'
+        '[class]': "cn(cx('root'), styleClass())"
     },
-    hostDirectives: [Bind],
+    hostDirectives: [Bind, { directive: AriaAccordionGroup, inputs: ['multiExpandable: multiple'] }],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [AccordionStyle, { provide: ACCORDION_INSTANCE, useExisting: Accordion }, { provide: PARENT_INSTANCE, useExisting: Accordion }]
 })
@@ -407,6 +314,9 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
         this.bindDirectiveInstance.setAttrs(this.ptm('root'));
     }
 
+    /** The `ngAccordionGroup` instance applied to this component's host. */
+    ariaGroup = inject(AriaAccordionGroup, { self: true });
+
     /**
      * Value of the active tab.
      * @defaultValue undefined
@@ -418,7 +328,7 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
      * @defaultValue false
      * @group Props
      */
-    multiple = input(false, { transform: (v: any) => transformToBoolean(v) });
+    multiple = this.ariaGroup.multiExpandable;
     /**
      * Class of the element.
      * @deprecated since v20.0.0, use `class` instead.
@@ -435,12 +345,6 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
      * @group Props
      */
     collapseIcon = input<string>();
-    /**
-     * When enabled, the focused tab is activated.
-     * @defaultValue false
-     * @group Props
-     */
-    selectOnFocus = input(false, { transform: (v: any) => transformToBoolean(v) });
     /**
      * Transition options of the animation.
      * @group Props
@@ -475,94 +379,6 @@ export class Accordion extends BaseComponent<AccordionPassThrough> implements Bl
     id = signal(uuid('pn_id_'));
 
     _componentStyle = inject(AccordionStyle);
-
-    onKeydown(event) {
-        switch (event.code) {
-            case 'ArrowDown':
-                this.onTabArrowDownKey(event);
-                break;
-
-            case 'ArrowUp':
-                this.onTabArrowUpKey(event);
-                break;
-
-            case 'Home':
-                if (!event.shiftKey) {
-                    this.onTabHomeKey(event);
-                }
-
-                break;
-
-            case 'End':
-                if (!event.shiftKey) {
-                    this.onTabEndKey(event);
-                }
-
-                break;
-        }
-    }
-
-    onTabArrowDownKey(event) {
-        const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement);
-
-        nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
-
-        event.preventDefault();
-    }
-
-    onTabArrowUpKey(event) {
-        const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement);
-
-        prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
-
-        event.preventDefault();
-    }
-
-    onTabHomeKey(event) {
-        const firstHeaderAction = this.findFirstHeaderAction();
-
-        this.changeFocusedTab(firstHeaderAction);
-        event.preventDefault();
-    }
-
-    changeFocusedTab(element) {
-        if (element) {
-            focus(element);
-        }
-    }
-
-    findNextHeaderAction(tabElement, selfCheck = false) {
-        const nextTabElement = selfCheck ? tabElement : tabElement.nextElementSibling;
-        const headerElement = findSingle(nextTabElement, '[data-pc-section="accordionheader"]');
-
-        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findNextHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement as HTMLElement, '[data-pc-section="accordionheader"]')) : null;
-    }
-
-    findPrevHeaderAction(tabElement, selfCheck = false) {
-        const prevTabElement = selfCheck ? tabElement : tabElement.previousElementSibling;
-        const headerElement = findSingle(prevTabElement, '[data-pc-section="accordionheader"]');
-
-        return headerElement ? (getAttribute(headerElement, 'data-p-disabled') ? this.findPrevHeaderAction(headerElement.parentElement) : findSingle(headerElement.parentElement as HTMLElement, '[data-pc-section="accordionheader"]')) : null;
-    }
-
-    findFirstHeaderAction() {
-        const firstEl = this.el.nativeElement.firstElementChild;
-
-        return this.findNextHeaderAction(firstEl, true);
-    }
-
-    findLastHeaderAction() {
-        const lastEl = this.el.nativeElement.lastElementChild;
-
-        return this.findPrevHeaderAction(lastEl, true);
-    }
-
-    onTabEndKey(event) {
-        const lastHeaderAction = this.findLastHeaderAction();
-
-        this.changeFocusedTab(lastHeaderAction);
-        event.preventDefault();
-    }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];

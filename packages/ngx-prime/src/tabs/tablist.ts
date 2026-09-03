@@ -1,5 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, ContentChild, effect, ElementRef, forwardRef, inject, InjectionToken, signal, TemplateRef, ViewEncapsulation, contentChildren, viewChild } from '@angular/core';
+import { TabList as AriaTabList } from '@angular/aria/tabs';
 import { findSingle, getOffset, getOuterWidth, getWidth, isRTL } from '@wawjs/css-prime-utils';
 import { PrimeTemplate, SharedModule } from '@wawjs/ngx-prime/api';
 import { BaseComponent, PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
@@ -72,7 +73,7 @@ const TABLIST_INSTANCE = new InjectionToken<TabList>('TABLIST_INSTANCE');
         '[class]': 'cx("root")'
     },
     providers: [TabListStyle, { provide: TABLIST_INSTANCE, useExisting: TabList }, { provide: PARENT_INSTANCE, useExisting: TabList }],
-    hostDirectives: [Bind]
+    hostDirectives: [Bind, AriaTabList]
 })
 export class TabList extends BaseComponent<TabListPassThrough> {
     componentName = 'TabList';
@@ -83,6 +84,9 @@ export class TabList extends BaseComponent<TabListPassThrough> {
     onAfterViewChecked(): void {
         this.bindDirectiveInstance.setAttrs(this.ptms(['host', 'root']));
     }
+
+    /** The `ngTabList` instance applied to this component's host. */
+    ariaTabList = inject(AriaTabList, { self: true });
 
     /**
      * A template reference variable that represents the previous icon in a UI component.
@@ -134,6 +138,22 @@ export class TabList extends BaseComponent<TabListPassThrough> {
                 setTimeout(() => {
                     this.updateInkBar();
                 });
+            }
+        });
+
+        // Reflect Tabs' `value` model onto the aria tab list's `selectedTab` (string-keyed).
+        effect(() => {
+            const value = this.pcTabs.value();
+
+            this.ariaTabList.selectedTab.set(value === undefined ? undefined : String(value));
+        });
+
+        // Keep Tabs' `value` model in sync when the tab list selects a tab via click/keyboard.
+        effect(() => {
+            const selected = this.ariaTabList.selectedTab();
+
+            if (selected !== undefined && selected !== String(this.pcTabs.value() ?? '')) {
+                this.pcTabs.updateValue(selected);
             }
         });
     }
