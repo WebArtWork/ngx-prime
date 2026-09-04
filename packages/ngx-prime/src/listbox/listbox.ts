@@ -23,6 +23,7 @@ import {
     contentChildren
 } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Listbox as AriaListbox, Option as AriaOption } from '@angular/aria/listbox';
 import { equals, findLastIndex, findSingle, focus, getFirstFocusableElement, isEmpty, isFunction, isNotEmpty, isPrintableCharacter, resolveFieldData, uuid } from '@wawjs/css-prime-utils';
 import { FilterService, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from '@wawjs/ngx-prime/api';
 import { PARENT_INSTANCE } from '@wawjs/ngx-prime/basecomponent';
@@ -70,7 +71,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-listbox, p-listBox, p-list-box',
     standalone: true,
-    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule, BindModule],
+    imports: [CommonModule, Ripple, Scroller, InputIcon, SearchIcon, Checkbox, CheckIcon, IconField, InputText, BlankIcon, FormsModule, SharedModule, DragDropModule, BindModule, AriaListbox, AriaOption],
     template: `
         <span
             #firstHiddenFocusableElement
@@ -208,8 +209,69 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     </p-scroller>
                 }
                 @if (!virtualScroll()) {
-                    <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
+                    <ng-container *ngTemplateOutlet="buildInItemsAria; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
                 }
+
+                <ng-template #optionGroupItem let-option let-scrollerOptions="options" let-i="i">
+                    <li
+                        [attr.id]="resolvedId + '_' + getOptionIndex(i, scrollerOptions)"
+                        [class]="cx('optionGroup')"
+                        [pBind]="getPTOptions(option.optionGroup, scrollerOptions, i, 'optionGroup')"
+                        [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                        role="option"
+                        cdkDrag
+                        [cdkDragData]="option"
+                        [cdkDragDisabled]="!dragdrop()"
+                        (cdkDragStarted)="isDragging.set(true)"
+                        (cdkDragEnded)="isDragging.set(false)"
+                    >
+                        @if (!groupTemplate() && !_groupTemplate) {
+                            <span>{{ getOptionGroupLabel(option.optionGroup) }}</span>
+                        }
+                        <ng-container *ngTemplateOutlet="groupTemplate() || _groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
+                    </li>
+                </ng-template>
+
+                <ng-template #optionItemContent let-option>
+                    @if (checkbox() && multiple()) {
+                        <p-checkbox
+                            [class]="cx('optionCheckIcon')"
+                            [ngModel]="isSelected(option)"
+                            [readonly]="true"
+                            [disabled]="$disabled() || isOptionDisabled(option)"
+                            [tabindex]="-1"
+                            [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
+                            [binary]="true"
+                            [pt]="ptm('pcCheckbox')"
+                            hostName="listbox"
+                            [unstyled]="unstyled()"
+                        >
+                            @if (checkIconTemplate || _checkIconTemplate) {
+                                <ng-template #icon>
+                                    <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: isSelected(option) }"></ng-template>
+                                </ng-template>
+                            }
+                        </p-checkbox>
+                    }
+                    @if (checkmark()) {
+                        <ng-container>
+                            @if (!checkmarkTemplate() && !_checkmarkTemplate) {
+                                <ng-container>
+                                    @if (!isSelected(option)) {
+                                        <svg data-p-icon="blank" [class]="cx('optionBlankIcon')" [pBind]="ptm('optionBlankIcon')" />
+                                    }
+                                    @if (isSelected(option)) {
+                                        <svg data-p-icon="check" [class]="cx('optionCheckIcon')" [pBind]="ptm('optionCheckIcon')" />
+                                    }
+                                </ng-container>
+                            }
+                            <ng-container *ngTemplateOutlet="checkmarkTemplate() || _checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
+                        </ng-container>
+                    }
+                    @if (!itemTemplate() && !_itemTemplate) {
+                        <span>{{ getOptionLabel(option) }}</span>
+                    }
+                </ng-template>
 
                 <ng-template #buildInItems let-items let-scrollerOptions="options">
                     <ul
@@ -231,23 +293,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     >
                         @for (option of items; track option; let i = $index) {
                             @if (isOptionGroup(option)) {
-                                <li
-                                    [attr.id]="resolvedId + '_' + getOptionIndex(i, scrollerOptions)"
-                                    [class]="cx('optionGroup')"
-                                    [pBind]="getPTOptions(option.optionGroup, scrollerOptions, i, 'optionGroup')"
-                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
-                                    role="option"
-                                    cdkDrag
-                                    [cdkDragData]="option"
-                                    [cdkDragDisabled]="!dragdrop()"
-                                    (cdkDragStarted)="isDragging.set(true)"
-                                    (cdkDragEnded)="isDragging.set(false)"
-                                >
-                                    @if (!groupTemplate() && !_groupTemplate) {
-                                        <span>{{ getOptionGroupLabel(option.optionGroup) }}</span>
-                                    }
-                                    <ng-container *ngTemplateOutlet="groupTemplate() || _groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
-                                </li>
+                                <ng-container *ngTemplateOutlet="optionGroupItem; context: { $implicit: option, options: scrollerOptions, i }"></ng-container>
                             }
                             @if (!isOptionGroup(option)) {
                                 <li
@@ -276,44 +322,86 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     (cdkDragStarted)="isDragging.set(true)"
                                     (cdkDragEnded)="isDragging.set(false)"
                                 >
-                                    @if (checkbox() && multiple()) {
-                                        <p-checkbox
-                                            [class]="cx('optionCheckIcon')"
-                                            [ngModel]="isSelected(option)"
-                                            [readonly]="true"
-                                            [disabled]="$disabled() || isOptionDisabled(option)"
-                                            [tabindex]="-1"
-                                            [variant]="config.inputStyle() === 'filled' || config.inputVariant() === 'filled' ? 'filled' : 'outlined'"
-                                            [binary]="true"
-                                            [pt]="ptm('pcCheckbox')"
-                                            hostName="listbox"
-                                            [unstyled]="unstyled()"
-                                        >
-                                            @if (checkIconTemplate || _checkIconTemplate) {
-                                                <ng-template #icon>
-                                                    <ng-template *ngTemplateOutlet="checkIconTemplate || _checkIconTemplate; context: { $implicit: isSelected(option) }"></ng-template>
-                                                </ng-template>
+                                    <ng-container
+                                        *ngTemplateOutlet="
+                                            optionItemContent;
+                                            context: {
+                                                $implicit: option,
+                                                index: getOptionIndex(i, scrollerOptions),
+                                                selected: isSelected(option),
+                                                disabled: isOptionDisabled(option)
                                             }
-                                        </p-checkbox>
-                                    }
-                                    @if (checkmark()) {
-                                        <ng-container>
-                                            @if (!checkmarkTemplate() && !_checkmarkTemplate) {
-                                                <ng-container>
-                                                    @if (!isSelected(option)) {
-                                                        <svg data-p-icon="blank" [class]="cx('optionBlankIcon')" [pBind]="ptm('optionBlankIcon')" />
-                                                    }
-                                                    @if (isSelected(option)) {
-                                                        <svg data-p-icon="check" [class]="cx('optionCheckIcon')" [pBind]="ptm('optionCheckIcon')" />
-                                                    }
-                                                </ng-container>
+                                        "
+                                    ></ng-container>
+                                    <ng-container
+                                        *ngTemplateOutlet="
+                                            itemTemplate() || _itemTemplate;
+                                            context: {
+                                                $implicit: option,
+                                                index: getOptionIndex(i, scrollerOptions),
+                                                selected: isSelected(option),
+                                                disabled: isOptionDisabled(option)
                                             }
-                                            <ng-container *ngTemplateOutlet="checkmarkTemplate() || _checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
-                                        </ng-container>
-                                    }
-                                    @if (!itemTemplate() && !_itemTemplate) {
-                                        <span>{{ getOptionLabel(option) }}</span>
-                                    }
+                                        "
+                                    ></ng-container>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </ng-template>
+
+                <ng-template #buildInItemsAria let-items let-scrollerOptions="options">
+                    <ul
+                        #ariaList
+                        ngListbox
+                        [multi]="multiple()"
+                        [readonly]="readonly()"
+                        [disabled]="$disabled()"
+                        [id]="resolvedId + '_list'"
+                        [class]="cx('list')"
+                        [ngClass]="scrollerOptions.contentStyleClass"
+                        [style]="scrollerOptions.contentStyle"
+                        [attr.aria-label]="ariaLabel()"
+                        (focus)="onListFocus($event)"
+                        (blur)="onListBlur($event)"
+                        [pBind]="ptm('list')"
+                    >
+                        @for (option of items; track option; let i = $index) {
+                            @if (isOptionGroup(option)) {
+                                <ng-container *ngTemplateOutlet="optionGroupItem; context: { $implicit: option, options: scrollerOptions, i }"></ng-container>
+                            }
+                            @if (!isOptionGroup(option)) {
+                                <li
+                                    ngOption
+                                    pRipple
+                                    [value]="getOptionValue(option)"
+                                    [disabled]="isOptionDisabled(option)"
+                                    [label]="getOptionLabel(option)"
+                                    [class]="cx('option', { option, i, scrollerOptions })"
+                                    [attr.id]="resolvedId + '_' + getOptionIndex(i, scrollerOptions)"
+                                    [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                    [attr.data-p-selected]="isSelected(option)"
+                                    [attr.data-p-disabled]="isOptionDisabled(option)"
+                                    [pBind]="getPTOptions(option, scrollerOptions, i, 'option')"
+                                    (click)="onOptionSelect($event, option, getOptionIndex(i, scrollerOptions))"
+                                    (dblclick)="onOptionDoubleClick($event, option)"
+                                    cdkDrag
+                                    [cdkDragData]="option"
+                                    [cdkDragDisabled]="!dragdrop()"
+                                    (cdkDragStarted)="isDragging.set(true)"
+                                    (cdkDragEnded)="isDragging.set(false)"
+                                >
+                                    <ng-container
+                                        *ngTemplateOutlet="
+                                            optionItemContent;
+                                            context: {
+                                                $implicit: option,
+                                                index: getOptionIndex(i, scrollerOptions),
+                                                selected: isSelected(option),
+                                                disabled: isOptionDisabled(option)
+                                            }
+                                        "
+                                    ></ng-container>
                                     <ng-container
                                         *ngTemplateOutlet="
                                             itemTemplate() || _itemTemplate;
@@ -920,6 +1008,56 @@ export class Listbox extends BaseEditableHolder<ListBoxPassThrough> {
     focusedOptionIndex = signal<number>(-1);
 
     isDragging = signal<boolean>(false);
+
+    /**
+     * The `ngListbox` instance, present only when `!virtualScroll()` (virtualized lists only
+     * mount their visible items, which is incompatible with `@angular/aria`'s DOM-based item
+     * discovery, so the manual `onListKeyDown` implementation is kept for that case).
+     */
+    private readonly ariaListboxRef = viewChild(AriaListbox);
+
+    /** Mirrors `modelValue()` into the aria listbox's array-shaped `value`, when present. */
+    private readonly syncAriaValueEffect = effect(() => {
+        const ariaListbox = this.ariaListboxRef();
+
+        if (!ariaListbox) {
+            return;
+        }
+
+        const modelValue = this.modelValue();
+        const arr = this.multiple() ? ((modelValue as unknown[] | null | undefined) ?? []) : modelValue == null ? [] : [modelValue];
+
+        const current = ariaListbox.value();
+
+        if (current.length !== arr.length || !current.every((val, i) => equals(val, arr[i], this.equalityKey() || ''))) {
+            ariaListbox.value.set(arr as unknown[]);
+        }
+    });
+
+    /**
+     * Propagates keyboard-driven selection changes (arrow-key "follow focus" in single-select
+     * mode, Shift+range selection, Ctrl/Cmd+A) from the aria listbox's own `value` model back
+     * through our existing `onOptionSelect`-derived state, since `ngListbox` mutates its `value`
+     * model directly rather than calling our selection methods.
+     */
+    private readonly syncFromAriaEffect = effect(() => {
+        const ariaListbox = this.ariaListboxRef();
+
+        if (!ariaListbox) {
+            return;
+        }
+
+        const ariaArr = ariaListbox.value();
+        const nextValue = this.multiple() ? ariaArr : ariaArr.length ? ariaArr[0] : null;
+        const currentValue = this.modelValue();
+        const changed = this.multiple() ? !equals(nextValue, currentValue ?? [], this.equalityKey() || '') || (nextValue as unknown[]).length !== ((currentValue as unknown[]) ?? []).length : !equals(nextValue, currentValue, this.equalityKey() || '');
+
+        if (changed) {
+            this.writeModelValue(nextValue);
+            this.onModelChange(nextValue);
+            this.onChange.emit({ originalEvent: undefined as unknown as Event, value: nextValue });
+        }
+    });
 
     onHostFocusOut(event: FocusEvent) {
         this.onFocusout(event);

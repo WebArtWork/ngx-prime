@@ -1,5 +1,6 @@
-import { booleanAttribute, computed, contentChildren, Directive, ElementRef, forwardRef, inject, input, model, output } from '@angular/core';
+import { booleanAttribute, computed, contentChildren, Directive, effect, ElementRef, forwardRef, inject, input, model, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Listbox as AriaListbox, Option as AriaOption } from '@angular/aria/listbox';
 import { equals } from '@wawjs/css-prime-utils';
 import { BaseEditableHolder } from '@wawjs/ngx-prime/baseeditableholder';
 import { Bind } from '@wawjs/ngx-prime/bind';
@@ -22,12 +23,11 @@ import { SelectButtonStyle } from './style/selectbuttonstyle';
         '[attr.aria-labelledby]': 'ariaLabelledBy() || null',
         '[attr.aria-describedby]': 'ariaDescribedBy() || null',
         '[attr.aria-disabled]': '$disabled() || null',
-        '(keydown)': 'onKeyDown($event)',
         '(focusin)': 'onFocus.emit($event)',
         '(focusout)': 'onFocusOut($event)'
     },
     providers: [SelectButtonStyle, ToggleButtonStyle, { provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => SelectButtonDirective), multi: true }],
-    hostDirectives: [Bind]
+    hostDirectives: [Bind, { directive: AriaListbox, inputs: ['multi: multiple'] }]
 })
 export class SelectButtonDirective extends BaseEditableHolder<SelectButtonPassThrough> {
     componentName = 'SelectButton';
@@ -38,7 +38,10 @@ export class SelectButtonDirective extends BaseEditableHolder<SelectButtonPassTh
 
     private readonly bindDirectiveInstance = inject(Bind, { self: true });
 
-    multiple = input(false, { transform: booleanAttribute });
+    /** The `ngListbox` instance applied to this component's host, forwarding `multiple` to `multi`. */
+    readonly ariaListbox = inject(AriaListbox, { self: true });
+
+    multiple = this.ariaListbox.multi;
     allowEmpty = input(true, { transform: booleanAttribute });
     unselectable = input(false, { transform: booleanAttribute });
     dataKey = input<string>();
@@ -61,6 +64,39 @@ export class SelectButtonDirective extends BaseEditableHolder<SelectButtonPassTh
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.ptms(['group', 'root']));
+    }
+
+    /** Keeps the aria listbox's internal `value` (array-shaped) mirrored to our own `value` model. */
+    private readonly syncAriaValueEffect = effect(() => {
+        const value = this.value();
+        const arr = this.multiple() ? ((value as unknown[] | null | undefined) ?? []) : value == null ? [] : [value];
+
+        if (!this.sameAsAriaValue(arr)) {
+            this.ariaListbox.value.set(arr as unknown[]);
+        }
+    });
+
+    /**
+     * Propagates keyboard-driven selection (arrow-key "follow focus" in single-select mode,
+     * handled internally by `@angular/aria`) back through our own `select()` pipeline, since
+     * `ngListbox`'s own click/keydown handling only updates its internal `value` model directly.
+     */
+    private readonly syncFromAriaEffect = effect(() => {
+        const ariaArr = this.ariaListbox.value();
+        const nextValue = this.multiple() ? ariaArr : ariaArr.length ? ariaArr[0] : null;
+
+        if (!equals(nextValue, this.value(), this.dataKey() || undefined)) {
+            this.value.set(nextValue);
+            this.writeModelValue(nextValue);
+            this.onModelChange(nextValue);
+            this.onChange.emit({ originalEvent: undefined as unknown as Event, value: nextValue });
+        }
+    });
+
+    private sameAsAriaValue(arr: unknown[]): boolean {
+        const current = this.ariaListbox.value();
+
+        return current.length === arr.length && current.every((val, i) => equals(val, arr[i], this.dataKey() || undefined));
     }
 
     isSelected(value: unknown) {
@@ -112,41 +148,6 @@ export class SelectButtonDirective extends BaseEditableHolder<SelectButtonPassTh
         return this.optionDirectives().find((candidate) => !candidate.isDisabled()) === option;
     }
 
-    onKeyDown(event: KeyboardEvent) {
-        const option = this.optionDirectives().find((candidate) => candidate.element.nativeElement === event.target);
-
-        if (!option || this.$disabled()) return;
-
-        const options = this.optionDirectives().filter((candidate) => !candidate.isDisabled());
-        const currentIndex = options.indexOf(option);
-        let nextIndex: number | undefined;
-
-        switch (event.key) {
-            case 'ArrowLeft':
-            case 'ArrowUp':
-                nextIndex = (currentIndex - 1 + options.length) % options.length;
-                break;
-            case 'ArrowRight':
-            case 'ArrowDown':
-                nextIndex = (currentIndex + 1) % options.length;
-                break;
-            case 'Home':
-                nextIndex = 0;
-                break;
-            case 'End':
-                nextIndex = options.length - 1;
-                break;
-            default:
-                return;
-        }
-
-        event.preventDefault();
-        const next = options[nextIndex];
-
-        next.focus();
-        if (!this.multiple()) this.select(event, next.value(), next.resolvedIndex());
-    }
-
     onFocusOut(event: FocusEvent) {
         if (this.element.nativeElement.contains(event.relatedTarget as Node | null)) return;
 
@@ -183,12 +184,11 @@ export class SelectButtonDirective extends BaseEditableHolder<SelectButtonPassTh
         '[attr.aria-labelledby]': 'ariaLabelledBy() || null',
         '[attr.aria-describedby]': 'ariaDescribedBy() || null',
         '[attr.aria-disabled]': 'isDisabled() || null',
-        '[attr.tabindex]': 'tabindex()',
         '[disabled]': 'isDisabled()',
         '[value]': 'value() ?? ""',
         '(click)': 'select($event)'
     },
-    hostDirectives: [Bind]
+    hostDirectives: [Bind, { directive: AriaOption, inputs: ['value', 'disabled'] }]
 })
 export class SelectButtonOptionDirective {
     readonly group = inject(SelectButtonDirective, { host: true });
@@ -197,8 +197,11 @@ export class SelectButtonOptionDirective {
 
     private readonly bindDirectiveInstance = inject(Bind, { self: true });
 
-    value = input<unknown>();
-    disabled = input(false, { transform: booleanAttribute });
+    /** The `ngOption` instance applied to this element's host, forwarding `value`/`disabled`. */
+    readonly ariaOption = inject(AriaOption, { self: true });
+
+    value = computed(() => this.ariaOption.value());
+    disabled = computed(() => this.ariaOption.disabled());
     type = input<'button' | 'submit' | 'reset'>('button');
     index = input<number>();
     ariaLabel = input<string>();
@@ -208,13 +211,6 @@ export class SelectButtonOptionDirective {
     selected = () => this.group.isSelected(this.value());
 
     resolvedIndex = computed(() => this.index() ?? this.group.getOptionIndex(this));
-
-    tabindex = computed(() => {
-        if (this.isDisabled()) return -1;
-        if (this.group.multiple()) return 0;
-
-        return this.selected() || (!this.group.optionDirectives().some((option) => option.selected()) && this.group.isFirstEnabledOption(this)) ? 0 : -1;
-    });
 
     onAfterViewChecked() {
         this.bindDirectiveInstance.setAttrs(this.group.ptm('option', { instance: this }));

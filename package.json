@@ -1,6 +1,6 @@
 {
     "name": "@wawjs/ngx-prime-monorepo",
-    "version": "22.0.5",
+    "version": "22.0.6",
     "author": "Web Art Work",
     "description": "ngx-prime is an independent MIT-licensed Angular UI component library continuing from the ngx-prime v21.1.9 codebase.",
     "homepage": "https://github.com/WebArtWork/ngx-prime",
@@ -22,8 +22,8 @@
         "init": "npm install && husky",
         "prepare": "husky",
         "link": "npm run dev:link --workspaces --if-present",
-        "publish": "npm run build:release && npm publish --workspaces",
-        "publish:dry-run": "npm run build:release && npm publish --workspaces --dry-run",
+        "publish": "npm run build:release && npm publish ./packages/ngx-prime/dist && npm publish --workspace=packages/mcp",
+        "publish:dry-run": "npm run build:release && npm publish ./packages/ngx-prime/dist --dry-run && npm publish --workspace=packages/mcp --dry-run",
         "build": "cross-env NODE_ENV=production npm run build:check && npm run build:packages && npm run build:docs && npm run build:showcase",
         "build:release": "cross-env NODE_ENV=production npm run build:check && npm run build:packages",
         "build:check": "npm run format:check && npm run security:check",
